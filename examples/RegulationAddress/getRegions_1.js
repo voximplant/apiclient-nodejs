@@ -1,12 +1,10 @@
-import VoximplantApiClient from "@voximplant/apiclient-nodejs";
-
+const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
 const client = new ApiClient();
-
-client.onready(function(){
-// Get regions with city AACHEN.
-client.RegulationAddress.getRegions({countryCode: 'DE',
+client.onReady = function(){
+  // Get regions with city AACHEN.
+  client.RegulationAddress.getRegions({countryCode: 'DE',
             phoneCategoryName: 'GEOGRAPHIC',
             cityName: 'AACHEN'})
-      .then(ev=>console.log(ev))
-      .catch(err=>console.error(err));
-});
+        .then(ev=>console.log(ev))
+        .catch(err=>console.error(err));
+};

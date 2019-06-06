@@ -1,12 +1,10 @@
-import VoximplantApiClient from "@voximplant/apiclient-nodejs";
-
+const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
 const client = new ApiClient();
-
-client.onready(function(){
-// undefined
-client.Contacts.delContactAddress({contactId: 'all',
+client.onReady = function(){
+  // undefined
+  client.Contacts.delContactAddress({contactId: 'all',
             contactType: 'email',
-            contactData: 'alex%40mail.ru'})
-      .then(ev=>console.log(ev))
-      .catch(err=>console.error(err));
-});
+            contactData: 'alex@mail.ru'})
+        .then(ev=>console.log(ev))
+        .catch(err=>console.error(err));
+};

@@ -1,10 +1,8 @@
-import VoximplantApiClient from "@voximplant/apiclient-nodejs";
-
+const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
 const client = new ApiClient();
-
-client.onready(function(){
-// Delete the two user.
-client.Users.delUser({userId: '3%3B55'})
-      .then(ev=>console.log(ev))
-      .catch(err=>console.error(err));
-});
+client.onReady = function(){
+  // Delete the two user.
+  client.Users.delUser({userId: '3;55'})
+        .then(ev=>console.log(ev))
+        .catch(err=>console.error(err));
+};

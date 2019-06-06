@@ -1,10 +1,8 @@
-import VoximplantApiClient from "@voximplant/apiclient-nodejs";
-
+const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
 const client = new ApiClient();
-
-client.onready(function(){
-// Get the particular child.
-client.Accounts.getChildrenAccounts({childAccountEmail: 'mychild%40gmail.com'})
-      .then(ev=>console.log(ev))
-      .catch(err=>console.error(err));
-});
+client.onReady = function(){
+  // Get the particular child.
+  client.Accounts.getChildrenAccounts({childAccountEmail: 'mychild@gmail.com'})
+        .then(ev=>console.log(ev))
+        .catch(err=>console.error(err));
+};

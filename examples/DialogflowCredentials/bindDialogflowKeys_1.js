@@ -1,11 +1,9 @@
-import VoximplantApiClient from "@voximplant/apiclient-nodejs";
-
+const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
 const client = new ApiClient();
-
-client.onready(function(){
-// Bind a Dialogflow key to the application.
-client.DialogflowCredentials.bindDialogflowKeys({dialogflowKeyId: '1',
+client.onReady = function(){
+  // Bind a Dialogflow key to the application.
+  client.DialogflowCredentials.bindDialogflowKeys({dialogflowKeyId: '1',
             applicationId: '1'})
-      .then(ev=>console.log(ev))
-      .catch(err=>console.error(err));
-});
+        .then(ev=>console.log(ev))
+        .catch(err=>console.error(err));
+};

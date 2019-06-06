@@ -1,10 +1,8 @@
-import VoximplantApiClient from "@voximplant/apiclient-nodejs";
-
+const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
 const client = new ApiClient();
-
-client.onready(function(){
-// Try to pay and attach the credit card.
-client.TheCreditCards.create_payment_credentials({cardHolder: 'MRJOE',
+client.onReady = function(){
+  // Try to pay and attach the credit card.
+  client.TheCreditCards.create_payment_credentials({cardHolder: 'MRJOE',
             acct: '1234123412341234',
             cvv: '123',
             expirationYear: '2016',
@@ -15,6 +13,6 @@ client.TheCreditCards.create_payment_credentials({cardHolder: 'MRJOE',
             cardOverrunValue: '10',
             amount: '50',
             clientIp: '1.2.3.4'})
-      .then(ev=>console.log(ev))
-      .catch(err=>console.error(err));
-});
+        .then(ev=>console.log(ev))
+        .catch(err=>console.error(err));
+};

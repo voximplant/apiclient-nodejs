@@ -1,11 +1,9 @@
-import VoximplantApiClient from "@voximplant/apiclient-nodejs";
-
+const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
 const client = new ApiClient();
-
-client.onready(function(){
-// Get the old currency rate: RUR/USD.
-client.Accounts.getCurrencyRate({currency: 'RUR',
-            date: '2014-03-17'})
-      .then(ev=>console.log(ev))
-      .catch(err=>console.error(err));
-});
+client.onReady = function(){
+  // Get the old currency rate: RUR/USD.
+  client.Accounts.getCurrencyRate({currency: 'RUR',
+            date: new Date('2014-03-17 GMT')})
+        .then(ev=>console.log(ev))
+        .catch(err=>console.error(err));
+};

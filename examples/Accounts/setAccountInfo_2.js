@@ -1,10 +1,8 @@
-import VoximplantApiClient from "@voximplant/apiclient-nodejs";
-
+const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
 const client = new ApiClient();
-
-client.onready(function(){
-// Change the account's email.
-client.Accounts.setAccountInfo({newAccountEmail: 'superman%40mail.ru'})
-      .then(ev=>console.log(ev))
-      .catch(err=>console.error(err));
-});
+client.onReady = function(){
+  // Change the account's email.
+  client.Accounts.setAccountInfo({newAccountEmail: 'superman@mail.ru'})
+        .then(ev=>console.log(ev))
+        .catch(err=>console.error(err));
+};

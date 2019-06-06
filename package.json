@@ -1,6 +1,6 @@
 {
   "name": "@voximplant/apiclient-nodejs",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Voximplant API client library",
   "main": "dist/index.js",
   "files": ["dist","src","examples"],
@@ -10,7 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-user/repo-url.git"
+    "url": "https://github.com/voximplant/apiclient-nodejs.git"
+  },
+  "homepage": "https://voximplant.com/",
+  "bugs":{
+    "url": "https://github.com/voximplant/apiclient-nodejs/issues",
+    "email": "support@voximplant.com"
   },
   "author": "Zingaya Inc. <info@voximplant.com> (http://voximplant.com)",
   "license": "MIT",

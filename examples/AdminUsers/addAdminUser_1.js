@@ -1,13 +1,11 @@
-import VoximplantApiClient from "@voximplant/apiclient-nodejs";
-
+const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
 const client = new ApiClient();
-
-client.onready(function(){
-// Add a new admin user.
-client.AdminUsers.addAdminUser({newAdminUserName: 'adm1',
+client.onReady = function(){
+  // Add a new admin user.
+  client.AdminUsers.addAdminUser({newAdminUserName: 'adm1',
             adminUserDisplayName: 'adm1',
             newAdminUserPassword: '1234567',
             adminRoleId: '1'})
-      .then(ev=>console.log(ev))
-      .catch(err=>console.error(err));
-});
+        .then(ev=>console.log(ev))
+        .catch(err=>console.error(err));
+};

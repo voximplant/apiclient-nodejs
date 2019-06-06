@@ -1,12 +1,10 @@
-import VoximplantApiClient from "@voximplant/apiclient-nodejs";
-
+const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
 const client = new ApiClient();
-
-client.onready(function(){
-// Add a new rule.
-client.Rules.addRule({applicationId: '1',
+client.onReady = function(){
+  // Add a new rule.
+  client.Rules.addRule({applicationId: '1',
             ruleName: 'allowall',
             rulePattern: '.*'})
-      .then(ev=>console.log(ev))
-      .catch(err=>console.error(err));
-});
+        .then(ev=>console.log(ev))
+        .catch(err=>console.error(err));
+};

@@ -1,5 +1,4 @@
-import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,SkillInfo,BankCard,AdminUser,AdminRole,AuthorizedAccountIP,ContractorInfo,ContractorInvoice,ContactInfo,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,RecordStorageInfo} from './Structures'
-
+import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SkillInfo,BankCard,AdminUser,AdminRole,AuthorizedAccountIP,ContractorInfo,ContractorInvoice,ContactInfo,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,RecordStorageInfo,MGPInfo,MGPTemplateInfo,KeyInfo,KeyView,RoleView,SubUserView,RoleGroupView} from './Structures';
 export interface UtilsReturns{
   'GetAccountInfo':GetAccountInfoResponse
   'SetAccountInfo':SetAccountInfoResponse
@@ -91,6 +90,7 @@ export interface UtilsReturns{
   'GetACDState':GetACDStateResponse
   'GetACDOperatorStatistics':GetACDOperatorStatisticsResponse
   'GetACDQueueStatistics':GetACDQueueStatisticsResponse
+  'GetACDOperatorStatusStatistics':GetACDOperatorStatusStatisticsResponse
   'AddSkill':AddSkillResponse
   'DelSkill':DelSkillResponse
   'SetSkillInfo':SetSkillInfoResponse
@@ -145,8 +145,27 @@ export interface UtilsReturns{
   'SendSmsMessage':SendSmsMessageResponse
   'ControlSms':ControlSmsResponse
   'GetRecordStorages':GetRecordStoragesResponse
+  'ActivateMGP':ActivateMGPResponse
+  'DeactivateMGP':DeactivateMGPResponse
+  'GetActiveMGP':GetActiveMGPResponse
+  'GetMGPTemplateList':GetMGPTemplateListResponse
+  'CreateKey':CreateKeyResponse
+  'GetKeys':GetKeysResponse
+  'UpdateKey':UpdateKeyResponse
+  'DeleteKey':DeleteKeyResponse
+  'SetKeyRoles':SetKeyRolesResponse
+  'GetKeyRoles':GetKeyRolesResponse
+  'RemoveKeyRoles':RemoveKeyRolesResponse
+  'AddSubUser':AddSubUserResponse
+  'GetSubUsers':GetSubUsersResponse
+  'SetSubUserInfo':SetSubUserInfoResponse
+  'DelSubUser':DelSubUserResponse
+  'SetSubUserRoles':SetSubUserRolesResponse
+  'GetSubUserRoles':GetSubUserRolesResponse
+  'RemoveSubUserRoles':RemoveSubUserRolesResponse
+  'GetRoles':GetRolesResponse
+  'GetRoleGroups':GetRoleGroupsResponse
 }
-
 
 export interface AccountsAuthenticationInterface {
   
@@ -668,7 +687,6 @@ export interface GetAccountDocumentsResponse {
   */
   result:AccountVerifications[]
 }
-
 export interface AccountsInterface {
   getAccountInfo: (request:GetAccountInfoRequest) => Promise<GetAccountInfoResponse>
   setAccountInfo: (request:SetAccountInfoRequest) => Promise<SetAccountInfoResponse>
@@ -813,7 +831,6 @@ export interface GetApplicationsResponse {
   */
   count:number
 }
-
 export interface ApplicationsInterface {
   addApplication: (request:AddApplicationRequest) => Promise<AddApplicationResponse>
   delApplication: (request:DelApplicationRequest) => Promise<DelApplicationResponse>
@@ -1071,7 +1088,6 @@ export interface TransferMoneyToUserResponse {
   */
   balance:number
 }
-
 export interface UsersInterface {
   addUser: (request:AddUserRequest) => Promise<AddUserResponse>
   delUser: (request:DelUserRequest) => Promise<DelUserResponse>
@@ -1380,7 +1396,6 @@ export interface RecoverCallListResponse {
   */
   countRecovery:number
 }
-
 export interface CallListsInterface {
   createCallList: (request:CreateCallListRequest) => Promise<CreateCallListResponse>
   createManualCallList: (request:CreateManualCallListRequest) => Promise<CreateManualCallListResponse>
@@ -1639,7 +1654,6 @@ export interface StartConferenceResponse {
   */
   mediaSessionAccessSecureUrl:string
 }
-
 export interface ScenariosInterface {
   addScenario: (request:AddScenarioRequest) => Promise<AddScenarioResponse>
   delScenario: (request:DelScenarioRequest) => Promise<DelScenarioResponse>
@@ -1808,7 +1822,6 @@ export interface ReorderRulesResponse {
   */
   result:number
 }
-
 export interface RulesInterface {
   addRule: (request:AddRuleRequest) => Promise<AddRuleResponse>
   delRule: (request:DelRuleRequest) => Promise<DelRuleResponse>
@@ -2259,7 +2272,6 @@ export interface GetAuditLogResponse {
   */
   historyReportId:number
 }
-
 export interface HistoryInterface {
   getCallHistory: (request:GetCallHistoryRequest) => Promise<GetCallHistoryResponse>
   getHistoryReports: (request:GetHistoryReportsRequest) => Promise<GetHistoryReportsResponse>
@@ -2344,7 +2356,6 @@ export interface GetPstnBlackListResponse {
   */
   count:number
 }
-
 export interface PSTNBlacklistInterface {
   addPstnBlackListItem: (request:AddPstnBlackListItemRequest) => Promise<AddPstnBlackListItemResponse>
   setPstnBlackListItem: (request:SetPstnBlackListItemRequest) => Promise<SetPstnBlackListItemResponse>
@@ -2421,7 +2432,6 @@ export interface GetSipWhiteListResponse {
   */
   count:number
 }
-
 export interface SIPWhiteListInterface {
   addSipWhiteListItem: (request:AddSipWhiteListItemRequest) => Promise<AddSipWhiteListItemResponse>
   delSipWhiteListItem: (request:DelSipWhiteListItemRequest) => Promise<DelSipWhiteListItemResponse>
@@ -2681,7 +2691,6 @@ export interface GetSipRegistrationsResponse {
   */
   count:number
 }
-
 export interface SIPRegistrationInterface {
   createSipRegistration: (request:CreateSipRegistrationRequest) => Promise<CreateSipRegistrationResponse>
   updateSipRegistration: (request:UpdateSipRegistrationRequest) => Promise<UpdateSipRegistrationResponse>
@@ -3050,7 +3059,6 @@ export interface GetActualPhoneNumberRegionRequest {
 export interface GetActualPhoneNumberRegionResponse {
   result:PhoneNumberCountryRegionInfo
 }
-
 export interface PhoneNumbersInterface {
   attachPhoneNumber: (request:AttachPhoneNumberRequest) => Promise<AttachPhoneNumberResponse>
   bindPhoneNumberToApplication: (request:BindPhoneNumberToApplicationRequest) => Promise<BindPhoneNumberToApplicationResponse>
@@ -3169,7 +3177,6 @@ export interface VerifyCallerIDResponse {
   */
   result:number
 }
-
 export interface CallerIDsInterface {
   addCallerID: (request:AddCallerIDRequest) => Promise<AddCallerIDResponse>
   activateCallerID: (request:ActivateCallerIDRequest) => Promise<ActivateCallerIDResponse>
@@ -3456,7 +3463,38 @@ export interface GetACDQueueStatisticsResponse {
   */
   result:ACDQueueStatistics[]
 }
-
+export interface GetACDOperatorStatusStatisticsRequest {
+  /**
+   *Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'
+  */
+  fromDate:Date
+  /**
+   *The user ID list separated by the ';' symbol or the 'all' value. 
+  */
+  userId:string|string[]
+  /**
+   *Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'
+  */
+  toDate?:Date
+  /**
+   *The ACD status list separated by the ';' symbol. The following values are possible: OFFLINE, ONLINE, READY, BANNED, IN_SERVICE, AFTER_SERVICE, TIMEOUT, DND.
+  */
+  acdStatus?:string|string[]
+  /**
+   *Specifies how records are grouped by date and time. If set to 'day', the criteria is a day number. If set to 'hour_of_day', the criteria is a 60-minute interval within a day. If set to 'hour', the criteria is both day number and 60-minute interval within that day. If set to 'none', records are not grouped by date and time
+  */
+  aggregation?:string
+  /**
+   *If set to 'user', first-level array in the resulting JSON will group records by the user ID, and second-level array will group them by date according to the 'aggregation' parameter. If set to 'aggregation', first-level array in the resulting JSON will group records according to the 'aggregation' parameter, and second-level array will group them by the user ID
+  */
+  group?:string
+}
+export interface GetACDOperatorStatusStatisticsResponse {
+  /**
+   *List of groups, grouped by user ID or date according to the 'group' method call argument
+  */
+  result:ACDOperatorStatusAggregationGroup[]
+}
 export interface QueuesInterface {
   addQueue: (request:AddQueueRequest) => Promise<AddQueueResponse>
   bindUserToQueue: (request:BindUserToQueueRequest) => Promise<BindUserToQueueResponse>
@@ -3466,6 +3504,7 @@ export interface QueuesInterface {
   getACDState: (request:GetACDStateRequest) => Promise<GetACDStateResponse>
   getACDOperatorStatistics: (request:GetACDOperatorStatisticsRequest) => Promise<GetACDOperatorStatisticsResponse>
   getACDQueueStatistics: (request:GetACDQueueStatisticsRequest) => Promise<GetACDQueueStatisticsResponse>
+  getACDOperatorStatusStatistics: (request:GetACDOperatorStatusStatisticsRequest) => Promise<GetACDOperatorStatusStatisticsResponse>
 }
 
 export interface AddSkillRequest {
@@ -3593,7 +3632,6 @@ export interface BindSkillResponse {
   */
   result:number
 }
-
 export interface SkillsInterface {
   addSkill: (request:AddSkillRequest) => Promise<AddSkillResponse>
   delSkill: (request:DelSkillRequest) => Promise<DelSkillResponse>
@@ -3618,7 +3656,6 @@ export interface GetRobokassaPaymentURLResponse {
   */
   result:string
 }
-
 export interface TheRobokassaPaymentSystemInterface {
   getRobokassaPaymentURL: (request:GetRobokassaPaymentURLRequest) => Promise<GetRobokassaPaymentURLResponse>
 }
@@ -3817,7 +3854,6 @@ export interface get_payment_credentialsResponse {
   */
   result:BankCard[]
 }
-
 export interface TheCreditCardsInterface {
   resume3DSecureCardAuth: (request:Resume3DSecureCardAuthRequest) => Promise<Resume3DSecureCardAuthResponse>
   config_card_payments: (request:config_card_paymentsRequest) => Promise<config_card_paymentsResponse>
@@ -3988,7 +4024,6 @@ export interface AttachAdminRoleResponse {
   */
   result:number
 }
-
 export interface AdminUsersInterface {
   addAdminUser: (request:AddAdminUserRequest) => Promise<AddAdminUserResponse>
   delAdminUser: (request:DelAdminUserRequest) => Promise<DelAdminUserResponse>
@@ -4164,7 +4199,6 @@ export interface GetAvailableAdminRoleEntriesResponse {
   */
   result:string[]
 }
-
 export interface AdminRolesInterface {
   addAdminRole: (request:AddAdminRoleRequest) => Promise<AddAdminRoleResponse>
   delAdminRole: (request:DelAdminRoleRequest) => Promise<DelAdminRoleResponse>
@@ -4258,7 +4292,6 @@ export interface CheckAuthorizedAccountIPResponse {
   */
   authorizedIp?:string
 }
-
 export interface AuthorizedIPsInterface {
   addAuthorizedAccountIP: (request:AddAuthorizedAccountIPRequest) => Promise<AddAuthorizedAccountIPResponse>
   delAuthorizedAccountIP: (request:DelAuthorizedAccountIPRequest) => Promise<DelAuthorizedAccountIPResponse>
@@ -4389,7 +4422,6 @@ export interface GetContractorInvoicesResponse {
   */
   count:number
 }
-
 export interface ContractorsInterface {
   generateContractorInvoice: (request:GenerateContractorInvoiceRequest) => Promise<GenerateContractorInvoiceResponse>
   getContractorInfo: (request:GetContractorInfoRequest) => Promise<GetContractorInfoResponse>
@@ -4530,7 +4562,6 @@ export interface GetContactAddressesRequest {
 export interface GetContactAddressesResponse {
   result:ContactInfo[]
 }
-
 export interface ContactsInterface {
   addContactAddress: (request:AddContactAddressRequest) => Promise<AddContactAddressResponse>
   activateContactAddress: (request:ActivateContactAddressRequest) => Promise<ActivateContactAddressResponse>
@@ -4687,7 +4718,6 @@ export interface GetRegionsResponse {
   result:RegulationRegionRecord[]
   count:number
 }
-
 export interface RegulationAddressInterface {
   linkregulationAddress: (request:LinkregulationAddressRequest) => Promise<LinkregulationAddressResponse>
   getZIPCodes: (request:GetZIPCodesRequest) => Promise<GetZIPCodesResponse>
@@ -4836,7 +4866,6 @@ export interface BindPushCredentialRequest {
 export interface BindPushCredentialResponse {
   result:number
 }
-
 export interface PushCredentialsInterface {
   addPushCredential: (request:AddPushCredentialRequest) => Promise<AddPushCredentialResponse>
   setPushCredential: (request:SetPushCredentialRequest) => Promise<SetPushCredentialResponse>
@@ -4907,7 +4936,6 @@ export interface BindDialogflowKeysRequest {
 export interface BindDialogflowKeysResponse {
   result:number
 }
-
 export interface DialogflowCredentialsInterface {
   addDialogflowKey: (request:AddDialogflowKeyRequest) => Promise<AddDialogflowKeyResponse>
   delDialogflowKey: (request:DelDialogflowKeyRequest) => Promise<DelDialogflowKeyResponse>
@@ -4949,7 +4977,6 @@ export interface ControlSmsRequest {
 export interface ControlSmsResponse {
   result:number
 }
-
 export interface SMSInterface {
   sendSmsMessage: (request:SendSmsMessageRequest) => Promise<SendSmsMessageResponse>
   controlSms: (request:ControlSmsRequest) => Promise<ControlSmsResponse>
@@ -4969,7 +4996,306 @@ export interface GetRecordStoragesRequest {
 export interface GetRecordStoragesResponse {
   result:RecordStorageInfo
 }
-
 export interface RecordStoragesInterface {
   getRecordStorages: (request:GetRecordStoragesRequest) => Promise<GetRecordStoragesResponse>
+}
+
+export interface ActivateMGPRequest {
+  /**
+   *The MGP ID.
+  */
+  mgpTemplateId:string
+  /**
+   *The child account ID to activate the MGP for.
+  */
+  childAccountId:string
+}
+export interface ActivateMGPResponse {
+  result:number
+}
+export interface DeactivateMGPRequest {
+  /**
+   *The child account ID to deactivate MGPs for.
+  */
+  childAccountId:string
+}
+export interface DeactivateMGPResponse {
+  result:number
+}
+export interface GetActiveMGPRequest {
+  /**
+   *The child account ID to get active MGPs for.
+  */
+  childAccountId?:string
+}
+export interface GetActiveMGPResponse {
+  result:MGPInfo[]
+}
+export interface GetMGPTemplateListRequest {
+  
+}
+export interface GetMGPTemplateListResponse {
+  result:MGPTemplateInfo[]
+}
+export interface MGPInterface {
+  activateMGP: (request:ActivateMGPRequest) => Promise<ActivateMGPResponse>
+  deactivateMGP: (request:DeactivateMGPRequest) => Promise<DeactivateMGPResponse>
+  getActiveMGP: (request:GetActiveMGPRequest) => Promise<GetActiveMGPResponse>
+  getMGPTemplateList: (request:GetMGPTemplateListRequest) => Promise<GetMGPTemplateListResponse>
+}
+
+export interface CreateKeyRequest {
+  /**
+   *The role id list separated by the ';' symbol.
+  */
+  roleId:string
+  /**
+   *The role name list separated by the ';' symbol.
+  */
+  roleName:string
+  /**
+   *The key's description.
+  */
+  description?:string
+}
+export interface CreateKeyResponse {
+  result:KeyInfo[]
+}
+export interface GetKeysRequest {
+  /**
+   *The key's ID.
+  */
+  keyId?:string
+  /**
+   *Show roles for the key.
+  */
+  withRoles?:boolean
+  /**
+   *The first <b>N</b> records will be skipped in the output.
+  */
+  offset?:number
+  /**
+   *The max returning record count.
+  */
+  count?:number
+}
+export interface GetKeysResponse {
+  result:KeyView[]
+}
+export interface UpdateKeyRequest {
+  /**
+   *The key's ID
+  */
+  keyId:string
+  /**
+   *The key's description.
+  */
+  description:string
+}
+export interface UpdateKeyResponse {
+  result:number
+}
+export interface DeleteKeyRequest {
+  /**
+   *The key's ID.
+  */
+  keyId:string
+}
+export interface DeleteKeyResponse {
+  result:number
+}
+export interface SetKeyRolesRequest {
+  /**
+   *The key's ID.
+  */
+  keyId:string
+  /**
+   *The role id list separated by the ';' symbol.
+  */
+  roleId:string
+  /**
+   *The role name list separated by the ';' symbol.
+  */
+  roleName:string
+}
+export interface SetKeyRolesResponse {
+  result:number
+}
+export interface GetKeyRolesRequest {
+  /**
+   *The key's ID.
+  */
+  keyId:string
+}
+export interface GetKeyRolesResponse {
+  result:RoleView[]
+}
+export interface RemoveKeyRolesRequest {
+  /**
+   *The key's ID.
+  */
+  keyId:string
+  /**
+   *The role id list separated by the ';' symbol.
+  */
+  roleId:string
+  /**
+   *The role name list separated by the ';' symbol.
+  */
+  roleName:string
+}
+export interface RemoveKeyRolesResponse {
+  result:number
+}
+export interface AddSubUserRequest {
+  /**
+   *Login of a new subuser.
+  */
+  newSubuserLogin:string
+  /**
+   *Password of a new subuser, plain text.
+  */
+  newSubuserPassword:string
+  /**
+   *The role id list separated by the ';' symbol.
+  */
+  roleId:string
+  /**
+   *The role name list separated by the ';' symbol.
+  */
+  roleName:string
+  /**
+   *Description of a new subuser.
+  */
+  description?:string
+}
+export interface AddSubUserResponse {
+  result:number
+}
+export interface GetSubUsersRequest {
+  /**
+   *The subuser's ID.
+  */
+  subuserId?:number
+  /**
+   *Show subuser's roles
+  */
+  withRoles?:boolean
+  /**
+   *The first <b>N</b> records will be skipped in the output.
+  */
+  offset?:number
+  /**
+   *The max returning record count.
+  */
+  count?:number
+}
+export interface GetSubUsersResponse {
+  result:SubUserView[]
+}
+export interface SetSubUserInfoRequest {
+  /**
+   *The subuser's ID.
+  */
+  subuserId:number
+  /**
+   *The subuser old password. It is required if __new_subuser_password__ is specified.
+  */
+  oldSubuserPassword?:string
+  /**
+   *The new user password. The length must be at least 6 symbols.
+  */
+  newSubuserPassword?:string
+  /**
+   *The new subuser description.
+  */
+  description?:string
+}
+export interface SetSubUserInfoResponse {
+  result:number
+}
+export interface DelSubUserRequest {
+  /**
+   *The subuser's ID.
+  */
+  subuserId:number
+}
+export interface DelSubUserResponse {
+  result:number
+}
+export interface SetSubUserRolesRequest {
+  /**
+   *The subuser's ID.
+  */
+  subuserId:number
+  /**
+   *The role id list separated by the ';' symbol.
+  */
+  roleId:string
+  /**
+   *The role name list separated by the ';' symbol.
+  */
+  roleName:string
+}
+export interface SetSubUserRolesResponse {
+  result:number
+}
+export interface GetSubUserRolesRequest {
+  /**
+   *The subuser's ID.
+  */
+  subuserId:number
+}
+export interface GetSubUserRolesResponse {
+  result:RoleView[]
+}
+export interface RemoveSubUserRolesRequest {
+  /**
+   *The subuser's ID.
+  */
+  subuserId:number
+  /**
+   *The role id list separated by the ';' symbol.
+  */
+  roleId:string
+  /**
+   *The role name list separated by the ';' symbol.
+  */
+  roleName:string
+}
+export interface RemoveSubUserRolesResponse {
+  result:number
+}
+export interface GetRolesRequest {
+  /**
+   *The role group.
+  */
+  groupName?:string
+}
+export interface GetRolesResponse {
+  result:RoleView[]
+}
+export interface GetRoleGroupsRequest {
+  
+}
+export interface GetRoleGroupsResponse {
+  result:RoleGroupView[]
+}
+export interface RoleSystemInterface {
+  createKey: (request:CreateKeyRequest) => Promise<CreateKeyResponse>
+  getKeys: (request:GetKeysRequest) => Promise<GetKeysResponse>
+  updateKey: (request:UpdateKeyRequest) => Promise<UpdateKeyResponse>
+  deleteKey: (request:DeleteKeyRequest) => Promise<DeleteKeyResponse>
+  setKeyRoles: (request:SetKeyRolesRequest) => Promise<SetKeyRolesResponse>
+  getKeyRoles: (request:GetKeyRolesRequest) => Promise<GetKeyRolesResponse>
+  removeKeyRoles: (request:RemoveKeyRolesRequest) => Promise<RemoveKeyRolesResponse>
+  addSubUser: (request:AddSubUserRequest) => Promise<AddSubUserResponse>
+  getSubUsers: (request:GetSubUsersRequest) => Promise<GetSubUsersResponse>
+  setSubUserInfo: (request:SetSubUserInfoRequest) => Promise<SetSubUserInfoResponse>
+  delSubUser: (request:DelSubUserRequest) => Promise<DelSubUserResponse>
+  setSubUserRoles: (request:SetSubUserRolesRequest) => Promise<SetSubUserRolesResponse>
+  getSubUserRoles: (request:GetSubUserRolesRequest) => Promise<GetSubUserRolesResponse>
+  removeSubUserRoles: (request:RemoveSubUserRolesRequest) => Promise<RemoveSubUserRolesResponse>
+  getRoles: (request:GetRolesRequest) => Promise<GetRolesResponse>
+  getRoleGroups: (request:GetRoleGroupsRequest) => Promise<GetRoleGroupsResponse>
 }

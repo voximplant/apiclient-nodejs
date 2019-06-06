@@ -7,6 +7,7 @@ export interface APIError{
    * The error description.
    */
   msg: string
+
 }
 export interface AccountInfo{
   /**
@@ -137,6 +138,7 @@ export interface AccountInfo{
    * Is email sending on a JS error?
    */
   sendJsError?: boolean
+
 }
 export interface ShortAccountInfo{
   /**
@@ -155,6 +157,7 @@ export interface ShortAccountInfo{
    * The currency code (USD, RUR, EUR, ...).
    */
   currency?: string
+
 }
 export interface ClonedAccount{
   /**
@@ -205,6 +208,7 @@ export interface ClonedAccount{
    * The cloned admin users.
    */
   adminUsers: ClonedAdminUser[]
+
 }
 export interface AccountPlan{
   /**
@@ -239,6 +243,7 @@ export interface AccountPlan{
    * The account plan package array.
    */
   packages: AccountPlanPackage[]
+
 }
 export interface AccountPlanPackage{
   /**
@@ -273,6 +278,7 @@ export interface AccountPlanPackage{
    * The original package size (excluding overrun).
    */
   origPackageSize: number
+
 }
 export interface Plan{
   /**
@@ -295,6 +301,7 @@ export interface Plan{
    * The account package array.
    */
   package: PlanPackage[]
+
 }
 export interface PlanPackage{
   /**
@@ -321,6 +328,7 @@ export interface PlanPackage{
    * The package size.
    */
   packageSize: number
+
 }
 export interface ApplicationInfo{
   /**
@@ -343,6 +351,7 @@ export interface ApplicationInfo{
    * The filtered users. (Note: a user object contains the 'user_id' field only)
    */
   users?: UserInfo[]
+
 }
 export interface ClonedApplication{
   /**
@@ -357,6 +366,7 @@ export interface ClonedApplication{
    * The cloned rules.
    */
   users: ClonedRule[]
+
 }
 export interface UserInfo{
   /**
@@ -423,6 +433,7 @@ export interface UserInfo{
    * The user editing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
   modified: Date
+
 }
 export interface ClonedUser{
   /**
@@ -433,6 +444,7 @@ export interface ClonedUser{
    * The user name.
    */
   userName: string
+
 }
 export interface ScenarioInfo{
   /**
@@ -451,6 +463,7 @@ export interface ScenarioInfo{
    * The scenario editing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
   modified: Date
+
 }
 export interface ClonedScenario{
   /**
@@ -461,6 +474,7 @@ export interface ClonedScenario{
    * The scenario name.
    */
   scenarioName: string
+
 }
 export interface RuleInfo{
   /**
@@ -495,6 +509,7 @@ export interface RuleInfo{
    * The rule editing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
   modified: Date
+
 }
 export interface ClonedRule{
   /**
@@ -505,6 +520,7 @@ export interface ClonedRule{
    * The rule name.
    */
   ruleName: string
+
 }
 export interface SipWhiteListInfo{
   /**
@@ -515,6 +531,7 @@ export interface SipWhiteListInfo{
    * The network address in format A.B.C.D/L
    */
   sipWhitelistNetwork: string
+
 }
 export interface CallSessionInfo{
   /**
@@ -573,6 +590,7 @@ export interface CallSessionInfo{
    * The custom data.
    */
   customData?: string
+
 }
 export interface CallInfo{
   /**
@@ -627,6 +645,7 @@ export interface CallInfo{
    * The custom data.
    */
   customData?: string
+
 }
 export interface TransactionInfo{
   /**
@@ -661,6 +680,7 @@ export interface TransactionInfo{
    * The external payment reference. See the [TransferMoneyToChildAccount] function.
    */
   paymentReference?: string
+
 }
 export interface ResourceUsage{
   /**
@@ -699,6 +719,7 @@ export interface ResourceUsage{
    * The reference to call.
    */
   refCallId?: number
+
 }
 export interface Record{
   /**
@@ -741,6 +762,7 @@ export interface Record{
    * The status of transcription. Available values: Not required, In progress, Complete
    */
   transcriptionStatus?: string
+
 }
 export interface AuditLogInfo{
   /**
@@ -771,6 +793,7 @@ export interface AuditLogInfo{
    * The modified values.
    */
   cmdResult?: any
+
 }
 export interface HistoryReport{
   /**
@@ -829,6 +852,7 @@ export interface HistoryReport{
    * The calculated report data (the specific report data, see [CalculatedCallHistoryDataType], [CalculatedTransactionHistoryDataType]).
    */
   calculatedData?: any
+
 }
 export interface CalculatedCallHistoryData{
   /**
@@ -843,6 +867,7 @@ export interface CalculatedCallHistoryData{
    * The selected timezone.
    */
   timezone: string
+
 }
 export interface CalculatedTransactionHistoryData{
   /**
@@ -877,6 +902,7 @@ export interface CalculatedTransactionHistoryData{
    * The selected timezone.
    */
   timezone: string
+
 }
 export interface ACDSessionInfo{
   /**
@@ -923,6 +949,7 @@ export interface ACDSessionInfo{
    * The bound events.
    */
   events?: ACDSessionEventInfo[]
+
 }
 export interface ACDSessionEventInfo{
   /**
@@ -945,6 +972,7 @@ export interface ACDSessionEventInfo{
    * The custom data.
    */
   customData?: string
+
 }
 export interface QueueInfo{
   /**
@@ -1007,6 +1035,7 @@ export interface QueueInfo{
    * The service level thresholds in seconds.
    */
   slThresholds?: number[]
+
 }
 export interface QueueSkills{
   /**
@@ -1017,18 +1046,21 @@ export interface QueueSkills{
    * The skill name.
    */
   skillName: string
+
 }
 export interface QueueUsers{
   /**
    * The user ID.
    */
   userId: number
+
 }
 export interface ACDState{
   /**
    * The queues' states.
    */
   acdQueues: ACDQueueState[]
+
 }
 export interface ACDOperatorAggregationGroup{
   /**
@@ -1047,6 +1079,26 @@ export interface ACDOperatorAggregationGroup{
    * List of records grouped by date or user ID according to the 'group' method call argument
    */
   statistics: ACDOperatorStatistics[]
+
+}
+export interface ACDOperatorStatusAggregationGroup{
+  /**
+   * If aggregation was enabled, contains user ID for the results
+   */
+  userId?: string
+  /**
+   * If aggregation was enabled, contains UTC date for the results in 24-h 'YYYY-MM-DD' format
+   */
+  date?: Date
+  /**
+   * If aggregation was enabled, contains the 60-minute interval number from 1 to 24
+   */
+  hour?: number
+  /**
+   * List of records grouped by date or user ID according to the 'group' method call argument
+   */
+  statistics: ACDOperatorStatusStatistics[]
+
 }
 export interface ACDOperatorStatistics{
   /**
@@ -1101,6 +1153,61 @@ export interface ACDOperatorStatistics{
    * Sum of 'AfterCallWork', in seconds. Name is 'TotalAfterCallWork' if 'abbreviation' is set to 'false'
    */
   TACW?: number
+
+}
+export interface ACDOperatorStatusStatistics{
+  /**
+   * If aggregation was enabled, contains user ID  for the results
+   */
+  userId?: string
+  /**
+   * If aggregation was enabled, contains UTC date  for the results in 24-h 'YYYY-MM-DD' format
+   */
+  date?: Date
+  /**
+   * If aggregation was enabled, contains the  60-minute interval number from 1 to 24
+   */
+  hour?: number
+  /**
+   * The user statistics.
+   */
+  acdStatus?: ACDOperatorStatusStatisticsDetail[]
+
+}
+export interface ACDOperatorStatusStatisticsDetail{
+  /**
+   * The OFFLINE status statistics
+   */
+  OFFLINE?: ACDStatisticsItem
+  /**
+   * The ONLINE status statistics
+   */
+  ONLINE?: ACDStatisticsItem
+  /**
+   * The READY status statistics
+   */
+  READY?: ACDStatisticsItem
+  /**
+   * The BANNED status statistics
+   */
+  BANNED?: ACDStatisticsItem
+  /**
+   * The IN_SERVICE status statistics
+   */
+  INSERVICE?: ACDStatisticsItem
+  /**
+   * The AFTER_SERVICE status statistics
+   */
+  AFTERSERVICE?: ACDStatisticsItem
+  /**
+   * The TIMEOUT status statistics
+   */
+  TIMEOUT?: ACDStatisticsItem
+  /**
+   * The DND status statistics
+   */
+  DND?: ACDStatisticsItem
+
 }
 export interface ACDQueueStatistics{
   /**
@@ -1183,6 +1290,7 @@ export interface ACDQueueStatistics{
    * Sum of 'AfterCallWork', in seconds. Name is 'TotalAfterCallWork' if 'abbreviation' is set to 'false'
    */
   TACW?: number
+
 }
 export interface ACDQueueStatisticsServiceLevel{
   /**
@@ -1197,6 +1305,7 @@ export interface ACDQueueStatisticsServiceLevel{
    * Percentage of calls for a given service level, from 0 (non-inclusive) up to 1 (all calls)
    */
   serviceLevel: number
+
 }
 export interface ACDStatisticsItem{
   /**
@@ -1219,6 +1328,7 @@ export interface ACDStatisticsItem{
    * Sum of all samples over the aggregated interval, in seconds
    */
   sum: number
+
 }
 export interface ACDStatisticsCalls{
   /**
@@ -1229,6 +1339,7 @@ export interface ACDStatisticsCalls{
    * Percentage of answered/rejected/unanswered calls, is counted against total number of calls.
    */
   percent: number
+
 }
 export interface ACDQueueState{
   /**
@@ -1267,6 +1378,7 @@ export interface ACDQueueState{
    * List of calls enqueued into this queue that are not yet serviced by operators
    */
   waitingCalls: ACDWaitingCallState[]
+
 }
 export interface ACDReadyOperatorState{
   /**
@@ -1285,6 +1397,7 @@ export interface ACDReadyOperatorState{
    * The idle duration in seconds. The minimum of the duration after the last hangup and the duration after the operator status changing to READY.
    */
   idleDuration: number
+
 }
 export interface ACDLockedOperatorState{
   /**
@@ -1315,6 +1428,7 @@ export interface ACDLockedOperatorState{
    * The operator <a href='//voximplant.com/docs/references/websdk/voximplant/operatoracdstatuses'>status string</a>. 'BANNED' string indicates temporarily <a href='//voximplant.com/blog/step-by-step-call-center-tutorial-part-7'>banned operators</a>. The following values are possible: READY, BANNED.
    */
   status?: string
+
 }
 export interface ACDAfterServiceOperatorState{
   /**
@@ -1333,6 +1447,7 @@ export interface ACDAfterServiceOperatorState{
    * The operator <a href='//voximplant.com/docs/references/websdk/voximplant/operatoracdstatuses'>status string</a>.
    */
   status?: string
+
 }
 export interface ACDLock{
   /**
@@ -1343,6 +1458,7 @@ export interface ACDLock{
    * The UTC lock created time in 24-h format: YYYY-MM-DD HH:mm:ss
    */
   created: Date
+
 }
 export interface ACDOperatorCall{
   /**
@@ -1373,6 +1489,7 @@ export interface ACDOperatorCall{
    * The submission time of the request in 24-h format: YYYY-MM-DD HH:mm:ss
    */
   submitted?: Date
+
 }
 export interface ACDServicingCallState{
   /**
@@ -1407,6 +1524,7 @@ export interface ACDServicingCallState{
    * The ACD session history ID of the request.
    */
   acdSessionHistoryId: number
+
 }
 export interface ACDWaitingCallState{
   /**
@@ -1445,6 +1563,7 @@ export interface ACDWaitingCallState{
    * The ACD session history ID of the request.
    */
   acdSessionHistoryId: number
+
 }
 export interface NewPhoneInfo{
   /**
@@ -1479,6 +1598,7 @@ export interface NewPhoneInfo{
    * The phone region name
    */
   phoneRegionName: string
+
 }
 export interface AttachedPhoneInfo{
   /**
@@ -1561,6 +1681,7 @@ export interface AttachedPhoneInfo{
    * If <b>true</b>, SMS sending and receiving is enabled for this phone number via the <a href='//voximplant.com/docs/references/httpapi/managing_sms#controlsms'>/ControlSms</a> HTTP API.
    */
   isSmsEnabled: boolean
+
 }
 export interface NewAttachedPhoneInfo{
   /**
@@ -1583,6 +1704,7 @@ export interface NewAttachedPhoneInfo{
    * Unverified phone hold until the date in format: YYYY-MM-DD (if the account verification is required). The number will be detached on that day automatically!
    */
   unverifiedHoldUntil?: Date
+
 }
 export interface PhoneNumberCountryInfo{
   /**
@@ -1601,6 +1723,7 @@ export interface PhoneNumberCountryInfo{
    * The phone categories.
    */
   phoneCategories: PhoneNumberCountryCategoryInfo[]
+
 }
 export interface PhoneNumberCountryCategoryInfo{
   /**
@@ -1611,6 +1734,7 @@ export interface PhoneNumberCountryCategoryInfo{
    * True if a country state is used to choose the phone with the category.
    */
   countryHasStates: boolean
+
 }
 export interface PhoneNumberCountryStateInfo{
   /**
@@ -1621,6 +1745,7 @@ export interface PhoneNumberCountryStateInfo{
    * The full country state name.
    */
   countryStateName: string
+
 }
 export interface PhoneNumberCountryRegionInfo{
   /**
@@ -1675,6 +1800,7 @@ export interface PhoneNumberCountryRegionInfo{
    * [Array](MultipleNumbersPrice) with info about multiple numbers subscription for the child accounts.
    */
   multipleNumbersPrice: MultipleNumbersPrice[]
+
 }
 export interface MultipleNumbersPrice{
   /**
@@ -1689,6 +1815,7 @@ export interface MultipleNumbersPrice{
    * The installation price for one number, i.e., the total multiple numbers installation price divided by the __count__ value.
    */
   installationPrice: number
+
 }
 export interface CallerIDInfo{
   /**
@@ -1715,6 +1842,7 @@ export interface CallerIDInfo{
    * The verification ending date in format: YYYY-MM-DD (for the verified callerID).
    */
   verifiedUntil?: Date
+
 }
 export interface ContactInfo{
   /**
@@ -1757,6 +1885,7 @@ export interface ContactInfo{
    * The contact editing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
   modified: Date
+
 }
 export interface ACDQueueOperatorInfo{
   /**
@@ -1771,6 +1900,7 @@ export interface ACDQueueOperatorInfo{
    * The user bound with the ACD queue in the manual mode if false.
    */
   autoLink: boolean
+
 }
 export interface ClonedACDQueue{
   /**
@@ -1781,6 +1911,7 @@ export interface ClonedACDQueue{
    * The ACD queue name.
    */
   acdQueueName: string
+
 }
 export interface SkillInfo{
   /**
@@ -1791,6 +1922,7 @@ export interface SkillInfo{
    * The skill name.
    */
   skillName: string
+
 }
 export interface ClonedACDSkill{
   /**
@@ -1801,6 +1933,7 @@ export interface ClonedACDSkill{
    * The ACD skill name.
    */
   skillName: string
+
 }
 export interface ExchangeRates{
   /**
@@ -1815,6 +1948,7 @@ export interface ExchangeRates{
    * The USD exchange rate. It's always equal to 1.
    */
   USD?: number
+
 }
 export interface ResourcePrice{
   /**
@@ -1825,6 +1959,7 @@ export interface ResourcePrice{
    * The price group array.
    */
   priceGroups: PriceGroup[]
+
 }
 export interface PriceGroup{
   /**
@@ -1851,6 +1986,7 @@ export interface PriceGroup{
    * The available resource parameters.
    */
   params: ResourceParams
+
 }
 export interface ResourceParams{
   /**
@@ -1865,6 +2001,7 @@ export interface ResourceParams{
    * The requested parameters. Example: 79263331122
    */
   requested?: string[]
+
 }
 export interface CallList{
   /**
@@ -1907,6 +2044,7 @@ export interface CallList{
    * The status name. Available values: __In progress__, __Completed__, __Canceled__.
    */
   status: string
+
 }
 export interface CallListDetail{
   /**
@@ -1945,6 +2083,7 @@ export interface CallListDetail{
    * The status name. Available values: __New__ (status_id = 0), __In progress__ (status_id = 1), __Processed__ (status_id = 2), __Error__ (status_id = 3), __Cancelled__ (status_id = 4).
    */
   status: string
+
 }
 export interface SIPRegistration{
   /**
@@ -1958,7 +2097,7 @@ export interface SIPRegistration{
   /**
    * The sip proxy.
    */
-  proxy: number
+  proxy: string
   /**
    * The last time updated.
    */
@@ -1970,11 +2109,11 @@ export interface SIPRegistration{
   /**
    * The outbound proxy.
    */
-  outboundProxy?: number
+  outboundProxy?: string
   /**
    * The successful SIP registration.
    */
-  successful?: number
+  successful?: boolean
   /**
    * The status code from SIP registration.
    */
@@ -1982,7 +2121,7 @@ export interface SIPRegistration{
   /**
    * The error message from SIP registration.
    */
-  errorMessage?: number
+  errorMessage?: string
   /**
    * The subscription deactivation flag. The SIP registration is frozen if true.
    */
@@ -2027,6 +2166,7 @@ export interface SIPRegistration{
    * The bound rule name.
    */
   ruleName?: string
+
 }
 export interface AdminRole{
   /**
@@ -2057,6 +2197,7 @@ export interface AdminRole{
    * The denied access entries (the API function names).
    */
   deniedEntries?: string[]
+
 }
 export interface ClonedAdminRole{
   /**
@@ -2067,6 +2208,7 @@ export interface ClonedAdminRole{
    * The admin role name.
    */
   adminRoleName: string
+
 }
 export interface AdminUser{
   /**
@@ -2097,6 +2239,7 @@ export interface AdminUser{
    * The attached admin roles.
    */
   adminRoles?: AdminRole[]
+
 }
 export interface ClonedAdminUser{
   /**
@@ -2111,6 +2254,7 @@ export interface ClonedAdminUser{
    * The API key of the admin user.
    */
   adminUserApiKey: string
+
 }
 export interface GetMoneyAmountToChargeResult{
   /**
@@ -2141,6 +2285,7 @@ export interface GetMoneyAmountToChargeResult{
    * The subscriptions to charge.
    */
   subscriptions: SubscriptionsToCharge[]
+
 }
 export interface ChargeAccountResult{
   /**
@@ -2151,6 +2296,7 @@ export interface ChargeAccountResult{
    * The charged phone list.
    */
   phones?: ChargedPhone[]
+
 }
 export interface ChargedPhone{
   /**
@@ -2169,6 +2315,7 @@ export interface ChargedPhone{
    * Has phone been charged?
    */
   isCharged: boolean
+
 }
 export interface SubscriptionsToCharge{
   /**
@@ -2191,6 +2338,7 @@ export interface SubscriptionsToCharge{
    * The next renewal date, format: YYYY-MM-DD
    */
   subscriptionNextRenewal: Date
+
 }
 export interface AuthorizedAccountIP{
   /**
@@ -2205,6 +2353,7 @@ export interface AuthorizedAccountIP{
    * The item creating UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
   created: Date
+
 }
 export interface ContractorInfo{
   /**
@@ -2243,6 +2392,7 @@ export interface ContractorInfo{
    * The contract info.
    */
   contract?: ContractInfo
+
 }
 export interface ContractInfo{
   /**
@@ -2253,6 +2403,7 @@ export interface ContractInfo{
    * The agreement date in format: YYYY-MM-DD
    */
   agreementDate?: Date
+
 }
 export interface ContractorInvoice{
   /**
@@ -2287,6 +2438,7 @@ export interface ContractorInvoice{
    * The service list.
    */
   services: ContractorInvoiceService
+
 }
 export interface ContractorInvoiceService{
   /**
@@ -2297,6 +2449,7 @@ export interface ContractorInvoiceService{
    * The service cost (RUR).
    */
   serviceCost: number
+
 }
 export interface AccountVerificationDocument{
   /**
@@ -2319,6 +2472,7 @@ export interface AccountVerificationDocument{
    * The account document status. The following values are possible: ACCEPTED, REJECTED, IN_PROGRESS, INCOMPLETE_SET.
    */
   accountDocumentStatus: string
+
 }
 export interface AccountVerification{
   /**
@@ -2337,6 +2491,7 @@ export interface AccountVerification{
    * The uploaded documents.
    */
   documents?: AccountVerificationDocument[]
+
 }
 export interface AccountVerifications{
   /**
@@ -2347,6 +2502,7 @@ export interface AccountVerifications{
    * The account verifications.
    */
   verifications: AccountVerification[]
+
 }
 export interface SubscriptionTemplate{
   /**
@@ -2369,12 +2525,14 @@ export interface SubscriptionTemplate{
    * The subscription template name (example: SIP registration, Phone GB, Phone RU 495, ...).
    */
   subscriptionTemplateName: string
+
 }
 export interface AccountCallbacks{
   /**
    * The account callback array.
    */
   callbacks: AccountCallback[]
+
 }
 export interface AccountCallback{
   /**
@@ -2537,6 +2695,7 @@ export interface AccountCallback{
    * The specific account callback details.
    */
   newInvoice?: NewInvoiceCallback
+
 }
 export interface AccountDocumentUploadedCallback{
   /**
@@ -2555,6 +2714,7 @@ export interface AccountDocumentUploadedCallback{
    * The verification name (type).
    */
   verificationName: string
+
 }
 export interface RegulationAddressUploadedCallback{
   /**
@@ -2573,6 +2733,7 @@ export interface RegulationAddressUploadedCallback{
    * The regulation address name.
    */
   regulationAddressName: string
+
 }
 export interface AccountDocumentVerifiedCallback{
   /**
@@ -2599,15 +2760,19 @@ export interface AccountDocumentVerifiedCallback{
    * The verification name (type).
    */
   verificationName: string
+
 }
 export interface AccountIsFrozenCallback{
   
+
 }
 export interface AccountIsUnfrozenCallback{
   
+
 }
 export interface ActivateSuccessfulCallback{
   
+
 }
 export interface CallHistoryReportCallback{
   /**
@@ -2622,12 +2787,15 @@ export interface CallHistoryReportCallback{
    * The UTC order date in format: YYYY-MM-DD HH::mm:ss
    */
   orderDate: Date
+
 }
 export interface CardExpiredCallback{
   
+
 }
 export interface CardExpiresInMonthCallback{
   
+
 }
 export interface CardPaymentCallback{
   /**
@@ -2642,9 +2810,11 @@ export interface CardPaymentCallback{
    * The amount in the account currency.
    */
   amount: number
+
 }
 export interface CardPaymentFailedCallback{
   
+
 }
 export interface RobokassaPaymentCallback{
   /**
@@ -2659,6 +2829,7 @@ export interface RobokassaPaymentCallback{
    * The amount in the account currency.
    */
   amount: number
+
 }
 export interface WireTransferCallback{
   /**
@@ -2673,9 +2844,11 @@ export interface WireTransferCallback{
    * The amount in the account currency.
    */
   amount: number
+
 }
 export interface JSFailCallback{
   
+
 }
 export interface MinBalanceCallback{
   /**
@@ -2686,6 +2859,7 @@ export interface MinBalanceCallback{
    * True if the callback is repeated.
    */
   isRepeated: boolean
+
 }
 export interface RegulationAddressVerifiedCallback{
   /**
@@ -2712,12 +2886,14 @@ export interface RegulationAddressVerifiedCallback{
    * The regulation address name.
    */
   regulationAddressName: string
+
 }
 export interface RenewedSubscriptionsCallback{
   /**
    * The renewed subscription list.
    */
   subscriptions: RenewedSubscriptionsCallbackItem[]
+
 }
 export interface RenewedSubscriptionsCallbackItem{
   /**
@@ -2736,21 +2912,25 @@ export interface RenewedSubscriptionsCallbackItem{
    * The next renewal date, format: YYYY-MM-DD
    */
   nextRenewal: Date
+
 }
 export interface ResetAccountPasswordRequestCallback{
   
+
 }
 export interface SIPRegistrationFailCallback{
   /**
    * The SIP registration ID.
    */
   sipRegistrationId: number
+
 }
 export interface SubscriptionIsDetachedCallback{
   /**
    * The detached subscription list.
    */
   subscriptions: SubscriptionIsDetachedCallbackItem[]
+
 }
 export interface SubscriptionIsDetachedCallbackItem{
   /**
@@ -2761,12 +2941,14 @@ export interface SubscriptionIsDetachedCallbackItem{
    * The subscription description (details). Example: the subscribed phone number.
    */
   name: string
+
 }
 export interface SubscriptionIsFrozenCallback{
   /**
    * The frozen subscription list.
    */
   subscriptions: SubscriptionIsFrozenCallbackItem[]
+
 }
 export interface SubscriptionIsFrozenCallbackItem{
   /**
@@ -2781,9 +2963,11 @@ export interface SubscriptionIsFrozenCallbackItem{
    * The subscription cost.
    */
   cost: number
+
 }
 export interface StagnantAccountCallback{
   
+
 }
 export interface TransactionHistoryReportCallback{
   /**
@@ -2798,6 +2982,7 @@ export interface TransactionHistoryReportCallback{
    * The UTC order date in format: YYYY-MM-DD HH::mm:ss
    */
   orderDate: Date
+
 }
 export interface PlanConfigCallback{
   /**
@@ -2812,6 +2997,7 @@ export interface PlanConfigCallback{
    * The account plan package array.
    */
   packages: PlanPackageConfig[]
+
 }
 export interface PlanPackageConfig{
   /**
@@ -2834,12 +3020,14 @@ export interface PlanPackageConfig{
    * The current package size (including overrun).
    */
   packageSize: number
+
 }
 export interface UnverifiedSubscriptionDetachedCallback{
   /**
    * The frozen subscription list.
    */
   subscriptions: UnverifiedSubscriptionDetachedCallbackItem[]
+
 }
 export interface UnverifiedSubscriptionDetachedCallbackItem{
   /**
@@ -2850,6 +3038,7 @@ export interface UnverifiedSubscriptionDetachedCallbackItem{
    * The subscription description (details). Example: the subscribed phone number.
    */
   name: string
+
 }
 export interface ExpiringCallerIDCallback{
   /**
@@ -2860,12 +3049,14 @@ export interface ExpiringCallerIDCallback{
    * The Caller IDs expiration date in YYYY-MM-DD format.
    */
   expirationDate: Date
+
 }
 export interface TranscriptionCompleteCallback{
   /**
    * The transcription info.
    */
   transcriptionComplete: TranscriptionCompleteCallbackItem
+
 }
 export interface TranscriptionCompleteCallbackItem{
   /**
@@ -2884,6 +3075,7 @@ export interface TranscriptionCompleteCallbackItem{
    * The cost of transcription.
    */
   transcriptionCost: number
+
 }
 export interface ZipCode{
   /**
@@ -2894,6 +3086,7 @@ export interface ZipCode{
    * The zip code
    */
   zipCode: string
+
 }
 export interface RegulationCountry{
   /**
@@ -2904,6 +3097,7 @@ export interface RegulationCountry{
    * The country name
    */
   countryName: string
+
 }
 export interface RegulationAddress{
   /**
@@ -2970,6 +3164,7 @@ export interface RegulationAddress{
    * The reject message
    */
   rejectMessage?: string
+
 }
 export interface RegulationRegionRecord{
   /**
@@ -2992,6 +3187,7 @@ export interface RegulationRegionRecord{
    * The regulation address type. Available: LOCAL, NATIONAL, WORLDWIDE
    */
   regulationAddressType: string
+
 }
 export interface BankCard{
   /**
@@ -3022,6 +3218,7 @@ export interface BankCard{
    * The last card error.
    */
   lastError?: BankCardError
+
 }
 export interface BankCardError{
   /**
@@ -3040,6 +3237,7 @@ export interface BankCardError{
    * The amount in the USD currency.
    */
   amountUsd?: number
+
 }
 export interface PstnBlackListInfo{
   /**
@@ -3050,6 +3248,7 @@ export interface PstnBlackListInfo{
    * The phone number.
    */
   pstnBlacklistPhone : string
+
 }
 export interface DialogflowKeyInfo{
   /**
@@ -3068,12 +3267,14 @@ export interface DialogflowKeyInfo{
    * Bound applications.
    */
   applications?: ApplicationInfo[]
+
 }
 export interface DialogflowKey{
   /**
    * The project ID from Json Web Key.
    */
   projectId: string
+
 }
 export interface PushCredentialInfo{
   /**
@@ -3104,6 +3305,7 @@ export interface PushCredentialInfo{
    * Bound applications.
    */
   applications?: ApplicationInfo[]
+
 }
 export interface PushCredentialContent{
   /**
@@ -3122,12 +3324,14 @@ export interface PushCredentialContent{
    * The sender id provided by Google. Credentials for GOOGLE push.
    */
   senderId?: string
+
 }
 export interface InboundSmsCallback{
   /**
    * The inbound SMS info.
    */
   smsInbound: InboundSmsCallbackItem[]
+
 }
 export interface InboundSmsCallbackItem{
   /**
@@ -3142,12 +3346,14 @@ export interface InboundSmsCallbackItem{
    * The message.
    */
   smsBody: string
+
 }
 export interface NewInvoiceCallback{
   /**
    * The invoice info.
    */
   newInvoice: NewInvoiceCallbackItem
+
 }
 export interface NewInvoiceCallbackItem{
   /**
@@ -3178,6 +3384,7 @@ export interface NewInvoiceCallbackItem{
    * Array with the services that were provided.
    */
   units: InvoiceUnits[]
+
 }
 export interface InvoiceUnits{
   /**
@@ -3196,6 +3403,7 @@ export interface InvoiceUnits{
    * The tax amount.
    */
   taxAmount: number
+
 }
 export interface RecordStorageInfo{
   /**
@@ -3206,4 +3414,142 @@ export interface RecordStorageInfo{
    * The record storage name.
    */
   recordStorageName?: string
+
+}
+export interface MGPInfo{
+  /**
+   * The MGP ID.
+   */
+  mgpId: number
+  /**
+   * The MGP template ID.
+   */
+  mgpTemplateId: number
+  /**
+   * The MGP template price.
+   */
+  mgpTemplatePrice: number
+  /**
+   * The MGP template currency.
+   */
+  mgpTemplateCurrency: string
+  /**
+   * The MGP activation date.
+   */
+  mgpActivated: Date
+  /**
+   * The MGP deactivation date.
+   */
+  mgpDeactivated?: Date
+
+}
+export interface MGPTemplateInfo{
+  /**
+   * The MGP template ID.
+   */
+  mgpTemplateId: number
+  /**
+   * The MGP template name.
+   */
+  mgpTemplateName: string
+  /**
+   * The MGP template price.
+   */
+  mgpTemplatePrice: number
+  /**
+   * The MGP template currency.
+   */
+  mgpTemplateCurrency: string
+
+}
+export interface KeyInfo{
+  /**
+   * Client email.
+   */
+  accountEmail: string
+  /**
+   * The account ID.
+   */
+  accountId: number
+  /**
+   * The key ID.
+   */
+  keyId: string
+  /**
+   * The private key.
+   */
+  privateKey: string
+
+}
+export interface KeyView{
+  /**
+   * The key ID.
+   */
+  keyId: string
+  /**
+   * The key roles.
+   */
+  roles?: RoleView[]
+  /**
+   * The key description.
+   */
+  description: string
+  /**
+   * The key subuser.
+   */
+  subuser?: SubUserView[]
+
+}
+export interface SubUserView{
+  /**
+   * The subuser ID.
+   */
+  subuserId: number
+  /**
+   * The subuser login.
+   */
+  subuserName: string
+  /**
+   * The subuser description.
+   */
+  description?: string
+  /**
+   * The subuser roles.
+   */
+  roles?: RoleView[]
+
+}
+export interface RoleView{
+  /**
+   * The role name.
+   */
+  roleName: string
+  /**
+   * The role ID.
+   */
+  roleId: number
+  /**
+   * Shows that the role is inherited.
+   */
+  inherited?: boolean
+  /**
+   * Parent role ID array.
+   */
+  parentRoleId?: number[]
+  /**
+   * Shows that the role is gui only.
+   */
+  guiOnly: boolean
+
+}
+export interface RoleGroupView{
+  /**
+   * The role group ID.
+   */
+  id: number
+  /**
+   * The role group name.
+   */
+  name: string
+
 }
