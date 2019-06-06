@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Set the billing address.
   client.Accounts.setAccountInfo({billingAddressName: 'your_company',

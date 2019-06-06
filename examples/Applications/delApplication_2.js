@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Delete the all applications.
   client.Applications.delApplication({applicationId: 'all'})

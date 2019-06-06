@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Bind the all admin users with the admin roles 1, 2 and 3.
   client.AdminUsers.attachAdminRole({requiredAdminUserId: 'all',

@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Deny all.
   client.Rules.setRuleInfo({ruleId: '1',

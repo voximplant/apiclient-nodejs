@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Update SIP registration with id 1.
   client.SIPRegistration.updateSipRegistration({sipRegistrationId: '1',

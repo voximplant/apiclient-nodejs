@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Attach the '74953332211' phone number to the account 1.
   client.PhoneNumbers.attachPhoneNumber({countryCode: 'RU',

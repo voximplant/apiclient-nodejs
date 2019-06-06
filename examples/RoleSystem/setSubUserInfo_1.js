@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Edit the password and description for the subuser with id = 12 from account_id = 1
   client.RoleSystem.setSubUserInfo({subuserId: '12',

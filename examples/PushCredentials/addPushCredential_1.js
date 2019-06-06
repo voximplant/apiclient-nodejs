@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Add new Google credentials.
   client.PushCredentials.addPushCredential({pushProviderName: 'GOOGLE',

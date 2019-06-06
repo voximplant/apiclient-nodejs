@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Enable the auto charging.
   client.PhoneNumbers.setPhoneNumberInfo({phoneId: '1',

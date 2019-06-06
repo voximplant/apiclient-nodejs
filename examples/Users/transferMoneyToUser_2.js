@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Transfer 5.67 $ from the user 1 to the account.
   client.Users.transferMoneyToUser({userId: '1',

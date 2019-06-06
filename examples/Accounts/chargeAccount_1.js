@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Charge the frozen phone number: 79993330011
   client.Accounts.chargeAccount({phoneNumber: '79993330011'})

@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Get the particular child.
   client.Accounts.getChildrenAccounts({childAccountEmail: 'mychild@gmail.com'})

@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Add a new scenario: var s='hello';
   client.Scenarios.addScenario({scenarioName: 'scen1',

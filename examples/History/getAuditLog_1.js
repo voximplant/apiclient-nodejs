@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Get the three log items from the 2018-02-01 00:00:00 to the 2018-03-01 00:00:00 and filter.
   client.History.getAuditLog({fromDate: new Date('2018-02-01 00:00:00 GMT'),

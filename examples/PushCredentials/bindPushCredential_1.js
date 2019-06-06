@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Bind the push credential to the application.
   client.PushCredentials.bindPushCredential({pushCredentialId: '1',

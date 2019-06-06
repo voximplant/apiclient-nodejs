@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Remove roles 1,2,3 from the subuser with id = 12
   client.RoleSystem.removeSubUserRoles({subuserId: '12',

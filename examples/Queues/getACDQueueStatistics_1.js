@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Get statistics for all queues from the specified date
   client.Queues.getACDQueueStatistics({fromDate: new Date('2017-01-01 00:00:00 GMT')})

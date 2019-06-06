@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Transfer the all money from the child account 1 to the parent account.
   client.Accounts.transferMoneyToChildAccount({childAccountId: '1',

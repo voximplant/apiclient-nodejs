@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Disable work with SMS for phone number 447443332211.
   client.SMS.controlSms({phoneNumber: '447443332211',

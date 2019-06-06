@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Try to commit the credit card authorization.
   client.TheCreditCards.resume3DSecureCardAuth({PaRes: 'VmFsaWRUcmFuc2FjdGlvblZhbGlkVHJhbnNhY3Rpb25WYWxpZFRyYW5zYWN0aW9uVmFsaWRUcmFuc2FjdGlvbn5+fn5+fn5+fn5+fn5+fn4=',

@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // undefined
   client.AuthorizedIPs.checkAuthorizedAccountIP({authorizedIp: '92.255.220.0/24'})

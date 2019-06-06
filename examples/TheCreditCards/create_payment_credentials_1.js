@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Try to pay and attach the credit card.
   client.TheCreditCards.create_payment_credentials({cardHolder: 'MRJOE',

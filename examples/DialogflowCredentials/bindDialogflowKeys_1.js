@@ -1,5 +1,5 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
-const client = new ApiClient();
+const client = new VoximplantApiClient();
 client.onReady = function(){
   // Bind a Dialogflow key to the application.
   client.DialogflowCredentials.bindDialogflowKeys({dialogflowKeyId: '1',
