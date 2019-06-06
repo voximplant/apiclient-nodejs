@@ -1,0 +1,14 @@
+import VoximplantApiClient from "@voximplant/apiclient-nodejs";
+
+const client = new ApiClient();
+
+client.onready(function(){
+// Set the notification settings.
+client.Accounts.setAccountInfo({languageCode: 'en',
+            location: 'GMT-8',
+            minBalanceToNotify: '1.50',
+            tariffChangingNotifications: 'true',
+            newsNotifications: 'true'})
+      .then(ev=>console.log(ev))
+      .catch(err=>console.error(err));
+});
