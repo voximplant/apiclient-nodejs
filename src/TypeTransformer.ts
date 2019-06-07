@@ -1,1303 +1,5 @@
 export default class TypeTransformer{
   private static fromActors = {
-    'APIError': function(data){
-      const xData = {};
-      if(typeof data['code'] !== 'undefined') xData['code'] = TypeTransformer.from('number')(data['code']);
-      if(typeof data['msg'] !== 'undefined') xData['msg'] = TypeTransformer.from('string')(data['msg']);
-      return xData;
-},
-    'AccountInfo': function(data){
-      const xData = {};
-      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
-      if(typeof data['accountName'] !== 'undefined') xData['account_name'] = TypeTransformer.from('string')(data['accountName']);
-      if(typeof data['accountEmail'] !== 'undefined') xData['account_email'] = TypeTransformer.from('string')(data['accountEmail']);
-      if(typeof data['apiKey'] !== 'undefined') xData['api_key'] = TypeTransformer.from('string')(data['apiKey']);
-      if(typeof data['accountFirstName'] !== 'undefined') xData['account_first_name'] = TypeTransformer.from('string')(data['accountFirstName']);
-      if(typeof data['accountLastName'] !== 'undefined') xData['account_last_name'] = TypeTransformer.from('string')(data['accountLastName']);
-      if(typeof data['created'] !== 'undefined') xData['created'] = TypeTransformer.from('Date')(data['created']);
-      if(typeof data['languageCode'] !== 'undefined') xData['language_code'] = TypeTransformer.from('string')(data['languageCode']);
-      if(typeof data['location'] !== 'undefined') xData['location'] = TypeTransformer.from('string')(data['location']);
-      if(typeof data['minBalanceToNotify'] !== 'undefined') xData['min_balance_to_notify'] = TypeTransformer.from('number')(data['minBalanceToNotify']);
-      if(typeof data['accountNotifications'] !== 'undefined') xData['account_notifications'] = TypeTransformer.from('boolean')(data['accountNotifications']);
-      if(typeof data['tariffChangingNotifications'] !== 'undefined') xData['tariff_changing_notifications'] = TypeTransformer.from('boolean')(data['tariffChangingNotifications']);
-      if(typeof data['newsNotifications'] !== 'undefined') xData['news_notifications'] = TypeTransformer.from('boolean')(data['newsNotifications']);
-      if(typeof data['billingAddressName'] !== 'undefined') xData['billing_address_name'] = TypeTransformer.from('string')(data['billingAddressName']);
-      if(typeof data['billingAddressCountryCode'] !== 'undefined') xData['billing_address_country_code'] = TypeTransformer.from('string')(data['billingAddressCountryCode']);
-      if(typeof data['billingAddressAddress'] !== 'undefined') xData['billing_address_address'] = TypeTransformer.from('string')(data['billingAddressAddress']);
-      if(typeof data['billingAddressZip'] !== 'undefined') xData['billing_address_zip'] = TypeTransformer.from('string')(data['billingAddressZip']);
-      if(typeof data['billingAddressPhone'] !== 'undefined') xData['billing_address_phone'] = TypeTransformer.from('string')(data['billingAddressPhone']);
-      if(typeof data['active'] !== 'undefined') xData['active'] = TypeTransformer.from('boolean')(data['active']);
-      if(typeof data['frozen'] !== 'undefined') xData['frozen'] = TypeTransformer.from('boolean')(data['frozen']);
-      if(typeof data['balance'] !== 'undefined') xData['balance'] = TypeTransformer.from('number')(data['balance']);
-      if(typeof data['creditLimit'] !== 'undefined') xData['credit_limit'] = TypeTransformer.from('number')(data['creditLimit']);
-      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
-      if(typeof data['supportRobokassa'] !== 'undefined') xData['support_robokassa'] = TypeTransformer.from('boolean')(data['supportRobokassa']);
-      if(typeof data['supportBankCard'] !== 'undefined') xData['support_bank_card'] = TypeTransformer.from('boolean')(data['supportBankCard']);
-      if(typeof data['supportInvoice'] !== 'undefined') xData['support_invoice'] = TypeTransformer.from('boolean')(data['supportInvoice']);
-      if(typeof data['accountCustomData'] !== 'undefined') xData['account_custom_data'] = TypeTransformer.from('string')(data['accountCustomData']);
-      if(typeof data['accessEntries'] !== 'undefined') xData['access_entries'] = TypeTransformer.from('string[]')(data['accessEntries']);
-      if(typeof data['withAccessEntries'] !== 'undefined') xData['with_access_entries'] = TypeTransformer.from('boolean')(data['withAccessEntries']);
-      if(typeof data['callbackUrl'] !== 'undefined') xData['callback_url'] = TypeTransformer.from('string')(data['callbackUrl']);
-      if(typeof data['callbackSalt'] !== 'undefined') xData['callback_salt'] = TypeTransformer.from('string')(data['callbackSalt']);
-      if(typeof data['sendJsError'] !== 'undefined') xData['send_js_error'] = TypeTransformer.from('boolean')(data['sendJsError']);
-      return xData;
-},
-    'ShortAccountInfo': function(data){
-      const xData = {};
-      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
-      if(typeof data['frozen'] !== 'undefined') xData['frozen'] = TypeTransformer.from('boolean')(data['frozen']);
-      if(typeof data['balance'] !== 'undefined') xData['balance'] = TypeTransformer.from('number')(data['balance']);
-      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
-      return xData;
-},
-    'ClonedAccount': function(data){
-      const xData = {};
-      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
-      if(typeof data['accountName'] !== 'undefined') xData['account_name'] = TypeTransformer.from('string')(data['accountName']);
-      if(typeof data['accountEmail'] !== 'undefined') xData['account_email'] = TypeTransformer.from('string')(data['accountEmail']);
-      if(typeof data['active'] !== 'undefined') xData['active'] = TypeTransformer.from('boolean')(data['active']);
-      if(typeof data['apiKey'] !== 'undefined') xData['api_key'] = TypeTransformer.from('string')(data['apiKey']);
-      if(typeof data['users'] !== 'undefined') xData['users'] = TypeTransformer.from('ClonedUser[]')(data['users']);
-      if(typeof data['scenarios'] !== 'undefined') xData['scenarios'] = TypeTransformer.from('ClonedScenario[]')(data['scenarios']);
-      if(typeof data['applications'] !== 'undefined') xData['applications'] = TypeTransformer.from('ClonedApplication[]')(data['applications']);
-      if(typeof data['acdQueues'] !== 'undefined') xData['acd_queues'] = TypeTransformer.from('ClonedACDQueue[]')(data['acdQueues']);
-      if(typeof data['acdSkills'] !== 'undefined') xData['acd_skills'] = TypeTransformer.from('ClonedACDSkill[]')(data['acdSkills']);
-      if(typeof data['adminRoles'] !== 'undefined') xData['admin_roles'] = TypeTransformer.from('ClonedAdminRole[]')(data['adminRoles']);
-      if(typeof data['adminUsers'] !== 'undefined') xData['admin_users'] = TypeTransformer.from('ClonedAdminUser[]')(data['adminUsers']);
-      return xData;
-},
-    'AccountPlan': function(data){
-      const xData = {};
-      if(typeof data['planSubscriptionTemplateId'] !== 'undefined') xData['plan_subscription_template_id'] = TypeTransformer.from('number')(data['planSubscriptionTemplateId']);
-      if(typeof data['nextCharge'] !== 'undefined') xData['next_charge'] = TypeTransformer.from('Date')(data['nextCharge']);
-      if(typeof data['planType'] !== 'undefined') xData['plan_type'] = TypeTransformer.from('string')(data['planType']);
-      if(typeof data['planName'] !== 'undefined') xData['plan_name'] = TypeTransformer.from('string')(data['planName']);
-      if(typeof data['autoCharge'] !== 'undefined') xData['auto_charge'] = TypeTransformer.from('boolean')(data['autoCharge']);
-      if(typeof data['mayOverrun'] !== 'undefined') xData['may_overrun'] = TypeTransformer.from('boolean')(data['mayOverrun']);
-      if(typeof data['periodicCharge'] !== 'undefined') xData['periodic_charge'] = TypeTransformer.from('number')(data['periodicCharge']);
-      if(typeof data['packages'] !== 'undefined') xData['packages'] = TypeTransformer.from('AccountPlanPackage[]')(data['packages']);
-      return xData;
-},
-    'AccountPlanPackage': function(data){
-      const xData = {};
-      if(typeof data['priceGroupId'] !== 'undefined') xData['price_group_id'] = TypeTransformer.from('number[]')(data['priceGroupId']);
-      if(typeof data['packageName'] !== 'undefined') xData['package_name'] = TypeTransformer.from('string')(data['packageName']);
-      if(typeof data['mayOverrun'] !== 'undefined') xData['may_overrun'] = TypeTransformer.from('boolean')(data['mayOverrun']);
-      if(typeof data['overrunPrice'] !== 'undefined') xData['overrun_price'] = TypeTransformer.from('number')(data['overrunPrice']);
-      if(typeof data['overrunResources'] !== 'undefined') xData['overrun_resources'] = TypeTransformer.from('number')(data['overrunResources']);
-      if(typeof data['resourceLeft'] !== 'undefined') xData['resource_left'] = TypeTransformer.from('number')(data['resourceLeft']);
-      if(typeof data['packageSize'] !== 'undefined') xData['package_size'] = TypeTransformer.from('number')(data['packageSize']);
-      if(typeof data['origPackageSize'] !== 'undefined') xData['orig_package_size'] = TypeTransformer.from('number')(data['origPackageSize']);
-      return xData;
-},
-    'Plan': function(data){
-      const xData = {};
-      if(typeof data['planSubscriptionTemplateId'] !== 'undefined') xData['plan_subscription_template_id'] = TypeTransformer.from('number')(data['planSubscriptionTemplateId']);
-      if(typeof data['planType'] !== 'undefined') xData['plan_type'] = TypeTransformer.from('string')(data['planType']);
-      if(typeof data['planName'] !== 'undefined') xData['plan_name'] = TypeTransformer.from('string')(data['planName']);
-      if(typeof data['periodicCharge'] !== 'undefined') xData['periodic_charge'] = TypeTransformer.from('number')(data['periodicCharge']);
-      if(typeof data['package'] !== 'undefined') xData['package'] = TypeTransformer.from('PlanPackage[]')(data['package']);
-      return xData;
-},
-    'PlanPackage': function(data){
-      const xData = {};
-      if(typeof data['priceGroupId'] !== 'undefined') xData['price_group_id'] = TypeTransformer.from('number[]')(data['priceGroupId']);
-      if(typeof data['packageName'] !== 'undefined') xData['package_name'] = TypeTransformer.from('string')(data['packageName']);
-      if(typeof data['mayOverrun'] !== 'undefined') xData['may_overrun'] = TypeTransformer.from('boolean')(data['mayOverrun']);
-      if(typeof data['overrunPrice'] !== 'undefined') xData['overrun_price'] = TypeTransformer.from('number')(data['overrunPrice']);
-      if(typeof data['overrunResources'] !== 'undefined') xData['overrun_resources'] = TypeTransformer.from('number')(data['overrunResources']);
-      if(typeof data['packageSize'] !== 'undefined') xData['package_size'] = TypeTransformer.from('number')(data['packageSize']);
-      return xData;
-},
-    'ApplicationInfo': function(data){
-      const xData = {};
-      if(typeof data['applicationId'] !== 'undefined') xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
-      if(typeof data['applicationName'] !== 'undefined') xData['application_name'] = TypeTransformer.from('string')(data['applicationName']);
-      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
-      if(typeof data['secureRecordStorage'] !== 'undefined') xData['secure_record_storage'] = TypeTransformer.from('boolean')(data['secureRecordStorage']);
-      if(typeof data['users'] !== 'undefined') xData['users'] = TypeTransformer.from('UserInfo[]')(data['users']);
-      return xData;
-},
-    'ClonedApplication': function(data){
-      const xData = {};
-      if(typeof data['applicationId'] !== 'undefined') xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
-      if(typeof data['applicationName'] !== 'undefined') xData['application_name'] = TypeTransformer.from('string')(data['applicationName']);
-      if(typeof data['users'] !== 'undefined') xData['users'] = TypeTransformer.from('ClonedRule[]')(data['users']);
-      return xData;
-},
-    'UserInfo': function(data){
-      const xData = {};
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
-      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
-      if(typeof data['userDisplayName'] !== 'undefined') xData['user_display_name'] = TypeTransformer.from('string')(data['userDisplayName']);
-      if(typeof data['userActive'] !== 'undefined') xData['user_active'] = TypeTransformer.from('boolean')(data['userActive']);
-      if(typeof data['mobilePhone'] !== 'undefined') xData['mobile_phone'] = TypeTransformer.from('string')(data['mobilePhone']);
-      if(typeof data['liveBalance'] !== 'undefined') xData['live_balance'] = TypeTransformer.from('number')(data['liveBalance']);
-      if(typeof data['balance'] !== 'undefined') xData['balance'] = TypeTransformer.from('number')(data['balance']);
-      if(typeof data['fixedBalance'] !== 'undefined') xData['fixed_balance'] = TypeTransformer.from('number')(data['fixedBalance']);
-      if(typeof data['userCustomData'] !== 'undefined') xData['user_custom_data'] = TypeTransformer.from('string')(data['userCustomData']);
-      if(typeof data['applications'] !== 'undefined') xData['applications'] = TypeTransformer.from('ApplicationInfo[]')(data['applications']);
-      if(typeof data['skills'] !== 'undefined') xData['skills'] = TypeTransformer.from('SkillInfo[]')(data['skills']);
-      if(typeof data['acdQueues'] !== 'undefined') xData['acd_queues'] = TypeTransformer.from('ACDQueueOperatorInfo[]')(data['acdQueues']);
-      if(typeof data['acdStatus'] !== 'undefined') xData['acd_status'] = TypeTransformer.from('string')(data['acdStatus']);
-      if(typeof data['acdStatusChangeTime'] !== 'undefined') xData['acd_status_change_time'] = TypeTransformer.from('Date')(data['acdStatusChangeTime']);
-      if(typeof data['created'] !== 'undefined') xData['created'] = TypeTransformer.from('Date')(data['created']);
-      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
-      return xData;
-},
-    'ClonedUser': function(data){
-      const xData = {};
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
-      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
-      return xData;
-},
-    'ScenarioInfo': function(data){
-      const xData = {};
-      if(typeof data['scenarioId'] !== 'undefined') xData['scenario_id'] = TypeTransformer.from('number')(data['scenarioId']);
-      if(typeof data['scenarioName'] !== 'undefined') xData['scenario_name'] = TypeTransformer.from('string')(data['scenarioName']);
-      if(typeof data['scenarioScript'] !== 'undefined') xData['scenario_script'] = TypeTransformer.from('string')(data['scenarioScript']);
-      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
-      return xData;
-},
-    'ClonedScenario': function(data){
-      const xData = {};
-      if(typeof data['scenarioId'] !== 'undefined') xData['scenario_id'] = TypeTransformer.from('number')(data['scenarioId']);
-      if(typeof data['scenarioName'] !== 'undefined') xData['scenario_name'] = TypeTransformer.from('string')(data['scenarioName']);
-      return xData;
-},
-    'RuleInfo': function(data){
-      const xData = {};
-      if(typeof data['ruleId'] !== 'undefined') xData['rule_id'] = TypeTransformer.from('number')(data['ruleId']);
-      if(typeof data['applicationId'] !== 'undefined') xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
-      if(typeof data['ruleName'] !== 'undefined') xData['rule_name'] = TypeTransformer.from('string')(data['ruleName']);
-      if(typeof data['rulePattern'] !== 'undefined') xData['rule_pattern'] = TypeTransformer.from('string')(data['rulePattern']);
-      if(typeof data['rulePatternExclude'] !== 'undefined') xData['rule_pattern_exclude'] = TypeTransformer.from('string')(data['rulePatternExclude']);
-      if(typeof data['videoConference'] !== 'undefined') xData['video_conference'] = TypeTransformer.from('boolean')(data['videoConference']);
-      if(typeof data['scenarios'] !== 'undefined') xData['scenarios'] = TypeTransformer.from('ScenarioInfo[]')(data['scenarios']);
-      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
-      return xData;
-},
-    'ClonedRule': function(data){
-      const xData = {};
-      if(typeof data['ruleId'] !== 'undefined') xData['rule_id'] = TypeTransformer.from('number')(data['ruleId']);
-      if(typeof data['ruleName'] !== 'undefined') xData['rule_name'] = TypeTransformer.from('string')(data['ruleName']);
-      return xData;
-},
-    'SipWhiteListInfo': function(data){
-      const xData = {};
-      if(typeof data['sipWhitelistId'] !== 'undefined') xData['sip_whitelist_id'] = TypeTransformer.from('number')(data['sipWhitelistId']);
-      if(typeof data['sipWhitelistNetwork'] !== 'undefined') xData['sip_whitelist_network'] = TypeTransformer.from('string')(data['sipWhitelistNetwork']);
-      return xData;
-},
-    'CallSessionInfo': function(data){
-      const xData = {};
-      if(typeof data['callSessionHistoryId'] !== 'undefined') xData['call_session_history_id'] = TypeTransformer.from('number')(data['callSessionHistoryId']);
-      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
-      if(typeof data['applicationId'] !== 'undefined') xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
-      if(typeof data['startDate'] !== 'undefined') xData['start_date'] = TypeTransformer.from('Date')(data['startDate']);
-      if(typeof data['duration'] !== 'undefined') xData['duration'] = TypeTransformer.from('number')(data['duration']);
-      if(typeof data['initiatorAddress'] !== 'undefined') xData['initiator_address'] = TypeTransformer.from('string')(data['initiatorAddress']);
-      if(typeof data['mediaServerAddress'] !== 'undefined') xData['media_server_address'] = TypeTransformer.from('string')(data['mediaServerAddress']);
-      if(typeof data['logFileUrl'] !== 'undefined') xData['log_file_url'] = TypeTransformer.from('string')(data['logFileUrl']);
-      if(typeof data['finishReason'] !== 'undefined') xData['finish_reason'] = TypeTransformer.from('string')(data['finishReason']);
-      if(typeof data['calls'] !== 'undefined') xData['calls'] = TypeTransformer.from('CallInfo[]')(data['calls']);
-      if(typeof data['otherResourceUsage'] !== 'undefined') xData['other_resource_usage'] = TypeTransformer.from('ResourceUsage[]')(data['otherResourceUsage']);
-      if(typeof data['records'] !== 'undefined') xData['records'] = TypeTransformer.from('Record[]')(data['records']);
-      if(typeof data['customData'] !== 'undefined') xData['custom_data'] = TypeTransformer.from('string')(data['customData']);
-      return xData;
-},
-    'CallInfo': function(data){
-      const xData = {};
-      if(typeof data['callId'] !== 'undefined') xData['call_id'] = TypeTransformer.from('number')(data['callId']);
-      if(typeof data['startTime'] !== 'undefined') xData['start_time'] = TypeTransformer.from('Date')(data['startTime']);
-      if(typeof data['duration'] !== 'undefined') xData['duration'] = TypeTransformer.from('number')(data['duration']);
-      if(typeof data['localNumber'] !== 'undefined') xData['local_number'] = TypeTransformer.from('string')(data['localNumber']);
-      if(typeof data['remoteNumber'] !== 'undefined') xData['remote_number'] = TypeTransformer.from('string')(data['remoteNumber']);
-      if(typeof data['remoteNumberType'] !== 'undefined') xData['remote_number_type'] = TypeTransformer.from('string')(data['remoteNumberType']);
-      if(typeof data['incoming'] !== 'undefined') xData['incoming'] = TypeTransformer.from('boolean')(data['incoming']);
-      if(typeof data['successful'] !== 'undefined') xData['successful'] = TypeTransformer.from('boolean')(data['successful']);
-      if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
-      if(typeof data['recordUrl'] !== 'undefined') xData['record_url'] = TypeTransformer.from('string')(data['recordUrl']);
-      if(typeof data['mediaServerAddress'] !== 'undefined') xData['media_server_address'] = TypeTransformer.from('string')(data['mediaServerAddress']);
-      if(typeof data['cost'] !== 'undefined') xData['cost'] = TypeTransformer.from('number')(data['cost']);
-      if(typeof data['customData'] !== 'undefined') xData['custom_data'] = TypeTransformer.from('string')(data['customData']);
-      return xData;
-},
-    'TransactionInfo': function(data){
-      const xData = {};
-      if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
-      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('string')(data['accountId']);
-      if(typeof data['performedAt'] !== 'undefined') xData['performed_at'] = TypeTransformer.from('Date')(data['performedAt']);
-      if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.from('number')(data['amount']);
-      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
-      if(typeof data['transactionType'] !== 'undefined') xData['transaction_type'] = TypeTransformer.from('string')(data['transactionType']);
-      if(typeof data['transactionDescription'] !== 'undefined') xData['transaction_description'] = TypeTransformer.from('string')(data['transactionDescription']);
-      if(typeof data['paymentReference'] !== 'undefined') xData['payment_reference'] = TypeTransformer.from('string')(data['paymentReference']);
-      return xData;
-},
-    'ResourceUsage': function(data){
-      const xData = {};
-      if(typeof data['resourceUsageId'] !== 'undefined') xData['resource_usage_id'] = TypeTransformer.from('number')(data['resourceUsageId']);
-      if(typeof data['resourceType'] !== 'undefined') xData['resource_type'] = TypeTransformer.from('string')(data['resourceType']);
-      if(typeof data['cost'] !== 'undefined') xData['cost'] = TypeTransformer.from('number')(data['cost']);
-      if(typeof data['description'] !== 'undefined') xData['description'] = TypeTransformer.from('string')(data['description']);
-      if(typeof data['usedAt'] !== 'undefined') xData['used_at'] = TypeTransformer.from('Date')(data['usedAt']);
-      if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
-      if(typeof data['resourceQuantity'] !== 'undefined') xData['resource_quantity'] = TypeTransformer.from('number')(data['resourceQuantity']);
-      if(typeof data['unit'] !== 'undefined') xData['unit'] = TypeTransformer.from('string')(data['unit']);
-      if(typeof data['refCallId'] !== 'undefined') xData['ref_call_id'] = TypeTransformer.from('number')(data['refCallId']);
-      return xData;
-},
-    'Record': function(data){
-      const xData = {};
-      if(typeof data['recordId'] !== 'undefined') xData['record_id'] = TypeTransformer.from('number')(data['recordId']);
-      if(typeof data['recordName'] !== 'undefined') xData['record_name'] = TypeTransformer.from('string')(data['recordName']);
-      if(typeof data['cost'] !== 'undefined') xData['cost'] = TypeTransformer.from('number')(data['cost']);
-      if(typeof data['startTime'] !== 'undefined') xData['start_time'] = TypeTransformer.from('Date')(data['startTime']);
-      if(typeof data['duration'] !== 'undefined') xData['duration'] = TypeTransformer.from('number')(data['duration']);
-      if(typeof data['recordUrl'] !== 'undefined') xData['record_url'] = TypeTransformer.from('string')(data['recordUrl']);
-      if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
-      if(typeof data['fileSize'] !== 'undefined') xData['file_size'] = TypeTransformer.from('number')(data['fileSize']);
-      if(typeof data['transcriptionUrl'] !== 'undefined') xData['transcription_url'] = TypeTransformer.from('string')(data['transcriptionUrl']);
-      if(typeof data['transcriptionStatus'] !== 'undefined') xData['transcription_status'] = TypeTransformer.from('string')(data['transcriptionStatus']);
-      return xData;
-},
-    'AuditLogInfo': function(data){
-      const xData = {};
-      if(typeof data['auditLogId'] !== 'undefined') xData['audit_log_id'] = TypeTransformer.from('number')(data['auditLogId']);
-      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
-      if(typeof data['requested'] !== 'undefined') xData['requested'] = TypeTransformer.from('Date')(data['requested']);
-      if(typeof data['ip'] !== 'undefined') xData['ip'] = TypeTransformer.from('string')(data['ip']);
-      if(typeof data['cmdName'] !== 'undefined') xData['cmd_name'] = TypeTransformer.from('string')(data['cmdName']);
-      if(typeof data['cmdArgs'] !== 'undefined') xData['cmd_args'] = TypeTransformer.from('any')(data['cmdArgs']);
-      if(typeof data['cmdResult'] !== 'undefined') xData['cmd_result'] = TypeTransformer.from('any')(data['cmdResult']);
-      return xData;
-},
-    'HistoryReport': function(data){
-      const xData = {};
-      if(typeof data['historyReportId'] !== 'undefined') xData['history_report_id'] = TypeTransformer.from('number')(data['historyReportId']);
-      if(typeof data['historyType'] !== 'undefined') xData['history_type'] = TypeTransformer.from('string')(data['historyType']);
-      if(typeof data['created'] !== 'undefined') xData['created'] = TypeTransformer.from('Date')(data['created']);
-      if(typeof data['format'] !== 'undefined') xData['format'] = TypeTransformer.from('string')(data['format']);
-      if(typeof data['completed'] !== 'undefined') xData['completed'] = TypeTransformer.from('Date')(data['completed']);
-      if(typeof data['fileName'] !== 'undefined') xData['file_name'] = TypeTransformer.from('string')(data['fileName']);
-      if(typeof data['fileSize'] !== 'undefined') xData['file_size'] = TypeTransformer.from('number')(data['fileSize']);
-      if(typeof data['downloadSize'] !== 'undefined') xData['download_size'] = TypeTransformer.from('number')(data['downloadSize']);
-      if(typeof data['downloadCount'] !== 'undefined') xData['download_count'] = TypeTransformer.from('number')(data['downloadCount']);
-      if(typeof data['lastDownloaded'] !== 'undefined') xData['last_downloaded'] = TypeTransformer.from('Date')(data['lastDownloaded']);
-      if(typeof data['storeUntil'] !== 'undefined') xData['store_until'] = TypeTransformer.from('Date')(data['storeUntil']);
-      if(typeof data['error'] !== 'undefined') xData['error'] = TypeTransformer.from('APIError')(data['error']);
-      if(typeof data['filters'] !== 'undefined') xData['filters'] = TypeTransformer.from('any')(data['filters']);
-      if(typeof data['calculatedData'] !== 'undefined') xData['calculated_data'] = TypeTransformer.from('any')(data['calculatedData']);
-      return xData;
-},
-    'CalculatedCallHistoryData': function(data){
-      const xData = {};
-      if(typeof data['sessionCount'] !== 'undefined') xData['session_count'] = TypeTransformer.from('number')(data['sessionCount']);
-      if(typeof data['totalSessionCount'] !== 'undefined') xData['total_session_count'] = TypeTransformer.from('number')(data['totalSessionCount']);
-      if(typeof data['timezone'] !== 'undefined') xData['timezone'] = TypeTransformer.from('string')(data['timezone']);
-      return xData;
-},
-    'CalculatedTransactionHistoryData': function(data){
-      const xData = {};
-      if(typeof data['transactionCount'] !== 'undefined') xData['transaction_count'] = TypeTransformer.from('number')(data['transactionCount']);
-      if(typeof data['totalTransactionCount'] !== 'undefined') xData['total_transaction_count'] = TypeTransformer.from('number')(data['totalTransactionCount']);
-      if(typeof data['startBalance'] !== 'undefined') xData['start_balance'] = TypeTransformer.from('string')(data['startBalance']);
-      if(typeof data['endBalance'] !== 'undefined') xData['end_balance'] = TypeTransformer.from('string')(data['endBalance']);
-      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
-      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('number')(data['userName']);
-      if(typeof data['timezone'] !== 'undefined') xData['timezone'] = TypeTransformer.from('string')(data['timezone']);
-      return xData;
-},
-    'ACDSessionInfo': function(data){
-      const xData = {};
-      if(typeof data['acdSessionHistoryId'] !== 'undefined') xData['acd_session_history_id'] = TypeTransformer.from('number')(data['acdSessionHistoryId']);
-      if(typeof data['acdRequestId'] !== 'undefined') xData['acd_request_id'] = TypeTransformer.from('string')(data['acdRequestId']);
-      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
-      if(typeof data['beginTime'] !== 'undefined') xData['begin_time'] = TypeTransformer.from('Date')(data['beginTime']);
-      if(typeof data['priority'] !== 'undefined') xData['priority'] = TypeTransformer.from('number')(data['priority']);
-      if(typeof data['acdQueueId'] !== 'undefined') xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
-      if(typeof data['waitingDuration'] !== 'undefined') xData['waiting_duration'] = TypeTransformer.from('number')(data['waitingDuration']);
-      if(typeof data['inServiceDuration'] !== 'undefined') xData['in_service_duration'] = TypeTransformer.from('number')(data['inServiceDuration']);
-      if(typeof data['afterServiceDuration'] !== 'undefined') xData['after_service_duration'] = TypeTransformer.from('number')(data['afterServiceDuration']);
-      if(typeof data['events'] !== 'undefined') xData['events'] = TypeTransformer.from('ACDSessionEventInfo[]')(data['events']);
-      return xData;
-},
-    'ACDSessionEventInfo': function(data){
-      const xData = {};
-      if(typeof data['acdSessionEventId'] !== 'undefined') xData['acd_session_event_id'] = TypeTransformer.from('number')(data['acdSessionEventId']);
-      if(typeof data['time'] !== 'undefined') xData['time'] = TypeTransformer.from('Date')(data['time']);
-      if(typeof data['type'] !== 'undefined') xData['type'] = TypeTransformer.from('string')(data['type']);
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
-      if(typeof data['customData'] !== 'undefined') xData['custom_data'] = TypeTransformer.from('string')(data['customData']);
-      return xData;
-},
-    'QueueInfo': function(data){
-      const xData = {};
-      if(typeof data['acdQueueId'] !== 'undefined') xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
-      if(typeof data['acdQueueName'] !== 'undefined') xData['acd_queue_name'] = TypeTransformer.from('string')(data['acdQueueName']);
-      if(typeof data['applicationId'] !== 'undefined') xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
-      if(typeof data['acdQueuePriority'] !== 'undefined') xData['acd_queue_priority'] = TypeTransformer.from('number')(data['acdQueuePriority']);
-      if(typeof data['serviceProbability'] !== 'undefined') xData['service_probability'] = TypeTransformer.from('number')(data['serviceProbability']);
-      if(typeof data['autoBinding'] !== 'undefined') xData['auto_binding'] = TypeTransformer.from('boolean')(data['autoBinding']);
-      if(typeof data['maxWaitingTime'] !== 'undefined') xData['max_waiting_time'] = TypeTransformer.from('number')(data['maxWaitingTime']);
-      if(typeof data['maxQueueSize'] !== 'undefined') xData['max_queue_size'] = TypeTransformer.from('number')(data['maxQueueSize']);
-      if(typeof data['averageServiceTime'] !== 'undefined') xData['average_service_time'] = TypeTransformer.from('number')(data['averageServiceTime']);
-      if(typeof data['created'] !== 'undefined') xData['created'] = TypeTransformer.from('Date')(data['created']);
-      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
-      if(typeof data['deleted'] !== 'undefined') xData['deleted'] = TypeTransformer.from('Date')(data['deleted']);
-      if(typeof data['users'] !== 'undefined') xData['users'] = TypeTransformer.from('QueueUsers[]')(data['users']);
-      if(typeof data['skills'] !== 'undefined') xData['skills'] = TypeTransformer.from('QueueSkills[]')(data['skills']);
-      if(typeof data['slThresholds'] !== 'undefined') xData['sl_thresholds'] = TypeTransformer.from('number[]')(data['slThresholds']);
-      return xData;
-},
-    'QueueSkills': function(data){
-      const xData = {};
-      if(typeof data['skillId'] !== 'undefined') xData['skill_id'] = TypeTransformer.from('number')(data['skillId']);
-      if(typeof data['skillName'] !== 'undefined') xData['skill_name'] = TypeTransformer.from('string')(data['skillName']);
-      return xData;
-},
-    'QueueUsers': function(data){
-      const xData = {};
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
-      return xData;
-},
-    'ACDState': function(data){
-      const xData = {};
-      if(typeof data['acdQueues'] !== 'undefined') xData['acd_queues'] = TypeTransformer.from('ACDQueueState[]')(data['acdQueues']);
-      return xData;
-},
-    'ACDOperatorAggregationGroup': function(data){
-      const xData = {};
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('string')(data['userId']);
-      if(typeof data['date'] !== 'undefined') xData['date'] = TypeTransformer.from('Date')(data['date']);
-      if(typeof data['hour'] !== 'undefined') xData['hour'] = TypeTransformer.from('number')(data['hour']);
-      if(typeof data['statistics'] !== 'undefined') xData['statistics'] = TypeTransformer.from('ACDOperatorStatistics[]')(data['statistics']);
-      return xData;
-},
-    'ACDOperatorStatusAggregationGroup': function(data){
-      const xData = {};
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('string')(data['userId']);
-      if(typeof data['date'] !== 'undefined') xData['date'] = TypeTransformer.from('Date')(data['date']);
-      if(typeof data['hour'] !== 'undefined') xData['hour'] = TypeTransformer.from('number')(data['hour']);
-      if(typeof data['statistics'] !== 'undefined') xData['statistics'] = TypeTransformer.from('ACDOperatorStatusStatistics[]')(data['statistics']);
-      return xData;
-},
-    'ACDOperatorStatistics': function(data){
-      const xData = {};
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('string')(data['userId']);
-      if(typeof data['date'] !== 'undefined') xData['date'] = TypeTransformer.from('Date')(data['date']);
-      if(typeof data['hour'] !== 'undefined') xData['hour'] = TypeTransformer.from('number')(data['hour']);
-      if(typeof data['SA'] !== 'undefined') xData['SA'] = TypeTransformer.from('ACDStatisticsItem')(data['SA']);
-      if(typeof data['TT'] !== 'undefined') xData['TT'] = TypeTransformer.from('ACDStatisticsItem')(data['TT']);
-      if(typeof data['ACW'] !== 'undefined') xData['ACW'] = TypeTransformer.from('ACDStatisticsItem')(data['ACW']);
-      if(typeof data['HT'] !== 'undefined') xData['HT'] = TypeTransformer.from('ACDStatisticsItem')(data['HT']);
-      if(typeof data['AC'] !== 'undefined') xData['AC'] = TypeTransformer.from('number')(data['AC']);
-      if(typeof data['UAC'] !== 'undefined') xData['UAC'] = TypeTransformer.from('number')(data['UAC']);
-      if(typeof data['TDT'] !== 'undefined') xData['TDT'] = TypeTransformer.from('number')(data['TDT']);
-      if(typeof data['THT'] !== 'undefined') xData['THT'] = TypeTransformer.from('number')(data['THT']);
-      if(typeof data['TTT'] !== 'undefined') xData['TTT'] = TypeTransformer.from('number')(data['TTT']);
-      if(typeof data['TACW'] !== 'undefined') xData['TACW'] = TypeTransformer.from('number')(data['TACW']);
-      return xData;
-},
-    'ACDOperatorStatusStatistics': function(data){
-      const xData = {};
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('string')(data['userId']);
-      if(typeof data['date'] !== 'undefined') xData['date'] = TypeTransformer.from('Date')(data['date']);
-      if(typeof data['hour'] !== 'undefined') xData['hour'] = TypeTransformer.from('number')(data['hour']);
-      if(typeof data['acdStatus'] !== 'undefined') xData['acd_status'] = TypeTransformer.from('ACDOperatorStatusStatisticsDetail[]')(data['acdStatus']);
-      return xData;
-},
-    'ACDOperatorStatusStatisticsDetail': function(data){
-      const xData = {};
-      if(typeof data['OFFLINE'] !== 'undefined') xData['OFFLINE'] = TypeTransformer.from('ACDStatisticsItem')(data['OFFLINE']);
-      if(typeof data['ONLINE'] !== 'undefined') xData['ONLINE'] = TypeTransformer.from('ACDStatisticsItem')(data['ONLINE']);
-      if(typeof data['READY'] !== 'undefined') xData['READY'] = TypeTransformer.from('ACDStatisticsItem')(data['READY']);
-      if(typeof data['BANNED'] !== 'undefined') xData['BANNED'] = TypeTransformer.from('ACDStatisticsItem')(data['BANNED']);
-      if(typeof data['INSERVICE'] !== 'undefined') xData['IN_SERVICE'] = TypeTransformer.from('ACDStatisticsItem')(data['INSERVICE']);
-      if(typeof data['AFTERSERVICE'] !== 'undefined') xData['AFTER_SERVICE'] = TypeTransformer.from('ACDStatisticsItem')(data['AFTERSERVICE']);
-      if(typeof data['TIMEOUT'] !== 'undefined') xData['TIMEOUT'] = TypeTransformer.from('ACDStatisticsItem')(data['TIMEOUT']);
-      if(typeof data['DND'] !== 'undefined') xData['DND'] = TypeTransformer.from('ACDStatisticsItem')(data['DND']);
-      return xData;
-},
-    'ACDQueueStatistics': function(data){
-      const xData = {};
-      if(typeof data['date'] !== 'undefined') xData['date'] = TypeTransformer.from('Date')(data['date']);
-      if(typeof data['hour'] !== 'undefined') xData['hour'] = TypeTransformer.from('number')(data['hour']);
-      if(typeof data['WT'] !== 'undefined') xData['WT'] = TypeTransformer.from('ACDStatisticsItem')(data['WT']);
-      if(typeof data['SA'] !== 'undefined') xData['SA'] = TypeTransformer.from('ACDStatisticsItem')(data['SA']);
-      if(typeof data['AT'] !== 'undefined') xData['AT'] = TypeTransformer.from('ACDStatisticsItem')(data['AT']);
-      if(typeof data['HT'] !== 'undefined') xData['HT'] = TypeTransformer.from('ACDStatisticsItem')(data['HT']);
-      if(typeof data['TT'] !== 'undefined') xData['TT'] = TypeTransformer.from('ACDStatisticsItem')(data['TT']);
-      if(typeof data['ACW'] !== 'undefined') xData['ACW'] = TypeTransformer.from('ACDStatisticsItem')(data['ACW']);
-      if(typeof data['QL'] !== 'undefined') xData['QL'] = TypeTransformer.from('ACDStatisticsItem')(data['QL']);
-      if(typeof data['TC'] !== 'undefined') xData['TC'] = TypeTransformer.from('number')(data['TC']);
-      if(typeof data['AC'] !== 'undefined') xData['AC'] = TypeTransformer.from('ACDStatisticsCalls[]')(data['AC']);
-      if(typeof data['UAC'] !== 'undefined') xData['UAC'] = TypeTransformer.from('ACDStatisticsCalls[]')(data['UAC']);
-      if(typeof data['RC'] !== 'undefined') xData['RC'] = TypeTransformer.from('ACDStatisticsCalls[]')(data['RC']);
-      if(typeof data['SL'] !== 'undefined') xData['SL'] = TypeTransformer.from('ACDQueueStatisticsServiceLevel[]')(data['SL']);
-      if(typeof data['TWT'] !== 'undefined') xData['TWT'] = TypeTransformer.from('number')(data['TWT']);
-      if(typeof data['TST'] !== 'undefined') xData['TST'] = TypeTransformer.from('number')(data['TST']);
-      if(typeof data['TAT'] !== 'undefined') xData['TAT'] = TypeTransformer.from('number')(data['TAT']);
-      if(typeof data['THT'] !== 'undefined') xData['THT'] = TypeTransformer.from('number')(data['THT']);
-      if(typeof data['TTT'] !== 'undefined') xData['TTT'] = TypeTransformer.from('number')(data['TTT']);
-      if(typeof data['TACW'] !== 'undefined') xData['TACW'] = TypeTransformer.from('number')(data['TACW']);
-      return xData;
-},
-    'ACDQueueStatisticsServiceLevel': function(data){
-      const xData = {};
-      if(typeof data['acceptableWaitingTime'] !== 'undefined') xData['acceptable_waiting_time'] = TypeTransformer.from('number')(data['acceptableWaitingTime']);
-      if(typeof data['callCount'] !== 'undefined') xData['call_count'] = TypeTransformer.from('number')(data['callCount']);
-      if(typeof data['serviceLevel'] !== 'undefined') xData['service_level'] = TypeTransformer.from('number')(data['serviceLevel']);
-      return xData;
-},
-    'ACDStatisticsItem': function(data){
-      const xData = {};
-      if(typeof data['min'] !== 'undefined') xData['min'] = TypeTransformer.from('number')(data['min']);
-      if(typeof data['avg'] !== 'undefined') xData['avg'] = TypeTransformer.from('number')(data['avg']);
-      if(typeof data['max'] !== 'undefined') xData['max'] = TypeTransformer.from('number')(data['max']);
-      if(typeof data['count'] !== 'undefined') xData['count'] = TypeTransformer.from('number')(data['count']);
-      if(typeof data['sum'] !== 'undefined') xData['sum'] = TypeTransformer.from('number')(data['sum']);
-      return xData;
-},
-    'ACDStatisticsCalls': function(data){
-      const xData = {};
-      if(typeof data['count'] !== 'undefined') xData['count'] = TypeTransformer.from('number')(data['count']);
-      if(typeof data['percent'] !== 'undefined') xData['percent'] = TypeTransformer.from('number')(data['percent']);
-      return xData;
-},
-    'ACDQueueState': function(data){
-      const xData = {};
-      if(typeof data['acdQueueId'] !== 'undefined') xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
-      if(typeof data['readyOperators'] !== 'undefined') xData['ready_operators'] = TypeTransformer.from('ACDReadyOperatorState[]')(data['readyOperators']);
-      if(typeof data['readyOperatorsCount'] !== 'undefined') xData['ready_operators_count'] = TypeTransformer.from('number')(data['readyOperatorsCount']);
-      if(typeof data['lockedOperators'] !== 'undefined') xData['locked_operators'] = TypeTransformer.from('ACDLockedOperatorState[]')(data['lockedOperators']);
-      if(typeof data['lockedOperatorsCount'] !== 'undefined') xData['locked_operators_count'] = TypeTransformer.from('number')(data['lockedOperatorsCount']);
-      if(typeof data['afterServiceOperators'] !== 'undefined') xData['after_service_operators'] = TypeTransformer.from('ACDAfterServiceOperatorState[]')(data['afterServiceOperators']);
-      if(typeof data['afterServiceOperatorCount'] !== 'undefined') xData['after_service_operator_count'] = TypeTransformer.from('number')(data['afterServiceOperatorCount']);
-      if(typeof data['servicingCalls'] !== 'undefined') xData['servicing_calls'] = TypeTransformer.from('ACDServicingCallState[]')(data['servicingCalls']);
-      if(typeof data['waitingCalls'] !== 'undefined') xData['waiting_calls'] = TypeTransformer.from('ACDWaitingCallState[]')(data['waitingCalls']);
-      return xData;
-},
-    'ACDReadyOperatorState': function(data){
-      const xData = {};
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
-      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
-      if(typeof data['userDisplayName'] !== 'undefined') xData['user_display_name'] = TypeTransformer.from('string')(data['userDisplayName']);
-      if(typeof data['idleDuration'] !== 'undefined') xData['idle_duration'] = TypeTransformer.from('number')(data['idleDuration']);
-      return xData;
-},
-    'ACDLockedOperatorState': function(data){
-      const xData = {};
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
-      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
-      if(typeof data['userDisplayName'] !== 'undefined') xData['user_display_name'] = TypeTransformer.from('string')(data['userDisplayName']);
-      if(typeof data['unreached'] !== 'undefined') xData['unreached'] = TypeTransformer.from('Date')(data['unreached']);
-      if(typeof data['locks'] !== 'undefined') xData['locks'] = TypeTransformer.from('ACDLock[]')(data['locks']);
-      if(typeof data['acdCalls'] !== 'undefined') xData['acd_calls'] = TypeTransformer.from('ACDOperatorCall[]')(data['acdCalls']);
-      if(typeof data['status'] !== 'undefined') xData['status'] = TypeTransformer.from('string')(data['status']);
-      return xData;
-},
-    'ACDAfterServiceOperatorState': function(data){
-      const xData = {};
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
-      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
-      if(typeof data['userDisplayName'] !== 'undefined') xData['user_display_name'] = TypeTransformer.from('string')(data['userDisplayName']);
-      if(typeof data['status'] !== 'undefined') xData['status'] = TypeTransformer.from('string')(data['status']);
-      return xData;
-},
-    'ACDLock': function(data){
-      const xData = {};
-      if(typeof data['id'] !== 'undefined') xData['id'] = TypeTransformer.from('string')(data['id']);
-      if(typeof data['created'] !== 'undefined') xData['created'] = TypeTransformer.from('Date')(data['created']);
-      return xData;
-},
-    'ACDOperatorCall': function(data){
-      const xData = {};
-      if(typeof data['acdSessionHistoryId'] !== 'undefined') xData['acd_session_history_id'] = TypeTransformer.from('number')(data['acdSessionHistoryId']);
-      if(typeof data['acdRequestId'] !== 'undefined') xData['acd_request_id'] = TypeTransformer.from('string')(data['acdRequestId']);
-      if(typeof data['acdQueueId'] !== 'undefined') xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
-      if(typeof data['acdQueueName'] !== 'undefined') xData['acd_queue_name'] = TypeTransformer.from('string')(data['acdQueueName']);
-      if(typeof data['callerid'] !== 'undefined') xData['callerid'] = TypeTransformer.from('string')(data['callerid']);
-      if(typeof data['beginTime'] !== 'undefined') xData['begin_time'] = TypeTransformer.from('Date')(data['beginTime']);
-      if(typeof data['submitted'] !== 'undefined') xData['submitted'] = TypeTransformer.from('Date')(data['submitted']);
-      return xData;
-},
-    'ACDServicingCallState': function(data){
-      const xData = {};
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
-      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
-      if(typeof data['userDisplayName'] !== 'undefined') xData['user_display_name'] = TypeTransformer.from('string')(data['userDisplayName']);
-      if(typeof data['priority'] !== 'undefined') xData['priority'] = TypeTransformer.from('number')(data['priority']);
-      if(typeof data['callerid'] !== 'undefined') xData['callerid'] = TypeTransformer.from('string')(data['callerid']);
-      if(typeof data['beginTime'] !== 'undefined') xData['begin_time'] = TypeTransformer.from('Date')(data['beginTime']);
-      if(typeof data['waitingTime'] !== 'undefined') xData['waiting_time'] = TypeTransformer.from('number')(data['waitingTime']);
-      if(typeof data['acdSessionHistoryId'] !== 'undefined') xData['acd_session_history_id'] = TypeTransformer.from('number')(data['acdSessionHistoryId']);
-      return xData;
-},
-    'ACDWaitingCallState': function(data){
-      const xData = {};
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
-      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
-      if(typeof data['userDisplayName'] !== 'undefined') xData['user_display_name'] = TypeTransformer.from('string')(data['userDisplayName']);
-      if(typeof data['priority'] !== 'undefined') xData['priority'] = TypeTransformer.from('number')(data['priority']);
-      if(typeof data['callerid'] !== 'undefined') xData['callerid'] = TypeTransformer.from('string')(data['callerid']);
-      if(typeof data['beginTime'] !== 'undefined') xData['begin_time'] = TypeTransformer.from('Date')(data['beginTime']);
-      if(typeof data['waitingTime'] !== 'undefined') xData['waiting_time'] = TypeTransformer.from('number')(data['waitingTime']);
-      if(typeof data['minutesToSubmit'] !== 'undefined') xData['minutes_to_submit'] = TypeTransformer.from('number')(data['minutesToSubmit']);
-      if(typeof data['acdSessionHistoryId'] !== 'undefined') xData['acd_session_history_id'] = TypeTransformer.from('number')(data['acdSessionHistoryId']);
-      return xData;
-},
-    'NewPhoneInfo': function(data){
-      const xData = {};
-      if(typeof data['phoneId'] !== 'undefined') xData['phone_id'] = TypeTransformer.from('number')(data['phoneId']);
-      if(typeof data['phoneNumber'] !== 'undefined') xData['phone_number'] = TypeTransformer.from('string')(data['phoneNumber']);
-      if(typeof data['phonePrice'] !== 'undefined') xData['phone_price'] = TypeTransformer.from('number')(data['phonePrice']);
-      if(typeof data['phoneInstallationPrice'] !== 'undefined') xData['phone_installation_price'] = TypeTransformer.from('number')(data['phoneInstallationPrice']);
-      if(typeof data['phoneCountryCode'] !== 'undefined') xData['phone_country_code'] = TypeTransformer.from('string')(data['phoneCountryCode']);
-      if(typeof data['phonePeriod'] !== 'undefined') xData['phone_period'] = TypeTransformer.from('string')(data['phonePeriod']);
-      if(typeof data['phoneCategoryName'] !== 'undefined') xData['phone_category_name'] = TypeTransformer.from('string')(data['phoneCategoryName']);
-      if(typeof data['phoneRegionName'] !== 'undefined') xData['phone_region_name'] = TypeTransformer.from('string')(data['phoneRegionName']);
-      return xData;
-},
-    'AttachedPhoneInfo': function(data){
-      const xData = {};
-      if(typeof data['phoneId'] !== 'undefined') xData['phone_id'] = TypeTransformer.from('number')(data['phoneId']);
-      if(typeof data['phoneNumber'] !== 'undefined') xData['phone_number'] = TypeTransformer.from('string')(data['phoneNumber']);
-      if(typeof data['phonePrice'] !== 'undefined') xData['phone_price'] = TypeTransformer.from('number')(data['phonePrice']);
-      if(typeof data['phoneCountryCode'] !== 'undefined') xData['phone_country_code'] = TypeTransformer.from('string')(data['phoneCountryCode']);
-      if(typeof data['phoneNextRenewal'] !== 'undefined') xData['phone_next_renewal'] = TypeTransformer.from('Date')(data['phoneNextRenewal']);
-      if(typeof data['phonePurchaseDate'] !== 'undefined') xData['phone_purchase_date'] = TypeTransformer.from('Date')(data['phonePurchaseDate']);
-      if(typeof data['deactivated'] !== 'undefined') xData['deactivated'] = TypeTransformer.from('boolean')(data['deactivated']);
-      if(typeof data['canceled'] !== 'undefined') xData['canceled'] = TypeTransformer.from('boolean')(data['canceled']);
-      if(typeof data['autoCharge'] !== 'undefined') xData['auto_charge'] = TypeTransformer.from('boolean')(data['autoCharge']);
-      if(typeof data['applicationId'] !== 'undefined') xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
-      if(typeof data['applicationName'] !== 'undefined') xData['application_name'] = TypeTransformer.from('string')(data['applicationName']);
-      if(typeof data['ruleId'] !== 'undefined') xData['rule_id'] = TypeTransformer.from('number')(data['ruleId']);
-      if(typeof data['ruleName'] !== 'undefined') xData['rule_name'] = TypeTransformer.from('string')(data['ruleName']);
-      if(typeof data['categoryName'] !== 'undefined') xData['category_name'] = TypeTransformer.from('string')(data['categoryName']);
-      if(typeof data['requiredVerification'] !== 'undefined') xData['required_verification'] = TypeTransformer.from('string')(data['requiredVerification']);
-      if(typeof data['verificationStatus'] !== 'undefined') xData['verification_status'] = TypeTransformer.from('string')(data['verificationStatus']);
-      if(typeof data['unverifiedHoldUntil'] !== 'undefined') xData['unverified_hold_until'] = TypeTransformer.from('Date')(data['unverifiedHoldUntil']);
-      if(typeof data['canBeUsed'] !== 'undefined') xData['can_be_used'] = TypeTransformer.from('boolean')(data['canBeUsed']);
-      if(typeof data['isSmsSupported'] !== 'undefined') xData['is_sms_supported'] = TypeTransformer.from('boolean')(data['isSmsSupported']);
-      if(typeof data['isSmsEnabled'] !== 'undefined') xData['is_sms_enabled'] = TypeTransformer.from('boolean')(data['isSmsEnabled']);
-      return xData;
-},
-    'NewAttachedPhoneInfo': function(data){
-      const xData = {};
-      if(typeof data['phoneId'] !== 'undefined') xData['phone_id'] = TypeTransformer.from('number')(data['phoneId']);
-      if(typeof data['phoneNumber'] !== 'undefined') xData['phone_number'] = TypeTransformer.from('string')(data['phoneNumber']);
-      if(typeof data['requiredVerification'] !== 'undefined') xData['required_verification'] = TypeTransformer.from('string')(data['requiredVerification']);
-      if(typeof data['verificationStatus'] !== 'undefined') xData['verification_status'] = TypeTransformer.from('string')(data['verificationStatus']);
-      if(typeof data['unverifiedHoldUntil'] !== 'undefined') xData['unverified_hold_until'] = TypeTransformer.from('Date')(data['unverifiedHoldUntil']);
-      return xData;
-},
-    'PhoneNumberCountryInfo': function(data){
-      const xData = {};
-      if(typeof data['countryCode'] !== 'undefined') xData['country_code'] = TypeTransformer.from('string')(data['countryCode']);
-      if(typeof data['phonePrefix'] !== 'undefined') xData['phone_prefix'] = TypeTransformer.from('string')(data['phonePrefix']);
-      if(typeof data['canListPhoneNumbers'] !== 'undefined') xData['can_list_phone_numbers'] = TypeTransformer.from('boolean')(data['canListPhoneNumbers']);
-      if(typeof data['phoneCategories'] !== 'undefined') xData['phone_categories'] = TypeTransformer.from('PhoneNumberCountryCategoryInfo[]')(data['phoneCategories']);
-      return xData;
-},
-    'PhoneNumberCountryCategoryInfo': function(data){
-      const xData = {};
-      if(typeof data['phoneCategoryName'] !== 'undefined') xData['phone_category_name'] = TypeTransformer.from('string')(data['phoneCategoryName']);
-      if(typeof data['countryHasStates'] !== 'undefined') xData['country_has_states'] = TypeTransformer.from('boolean')(data['countryHasStates']);
-      return xData;
-},
-    'PhoneNumberCountryStateInfo': function(data){
-      const xData = {};
-      if(typeof data['countryState'] !== 'undefined') xData['country_state'] = TypeTransformer.from('string')(data['countryState']);
-      if(typeof data['countryStateName'] !== 'undefined') xData['country_state_name'] = TypeTransformer.from('string')(data['countryStateName']);
-      return xData;
-},
-    'PhoneNumberCountryRegionInfo': function(data){
-      const xData = {};
-      if(typeof data['phoneRegionId'] !== 'undefined') xData['phone_region_id'] = TypeTransformer.from('number')(data['phoneRegionId']);
-      if(typeof data['phoneRegionName'] !== 'undefined') xData['phone_region_name'] = TypeTransformer.from('string')(data['phoneRegionName']);
-      if(typeof data['phoneRegionCode'] !== 'undefined') xData['phone_region_code'] = TypeTransformer.from('string')(data['phoneRegionCode']);
-      if(typeof data['phoneCount'] !== 'undefined') xData['phone_count'] = TypeTransformer.from('number')(data['phoneCount']);
-      if(typeof data['verificationStatus'] !== 'undefined') xData['verification_status'] = TypeTransformer.from('string')(data['verificationStatus']);
-      if(typeof data['requiredVerification'] !== 'undefined') xData['required_verification'] = TypeTransformer.from('string')(data['requiredVerification']);
-      if(typeof data['phonePrice'] !== 'undefined') xData['phone_price'] = TypeTransformer.from('number')(data['phonePrice']);
-      if(typeof data['phoneInstallationPrice'] !== 'undefined') xData['phone_installation_price'] = TypeTransformer.from('number')(data['phoneInstallationPrice']);
-      if(typeof data['phonePeriod'] !== 'undefined') xData['phone_period'] = TypeTransformer.from('string')(data['phonePeriod']);
-      if(typeof data['isNeedRegulationAddress'] !== 'undefined') xData['is_need_regulation_address'] = TypeTransformer.from('boolean')(data['isNeedRegulationAddress']);
-      if(typeof data['regulationAddressType'] !== 'undefined') xData['regulation_address_type'] = TypeTransformer.from('string')(data['regulationAddressType']);
-      if(typeof data['isSmsSupported'] !== 'undefined') xData['is_sms_supported'] = TypeTransformer.from('boolean')(data['isSmsSupported']);
-      if(typeof data['multipleNumbersPrice'] !== 'undefined') xData['multiple_numbers_price'] = TypeTransformer.from('MultipleNumbersPrice[]')(data['multipleNumbersPrice']);
-      return xData;
-},
-    'MultipleNumbersPrice': function(data){
-      const xData = {};
-      if(typeof data['count'] !== 'undefined') xData['count'] = TypeTransformer.from('number')(data['count']);
-      if(typeof data['price'] !== 'undefined') xData['price'] = TypeTransformer.from('number')(data['price']);
-      if(typeof data['installationPrice'] !== 'undefined') xData['installation_price'] = TypeTransformer.from('number')(data['installationPrice']);
-      return xData;
-},
-    'CallerIDInfo': function(data){
-      const xData = {};
-      if(typeof data['calleridId'] !== 'undefined') xData['callerid_id'] = TypeTransformer.from('number')(data['calleridId']);
-      if(typeof data['calleridNumber'] !== 'undefined') xData['callerid_number'] = TypeTransformer.from('string')(data['calleridNumber']);
-      if(typeof data['active'] !== 'undefined') xData['active'] = TypeTransformer.from('boolean')(data['active']);
-      if(typeof data['codeEnteringAttemptsLeft'] !== 'undefined') xData['code_entering_attempts_left'] = TypeTransformer.from('number')(data['codeEnteringAttemptsLeft']);
-      if(typeof data['verificationCallAttemptsLeft'] !== 'undefined') xData['verification_call_attempts_left'] = TypeTransformer.from('number')(data['verificationCallAttemptsLeft']);
-      if(typeof data['verifiedUntil'] !== 'undefined') xData['verified_until'] = TypeTransformer.from('Date')(data['verifiedUntil']);
-      return xData;
-},
-    'ContactInfo': function(data){
-      const xData = {};
-      if(typeof data['contactId'] !== 'undefined') xData['contact_id'] = TypeTransformer.from('number')(data['contactId']);
-      if(typeof data['contactType'] !== 'undefined') xData['contact_type'] = TypeTransformer.from('string')(data['contactType']);
-      if(typeof data['contactData'] !== 'undefined') xData['contact_data'] = TypeTransformer.from('string')(data['contactData']);
-      if(typeof data['isPersistent'] !== 'undefined') xData['is_persistent'] = TypeTransformer.from('boolean')(data['isPersistent']);
-      if(typeof data['description'] !== 'undefined') xData['description'] = TypeTransformer.from('string')(data['description']);
-      if(typeof data['nextVerificationAfterSec'] !== 'undefined') xData['next_verification_after_sec'] = TypeTransformer.from('number')(data['nextVerificationAfterSec']);
-      if(typeof data['verified'] !== 'undefined') xData['verified'] = TypeTransformer.from('Date')(data['verified']);
-      if(typeof data['notificationGroup'] !== 'undefined') xData['notification_group'] = TypeTransformer.from('string[]')(data['notificationGroup']);
-      if(typeof data['created'] !== 'undefined') xData['created'] = TypeTransformer.from('Date')(data['created']);
-      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
-      return xData;
-},
-    'ACDQueueOperatorInfo': function(data){
-      const xData = {};
-      if(typeof data['acdQueueId'] !== 'undefined') xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
-      if(typeof data['acdQueueName'] !== 'undefined') xData['acd_queue_name'] = TypeTransformer.from('string')(data['acdQueueName']);
-      if(typeof data['autoLink'] !== 'undefined') xData['auto_link'] = TypeTransformer.from('boolean')(data['autoLink']);
-      return xData;
-},
-    'ClonedACDQueue': function(data){
-      const xData = {};
-      if(typeof data['acdQueueId'] !== 'undefined') xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
-      if(typeof data['acdQueueName'] !== 'undefined') xData['acd_queue_name'] = TypeTransformer.from('string')(data['acdQueueName']);
-      return xData;
-},
-    'SkillInfo': function(data){
-      const xData = {};
-      if(typeof data['skillId'] !== 'undefined') xData['skill_id'] = TypeTransformer.from('number')(data['skillId']);
-      if(typeof data['skillName'] !== 'undefined') xData['skill_name'] = TypeTransformer.from('string')(data['skillName']);
-      return xData;
-},
-    'ClonedACDSkill': function(data){
-      const xData = {};
-      if(typeof data['skillId'] !== 'undefined') xData['skill_id'] = TypeTransformer.from('number')(data['skillId']);
-      if(typeof data['skillName'] !== 'undefined') xData['skill_name'] = TypeTransformer.from('string')(data['skillName']);
-      return xData;
-},
-    'ExchangeRates': function(data){
-      const xData = {};
-      if(typeof data['RUR'] !== 'undefined') xData['RUR'] = TypeTransformer.from('number')(data['RUR']);
-      if(typeof data['EUR'] !== 'undefined') xData['EUR'] = TypeTransformer.from('number')(data['EUR']);
-      if(typeof data['USD'] !== 'undefined') xData['USD'] = TypeTransformer.from('number')(data['USD']);
-      return xData;
-},
-    'ResourcePrice': function(data){
-      const xData = {};
-      if(typeof data['resourceType'] !== 'undefined') xData['resource_type'] = TypeTransformer.from('string')(data['resourceType']);
-      if(typeof data['priceGroups'] !== 'undefined') xData['price_groups'] = TypeTransformer.from('PriceGroup[]')(data['priceGroups']);
-      return xData;
-},
-    'PriceGroup': function(data){
-      const xData = {};
-      if(typeof data['priceGroupName'] !== 'undefined') xData['price_group_name'] = TypeTransformer.from('string')(data['priceGroupName']);
-      if(typeof data['priceGroupId'] !== 'undefined') xData['price_group_id'] = TypeTransformer.from('number')(data['priceGroupId']);
-      if(typeof data['price'] !== 'undefined') xData['price'] = TypeTransformer.from('number')(data['price']);
-      if(typeof data['numResourcesPerPrice'] !== 'undefined') xData['num_resources_per_price'] = TypeTransformer.from('number')(data['numResourcesPerPrice']);
-      if(typeof data['quantum'] !== 'undefined') xData['quantum'] = TypeTransformer.from('number')(data['quantum']);
-      if(typeof data['params'] !== 'undefined') xData['params'] = TypeTransformer.from('ResourceParams')(data['params']);
-      return xData;
-},
-    'ResourceParams': function(data){
-      const xData = {};
-      if(typeof data['allowed'] !== 'undefined') xData['allowed'] = TypeTransformer.from('string[]')(data['allowed']);
-      if(typeof data['forbidden'] !== 'undefined') xData['forbidden'] = TypeTransformer.from('string[]')(data['forbidden']);
-      if(typeof data['requested'] !== 'undefined') xData['requested'] = TypeTransformer.from('string[]')(data['requested']);
-      return xData;
-},
-    'CallList': function(data){
-      const xData = {};
-      if(typeof data['listId'] !== 'undefined') xData['list_id'] = TypeTransformer.from('number')(data['listId']);
-      if(typeof data['listName'] !== 'undefined') xData['list_name'] = TypeTransformer.from('string')(data['listName']);
-      if(typeof data['priority'] !== 'undefined') xData['priority'] = TypeTransformer.from('number')(data['priority']);
-      if(typeof data['ruleId'] !== 'undefined') xData['rule_id'] = TypeTransformer.from('number')(data['ruleId']);
-      if(typeof data['maxSimultaneous'] !== 'undefined') xData['max_simultaneous'] = TypeTransformer.from('number')(data['maxSimultaneous']);
-      if(typeof data['numAttempts'] !== 'undefined') xData['num_attempts'] = TypeTransformer.from('number')(data['numAttempts']);
-      if(typeof data['dtSubmit'] !== 'undefined') xData['dt_submit'] = TypeTransformer.from('Date')(data['dtSubmit']);
-      if(typeof data['dtComplete'] !== 'undefined') xData['dt_complete'] = TypeTransformer.from('Date')(data['dtComplete']);
-      if(typeof data['intervalSeconds'] !== 'undefined') xData['interval_seconds'] = TypeTransformer.from('number')(data['intervalSeconds']);
-      if(typeof data['status'] !== 'undefined') xData['status'] = TypeTransformer.from('string')(data['status']);
-      return xData;
-},
-    'CallListDetail': function(data){
-      const xData = {};
-      if(typeof data['listId'] !== 'undefined') xData['list_id'] = TypeTransformer.from('number')(data['listId']);
-      if(typeof data['customData'] !== 'undefined') xData['custom_data'] = TypeTransformer.from('string')(data['customData']);
-      if(typeof data['startExecutionTime'] !== 'undefined') xData['start_execution_time'] = TypeTransformer.from('string')(data['startExecutionTime']);
-      if(typeof data['finishExecutionTime'] !== 'undefined') xData['finish_execution_time'] = TypeTransformer.from('string')(data['finishExecutionTime']);
-      if(typeof data['resultData'] !== 'undefined') xData['result_data'] = TypeTransformer.from('string')(data['resultData']);
-      if(typeof data['lastAttempt'] !== 'undefined') xData['last_attempt'] = TypeTransformer.from('string')(data['lastAttempt']);
-      if(typeof data['attmeptsLeft'] !== 'undefined') xData['attmepts_left'] = TypeTransformer.from('number')(data['attmeptsLeft']);
-      if(typeof data['statusId'] !== 'undefined') xData['status_id'] = TypeTransformer.from('number')(data['statusId']);
-      if(typeof data['status'] !== 'undefined') xData['status'] = TypeTransformer.from('string')(data['status']);
-      return xData;
-},
-    'SIPRegistration': function(data){
-      const xData = {};
-      if(typeof data['sipRegistrationId'] !== 'undefined') xData['sip_registration_id'] = TypeTransformer.from('number')(data['sipRegistrationId']);
-      if(typeof data['sipUsername'] !== 'undefined') xData['sip_username'] = TypeTransformer.from('string')(data['sipUsername']);
-      if(typeof data['proxy'] !== 'undefined') xData['proxy'] = TypeTransformer.from('string')(data['proxy']);
-      if(typeof data['lastUpdated'] !== 'undefined') xData['last_updated'] = TypeTransformer.from('number')(data['lastUpdated']);
-      if(typeof data['authUser'] !== 'undefined') xData['auth_user'] = TypeTransformer.from('string')(data['authUser']);
-      if(typeof data['outboundProxy'] !== 'undefined') xData['outbound_proxy'] = TypeTransformer.from('string')(data['outboundProxy']);
-      if(typeof data['successful'] !== 'undefined') xData['successful'] = TypeTransformer.from('boolean')(data['successful']);
-      if(typeof data['statusCode'] !== 'undefined') xData['status_code'] = TypeTransformer.from('number')(data['statusCode']);
-      if(typeof data['errorMessage'] !== 'undefined') xData['error_message'] = TypeTransformer.from('string')(data['errorMessage']);
-      if(typeof data['deactivated'] !== 'undefined') xData['deactivated'] = TypeTransformer.from('boolean')(data['deactivated']);
-      if(typeof data['nextSubscriptionRenewal'] !== 'undefined') xData['next_subscription_renewal'] = TypeTransformer.from('Date')(data['nextSubscriptionRenewal']);
-      if(typeof data['purchaseDate'] !== 'undefined') xData['purchase_date'] = TypeTransformer.from('Date')(data['purchaseDate']);
-      if(typeof data['subscriptionPrice'] !== 'undefined') xData['subscription_price'] = TypeTransformer.from('string')(data['subscriptionPrice']);
-      if(typeof data['isPersistent'] !== 'undefined') xData['is_persistent'] = TypeTransformer.from('boolean')(data['isPersistent']);
-      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
-      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
-      if(typeof data['applicationId'] !== 'undefined') xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
-      if(typeof data['applicationName'] !== 'undefined') xData['application_name'] = TypeTransformer.from('string')(data['applicationName']);
-      if(typeof data['ruleId'] !== 'undefined') xData['rule_id'] = TypeTransformer.from('number')(data['ruleId']);
-      if(typeof data['ruleName'] !== 'undefined') xData['rule_name'] = TypeTransformer.from('string')(data['ruleName']);
-      return xData;
-},
-    'AdminRole': function(data){
-      const xData = {};
-      if(typeof data['adminRoleId'] !== 'undefined') xData['admin_role_id'] = TypeTransformer.from('number')(data['adminRoleId']);
-      if(typeof data['adminRoleName'] !== 'undefined') xData['admin_role_name'] = TypeTransformer.from('string')(data['adminRoleName']);
-      if(typeof data['adminRoleActive'] !== 'undefined') xData['admin_role_active'] = TypeTransformer.from('boolean')(data['adminRoleActive']);
-      if(typeof data['systemRole'] !== 'undefined') xData['system_role'] = TypeTransformer.from('boolean')(data['systemRole']);
-      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
-      if(typeof data['allowedEntries'] !== 'undefined') xData['allowed_entries'] = TypeTransformer.from('string[]')(data['allowedEntries']);
-      if(typeof data['deniedEntries'] !== 'undefined') xData['denied_entries'] = TypeTransformer.from('string[]')(data['deniedEntries']);
-      return xData;
-},
-    'ClonedAdminRole': function(data){
-      const xData = {};
-      if(typeof data['adminRoleId'] !== 'undefined') xData['admin_role_id'] = TypeTransformer.from('number')(data['adminRoleId']);
-      if(typeof data['adminRoleName'] !== 'undefined') xData['admin_role_name'] = TypeTransformer.from('string')(data['adminRoleName']);
-      return xData;
-},
-    'AdminUser': function(data){
-      const xData = {};
-      if(typeof data['adminUserId'] !== 'undefined') xData['admin_user_id'] = TypeTransformer.from('number')(data['adminUserId']);
-      if(typeof data['adminUserName'] !== 'undefined') xData['admin_user_name'] = TypeTransformer.from('string')(data['adminUserName']);
-      if(typeof data['adminUserDisplayName'] !== 'undefined') xData['admin_user_display_name'] = TypeTransformer.from('string')(data['adminUserDisplayName']);
-      if(typeof data['adminUserActive'] !== 'undefined') xData['admin_user_active'] = TypeTransformer.from('boolean')(data['adminUserActive']);
-      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
-      if(typeof data['accessEntries'] !== 'undefined') xData['access_entries'] = TypeTransformer.from('string[]')(data['accessEntries']);
-      if(typeof data['adminRoles'] !== 'undefined') xData['admin_roles'] = TypeTransformer.from('AdminRole[]')(data['adminRoles']);
-      return xData;
-},
-    'ClonedAdminUser': function(data){
-      const xData = {};
-      if(typeof data['adminUserId'] !== 'undefined') xData['admin_user_id'] = TypeTransformer.from('number')(data['adminUserId']);
-      if(typeof data['adminUserName'] !== 'undefined') xData['admin_user_name'] = TypeTransformer.from('string')(data['adminUserName']);
-      if(typeof data['adminUserApiKey'] !== 'undefined') xData['admin_user_api_key'] = TypeTransformer.from('string')(data['adminUserApiKey']);
-      return xData;
-},
-    'GetMoneyAmountToChargeResult': function(data){
-      const xData = {};
-      if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.from('number')(data['amount']);
-      if(typeof data['minAmount'] !== 'undefined') xData['min_amount'] = TypeTransformer.from('number')(data['minAmount']);
-      if(typeof data['bankCardAmountUsd'] !== 'undefined') xData['bank_card_amount_usd'] = TypeTransformer.from('number')(data['bankCardAmountUsd']);
-      if(typeof data['minBankCardAmountUsd'] !== 'undefined') xData['min_bank_card_amount_usd'] = TypeTransformer.from('number')(data['minBankCardAmountUsd']);
-      if(typeof data['robokassaAmountRub'] !== 'undefined') xData['robokassa_amount_rub'] = TypeTransformer.from('number')(data['robokassaAmountRub']);
-      if(typeof data['minRobokassaAmountRub'] !== 'undefined') xData['min_robokassa_amount_rub'] = TypeTransformer.from('number')(data['minRobokassaAmountRub']);
-      if(typeof data['subscriptions'] !== 'undefined') xData['subscriptions'] = TypeTransformer.from('SubscriptionsToCharge[]')(data['subscriptions']);
-      return xData;
-},
-    'ChargeAccountResult': function(data){
-      const xData = {};
-      if(typeof data['chargedAmount'] !== 'undefined') xData['charged_amount'] = TypeTransformer.from('number')(data['chargedAmount']);
-      if(typeof data['phones'] !== 'undefined') xData['phones'] = TypeTransformer.from('ChargedPhone[]')(data['phones']);
-      return xData;
-},
-    'ChargedPhone': function(data){
-      const xData = {};
-      if(typeof data['phoneId'] !== 'undefined') xData['phone_id'] = TypeTransformer.from('number')(data['phoneId']);
-      if(typeof data['phoneNumber'] !== 'undefined') xData['phone_number'] = TypeTransformer.from('string')(data['phoneNumber']);
-      if(typeof data['deactivated'] !== 'undefined') xData['deactivated'] = TypeTransformer.from('boolean')(data['deactivated']);
-      if(typeof data['isCharged'] !== 'undefined') xData['is_charged'] = TypeTransformer.from('boolean')(data['isCharged']);
-      return xData;
-},
-    'SubscriptionsToCharge': function(data){
-      const xData = {};
-      if(typeof data['subscriptionAmount'] !== 'undefined') xData['subscription_amount'] = TypeTransformer.from('number')(data['subscriptionAmount']);
-      if(typeof data['subscriptionType'] !== 'undefined') xData['subscription_type'] = TypeTransformer.from('string')(data['subscriptionType']);
-      if(typeof data['subscriptionDescription'] !== 'undefined') xData['subscription_description'] = TypeTransformer.from('string')(data['subscriptionDescription']);
-      if(typeof data['subscriptionAutoCharge'] !== 'undefined') xData['subscription_auto_charge'] = TypeTransformer.from('boolean')(data['subscriptionAutoCharge']);
-      if(typeof data['subscriptionNextRenewal'] !== 'undefined') xData['subscription_next_renewal'] = TypeTransformer.from('Date')(data['subscriptionNextRenewal']);
-      return xData;
-},
-    'AuthorizedAccountIP': function(data){
-      const xData = {};
-      if(typeof data['authorizedIp'] !== 'undefined') xData['authorized_ip'] = TypeTransformer.from('string')(data['authorizedIp']);
-      if(typeof data['allowed'] !== 'undefined') xData['allowed'] = TypeTransformer.from('boolean')(data['allowed']);
-      if(typeof data['created'] !== 'undefined') xData['created'] = TypeTransformer.from('Date')(data['created']);
-      return xData;
-},
-    'AccountVerificationDocument': function(data){
-      const xData = {};
-      if(typeof data['accountDocumentId'] !== 'undefined') xData['account_document_id'] = TypeTransformer.from('number')(data['accountDocumentId']);
-      if(typeof data['isIndividual'] !== 'undefined') xData['is_individual'] = TypeTransformer.from('boolean')(data['isIndividual']);
-      if(typeof data['comment'] !== 'undefined') xData['comment'] = TypeTransformer.from('string')(data['comment']);
-      if(typeof data['uploaded'] !== 'undefined') xData['uploaded'] = TypeTransformer.from('Date')(data['uploaded']);
-      if(typeof data['accountDocumentStatus'] !== 'undefined') xData['account_document_status'] = TypeTransformer.from('string')(data['accountDocumentStatus']);
-      return xData;
-},
-    'AccountVerification': function(data){
-      const xData = {};
-      if(typeof data['verificationName'] !== 'undefined') xData['verification_name'] = TypeTransformer.from('string')(data['verificationName']);
-      if(typeof data['verificationStatus'] !== 'undefined') xData['verification_status'] = TypeTransformer.from('string')(data['verificationStatus']);
-      if(typeof data['unverifiedHoldUntil'] !== 'undefined') xData['unverified_hold_until'] = TypeTransformer.from('Date')(data['unverifiedHoldUntil']);
-      if(typeof data['documents'] !== 'undefined') xData['documents'] = TypeTransformer.from('AccountVerificationDocument[]')(data['documents']);
-      return xData;
-},
-    'AccountVerifications': function(data){
-      const xData = {};
-      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
-      if(typeof data['verifications'] !== 'undefined') xData['verifications'] = TypeTransformer.from('AccountVerification[]')(data['verifications']);
-      return xData;
-},
-    'SubscriptionTemplate': function(data){
-      const xData = {};
-      if(typeof data['subscriptionTemplateId'] !== 'undefined') xData['subscription_template_id'] = TypeTransformer.from('number')(data['subscriptionTemplateId']);
-      if(typeof data['installationPrice'] !== 'undefined') xData['installation_price'] = TypeTransformer.from('number')(data['installationPrice']);
-      if(typeof data['period'] !== 'undefined') xData['period'] = TypeTransformer.from('string')(data['period']);
-      if(typeof data['subscriptionTemplateType'] !== 'undefined') xData['subscription_template_type'] = TypeTransformer.from('string')(data['subscriptionTemplateType']);
-      if(typeof data['subscriptionTemplateName'] !== 'undefined') xData['subscription_template_name'] = TypeTransformer.from('string')(data['subscriptionTemplateName']);
-      return xData;
-},
-    'AccountCallbacks': function(data){
-      const xData = {};
-      if(typeof data['callbacks'] !== 'undefined') xData['callbacks'] = TypeTransformer.from('AccountCallback[]')(data['callbacks']);
-      return xData;
-},
-    'AccountCallback': function(data){
-      const xData = {};
-      if(typeof data['callbackId'] !== 'undefined') xData['callback_id'] = TypeTransformer.from('number')(data['callbackId']);
-      if(typeof data['type'] !== 'undefined') xData['type'] = TypeTransformer.from('string')(data['type']);
-      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
-      if(typeof data['hash'] !== 'undefined') xData['hash'] = TypeTransformer.from('string')(data['hash']);
-      if(typeof data['accountName'] !== 'undefined') xData['account_name'] = TypeTransformer.from('string')(data['accountName']);
-      if(typeof data['accountEmail'] !== 'undefined') xData['account_email'] = TypeTransformer.from('string')(data['accountEmail']);
-      if(typeof data['languageCode'] !== 'undefined') xData['language_code'] = TypeTransformer.from('string')(data['languageCode']);
-      if(typeof data['accountFirstName'] !== 'undefined') xData['account_first_name'] = TypeTransformer.from('string')(data['accountFirstName']);
-      if(typeof data['accountLastName'] !== 'undefined') xData['account_last_name'] = TypeTransformer.from('string')(data['accountLastName']);
-      if(typeof data['balance'] !== 'undefined') xData['balance'] = TypeTransformer.from('number')(data['balance']);
-      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
-      if(typeof data['accountDocumentUploaded'] !== 'undefined') xData['account_document_uploaded'] = TypeTransformer.from('AccountDocumentUploadedCallback')(data['accountDocumentUploaded']);
-      if(typeof data['regulationAddressUploaded'] !== 'undefined') xData['regulation_address_uploaded'] = TypeTransformer.from('RegulationAddressUploadedCallback')(data['regulationAddressUploaded']);
-      if(typeof data['accountDocumentVerified'] !== 'undefined') xData['account_document_verified'] = TypeTransformer.from('AccountDocumentVerifiedCallback')(data['accountDocumentVerified']);
-      if(typeof data['accountIsFrozen'] !== 'undefined') xData['account_is_frozen'] = TypeTransformer.from('AccountIsFrozenCallback')(data['accountIsFrozen']);
-      if(typeof data['accountIsUnfrozen'] !== 'undefined') xData['account_is_unfrozen'] = TypeTransformer.from('AccountIsUnfrozenCallback')(data['accountIsUnfrozen']);
-      if(typeof data['activateSuccessful'] !== 'undefined') xData['activate_successful'] = TypeTransformer.from('ActivateSuccessfulCallback')(data['activateSuccessful']);
-      if(typeof data['callHistoryReport'] !== 'undefined') xData['call_history_report'] = TypeTransformer.from('CallHistoryReportCallback')(data['callHistoryReport']);
-      if(typeof data['cardExpired'] !== 'undefined') xData['card_expired'] = TypeTransformer.from('CardExpiredCallback')(data['cardExpired']);
-      if(typeof data['cardExpiresInMonth'] !== 'undefined') xData['card_expires_in_month'] = TypeTransformer.from('CardExpiresInMonthCallback')(data['cardExpiresInMonth']);
-      if(typeof data['cardPayment'] !== 'undefined') xData['card_payment'] = TypeTransformer.from('CardPaymentCallback')(data['cardPayment']);
-      if(typeof data['cardPaymentFailed'] !== 'undefined') xData['card_payment_failed'] = TypeTransformer.from('CardPaymentFailedCallback')(data['cardPaymentFailed']);
-      if(typeof data['robokassaPayment'] !== 'undefined') xData['robokassa_payment'] = TypeTransformer.from('RobokassaPaymentCallback')(data['robokassaPayment']);
-      if(typeof data['wireTransfer'] !== 'undefined') xData['wire_transfer'] = TypeTransformer.from('WireTransferCallback')(data['wireTransfer']);
-      if(typeof data['jsFail'] !== 'undefined') xData['js_fail'] = TypeTransformer.from('JSFailCallback')(data['jsFail']);
-      if(typeof data['minBalance'] !== 'undefined') xData['min_balance'] = TypeTransformer.from('MinBalanceCallback')(data['minBalance']);
-      if(typeof data['regulationAddressVerified'] !== 'undefined') xData['regulation_address_verified'] = TypeTransformer.from('RegulationAddressVerifiedCallback')(data['regulationAddressVerified']);
-      if(typeof data['renewedSubscriptions'] !== 'undefined') xData['renewed_subscriptions'] = TypeTransformer.from('RenewedSubscriptionsCallback')(data['renewedSubscriptions']);
-      if(typeof data['resetAccountPasswordRequest'] !== 'undefined') xData['reset_account_password_request'] = TypeTransformer.from('ResetAccountPasswordRequestCallback')(data['resetAccountPasswordRequest']);
-      if(typeof data['sipRegistrationFail'] !== 'undefined') xData['sip_registration_fail'] = TypeTransformer.from('SIPRegistrationFailCallback')(data['sipRegistrationFail']);
-      if(typeof data['stagnantAccount'] !== 'undefined') xData['stagnant_account'] = TypeTransformer.from('StagnantAccountCallback')(data['stagnantAccount']);
-      if(typeof data['subscriptionIsFrozen'] !== 'undefined') xData['subscription_is_frozen'] = TypeTransformer.from('SubscriptionIsFrozenCallback')(data['subscriptionIsFrozen']);
-      if(typeof data['subscriptionIsDetached'] !== 'undefined') xData['subscription_is_detached'] = TypeTransformer.from('SubscriptionIsDetachedCallback')(data['subscriptionIsDetached']);
-      if(typeof data['transactionHistoryReport'] !== 'undefined') xData['transaction_history_report'] = TypeTransformer.from('TransactionHistoryReportCallback')(data['transactionHistoryReport']);
-      if(typeof data['planConfig'] !== 'undefined') xData['plan_config'] = TypeTransformer.from('PlanConfigCallback')(data['planConfig']);
-      if(typeof data['unverifiedSubscriptionDetached'] !== 'undefined') xData['unverified_subscription_detached'] = TypeTransformer.from('UnverifiedSubscriptionDetachedCallback')(data['unverifiedSubscriptionDetached']);
-      if(typeof data['expiringCallerid'] !== 'undefined') xData['expiring_callerid'] = TypeTransformer.from('ExpiringCallerIDCallback')(data['expiringCallerid']);
-      if(typeof data['transcriptionComplete'] !== 'undefined') xData['transcription_complete'] = TypeTransformer.from('TranscriptionCompleteCallback')(data['transcriptionComplete']);
-      if(typeof data['smsInbound'] !== 'undefined') xData['sms_inbound'] = TypeTransformer.from('InboundSmsCallback')(data['smsInbound']);
-      if(typeof data['newInvoice'] !== 'undefined') xData['new_invoice'] = TypeTransformer.from('NewInvoiceCallback')(data['newInvoice']);
-      return xData;
-},
-    'AccountDocumentUploadedCallback': function(data){
-      const xData = {};
-      if(typeof data['accountDocumentId'] !== 'undefined') xData['account_document_id'] = TypeTransformer.from('number')(data['accountDocumentId']);
-      if(typeof data['uploaded'] !== 'undefined') xData['uploaded'] = TypeTransformer.from('Date')(data['uploaded']);
-      if(typeof data['isIndividual'] !== 'undefined') xData['is_individual'] = TypeTransformer.from('boolean')(data['isIndividual']);
-      if(typeof data['verificationName'] !== 'undefined') xData['verification_name'] = TypeTransformer.from('string')(data['verificationName']);
-      return xData;
-},
-    'RegulationAddressUploadedCallback': function(data){
-      const xData = {};
-      if(typeof data['regulationAddressId'] !== 'undefined') xData['regulation_address_id'] = TypeTransformer.from('number')(data['regulationAddressId']);
-      if(typeof data['uploaded'] !== 'undefined') xData['uploaded'] = TypeTransformer.from('Date')(data['uploaded']);
-      if(typeof data['isIndividual'] !== 'undefined') xData['is_individual'] = TypeTransformer.from('boolean')(data['isIndividual']);
-      if(typeof data['regulationAddressName'] !== 'undefined') xData['regulation_address_name'] = TypeTransformer.from('string')(data['regulationAddressName']);
-      return xData;
-},
-    'AccountDocumentVerifiedCallback': function(data){
-      const xData = {};
-      if(typeof data['accountDocumentId'] !== 'undefined') xData['account_document_id'] = TypeTransformer.from('number')(data['accountDocumentId']);
-      if(typeof data['accountDocumentStatus'] !== 'undefined') xData['account_document_status'] = TypeTransformer.from('string')(data['accountDocumentStatus']);
-      if(typeof data['uploaded'] !== 'undefined') xData['uploaded'] = TypeTransformer.from('Date')(data['uploaded']);
-      if(typeof data['isIndividual'] !== 'undefined') xData['is_individual'] = TypeTransformer.from('boolean')(data['isIndividual']);
-      if(typeof data['comment'] !== 'undefined') xData['comment'] = TypeTransformer.from('string')(data['comment']);
-      if(typeof data['verificationName'] !== 'undefined') xData['verification_name'] = TypeTransformer.from('string')(data['verificationName']);
-      return xData;
-},
-    'AccountIsFrozenCallback': function(data){
-      const xData = {};
-      
-      return xData;
-},
-    'AccountIsUnfrozenCallback': function(data){
-      const xData = {};
-      
-      return xData;
-},
-    'ActivateSuccessfulCallback': function(data){
-      const xData = {};
-      
-      return xData;
-},
-    'CallHistoryReportCallback': function(data){
-      const xData = {};
-      if(typeof data['historyReportId'] !== 'undefined') xData['history_report_id'] = TypeTransformer.from('number')(data['historyReportId']);
-      if(typeof data['success'] !== 'undefined') xData['success'] = TypeTransformer.from('boolean')(data['success']);
-      if(typeof data['orderDate'] !== 'undefined') xData['order_date'] = TypeTransformer.from('Date')(data['orderDate']);
-      return xData;
-},
-    'CardExpiredCallback': function(data){
-      const xData = {};
-      
-      return xData;
-},
-    'CardExpiresInMonthCallback': function(data){
-      const xData = {};
-      
-      return xData;
-},
-    'CardPaymentCallback': function(data){
-      const xData = {};
-      if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
-      if(typeof data['transactionType'] !== 'undefined') xData['transaction_type'] = TypeTransformer.from('string')(data['transactionType']);
-      if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.from('number')(data['amount']);
-      return xData;
-},
-    'CardPaymentFailedCallback': function(data){
-      const xData = {};
-      
-      return xData;
-},
-    'RobokassaPaymentCallback': function(data){
-      const xData = {};
-      if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
-      if(typeof data['transactionType'] !== 'undefined') xData['transaction_type'] = TypeTransformer.from('string')(data['transactionType']);
-      if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.from('number')(data['amount']);
-      return xData;
-},
-    'WireTransferCallback': function(data){
-      const xData = {};
-      if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
-      if(typeof data['transactionType'] !== 'undefined') xData['transaction_type'] = TypeTransformer.from('string')(data['transactionType']);
-      if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.from('number')(data['amount']);
-      return xData;
-},
-    'JSFailCallback': function(data){
-      const xData = {};
-      
-      return xData;
-},
-    'MinBalanceCallback': function(data){
-      const xData = {};
-      if(typeof data['isMinCredit'] !== 'undefined') xData['is_min_credit'] = TypeTransformer.from('boolean')(data['isMinCredit']);
-      if(typeof data['isRepeated'] !== 'undefined') xData['is_repeated'] = TypeTransformer.from('boolean')(data['isRepeated']);
-      return xData;
-},
-    'RegulationAddressVerifiedCallback': function(data){
-      const xData = {};
-      if(typeof data['regulationAddressId'] !== 'undefined') xData['regulation_address_id'] = TypeTransformer.from('number')(data['regulationAddressId']);
-      if(typeof data['regulationAddressStatus'] !== 'undefined') xData['regulation_address_status'] = TypeTransformer.from('string')(data['regulationAddressStatus']);
-      if(typeof data['uploaded'] !== 'undefined') xData['uploaded'] = TypeTransformer.from('Date')(data['uploaded']);
-      if(typeof data['isIndividual'] !== 'undefined') xData['is_individual'] = TypeTransformer.from('boolean')(data['isIndividual']);
-      if(typeof data['comment'] !== 'undefined') xData['comment'] = TypeTransformer.from('string')(data['comment']);
-      if(typeof data['regulationAddressName'] !== 'undefined') xData['regulation_address_name'] = TypeTransformer.from('string')(data['regulationAddressName']);
-      return xData;
-},
-    'RenewedSubscriptionsCallback': function(data){
-      const xData = {};
-      if(typeof data['subscriptions'] !== 'undefined') xData['subscriptions'] = TypeTransformer.from('RenewedSubscriptionsCallbackItem[]')(data['subscriptions']);
-      return xData;
-},
-    'RenewedSubscriptionsCallbackItem': function(data){
-      const xData = {};
-      if(typeof data['type'] !== 'undefined') xData['type'] = TypeTransformer.from('string')(data['type']);
-      if(typeof data['name'] !== 'undefined') xData['name'] = TypeTransformer.from('string')(data['name']);
-      if(typeof data['cost'] !== 'undefined') xData['cost'] = TypeTransformer.from('number')(data['cost']);
-      if(typeof data['nextRenewal'] !== 'undefined') xData['next_renewal'] = TypeTransformer.from('Date')(data['nextRenewal']);
-      return xData;
-},
-    'ResetAccountPasswordRequestCallback': function(data){
-      const xData = {};
-      
-      return xData;
-},
-    'SIPRegistrationFailCallback': function(data){
-      const xData = {};
-      if(typeof data['sipRegistrationId'] !== 'undefined') xData['sip_registration_id'] = TypeTransformer.from('number')(data['sipRegistrationId']);
-      return xData;
-},
-    'SubscriptionIsDetachedCallback': function(data){
-      const xData = {};
-      if(typeof data['subscriptions'] !== 'undefined') xData['subscriptions'] = TypeTransformer.from('SubscriptionIsDetachedCallbackItem[]')(data['subscriptions']);
-      return xData;
-},
-    'SubscriptionIsDetachedCallbackItem': function(data){
-      const xData = {};
-      if(typeof data['type'] !== 'undefined') xData['type'] = TypeTransformer.from('string')(data['type']);
-      if(typeof data['name'] !== 'undefined') xData['name'] = TypeTransformer.from('string')(data['name']);
-      return xData;
-},
-    'SubscriptionIsFrozenCallback': function(data){
-      const xData = {};
-      if(typeof data['subscriptions'] !== 'undefined') xData['subscriptions'] = TypeTransformer.from('SubscriptionIsFrozenCallbackItem[]')(data['subscriptions']);
-      return xData;
-},
-    'SubscriptionIsFrozenCallbackItem': function(data){
-      const xData = {};
-      if(typeof data['type'] !== 'undefined') xData['type'] = TypeTransformer.from('string')(data['type']);
-      if(typeof data['name'] !== 'undefined') xData['name'] = TypeTransformer.from('string')(data['name']);
-      if(typeof data['cost'] !== 'undefined') xData['cost'] = TypeTransformer.from('number')(data['cost']);
-      return xData;
-},
-    'StagnantAccountCallback': function(data){
-      const xData = {};
-      
-      return xData;
-},
-    'TransactionHistoryReportCallback': function(data){
-      const xData = {};
-      if(typeof data['historyReportId'] !== 'undefined') xData['history_report_id'] = TypeTransformer.from('number')(data['historyReportId']);
-      if(typeof data['success'] !== 'undefined') xData['success'] = TypeTransformer.from('boolean')(data['success']);
-      if(typeof data['orderDate'] !== 'undefined') xData['order_date'] = TypeTransformer.from('Date')(data['orderDate']);
-      return xData;
-},
-    'PlanConfigCallback': function(data){
-      const xData = {};
-      if(typeof data['planType'] !== 'undefined') xData['plan_type'] = TypeTransformer.from('string')(data['planType']);
-      if(typeof data['planName'] !== 'undefined') xData['plan_name'] = TypeTransformer.from('string')(data['planName']);
-      if(typeof data['packages'] !== 'undefined') xData['packages'] = TypeTransformer.from('PlanPackageConfig[]')(data['packages']);
-      return xData;
-},
-    'PlanPackageConfig': function(data){
-      const xData = {};
-      if(typeof data['priceGroupId'] !== 'undefined') xData['price_group_id'] = TypeTransformer.from('number[]')(data['priceGroupId']);
-      if(typeof data['packageName'] !== 'undefined') xData['package_name'] = TypeTransformer.from('string')(data['packageName']);
-      if(typeof data['packageUuid'] !== 'undefined') xData['package_uuid'] = TypeTransformer.from('string')(data['packageUuid']);
-      if(typeof data['mayOverrun'] !== 'undefined') xData['may_overrun'] = TypeTransformer.from('boolean')(data['mayOverrun']);
-      if(typeof data['packageSize'] !== 'undefined') xData['package_size'] = TypeTransformer.from('number')(data['packageSize']);
-      return xData;
-},
-    'UnverifiedSubscriptionDetachedCallback': function(data){
-      const xData = {};
-      if(typeof data['subscriptions'] !== 'undefined') xData['subscriptions'] = TypeTransformer.from('UnverifiedSubscriptionDetachedCallbackItem[]')(data['subscriptions']);
-      return xData;
-},
-    'UnverifiedSubscriptionDetachedCallbackItem': function(data){
-      const xData = {};
-      if(typeof data['type'] !== 'undefined') xData['type'] = TypeTransformer.from('string')(data['type']);
-      if(typeof data['name'] !== 'undefined') xData['name'] = TypeTransformer.from('string')(data['name']);
-      return xData;
-},
-    'ExpiringCallerIDCallback': function(data){
-      const xData = {};
-      if(typeof data['callerids'] !== 'undefined') xData['callerids'] = TypeTransformer.from('string[]')(data['callerids']);
-      if(typeof data['expirationDate'] !== 'undefined') xData['expiration_date'] = TypeTransformer.from('Date')(data['expirationDate']);
-      return xData;
-},
-    'TranscriptionCompleteCallback': function(data){
-      const xData = {};
-      if(typeof data['transcriptionComplete'] !== 'undefined') xData['transcription_complete'] = TypeTransformer.from('TranscriptionCompleteCallbackItem')(data['transcriptionComplete']);
-      return xData;
-},
-    'TranscriptionCompleteCallbackItem': function(data){
-      const xData = {};
-      if(typeof data['recordUrl'] !== 'undefined') xData['record_url'] = TypeTransformer.from('string')(data['recordUrl']);
-      if(typeof data['transcriptionUrl'] !== 'undefined') xData['transcription_url'] = TypeTransformer.from('string')(data['transcriptionUrl']);
-      if(typeof data['callSessionHistoryId'] !== 'undefined') xData['call_session_history_id'] = TypeTransformer.from('number')(data['callSessionHistoryId']);
-      if(typeof data['transcriptionCost'] !== 'undefined') xData['transcription_cost'] = TypeTransformer.from('number')(data['transcriptionCost']);
-      return xData;
-},
-    'ZipCode': function(data){
-      const xData = {};
-      if(typeof data['city'] !== 'undefined') xData['city'] = TypeTransformer.from('string')(data['city']);
-      if(typeof data['zipCode'] !== 'undefined') xData['zip_code'] = TypeTransformer.from('string')(data['zipCode']);
-      return xData;
-},
-    'RegulationCountry': function(data){
-      const xData = {};
-      if(typeof data['countryCode'] !== 'undefined') xData['country_code'] = TypeTransformer.from('string')(data['countryCode']);
-      if(typeof data['countryName'] !== 'undefined') xData['country_name'] = TypeTransformer.from('string')(data['countryName']);
-      return xData;
-},
-    'RegulationAddress': function(data){
-      const xData = {};
-      if(typeof data['regulationAddressId'] !== 'undefined') xData['regulation_address_id'] = TypeTransformer.from('number')(data['regulationAddressId']);
-      if(typeof data['externalId'] !== 'undefined') xData['external_id'] = TypeTransformer.from('string')(data['externalId']);
-      if(typeof data['countryCode'] !== 'undefined') xData['country_code'] = TypeTransformer.from('string')(data['countryCode']);
-      if(typeof data['phoneCategoryName'] !== 'undefined') xData['phone_category_name'] = TypeTransformer.from('string')(data['phoneCategoryName']);
-      if(typeof data['salutation'] !== 'undefined') xData['salutation'] = TypeTransformer.from('string')(data['salutation']);
-      if(typeof data['company'] !== 'undefined') xData['company'] = TypeTransformer.from('string')(data['company']);
-      if(typeof data['firstName'] !== 'undefined') xData['first_name'] = TypeTransformer.from('string')(data['firstName']);
-      if(typeof data['lastName'] !== 'undefined') xData['last_name'] = TypeTransformer.from('string')(data['lastName']);
-      if(typeof data['ownerCountryCode'] !== 'undefined') xData['owner_country_code'] = TypeTransformer.from('string')(data['ownerCountryCode']);
-      if(typeof data['city'] !== 'undefined') xData['city'] = TypeTransformer.from('string')(data['city']);
-      if(typeof data['zipCode'] !== 'undefined') xData['zip_code'] = TypeTransformer.from('string')(data['zipCode']);
-      if(typeof data['street'] !== 'undefined') xData['street'] = TypeTransformer.from('string')(data['street']);
-      if(typeof data['builderNumber'] !== 'undefined') xData['builder_number'] = TypeTransformer.from('string')(data['builderNumber']);
-      if(typeof data['builderLatter'] !== 'undefined') xData['builder_latter'] = TypeTransformer.from('string')(data['builderLatter']);
-      if(typeof data['status'] !== 'undefined') xData['status'] = TypeTransformer.from('string')(data['status']);
-      if(typeof data['rejectMessage'] !== 'undefined') xData['reject_message'] = TypeTransformer.from('string')(data['rejectMessage']);
-      return xData;
-},
-    'RegulationRegionRecord': function(data){
-      const xData = {};
-      if(typeof data['phoneRegionId'] !== 'undefined') xData['phone_region_id'] = TypeTransformer.from('number')(data['phoneRegionId']);
-      if(typeof data['phoneRegionName'] !== 'undefined') xData['phone_region_name'] = TypeTransformer.from('string')(data['phoneRegionName']);
-      if(typeof data['phoneRegionCode'] !== 'undefined') xData['phone_region_code'] = TypeTransformer.from('string')(data['phoneRegionCode']);
-      if(typeof data['isNeedRegulationAddress'] !== 'undefined') xData['is_need_regulation_address'] = TypeTransformer.from('boolean')(data['isNeedRegulationAddress']);
-      if(typeof data['regulationAddressType'] !== 'undefined') xData['regulation_address_type'] = TypeTransformer.from('string')(data['regulationAddressType']);
-      return xData;
-},
-    'PstnBlackListInfo': function(data){
-      const xData = {};
-      if(typeof data['pstnBlacklistId'] !== 'undefined') xData['pstn_blacklist_id'] = TypeTransformer.from('number')(data['pstnBlacklistId']);
-      if(typeof data['pstnBlacklistPhone '] !== 'undefined') xData['pstn_blacklist_phone '] = TypeTransformer.from('string')(data['pstnBlacklistPhone ']);
-      return xData;
-},
-    'DialogflowKeyInfo': function(data){
-      const xData = {};
-      if(typeof data['dialogflowKeyId'] !== 'undefined') xData['dialogflow_key_id'] = TypeTransformer.from('number')(data['dialogflowKeyId']);
-      if(typeof data['externalAppName'] !== 'undefined') xData['external_app_name'] = TypeTransformer.from('string')(data['externalAppName']);
-      if(typeof data['content'] !== 'undefined') xData['content'] = TypeTransformer.from('DialogflowKey')(data['content']);
-      if(typeof data['applications'] !== 'undefined') xData['applications'] = TypeTransformer.from('ApplicationInfo[]')(data['applications']);
-      return xData;
-},
-    'DialogflowKey': function(data){
-      const xData = {};
-      if(typeof data['projectId'] !== 'undefined') xData['project_id'] = TypeTransformer.from('string')(data['projectId']);
-      return xData;
-},
-    'PushCredentialInfo': function(data){
-      const xData = {};
-      if(typeof data['pushCredentialId'] !== 'undefined') xData['push_credential_id'] = TypeTransformer.from('number')(data['pushCredentialId']);
-      if(typeof data['pushProviderId'] !== 'undefined') xData['push_provider_id'] = TypeTransformer.from('number')(data['pushProviderId']);
-      if(typeof data['pushProviderName'] !== 'undefined') xData['push_provider_name'] = TypeTransformer.from('string')(data['pushProviderName']);
-      if(typeof data['externalAppName'] !== 'undefined') xData['external_app_name'] = TypeTransformer.from('string')(data['externalAppName']);
-      if(typeof data['credentialBundle'] !== 'undefined') xData['credential_bundle'] = TypeTransformer.from('string')(data['credentialBundle']);
-      if(typeof data['content'] !== 'undefined') xData['content'] = TypeTransformer.from('PushCredentialContent')(data['content']);
-      if(typeof data['applications'] !== 'undefined') xData['applications'] = TypeTransformer.from('ApplicationInfo[]')(data['applications']);
-      return xData;
-},
-    'PushCredentialContent': function(data){
-      const xData = {};
-      if(typeof data['certFileName'] !== 'undefined') xData['cert_file_name'] = TypeTransformer.from('string')(data['certFileName']);
-      if(typeof data['certContent'] !== 'undefined') xData['cert_content'] = TypeTransformer.from('string')(data['certContent']);
-      if(typeof data['isDevMode'] !== 'undefined') xData['is_dev_mode'] = TypeTransformer.from('boolean')(data['isDevMode']);
-      if(typeof data['senderId'] !== 'undefined') xData['sender_id'] = TypeTransformer.from('string')(data['senderId']);
-      return xData;
-},
-    'InboundSmsCallback': function(data){
-      const xData = {};
-      if(typeof data['smsInbound'] !== 'undefined') xData['sms_inbound'] = TypeTransformer.from('InboundSmsCallbackItem[]')(data['smsInbound']);
-      return xData;
-},
-    'InboundSmsCallbackItem': function(data){
-      const xData = {};
-      if(typeof data['sourceNumber'] !== 'undefined') xData['source_number'] = TypeTransformer.from('string')(data['sourceNumber']);
-      if(typeof data['destinationNumber'] !== 'undefined') xData['destination_number'] = TypeTransformer.from('string')(data['destinationNumber']);
-      if(typeof data['smsBody'] !== 'undefined') xData['sms_body'] = TypeTransformer.from('string')(data['smsBody']);
-      return xData;
-},
-    'NewInvoiceCallback': function(data){
-      const xData = {};
-      if(typeof data['newInvoice'] !== 'undefined') xData['new_invoice'] = TypeTransformer.from('NewInvoiceCallbackItem')(data['newInvoice']);
-      return xData;
-},
-    'NewInvoiceCallbackItem': function(data){
-      const xData = {};
-      if(typeof data['invoiceNumber'] !== 'undefined') xData['invoice_number'] = TypeTransformer.from('string')(data['invoiceNumber']);
-      if(typeof data['invoiceDate'] !== 'undefined') xData['invoice_date'] = TypeTransformer.from('string')(data['invoiceDate']);
-      if(typeof data['prepayment'] !== 'undefined') xData['prepayment'] = TypeTransformer.from('boolean')(data['prepayment']);
-      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
-      if(typeof data['totalAmount'] !== 'undefined') xData['total_amount'] = TypeTransformer.from('number')(data['totalAmount']);
-      if(typeof data['totalTaxAmount'] !== 'undefined') xData['total_tax_amount'] = TypeTransformer.from('number')(data['totalTaxAmount']);
-      if(typeof data['units'] !== 'undefined') xData['units'] = TypeTransformer.from('InvoiceUnits[]')(data['units']);
-      return xData;
-},
-    'InvoiceUnits': function(data){
-      const xData = {};
-      if(typeof data['description'] !== 'undefined') xData['description'] = TypeTransformer.from('string')(data['description']);
-      if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.from('number')(data['amount']);
-      if(typeof data['vatRate'] !== 'undefined') xData['vat_rate'] = TypeTransformer.from('number')(data['vatRate']);
-      if(typeof data['taxAmount'] !== 'undefined') xData['tax_amount'] = TypeTransformer.from('number')(data['taxAmount']);
-      return xData;
-},
-    'RecordStorageInfo': function(data){
-      const xData = {};
-      if(typeof data['recordStorageId'] !== 'undefined') xData['record_storage_id'] = TypeTransformer.from('number')(data['recordStorageId']);
-      if(typeof data['recordStorageName'] !== 'undefined') xData['record_storage_name'] = TypeTransformer.from('string')(data['recordStorageName']);
-      return xData;
-},
-    'KeyInfo': function(data){
-      const xData = {};
-      if(typeof data['accountEmail'] !== 'undefined') xData['account_email'] = TypeTransformer.from('string')(data['accountEmail']);
-      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
-      if(typeof data['keyId'] !== 'undefined') xData['key_id'] = TypeTransformer.from('string')(data['keyId']);
-      if(typeof data['privateKey'] !== 'undefined') xData['private_key'] = TypeTransformer.from('string')(data['privateKey']);
-      return xData;
-},
-    'KeyView': function(data){
-      const xData = {};
-      if(typeof data['keyId'] !== 'undefined') xData['key_id'] = TypeTransformer.from('string')(data['keyId']);
-      if(typeof data['roles'] !== 'undefined') xData['roles'] = TypeTransformer.from('RoleView[]')(data['roles']);
-      if(typeof data['description'] !== 'undefined') xData['description'] = TypeTransformer.from('string')(data['description']);
-      if(typeof data['subuser'] !== 'undefined') xData['subuser'] = TypeTransformer.from('SubUserView[]')(data['subuser']);
-      return xData;
-},
-    'SubUserView': function(data){
-      const xData = {};
-      if(typeof data['subuserId'] !== 'undefined') xData['subuser_id'] = TypeTransformer.from('number')(data['subuserId']);
-      if(typeof data['subuserName'] !== 'undefined') xData['subuser_name'] = TypeTransformer.from('string')(data['subuserName']);
-      if(typeof data['description'] !== 'undefined') xData['description'] = TypeTransformer.from('string')(data['description']);
-      if(typeof data['roles'] !== 'undefined') xData['roles'] = TypeTransformer.from('RoleView[]')(data['roles']);
-      return xData;
-},
-    'RoleView': function(data){
-      const xData = {};
-      if(typeof data['roleName'] !== 'undefined') xData['role_name'] = TypeTransformer.from('string')(data['roleName']);
-      if(typeof data['roleId'] !== 'undefined') xData['role_id'] = TypeTransformer.from('number')(data['roleId']);
-      if(typeof data['inherited'] !== 'undefined') xData['inherited'] = TypeTransformer.from('boolean')(data['inherited']);
-      if(typeof data['parentRoleId'] !== 'undefined') xData['parent_role_id'] = TypeTransformer.from('number[]')(data['parentRoleId']);
-      if(typeof data['guiOnly'] !== 'undefined') xData['gui_only'] = TypeTransformer.from('boolean')(data['guiOnly']);
-      return xData;
-},
-    'RoleGroupView': function(data){
-      const xData = {};
-      if(typeof data['id'] !== 'undefined') xData['id'] = TypeTransformer.from('number')(data['id']);
-      if(typeof data['name'] !== 'undefined') xData['name'] = TypeTransformer.from('string')(data['name']);
-      return xData;
-}
-  }
-  private static toActors = {
     'API_Error': function(data){
       const xData = {};
       if(typeof data['code'] !== 'undefined') xData['code'] = TypeTransformer.to('number')(data['code']);
@@ -2592,6 +1294,1304 @@ export default class TypeTransformer{
       const xData = {};
       if(typeof data['id'] !== 'undefined') xData['id'] = TypeTransformer.to('number')(data['id']);
       if(typeof data['name'] !== 'undefined') xData['name'] = TypeTransformer.to('string')(data['name']);  
+      return xData;
+}
+  }
+  private static toActors = {
+    'APIError': function(data){
+      const xData = {};
+      if(typeof data['code'] !== 'undefined') xData['code'] = TypeTransformer.from('number')(data['code']);
+      if(typeof data['msg'] !== 'undefined') xData['msg'] = TypeTransformer.from('string')(data['msg']);
+      return xData;
+},
+    'AccountInfo': function(data){
+      const xData = {};
+      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
+      if(typeof data['accountName'] !== 'undefined') xData['account_name'] = TypeTransformer.from('string')(data['accountName']);
+      if(typeof data['accountEmail'] !== 'undefined') xData['account_email'] = TypeTransformer.from('string')(data['accountEmail']);
+      if(typeof data['apiKey'] !== 'undefined') xData['api_key'] = TypeTransformer.from('string')(data['apiKey']);
+      if(typeof data['accountFirstName'] !== 'undefined') xData['account_first_name'] = TypeTransformer.from('string')(data['accountFirstName']);
+      if(typeof data['accountLastName'] !== 'undefined') xData['account_last_name'] = TypeTransformer.from('string')(data['accountLastName']);
+      if(typeof data['created'] !== 'undefined') xData['created'] = TypeTransformer.from('Date')(data['created']);
+      if(typeof data['languageCode'] !== 'undefined') xData['language_code'] = TypeTransformer.from('string')(data['languageCode']);
+      if(typeof data['location'] !== 'undefined') xData['location'] = TypeTransformer.from('string')(data['location']);
+      if(typeof data['minBalanceToNotify'] !== 'undefined') xData['min_balance_to_notify'] = TypeTransformer.from('number')(data['minBalanceToNotify']);
+      if(typeof data['accountNotifications'] !== 'undefined') xData['account_notifications'] = TypeTransformer.from('boolean')(data['accountNotifications']);
+      if(typeof data['tariffChangingNotifications'] !== 'undefined') xData['tariff_changing_notifications'] = TypeTransformer.from('boolean')(data['tariffChangingNotifications']);
+      if(typeof data['newsNotifications'] !== 'undefined') xData['news_notifications'] = TypeTransformer.from('boolean')(data['newsNotifications']);
+      if(typeof data['billingAddressName'] !== 'undefined') xData['billing_address_name'] = TypeTransformer.from('string')(data['billingAddressName']);
+      if(typeof data['billingAddressCountryCode'] !== 'undefined') xData['billing_address_country_code'] = TypeTransformer.from('string')(data['billingAddressCountryCode']);
+      if(typeof data['billingAddressAddress'] !== 'undefined') xData['billing_address_address'] = TypeTransformer.from('string')(data['billingAddressAddress']);
+      if(typeof data['billingAddressZip'] !== 'undefined') xData['billing_address_zip'] = TypeTransformer.from('string')(data['billingAddressZip']);
+      if(typeof data['billingAddressPhone'] !== 'undefined') xData['billing_address_phone'] = TypeTransformer.from('string')(data['billingAddressPhone']);
+      if(typeof data['active'] !== 'undefined') xData['active'] = TypeTransformer.from('boolean')(data['active']);
+      if(typeof data['frozen'] !== 'undefined') xData['frozen'] = TypeTransformer.from('boolean')(data['frozen']);
+      if(typeof data['balance'] !== 'undefined') xData['balance'] = TypeTransformer.from('number')(data['balance']);
+      if(typeof data['creditLimit'] !== 'undefined') xData['credit_limit'] = TypeTransformer.from('number')(data['creditLimit']);
+      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
+      if(typeof data['supportRobokassa'] !== 'undefined') xData['support_robokassa'] = TypeTransformer.from('boolean')(data['supportRobokassa']);
+      if(typeof data['supportBankCard'] !== 'undefined') xData['support_bank_card'] = TypeTransformer.from('boolean')(data['supportBankCard']);
+      if(typeof data['supportInvoice'] !== 'undefined') xData['support_invoice'] = TypeTransformer.from('boolean')(data['supportInvoice']);
+      if(typeof data['accountCustomData'] !== 'undefined') xData['account_custom_data'] = TypeTransformer.from('string')(data['accountCustomData']);
+      if(typeof data['accessEntries'] !== 'undefined') xData['access_entries'] = TypeTransformer.from('string[]')(data['accessEntries']);
+      if(typeof data['withAccessEntries'] !== 'undefined') xData['with_access_entries'] = TypeTransformer.from('boolean')(data['withAccessEntries']);
+      if(typeof data['callbackUrl'] !== 'undefined') xData['callback_url'] = TypeTransformer.from('string')(data['callbackUrl']);
+      if(typeof data['callbackSalt'] !== 'undefined') xData['callback_salt'] = TypeTransformer.from('string')(data['callbackSalt']);
+      if(typeof data['sendJsError'] !== 'undefined') xData['send_js_error'] = TypeTransformer.from('boolean')(data['sendJsError']);
+      return xData;
+},
+    'ShortAccountInfo': function(data){
+      const xData = {};
+      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
+      if(typeof data['frozen'] !== 'undefined') xData['frozen'] = TypeTransformer.from('boolean')(data['frozen']);
+      if(typeof data['balance'] !== 'undefined') xData['balance'] = TypeTransformer.from('number')(data['balance']);
+      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
+      return xData;
+},
+    'ClonedAccount': function(data){
+      const xData = {};
+      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
+      if(typeof data['accountName'] !== 'undefined') xData['account_name'] = TypeTransformer.from('string')(data['accountName']);
+      if(typeof data['accountEmail'] !== 'undefined') xData['account_email'] = TypeTransformer.from('string')(data['accountEmail']);
+      if(typeof data['active'] !== 'undefined') xData['active'] = TypeTransformer.from('boolean')(data['active']);
+      if(typeof data['apiKey'] !== 'undefined') xData['api_key'] = TypeTransformer.from('string')(data['apiKey']);
+      if(typeof data['users'] !== 'undefined') xData['users'] = TypeTransformer.from('ClonedUser[]')(data['users']);
+      if(typeof data['scenarios'] !== 'undefined') xData['scenarios'] = TypeTransformer.from('ClonedScenario[]')(data['scenarios']);
+      if(typeof data['applications'] !== 'undefined') xData['applications'] = TypeTransformer.from('ClonedApplication[]')(data['applications']);
+      if(typeof data['acdQueues'] !== 'undefined') xData['acd_queues'] = TypeTransformer.from('ClonedACDQueue[]')(data['acdQueues']);
+      if(typeof data['acdSkills'] !== 'undefined') xData['acd_skills'] = TypeTransformer.from('ClonedACDSkill[]')(data['acdSkills']);
+      if(typeof data['adminRoles'] !== 'undefined') xData['admin_roles'] = TypeTransformer.from('ClonedAdminRole[]')(data['adminRoles']);
+      if(typeof data['adminUsers'] !== 'undefined') xData['admin_users'] = TypeTransformer.from('ClonedAdminUser[]')(data['adminUsers']);
+      return xData;
+},
+    'AccountPlan': function(data){
+      const xData = {};
+      if(typeof data['planSubscriptionTemplateId'] !== 'undefined') xData['plan_subscription_template_id'] = TypeTransformer.from('number')(data['planSubscriptionTemplateId']);
+      if(typeof data['nextCharge'] !== 'undefined') xData['next_charge'] = TypeTransformer.from('Date')(data['nextCharge']);
+      if(typeof data['planType'] !== 'undefined') xData['plan_type'] = TypeTransformer.from('string')(data['planType']);
+      if(typeof data['planName'] !== 'undefined') xData['plan_name'] = TypeTransformer.from('string')(data['planName']);
+      if(typeof data['autoCharge'] !== 'undefined') xData['auto_charge'] = TypeTransformer.from('boolean')(data['autoCharge']);
+      if(typeof data['mayOverrun'] !== 'undefined') xData['may_overrun'] = TypeTransformer.from('boolean')(data['mayOverrun']);
+      if(typeof data['periodicCharge'] !== 'undefined') xData['periodic_charge'] = TypeTransformer.from('number')(data['periodicCharge']);
+      if(typeof data['packages'] !== 'undefined') xData['packages'] = TypeTransformer.from('AccountPlanPackage[]')(data['packages']);
+      return xData;
+},
+    'AccountPlanPackage': function(data){
+      const xData = {};
+      if(typeof data['priceGroupId'] !== 'undefined') xData['price_group_id'] = TypeTransformer.from('number[]')(data['priceGroupId']);
+      if(typeof data['packageName'] !== 'undefined') xData['package_name'] = TypeTransformer.from('string')(data['packageName']);
+      if(typeof data['mayOverrun'] !== 'undefined') xData['may_overrun'] = TypeTransformer.from('boolean')(data['mayOverrun']);
+      if(typeof data['overrunPrice'] !== 'undefined') xData['overrun_price'] = TypeTransformer.from('number')(data['overrunPrice']);
+      if(typeof data['overrunResources'] !== 'undefined') xData['overrun_resources'] = TypeTransformer.from('number')(data['overrunResources']);
+      if(typeof data['resourceLeft'] !== 'undefined') xData['resource_left'] = TypeTransformer.from('number')(data['resourceLeft']);
+      if(typeof data['packageSize'] !== 'undefined') xData['package_size'] = TypeTransformer.from('number')(data['packageSize']);
+      if(typeof data['origPackageSize'] !== 'undefined') xData['orig_package_size'] = TypeTransformer.from('number')(data['origPackageSize']);
+      return xData;
+},
+    'Plan': function(data){
+      const xData = {};
+      if(typeof data['planSubscriptionTemplateId'] !== 'undefined') xData['plan_subscription_template_id'] = TypeTransformer.from('number')(data['planSubscriptionTemplateId']);
+      if(typeof data['planType'] !== 'undefined') xData['plan_type'] = TypeTransformer.from('string')(data['planType']);
+      if(typeof data['planName'] !== 'undefined') xData['plan_name'] = TypeTransformer.from('string')(data['planName']);
+      if(typeof data['periodicCharge'] !== 'undefined') xData['periodic_charge'] = TypeTransformer.from('number')(data['periodicCharge']);
+      if(typeof data['package'] !== 'undefined') xData['package'] = TypeTransformer.from('PlanPackage[]')(data['package']);
+      return xData;
+},
+    'PlanPackage': function(data){
+      const xData = {};
+      if(typeof data['priceGroupId'] !== 'undefined') xData['price_group_id'] = TypeTransformer.from('number[]')(data['priceGroupId']);
+      if(typeof data['packageName'] !== 'undefined') xData['package_name'] = TypeTransformer.from('string')(data['packageName']);
+      if(typeof data['mayOverrun'] !== 'undefined') xData['may_overrun'] = TypeTransformer.from('boolean')(data['mayOverrun']);
+      if(typeof data['overrunPrice'] !== 'undefined') xData['overrun_price'] = TypeTransformer.from('number')(data['overrunPrice']);
+      if(typeof data['overrunResources'] !== 'undefined') xData['overrun_resources'] = TypeTransformer.from('number')(data['overrunResources']);
+      if(typeof data['packageSize'] !== 'undefined') xData['package_size'] = TypeTransformer.from('number')(data['packageSize']);
+      return xData;
+},
+    'ApplicationInfo': function(data){
+      const xData = {};
+      if(typeof data['applicationId'] !== 'undefined') xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
+      if(typeof data['applicationName'] !== 'undefined') xData['application_name'] = TypeTransformer.from('string')(data['applicationName']);
+      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
+      if(typeof data['secureRecordStorage'] !== 'undefined') xData['secure_record_storage'] = TypeTransformer.from('boolean')(data['secureRecordStorage']);
+      if(typeof data['users'] !== 'undefined') xData['users'] = TypeTransformer.from('UserInfo[]')(data['users']);
+      return xData;
+},
+    'ClonedApplication': function(data){
+      const xData = {};
+      if(typeof data['applicationId'] !== 'undefined') xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
+      if(typeof data['applicationName'] !== 'undefined') xData['application_name'] = TypeTransformer.from('string')(data['applicationName']);
+      if(typeof data['users'] !== 'undefined') xData['users'] = TypeTransformer.from('ClonedRule[]')(data['users']);
+      return xData;
+},
+    'UserInfo': function(data){
+      const xData = {};
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
+      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
+      if(typeof data['userDisplayName'] !== 'undefined') xData['user_display_name'] = TypeTransformer.from('string')(data['userDisplayName']);
+      if(typeof data['userActive'] !== 'undefined') xData['user_active'] = TypeTransformer.from('boolean')(data['userActive']);
+      if(typeof data['mobilePhone'] !== 'undefined') xData['mobile_phone'] = TypeTransformer.from('string')(data['mobilePhone']);
+      if(typeof data['liveBalance'] !== 'undefined') xData['live_balance'] = TypeTransformer.from('number')(data['liveBalance']);
+      if(typeof data['balance'] !== 'undefined') xData['balance'] = TypeTransformer.from('number')(data['balance']);
+      if(typeof data['fixedBalance'] !== 'undefined') xData['fixed_balance'] = TypeTransformer.from('number')(data['fixedBalance']);
+      if(typeof data['userCustomData'] !== 'undefined') xData['user_custom_data'] = TypeTransformer.from('string')(data['userCustomData']);
+      if(typeof data['applications'] !== 'undefined') xData['applications'] = TypeTransformer.from('ApplicationInfo[]')(data['applications']);
+      if(typeof data['skills'] !== 'undefined') xData['skills'] = TypeTransformer.from('SkillInfo[]')(data['skills']);
+      if(typeof data['acdQueues'] !== 'undefined') xData['acd_queues'] = TypeTransformer.from('ACDQueueOperatorInfo[]')(data['acdQueues']);
+      if(typeof data['acdStatus'] !== 'undefined') xData['acd_status'] = TypeTransformer.from('string')(data['acdStatus']);
+      if(typeof data['acdStatusChangeTime'] !== 'undefined') xData['acd_status_change_time'] = TypeTransformer.from('Date')(data['acdStatusChangeTime']);
+      if(typeof data['created'] !== 'undefined') xData['created'] = TypeTransformer.from('Date')(data['created']);
+      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
+      return xData;
+},
+    'ClonedUser': function(data){
+      const xData = {};
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
+      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
+      return xData;
+},
+    'ScenarioInfo': function(data){
+      const xData = {};
+      if(typeof data['scenarioId'] !== 'undefined') xData['scenario_id'] = TypeTransformer.from('number')(data['scenarioId']);
+      if(typeof data['scenarioName'] !== 'undefined') xData['scenario_name'] = TypeTransformer.from('string')(data['scenarioName']);
+      if(typeof data['scenarioScript'] !== 'undefined') xData['scenario_script'] = TypeTransformer.from('string')(data['scenarioScript']);
+      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
+      return xData;
+},
+    'ClonedScenario': function(data){
+      const xData = {};
+      if(typeof data['scenarioId'] !== 'undefined') xData['scenario_id'] = TypeTransformer.from('number')(data['scenarioId']);
+      if(typeof data['scenarioName'] !== 'undefined') xData['scenario_name'] = TypeTransformer.from('string')(data['scenarioName']);
+      return xData;
+},
+    'RuleInfo': function(data){
+      const xData = {};
+      if(typeof data['ruleId'] !== 'undefined') xData['rule_id'] = TypeTransformer.from('number')(data['ruleId']);
+      if(typeof data['applicationId'] !== 'undefined') xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
+      if(typeof data['ruleName'] !== 'undefined') xData['rule_name'] = TypeTransformer.from('string')(data['ruleName']);
+      if(typeof data['rulePattern'] !== 'undefined') xData['rule_pattern'] = TypeTransformer.from('string')(data['rulePattern']);
+      if(typeof data['rulePatternExclude'] !== 'undefined') xData['rule_pattern_exclude'] = TypeTransformer.from('string')(data['rulePatternExclude']);
+      if(typeof data['videoConference'] !== 'undefined') xData['video_conference'] = TypeTransformer.from('boolean')(data['videoConference']);
+      if(typeof data['scenarios'] !== 'undefined') xData['scenarios'] = TypeTransformer.from('ScenarioInfo[]')(data['scenarios']);
+      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
+      return xData;
+},
+    'ClonedRule': function(data){
+      const xData = {};
+      if(typeof data['ruleId'] !== 'undefined') xData['rule_id'] = TypeTransformer.from('number')(data['ruleId']);
+      if(typeof data['ruleName'] !== 'undefined') xData['rule_name'] = TypeTransformer.from('string')(data['ruleName']);
+      return xData;
+},
+    'SipWhiteListInfo': function(data){
+      const xData = {};
+      if(typeof data['sipWhitelistId'] !== 'undefined') xData['sip_whitelist_id'] = TypeTransformer.from('number')(data['sipWhitelistId']);
+      if(typeof data['sipWhitelistNetwork'] !== 'undefined') xData['sip_whitelist_network'] = TypeTransformer.from('string')(data['sipWhitelistNetwork']);
+      return xData;
+},
+    'CallSessionInfo': function(data){
+      const xData = {};
+      if(typeof data['callSessionHistoryId'] !== 'undefined') xData['call_session_history_id'] = TypeTransformer.from('number')(data['callSessionHistoryId']);
+      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
+      if(typeof data['applicationId'] !== 'undefined') xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
+      if(typeof data['startDate'] !== 'undefined') xData['start_date'] = TypeTransformer.from('Date')(data['startDate']);
+      if(typeof data['duration'] !== 'undefined') xData['duration'] = TypeTransformer.from('number')(data['duration']);
+      if(typeof data['initiatorAddress'] !== 'undefined') xData['initiator_address'] = TypeTransformer.from('string')(data['initiatorAddress']);
+      if(typeof data['mediaServerAddress'] !== 'undefined') xData['media_server_address'] = TypeTransformer.from('string')(data['mediaServerAddress']);
+      if(typeof data['logFileUrl'] !== 'undefined') xData['log_file_url'] = TypeTransformer.from('string')(data['logFileUrl']);
+      if(typeof data['finishReason'] !== 'undefined') xData['finish_reason'] = TypeTransformer.from('string')(data['finishReason']);
+      if(typeof data['calls'] !== 'undefined') xData['calls'] = TypeTransformer.from('CallInfo[]')(data['calls']);
+      if(typeof data['otherResourceUsage'] !== 'undefined') xData['other_resource_usage'] = TypeTransformer.from('ResourceUsage[]')(data['otherResourceUsage']);
+      if(typeof data['records'] !== 'undefined') xData['records'] = TypeTransformer.from('Record[]')(data['records']);
+      if(typeof data['customData'] !== 'undefined') xData['custom_data'] = TypeTransformer.from('string')(data['customData']);
+      return xData;
+},
+    'CallInfo': function(data){
+      const xData = {};
+      if(typeof data['callId'] !== 'undefined') xData['call_id'] = TypeTransformer.from('number')(data['callId']);
+      if(typeof data['startTime'] !== 'undefined') xData['start_time'] = TypeTransformer.from('Date')(data['startTime']);
+      if(typeof data['duration'] !== 'undefined') xData['duration'] = TypeTransformer.from('number')(data['duration']);
+      if(typeof data['localNumber'] !== 'undefined') xData['local_number'] = TypeTransformer.from('string')(data['localNumber']);
+      if(typeof data['remoteNumber'] !== 'undefined') xData['remote_number'] = TypeTransformer.from('string')(data['remoteNumber']);
+      if(typeof data['remoteNumberType'] !== 'undefined') xData['remote_number_type'] = TypeTransformer.from('string')(data['remoteNumberType']);
+      if(typeof data['incoming'] !== 'undefined') xData['incoming'] = TypeTransformer.from('boolean')(data['incoming']);
+      if(typeof data['successful'] !== 'undefined') xData['successful'] = TypeTransformer.from('boolean')(data['successful']);
+      if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
+      if(typeof data['recordUrl'] !== 'undefined') xData['record_url'] = TypeTransformer.from('string')(data['recordUrl']);
+      if(typeof data['mediaServerAddress'] !== 'undefined') xData['media_server_address'] = TypeTransformer.from('string')(data['mediaServerAddress']);
+      if(typeof data['cost'] !== 'undefined') xData['cost'] = TypeTransformer.from('number')(data['cost']);
+      if(typeof data['customData'] !== 'undefined') xData['custom_data'] = TypeTransformer.from('string')(data['customData']);
+      return xData;
+},
+    'TransactionInfo': function(data){
+      const xData = {};
+      if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
+      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('string')(data['accountId']);
+      if(typeof data['performedAt'] !== 'undefined') xData['performed_at'] = TypeTransformer.from('Date')(data['performedAt']);
+      if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.from('number')(data['amount']);
+      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
+      if(typeof data['transactionType'] !== 'undefined') xData['transaction_type'] = TypeTransformer.from('string')(data['transactionType']);
+      if(typeof data['transactionDescription'] !== 'undefined') xData['transaction_description'] = TypeTransformer.from('string')(data['transactionDescription']);
+      if(typeof data['paymentReference'] !== 'undefined') xData['payment_reference'] = TypeTransformer.from('string')(data['paymentReference']);
+      return xData;
+},
+    'ResourceUsage': function(data){
+      const xData = {};
+      if(typeof data['resourceUsageId'] !== 'undefined') xData['resource_usage_id'] = TypeTransformer.from('number')(data['resourceUsageId']);
+      if(typeof data['resourceType'] !== 'undefined') xData['resource_type'] = TypeTransformer.from('string')(data['resourceType']);
+      if(typeof data['cost'] !== 'undefined') xData['cost'] = TypeTransformer.from('number')(data['cost']);
+      if(typeof data['description'] !== 'undefined') xData['description'] = TypeTransformer.from('string')(data['description']);
+      if(typeof data['usedAt'] !== 'undefined') xData['used_at'] = TypeTransformer.from('Date')(data['usedAt']);
+      if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
+      if(typeof data['resourceQuantity'] !== 'undefined') xData['resource_quantity'] = TypeTransformer.from('number')(data['resourceQuantity']);
+      if(typeof data['unit'] !== 'undefined') xData['unit'] = TypeTransformer.from('string')(data['unit']);
+      if(typeof data['refCallId'] !== 'undefined') xData['ref_call_id'] = TypeTransformer.from('number')(data['refCallId']);
+      return xData;
+},
+    'Record': function(data){
+      const xData = {};
+      if(typeof data['recordId'] !== 'undefined') xData['record_id'] = TypeTransformer.from('number')(data['recordId']);
+      if(typeof data['recordName'] !== 'undefined') xData['record_name'] = TypeTransformer.from('string')(data['recordName']);
+      if(typeof data['cost'] !== 'undefined') xData['cost'] = TypeTransformer.from('number')(data['cost']);
+      if(typeof data['startTime'] !== 'undefined') xData['start_time'] = TypeTransformer.from('Date')(data['startTime']);
+      if(typeof data['duration'] !== 'undefined') xData['duration'] = TypeTransformer.from('number')(data['duration']);
+      if(typeof data['recordUrl'] !== 'undefined') xData['record_url'] = TypeTransformer.from('string')(data['recordUrl']);
+      if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
+      if(typeof data['fileSize'] !== 'undefined') xData['file_size'] = TypeTransformer.from('number')(data['fileSize']);
+      if(typeof data['transcriptionUrl'] !== 'undefined') xData['transcription_url'] = TypeTransformer.from('string')(data['transcriptionUrl']);
+      if(typeof data['transcriptionStatus'] !== 'undefined') xData['transcription_status'] = TypeTransformer.from('string')(data['transcriptionStatus']);
+      return xData;
+},
+    'AuditLogInfo': function(data){
+      const xData = {};
+      if(typeof data['auditLogId'] !== 'undefined') xData['audit_log_id'] = TypeTransformer.from('number')(data['auditLogId']);
+      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
+      if(typeof data['requested'] !== 'undefined') xData['requested'] = TypeTransformer.from('Date')(data['requested']);
+      if(typeof data['ip'] !== 'undefined') xData['ip'] = TypeTransformer.from('string')(data['ip']);
+      if(typeof data['cmdName'] !== 'undefined') xData['cmd_name'] = TypeTransformer.from('string')(data['cmdName']);
+      if(typeof data['cmdArgs'] !== 'undefined') xData['cmd_args'] = TypeTransformer.from('any')(data['cmdArgs']);
+      if(typeof data['cmdResult'] !== 'undefined') xData['cmd_result'] = TypeTransformer.from('any')(data['cmdResult']);
+      return xData;
+},
+    'HistoryReport': function(data){
+      const xData = {};
+      if(typeof data['historyReportId'] !== 'undefined') xData['history_report_id'] = TypeTransformer.from('number')(data['historyReportId']);
+      if(typeof data['historyType'] !== 'undefined') xData['history_type'] = TypeTransformer.from('string')(data['historyType']);
+      if(typeof data['created'] !== 'undefined') xData['created'] = TypeTransformer.from('Date')(data['created']);
+      if(typeof data['format'] !== 'undefined') xData['format'] = TypeTransformer.from('string')(data['format']);
+      if(typeof data['completed'] !== 'undefined') xData['completed'] = TypeTransformer.from('Date')(data['completed']);
+      if(typeof data['fileName'] !== 'undefined') xData['file_name'] = TypeTransformer.from('string')(data['fileName']);
+      if(typeof data['fileSize'] !== 'undefined') xData['file_size'] = TypeTransformer.from('number')(data['fileSize']);
+      if(typeof data['downloadSize'] !== 'undefined') xData['download_size'] = TypeTransformer.from('number')(data['downloadSize']);
+      if(typeof data['downloadCount'] !== 'undefined') xData['download_count'] = TypeTransformer.from('number')(data['downloadCount']);
+      if(typeof data['lastDownloaded'] !== 'undefined') xData['last_downloaded'] = TypeTransformer.from('Date')(data['lastDownloaded']);
+      if(typeof data['storeUntil'] !== 'undefined') xData['store_until'] = TypeTransformer.from('Date')(data['storeUntil']);
+      if(typeof data['error'] !== 'undefined') xData['error'] = TypeTransformer.from('APIError')(data['error']);
+      if(typeof data['filters'] !== 'undefined') xData['filters'] = TypeTransformer.from('any')(data['filters']);
+      if(typeof data['calculatedData'] !== 'undefined') xData['calculated_data'] = TypeTransformer.from('any')(data['calculatedData']);
+      return xData;
+},
+    'CalculatedCallHistoryData': function(data){
+      const xData = {};
+      if(typeof data['sessionCount'] !== 'undefined') xData['session_count'] = TypeTransformer.from('number')(data['sessionCount']);
+      if(typeof data['totalSessionCount'] !== 'undefined') xData['total_session_count'] = TypeTransformer.from('number')(data['totalSessionCount']);
+      if(typeof data['timezone'] !== 'undefined') xData['timezone'] = TypeTransformer.from('string')(data['timezone']);
+      return xData;
+},
+    'CalculatedTransactionHistoryData': function(data){
+      const xData = {};
+      if(typeof data['transactionCount'] !== 'undefined') xData['transaction_count'] = TypeTransformer.from('number')(data['transactionCount']);
+      if(typeof data['totalTransactionCount'] !== 'undefined') xData['total_transaction_count'] = TypeTransformer.from('number')(data['totalTransactionCount']);
+      if(typeof data['startBalance'] !== 'undefined') xData['start_balance'] = TypeTransformer.from('string')(data['startBalance']);
+      if(typeof data['endBalance'] !== 'undefined') xData['end_balance'] = TypeTransformer.from('string')(data['endBalance']);
+      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
+      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('number')(data['userName']);
+      if(typeof data['timezone'] !== 'undefined') xData['timezone'] = TypeTransformer.from('string')(data['timezone']);
+      return xData;
+},
+    'ACDSessionInfo': function(data){
+      const xData = {};
+      if(typeof data['acdSessionHistoryId'] !== 'undefined') xData['acd_session_history_id'] = TypeTransformer.from('number')(data['acdSessionHistoryId']);
+      if(typeof data['acdRequestId'] !== 'undefined') xData['acd_request_id'] = TypeTransformer.from('string')(data['acdRequestId']);
+      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
+      if(typeof data['beginTime'] !== 'undefined') xData['begin_time'] = TypeTransformer.from('Date')(data['beginTime']);
+      if(typeof data['priority'] !== 'undefined') xData['priority'] = TypeTransformer.from('number')(data['priority']);
+      if(typeof data['acdQueueId'] !== 'undefined') xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
+      if(typeof data['waitingDuration'] !== 'undefined') xData['waiting_duration'] = TypeTransformer.from('number')(data['waitingDuration']);
+      if(typeof data['inServiceDuration'] !== 'undefined') xData['in_service_duration'] = TypeTransformer.from('number')(data['inServiceDuration']);
+      if(typeof data['afterServiceDuration'] !== 'undefined') xData['after_service_duration'] = TypeTransformer.from('number')(data['afterServiceDuration']);
+      if(typeof data['events'] !== 'undefined') xData['events'] = TypeTransformer.from('ACDSessionEventInfo[]')(data['events']);
+      return xData;
+},
+    'ACDSessionEventInfo': function(data){
+      const xData = {};
+      if(typeof data['acdSessionEventId'] !== 'undefined') xData['acd_session_event_id'] = TypeTransformer.from('number')(data['acdSessionEventId']);
+      if(typeof data['time'] !== 'undefined') xData['time'] = TypeTransformer.from('Date')(data['time']);
+      if(typeof data['type'] !== 'undefined') xData['type'] = TypeTransformer.from('string')(data['type']);
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
+      if(typeof data['customData'] !== 'undefined') xData['custom_data'] = TypeTransformer.from('string')(data['customData']);
+      return xData;
+},
+    'QueueInfo': function(data){
+      const xData = {};
+      if(typeof data['acdQueueId'] !== 'undefined') xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
+      if(typeof data['acdQueueName'] !== 'undefined') xData['acd_queue_name'] = TypeTransformer.from('string')(data['acdQueueName']);
+      if(typeof data['applicationId'] !== 'undefined') xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
+      if(typeof data['acdQueuePriority'] !== 'undefined') xData['acd_queue_priority'] = TypeTransformer.from('number')(data['acdQueuePriority']);
+      if(typeof data['serviceProbability'] !== 'undefined') xData['service_probability'] = TypeTransformer.from('number')(data['serviceProbability']);
+      if(typeof data['autoBinding'] !== 'undefined') xData['auto_binding'] = TypeTransformer.from('boolean')(data['autoBinding']);
+      if(typeof data['maxWaitingTime'] !== 'undefined') xData['max_waiting_time'] = TypeTransformer.from('number')(data['maxWaitingTime']);
+      if(typeof data['maxQueueSize'] !== 'undefined') xData['max_queue_size'] = TypeTransformer.from('number')(data['maxQueueSize']);
+      if(typeof data['averageServiceTime'] !== 'undefined') xData['average_service_time'] = TypeTransformer.from('number')(data['averageServiceTime']);
+      if(typeof data['created'] !== 'undefined') xData['created'] = TypeTransformer.from('Date')(data['created']);
+      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
+      if(typeof data['deleted'] !== 'undefined') xData['deleted'] = TypeTransformer.from('Date')(data['deleted']);
+      if(typeof data['users'] !== 'undefined') xData['users'] = TypeTransformer.from('QueueUsers[]')(data['users']);
+      if(typeof data['skills'] !== 'undefined') xData['skills'] = TypeTransformer.from('QueueSkills[]')(data['skills']);
+      if(typeof data['slThresholds'] !== 'undefined') xData['sl_thresholds'] = TypeTransformer.from('number[]')(data['slThresholds']);
+      return xData;
+},
+    'QueueSkills': function(data){
+      const xData = {};
+      if(typeof data['skillId'] !== 'undefined') xData['skill_id'] = TypeTransformer.from('number')(data['skillId']);
+      if(typeof data['skillName'] !== 'undefined') xData['skill_name'] = TypeTransformer.from('string')(data['skillName']);
+      return xData;
+},
+    'QueueUsers': function(data){
+      const xData = {};
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
+      return xData;
+},
+    'ACDState': function(data){
+      const xData = {};
+      if(typeof data['acdQueues'] !== 'undefined') xData['acd_queues'] = TypeTransformer.from('ACDQueueState[]')(data['acdQueues']);
+      return xData;
+},
+    'ACDOperatorAggregationGroup': function(data){
+      const xData = {};
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('string')(data['userId']);
+      if(typeof data['date'] !== 'undefined') xData['date'] = TypeTransformer.from('Date')(data['date']);
+      if(typeof data['hour'] !== 'undefined') xData['hour'] = TypeTransformer.from('number')(data['hour']);
+      if(typeof data['statistics'] !== 'undefined') xData['statistics'] = TypeTransformer.from('ACDOperatorStatistics[]')(data['statistics']);
+      return xData;
+},
+    'ACDOperatorStatusAggregationGroup': function(data){
+      const xData = {};
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('string')(data['userId']);
+      if(typeof data['date'] !== 'undefined') xData['date'] = TypeTransformer.from('Date')(data['date']);
+      if(typeof data['hour'] !== 'undefined') xData['hour'] = TypeTransformer.from('number')(data['hour']);
+      if(typeof data['statistics'] !== 'undefined') xData['statistics'] = TypeTransformer.from('ACDOperatorStatusStatistics[]')(data['statistics']);
+      return xData;
+},
+    'ACDOperatorStatistics': function(data){
+      const xData = {};
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('string')(data['userId']);
+      if(typeof data['date'] !== 'undefined') xData['date'] = TypeTransformer.from('Date')(data['date']);
+      if(typeof data['hour'] !== 'undefined') xData['hour'] = TypeTransformer.from('number')(data['hour']);
+      if(typeof data['SA'] !== 'undefined') xData['SA'] = TypeTransformer.from('ACDStatisticsItem')(data['SA']);
+      if(typeof data['TT'] !== 'undefined') xData['TT'] = TypeTransformer.from('ACDStatisticsItem')(data['TT']);
+      if(typeof data['ACW'] !== 'undefined') xData['ACW'] = TypeTransformer.from('ACDStatisticsItem')(data['ACW']);
+      if(typeof data['HT'] !== 'undefined') xData['HT'] = TypeTransformer.from('ACDStatisticsItem')(data['HT']);
+      if(typeof data['AC'] !== 'undefined') xData['AC'] = TypeTransformer.from('number')(data['AC']);
+      if(typeof data['UAC'] !== 'undefined') xData['UAC'] = TypeTransformer.from('number')(data['UAC']);
+      if(typeof data['TDT'] !== 'undefined') xData['TDT'] = TypeTransformer.from('number')(data['TDT']);
+      if(typeof data['THT'] !== 'undefined') xData['THT'] = TypeTransformer.from('number')(data['THT']);
+      if(typeof data['TTT'] !== 'undefined') xData['TTT'] = TypeTransformer.from('number')(data['TTT']);
+      if(typeof data['TACW'] !== 'undefined') xData['TACW'] = TypeTransformer.from('number')(data['TACW']);
+      return xData;
+},
+    'ACDOperatorStatusStatistics': function(data){
+      const xData = {};
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('string')(data['userId']);
+      if(typeof data['date'] !== 'undefined') xData['date'] = TypeTransformer.from('Date')(data['date']);
+      if(typeof data['hour'] !== 'undefined') xData['hour'] = TypeTransformer.from('number')(data['hour']);
+      if(typeof data['acdStatus'] !== 'undefined') xData['acd_status'] = TypeTransformer.from('ACDOperatorStatusStatisticsDetail[]')(data['acdStatus']);
+      return xData;
+},
+    'ACDOperatorStatusStatisticsDetail': function(data){
+      const xData = {};
+      if(typeof data['OFFLINE'] !== 'undefined') xData['OFFLINE'] = TypeTransformer.from('ACDStatisticsItem')(data['OFFLINE']);
+      if(typeof data['ONLINE'] !== 'undefined') xData['ONLINE'] = TypeTransformer.from('ACDStatisticsItem')(data['ONLINE']);
+      if(typeof data['READY'] !== 'undefined') xData['READY'] = TypeTransformer.from('ACDStatisticsItem')(data['READY']);
+      if(typeof data['BANNED'] !== 'undefined') xData['BANNED'] = TypeTransformer.from('ACDStatisticsItem')(data['BANNED']);
+      if(typeof data['INSERVICE'] !== 'undefined') xData['IN_SERVICE'] = TypeTransformer.from('ACDStatisticsItem')(data['INSERVICE']);
+      if(typeof data['AFTERSERVICE'] !== 'undefined') xData['AFTER_SERVICE'] = TypeTransformer.from('ACDStatisticsItem')(data['AFTERSERVICE']);
+      if(typeof data['TIMEOUT'] !== 'undefined') xData['TIMEOUT'] = TypeTransformer.from('ACDStatisticsItem')(data['TIMEOUT']);
+      if(typeof data['DND'] !== 'undefined') xData['DND'] = TypeTransformer.from('ACDStatisticsItem')(data['DND']);
+      return xData;
+},
+    'ACDQueueStatistics': function(data){
+      const xData = {};
+      if(typeof data['date'] !== 'undefined') xData['date'] = TypeTransformer.from('Date')(data['date']);
+      if(typeof data['hour'] !== 'undefined') xData['hour'] = TypeTransformer.from('number')(data['hour']);
+      if(typeof data['WT'] !== 'undefined') xData['WT'] = TypeTransformer.from('ACDStatisticsItem')(data['WT']);
+      if(typeof data['SA'] !== 'undefined') xData['SA'] = TypeTransformer.from('ACDStatisticsItem')(data['SA']);
+      if(typeof data['AT'] !== 'undefined') xData['AT'] = TypeTransformer.from('ACDStatisticsItem')(data['AT']);
+      if(typeof data['HT'] !== 'undefined') xData['HT'] = TypeTransformer.from('ACDStatisticsItem')(data['HT']);
+      if(typeof data['TT'] !== 'undefined') xData['TT'] = TypeTransformer.from('ACDStatisticsItem')(data['TT']);
+      if(typeof data['ACW'] !== 'undefined') xData['ACW'] = TypeTransformer.from('ACDStatisticsItem')(data['ACW']);
+      if(typeof data['QL'] !== 'undefined') xData['QL'] = TypeTransformer.from('ACDStatisticsItem')(data['QL']);
+      if(typeof data['TC'] !== 'undefined') xData['TC'] = TypeTransformer.from('number')(data['TC']);
+      if(typeof data['AC'] !== 'undefined') xData['AC'] = TypeTransformer.from('ACDStatisticsCalls[]')(data['AC']);
+      if(typeof data['UAC'] !== 'undefined') xData['UAC'] = TypeTransformer.from('ACDStatisticsCalls[]')(data['UAC']);
+      if(typeof data['RC'] !== 'undefined') xData['RC'] = TypeTransformer.from('ACDStatisticsCalls[]')(data['RC']);
+      if(typeof data['SL'] !== 'undefined') xData['SL'] = TypeTransformer.from('ACDQueueStatisticsServiceLevel[]')(data['SL']);
+      if(typeof data['TWT'] !== 'undefined') xData['TWT'] = TypeTransformer.from('number')(data['TWT']);
+      if(typeof data['TST'] !== 'undefined') xData['TST'] = TypeTransformer.from('number')(data['TST']);
+      if(typeof data['TAT'] !== 'undefined') xData['TAT'] = TypeTransformer.from('number')(data['TAT']);
+      if(typeof data['THT'] !== 'undefined') xData['THT'] = TypeTransformer.from('number')(data['THT']);
+      if(typeof data['TTT'] !== 'undefined') xData['TTT'] = TypeTransformer.from('number')(data['TTT']);
+      if(typeof data['TACW'] !== 'undefined') xData['TACW'] = TypeTransformer.from('number')(data['TACW']);
+      return xData;
+},
+    'ACDQueueStatisticsServiceLevel': function(data){
+      const xData = {};
+      if(typeof data['acceptableWaitingTime'] !== 'undefined') xData['acceptable_waiting_time'] = TypeTransformer.from('number')(data['acceptableWaitingTime']);
+      if(typeof data['callCount'] !== 'undefined') xData['call_count'] = TypeTransformer.from('number')(data['callCount']);
+      if(typeof data['serviceLevel'] !== 'undefined') xData['service_level'] = TypeTransformer.from('number')(data['serviceLevel']);
+      return xData;
+},
+    'ACDStatisticsItem': function(data){
+      const xData = {};
+      if(typeof data['min'] !== 'undefined') xData['min'] = TypeTransformer.from('number')(data['min']);
+      if(typeof data['avg'] !== 'undefined') xData['avg'] = TypeTransformer.from('number')(data['avg']);
+      if(typeof data['max'] !== 'undefined') xData['max'] = TypeTransformer.from('number')(data['max']);
+      if(typeof data['count'] !== 'undefined') xData['count'] = TypeTransformer.from('number')(data['count']);
+      if(typeof data['sum'] !== 'undefined') xData['sum'] = TypeTransformer.from('number')(data['sum']);
+      return xData;
+},
+    'ACDStatisticsCalls': function(data){
+      const xData = {};
+      if(typeof data['count'] !== 'undefined') xData['count'] = TypeTransformer.from('number')(data['count']);
+      if(typeof data['percent'] !== 'undefined') xData['percent'] = TypeTransformer.from('number')(data['percent']);
+      return xData;
+},
+    'ACDQueueState': function(data){
+      const xData = {};
+      if(typeof data['acdQueueId'] !== 'undefined') xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
+      if(typeof data['readyOperators'] !== 'undefined') xData['ready_operators'] = TypeTransformer.from('ACDReadyOperatorState[]')(data['readyOperators']);
+      if(typeof data['readyOperatorsCount'] !== 'undefined') xData['ready_operators_count'] = TypeTransformer.from('number')(data['readyOperatorsCount']);
+      if(typeof data['lockedOperators'] !== 'undefined') xData['locked_operators'] = TypeTransformer.from('ACDLockedOperatorState[]')(data['lockedOperators']);
+      if(typeof data['lockedOperatorsCount'] !== 'undefined') xData['locked_operators_count'] = TypeTransformer.from('number')(data['lockedOperatorsCount']);
+      if(typeof data['afterServiceOperators'] !== 'undefined') xData['after_service_operators'] = TypeTransformer.from('ACDAfterServiceOperatorState[]')(data['afterServiceOperators']);
+      if(typeof data['afterServiceOperatorCount'] !== 'undefined') xData['after_service_operator_count'] = TypeTransformer.from('number')(data['afterServiceOperatorCount']);
+      if(typeof data['servicingCalls'] !== 'undefined') xData['servicing_calls'] = TypeTransformer.from('ACDServicingCallState[]')(data['servicingCalls']);
+      if(typeof data['waitingCalls'] !== 'undefined') xData['waiting_calls'] = TypeTransformer.from('ACDWaitingCallState[]')(data['waitingCalls']);
+      return xData;
+},
+    'ACDReadyOperatorState': function(data){
+      const xData = {};
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
+      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
+      if(typeof data['userDisplayName'] !== 'undefined') xData['user_display_name'] = TypeTransformer.from('string')(data['userDisplayName']);
+      if(typeof data['idleDuration'] !== 'undefined') xData['idle_duration'] = TypeTransformer.from('number')(data['idleDuration']);
+      return xData;
+},
+    'ACDLockedOperatorState': function(data){
+      const xData = {};
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
+      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
+      if(typeof data['userDisplayName'] !== 'undefined') xData['user_display_name'] = TypeTransformer.from('string')(data['userDisplayName']);
+      if(typeof data['unreached'] !== 'undefined') xData['unreached'] = TypeTransformer.from('Date')(data['unreached']);
+      if(typeof data['locks'] !== 'undefined') xData['locks'] = TypeTransformer.from('ACDLock[]')(data['locks']);
+      if(typeof data['acdCalls'] !== 'undefined') xData['acd_calls'] = TypeTransformer.from('ACDOperatorCall[]')(data['acdCalls']);
+      if(typeof data['status'] !== 'undefined') xData['status'] = TypeTransformer.from('string')(data['status']);
+      return xData;
+},
+    'ACDAfterServiceOperatorState': function(data){
+      const xData = {};
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
+      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
+      if(typeof data['userDisplayName'] !== 'undefined') xData['user_display_name'] = TypeTransformer.from('string')(data['userDisplayName']);
+      if(typeof data['status'] !== 'undefined') xData['status'] = TypeTransformer.from('string')(data['status']);
+      return xData;
+},
+    'ACDLock': function(data){
+      const xData = {};
+      if(typeof data['id'] !== 'undefined') xData['id'] = TypeTransformer.from('string')(data['id']);
+      if(typeof data['created'] !== 'undefined') xData['created'] = TypeTransformer.from('Date')(data['created']);
+      return xData;
+},
+    'ACDOperatorCall': function(data){
+      const xData = {};
+      if(typeof data['acdSessionHistoryId'] !== 'undefined') xData['acd_session_history_id'] = TypeTransformer.from('number')(data['acdSessionHistoryId']);
+      if(typeof data['acdRequestId'] !== 'undefined') xData['acd_request_id'] = TypeTransformer.from('string')(data['acdRequestId']);
+      if(typeof data['acdQueueId'] !== 'undefined') xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
+      if(typeof data['acdQueueName'] !== 'undefined') xData['acd_queue_name'] = TypeTransformer.from('string')(data['acdQueueName']);
+      if(typeof data['callerid'] !== 'undefined') xData['callerid'] = TypeTransformer.from('string')(data['callerid']);
+      if(typeof data['beginTime'] !== 'undefined') xData['begin_time'] = TypeTransformer.from('Date')(data['beginTime']);
+      if(typeof data['submitted'] !== 'undefined') xData['submitted'] = TypeTransformer.from('Date')(data['submitted']);
+      return xData;
+},
+    'ACDServicingCallState': function(data){
+      const xData = {};
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
+      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
+      if(typeof data['userDisplayName'] !== 'undefined') xData['user_display_name'] = TypeTransformer.from('string')(data['userDisplayName']);
+      if(typeof data['priority'] !== 'undefined') xData['priority'] = TypeTransformer.from('number')(data['priority']);
+      if(typeof data['callerid'] !== 'undefined') xData['callerid'] = TypeTransformer.from('string')(data['callerid']);
+      if(typeof data['beginTime'] !== 'undefined') xData['begin_time'] = TypeTransformer.from('Date')(data['beginTime']);
+      if(typeof data['waitingTime'] !== 'undefined') xData['waiting_time'] = TypeTransformer.from('number')(data['waitingTime']);
+      if(typeof data['acdSessionHistoryId'] !== 'undefined') xData['acd_session_history_id'] = TypeTransformer.from('number')(data['acdSessionHistoryId']);
+      return xData;
+},
+    'ACDWaitingCallState': function(data){
+      const xData = {};
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
+      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
+      if(typeof data['userDisplayName'] !== 'undefined') xData['user_display_name'] = TypeTransformer.from('string')(data['userDisplayName']);
+      if(typeof data['priority'] !== 'undefined') xData['priority'] = TypeTransformer.from('number')(data['priority']);
+      if(typeof data['callerid'] !== 'undefined') xData['callerid'] = TypeTransformer.from('string')(data['callerid']);
+      if(typeof data['beginTime'] !== 'undefined') xData['begin_time'] = TypeTransformer.from('Date')(data['beginTime']);
+      if(typeof data['waitingTime'] !== 'undefined') xData['waiting_time'] = TypeTransformer.from('number')(data['waitingTime']);
+      if(typeof data['minutesToSubmit'] !== 'undefined') xData['minutes_to_submit'] = TypeTransformer.from('number')(data['minutesToSubmit']);
+      if(typeof data['acdSessionHistoryId'] !== 'undefined') xData['acd_session_history_id'] = TypeTransformer.from('number')(data['acdSessionHistoryId']);
+      return xData;
+},
+    'NewPhoneInfo': function(data){
+      const xData = {};
+      if(typeof data['phoneId'] !== 'undefined') xData['phone_id'] = TypeTransformer.from('number')(data['phoneId']);
+      if(typeof data['phoneNumber'] !== 'undefined') xData['phone_number'] = TypeTransformer.from('string')(data['phoneNumber']);
+      if(typeof data['phonePrice'] !== 'undefined') xData['phone_price'] = TypeTransformer.from('number')(data['phonePrice']);
+      if(typeof data['phoneInstallationPrice'] !== 'undefined') xData['phone_installation_price'] = TypeTransformer.from('number')(data['phoneInstallationPrice']);
+      if(typeof data['phoneCountryCode'] !== 'undefined') xData['phone_country_code'] = TypeTransformer.from('string')(data['phoneCountryCode']);
+      if(typeof data['phonePeriod'] !== 'undefined') xData['phone_period'] = TypeTransformer.from('string')(data['phonePeriod']);
+      if(typeof data['phoneCategoryName'] !== 'undefined') xData['phone_category_name'] = TypeTransformer.from('string')(data['phoneCategoryName']);
+      if(typeof data['phoneRegionName'] !== 'undefined') xData['phone_region_name'] = TypeTransformer.from('string')(data['phoneRegionName']);
+      return xData;
+},
+    'AttachedPhoneInfo': function(data){
+      const xData = {};
+      if(typeof data['phoneId'] !== 'undefined') xData['phone_id'] = TypeTransformer.from('number')(data['phoneId']);
+      if(typeof data['phoneNumber'] !== 'undefined') xData['phone_number'] = TypeTransformer.from('string')(data['phoneNumber']);
+      if(typeof data['phonePrice'] !== 'undefined') xData['phone_price'] = TypeTransformer.from('number')(data['phonePrice']);
+      if(typeof data['phoneCountryCode'] !== 'undefined') xData['phone_country_code'] = TypeTransformer.from('string')(data['phoneCountryCode']);
+      if(typeof data['phoneNextRenewal'] !== 'undefined') xData['phone_next_renewal'] = TypeTransformer.from('Date')(data['phoneNextRenewal']);
+      if(typeof data['phonePurchaseDate'] !== 'undefined') xData['phone_purchase_date'] = TypeTransformer.from('Date')(data['phonePurchaseDate']);
+      if(typeof data['deactivated'] !== 'undefined') xData['deactivated'] = TypeTransformer.from('boolean')(data['deactivated']);
+      if(typeof data['canceled'] !== 'undefined') xData['canceled'] = TypeTransformer.from('boolean')(data['canceled']);
+      if(typeof data['autoCharge'] !== 'undefined') xData['auto_charge'] = TypeTransformer.from('boolean')(data['autoCharge']);
+      if(typeof data['applicationId'] !== 'undefined') xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
+      if(typeof data['applicationName'] !== 'undefined') xData['application_name'] = TypeTransformer.from('string')(data['applicationName']);
+      if(typeof data['ruleId'] !== 'undefined') xData['rule_id'] = TypeTransformer.from('number')(data['ruleId']);
+      if(typeof data['ruleName'] !== 'undefined') xData['rule_name'] = TypeTransformer.from('string')(data['ruleName']);
+      if(typeof data['categoryName'] !== 'undefined') xData['category_name'] = TypeTransformer.from('string')(data['categoryName']);
+      if(typeof data['requiredVerification'] !== 'undefined') xData['required_verification'] = TypeTransformer.from('string')(data['requiredVerification']);
+      if(typeof data['verificationStatus'] !== 'undefined') xData['verification_status'] = TypeTransformer.from('string')(data['verificationStatus']);
+      if(typeof data['unverifiedHoldUntil'] !== 'undefined') xData['unverified_hold_until'] = TypeTransformer.from('Date')(data['unverifiedHoldUntil']);
+      if(typeof data['canBeUsed'] !== 'undefined') xData['can_be_used'] = TypeTransformer.from('boolean')(data['canBeUsed']);
+      if(typeof data['isSmsSupported'] !== 'undefined') xData['is_sms_supported'] = TypeTransformer.from('boolean')(data['isSmsSupported']);
+      if(typeof data['isSmsEnabled'] !== 'undefined') xData['is_sms_enabled'] = TypeTransformer.from('boolean')(data['isSmsEnabled']);
+      return xData;
+},
+    'NewAttachedPhoneInfo': function(data){
+      const xData = {};
+      if(typeof data['phoneId'] !== 'undefined') xData['phone_id'] = TypeTransformer.from('number')(data['phoneId']);
+      if(typeof data['phoneNumber'] !== 'undefined') xData['phone_number'] = TypeTransformer.from('string')(data['phoneNumber']);
+      if(typeof data['requiredVerification'] !== 'undefined') xData['required_verification'] = TypeTransformer.from('string')(data['requiredVerification']);
+      if(typeof data['verificationStatus'] !== 'undefined') xData['verification_status'] = TypeTransformer.from('string')(data['verificationStatus']);
+      if(typeof data['unverifiedHoldUntil'] !== 'undefined') xData['unverified_hold_until'] = TypeTransformer.from('Date')(data['unverifiedHoldUntil']);
+      return xData;
+},
+    'PhoneNumberCountryInfo': function(data){
+      const xData = {};
+      if(typeof data['countryCode'] !== 'undefined') xData['country_code'] = TypeTransformer.from('string')(data['countryCode']);
+      if(typeof data['phonePrefix'] !== 'undefined') xData['phone_prefix'] = TypeTransformer.from('string')(data['phonePrefix']);
+      if(typeof data['canListPhoneNumbers'] !== 'undefined') xData['can_list_phone_numbers'] = TypeTransformer.from('boolean')(data['canListPhoneNumbers']);
+      if(typeof data['phoneCategories'] !== 'undefined') xData['phone_categories'] = TypeTransformer.from('PhoneNumberCountryCategoryInfo[]')(data['phoneCategories']);
+      return xData;
+},
+    'PhoneNumberCountryCategoryInfo': function(data){
+      const xData = {};
+      if(typeof data['phoneCategoryName'] !== 'undefined') xData['phone_category_name'] = TypeTransformer.from('string')(data['phoneCategoryName']);
+      if(typeof data['countryHasStates'] !== 'undefined') xData['country_has_states'] = TypeTransformer.from('boolean')(data['countryHasStates']);
+      return xData;
+},
+    'PhoneNumberCountryStateInfo': function(data){
+      const xData = {};
+      if(typeof data['countryState'] !== 'undefined') xData['country_state'] = TypeTransformer.from('string')(data['countryState']);
+      if(typeof data['countryStateName'] !== 'undefined') xData['country_state_name'] = TypeTransformer.from('string')(data['countryStateName']);
+      return xData;
+},
+    'PhoneNumberCountryRegionInfo': function(data){
+      const xData = {};
+      if(typeof data['phoneRegionId'] !== 'undefined') xData['phone_region_id'] = TypeTransformer.from('number')(data['phoneRegionId']);
+      if(typeof data['phoneRegionName'] !== 'undefined') xData['phone_region_name'] = TypeTransformer.from('string')(data['phoneRegionName']);
+      if(typeof data['phoneRegionCode'] !== 'undefined') xData['phone_region_code'] = TypeTransformer.from('string')(data['phoneRegionCode']);
+      if(typeof data['phoneCount'] !== 'undefined') xData['phone_count'] = TypeTransformer.from('number')(data['phoneCount']);
+      if(typeof data['verificationStatus'] !== 'undefined') xData['verification_status'] = TypeTransformer.from('string')(data['verificationStatus']);
+      if(typeof data['requiredVerification'] !== 'undefined') xData['required_verification'] = TypeTransformer.from('string')(data['requiredVerification']);
+      if(typeof data['phonePrice'] !== 'undefined') xData['phone_price'] = TypeTransformer.from('number')(data['phonePrice']);
+      if(typeof data['phoneInstallationPrice'] !== 'undefined') xData['phone_installation_price'] = TypeTransformer.from('number')(data['phoneInstallationPrice']);
+      if(typeof data['phonePeriod'] !== 'undefined') xData['phone_period'] = TypeTransformer.from('string')(data['phonePeriod']);
+      if(typeof data['isNeedRegulationAddress'] !== 'undefined') xData['is_need_regulation_address'] = TypeTransformer.from('boolean')(data['isNeedRegulationAddress']);
+      if(typeof data['regulationAddressType'] !== 'undefined') xData['regulation_address_type'] = TypeTransformer.from('string')(data['regulationAddressType']);
+      if(typeof data['isSmsSupported'] !== 'undefined') xData['is_sms_supported'] = TypeTransformer.from('boolean')(data['isSmsSupported']);
+      if(typeof data['multipleNumbersPrice'] !== 'undefined') xData['multiple_numbers_price'] = TypeTransformer.from('MultipleNumbersPrice[]')(data['multipleNumbersPrice']);
+      return xData;
+},
+    'MultipleNumbersPrice': function(data){
+      const xData = {};
+      if(typeof data['count'] !== 'undefined') xData['count'] = TypeTransformer.from('number')(data['count']);
+      if(typeof data['price'] !== 'undefined') xData['price'] = TypeTransformer.from('number')(data['price']);
+      if(typeof data['installationPrice'] !== 'undefined') xData['installation_price'] = TypeTransformer.from('number')(data['installationPrice']);
+      return xData;
+},
+    'CallerIDInfo': function(data){
+      const xData = {};
+      if(typeof data['calleridId'] !== 'undefined') xData['callerid_id'] = TypeTransformer.from('number')(data['calleridId']);
+      if(typeof data['calleridNumber'] !== 'undefined') xData['callerid_number'] = TypeTransformer.from('string')(data['calleridNumber']);
+      if(typeof data['active'] !== 'undefined') xData['active'] = TypeTransformer.from('boolean')(data['active']);
+      if(typeof data['codeEnteringAttemptsLeft'] !== 'undefined') xData['code_entering_attempts_left'] = TypeTransformer.from('number')(data['codeEnteringAttemptsLeft']);
+      if(typeof data['verificationCallAttemptsLeft'] !== 'undefined') xData['verification_call_attempts_left'] = TypeTransformer.from('number')(data['verificationCallAttemptsLeft']);
+      if(typeof data['verifiedUntil'] !== 'undefined') xData['verified_until'] = TypeTransformer.from('Date')(data['verifiedUntil']);
+      return xData;
+},
+    'ContactInfo': function(data){
+      const xData = {};
+      if(typeof data['contactId'] !== 'undefined') xData['contact_id'] = TypeTransformer.from('number')(data['contactId']);
+      if(typeof data['contactType'] !== 'undefined') xData['contact_type'] = TypeTransformer.from('string')(data['contactType']);
+      if(typeof data['contactData'] !== 'undefined') xData['contact_data'] = TypeTransformer.from('string')(data['contactData']);
+      if(typeof data['isPersistent'] !== 'undefined') xData['is_persistent'] = TypeTransformer.from('boolean')(data['isPersistent']);
+      if(typeof data['description'] !== 'undefined') xData['description'] = TypeTransformer.from('string')(data['description']);
+      if(typeof data['nextVerificationAfterSec'] !== 'undefined') xData['next_verification_after_sec'] = TypeTransformer.from('number')(data['nextVerificationAfterSec']);
+      if(typeof data['verified'] !== 'undefined') xData['verified'] = TypeTransformer.from('Date')(data['verified']);
+      if(typeof data['notificationGroup'] !== 'undefined') xData['notification_group'] = TypeTransformer.from('string[]')(data['notificationGroup']);
+      if(typeof data['created'] !== 'undefined') xData['created'] = TypeTransformer.from('Date')(data['created']);
+      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
+      return xData;
+},
+    'ACDQueueOperatorInfo': function(data){
+      const xData = {};
+      if(typeof data['acdQueueId'] !== 'undefined') xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
+      if(typeof data['acdQueueName'] !== 'undefined') xData['acd_queue_name'] = TypeTransformer.from('string')(data['acdQueueName']);
+      if(typeof data['autoLink'] !== 'undefined') xData['auto_link'] = TypeTransformer.from('boolean')(data['autoLink']);
+      return xData;
+},
+    'ClonedACDQueue': function(data){
+      const xData = {};
+      if(typeof data['acdQueueId'] !== 'undefined') xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
+      if(typeof data['acdQueueName'] !== 'undefined') xData['acd_queue_name'] = TypeTransformer.from('string')(data['acdQueueName']);
+      return xData;
+},
+    'SkillInfo': function(data){
+      const xData = {};
+      if(typeof data['skillId'] !== 'undefined') xData['skill_id'] = TypeTransformer.from('number')(data['skillId']);
+      if(typeof data['skillName'] !== 'undefined') xData['skill_name'] = TypeTransformer.from('string')(data['skillName']);
+      return xData;
+},
+    'ClonedACDSkill': function(data){
+      const xData = {};
+      if(typeof data['skillId'] !== 'undefined') xData['skill_id'] = TypeTransformer.from('number')(data['skillId']);
+      if(typeof data['skillName'] !== 'undefined') xData['skill_name'] = TypeTransformer.from('string')(data['skillName']);
+      return xData;
+},
+    'ExchangeRates': function(data){
+      const xData = {};
+      if(typeof data['RUR'] !== 'undefined') xData['RUR'] = TypeTransformer.from('number')(data['RUR']);
+      if(typeof data['EUR'] !== 'undefined') xData['EUR'] = TypeTransformer.from('number')(data['EUR']);
+      if(typeof data['USD'] !== 'undefined') xData['USD'] = TypeTransformer.from('number')(data['USD']);
+      return xData;
+},
+    'ResourcePrice': function(data){
+      const xData = {};
+      if(typeof data['resourceType'] !== 'undefined') xData['resource_type'] = TypeTransformer.from('string')(data['resourceType']);
+      if(typeof data['priceGroups'] !== 'undefined') xData['price_groups'] = TypeTransformer.from('PriceGroup[]')(data['priceGroups']);
+      return xData;
+},
+    'PriceGroup': function(data){
+      const xData = {};
+      if(typeof data['priceGroupName'] !== 'undefined') xData['price_group_name'] = TypeTransformer.from('string')(data['priceGroupName']);
+      if(typeof data['priceGroupId'] !== 'undefined') xData['price_group_id'] = TypeTransformer.from('number')(data['priceGroupId']);
+      if(typeof data['price'] !== 'undefined') xData['price'] = TypeTransformer.from('number')(data['price']);
+      if(typeof data['numResourcesPerPrice'] !== 'undefined') xData['num_resources_per_price'] = TypeTransformer.from('number')(data['numResourcesPerPrice']);
+      if(typeof data['quantum'] !== 'undefined') xData['quantum'] = TypeTransformer.from('number')(data['quantum']);
+      if(typeof data['params'] !== 'undefined') xData['params'] = TypeTransformer.from('ResourceParams')(data['params']);
+      return xData;
+},
+    'ResourceParams': function(data){
+      const xData = {};
+      if(typeof data['allowed'] !== 'undefined') xData['allowed'] = TypeTransformer.from('string[]')(data['allowed']);
+      if(typeof data['forbidden'] !== 'undefined') xData['forbidden'] = TypeTransformer.from('string[]')(data['forbidden']);
+      if(typeof data['requested'] !== 'undefined') xData['requested'] = TypeTransformer.from('string[]')(data['requested']);
+      return xData;
+},
+    'CallList': function(data){
+      const xData = {};
+      if(typeof data['listId'] !== 'undefined') xData['list_id'] = TypeTransformer.from('number')(data['listId']);
+      if(typeof data['listName'] !== 'undefined') xData['list_name'] = TypeTransformer.from('string')(data['listName']);
+      if(typeof data['priority'] !== 'undefined') xData['priority'] = TypeTransformer.from('number')(data['priority']);
+      if(typeof data['ruleId'] !== 'undefined') xData['rule_id'] = TypeTransformer.from('number')(data['ruleId']);
+      if(typeof data['maxSimultaneous'] !== 'undefined') xData['max_simultaneous'] = TypeTransformer.from('number')(data['maxSimultaneous']);
+      if(typeof data['numAttempts'] !== 'undefined') xData['num_attempts'] = TypeTransformer.from('number')(data['numAttempts']);
+      if(typeof data['dtSubmit'] !== 'undefined') xData['dt_submit'] = TypeTransformer.from('Date')(data['dtSubmit']);
+      if(typeof data['dtComplete'] !== 'undefined') xData['dt_complete'] = TypeTransformer.from('Date')(data['dtComplete']);
+      if(typeof data['intervalSeconds'] !== 'undefined') xData['interval_seconds'] = TypeTransformer.from('number')(data['intervalSeconds']);
+      if(typeof data['status'] !== 'undefined') xData['status'] = TypeTransformer.from('string')(data['status']);
+      return xData;
+},
+    'CallListDetail': function(data){
+      const xData = {};
+      if(typeof data['listId'] !== 'undefined') xData['list_id'] = TypeTransformer.from('number')(data['listId']);
+      if(typeof data['customData'] !== 'undefined') xData['custom_data'] = TypeTransformer.from('string')(data['customData']);
+      if(typeof data['startExecutionTime'] !== 'undefined') xData['start_execution_time'] = TypeTransformer.from('string')(data['startExecutionTime']);
+      if(typeof data['finishExecutionTime'] !== 'undefined') xData['finish_execution_time'] = TypeTransformer.from('string')(data['finishExecutionTime']);
+      if(typeof data['resultData'] !== 'undefined') xData['result_data'] = TypeTransformer.from('string')(data['resultData']);
+      if(typeof data['lastAttempt'] !== 'undefined') xData['last_attempt'] = TypeTransformer.from('string')(data['lastAttempt']);
+      if(typeof data['attmeptsLeft'] !== 'undefined') xData['attmepts_left'] = TypeTransformer.from('number')(data['attmeptsLeft']);
+      if(typeof data['statusId'] !== 'undefined') xData['status_id'] = TypeTransformer.from('number')(data['statusId']);
+      if(typeof data['status'] !== 'undefined') xData['status'] = TypeTransformer.from('string')(data['status']);
+      return xData;
+},
+    'SIPRegistration': function(data){
+      const xData = {};
+      if(typeof data['sipRegistrationId'] !== 'undefined') xData['sip_registration_id'] = TypeTransformer.from('number')(data['sipRegistrationId']);
+      if(typeof data['sipUsername'] !== 'undefined') xData['sip_username'] = TypeTransformer.from('string')(data['sipUsername']);
+      if(typeof data['proxy'] !== 'undefined') xData['proxy'] = TypeTransformer.from('string')(data['proxy']);
+      if(typeof data['lastUpdated'] !== 'undefined') xData['last_updated'] = TypeTransformer.from('number')(data['lastUpdated']);
+      if(typeof data['authUser'] !== 'undefined') xData['auth_user'] = TypeTransformer.from('string')(data['authUser']);
+      if(typeof data['outboundProxy'] !== 'undefined') xData['outbound_proxy'] = TypeTransformer.from('string')(data['outboundProxy']);
+      if(typeof data['successful'] !== 'undefined') xData['successful'] = TypeTransformer.from('boolean')(data['successful']);
+      if(typeof data['statusCode'] !== 'undefined') xData['status_code'] = TypeTransformer.from('number')(data['statusCode']);
+      if(typeof data['errorMessage'] !== 'undefined') xData['error_message'] = TypeTransformer.from('string')(data['errorMessage']);
+      if(typeof data['deactivated'] !== 'undefined') xData['deactivated'] = TypeTransformer.from('boolean')(data['deactivated']);
+      if(typeof data['nextSubscriptionRenewal'] !== 'undefined') xData['next_subscription_renewal'] = TypeTransformer.from('Date')(data['nextSubscriptionRenewal']);
+      if(typeof data['purchaseDate'] !== 'undefined') xData['purchase_date'] = TypeTransformer.from('Date')(data['purchaseDate']);
+      if(typeof data['subscriptionPrice'] !== 'undefined') xData['subscription_price'] = TypeTransformer.from('string')(data['subscriptionPrice']);
+      if(typeof data['isPersistent'] !== 'undefined') xData['is_persistent'] = TypeTransformer.from('boolean')(data['isPersistent']);
+      if(typeof data['userId'] !== 'undefined') xData['user_id'] = TypeTransformer.from('number')(data['userId']);
+      if(typeof data['userName'] !== 'undefined') xData['user_name'] = TypeTransformer.from('string')(data['userName']);
+      if(typeof data['applicationId'] !== 'undefined') xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
+      if(typeof data['applicationName'] !== 'undefined') xData['application_name'] = TypeTransformer.from('string')(data['applicationName']);
+      if(typeof data['ruleId'] !== 'undefined') xData['rule_id'] = TypeTransformer.from('number')(data['ruleId']);
+      if(typeof data['ruleName'] !== 'undefined') xData['rule_name'] = TypeTransformer.from('string')(data['ruleName']);
+      return xData;
+},
+    'AdminRole': function(data){
+      const xData = {};
+      if(typeof data['adminRoleId'] !== 'undefined') xData['admin_role_id'] = TypeTransformer.from('number')(data['adminRoleId']);
+      if(typeof data['adminRoleName'] !== 'undefined') xData['admin_role_name'] = TypeTransformer.from('string')(data['adminRoleName']);
+      if(typeof data['adminRoleActive'] !== 'undefined') xData['admin_role_active'] = TypeTransformer.from('boolean')(data['adminRoleActive']);
+      if(typeof data['systemRole'] !== 'undefined') xData['system_role'] = TypeTransformer.from('boolean')(data['systemRole']);
+      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
+      if(typeof data['allowedEntries'] !== 'undefined') xData['allowed_entries'] = TypeTransformer.from('string[]')(data['allowedEntries']);
+      if(typeof data['deniedEntries'] !== 'undefined') xData['denied_entries'] = TypeTransformer.from('string[]')(data['deniedEntries']);
+      return xData;
+},
+    'ClonedAdminRole': function(data){
+      const xData = {};
+      if(typeof data['adminRoleId'] !== 'undefined') xData['admin_role_id'] = TypeTransformer.from('number')(data['adminRoleId']);
+      if(typeof data['adminRoleName'] !== 'undefined') xData['admin_role_name'] = TypeTransformer.from('string')(data['adminRoleName']);
+      return xData;
+},
+    'AdminUser': function(data){
+      const xData = {};
+      if(typeof data['adminUserId'] !== 'undefined') xData['admin_user_id'] = TypeTransformer.from('number')(data['adminUserId']);
+      if(typeof data['adminUserName'] !== 'undefined') xData['admin_user_name'] = TypeTransformer.from('string')(data['adminUserName']);
+      if(typeof data['adminUserDisplayName'] !== 'undefined') xData['admin_user_display_name'] = TypeTransformer.from('string')(data['adminUserDisplayName']);
+      if(typeof data['adminUserActive'] !== 'undefined') xData['admin_user_active'] = TypeTransformer.from('boolean')(data['adminUserActive']);
+      if(typeof data['modified'] !== 'undefined') xData['modified'] = TypeTransformer.from('Date')(data['modified']);
+      if(typeof data['accessEntries'] !== 'undefined') xData['access_entries'] = TypeTransformer.from('string[]')(data['accessEntries']);
+      if(typeof data['adminRoles'] !== 'undefined') xData['admin_roles'] = TypeTransformer.from('AdminRole[]')(data['adminRoles']);
+      return xData;
+},
+    'ClonedAdminUser': function(data){
+      const xData = {};
+      if(typeof data['adminUserId'] !== 'undefined') xData['admin_user_id'] = TypeTransformer.from('number')(data['adminUserId']);
+      if(typeof data['adminUserName'] !== 'undefined') xData['admin_user_name'] = TypeTransformer.from('string')(data['adminUserName']);
+      if(typeof data['adminUserApiKey'] !== 'undefined') xData['admin_user_api_key'] = TypeTransformer.from('string')(data['adminUserApiKey']);
+      return xData;
+},
+    'GetMoneyAmountToChargeResult': function(data){
+      const xData = {};
+      if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.from('number')(data['amount']);
+      if(typeof data['minAmount'] !== 'undefined') xData['min_amount'] = TypeTransformer.from('number')(data['minAmount']);
+      if(typeof data['bankCardAmountUsd'] !== 'undefined') xData['bank_card_amount_usd'] = TypeTransformer.from('number')(data['bankCardAmountUsd']);
+      if(typeof data['minBankCardAmountUsd'] !== 'undefined') xData['min_bank_card_amount_usd'] = TypeTransformer.from('number')(data['minBankCardAmountUsd']);
+      if(typeof data['robokassaAmountRub'] !== 'undefined') xData['robokassa_amount_rub'] = TypeTransformer.from('number')(data['robokassaAmountRub']);
+      if(typeof data['minRobokassaAmountRub'] !== 'undefined') xData['min_robokassa_amount_rub'] = TypeTransformer.from('number')(data['minRobokassaAmountRub']);
+      if(typeof data['subscriptions'] !== 'undefined') xData['subscriptions'] = TypeTransformer.from('SubscriptionsToCharge[]')(data['subscriptions']);
+      return xData;
+},
+    'ChargeAccountResult': function(data){
+      const xData = {};
+      if(typeof data['chargedAmount'] !== 'undefined') xData['charged_amount'] = TypeTransformer.from('number')(data['chargedAmount']);
+      if(typeof data['phones'] !== 'undefined') xData['phones'] = TypeTransformer.from('ChargedPhone[]')(data['phones']);
+      return xData;
+},
+    'ChargedPhone': function(data){
+      const xData = {};
+      if(typeof data['phoneId'] !== 'undefined') xData['phone_id'] = TypeTransformer.from('number')(data['phoneId']);
+      if(typeof data['phoneNumber'] !== 'undefined') xData['phone_number'] = TypeTransformer.from('string')(data['phoneNumber']);
+      if(typeof data['deactivated'] !== 'undefined') xData['deactivated'] = TypeTransformer.from('boolean')(data['deactivated']);
+      if(typeof data['isCharged'] !== 'undefined') xData['is_charged'] = TypeTransformer.from('boolean')(data['isCharged']);
+      return xData;
+},
+    'SubscriptionsToCharge': function(data){
+      const xData = {};
+      if(typeof data['subscriptionAmount'] !== 'undefined') xData['subscription_amount'] = TypeTransformer.from('number')(data['subscriptionAmount']);
+      if(typeof data['subscriptionType'] !== 'undefined') xData['subscription_type'] = TypeTransformer.from('string')(data['subscriptionType']);
+      if(typeof data['subscriptionDescription'] !== 'undefined') xData['subscription_description'] = TypeTransformer.from('string')(data['subscriptionDescription']);
+      if(typeof data['subscriptionAutoCharge'] !== 'undefined') xData['subscription_auto_charge'] = TypeTransformer.from('boolean')(data['subscriptionAutoCharge']);
+      if(typeof data['subscriptionNextRenewal'] !== 'undefined') xData['subscription_next_renewal'] = TypeTransformer.from('Date')(data['subscriptionNextRenewal']);
+      return xData;
+},
+    'AuthorizedAccountIP': function(data){
+      const xData = {};
+      if(typeof data['authorizedIp'] !== 'undefined') xData['authorized_ip'] = TypeTransformer.from('string')(data['authorizedIp']);
+      if(typeof data['allowed'] !== 'undefined') xData['allowed'] = TypeTransformer.from('boolean')(data['allowed']);
+      if(typeof data['created'] !== 'undefined') xData['created'] = TypeTransformer.from('Date')(data['created']);
+      return xData;
+},
+    'AccountVerificationDocument': function(data){
+      const xData = {};
+      if(typeof data['accountDocumentId'] !== 'undefined') xData['account_document_id'] = TypeTransformer.from('number')(data['accountDocumentId']);
+      if(typeof data['isIndividual'] !== 'undefined') xData['is_individual'] = TypeTransformer.from('boolean')(data['isIndividual']);
+      if(typeof data['comment'] !== 'undefined') xData['comment'] = TypeTransformer.from('string')(data['comment']);
+      if(typeof data['uploaded'] !== 'undefined') xData['uploaded'] = TypeTransformer.from('Date')(data['uploaded']);
+      if(typeof data['accountDocumentStatus'] !== 'undefined') xData['account_document_status'] = TypeTransformer.from('string')(data['accountDocumentStatus']);
+      return xData;
+},
+    'AccountVerification': function(data){
+      const xData = {};
+      if(typeof data['verificationName'] !== 'undefined') xData['verification_name'] = TypeTransformer.from('string')(data['verificationName']);
+      if(typeof data['verificationStatus'] !== 'undefined') xData['verification_status'] = TypeTransformer.from('string')(data['verificationStatus']);
+      if(typeof data['unverifiedHoldUntil'] !== 'undefined') xData['unverified_hold_until'] = TypeTransformer.from('Date')(data['unverifiedHoldUntil']);
+      if(typeof data['documents'] !== 'undefined') xData['documents'] = TypeTransformer.from('AccountVerificationDocument[]')(data['documents']);
+      return xData;
+},
+    'AccountVerifications': function(data){
+      const xData = {};
+      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
+      if(typeof data['verifications'] !== 'undefined') xData['verifications'] = TypeTransformer.from('AccountVerification[]')(data['verifications']);
+      return xData;
+},
+    'SubscriptionTemplate': function(data){
+      const xData = {};
+      if(typeof data['subscriptionTemplateId'] !== 'undefined') xData['subscription_template_id'] = TypeTransformer.from('number')(data['subscriptionTemplateId']);
+      if(typeof data['installationPrice'] !== 'undefined') xData['installation_price'] = TypeTransformer.from('number')(data['installationPrice']);
+      if(typeof data['period'] !== 'undefined') xData['period'] = TypeTransformer.from('string')(data['period']);
+      if(typeof data['subscriptionTemplateType'] !== 'undefined') xData['subscription_template_type'] = TypeTransformer.from('string')(data['subscriptionTemplateType']);
+      if(typeof data['subscriptionTemplateName'] !== 'undefined') xData['subscription_template_name'] = TypeTransformer.from('string')(data['subscriptionTemplateName']);
+      return xData;
+},
+    'AccountCallbacks': function(data){
+      const xData = {};
+      if(typeof data['callbacks'] !== 'undefined') xData['callbacks'] = TypeTransformer.from('AccountCallback[]')(data['callbacks']);
+      return xData;
+},
+    'AccountCallback': function(data){
+      const xData = {};
+      if(typeof data['callbackId'] !== 'undefined') xData['callback_id'] = TypeTransformer.from('number')(data['callbackId']);
+      if(typeof data['type'] !== 'undefined') xData['type'] = TypeTransformer.from('string')(data['type']);
+      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
+      if(typeof data['hash'] !== 'undefined') xData['hash'] = TypeTransformer.from('string')(data['hash']);
+      if(typeof data['accountName'] !== 'undefined') xData['account_name'] = TypeTransformer.from('string')(data['accountName']);
+      if(typeof data['accountEmail'] !== 'undefined') xData['account_email'] = TypeTransformer.from('string')(data['accountEmail']);
+      if(typeof data['languageCode'] !== 'undefined') xData['language_code'] = TypeTransformer.from('string')(data['languageCode']);
+      if(typeof data['accountFirstName'] !== 'undefined') xData['account_first_name'] = TypeTransformer.from('string')(data['accountFirstName']);
+      if(typeof data['accountLastName'] !== 'undefined') xData['account_last_name'] = TypeTransformer.from('string')(data['accountLastName']);
+      if(typeof data['balance'] !== 'undefined') xData['balance'] = TypeTransformer.from('number')(data['balance']);
+      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
+      if(typeof data['accountDocumentUploaded'] !== 'undefined') xData['account_document_uploaded'] = TypeTransformer.from('AccountDocumentUploadedCallback')(data['accountDocumentUploaded']);
+      if(typeof data['regulationAddressUploaded'] !== 'undefined') xData['regulation_address_uploaded'] = TypeTransformer.from('RegulationAddressUploadedCallback')(data['regulationAddressUploaded']);
+      if(typeof data['accountDocumentVerified'] !== 'undefined') xData['account_document_verified'] = TypeTransformer.from('AccountDocumentVerifiedCallback')(data['accountDocumentVerified']);
+      if(typeof data['accountIsFrozen'] !== 'undefined') xData['account_is_frozen'] = TypeTransformer.from('AccountIsFrozenCallback')(data['accountIsFrozen']);
+      if(typeof data['accountIsUnfrozen'] !== 'undefined') xData['account_is_unfrozen'] = TypeTransformer.from('AccountIsUnfrozenCallback')(data['accountIsUnfrozen']);
+      if(typeof data['activateSuccessful'] !== 'undefined') xData['activate_successful'] = TypeTransformer.from('ActivateSuccessfulCallback')(data['activateSuccessful']);
+      if(typeof data['callHistoryReport'] !== 'undefined') xData['call_history_report'] = TypeTransformer.from('CallHistoryReportCallback')(data['callHistoryReport']);
+      if(typeof data['cardExpired'] !== 'undefined') xData['card_expired'] = TypeTransformer.from('CardExpiredCallback')(data['cardExpired']);
+      if(typeof data['cardExpiresInMonth'] !== 'undefined') xData['card_expires_in_month'] = TypeTransformer.from('CardExpiresInMonthCallback')(data['cardExpiresInMonth']);
+      if(typeof data['cardPayment'] !== 'undefined') xData['card_payment'] = TypeTransformer.from('CardPaymentCallback')(data['cardPayment']);
+      if(typeof data['cardPaymentFailed'] !== 'undefined') xData['card_payment_failed'] = TypeTransformer.from('CardPaymentFailedCallback')(data['cardPaymentFailed']);
+      if(typeof data['robokassaPayment'] !== 'undefined') xData['robokassa_payment'] = TypeTransformer.from('RobokassaPaymentCallback')(data['robokassaPayment']);
+      if(typeof data['wireTransfer'] !== 'undefined') xData['wire_transfer'] = TypeTransformer.from('WireTransferCallback')(data['wireTransfer']);
+      if(typeof data['jsFail'] !== 'undefined') xData['js_fail'] = TypeTransformer.from('JSFailCallback')(data['jsFail']);
+      if(typeof data['minBalance'] !== 'undefined') xData['min_balance'] = TypeTransformer.from('MinBalanceCallback')(data['minBalance']);
+      if(typeof data['regulationAddressVerified'] !== 'undefined') xData['regulation_address_verified'] = TypeTransformer.from('RegulationAddressVerifiedCallback')(data['regulationAddressVerified']);
+      if(typeof data['renewedSubscriptions'] !== 'undefined') xData['renewed_subscriptions'] = TypeTransformer.from('RenewedSubscriptionsCallback')(data['renewedSubscriptions']);
+      if(typeof data['resetAccountPasswordRequest'] !== 'undefined') xData['reset_account_password_request'] = TypeTransformer.from('ResetAccountPasswordRequestCallback')(data['resetAccountPasswordRequest']);
+      if(typeof data['sipRegistrationFail'] !== 'undefined') xData['sip_registration_fail'] = TypeTransformer.from('SIPRegistrationFailCallback')(data['sipRegistrationFail']);
+      if(typeof data['stagnantAccount'] !== 'undefined') xData['stagnant_account'] = TypeTransformer.from('StagnantAccountCallback')(data['stagnantAccount']);
+      if(typeof data['subscriptionIsFrozen'] !== 'undefined') xData['subscription_is_frozen'] = TypeTransformer.from('SubscriptionIsFrozenCallback')(data['subscriptionIsFrozen']);
+      if(typeof data['subscriptionIsDetached'] !== 'undefined') xData['subscription_is_detached'] = TypeTransformer.from('SubscriptionIsDetachedCallback')(data['subscriptionIsDetached']);
+      if(typeof data['transactionHistoryReport'] !== 'undefined') xData['transaction_history_report'] = TypeTransformer.from('TransactionHistoryReportCallback')(data['transactionHistoryReport']);
+      if(typeof data['planConfig'] !== 'undefined') xData['plan_config'] = TypeTransformer.from('PlanConfigCallback')(data['planConfig']);
+      if(typeof data['unverifiedSubscriptionDetached'] !== 'undefined') xData['unverified_subscription_detached'] = TypeTransformer.from('UnverifiedSubscriptionDetachedCallback')(data['unverifiedSubscriptionDetached']);
+      if(typeof data['expiringCallerid'] !== 'undefined') xData['expiring_callerid'] = TypeTransformer.from('ExpiringCallerIDCallback')(data['expiringCallerid']);
+      if(typeof data['transcriptionComplete'] !== 'undefined') xData['transcription_complete'] = TypeTransformer.from('TranscriptionCompleteCallback')(data['transcriptionComplete']);
+      if(typeof data['smsInbound'] !== 'undefined') xData['sms_inbound'] = TypeTransformer.from('InboundSmsCallback')(data['smsInbound']);
+      if(typeof data['newInvoice'] !== 'undefined') xData['new_invoice'] = TypeTransformer.from('NewInvoiceCallback')(data['newInvoice']);
+      return xData;
+},
+    'AccountDocumentUploadedCallback': function(data){
+      const xData = {};
+      if(typeof data['accountDocumentId'] !== 'undefined') xData['account_document_id'] = TypeTransformer.from('number')(data['accountDocumentId']);
+      if(typeof data['uploaded'] !== 'undefined') xData['uploaded'] = TypeTransformer.from('Date')(data['uploaded']);
+      if(typeof data['isIndividual'] !== 'undefined') xData['is_individual'] = TypeTransformer.from('boolean')(data['isIndividual']);
+      if(typeof data['verificationName'] !== 'undefined') xData['verification_name'] = TypeTransformer.from('string')(data['verificationName']);
+      return xData;
+},
+    'RegulationAddressUploadedCallback': function(data){
+      const xData = {};
+      if(typeof data['regulationAddressId'] !== 'undefined') xData['regulation_address_id'] = TypeTransformer.from('number')(data['regulationAddressId']);
+      if(typeof data['uploaded'] !== 'undefined') xData['uploaded'] = TypeTransformer.from('Date')(data['uploaded']);
+      if(typeof data['isIndividual'] !== 'undefined') xData['is_individual'] = TypeTransformer.from('boolean')(data['isIndividual']);
+      if(typeof data['regulationAddressName'] !== 'undefined') xData['regulation_address_name'] = TypeTransformer.from('string')(data['regulationAddressName']);
+      return xData;
+},
+    'AccountDocumentVerifiedCallback': function(data){
+      const xData = {};
+      if(typeof data['accountDocumentId'] !== 'undefined') xData['account_document_id'] = TypeTransformer.from('number')(data['accountDocumentId']);
+      if(typeof data['accountDocumentStatus'] !== 'undefined') xData['account_document_status'] = TypeTransformer.from('string')(data['accountDocumentStatus']);
+      if(typeof data['uploaded'] !== 'undefined') xData['uploaded'] = TypeTransformer.from('Date')(data['uploaded']);
+      if(typeof data['isIndividual'] !== 'undefined') xData['is_individual'] = TypeTransformer.from('boolean')(data['isIndividual']);
+      if(typeof data['comment'] !== 'undefined') xData['comment'] = TypeTransformer.from('string')(data['comment']);
+      if(typeof data['verificationName'] !== 'undefined') xData['verification_name'] = TypeTransformer.from('string')(data['verificationName']);
+      return xData;
+},
+    'AccountIsFrozenCallback': function(data){
+      const xData = {};
+      
+      return xData;
+},
+    'AccountIsUnfrozenCallback': function(data){
+      const xData = {};
+      
+      return xData;
+},
+    'ActivateSuccessfulCallback': function(data){
+      const xData = {};
+      
+      return xData;
+},
+    'CallHistoryReportCallback': function(data){
+      const xData = {};
+      if(typeof data['historyReportId'] !== 'undefined') xData['history_report_id'] = TypeTransformer.from('number')(data['historyReportId']);
+      if(typeof data['success'] !== 'undefined') xData['success'] = TypeTransformer.from('boolean')(data['success']);
+      if(typeof data['orderDate'] !== 'undefined') xData['order_date'] = TypeTransformer.from('Date')(data['orderDate']);
+      return xData;
+},
+    'CardExpiredCallback': function(data){
+      const xData = {};
+      
+      return xData;
+},
+    'CardExpiresInMonthCallback': function(data){
+      const xData = {};
+      
+      return xData;
+},
+    'CardPaymentCallback': function(data){
+      const xData = {};
+      if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
+      if(typeof data['transactionType'] !== 'undefined') xData['transaction_type'] = TypeTransformer.from('string')(data['transactionType']);
+      if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.from('number')(data['amount']);
+      return xData;
+},
+    'CardPaymentFailedCallback': function(data){
+      const xData = {};
+      
+      return xData;
+},
+    'RobokassaPaymentCallback': function(data){
+      const xData = {};
+      if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
+      if(typeof data['transactionType'] !== 'undefined') xData['transaction_type'] = TypeTransformer.from('string')(data['transactionType']);
+      if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.from('number')(data['amount']);
+      return xData;
+},
+    'WireTransferCallback': function(data){
+      const xData = {};
+      if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
+      if(typeof data['transactionType'] !== 'undefined') xData['transaction_type'] = TypeTransformer.from('string')(data['transactionType']);
+      if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.from('number')(data['amount']);
+      return xData;
+},
+    'JSFailCallback': function(data){
+      const xData = {};
+      
+      return xData;
+},
+    'MinBalanceCallback': function(data){
+      const xData = {};
+      if(typeof data['isMinCredit'] !== 'undefined') xData['is_min_credit'] = TypeTransformer.from('boolean')(data['isMinCredit']);
+      if(typeof data['isRepeated'] !== 'undefined') xData['is_repeated'] = TypeTransformer.from('boolean')(data['isRepeated']);
+      return xData;
+},
+    'RegulationAddressVerifiedCallback': function(data){
+      const xData = {};
+      if(typeof data['regulationAddressId'] !== 'undefined') xData['regulation_address_id'] = TypeTransformer.from('number')(data['regulationAddressId']);
+      if(typeof data['regulationAddressStatus'] !== 'undefined') xData['regulation_address_status'] = TypeTransformer.from('string')(data['regulationAddressStatus']);
+      if(typeof data['uploaded'] !== 'undefined') xData['uploaded'] = TypeTransformer.from('Date')(data['uploaded']);
+      if(typeof data['isIndividual'] !== 'undefined') xData['is_individual'] = TypeTransformer.from('boolean')(data['isIndividual']);
+      if(typeof data['comment'] !== 'undefined') xData['comment'] = TypeTransformer.from('string')(data['comment']);
+      if(typeof data['regulationAddressName'] !== 'undefined') xData['regulation_address_name'] = TypeTransformer.from('string')(data['regulationAddressName']);
+      return xData;
+},
+    'RenewedSubscriptionsCallback': function(data){
+      const xData = {};
+      if(typeof data['subscriptions'] !== 'undefined') xData['subscriptions'] = TypeTransformer.from('RenewedSubscriptionsCallbackItem[]')(data['subscriptions']);
+      return xData;
+},
+    'RenewedSubscriptionsCallbackItem': function(data){
+      const xData = {};
+      if(typeof data['type'] !== 'undefined') xData['type'] = TypeTransformer.from('string')(data['type']);
+      if(typeof data['name'] !== 'undefined') xData['name'] = TypeTransformer.from('string')(data['name']);
+      if(typeof data['cost'] !== 'undefined') xData['cost'] = TypeTransformer.from('number')(data['cost']);
+      if(typeof data['nextRenewal'] !== 'undefined') xData['next_renewal'] = TypeTransformer.from('Date')(data['nextRenewal']);
+      return xData;
+},
+    'ResetAccountPasswordRequestCallback': function(data){
+      const xData = {};
+      
+      return xData;
+},
+    'SIPRegistrationFailCallback': function(data){
+      const xData = {};
+      if(typeof data['sipRegistrationId'] !== 'undefined') xData['sip_registration_id'] = TypeTransformer.from('number')(data['sipRegistrationId']);
+      return xData;
+},
+    'SubscriptionIsDetachedCallback': function(data){
+      const xData = {};
+      if(typeof data['subscriptions'] !== 'undefined') xData['subscriptions'] = TypeTransformer.from('SubscriptionIsDetachedCallbackItem[]')(data['subscriptions']);
+      return xData;
+},
+    'SubscriptionIsDetachedCallbackItem': function(data){
+      const xData = {};
+      if(typeof data['type'] !== 'undefined') xData['type'] = TypeTransformer.from('string')(data['type']);
+      if(typeof data['name'] !== 'undefined') xData['name'] = TypeTransformer.from('string')(data['name']);
+      return xData;
+},
+    'SubscriptionIsFrozenCallback': function(data){
+      const xData = {};
+      if(typeof data['subscriptions'] !== 'undefined') xData['subscriptions'] = TypeTransformer.from('SubscriptionIsFrozenCallbackItem[]')(data['subscriptions']);
+      return xData;
+},
+    'SubscriptionIsFrozenCallbackItem': function(data){
+      const xData = {};
+      if(typeof data['type'] !== 'undefined') xData['type'] = TypeTransformer.from('string')(data['type']);
+      if(typeof data['name'] !== 'undefined') xData['name'] = TypeTransformer.from('string')(data['name']);
+      if(typeof data['cost'] !== 'undefined') xData['cost'] = TypeTransformer.from('number')(data['cost']);
+      return xData;
+},
+    'StagnantAccountCallback': function(data){
+      const xData = {};
+      
+      return xData;
+},
+    'TransactionHistoryReportCallback': function(data){
+      const xData = {};
+      if(typeof data['historyReportId'] !== 'undefined') xData['history_report_id'] = TypeTransformer.from('number')(data['historyReportId']);
+      if(typeof data['success'] !== 'undefined') xData['success'] = TypeTransformer.from('boolean')(data['success']);
+      if(typeof data['orderDate'] !== 'undefined') xData['order_date'] = TypeTransformer.from('Date')(data['orderDate']);
+      return xData;
+},
+    'PlanConfigCallback': function(data){
+      const xData = {};
+      if(typeof data['planType'] !== 'undefined') xData['plan_type'] = TypeTransformer.from('string')(data['planType']);
+      if(typeof data['planName'] !== 'undefined') xData['plan_name'] = TypeTransformer.from('string')(data['planName']);
+      if(typeof data['packages'] !== 'undefined') xData['packages'] = TypeTransformer.from('PlanPackageConfig[]')(data['packages']);
+      return xData;
+},
+    'PlanPackageConfig': function(data){
+      const xData = {};
+      if(typeof data['priceGroupId'] !== 'undefined') xData['price_group_id'] = TypeTransformer.from('number[]')(data['priceGroupId']);
+      if(typeof data['packageName'] !== 'undefined') xData['package_name'] = TypeTransformer.from('string')(data['packageName']);
+      if(typeof data['packageUuid'] !== 'undefined') xData['package_uuid'] = TypeTransformer.from('string')(data['packageUuid']);
+      if(typeof data['mayOverrun'] !== 'undefined') xData['may_overrun'] = TypeTransformer.from('boolean')(data['mayOverrun']);
+      if(typeof data['packageSize'] !== 'undefined') xData['package_size'] = TypeTransformer.from('number')(data['packageSize']);
+      return xData;
+},
+    'UnverifiedSubscriptionDetachedCallback': function(data){
+      const xData = {};
+      if(typeof data['subscriptions'] !== 'undefined') xData['subscriptions'] = TypeTransformer.from('UnverifiedSubscriptionDetachedCallbackItem[]')(data['subscriptions']);
+      return xData;
+},
+    'UnverifiedSubscriptionDetachedCallbackItem': function(data){
+      const xData = {};
+      if(typeof data['type'] !== 'undefined') xData['type'] = TypeTransformer.from('string')(data['type']);
+      if(typeof data['name'] !== 'undefined') xData['name'] = TypeTransformer.from('string')(data['name']);
+      return xData;
+},
+    'ExpiringCallerIDCallback': function(data){
+      const xData = {};
+      if(typeof data['callerids'] !== 'undefined') xData['callerids'] = TypeTransformer.from('string[]')(data['callerids']);
+      if(typeof data['expirationDate'] !== 'undefined') xData['expiration_date'] = TypeTransformer.from('Date')(data['expirationDate']);
+      return xData;
+},
+    'TranscriptionCompleteCallback': function(data){
+      const xData = {};
+      if(typeof data['transcriptionComplete'] !== 'undefined') xData['transcription_complete'] = TypeTransformer.from('TranscriptionCompleteCallbackItem')(data['transcriptionComplete']);
+      return xData;
+},
+    'TranscriptionCompleteCallbackItem': function(data){
+      const xData = {};
+      if(typeof data['recordUrl'] !== 'undefined') xData['record_url'] = TypeTransformer.from('string')(data['recordUrl']);
+      if(typeof data['transcriptionUrl'] !== 'undefined') xData['transcription_url'] = TypeTransformer.from('string')(data['transcriptionUrl']);
+      if(typeof data['callSessionHistoryId'] !== 'undefined') xData['call_session_history_id'] = TypeTransformer.from('number')(data['callSessionHistoryId']);
+      if(typeof data['transcriptionCost'] !== 'undefined') xData['transcription_cost'] = TypeTransformer.from('number')(data['transcriptionCost']);
+      return xData;
+},
+    'ZipCode': function(data){
+      const xData = {};
+      if(typeof data['city'] !== 'undefined') xData['city'] = TypeTransformer.from('string')(data['city']);
+      if(typeof data['zipCode'] !== 'undefined') xData['zip_code'] = TypeTransformer.from('string')(data['zipCode']);
+      return xData;
+},
+    'RegulationCountry': function(data){
+      const xData = {};
+      if(typeof data['countryCode'] !== 'undefined') xData['country_code'] = TypeTransformer.from('string')(data['countryCode']);
+      if(typeof data['countryName'] !== 'undefined') xData['country_name'] = TypeTransformer.from('string')(data['countryName']);
+      return xData;
+},
+    'RegulationAddress': function(data){
+      const xData = {};
+      if(typeof data['regulationAddressId'] !== 'undefined') xData['regulation_address_id'] = TypeTransformer.from('number')(data['regulationAddressId']);
+      if(typeof data['externalId'] !== 'undefined') xData['external_id'] = TypeTransformer.from('string')(data['externalId']);
+      if(typeof data['countryCode'] !== 'undefined') xData['country_code'] = TypeTransformer.from('string')(data['countryCode']);
+      if(typeof data['phoneCategoryName'] !== 'undefined') xData['phone_category_name'] = TypeTransformer.from('string')(data['phoneCategoryName']);
+      if(typeof data['salutation'] !== 'undefined') xData['salutation'] = TypeTransformer.from('string')(data['salutation']);
+      if(typeof data['company'] !== 'undefined') xData['company'] = TypeTransformer.from('string')(data['company']);
+      if(typeof data['firstName'] !== 'undefined') xData['first_name'] = TypeTransformer.from('string')(data['firstName']);
+      if(typeof data['lastName'] !== 'undefined') xData['last_name'] = TypeTransformer.from('string')(data['lastName']);
+      if(typeof data['ownerCountryCode'] !== 'undefined') xData['owner_country_code'] = TypeTransformer.from('string')(data['ownerCountryCode']);
+      if(typeof data['city'] !== 'undefined') xData['city'] = TypeTransformer.from('string')(data['city']);
+      if(typeof data['zipCode'] !== 'undefined') xData['zip_code'] = TypeTransformer.from('string')(data['zipCode']);
+      if(typeof data['street'] !== 'undefined') xData['street'] = TypeTransformer.from('string')(data['street']);
+      if(typeof data['builderNumber'] !== 'undefined') xData['builder_number'] = TypeTransformer.from('string')(data['builderNumber']);
+      if(typeof data['builderLatter'] !== 'undefined') xData['builder_latter'] = TypeTransformer.from('string')(data['builderLatter']);
+      if(typeof data['status'] !== 'undefined') xData['status'] = TypeTransformer.from('string')(data['status']);
+      if(typeof data['rejectMessage'] !== 'undefined') xData['reject_message'] = TypeTransformer.from('string')(data['rejectMessage']);
+      return xData;
+},
+    'RegulationRegionRecord': function(data){
+      const xData = {};
+      if(typeof data['phoneRegionId'] !== 'undefined') xData['phone_region_id'] = TypeTransformer.from('number')(data['phoneRegionId']);
+      if(typeof data['phoneRegionName'] !== 'undefined') xData['phone_region_name'] = TypeTransformer.from('string')(data['phoneRegionName']);
+      if(typeof data['phoneRegionCode'] !== 'undefined') xData['phone_region_code'] = TypeTransformer.from('string')(data['phoneRegionCode']);
+      if(typeof data['isNeedRegulationAddress'] !== 'undefined') xData['is_need_regulation_address'] = TypeTransformer.from('boolean')(data['isNeedRegulationAddress']);
+      if(typeof data['regulationAddressType'] !== 'undefined') xData['regulation_address_type'] = TypeTransformer.from('string')(data['regulationAddressType']);
+      return xData;
+},
+    'PstnBlackListInfo': function(data){
+      const xData = {};
+      if(typeof data['pstnBlacklistId'] !== 'undefined') xData['pstn_blacklist_id'] = TypeTransformer.from('number')(data['pstnBlacklistId']);
+      if(typeof data['pstnBlacklistPhone '] !== 'undefined') xData['pstn_blacklist_phone '] = TypeTransformer.from('string')(data['pstnBlacklistPhone ']);
+      return xData;
+},
+    'DialogflowKeyInfo': function(data){
+      const xData = {};
+      if(typeof data['dialogflowKeyId'] !== 'undefined') xData['dialogflow_key_id'] = TypeTransformer.from('number')(data['dialogflowKeyId']);
+      if(typeof data['externalAppName'] !== 'undefined') xData['external_app_name'] = TypeTransformer.from('string')(data['externalAppName']);
+      if(typeof data['content'] !== 'undefined') xData['content'] = TypeTransformer.from('DialogflowKey')(data['content']);
+      if(typeof data['applications'] !== 'undefined') xData['applications'] = TypeTransformer.from('ApplicationInfo[]')(data['applications']);
+      return xData;
+},
+    'DialogflowKey': function(data){
+      const xData = {};
+      if(typeof data['projectId'] !== 'undefined') xData['project_id'] = TypeTransformer.from('string')(data['projectId']);
+      return xData;
+},
+    'PushCredentialInfo': function(data){
+      const xData = {};
+      if(typeof data['pushCredentialId'] !== 'undefined') xData['push_credential_id'] = TypeTransformer.from('number')(data['pushCredentialId']);
+      if(typeof data['pushProviderId'] !== 'undefined') xData['push_provider_id'] = TypeTransformer.from('number')(data['pushProviderId']);
+      if(typeof data['pushProviderName'] !== 'undefined') xData['push_provider_name'] = TypeTransformer.from('string')(data['pushProviderName']);
+      if(typeof data['externalAppName'] !== 'undefined') xData['external_app_name'] = TypeTransformer.from('string')(data['externalAppName']);
+      if(typeof data['credentialBundle'] !== 'undefined') xData['credential_bundle'] = TypeTransformer.from('string')(data['credentialBundle']);
+      if(typeof data['content'] !== 'undefined') xData['content'] = TypeTransformer.from('PushCredentialContent')(data['content']);
+      if(typeof data['applications'] !== 'undefined') xData['applications'] = TypeTransformer.from('ApplicationInfo[]')(data['applications']);
+      return xData;
+},
+    'PushCredentialContent': function(data){
+      const xData = {};
+      if(typeof data['certFileName'] !== 'undefined') xData['cert_file_name'] = TypeTransformer.from('string')(data['certFileName']);
+      if(typeof data['certContent'] !== 'undefined') xData['cert_content'] = TypeTransformer.from('string')(data['certContent']);
+      if(typeof data['isDevMode'] !== 'undefined') xData['is_dev_mode'] = TypeTransformer.from('boolean')(data['isDevMode']);
+      if(typeof data['senderId'] !== 'undefined') xData['sender_id'] = TypeTransformer.from('string')(data['senderId']);
+      return xData;
+},
+    'InboundSmsCallback': function(data){
+      const xData = {};
+      if(typeof data['smsInbound'] !== 'undefined') xData['sms_inbound'] = TypeTransformer.from('InboundSmsCallbackItem[]')(data['smsInbound']);
+      return xData;
+},
+    'InboundSmsCallbackItem': function(data){
+      const xData = {};
+      if(typeof data['sourceNumber'] !== 'undefined') xData['source_number'] = TypeTransformer.from('string')(data['sourceNumber']);
+      if(typeof data['destinationNumber'] !== 'undefined') xData['destination_number'] = TypeTransformer.from('string')(data['destinationNumber']);
+      if(typeof data['smsBody'] !== 'undefined') xData['sms_body'] = TypeTransformer.from('string')(data['smsBody']);
+      return xData;
+},
+    'NewInvoiceCallback': function(data){
+      const xData = {};
+      if(typeof data['newInvoice'] !== 'undefined') xData['new_invoice'] = TypeTransformer.from('NewInvoiceCallbackItem')(data['newInvoice']);
+      return xData;
+},
+    'NewInvoiceCallbackItem': function(data){
+      const xData = {};
+      if(typeof data['invoiceNumber'] !== 'undefined') xData['invoice_number'] = TypeTransformer.from('string')(data['invoiceNumber']);
+      if(typeof data['invoiceDate'] !== 'undefined') xData['invoice_date'] = TypeTransformer.from('string')(data['invoiceDate']);
+      if(typeof data['prepayment'] !== 'undefined') xData['prepayment'] = TypeTransformer.from('boolean')(data['prepayment']);
+      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
+      if(typeof data['totalAmount'] !== 'undefined') xData['total_amount'] = TypeTransformer.from('number')(data['totalAmount']);
+      if(typeof data['totalTaxAmount'] !== 'undefined') xData['total_tax_amount'] = TypeTransformer.from('number')(data['totalTaxAmount']);
+      if(typeof data['units'] !== 'undefined') xData['units'] = TypeTransformer.from('InvoiceUnits[]')(data['units']);
+      return xData;
+},
+    'InvoiceUnits': function(data){
+      const xData = {};
+      if(typeof data['description'] !== 'undefined') xData['description'] = TypeTransformer.from('string')(data['description']);
+      if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.from('number')(data['amount']);
+      if(typeof data['vatRate'] !== 'undefined') xData['vat_rate'] = TypeTransformer.from('number')(data['vatRate']);
+      if(typeof data['taxAmount'] !== 'undefined') xData['tax_amount'] = TypeTransformer.from('number')(data['taxAmount']);
+      return xData;
+},
+    'RecordStorageInfo': function(data){
+      const xData = {};
+      if(typeof data['recordStorageId'] !== 'undefined') xData['record_storage_id'] = TypeTransformer.from('number')(data['recordStorageId']);
+      if(typeof data['recordStorageName'] !== 'undefined') xData['record_storage_name'] = TypeTransformer.from('string')(data['recordStorageName']);
+      return xData;
+},
+    'KeyInfo': function(data){
+      const xData = {};
+      if(typeof data['accountEmail'] !== 'undefined') xData['account_email'] = TypeTransformer.from('string')(data['accountEmail']);
+      if(typeof data['accountId'] !== 'undefined') xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
+      if(typeof data['keyId'] !== 'undefined') xData['key_id'] = TypeTransformer.from('string')(data['keyId']);
+      if(typeof data['privateKey'] !== 'undefined') xData['private_key'] = TypeTransformer.from('string')(data['privateKey']);
+      return xData;
+},
+    'KeyView': function(data){
+      const xData = {};
+      if(typeof data['keyId'] !== 'undefined') xData['key_id'] = TypeTransformer.from('string')(data['keyId']);
+      if(typeof data['roles'] !== 'undefined') xData['roles'] = TypeTransformer.from('RoleView[]')(data['roles']);
+      if(typeof data['description'] !== 'undefined') xData['description'] = TypeTransformer.from('string')(data['description']);
+      if(typeof data['subuser'] !== 'undefined') xData['subuser'] = TypeTransformer.from('SubUserView[]')(data['subuser']);
+      return xData;
+},
+    'SubUserView': function(data){
+      const xData = {};
+      if(typeof data['subuserId'] !== 'undefined') xData['subuser_id'] = TypeTransformer.from('number')(data['subuserId']);
+      if(typeof data['subuserName'] !== 'undefined') xData['subuser_name'] = TypeTransformer.from('string')(data['subuserName']);
+      if(typeof data['description'] !== 'undefined') xData['description'] = TypeTransformer.from('string')(data['description']);
+      if(typeof data['roles'] !== 'undefined') xData['roles'] = TypeTransformer.from('RoleView[]')(data['roles']);
+      return xData;
+},
+    'RoleView': function(data){
+      const xData = {};
+      if(typeof data['roleName'] !== 'undefined') xData['role_name'] = TypeTransformer.from('string')(data['roleName']);
+      if(typeof data['roleId'] !== 'undefined') xData['role_id'] = TypeTransformer.from('number')(data['roleId']);
+      if(typeof data['inherited'] !== 'undefined') xData['inherited'] = TypeTransformer.from('boolean')(data['inherited']);
+      if(typeof data['parentRoleId'] !== 'undefined') xData['parent_role_id'] = TypeTransformer.from('number[]')(data['parentRoleId']);
+      if(typeof data['guiOnly'] !== 'undefined') xData['gui_only'] = TypeTransformer.from('boolean')(data['guiOnly']);
+      return xData;
+},
+    'RoleGroupView': function(data){
+      const xData = {};
+      if(typeof data['id'] !== 'undefined') xData['id'] = TypeTransformer.from('number')(data['id']);
+      if(typeof data['name'] !== 'undefined') xData['name'] = TypeTransformer.from('string')(data['name']);
       return xData;
 }
   }

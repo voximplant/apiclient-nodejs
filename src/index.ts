@@ -16,7 +16,7 @@ export default class VoximplantApiClient{
     fs.readFile(path,'utf8',(err,data)=>{
       if(err) throw err;
       this.key = JSON.parse(data);
-      if(this.onReady);
+      if(this.onReady)
         this.onReady(this);
     });
   }
@@ -26,7 +26,7 @@ export default class VoximplantApiClient{
     Object.keys(requestData).forEach(field=>{
       const cTransformer = transformer[0].find(tt=>tt.name===field);
       if(cTransformer){
-        form.append(field, cTransformer.transformer(requestData[field]));
+        form.append(cTransformer.rawName, cTransformer.transformer(requestData[field]));
       }else form.append(field, requestData[field]);
     });
     const nowTS = (+ new Date())/1000|0;
@@ -39,7 +39,7 @@ export default class VoximplantApiClient{
               Object.keys(response.data).forEach(field=>{
                 const cTransformer = transformer[1].find(tt=>tt.name===field);
                 if(cTransformer){
-                  returnData[field] = cTransformer.transformer(response.data[field]);
+                  returnData[cTransformer.name] = cTransformer.transformer(response.data[field]);
                 }else returnData[field] = response.data[field];
               });
               return returnData;

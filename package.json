@@ -3,7 +3,11 @@
   "version": "1.1.1",
   "description": "Voximplant API client library",
   "main": "dist/index.js",
-  "files": ["dist","src","examples"],
+  "files": [
+    "dist",
+    "src",
+    "examples"
+  ],
   "scripts": {
     "prebuild": "rimraf dist ",
     "build": "tsc"
@@ -13,7 +17,7 @@
     "url": "https://github.com/voximplant/apiclient-nodejs.git"
   },
   "homepage": "https://voximplant.com/",
-  "bugs":{
+  "bugs": {
     "url": "https://github.com/voximplant/apiclient-nodejs/issues",
     "email": "support@voximplant.com"
   },
