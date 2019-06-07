@@ -16,7 +16,8 @@ export default class VoximplantApiClient{
     fs.readFile(path,'utf8',(err,data)=>{
       if(err) throw err;
       this.key = JSON.parse(data);
-      this.onReady(this);
+      if(this.onReady);
+        this.onReady(this);
     });
   }
   private makeRequest<T extends keyof UtilsReturns>(request:T,requestData:any,transformer:any[]):Promise<UtilsReturns[T]>{
