@@ -1,4 +1,4 @@
-import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SkillInfo,BankCard,AdminUser,AdminRole,AuthorizedAccountIP,ContractorInfo,ContractorInvoice,ContactInfo,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,RecordStorageInfo,MGPInfo,MGPTemplateInfo,KeyInfo,KeyView,RoleView,SubUserView,RoleGroupView} from './Structures';
+import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SkillInfo,BankCard,AdminUser,AdminRole,AuthorizedAccountIP,ContractorInfo,ContractorInvoice,ContactInfo,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,RecordStorageInfo,MGPInfo,MGPTemplateInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView} from './Structures';
 export interface UtilsReturns{
   'GetAccountInfo':GetAccountInfoResponse
   'SetAccountInfo':SetAccountInfoResponse
@@ -85,6 +85,7 @@ export interface UtilsReturns{
   'AddQueue':AddQueueResponse
   'BindUserToQueue':BindUserToQueueResponse
   'DelQueue':DelQueueResponse
+  'UpgradeQueue':UpgradeQueueResponse
   'SetQueueInfo':SetQueueInfoResponse
   'GetQueues':GetQueuesResponse
   'GetACDState':GetACDStateResponse
@@ -139,6 +140,7 @@ export interface UtilsReturns{
   'GetPushCredential':GetPushCredentialResponse
   'BindPushCredential':BindPushCredentialResponse
   'AddDialogflowKey':AddDialogflowKeyResponse
+  'SetDialogflowKey':SetDialogflowKeyResponse
   'DelDialogflowKey':DelDialogflowKeyResponse
   'GetDialogflowKeys':GetDialogflowKeysResponse
   'BindDialogflowKeys':BindDialogflowKeysResponse
@@ -337,6 +339,10 @@ export interface SetChildAccountInfoRequest {
    *Set to true to allow use restricted directions.
   */
   canUseRestricted?:boolean
+  /**
+   *The minimum payment amount.
+  */
+  minPaymentAmount?:number
 }
 export interface SetChildAccountInfoResponse {
   /**
@@ -362,7 +368,7 @@ export interface GetCurrencyRateResponse {
 }
 export interface GetResourcePriceRequest {
   /**
-   *The resource type list separated by the ';' symbol. The possible values are: ASR, AUDIORECORD, PSTN_IN_GB, PSTN_IN_GEOGRAPHIC, PSTN_IN_RU, PSTN_IN_RU_TOLLFREE, PSTN_IN_US, PSTN_IN_US_TF, PSTNOUT, SIPOUT, SIPOUTVIDEO, VOIPIN, VOIPOUT, VOIPOUTVIDEO
+   *The resource type list separated by the ';' symbol. The possible values are: AUDIOHDCONFERENCE, AUDIOHDRECORD, AUDIORECORD, CALLLIST, CALLSESSION, DIALOGFLOW, IM, PSTN_IN_ALASKA, PSTN_IN_GB, PSTN_IN_GEOGRAPHIC, PSTN_IN_GEO_PH, PSTN_IN_RU, PSTN_IN_RU_TOLLFREE, PSTN_INTERNATIONAL, PSTNINTEST, PSTN_IN_TF_AR, PSTN_IN_TF_AT, PSTN_IN_TF_AU, PSTN_IN_TF_BE, PSTN_IN_TF_BR, PSTN_IN_TF_CA, PSTN_IN_TF_CO, PSTN_IN_TF_CY, PSTN_IN_TF_DE, PSTN_IN_TF_DK, PSTN_IN_TF_DO, PSTN_IN_TF_FI, PSTN_IN_TF_FR, PSTN_IN_TF_GB, PSTN_IN_TF_HR, PSTN_IN_TF_HU, PSTN_IN_TF_IL, PSTN_IN_TF_LT, PSTN_IN_TF_PE, PSTN_IN_TF_US, PSTN_IN_US, PSTNOUT, PSTNOUT_EEA, PSTNOUTEMERG, PSTNOUT_KZ, PSTNOUT_LOCAL, PSTN_OUT_LOCAL_RU, RELAYED_TRAFFIC, SIPOUT, SIPOUTVIDEO, SMSINPUT, SMSOUT, SMSOUT_INTERNATIONAL, TRANSCRIPTION, TTS_TEXT_GOOGLE, TTS_YANDEX, USER_LOGON, VIDEOCALL, VIDEORECORD, VOICEMAILDETECTION, VOIPIN, VOIPOUT, VOIPOUTVIDEO, YANDEXASR, ASR, ASR_GOOGLE_ENHANCED
   */
   resourceType?:string|string[]
   /**
@@ -603,7 +609,7 @@ export interface ChangeAccountPlanRequest {
   */
   planType:string
   /**
-   *The new plan ID with a price larger than the current plan's (see GetAvailablePlans).
+   *The new plan ID with a price larger than the current plan's (see [GetAvailablePlans]).
   */
   planSubscriptionTemplateId?:number
   /**
@@ -708,7 +714,7 @@ export interface AccountsInterface {
 
 export interface AddApplicationRequest {
   /**
-   *The short application name in format [a-z][a-z0-9-]{1,79}
+   *The short application name in format \[a-z\]\[a-z0-9-\]{1,64}
   */
   applicationName:string
   /**
@@ -859,6 +865,9 @@ export interface AddUserRequest {
    *The application name which new user will be bound to. Could be used instead of the <b>application_id</b> parameter.
   */
   applicationName:string
+  /**
+   *'True' if the user will use the parent account's money, 'false' if the user will have a separate balance.
+  */
   parentAccounting?:boolean
   /**
    *The user mobile phone. The length must be less than 50.
@@ -936,6 +945,9 @@ export interface SetUserInfoRequest {
    *The new user password. The length must be at least 6 symbols.
   */
   userPassword?:string
+  /**
+   * Set 'true' to use the parent account's money, 'false' to use a separate user balance.
+  */
   parentAccounting?:boolean
   /**
    *The user enable flag
@@ -977,6 +989,10 @@ export interface GetUsersRequest {
    *The ACD queue ID to filter.
   */
   acdQueueId?:number
+  /**
+   *The excluded ACD queue ID to filter.
+  */
+  excludedAcdQueueId?:number
   /**
    *The user ID to filter.
   */
@@ -1114,7 +1130,7 @@ export interface CreateCallListRequest {
   */
   numAttempts:number
   /**
-   *File name.
+   *File name, up to 255 characters and can't contain the '/' and '\' symbols.
   */
   name:string
   /**
@@ -2613,14 +2629,6 @@ export interface DeleteSipRegistrationResponse {
 }
 export interface GetSipRegistrationsRequest {
   /**
-   *The application ID list separated by the ';' symbol to filter. Can be used instead of <b>appliction_name</b>.
-  */
-  applicationId:'any'|number|number[]
-  /**
-   *The application name list separated by the ';' symbol to filter. Can be used instead of <b>appliction_id</b>.
-  */
-  applicationName:string|string[]
-  /**
    *The rule ID list separated by the ';' symbol to filter. Can be used instead of <b>rule_name</b>.
   */
   ruleId:'any'|number|number[]
@@ -2656,6 +2664,14 @@ export interface GetSipRegistrationsRequest {
    *The persistent flag to filter.
   */
   isPersistent?:boolean
+  /**
+   *The application ID list separated by the ';' symbol to filter. Can be used instead of <b>appliction_name</b>.
+  */
+  applicationId?:'any'|number|number[]
+  /**
+   *The application name list separated by the ';' symbol to filter. Can be used instead of <b>appliction_id</b>.
+  */
+  applicationName?:string|string[]
   /**
    *Is a SIP registration bound to an application.
   */
@@ -2705,7 +2721,7 @@ export interface AttachPhoneNumberRequest {
   */
   phoneCount:number
   /**
-   *The phone number that can be used instead of <b>phone_count</b>. See the <a href='//voximplant.com/docs/references/httpapi/managing_phone_numbers#getphonenumbers'>GetNewPhoneNumbers</a> method.
+   *The phone number that can be used instead of <b>phone_count</b>. See the [GetNewPhoneNumbers] method.
   */
   phoneNumber:string
   /**
@@ -3285,6 +3301,30 @@ export interface DelQueueResponse {
   */
   result:number
 }
+export interface UpgradeQueueRequest {
+  /**
+   *The application ID.
+  */
+  applicationId:number
+  /**
+   *The ACD queue ID list separated by the ';' symbol or the 'all' value
+  */
+  acdQueueId:'any'|number|number[]
+  /**
+   *The application name that can be used instead of <b>application_id</b>.
+  */
+  applicationName?:string
+  /**
+   *The ACD queue name that can be used instead of <b>acd_queue_id</b>. The ACD queue name list separated by the ';' symbol.
+  */
+  acdQueueName?:string|string[]
+}
+export interface UpgradeQueueResponse {
+  /**
+   *1
+  */
+  result:number
+}
 export interface SetQueueInfoRequest {
   /**
    *The ACD queue ID.
@@ -3499,6 +3539,7 @@ export interface QueuesInterface {
   addQueue: (request:AddQueueRequest) => Promise<AddQueueResponse>
   bindUserToQueue: (request:BindUserToQueueRequest) => Promise<BindUserToQueueResponse>
   delQueue: (request:DelQueueRequest) => Promise<DelQueueResponse>
+  upgradeQueue: (request:UpgradeQueueRequest) => Promise<UpgradeQueueResponse>
   setQueueInfo: (request:SetQueueInfoRequest) => Promise<SetQueueInfoResponse>
   getQueues: (request:GetQueuesRequest) => Promise<GetQueuesResponse>
   getACDState: (request:GetACDStateRequest) => Promise<GetACDStateResponse>
@@ -3656,7 +3697,7 @@ export interface GetRobokassaPaymentURLResponse {
   */
   result:string
 }
-export interface TheRobokassaPaymentSystemInterface {
+export interface RobokassaPaymentSystemInterface {
   getRobokassaPaymentURL: (request:GetRobokassaPaymentURLRequest) => Promise<GetRobokassaPaymentURLResponse>
 }
 
@@ -3854,7 +3895,7 @@ export interface get_payment_credentialsResponse {
   */
   result:BankCard[]
 }
-export interface TheCreditCardsInterface {
+export interface CreditCardsInterface {
   resume3DSecureCardAuth: (request:Resume3DSecureCardAuthRequest) => Promise<Resume3DSecureCardAuthResponse>
   config_card_payments: (request:config_card_paymentsRequest) => Promise<config_card_paymentsResponse>
   create_payment_credentials: (request:create_payment_credentialsRequest) => Promise<create_payment_credentialsResponse>
@@ -4876,17 +4917,34 @@ export interface PushCredentialsInterface {
 
 export interface AddDialogflowKeyRequest {
   /**
-   *Dialogflow credentials, provided by JWK (Json web key)
+   *Dialogflow credentials, provided by JWK (Json web key).
   */
   jsonCredentials:string
   /**
    *The application name.
   */
   externalAppName?:string
+  /**
+   *The Dialogflow keys's description.
+  */
+  description?:string
 }
 export interface AddDialogflowKeyResponse {
   result:number
   dialogflowKeyId:number
+}
+export interface SetDialogflowKeyRequest {
+  /**
+   *The Dialogflow key's ID.
+  */
+  dialogflowKeyId:number
+  /**
+   *The Dialogflow keys's description. To clear previously set description leave the parameter blank or put whitespaces only.
+  */
+  description:string
+}
+export interface SetDialogflowKeyResponse {
+  result:number
 }
 export interface DelDialogflowKeyRequest {
   /**
@@ -4938,6 +4996,7 @@ export interface BindDialogflowKeysResponse {
 }
 export interface DialogflowCredentialsInterface {
   addDialogflowKey: (request:AddDialogflowKeyRequest) => Promise<AddDialogflowKeyResponse>
+  setDialogflowKey: (request:SetDialogflowKeyRequest) => Promise<SetDialogflowKeyResponse>
   delDialogflowKey: (request:DelDialogflowKeyRequest) => Promise<DelDialogflowKeyResponse>
   getDialogflowKeys: (request:GetDialogflowKeysRequest) => Promise<GetDialogflowKeysResponse>
   bindDialogflowKeys: (request:BindDialogflowKeysRequest) => Promise<BindDialogflowKeysResponse>
@@ -4953,7 +5012,7 @@ export interface SendSmsMessageRequest {
   */
   destination:string
   /**
-   *The message.
+   *The message text, up to 70 characters. The message of 71-140 characters is billed like 2 messages; the message of 141-210 characters is billed like 3 messages and so on.
   */
   smsBody:string
 }
@@ -5046,17 +5105,17 @@ export interface MGPInterface {
 
 export interface CreateKeyRequest {
   /**
-   *The role id list separated by the ';' symbol.
-  */
-  roleId:string
-  /**
-   *The role name list separated by the ';' symbol.
-  */
-  roleName:string
-  /**
    *The key's description.
   */
   description?:string
+  /**
+   *The role ID list separated by the ';' symbol. Use it instead of **role_name**, but not combine with.
+  */
+  roleId?:'any'|number|number[]
+  /**
+   *The role name list separated by the ';' symbol. Use it instead of **role_id**, but not combine with.
+  */
+  roleName?:string|string[]
 }
 export interface CreateKeyResponse {
   result:KeyInfo[]
@@ -5112,11 +5171,11 @@ export interface SetKeyRolesRequest {
   /**
    *The role id list separated by the ';' symbol.
   */
-  roleId:string
+  roleId:'any'|number|number[]
   /**
    *The role name list separated by the ';' symbol.
   */
-  roleName:string
+  roleName:string|string[]
 }
 export interface SetKeyRolesResponse {
   result:number
@@ -5138,20 +5197,20 @@ export interface RemoveKeyRolesRequest {
   /**
    *The role id list separated by the ';' symbol.
   */
-  roleId:string
+  roleId:'any'|number|number[]
   /**
    *The role name list separated by the ';' symbol.
   */
-  roleName:string
+  roleName:string|string[]
 }
 export interface RemoveKeyRolesResponse {
   result:number
 }
 export interface AddSubUserRequest {
   /**
-   *Login of a new subuser.
+   *Login of a new subuser, should be unique within the Voximplant account. The login specified is always converted to lowercase.
   */
-  newSubuserLogin:string
+  newSubuserName:string
   /**
    *Password of a new subuser, plain text.
   */
@@ -5159,18 +5218,18 @@ export interface AddSubUserRequest {
   /**
    *The role id list separated by the ';' symbol.
   */
-  roleId:string
+  roleId?:'any'|number|number[]
   /**
    *The role name list separated by the ';' symbol.
   */
-  roleName:string
+  roleName?:string|string[]
   /**
    *Description of a new subuser.
   */
   description?:string
 }
 export interface AddSubUserResponse {
-  result:number
+  result:SubUserID
 }
 export interface GetSubUsersRequest {
   /**
@@ -5231,11 +5290,11 @@ export interface SetSubUserRolesRequest {
   /**
    *The role id list separated by the ';' symbol.
   */
-  roleId:string
+  roleId:'any'|number|number[]
   /**
    *The role name list separated by the ';' symbol.
   */
-  roleName:string
+  roleName:string|string[]
 }
 export interface SetSubUserRolesResponse {
   result:number
@@ -5245,6 +5304,10 @@ export interface GetSubUserRolesRequest {
    *The subuser's ID.
   */
   subuserId:number
+  /**
+   *Show expanded roles
+  */
+  withExpandedRoles?:boolean
 }
 export interface GetSubUserRolesResponse {
   result:RoleView[]
@@ -5257,11 +5320,15 @@ export interface RemoveSubUserRolesRequest {
   /**
    *The role id list separated by the ';' symbol.
   */
-  roleId:string
+  roleId:'any'|number|number[]
   /**
    *The role name list separated by the ';' symbol.
   */
-  roleName:string
+  roleName:string|string[]
+  /**
+   *Remove roles from all subuser keys.
+  */
+  force?:boolean
 }
 export interface RemoveSubUserRolesResponse {
   result:number

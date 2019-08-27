@@ -83,6 +83,10 @@ export interface AccountInfo{
    */
   billingAddressPhone?: string
   /**
+   * The office state (US) or province (Canada), up to 100 characters. Examples: California, Illinois, British Columbia.
+   */
+  billingAddressState?: string
+  /**
    * The account activation flag.
    */
   active: boolean
@@ -138,6 +142,36 @@ export interface AccountInfo{
    * Is email sending on a JS error?
    */
   sendJsError?: boolean
+  /**
+   * The payments limits applicable to each payment method.
+   */
+  billingLimits?: BillingLimits[]
+
+}
+export interface BillingLimits{
+  /**
+   * The Robokassa limits.
+   */
+  robokassa?: BillingLimitInfo[]
+  /**
+   * The bank card limits.
+   */
+  bankCard?: BillingLimitInfo[]
+  /**
+   * The invoice limits.
+   */
+  invoice?: BillingLimitInfo[]
+
+}
+export interface BillingLimitInfo{
+  /**
+   * The minimum amount.
+   */
+  minAmount: number
+  /**
+   * The currency.
+   */
+  currency: string
 
 }
 export interface ShortAccountInfo{
@@ -386,6 +420,10 @@ export interface UserInfo{
    */
   userActive: boolean
   /**
+   * 'True' if the user uses the parent account's money, 'false' if the user has a separate balance.
+   */
+  parentAccounting: boolean
+  /**
    * The user mobile phone.
    */
   mobilePhone?: string
@@ -463,6 +501,10 @@ export interface ScenarioInfo{
    * The scenario editing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
   modified: Date
+  /**
+   * 'True' if the scenario belongs to the parent account, 'false' if the scenario belongs to the current account.
+   */
+  parent: boolean
 
 }
 export interface ClonedScenario{
@@ -1952,7 +1994,7 @@ export interface ExchangeRates{
 }
 export interface ResourcePrice{
   /**
-   * The resource type name. The possible values are: ASR, AUDIORECORD, PSTN_IN_GB, PSTN_IN_GEOGRAPHIC, PSTN_IN_RU, PSTN_IN_RU_TOLLFREE, PSTN_IN_US, PSTN_IN_US_TF, PSTNOUT, SIPOUT, SIPOUTVIDEO, VOIPIN, VOIPOUT, VOIPOUTVIDEO
+   * The resource type name. The possible values are: AUDIOHDCONFERENCE, AUDIOHDRECORD, AUDIORECORD, CALLLIST, CALLSESSION, DIALOGFLOW, IM, PSTN_IN_ALASKA, PSTN_IN_GB, PSTN_IN_GEOGRAPHIC, PSTN_IN_GEO_PH, PSTN_IN_RU, PSTN_IN_RU_TOLLFREE, PSTN_INTERNATIONAL, PSTNINTEST, PSTN_IN_TF_AR, PSTN_IN_TF_AT, PSTN_IN_TF_AU, PSTN_IN_TF_BE, PSTN_IN_TF_BR, PSTN_IN_TF_CA, PSTN_IN_TF_CO, PSTN_IN_TF_CY, PSTN_IN_TF_DE, PSTN_IN_TF_DK, PSTN_IN_TF_DO, PSTN_IN_TF_FI, PSTN_IN_TF_FR, PSTN_IN_TF_GB, PSTN_IN_TF_HR, PSTN_IN_TF_HU, PSTN_IN_TF_IL, PSTN_IN_TF_LT, PSTN_IN_TF_PE, PSTN_IN_TF_US, PSTN_IN_US, PSTNOUT, PSTNOUT_EEA, PSTNOUTEMERG, PSTNOUT_KZ, PSTNOUT_LOCAL, PSTN_OUT_LOCAL_RU, RELAYED_TRAFFIC, SIPOUT, SIPOUTVIDEO, SMSINPUT, SMSOUT, SMSOUT_INTERNATIONAL, TRANSCRIPTION, TTS_TEXT_GOOGLE, TTS_YANDEX, USER_LOGON, VIDEOCALL, VIDEORECORD, VOICEMAILDETECTION, VOIPIN, VOIPOUT, VOIPOUTVIDEO, YANDEXASR, ASR, ASR_GOOGLE_ENHANCED
    */
   resourceType: string
   /**
@@ -2074,7 +2116,7 @@ export interface CallListDetail{
   /**
    * Number of remaining attempts.
    */
-  attmeptsLeft: number
+  attemptsLeft: number
   /**
    * The status ID. Available values: __0__ (status = New), __1__ (status = In progress), __2__ (status = Processed), __3__ (status = Error), __4__ (status = Cancelled).
    */
@@ -2335,9 +2377,9 @@ export interface SubscriptionsToCharge{
    */
   subscriptionAutoCharge: boolean
   /**
-   * The next renewal date, format: YYYY-MM-DD
+   * The next renewal date, format: YYYY-MM-DD. Displayed for only verified phone numbers.
    */
-  subscriptionNextRenewal: Date
+  subscriptionNextRenewal?: Date
 
 }
 export interface AuthorizedAccountIP{
@@ -3517,6 +3559,13 @@ export interface SubUserView{
    * The subuser roles.
    */
   roles?: RoleView[]
+
+}
+export interface SubUserID{
+  /**
+   * The subuser ID.
+   */
+  subuserId: number
 
 }
 export interface RoleView{
