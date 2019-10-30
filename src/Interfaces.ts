@@ -1,4 +1,4 @@
-import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SkillInfo,BankCard,AdminUser,AdminRole,AuthorizedAccountIP,ContractorInfo,ContractorInvoice,ContactInfo,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,RecordStorageInfo,MGPInfo,MGPTemplateInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView} from './Structures';
+import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SkillInfo,BankCard,AdminUser,AdminRole,AuthorizedAccountIP,ContractorInfo,ContractorInvoice,ContactInfo,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsHistory,RecordStorageInfo,MGPInfo,MGPTemplateInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,ChildAccountSubscription,ChildAccountSubscriptionTemplate} from './Structures';
 export interface UtilsReturns{
   'GetAccountInfo':GetAccountInfoResponse
   'SetAccountInfo':SetAccountInfoResponse
@@ -104,6 +104,7 @@ export interface UtilsReturns{
   'make_card_payment':make_card_paymentResponse
   'del_payment_credentials':del_payment_credentialsResponse
   'get_payment_credentials':get_payment_credentialsResponse
+  'DownloadAgreement':DownloadAgreementResponse
   'AddAdminUser':AddAdminUserResponse
   'DelAdminUser':DelAdminUserResponse
   'SetAdminUserInfo':SetAdminUserInfoResponse
@@ -146,6 +147,7 @@ export interface UtilsReturns{
   'BindDialogflowKeys':BindDialogflowKeysResponse
   'SendSmsMessage':SendSmsMessageResponse
   'ControlSms':ControlSmsResponse
+  'GetSmsHistory':GetSmsHistoryResponse
   'GetRecordStorages':GetRecordStoragesResponse
   'ActivateMGP':ActivateMGPResponse
   'DeactivateMGP':DeactivateMGPResponse
@@ -167,6 +169,10 @@ export interface UtilsReturns{
   'RemoveSubUserRoles':RemoveSubUserRolesResponse
   'GetRoles':GetRolesResponse
   'GetRoleGroups':GetRoleGroupsResponse
+  'AddChildAccountSubscription':AddChildAccountSubscriptionResponse
+  'GetChildAccountSubscriptions':GetChildAccountSubscriptionsResponse
+  'GetChildAccountSubscriptionTemplates':GetChildAccountSubscriptionTemplatesResponse
+  'DeactivateChildAccountSubscription':DeactivateChildAccountSubscriptionResponse
 }
 
 export interface AccountsAuthenticationInterface {
@@ -1070,10 +1076,6 @@ export interface TransferMoneyToUserRequest {
   */
   amount:number
   /**
-   *The amount currency. Examples: RUR, EUR, USD.
-  */
-  currency:string
-  /**
    *The application ID. It is required if the <b>user_name</b> is specified.
   */
   applicationId?:number
@@ -1081,6 +1083,10 @@ export interface TransferMoneyToUserRequest {
    *The application name that can be used instead of <b>application_id</b>.
   */
   applicationName?:string
+  /**
+   *The amount currency. Examples: RUR, EUR, USD.
+  */
+  currency?:string
   /**
    *Returns error if strict_mode is true and a user or the account hasn't enough money.
   */
@@ -1302,6 +1308,10 @@ export interface AppendToCallListResponse {
 }
 export interface GetCallListsRequest {
   /**
+   *The list ID to filter. Can be a list separated by the ';' symbol or the 'all' value.
+  */
+  listId?:'any'|number|number[]
+  /**
    *Find call lists by name
   */
   name?:string
@@ -1329,6 +1339,10 @@ export interface GetCallListsRequest {
    *The first <b>N</b> records will be skipped in the output.
   */
   offset?:number
+  /**
+   *The application ID to filter. Can be a list separated by the ';' symbol or the 'all' value.
+  */
+  applicationId?:'any'|number|number[]
 }
 export interface GetCallListsResponse {
   /**
@@ -1431,7 +1445,15 @@ export interface AddScenarioRequest {
   /**
    *The scenario text. The length must be less than 128 KB.
   */
-  scenarioScript:string
+  scenarioScript?:string
+  /**
+   *The rule ID.
+  */
+  ruleId?:number
+  /**
+   *The rule name that can be used instead of <b>rule_id</b>.
+  */
+  ruleName?:string
   /**
    *Is the existing scenario rewrite?
   */
@@ -1477,7 +1499,7 @@ export interface BindScenarioRequest {
   */
   ruleId:number
   /**
-   *The rule name that can be used instead of <b>rule_id</b>. 
+   *The rule name that can be used instead of <b>rule_id</b>.
   */
   ruleName:string
   /**
@@ -1995,6 +2017,10 @@ export interface GetHistoryReportsRequest {
    *The first <b>N</b> records will be skipped in the output.
   */
   offset?:number
+  /**
+   *The application ID to filter. Can be a list separated by the ';' symbol or the 'all' value.
+  */
+  applicationId?:'any'|number|number[]
 }
 export interface GetHistoryReportsResponse {
   result:HistoryReport[]
@@ -2723,7 +2749,7 @@ export interface AttachPhoneNumberRequest {
   /**
    *The phone number that can be used instead of <b>phone_count</b>. See the [GetNewPhoneNumbers] method.
   */
-  phoneNumber:string
+  phoneNumber:string|string[]
   /**
    *The country code.
   */
@@ -3904,6 +3930,26 @@ export interface CreditCardsInterface {
   get_payment_credentials: (request:get_payment_credentialsRequest) => Promise<get_payment_credentialsResponse>
 }
 
+export interface DownloadAgreementRequest {
+  /**
+   *The output format. The following values are possible: pdf.
+  */
+  output:string
+  /**
+   *The ID of the account document, based on which the agreement document will be constructed.
+  */
+  documentId:number
+}
+export interface DownloadAgreementResponse {
+  /**
+   *See the HTTP Content-type header instead.
+  */
+  unknown:unknown
+}
+export interface AgreementsInterface {
+  downloadAgreement: (request:DownloadAgreementRequest) => Promise<DownloadAgreementResponse>
+}
+
 export interface AddAdminUserRequest {
   /**
    *The admin user name. The length must be less than 50.
@@ -4798,10 +4844,6 @@ export interface AddPushCredentialRequest {
   */
   serverKey:string
   /**
-   *The application name.
-  */
-  externalAppName?:string
-  /**
    *The bundle of Android/iOS application.
   */
   credentialBundle?:string
@@ -4819,10 +4861,6 @@ export interface SetPushCredentialRequest {
    *The push credentials id.
   */
   pushCredentialId:number
-  /**
-   *The application name.
-  */
-  externalAppName:string
   /**
    *Public and private keys in PKCS12 format.
   */
@@ -4878,10 +4916,6 @@ export interface GetPushCredentialRequest {
   */
   applicationId?:number
   /**
-   *The push provider's application name.
-  */
-  externalApp?:string
-  /**
    *Set true to get the user's certificate.
   */
   withCert?:boolean
@@ -4917,13 +4951,17 @@ export interface PushCredentialsInterface {
 
 export interface AddDialogflowKeyRequest {
   /**
+   *The application ID.
+  */
+  applicationId:string
+  /**
    *Dialogflow credentials, provided by JWK (Json web key).
   */
   jsonCredentials:string
   /**
-   *The application name.
+   *The application name. Can be used instead of <b>application_id</b>.
   */
-  externalAppName?:string
+  applicationName?:string
   /**
    *The Dialogflow keys's description.
   */
@@ -4968,10 +5006,6 @@ export interface GetDialogflowKeysRequest {
    *The id of bound application.
   */
   applicationId?:number
-  /**
-   *The push provider's application name.
-  */
-  externalApp?:string
   withSecretInfo?:boolean
 }
 export interface GetDialogflowKeysResponse {
@@ -5036,9 +5070,51 @@ export interface ControlSmsRequest {
 export interface ControlSmsResponse {
   result:number
 }
+export interface GetSmsHistoryRequest {
+  /**
+   *The source phone number.
+  */
+  sourceNumber?:string
+  /**
+   *The destination phone number.
+  */
+  destinationNumber?:string
+  /**
+   *Sent or received SMS. Possible values: 'IN', 'OUT', 'in, 'out'. Leave blank to get both incoming and outgoing messages.
+  */
+  direction?:string
+  /**
+   *Maximum number of resulting rows fetched. Must be not more than 1000. If left blank, then the default value of 1000 will be used.
+  */
+  count?:number
+  /**
+   *The first <b>N</b> records will be skipped in the output.
+  */
+  offset?:number
+  /**
+   *Date from which to perform search. Format is 'yyyy-MM-dd HH:mm:ss'.
+  */
+  fromDate?:Date
+  /**
+   *Date until which to perform search. Format is 'yyyy-MM-dd HH:mm:ss'.
+  */
+  toDate?:Date
+  /**
+   *The output format. The following values available: json, csv.
+  */
+  output?:string
+}
+export interface GetSmsHistoryResponse {
+  result:SmsHistory[]
+  /**
+   *Total number of distinct messages fetched.
+  */
+  totalCount:number
+}
 export interface SMSInterface {
   sendSmsMessage: (request:SendSmsMessageRequest) => Promise<SendSmsMessageResponse>
   controlSms: (request:ControlSmsRequest) => Promise<ControlSmsResponse>
+  getSmsHistory: (request:GetSmsHistoryRequest) => Promise<GetSmsHistoryResponse>
 }
 
 export interface GetRecordStoragesRequest {
@@ -5185,6 +5261,10 @@ export interface GetKeyRolesRequest {
    *The key's ID.
   */
   keyId:string
+  /**
+   *Show the roles' additional properties.
+  */
+  withExpandedRoles?:boolean
 }
 export interface GetKeyRolesResponse {
   result:RoleView[]
@@ -5208,7 +5288,7 @@ export interface RemoveKeyRolesResponse {
 }
 export interface AddSubUserRequest {
   /**
-   *Login of a new subuser, should be unique within the Voximplant account. The login specified is always converted to lowercase.
+   *Login of a new subuser for <a href="#how-auth-works">authentication</a>, should be unique within the Voximplant account. The login specified is always converted to lowercase.
   */
   newSubuserName:string
   /**
@@ -5305,7 +5385,7 @@ export interface GetSubUserRolesRequest {
   */
   subuserId:number
   /**
-   *Show expanded roles
+   *Show the roles' additional properties.
   */
   withExpandedRoles?:boolean
 }
@@ -5365,4 +5445,68 @@ export interface RoleSystemInterface {
   removeSubUserRoles: (request:RemoveSubUserRolesRequest) => Promise<RemoveSubUserRolesResponse>
   getRoles: (request:GetRolesRequest) => Promise<GetRolesResponse>
   getRoleGroups: (request:GetRoleGroupsRequest) => Promise<GetRoleGroupsResponse>
+}
+
+export interface AddChildAccountSubscriptionRequest {
+  /**
+   *The child account ID.
+  */
+  childAccountId:number
+  /**
+   *The subscription template ID.
+  */
+  subscriptionTemplateId:number
+  /**
+   *The subscription name.
+  */
+  subscriptionName?:string
+}
+export interface AddChildAccountSubscriptionResponse {
+  result:number
+  subscriptions:ChildAccountSubscription[]
+}
+export interface GetChildAccountSubscriptionsRequest {
+  /**
+   *The child account ID.
+  */
+  childAccountId:number
+  /**
+   *The subscription ID. If empty, then all the non-deactivated subscriptions for the current child account will be retrieved.
+  */
+  subscriptionId?:number
+}
+export interface GetChildAccountSubscriptionsResponse {
+  result:ChildAccountSubscription[]
+}
+export interface GetChildAccountSubscriptionTemplatesRequest {
+  
+}
+export interface GetChildAccountSubscriptionTemplatesResponse {
+  result:ChildAccountSubscriptionTemplate[]
+}
+export interface DeactivateChildAccountSubscriptionRequest {
+  /**
+   *The subscription ID to be deactivated.
+  */
+  subscriptionId:number
+  /**
+   *The child account ID.
+  */
+  childAccountId:number
+  /**
+   *The deactivation UTC date in 24-h format: YYYY-MM-DD HH:mm:ss. If empty, then the current date + 1 day is used as a cancellation date.
+  */
+  subscriptionFinishDate?:Date
+}
+export interface DeactivateChildAccountSubscriptionResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface ChildAccountsInterface {
+  addChildAccountSubscription: (request:AddChildAccountSubscriptionRequest) => Promise<AddChildAccountSubscriptionResponse>
+  getChildAccountSubscriptions: (request:GetChildAccountSubscriptionsRequest) => Promise<GetChildAccountSubscriptionsResponse>
+  getChildAccountSubscriptionTemplates: (request:GetChildAccountSubscriptionTemplatesRequest) => Promise<GetChildAccountSubscriptionTemplatesResponse>
+  deactivateChildAccountSubscription: (request:DeactivateChildAccountSubscriptionRequest) => Promise<DeactivateChildAccountSubscriptionResponse>
 }

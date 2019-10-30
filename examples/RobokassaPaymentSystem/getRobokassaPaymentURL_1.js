@@ -1,9 +1,8 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
 const client = new VoximplantApiClient();
 client.onReady = function(){
-  // Modify credentials.
-  client.PushCredentials.setPushCredential({pushCredentialId: '1',
-            certPassword: '1234567'})
+  // Get a URL to make the 2000 RUR payment.
+  client.RobokassaPaymentSystem.getRobokassaPaymentURL({amount: '2000'})
         .then(ev=>console.log(ev))
         .catch(err=>console.error(err));
 };

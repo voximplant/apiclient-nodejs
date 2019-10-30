@@ -145,22 +145,22 @@ export interface AccountInfo{
   /**
    * The payments limits applicable to each payment method.
    */
-  billingLimits?: BillingLimits[]
+  billingLimits?: BillingLimits
 
 }
 export interface BillingLimits{
   /**
    * The Robokassa limits.
    */
-  robokassa?: BillingLimitInfo[]
+  robokassa?: BillingLimitInfo
   /**
    * The bank card limits.
    */
-  bankCard?: BillingLimitInfo[]
+  bankCard?: BillingLimitInfo
   /**
    * The invoice limits.
    */
-  invoice?: BillingLimitInfo[]
+  invoice?: BillingLimitInfo
 
 }
 export interface BillingLimitInfo{
@@ -3298,10 +3298,6 @@ export interface DialogflowKeyInfo{
    */
   dialogflowKeyId: number
   /**
-   * The Dialogflow's application name.
-   */
-  externalAppName: string
-  /**
    * The key's content.
    */
   content?: DialogflowKey
@@ -3331,10 +3327,6 @@ export interface PushCredentialInfo{
    * The push provider name. Available values: APPLE, APPLE_VOIP, GOOGLE
    */
   pushProviderName: string
-  /**
-   * The push provider's application name.
-   */
-  externalAppName: string
   /**
    * The bundle of Android/iOS application.
    */
@@ -3548,7 +3540,7 @@ export interface SubUserView{
    */
   subuserId: number
   /**
-   * The subuser login.
+   * The subuser name, can be used as __subuser_login__ to <a href="#how-auth-works">authenticate</a>.
    */
   subuserName: string
   /**
@@ -3582,7 +3574,11 @@ export interface RoleView{
    */
   inherited?: boolean
   /**
-   * Parent role ID array.
+   * Child roles IDs array.
+   */
+  childIds?: number[]
+  /**
+   * Parent roles IDs array.
    */
   parentRoleId?: number[]
   /**
@@ -3600,5 +3596,98 @@ export interface RoleGroupView{
    * The role group name.
    */
   name: string
+
+}
+export interface ChildAccountSubscription{
+  /**
+   * The subscription ID.
+   */
+  subscriptionId: number
+  /**
+   * The subscription name.
+   */
+  subscriptionName: string
+  /**
+   * The subscription template ID.
+   */
+  subscriptionTemplateId: number
+  /**
+   * Is the subscription prolonged automatically?
+   */
+  autoCharge?: boolean
+  /**
+   * The next charge UTC date in format: YYYY-MM-DD.
+   */
+  nextRenewal?: Date
+  /**
+   * The periodic payment amount.
+   */
+  periodicPrice?: number
+  /**
+   * Is the subscription active?
+   */
+  active?: boolean
+
+}
+export interface ChildAccountSubscriptionTemplate{
+  /**
+   * The subscription template ID.
+   */
+  subscriptionTemplateId: number
+  /**
+   * The subscription template name.
+   */
+  subscriptionTemplateName: string
+  /**
+   * The subscription template installation price.
+   */
+  installationPrice: number
+  /**
+   * The subscription template periodic price.
+   */
+  periodicPrice: number
+
+}
+export interface SmsHistory{
+  /**
+   * Id of the message.
+   */
+  smsId: number
+  /**
+   * Number being called from.
+   */
+  sourceNumber: number
+  /**
+   * Number being called to.
+   */
+  destinationNumber: number
+  /**
+   * Incoming or outgoing message.
+   */
+  direction: string
+  /**
+   * Number of fragments the initial message was divided into.
+   */
+  fragments: number
+  /**
+   * Cost of the message.
+   */
+  cost: number
+  /**
+   * Status of the message. 1 - Success, 2 - Error.
+   */
+  statusId: number
+  /**
+   * Error message if any.
+   */
+  errorMessage?: string
+  /**
+   * Date of message processing. The format is yyyy-MM-dd HH:mm:ss
+   */
+  processedDate: Date
+  /**
+   * Id of the transaction for this message.
+   */
+  transactionId?: number
 
 }
