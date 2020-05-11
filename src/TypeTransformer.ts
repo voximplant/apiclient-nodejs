@@ -47,11 +47,17 @@ export default class TypeTransformer{
     'BillingLimitsType': function(data){
       const xData = {};
       if(typeof data['robokassa'] !== 'undefined') xData['robokassa'] = TypeTransformer.to('BillingLimitInfo')(data['robokassa']);
-      if(typeof data['bank_card'] !== 'undefined') xData['bankCard'] = TypeTransformer.to('BillingLimitInfo')(data['bank_card']);
+      if(typeof data['bank_card'] !== 'undefined') xData['bankCard'] = TypeTransformer.to('BankCardBillingLimitInfo')(data['bank_card']);
       if(typeof data['invoice'] !== 'undefined') xData['invoice'] = TypeTransformer.to('BillingLimitInfo')(data['invoice']);  
       return xData;
 },
     'BillingLimitInfoType': function(data){
+      const xData = {};
+      if(typeof data['min_amount'] !== 'undefined') xData['minAmount'] = TypeTransformer.to('number')(data['min_amount']);
+      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.to('string')(data['currency']);  
+      return xData;
+},
+    'BankCardBillingLimitInfoType': function(data){
       const xData = {};
       if(typeof data['min_amount'] !== 'undefined') xData['minAmount'] = TypeTransformer.to('number')(data['min_amount']);
       if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.to('string')(data['currency']);  
@@ -869,9 +875,12 @@ export default class TypeTransformer{
       const xData = {};
       if(typeof data['subscription_template_id'] !== 'undefined') xData['subscriptionTemplateId'] = TypeTransformer.to('number')(data['subscription_template_id']);
       if(typeof data['installation_price'] !== 'undefined') xData['installationPrice'] = TypeTransformer.to('number')(data['installation_price']);
+      if(typeof data['price'] !== 'undefined') xData['price'] = TypeTransformer.to('string')(data['price']);
       if(typeof data['period'] !== 'undefined') xData['period'] = TypeTransformer.to('string')(data['period']);
       if(typeof data['subscription_template_type'] !== 'undefined') xData['subscriptionTemplateType'] = TypeTransformer.to('string')(data['subscription_template_type']);
-      if(typeof data['subscription_template_name'] !== 'undefined') xData['subscriptionTemplateName'] = TypeTransformer.to('string')(data['subscription_template_name']);  
+      if(typeof data['subscription_template_name'] !== 'undefined') xData['subscriptionTemplateName'] = TypeTransformer.to('string')(data['subscription_template_name']);
+      if(typeof data['required_verification'] !== 'undefined') xData['requiredVerification'] = TypeTransformer.to('string')(data['required_verification']);
+      if(typeof data['verification_status'] !== 'undefined') xData['verificationStatus'] = TypeTransformer.to('string')(data['verification_status']);  
       return xData;
 },
     'AccountCallbacks': function(data){
@@ -920,7 +929,11 @@ export default class TypeTransformer{
       if(typeof data['expiring_callerid'] !== 'undefined') xData['expiringCallerid'] = TypeTransformer.to('ExpiringCallerIDCallback')(data['expiring_callerid']);
       if(typeof data['transcription_complete'] !== 'undefined') xData['transcriptionComplete'] = TypeTransformer.to('TranscriptionCompleteCallback')(data['transcription_complete']);
       if(typeof data['sms_inbound'] !== 'undefined') xData['smsInbound'] = TypeTransformer.to('InboundSmsCallback')(data['sms_inbound']);
-      if(typeof data['new_invoice'] !== 'undefined') xData['newInvoice'] = TypeTransformer.to('NewInvoiceCallback')(data['new_invoice']);  
+      if(typeof data['new_invoice'] !== 'undefined') xData['newInvoice'] = TypeTransformer.to('NewInvoiceCallback')(data['new_invoice']);
+      if(typeof data['expiring_agreement'] !== 'undefined') xData['expiringAgreement'] = TypeTransformer.to('ExpiringAgreementCallback')(data['expiring_agreement']);
+      if(typeof data['expired_agreement'] !== 'undefined') xData['expiredAgreement'] = TypeTransformer.to('ExpiredAgreementCallback')(data['expired_agreement']);
+      if(typeof data['restored_agreement_status'] !== 'undefined') xData['restoredAgreementStatus'] = TypeTransformer.to('RestoredAgreementStatusCallback')(data['restored_agreement_status']);
+      if(typeof data['balance_is_changed'] !== 'undefined') xData['balanceIsChanged'] = TypeTransformer.to('BalanceIsChanged')(data['balance_is_changed']);  
       return xData;
 },
     'AccountDocumentUploadedCallback': function(data){
@@ -929,6 +942,11 @@ export default class TypeTransformer{
       if(typeof data['uploaded'] !== 'undefined') xData['uploaded'] = TypeTransformer.to('Date')(data['uploaded']);
       if(typeof data['is_individual'] !== 'undefined') xData['isIndividual'] = TypeTransformer.to('boolean')(data['is_individual']);
       if(typeof data['verification_name'] !== 'undefined') xData['verificationName'] = TypeTransformer.to('string')(data['verification_name']);  
+      return xData;
+},
+    'BalanceIsChanged': function(data){
+      const xData = {};
+        
       return xData;
 },
     'RegulationAddressUploadedCallback': function(data){
@@ -1132,6 +1150,12 @@ export default class TypeTransformer{
       if(typeof data['transcription_cost'] !== 'undefined') xData['transcriptionCost'] = TypeTransformer.to('number')(data['transcription_cost']);  
       return xData;
 },
+    'ExpiringAgreementCallback': function(data){
+      const xData = {};
+      if(typeof data['expiration_date '] !== 'undefined') xData['expirationDate '] = TypeTransformer.to('Date')(data['expiration_date ']);
+      if(typeof data['until_expiration'] !== 'undefined') xData['untilExpiration'] = TypeTransformer.to('number')(data['until_expiration']);  
+      return xData;
+},
     'ZipCode': function(data){
       const xData = {};
       if(typeof data['city'] !== 'undefined') xData['city'] = TypeTransformer.to('string')(data['city']);
@@ -1171,6 +1195,34 @@ export default class TypeTransformer{
       if(typeof data['phone_region_code'] !== 'undefined') xData['phoneRegionCode'] = TypeTransformer.to('string')(data['phone_region_code']);
       if(typeof data['is_need_regulation_address'] !== 'undefined') xData['isNeedRegulationAddress'] = TypeTransformer.to('boolean')(data['is_need_regulation_address']);
       if(typeof data['regulation_address_type'] !== 'undefined') xData['regulationAddressType'] = TypeTransformer.to('string')(data['regulation_address_type']);  
+      return xData;
+},
+    'BankCardType': function(data){
+      const xData = {};
+      if(typeof data['bank_card_provider'] !== 'undefined') xData['bankCardProvider'] = TypeTransformer.to('string')(data['bank_card_provider']);
+      if(typeof data['auto_charge'] !== 'undefined') xData['autoCharge'] = TypeTransformer.to('boolean')(data['auto_charge']);
+      if(typeof data['min_balance '] !== 'undefined') xData['minBalance '] = TypeTransformer.to('number')(data['min_balance ']);
+      if(typeof data['card_overrun_value'] !== 'undefined') xData['cardOverrunValue'] = TypeTransformer.to('number')(data['card_overrun_value']);
+      if(typeof data['expiration_year'] !== 'undefined') xData['expirationYear'] = TypeTransformer.to('number')(data['expiration_year']);
+      if(typeof data['expiration_month'] !== 'undefined') xData['expirationMonth'] = TypeTransformer.to('number')(data['expiration_month']);
+      if(typeof data['acct'] !== 'undefined') xData['acct'] = TypeTransformer.to('number')(data['acct']);
+      if(typeof data['last_error'] !== 'undefined') xData['lastError'] = TypeTransformer.to('BankCardError')(data['last_error']);
+      if(typeof data['card_holder'] !== 'undefined') xData['cardHolder'] = TypeTransformer.to('string')(data['card_holder']);
+      if(typeof data['card_type'] !== 'undefined') xData['cardType'] = TypeTransformer.to('string')(data['card_type']);  
+      return xData;
+},
+    'BankCardErrorType': function(data){
+      const xData = {};
+      if(typeof data['date'] !== 'undefined') xData['date'] = TypeTransformer.to('Date')(data['date']);
+      if(typeof data['msg'] !== 'undefined') xData['msg'] = TypeTransformer.to('string')(data['msg']);
+      if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.to('number')(data['amount']);
+      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.to('string')(data['currency']);  
+      return xData;
+},
+    'AllocateAlfaBankPaymentResultType': function(data){
+      const xData = {};
+      if(typeof data['formUrl'] !== 'undefined') xData['formUrl'] = TypeTransformer.to('string')(data['formUrl']);
+      if(typeof data['payment_id '] !== 'undefined') xData['paymentId '] = TypeTransformer.to('string')(data['payment_id ']);  
       return xData;
 },
     'PstnBlackListInfoType': function(data){
@@ -1328,6 +1380,31 @@ export default class TypeTransformer{
       if(typeof data['processed_date'] !== 'undefined') xData['processedDate'] = TypeTransformer.to('Date')(data['processed_date']);
       if(typeof data['transaction_id'] !== 'undefined') xData['transactionId'] = TypeTransformer.to('number')(data['transaction_id']);  
       return xData;
+},
+    'ExpiredAgreementCallback': function(data){
+      const xData = {};
+      if(typeof data['document_ids'] !== 'undefined') xData['documentIds'] = TypeTransformer.to('number[]')(data['document_ids']);  
+      return xData;
+},
+    'RestoredAgreementStatusCallback': function(data){
+      const xData = {};
+      if(typeof data['document_id'] !== 'undefined') xData['documentId'] = TypeTransformer.to('number')(data['document_id']);
+      if(typeof data['expiration_date'] !== 'undefined') xData['expirationDate'] = TypeTransformer.to('Date')(data['expiration_date']);  
+      return xData;
+},
+    'GetMaxBankCardPaymentResultType': function(data){
+      const xData = {};
+      if(typeof data['max_payment'] !== 'undefined') xData['maxPayment'] = TypeTransformer.to('number')(data['max_payment']);
+      if(typeof data['new_max_payment'] !== 'undefined') xData['newMaxPayment'] = TypeTransformer.to('number')(data['new_max_payment']);
+      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.to('string')(data['currency']);  
+      return xData;
+},
+    'GetAutochargeConfigResultType': function(data){
+      const xData = {};
+      if(typeof data['auto_charge'] !== 'undefined') xData['autoCharge'] = TypeTransformer.to('boolean')(data['auto_charge']);
+      if(typeof data['min_balance'] !== 'undefined') xData['minBalance'] = TypeTransformer.to('number')(data['min_balance']);
+      if(typeof data['card_overrun_value'] !== 'undefined') xData['cardOverrunValue'] = TypeTransformer.to('string')(data['card_overrun_value']);  
+      return xData;
 }
   }
   private static toActors = {
@@ -1378,11 +1455,17 @@ export default class TypeTransformer{
     'BillingLimits': function(data){
       const xData = {};
       if(typeof data['robokassa'] !== 'undefined') xData['robokassa'] = TypeTransformer.from('BillingLimitInfo')(data['robokassa']);
-      if(typeof data['bankCard'] !== 'undefined') xData['bank_card'] = TypeTransformer.from('BillingLimitInfo')(data['bankCard']);
+      if(typeof data['bankCard'] !== 'undefined') xData['bank_card'] = TypeTransformer.from('BankCardBillingLimitInfo')(data['bankCard']);
       if(typeof data['invoice'] !== 'undefined') xData['invoice'] = TypeTransformer.from('BillingLimitInfo')(data['invoice']);
       return xData;
 },
     'BillingLimitInfo': function(data){
+      const xData = {};
+      if(typeof data['minAmount'] !== 'undefined') xData['min_amount'] = TypeTransformer.from('number')(data['minAmount']);
+      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
+      return xData;
+},
+    'BankCardBillingLimitInfo': function(data){
       const xData = {};
       if(typeof data['minAmount'] !== 'undefined') xData['min_amount'] = TypeTransformer.from('number')(data['minAmount']);
       if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
@@ -2200,9 +2283,12 @@ export default class TypeTransformer{
       const xData = {};
       if(typeof data['subscriptionTemplateId'] !== 'undefined') xData['subscription_template_id'] = TypeTransformer.from('number')(data['subscriptionTemplateId']);
       if(typeof data['installationPrice'] !== 'undefined') xData['installation_price'] = TypeTransformer.from('number')(data['installationPrice']);
+      if(typeof data['price'] !== 'undefined') xData['price'] = TypeTransformer.from('string')(data['price']);
       if(typeof data['period'] !== 'undefined') xData['period'] = TypeTransformer.from('string')(data['period']);
       if(typeof data['subscriptionTemplateType'] !== 'undefined') xData['subscription_template_type'] = TypeTransformer.from('string')(data['subscriptionTemplateType']);
       if(typeof data['subscriptionTemplateName'] !== 'undefined') xData['subscription_template_name'] = TypeTransformer.from('string')(data['subscriptionTemplateName']);
+      if(typeof data['requiredVerification'] !== 'undefined') xData['required_verification'] = TypeTransformer.from('string')(data['requiredVerification']);
+      if(typeof data['verificationStatus'] !== 'undefined') xData['verification_status'] = TypeTransformer.from('string')(data['verificationStatus']);
       return xData;
 },
     'AccountCallbacks': function(data){
@@ -2252,6 +2338,10 @@ export default class TypeTransformer{
       if(typeof data['transcriptionComplete'] !== 'undefined') xData['transcription_complete'] = TypeTransformer.from('TranscriptionCompleteCallback')(data['transcriptionComplete']);
       if(typeof data['smsInbound'] !== 'undefined') xData['sms_inbound'] = TypeTransformer.from('InboundSmsCallback')(data['smsInbound']);
       if(typeof data['newInvoice'] !== 'undefined') xData['new_invoice'] = TypeTransformer.from('NewInvoiceCallback')(data['newInvoice']);
+      if(typeof data['expiringAgreement'] !== 'undefined') xData['expiring_agreement'] = TypeTransformer.from('ExpiringAgreementCallback')(data['expiringAgreement']);
+      if(typeof data['expiredAgreement'] !== 'undefined') xData['expired_agreement'] = TypeTransformer.from('ExpiredAgreementCallback')(data['expiredAgreement']);
+      if(typeof data['restoredAgreementStatus'] !== 'undefined') xData['restored_agreement_status'] = TypeTransformer.from('RestoredAgreementStatusCallback')(data['restoredAgreementStatus']);
+      if(typeof data['balanceIsChanged'] !== 'undefined') xData['balance_is_changed'] = TypeTransformer.from('BalanceIsChanged')(data['balanceIsChanged']);
       return xData;
 },
     'AccountDocumentUploadedCallback': function(data){
@@ -2260,6 +2350,11 @@ export default class TypeTransformer{
       if(typeof data['uploaded'] !== 'undefined') xData['uploaded'] = TypeTransformer.from('Date')(data['uploaded']);
       if(typeof data['isIndividual'] !== 'undefined') xData['is_individual'] = TypeTransformer.from('boolean')(data['isIndividual']);
       if(typeof data['verificationName'] !== 'undefined') xData['verification_name'] = TypeTransformer.from('string')(data['verificationName']);
+      return xData;
+},
+    'BalanceIsChanged': function(data){
+      const xData = {};
+      
       return xData;
 },
     'RegulationAddressUploadedCallback': function(data){
@@ -2463,6 +2558,12 @@ export default class TypeTransformer{
       if(typeof data['transcriptionCost'] !== 'undefined') xData['transcription_cost'] = TypeTransformer.from('number')(data['transcriptionCost']);
       return xData;
 },
+    'ExpiringAgreementCallback': function(data){
+      const xData = {};
+      if(typeof data['expirationDate '] !== 'undefined') xData['expiration_date '] = TypeTransformer.from('Date')(data['expirationDate ']);
+      if(typeof data['untilExpiration'] !== 'undefined') xData['until_expiration'] = TypeTransformer.from('number')(data['untilExpiration']);
+      return xData;
+},
     'ZipCode': function(data){
       const xData = {};
       if(typeof data['city'] !== 'undefined') xData['city'] = TypeTransformer.from('string')(data['city']);
@@ -2502,6 +2603,34 @@ export default class TypeTransformer{
       if(typeof data['phoneRegionCode'] !== 'undefined') xData['phone_region_code'] = TypeTransformer.from('string')(data['phoneRegionCode']);
       if(typeof data['isNeedRegulationAddress'] !== 'undefined') xData['is_need_regulation_address'] = TypeTransformer.from('boolean')(data['isNeedRegulationAddress']);
       if(typeof data['regulationAddressType'] !== 'undefined') xData['regulation_address_type'] = TypeTransformer.from('string')(data['regulationAddressType']);
+      return xData;
+},
+    'BankCard': function(data){
+      const xData = {};
+      if(typeof data['bankCardProvider'] !== 'undefined') xData['bank_card_provider'] = TypeTransformer.from('string')(data['bankCardProvider']);
+      if(typeof data['autoCharge'] !== 'undefined') xData['auto_charge'] = TypeTransformer.from('boolean')(data['autoCharge']);
+      if(typeof data['minBalance '] !== 'undefined') xData['min_balance '] = TypeTransformer.from('number')(data['minBalance ']);
+      if(typeof data['cardOverrunValue'] !== 'undefined') xData['card_overrun_value'] = TypeTransformer.from('number')(data['cardOverrunValue']);
+      if(typeof data['expirationYear'] !== 'undefined') xData['expiration_year'] = TypeTransformer.from('number')(data['expirationYear']);
+      if(typeof data['expirationMonth'] !== 'undefined') xData['expiration_month'] = TypeTransformer.from('number')(data['expirationMonth']);
+      if(typeof data['acct'] !== 'undefined') xData['acct'] = TypeTransformer.from('number')(data['acct']);
+      if(typeof data['lastError'] !== 'undefined') xData['last_error'] = TypeTransformer.from('BankCardError')(data['lastError']);
+      if(typeof data['cardHolder'] !== 'undefined') xData['card_holder'] = TypeTransformer.from('string')(data['cardHolder']);
+      if(typeof data['cardType'] !== 'undefined') xData['card_type'] = TypeTransformer.from('string')(data['cardType']);
+      return xData;
+},
+    'BankCardError': function(data){
+      const xData = {};
+      if(typeof data['date'] !== 'undefined') xData['date'] = TypeTransformer.from('Date')(data['date']);
+      if(typeof data['msg'] !== 'undefined') xData['msg'] = TypeTransformer.from('string')(data['msg']);
+      if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.from('number')(data['amount']);
+      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
+      return xData;
+},
+    'AllocateAlfaBankPaymentResult': function(data){
+      const xData = {};
+      if(typeof data['formUrl'] !== 'undefined') xData['formUrl'] = TypeTransformer.from('string')(data['formUrl']);
+      if(typeof data['paymentId '] !== 'undefined') xData['payment_id '] = TypeTransformer.from('string')(data['paymentId ']);
       return xData;
 },
     'PstnBlackListInfo': function(data){
@@ -2658,6 +2787,31 @@ export default class TypeTransformer{
       if(typeof data['errorMessage'] !== 'undefined') xData['error_message'] = TypeTransformer.from('string')(data['errorMessage']);
       if(typeof data['processedDate'] !== 'undefined') xData['processed_date'] = TypeTransformer.from('Date')(data['processedDate']);
       if(typeof data['transactionId'] !== 'undefined') xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
+      return xData;
+},
+    'ExpiredAgreementCallback': function(data){
+      const xData = {};
+      if(typeof data['documentIds'] !== 'undefined') xData['document_ids'] = TypeTransformer.from('number[]')(data['documentIds']);
+      return xData;
+},
+    'RestoredAgreementStatusCallback': function(data){
+      const xData = {};
+      if(typeof data['documentId'] !== 'undefined') xData['document_id'] = TypeTransformer.from('number')(data['documentId']);
+      if(typeof data['expirationDate'] !== 'undefined') xData['expiration_date'] = TypeTransformer.from('Date')(data['expirationDate']);
+      return xData;
+},
+    'GetMaxBankCardPaymentResult': function(data){
+      const xData = {};
+      if(typeof data['maxPayment'] !== 'undefined') xData['max_payment'] = TypeTransformer.from('number')(data['maxPayment']);
+      if(typeof data['newMaxPayment'] !== 'undefined') xData['new_max_payment'] = TypeTransformer.from('number')(data['newMaxPayment']);
+      if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
+      return xData;
+},
+    'GetAutochargeConfigResult': function(data){
+      const xData = {};
+      if(typeof data['autoCharge'] !== 'undefined') xData['auto_charge'] = TypeTransformer.from('boolean')(data['autoCharge']);
+      if(typeof data['minBalance'] !== 'undefined') xData['min_balance'] = TypeTransformer.from('number')(data['minBalance']);
+      if(typeof data['cardOverrunValue'] !== 'undefined') xData['card_overrun_value'] = TypeTransformer.from('string')(data['cardOverrunValue']);
       return xData;
 }
   }

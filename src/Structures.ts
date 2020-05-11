@@ -51,15 +51,15 @@ export interface AccountInfo{
    */
   minBalanceToNotify?: number
   /**
-   * Are the VoxImplant notifications required?
+   * Are the Voximplant notifications required?
    */
   accountNotifications?: boolean
   /**
-   * Are the VoxImplant plan changing notifications required?
+   * Are the Voximplant plan changing notifications required?
    */
   tariffChangingNotifications?: boolean
   /**
-   * Are the VoxImplant news notifications required?
+   * Are the Voximplant news notifications required?
    */
   newsNotifications?: boolean
   /**
@@ -91,7 +91,7 @@ export interface AccountInfo{
    */
   active: boolean
   /**
-   * Is account blocked by VoxImplant admins or not.
+   * Is account blocked by Voximplant admins or not.
    */
   frozen?: boolean
   /**
@@ -156,7 +156,7 @@ export interface BillingLimits{
   /**
    * The bank card limits.
    */
-  bankCard?: BillingLimitInfo
+  bankCard?: BankCardBillingLimitInfo
   /**
    * The invoice limits.
    */
@@ -174,13 +174,24 @@ export interface BillingLimitInfo{
   currency: string
 
 }
+export interface BankCardBillingLimitInfo{
+  /**
+   * The minimum amount.
+   */
+  minAmount: number
+  /**
+   * The currency.
+   */
+  currency: string
+
+}
 export interface ShortAccountInfo{
   /**
    * The account's ID.
    */
   accountId: number
   /**
-   * Is account blocked by VoxImplant admins or not.
+   * Is account blocked by Voximplant admins or not.
    */
   frozen?: boolean
   /**
@@ -254,21 +265,13 @@ export interface AccountPlan{
    */
   nextCharge: Date
   /**
-   * The plan type. Available values: IM, MAU.
+   * The plan type. The possible values are: IM, MAU.
    */
   planType: string
   /**
    * The plan name.
    */
   planName: string
-  /**
-   * The auto_charge flag.
-   */
-  autoCharge: boolean
-  /**
-   * Is overrun enabled?
-   */
-  mayOverrun: boolean
   /**
    * The plan monthly charge.
    */
@@ -320,7 +323,7 @@ export interface Plan{
    */
   planSubscriptionTemplateId: number
   /**
-   * The plan type. Available values: IM, MAU.
+   * The plan type. The possible values are: IM, MAU.
    */
   planType: string
   /**
@@ -334,7 +337,7 @@ export interface Plan{
   /**
    * The account package array.
    */
-  package: PlanPackage[]
+  packages: PlanPackage[]
 
 }
 export interface PlanPackage{
@@ -801,7 +804,7 @@ export interface Record{
    */
   transcriptionUrl?: string
   /**
-   * The status of transcription. Available values: Not required, In progress, Complete
+   * The status of transcription. The possible values are: Not required, In progress, Complete
    */
   transcriptionStatus?: string
 
@@ -1831,7 +1834,7 @@ export interface PhoneNumberCountryRegionInfo{
    */
   isNeedRegulationAddress?: boolean
   /**
-   * The type of regulation address. Available values: LOCAL, NATIONAL, WORLDWIDE.
+   * The type of regulation address. The possible values are: LOCAL, NATIONAL, WORLDWIDE.
    */
   regulationAddressType?: string
   /**
@@ -2083,7 +2086,7 @@ export interface CallList{
    */
   intervalSeconds: number
   /**
-   * The status name. Available values: __In progress__, __Completed__, __Canceled__.
+   * The status name. The possible values are: __In progress__, __Completed__, __Canceled__.
    */
   status: string
 
@@ -2102,7 +2105,7 @@ export interface CallListDetail{
    */
   startExecutionTime: string
   /**
-   * Time after which the task can not be performed in 24-h format: HH:mm:ss
+   * Time after which the task cannot be performed in 24-h format: HH:mm:ss
    */
   finishExecutionTime: string
   /**
@@ -2118,11 +2121,11 @@ export interface CallListDetail{
    */
   attemptsLeft: number
   /**
-   * The status ID. Available values: __0__ (status = New), __1__ (status = In progress), __2__ (status = Processed), __3__ (status = Error), __4__ (status = Cancelled).
+   * The status ID. The possible values are: __0__ (status = New), __1__ (status = In progress), __2__ (status = Processed), __3__ (status = Error), __4__ (status = Cancelled).
    */
   statusId: number
   /**
-   * The status name. Available values: __New__ (status_id = 0), __In progress__ (status_id = 1), __Processed__ (status_id = 2), __Error__ (status_id = 3), __Cancelled__ (status_id = 4).
+   * The status name. The possible values are: __New__ (status_id = 0), __In progress__ (status_id = 1), __Processed__ (status_id = 2), __Error__ (status_id = 3), __Cancelled__ (status_id = 4).
    */
   status: string
 
@@ -2556,6 +2559,10 @@ export interface SubscriptionTemplate{
    */
   installationPrice: number
   /**
+   * The subscription monthly fee, including taxes and discounts.
+   */
+  price: string
+  /**
    * The charge period in 24-h format: Y-M-D H:m:s. Example: 0-1-0 0:0:0 is 1 month.
    */
   period: string
@@ -2567,6 +2574,14 @@ export interface SubscriptionTemplate{
    * The subscription template name (example: SIP registration, Phone GB, Phone RU 495, ...).
    */
   subscriptionTemplateName: string
+  /**
+   * The name of the required verification.
+   */
+  requiredVerification: string
+  /**
+   * The verification status. Possible values are: REQUIRED, IN_PROGRESS, VERIFIED, NOT_REQUIRED.
+   */
+  verificationStatus: string
 
 }
 export interface AccountCallbacks{
@@ -2737,6 +2752,22 @@ export interface AccountCallback{
    * The specific account callback details.
    */
   newInvoice?: NewInvoiceCallback
+  /**
+   * The specific account callback details.
+   */
+  expiringAgreement?: ExpiringAgreementCallback
+  /**
+   * The specific account callback details.
+   */
+  expiredAgreement?: ExpiredAgreementCallback
+  /**
+   * The specific account callback details.
+   */
+  restoredAgreementStatus?: RestoredAgreementStatusCallback
+  /**
+   * The specific account callback details.
+   */
+  balanceIsChanged?: BalanceIsChanged
 
 }
 export interface AccountDocumentUploadedCallback{
@@ -2756,6 +2787,10 @@ export interface AccountDocumentUploadedCallback{
    * The verification name (type).
    */
   verificationName: string
+
+}
+export interface BalanceIsChanged{
+  
 
 }
 export interface RegulationAddressUploadedCallback{
@@ -2909,7 +2944,7 @@ export interface RegulationAddressVerifiedCallback{
    */
   regulationAddressId: number
   /**
-   * The document verification status. The following values are possible: ACCEPTED, REJECTED
+   * The document verification status. The following values are possible: WAITING_CONFIRMATION_DOCS, VERIFIED, REJECTED, WAITING_PERIOD_EXPIRED.
    */
   regulationAddressStatus: string
   /**
@@ -3028,7 +3063,7 @@ export interface TransactionHistoryReportCallback{
 }
 export interface PlanConfigCallback{
   /**
-   * The plan type. Available values: IM, MAU.
+   * The plan type. The possible values are: IM, MAU.
    */
   planType: string
   /**
@@ -3093,6 +3128,13 @@ export interface ExpiringCallerIDCallback{
   expirationDate: Date
 
 }
+export interface ExpiredCallerIDCallback{
+  /**
+   * The list of the expired Caller IDs.
+   */
+  callerids: string[]
+
+}
 export interface TranscriptionCompleteCallback{
   /**
    * The transcription info.
@@ -3117,6 +3159,17 @@ export interface TranscriptionCompleteCallbackItem{
    * The cost of transcription.
    */
   transcriptionCost: number
+
+}
+export interface ExpiringAgreementCallback{
+  /**
+   * The date of agreement expiration in format: YYYY-MM-DD.
+   */
+  expirationDate : Date
+  /**
+   * The number of days left until an expiration date.
+   */
+  untilExpiration: number
 
 }
 export interface ZipCode{
@@ -3233,6 +3286,10 @@ export interface RegulationRegionRecord{
 }
 export interface BankCard{
   /**
+   * The payment system. The possible values are: ALFABANK, BRAINTREE.
+   */
+  bankCardProvider: string
+  /**
    * The auto_charge flag.
    */
   autoCharge: boolean
@@ -3260,6 +3317,14 @@ export interface BankCard{
    * The last card error.
    */
   lastError?: BankCardError
+  /**
+   * The cardholder’s first name and last name.
+   */
+  cardHolder?: string
+  /**
+   * The card's payment system. The possible values are: VISA, MASTER CARD.
+   */
+  cardType?: string
 
 }
 export interface BankCardError{
@@ -3272,13 +3337,24 @@ export interface BankCardError{
    */
   msg: string
   /**
-   * The amount in the account currency.
+   * The amount in the payment currency.
    */
   amount?: number
   /**
-   * The amount in the USD currency.
+   * The payment currency.
    */
-  amountUsd?: number
+  currency?: string
+
+}
+export interface AllocateAlfaBankPaymentResult{
+  /**
+   * The URL to redirect.
+   */
+  formUrl: string
+  /**
+   * The payment ID.
+   */
+  paymentId : string
 
 }
 export interface PstnBlackListInfo{
@@ -3324,7 +3400,7 @@ export interface PushCredentialInfo{
    */
   pushProviderId: number
   /**
-   * The push provider name. Available values: APPLE, APPLE_VOIP, GOOGLE
+   * The push provider name. The possible values are: APPLE, APPLE_VOIP, GOOGLE
    */
   pushProviderName: string
   /**
@@ -3689,5 +3765,53 @@ export interface SmsHistory{
    * Id of the transaction for this message.
    */
   transactionId?: number
+
+}
+export interface ExpiredAgreementCallback{
+  /**
+   * The list of the expired agreements IDs.
+   */
+  documentIds: number[]
+
+}
+export interface RestoredAgreementStatusCallback{
+  /**
+   * ID of the agreement document which status has been changed.
+   */
+  documentId: number
+  /**
+   * The new date of agreement expiration in format: YYYY-MM-DD.
+   */
+  expirationDate: Date
+
+}
+export interface GetMaxBankCardPaymentResult{
+  /**
+   * The maximum payment for the specified card. It's always equal or less than **new_max_payment**.
+   */
+  maxPayment: number
+  /**
+   * The maximum payment available for any card. The values depends on payment gateways, previous transactions during the last 24 hours, etc.
+   */
+  newMaxPayment: number
+  /**
+   * The currency code (USD, RUR, ...).
+   */
+  currency: string
+
+}
+export interface GetAutochargeConfigResult{
+  /**
+   * Is auto charge enabled or not.
+   */
+  autoCharge: boolean
+  /**
+   * The auto charge threshold.
+   */
+  minBalance: number
+  /**
+   * The auto top-up amount in the account's currency.
+   */
+  cardOverrunValue: string
 
 }

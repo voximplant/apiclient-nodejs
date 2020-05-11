@@ -1,4 +1,4 @@
-import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SkillInfo,BankCard,AdminUser,AdminRole,AuthorizedAccountIP,ContractorInfo,ContractorInvoice,ContactInfo,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsHistory,RecordStorageInfo,MGPInfo,MGPTemplateInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,ChildAccountSubscription,ChildAccountSubscriptionTemplate} from './Structures';
+import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SkillInfo,BankCard,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,ChildAccountSubscription,ChildAccountSubscriptionTemplate} from './Structures';
 export interface UtilsReturns{
   'GetAccountInfo':GetAccountInfoResponse
   'SetAccountInfo':SetAccountInfoResponse
@@ -8,13 +8,8 @@ export interface UtilsReturns{
   'GetSubscriptionPrice':GetSubscriptionPriceResponse
   'GetChildrenAccounts':GetChildrenAccountsResponse
   'TransferMoneyToChildAccount':TransferMoneyToChildAccountResponse
-  'ActivatePromoCode':ActivatePromoCodeResponse
   'GetMoneyAmountToCharge':GetMoneyAmountToChargeResponse
   'ChargeAccount':ChargeAccountResponse
-  'SendAccountNotification':SendAccountNotificationResponse
-  'ChangeAccountPlan':ChangeAccountPlanResponse
-  'GetAccountPlans':GetAccountPlansResponse
-  'GetAvailablePlans':GetAvailablePlansResponse
   'GetAccountDocuments':GetAccountDocumentsResponse
   'AddApplication':AddApplicationResponse
   'DelApplication':DelApplicationResponse
@@ -48,9 +43,7 @@ export interface UtilsReturns{
   'ReorderRules':ReorderRulesResponse
   'GetCallHistory':GetCallHistoryResponse
   'GetHistoryReports':GetHistoryReportsResponse
-  'DownloadHistoryReport':DownloadHistoryReportResponse
   'GetTransactionHistory':GetTransactionHistoryResponse
-  'CheckAccessMediaLink':CheckAccessMediaLinkResponse
   'DeleteRecord':DeleteRecordResponse
   'GetACDHistory':GetACDHistoryResponse
   'GetAuditLog':GetAuditLogResponse
@@ -70,7 +63,6 @@ export interface UtilsReturns{
   'AttachPhoneNumber':AttachPhoneNumberResponse
   'BindPhoneNumberToApplication':BindPhoneNumberToApplicationResponse
   'DeactivatePhoneNumber':DeactivatePhoneNumberResponse
-  'SetPhoneNumberInfo':SetPhoneNumberInfoResponse
   'GetPhoneNumbers':GetPhoneNumbersResponse
   'GetNewPhoneNumbers':GetNewPhoneNumbersResponse
   'GetPhoneNumberCategories':GetPhoneNumberCategoriesResponse
@@ -85,7 +77,6 @@ export interface UtilsReturns{
   'AddQueue':AddQueueResponse
   'BindUserToQueue':BindUserToQueueResponse
   'DelQueue':DelQueueResponse
-  'UpgradeQueue':UpgradeQueueResponse
   'SetQueueInfo':SetQueueInfoResponse
   'GetQueues':GetQueuesResponse
   'GetACDState':GetACDStateResponse
@@ -97,14 +88,8 @@ export interface UtilsReturns{
   'SetSkillInfo':SetSkillInfoResponse
   'GetSkills':GetSkillsResponse
   'BindSkill':BindSkillResponse
-  'GetRobokassaPaymentURL':GetRobokassaPaymentURLResponse
-  'Resume3DSecureCardAuth':Resume3DSecureCardAuthResponse
-  'config_card_payments':config_card_paymentsResponse
-  'create_payment_credentials':create_payment_credentialsResponse
-  'make_card_payment':make_card_paymentResponse
-  'del_payment_credentials':del_payment_credentialsResponse
-  'get_payment_credentials':get_payment_credentialsResponse
-  'DownloadAgreement':DownloadAgreementResponse
+  'ConfigCardPayments':ConfigCardPaymentsResponse
+  'GetPaymentCredentials':GetPaymentCredentialsResponse
   'AddAdminUser':AddAdminUserResponse
   'DelAdminUser':DelAdminUserResponse
   'SetAdminUserInfo':SetAdminUserInfoResponse
@@ -119,16 +104,6 @@ export interface UtilsReturns{
   'DelAuthorizedAccountIP':DelAuthorizedAccountIPResponse
   'GetAuthorizedAccountIPs':GetAuthorizedAccountIPsResponse
   'CheckAuthorizedAccountIP':CheckAuthorizedAccountIPResponse
-  'GenerateContractorInvoice':GenerateContractorInvoiceResponse
-  'GetContractorInfo':GetContractorInfoResponse
-  'SetContractorInfo':SetContractorInfoResponse
-  'GetContractorInvoices':GetContractorInvoicesResponse
-  'AddContactAddress':AddContactAddressResponse
-  'ActivateContactAddress':ActivateContactAddressResponse
-  'DelContactAddress':DelContactAddressResponse
-  'SetContactAddressInfo':SetContactAddressInfoResponse
-  'VerifyContactAddress':VerifyContactAddressResponse
-  'GetContactAddresses':GetContactAddressesResponse
   'LinkregulationAddress':LinkregulationAddressResponse
   'GetZIPCodes':GetZIPCodesResponse
   'GetRegulationsAddress':GetRegulationsAddressResponse
@@ -149,10 +124,6 @@ export interface UtilsReturns{
   'ControlSms':ControlSmsResponse
   'GetSmsHistory':GetSmsHistoryResponse
   'GetRecordStorages':GetRecordStoragesResponse
-  'ActivateMGP':ActivateMGPResponse
-  'DeactivateMGP':DeactivateMGPResponse
-  'GetActiveMGP':GetActiveMGPResponse
-  'GetMGPTemplateList':GetMGPTemplateListResponse
   'CreateKey':CreateKeyResponse
   'GetKeys':GetKeysResponse
   'UpdateKey':UpdateKeyResponse
@@ -174,6 +145,11 @@ export interface UtilsReturns{
   'GetChildAccountSubscriptionTemplates':GetChildAccountSubscriptionTemplatesResponse
   'DeactivateChildAccountSubscription':DeactivateChildAccountSubscriptionResponse
 }
+
+export interface NewRegistrationInterface {
+  
+}
+
 
 export interface AccountsAuthenticationInterface {
   
@@ -226,15 +202,15 @@ export interface SetAccountInfoRequest {
   */
   minBalanceToNotify?:number
   /**
-   *Are the VoxImplant notifications required?
+   *Are the Voximplant notifications required?
   */
   accountNotifications?:boolean
   /**
-   *Set to true to receive the emails about the VoxImplant plan changing.
+   *Set to true to receive the emails about the Voximplant plan changing.
   */
   tariffChangingNotifications?:boolean
   /**
-   *Set to true to receive the emails about the VoxImplant news.
+   *Set to true to receive the emails about the Voximplant news.
   */
   newsNotifications?:boolean
   /**
@@ -302,15 +278,15 @@ export interface SetChildAccountInfoRequest {
   */
   newChildAccountPassword?:string
   /**
-   *Are the VoxImplant notifications required?
+   *Are the Voximplant notifications required?
   */
   accountNotifications?:boolean
   /**
-   *Set to true to receive the emails about the VoxImplant plan changing.
+   *Set to true to receive the emails about the Voximplant plan changing.
   */
   tariffChangingNotifications?:boolean
   /**
-   *Set to true to receive the emails about the VoxImplant news.
+   *Set to true to receive the emails about the Voximplant news.
   */
   newsNotifications?:boolean
   /**
@@ -529,22 +505,6 @@ export interface TransferMoneyToChildAccountResponse {
   */
   balance:number
 }
-export interface ActivatePromoCodeRequest {
-  /**
-   *The promo code.
-  */
-  promoCode:string
-}
-export interface ActivatePromoCodeResponse {
-  /**
-   *Success.
-  */
-  result:number
-  /**
-   *The new account balance.
-  */
-  balance:number
-}
 export interface GetMoneyAmountToChargeRequest {
   /**
    *The currency name. Examples: USD, RUR, EUR.
@@ -580,88 +540,6 @@ export interface ChargeAccountResponse {
    *The current account state.
   */
   accountInfo:ShortAccountInfo
-}
-export interface SendAccountNotificationRequest {
-  /**
-   *The callback type. The following values are possible: js_fail, custom
-  */
-  callbackType?:string
-  /**
-   *The email title. Optional if msg or html_msg are specified only.
-  */
-  title?:string
-  /**
-   *The text email body. Optional if title or html_msg are specified only.
-  */
-  msg?:string
-  /**
-   *The HTML email body. Optional if title or msg are specified only.
-  */
-  htmlMsg?:string
-}
-export interface SendAccountNotificationResponse {
-  /**
-   *1 - the callback may be send, 0 - ignored request.
-  */
-  result:number
-  /**
-   *The callback ID (optional).
-  */
-  callbackId:number
-}
-export interface ChangeAccountPlanRequest {
-  /**
-   *The plan type to config. Available values: IM, MAU.
-  */
-  planType:string
-  /**
-   *The new plan ID with a price larger than the current plan's (see [GetAvailablePlans]).
-  */
-  planSubscriptionTemplateId?:number
-  /**
-   *Set false to disable plan package overrun.
-  */
-  mayOverrun?:boolean
-  /**
-   *Set true to enable the auto charging.
-  */
-  autoCharge?:boolean
-}
-export interface ChangeAccountPlanResponse {
-  /**
-   *1
-  */
-  result:number
-  /**
-   *The current account state.
-  */
-  accountInfo:ShortAccountInfo
-}
-export interface GetAccountPlansRequest {
-  /**
-   *The plan type list separated by the ';' symbol. Available values: IM, MAU.
-  */
-  planType?:string|string[]
-  /**
-   *The plan ID list separated by the ';' symbol.
-  */
-  planSubscriptionTemplateId?:'any'|number|number[]
-}
-export interface GetAccountPlansResponse {
-  result:AccountPlan[]
-}
-export interface GetAvailablePlansRequest {
-  /**
-   *The plan type list separated by the ';' symbol. Available values: IM, MAU.
-  */
-  planType?:string|string[]
-  /**
-   *The plan ID list separated by the ';' symbol.
-  */
-  planSubscriptionTemplateId?:'any'|number|number[]
-}
-export interface GetAvailablePlansResponse {
-  result:Plan[]
 }
 export interface GetAccountDocumentsRequest {
   /**
@@ -708,13 +586,8 @@ export interface AccountsInterface {
   getSubscriptionPrice: (request:GetSubscriptionPriceRequest) => Promise<GetSubscriptionPriceResponse>
   getChildrenAccounts: (request:GetChildrenAccountsRequest) => Promise<GetChildrenAccountsResponse>
   transferMoneyToChildAccount: (request:TransferMoneyToChildAccountRequest) => Promise<TransferMoneyToChildAccountResponse>
-  activatePromoCode: (request:ActivatePromoCodeRequest) => Promise<ActivatePromoCodeResponse>
   getMoneyAmountToCharge: (request:GetMoneyAmountToChargeRequest) => Promise<GetMoneyAmountToChargeResponse>
   chargeAccount: (request:ChargeAccountRequest) => Promise<ChargeAccountResponse>
-  sendAccountNotification: (request:SendAccountNotificationRequest) => Promise<SendAccountNotificationResponse>
-  changeAccountPlan: (request:ChangeAccountPlanRequest) => Promise<ChangeAccountPlanResponse>
-  getAccountPlans: (request:GetAccountPlansRequest) => Promise<GetAccountPlansResponse>
-  getAvailablePlans: (request:GetAvailablePlansRequest) => Promise<GetAvailablePlansResponse>
   getAccountDocuments: (request:GetAccountDocumentsRequest) => Promise<GetAccountDocumentsResponse>
 }
 
@@ -1276,7 +1149,7 @@ export interface AppendToCallListRequest {
   */
   listName:string
   /**
-   *Send as Body Request or multiform.
+   *Send as request body or multiform.
   */
   fileContent:string
   /**
@@ -1328,7 +1201,7 @@ export interface GetCallListsRequest {
   */
   toDate?:Date
   /**
-   *The type of call list. Available values: AUTOMATIC and MANUAL
+   *The type of call list. The possible values are: AUTOMATIC and MANUAL
   */
   typeList?:string
   /**
@@ -1877,9 +1750,6 @@ export interface GetCallHistoryRequest {
    *The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
   */
   toDate:Date
-  /**
-   *The selected timezone or the 'auto' value (will be used the account location).
-  */
   timezone?:string
   /**
    *The call session history ID list separated by the ';' symbol. The sessions IDs can be accessed in JS scenario via the <b>sessionID</b> property of the <a href='//voximplant.com/docs/references/voxengine/appevents#started'>AppEvents.Started</a> event
@@ -1894,7 +1764,7 @@ export interface GetCallHistoryRequest {
   */
   applicationName?:string
   /**
-   *The user ID list separated by the ';' symbol. If it's specified the output will contain only calls from/to any VoxImplant SDK related to the specified user.
+   *The user ID list separated by the ';' symbol. If it's specified, the output will contain the calls from the listed users only.
   */
   userId?:'any'|number|number[]
   /**
@@ -2033,18 +1903,6 @@ export interface GetHistoryReportsResponse {
   */
   count:number
 }
-export interface DownloadHistoryReportRequest {
-  /**
-   *The history report ID.
-  */
-  historyReportId:number
-}
-export interface DownloadHistoryReportResponse {
-  /**
-   *See the HTTP Content-Type header instead.
-  */
-  unknown:unknown
-}
 export interface GetTransactionHistoryRequest {
   /**
    *The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
@@ -2054,9 +1912,6 @@ export interface GetTransactionHistoryRequest {
    *The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
   */
   toDate:Date
-  /**
-   *The selected timezone or the 'auto' value (will be used the account location).
-  */
   timezone?:string
   /**
    *The transaction ID list separated by the ';' symbol.
@@ -2110,10 +1965,6 @@ export interface GetTransactionHistoryRequest {
 export interface GetTransactionHistoryResponse {
   result:TransactionInfo[]
   /**
-   *The committed balance on the date equals <b>from_date</b> value. The parameter value is the number rounded to 4 decimal places and displays in the currency specified for the account.
-  */
-  endBalance:number
-  /**
    *The total found transaction count.
   */
   totalCount:number
@@ -2126,22 +1977,9 @@ export interface GetTransactionHistoryResponse {
   */
   count:number
   /**
-   *The committed balance on the date equals <b>to_date</b> value. The parameter value is the number rounded to 4 decimal places and displays in the currency specified for the account.
-  */
-  startBalance:number
-  /**
    *The history report ID (async mode).
   */
   historyReportId:number
-}
-export interface CheckAccessMediaLinkRequest {
-  /**
-   *Url to check.
-  */
-  mediaUrl:string
-}
-export interface CheckAccessMediaLinkResponse {
-  result:boolean
 }
 export interface DeleteRecordRequest {
   /**
@@ -2242,9 +2080,6 @@ export interface GetAuditLogRequest {
    *The UTC 'to' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
   */
   toDate:Date
-  /**
-   *The selected timezone or the 'auto' value (will be used the account location).
-  */
   timezone?:string
   /**
    *The audit history ID list separated by the ';' symbol.
@@ -2317,9 +2152,7 @@ export interface GetAuditLogResponse {
 export interface HistoryInterface {
   getCallHistory: (request:GetCallHistoryRequest) => Promise<GetCallHistoryResponse>
   getHistoryReports: (request:GetHistoryReportsRequest) => Promise<GetHistoryReportsResponse>
-  downloadHistoryReport: (request:DownloadHistoryReportRequest) => Promise<DownloadHistoryReportResponse>
   getTransactionHistory: (request:GetTransactionHistoryRequest) => Promise<GetTransactionHistoryResponse>
-  checkAccessMediaLink: (request:CheckAccessMediaLinkRequest) => Promise<CheckAccessMediaLinkResponse>
   deleteRecord: (request:DeleteRecordRequest) => Promise<DeleteRecordResponse>
   getACDHistory: (request:GetACDHistoryRequest) => Promise<GetACDHistoryResponse>
   getAuditLog: (request:GetAuditLogRequest) => Promise<GetAuditLogResponse>
@@ -2820,22 +2653,6 @@ export interface BindPhoneNumberToApplicationResponse {
 }
 export interface DeactivatePhoneNumberRequest {
   /**
-   *The phone ID.
-  */
-  phoneId:number
-  /**
-   *The phone number that can be used instead of <b>phone_id</b>.
-  */
-  phoneNumber:string
-}
-export interface DeactivatePhoneNumberResponse {
-  /**
-   *1
-  */
-  result:number
-}
-export interface SetPhoneNumberInfoRequest {
-  /**
    *The phone ID list separated by the ';' symbol or the 'all' value.
   */
   phoneId:'any'|number|number[]
@@ -2843,12 +2660,8 @@ export interface SetPhoneNumberInfoRequest {
    *The phone number list separated by the ';' symbol that can be used instead of <b>phone_id</b>.
   */
   phoneNumber:string|string[]
-  /**
-   *Set true to enable the auto charging.
-  */
-  autoCharge:boolean
 }
-export interface SetPhoneNumberInfoResponse {
+export interface DeactivatePhoneNumberResponse {
   /**
    *1
   */
@@ -3105,7 +2918,6 @@ export interface PhoneNumbersInterface {
   attachPhoneNumber: (request:AttachPhoneNumberRequest) => Promise<AttachPhoneNumberResponse>
   bindPhoneNumberToApplication: (request:BindPhoneNumberToApplicationRequest) => Promise<BindPhoneNumberToApplicationResponse>
   deactivatePhoneNumber: (request:DeactivatePhoneNumberRequest) => Promise<DeactivatePhoneNumberResponse>
-  setPhoneNumberInfo: (request:SetPhoneNumberInfoRequest) => Promise<SetPhoneNumberInfoResponse>
   getPhoneNumbers: (request:GetPhoneNumbersRequest) => Promise<GetPhoneNumbersResponse>
   getNewPhoneNumbers: (request:GetNewPhoneNumbersRequest) => Promise<GetNewPhoneNumbersResponse>
   getPhoneNumberCategories: (request:GetPhoneNumberCategoriesRequest) => Promise<GetPhoneNumberCategoriesResponse>
@@ -3327,30 +3139,6 @@ export interface DelQueueResponse {
   */
   result:number
 }
-export interface UpgradeQueueRequest {
-  /**
-   *The application ID.
-  */
-  applicationId:number
-  /**
-   *The ACD queue ID list separated by the ';' symbol or the 'all' value
-  */
-  acdQueueId:'any'|number|number[]
-  /**
-   *The application name that can be used instead of <b>application_id</b>.
-  */
-  applicationName?:string
-  /**
-   *The ACD queue name that can be used instead of <b>acd_queue_id</b>. The ACD queue name list separated by the ';' symbol.
-  */
-  acdQueueName?:string|string[]
-}
-export interface UpgradeQueueResponse {
-  /**
-   *1
-  */
-  result:number
-}
 export interface SetQueueInfoRequest {
   /**
    *The ACD queue ID.
@@ -3467,7 +3255,7 @@ export interface GetACDOperatorStatisticsRequest {
   */
   userId:'any'|number|number[]
   /**
-   *Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'
+   *Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'.
   */
   toDate?:Date
   /**
@@ -3475,19 +3263,19 @@ export interface GetACDOperatorStatisticsRequest {
   */
   acdQueueId?:'any'|number|number[]
   /**
-   *If set to <b>true</b>, key names in returned JSON will be abbreviated to reduce response byte size. The abbreviations are: 'SA' for 'SpeedOfAnswer', 'HT' for 'HandlingTime', 'TT' for 'TalkTime', 'ACW' for 'AfterCallWork', 'TDT' for 'TotalDialingTime', 'THT' for 'TotalHandlingTime', 'TTT' for 'TotalTalkTime', 'TACW' for 'TotalAfterCallWork', 'AC' for 'AnsweredCalls', 'UAC' for 'UnansweredCalls'
+   *If set to <b>true</b>, key names in returned JSON will be abbreviated to reduce response byte size. The abbreviations are: 'SA' for 'SpeedOfAnswer', 'HT' for 'HandlingTime', 'TT' for 'TalkTime', 'ACW' for 'AfterCallWork', 'TDT' for 'TotalDialingTime', 'THT' for 'TotalHandlingTime', 'TTT' for 'TotalTalkTime', 'TACW' for 'TotalAfterCallWork', 'AC' for 'AnsweredCalls', 'UAC' for 'UnansweredCalls'.
   */
   abbreviation?:boolean
   /**
-   *List of item names abbreviations separated by the ';' symbol. Returned JSON will include keys only for the selected items. Special 'all' value defines all possible items, see [ACDOperatorStatisticsType] for a complete list. See 'abbreviation' description for complete abbreviation list
+   *List of item names abbreviations separated by the ';' symbol. Returned JSON will include keys only for the selected items. Special 'all' value defines all possible items, see [ACDOperatorStatisticsType] for a complete list. See 'abbreviation' description for complete abbreviation list.
   */
   report?:string|string[]
   /**
-   *Specifies how records are grouped by date and time. If set to 'day', the criteria is a day number. If set to 'hour_of_day', the criteria is a 60-minute interval within a day. If set to 'hour', the criteria is both day number and 60-minute interval within that day. If set to 'none', records are not grouped by date and time
+   *Specifies how records are grouped by date and time. If set to 'day', the criteria is a day number. If set to 'hour_of_day', the criteria is a 60-minute interval within a day. If set to 'hour', the criteria is both day number and 60-minute interval within that day. If set to 'none', records are not grouped by date and time.
   */
   aggregation?:string
   /**
-   *If set to 'user', first-level array in the resulting JSON will group records by the user ID, and second-level array will group them by date according to the 'aggregation' parameter. If set to 'aggregation', first-level array in the resulting JSON will group records according to the 'aggregation' parameter, and second-level array will group them by the user ID
+   *If set to 'user', first-level array in the resulting JSON will group records by the user ID, and second-level array will group them by date according to the 'aggregation' parameter. If set to 'aggregation', first-level array in the resulting JSON will group records according to the 'aggregation' parameter, and second-level array will group them by the user ID.
   */
   group?:string
 }
@@ -3503,11 +3291,11 @@ export interface GetACDQueueStatisticsRequest {
   */
   fromDate:Date
   /**
-   *Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'
+   *Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'.
   */
   toDate?:Date
   /**
-   *If set to <b>true</b>, key names in returned JSON will be abbreviated to reduce response byte size. The abbreviations are: 'WT' for 'WaitingTime', 'SA' for 'SpeedOfAnswer', 'AT' is for 'AbandonmentTime', 'HT' is for 'HandlingTime', 'TT' is for 'TalkTime', 'ACW' is for 'AfterCallWork', 'QL' is for 'QueueLength', 'TC' is for 'TotalCalls', 'AC' is for 'AnsweredCalls', 'UAC' is for 'UnansweredCalls', 'RC' is for 'RejectedCalls', 'SL' is for 'ServiceLevel', 'TWT' is for 'TotalWaitingTime', 'TST' is for 'TotalSubmissionTime', 'TAT' is for 'TotalAbandonmentTime', 'THT' is for 'TotalHandlingTime', 'TTT' is for 'TotalTalkTime', 'TACW' is for 'TotalAfterCallWork'
+   *If set to <b>true</b>, key names in returned JSON will be abbreviated to reduce response byte size. The abbreviations are: 'WT' for 'WaitingTime', 'SA' for 'SpeedOfAnswer', 'AT' is for 'AbandonmentTime', 'HT' is for 'HandlingTime', 'TT' is for 'TalkTime', 'ACW' is for 'AfterCallWork', 'QL' is for 'QueueLength', 'TC' is for 'TotalCalls', 'AC' is for 'AnsweredCalls', 'UAC' is for 'UnansweredCalls', 'RC' is for 'RejectedCalls', 'SL' is for 'ServiceLevel', 'TWT' is for 'TotalWaitingTime', 'TST' is for 'TotalSubmissionTime', 'TAT' is for 'TotalAbandonmentTime', 'THT' is for 'TotalHandlingTime', 'TTT' is for 'TotalTalkTime', 'TACW' is for 'TotalAfterCallWork'.
   */
   abbreviation?:boolean
   /**
@@ -3515,11 +3303,11 @@ export interface GetACDQueueStatisticsRequest {
   */
   acdQueueId?:'any'|number|number[]
   /**
-   *List of item names abbreviations separated by the ';' symbol. Returned JSON will include keys only for the selected items. Special 'all' value defines all possible items, see [ACDQueueStatisticsType] for a complete list. See 'abbreviation' description for complete abbreviation list
+   *List of item names abbreviations separated by the ';' symbol. Returned JSON will include keys only for the selected items. Special 'all' value defines all possible items, see [ACDQueueStatisticsType] for a complete list. See 'abbreviation' description for complete abbreviation list.
   */
   report?:string|string[]
   /**
-   *Specifies how records are grouped by date and time. If set to 'day', the criteria is a day number. If set to 'hour_of_day', the criteria is a 60-minute interval within a day. If set to 'hour', the criteria is both day number and 60-minute interval within that day. If set to 'none', records are not grouped by date and time
+   *Specifies how records are grouped by date and time. If set to 'day', the criteria is a day number. If set to 'hour_of_day', the criteria is a 60-minute interval within a day. If set to 'hour', the criteria is both day number and 60-minute interval within that day. If set to 'none', records are not grouped by date and time.
   */
   aggregation?:string
 }
@@ -3539,7 +3327,7 @@ export interface GetACDOperatorStatusStatisticsRequest {
   */
   userId:string|string[]
   /**
-   *Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'
+   *Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'.
   */
   toDate?:Date
   /**
@@ -3547,11 +3335,11 @@ export interface GetACDOperatorStatusStatisticsRequest {
   */
   acdStatus?:string|string[]
   /**
-   *Specifies how records are grouped by date and time. If set to 'day', the criteria is a day number. If set to 'hour_of_day', the criteria is a 60-minute interval within a day. If set to 'hour', the criteria is both day number and 60-minute interval within that day. If set to 'none', records are not grouped by date and time
+   *Specifies how records are grouped by date and time. If set to 'day', the criteria is a day number. If set to 'hour_of_day', the criteria is a 60-minute interval within a day. If set to 'hour', the criteria is both day number and 60-minute interval within that day. If set to 'none', records are not grouped by date and time.
   */
   aggregation?:string
   /**
-   *If set to 'user', first-level array in the resulting JSON will group records by the user ID, and second-level array will group them by date according to the 'aggregation' parameter. If set to 'aggregation', first-level array in the resulting JSON will group records according to the 'aggregation' parameter, and second-level array will group them by the user ID
+   *If set to 'user', first-level array in the resulting JSON will group records by the user ID, and second-level array will group them by date according to the 'aggregation' parameter. If set to 'aggregation', first-level array in the resulting JSON will group records according to the 'aggregation' parameter, and second-level array will group them by the user ID.
   */
   group?:string
 }
@@ -3565,7 +3353,6 @@ export interface QueuesInterface {
   addQueue: (request:AddQueueRequest) => Promise<AddQueueResponse>
   bindUserToQueue: (request:BindUserToQueueRequest) => Promise<BindUserToQueueResponse>
   delQueue: (request:DelQueueRequest) => Promise<DelQueueResponse>
-  upgradeQueue: (request:UpgradeQueueRequest) => Promise<UpgradeQueueResponse>
   setQueueInfo: (request:SetQueueInfoRequest) => Promise<SetQueueInfoResponse>
   getQueues: (request:GetQueuesRequest) => Promise<GetQueuesResponse>
   getACDState: (request:GetACDStateRequest) => Promise<GetACDStateResponse>
@@ -3707,75 +3494,12 @@ export interface SkillsInterface {
   bindSkill: (request:BindSkillRequest) => Promise<BindSkillResponse>
 }
 
-export interface GetRobokassaPaymentURLRequest {
-  /**
-   *The currency code RUR.
-  */
-  currency:string
-  /**
-   *The amount to pay. The amount in the specified currency.
-  */
-  amount:number
-}
-export interface GetRobokassaPaymentURLResponse {
-  /**
-   *The URL to make the payment.
-  */
-  result:string
-}
+
 export interface RobokassaPaymentSystemInterface {
-  getRobokassaPaymentURL: (request:GetRobokassaPaymentURLRequest) => Promise<GetRobokassaPaymentURLResponse>
+  
 }
 
-export interface Resume3DSecureCardAuthRequest {
-  /**
-   *The account ID.
-  */
-  accountId:number
-  /**
-   *The account name, can be used instead of <b>account_id</b>.
-  */
-  accountName:string
-  /**
-   *The account email, can be used instead of <b>account_id</b>.
-  */
-  accountEmail:string
-  /**
-   *The Payor authorization response generated by the issuing bank's ACS.
-  */
-  PaRes:string
-  /**
-   *The merchant data returned by the ACS.
-  */
-  MD:string
-  /**
-   *The private VoxImplant data generated by the <a href='//voximplant.com/docs/references/httpapi/managing_the_credit_cards#createpaymentcredentials'>create_payment_credential</a> API function.
-  */
-  private3ds:string
-}
-export interface Resume3DSecureCardAuthResponse {
-  /**
-   *1
-  */
-  result:number
-  /**
-   *The brief account info.
-  */
-  accountInfo:any
-  /**
-   *The amount.
-  */
-  amount:number
-  /**
-   *The amount, $.
-  */
-  amountUSD:number
-  /**
-   *The transaction ID.
-  */
-  transactionId:number
-}
-export interface config_card_paymentsRequest {
+export interface ConfigCardPaymentsRequest {
   /**
    *Set true to enable the auto charging.
   */
@@ -3789,165 +3513,29 @@ export interface config_card_paymentsRequest {
   */
   cardOverrunValue?:number
 }
-export interface config_card_paymentsResponse {
+export interface ConfigCardPaymentsResponse {
   /**
    *1
   */
   result:number
 }
-export interface create_payment_credentialsRequest {
-  /**
-   *The card holder.
-  */
-  cardHolder:string
-  /**
-   *The card number.
-  */
-  acct:string
-  /**
-   *The CVV code.
-  */
-  cvv:string
-  /**
-   *The expiration year, example 2016.
-  */
-  expirationYear:number
-  /**
-   *The expiration month (1-12).
-  */
-  expirationMonth:number
-  /**
-   *The ZIP code.
-  */
-  zip?:string
-  /**
-   *The city name.
-  */
-  city?:string
-  /**
-   *The state name.
-  */
-  state?:string
-  /**
-   *The street name.
-  */
-  street?:string
-  /**
-   *The country code (US, EN, ...)
-  */
-  countryCode?:string
-  /**
-   *Set true to enable the auto charging.
-  */
-  autoCharge?:boolean
-  /**
-   *The min balance to trigger the auto charging.
-  */
-  minBalance?:number
-  /**
-   *The card overrun value.
-  */
-  cardOverrunValue?:number
-  /**
-   *Set true to attach the credit card.
-  */
-  save?:boolean
-  /**
-   *The amount to charge.
-  */
-  amount?:number
-  /**
-   *The amount currency (USD, RUR, ...).
-  */
-  currency?:string
-  /**
-   *The client IPv4.
-  */
-  clientIp?:string
-}
-export interface create_payment_credentialsResponse {
-  /**
-   *1 - successful payment, 0 - 3DSecure authorization required.
-  */
-  result:number
-  /**
-   *The brief account info.
-  */
-  accountInfo:any
-  /**
-   *The 3DSequre request parameters (optional).
-  */
-  S3D:any
-}
-export interface make_card_paymentRequest {
-  /**
-   *The amount to charge.
-  */
-  amount?:number
-  /**
-   *The amount currency (USD, RUR, ...).
-  */
-  currency?:string
-  /**
-   *The client IPv4.
-  */
-  clientIp?:string
-}
-export interface make_card_paymentResponse {
-  /**
-   *1 - successful payment.
-  */
-  result:number
-  /**
-   *The brief account info.
-  */
-  accountInfo:any
-}
-export interface del_payment_credentialsRequest {
+export interface GetPaymentCredentialsRequest {
   
 }
-export interface del_payment_credentialsResponse {
-  /**
-   *1
-  */
-  result:number
-}
-export interface get_payment_credentialsRequest {
-  
-}
-export interface get_payment_credentialsResponse {
+export interface GetPaymentCredentialsResponse {
   /**
    *The credit card list.
   */
   result:BankCard[]
 }
 export interface CreditCardsInterface {
-  resume3DSecureCardAuth: (request:Resume3DSecureCardAuthRequest) => Promise<Resume3DSecureCardAuthResponse>
-  config_card_payments: (request:config_card_paymentsRequest) => Promise<config_card_paymentsResponse>
-  create_payment_credentials: (request:create_payment_credentialsRequest) => Promise<create_payment_credentialsResponse>
-  make_card_payment: (request:make_card_paymentRequest) => Promise<make_card_paymentResponse>
-  del_payment_credentials: (request:del_payment_credentialsRequest) => Promise<del_payment_credentialsResponse>
-  get_payment_credentials: (request:get_payment_credentialsRequest) => Promise<get_payment_credentialsResponse>
+  configCardPayments: (request:ConfigCardPaymentsRequest) => Promise<ConfigCardPaymentsResponse>
+  getPaymentCredentials: (request:GetPaymentCredentialsRequest) => Promise<GetPaymentCredentialsResponse>
 }
 
-export interface DownloadAgreementRequest {
-  /**
-   *The output format. The following values are possible: pdf.
-  */
-  output:string
-  /**
-   *The ID of the account document, based on which the agreement document will be constructed.
-  */
-  documentId:number
-}
-export interface DownloadAgreementResponse {
-  /**
-   *See the HTTP Content-type header instead.
-  */
-  unknown:unknown
-}
+
 export interface AgreementsInterface {
-  downloadAgreement: (request:DownloadAgreementRequest) => Promise<DownloadAgreementResponse>
+  
 }
 
 export interface AddAdminUserRequest {
@@ -4386,276 +3974,14 @@ export interface AuthorizedIPsInterface {
   checkAuthorizedAccountIP: (request:CheckAuthorizedAccountIPRequest) => Promise<CheckAuthorizedAccountIPResponse>
 }
 
-export interface GenerateContractorInvoiceRequest {
-  /**
-   *The invoice amount. The minimum amount is 3000 RUR.
-  */
-  amount:number
-  /**
-   *The old invoice number, can be used instead of <b>amount</b>.
-  */
-  oldInvoiceNumber:number
-  /**
-   *The flag uses to export a PDF document with UPD type
-  */
-  exportUpd:boolean
-  /**
-   *The flag uses to export a UPD document with stamp
-  */
-  withStamp:boolean
-  /**
-   *The print type. The following values are possible: pdf
-  */
-  output:string
-}
-export interface GenerateContractorInvoiceResponse {
-  
-}
-export interface GetContractorInfoRequest {
-  
-}
-export interface GetContractorInfoResponse {
-  /**
-   *The contractor info or null if info doesn't exist.
-  */
-  result:ContractorInfo
-}
-export interface SetContractorInfoRequest {
-  /**
-   *Tax Identity Number (TIN)
-  */
-  inn:string
-  /**
-   *The full company name.
-  */
-  companyName:string
-  /**
-   *The full company address with a postcode.
-  */
-  companyAddress:string
-  /**
-   *Registration Reason Code (RRC)
-  */
-  kpp?:string
-  /**
-   *The company phone.
-  */
-  companyPhone?:string
-  /**
-   *The correspondence address.
-  */
-  correspondenceAddress?:string
-  /**
-   *The correspondence email.
-  */
-  correspondenceEmail?:string
-  /**
-   *The correspondence to.
-  */
-  correspondenceTo?:string
-}
-export interface SetContractorInfoResponse {
-  /**
-   *1
-  */
-  result:number
-}
-export interface GetContractorInvoicesRequest {
-  /**
-   *The invoice number to filter.
-  */
-  invoiceNumber?:string
-  /**
-   *The post payment flag to filter.
-  */
-  isPostPayment?:boolean
-  /**
-   *The invoice date (from ...) filter in format: YYYY-MM-DD
-  */
-  fromInvoiceDate?:Date
-  /**
-   *The invoice date (... to) filter in format: YYYY-MM-DD
-  */
-  toInvoiceDate?:Date
-  /**
-   *The invoice amount (from ...) filter.
-  */
-  fromAmount?:number
-  /**
-   *The invoice amount (... to) filter.
-  */
-  toAmount?:number
-  /**
-   *The paid invoice flag.
-  */
-  isPaid?:boolean
-  /**
-   *The max returning record count.
-  */
-  count?:number
-  /**
-   *The first <b>N</b> records will be skipped in the output.
-  */
-  offset?:number
-}
-export interface GetContractorInvoicesResponse {
-  result:ContractorInvoice[]
-  /**
-   *The total found invoice count.
-  */
-  totalCount:number
-  /**
-   *The returned invoice count.
-  */
-  count:number
-}
+
 export interface ContractorsInterface {
-  generateContractorInvoice: (request:GenerateContractorInvoiceRequest) => Promise<GenerateContractorInvoiceResponse>
-  getContractorInfo: (request:GetContractorInfoRequest) => Promise<GetContractorInfoResponse>
-  setContractorInfo: (request:SetContractorInfoRequest) => Promise<SetContractorInfoResponse>
-  getContractorInvoices: (request:GetContractorInvoicesRequest) => Promise<GetContractorInvoicesResponse>
+  
 }
 
-export interface AddContactAddressRequest {
-  /**
-   *The contact data (e.g. an email).
-  */
-  contactData:string
-  /**
-   *The contact type. The following values are available: 'email'.
-  */
-  contactType:string
-  /**
-   *The contact description. The length must be less than 1024.
-  */
-  description?:string
-  /**
-   *The attached notification group list separated by the ';' symbol. The following groups are available: 'news', 'tariff_changing', 'account', 'development'.
-  */
-  notificationGroup?:string|string[]
-}
-export interface AddContactAddressResponse {
-  /**
-   *1
-  */
-  result:number
-  /**
-   *The id of the contact object.
-  */
-  contactId:number
-}
-export interface ActivateContactAddressRequest {
-  /**
-   *The contact ID.
-  */
-  contactId:number
-  /**
-   *The verification code (i.g. received from the email).
-  */
-  verificationCode:string
-}
-export interface ActivateContactAddressResponse {
-  /**
-   *1
-  */
-  result:number
-}
-export interface DelContactAddressRequest {
-  /**
-   *The contact ID list separated by the ';' symbol or the 'all' value.
-  */
-  contactId:'any'|number|number[]
-  /**
-   *The contact data filter to delete.
-  */
-  contactData?:string
-  /**
-   *The contact type filter to delete.
-  */
-  contactType?:string
-}
-export interface DelContactAddressResponse {
-  /**
-   *1
-  */
-  result:number
-}
-export interface SetContactAddressInfoRequest {
-  /**
-   *The contact ID list separated by the ';' symbol or the 'all' value.
-  */
-  contactId:'any'|number|number[]
-  /**
-   *A new contact data (i.g. email).
-  */
-  newContactData?:string
-  /**
-   *A new contact type. The following values are available: 'email'.
-  */
-  newContactType?:string
-  /**
-   *A new contact description. The length must be less than 1024.
-  */
-  description?:string
-  /**
-   *The notification group list separated by the ';' symbol. The following groups are available: 'news', 'tariff_changing', 'account', 'development'.
-  */
-  notificationGroup?:string|string[]
-}
-export interface SetContactAddressInfoResponse {
-  /**
-   *1
-  */
-  result:number
-}
-export interface VerifyContactAddressRequest {
-  /**
-   *The contact ID to verify.
-  */
-  contactId:string
-}
-export interface VerifyContactAddressResponse {
-  /**
-   *1
-  */
-  result:number
-}
-export interface GetContactAddressesRequest {
-  /**
-   *The contact ID list separated by the ';' symbol to filter.
-  */
-  contactId?:'any'|number|number[]
-  /**
-   *The contact data to filter.
-  */
-  contactData?:string
-  /**
-   *The contact type to filter.
-  */
-  contactType?:string
-  /**
-   *Is contact persistent?
-  */
-  isPersistent?:boolean
-  /**
-   *Is contact verified?
-  */
-  isVerified?:boolean
-  /**
-   *The notification group list separated by the ';' symbol. The following groups are available: 'news', 'tariff_changing', 'account', 'development'.
-  */
-  notificationGroup?:string|string[]
-}
-export interface GetContactAddressesResponse {
-  result:ContactInfo[]
-}
+
 export interface ContactsInterface {
-  addContactAddress: (request:AddContactAddressRequest) => Promise<AddContactAddressResponse>
-  activateContactAddress: (request:ActivateContactAddressRequest) => Promise<ActivateContactAddressResponse>
-  delContactAddress: (request:DelContactAddressRequest) => Promise<DelContactAddressResponse>
-  setContactAddressInfo: (request:SetContactAddressInfoRequest) => Promise<SetContactAddressInfoResponse>
-  verifyContactAddress: (request:VerifyContactAddressRequest) => Promise<VerifyContactAddressResponse>
-  getContactAddresses: (request:GetContactAddressesRequest) => Promise<GetContactAddressesResponse>
+  
 }
 
 export interface LinkregulationAddressRequest {
@@ -4816,7 +4142,7 @@ export interface RegulationAddressInterface {
 
 export interface AddPushCredentialRequest {
   /**
-   *The push provider name. Available values: APPLE, APPLE_VOIP, GOOGLE.
+   *The push provider name. The possible values are: APPLE, APPLE_VOIP, GOOGLE.
   */
   pushProviderName:string
   /**
@@ -4900,7 +4226,7 @@ export interface GetPushCredentialRequest {
   */
   pushCredentialId?:number
   /**
-   *The push provider name. Available values: APPLE, APPLE_VOIP, GOOGLE.
+   *The push provider name. The possible values are: APPLE, APPLE_VOIP, GOOGLE.
   */
   pushProviderName?:string
   /**
@@ -5135,48 +4461,9 @@ export interface RecordStoragesInterface {
   getRecordStorages: (request:GetRecordStoragesRequest) => Promise<GetRecordStoragesResponse>
 }
 
-export interface ActivateMGPRequest {
-  /**
-   *The MGP ID.
-  */
-  mgpTemplateId:string
-  /**
-   *The child account ID to activate the MGP for.
-  */
-  childAccountId:string
-}
-export interface ActivateMGPResponse {
-  result:number
-}
-export interface DeactivateMGPRequest {
-  /**
-   *The child account ID to deactivate MGPs for.
-  */
-  childAccountId:string
-}
-export interface DeactivateMGPResponse {
-  result:number
-}
-export interface GetActiveMGPRequest {
-  /**
-   *The child account ID to get active MGPs for.
-  */
-  childAccountId?:string
-}
-export interface GetActiveMGPResponse {
-  result:MGPInfo[]
-}
-export interface GetMGPTemplateListRequest {
-  
-}
-export interface GetMGPTemplateListResponse {
-  result:MGPTemplateInfo[]
-}
+
 export interface MGPInterface {
-  activateMGP: (request:ActivateMGPRequest) => Promise<ActivateMGPResponse>
-  deactivateMGP: (request:DeactivateMGPRequest) => Promise<DeactivateMGPResponse>
-  getActiveMGP: (request:GetActiveMGPRequest) => Promise<GetActiveMGPResponse>
-  getMGPTemplateList: (request:GetMGPTemplateListRequest) => Promise<GetMGPTemplateListResponse>
+  
 }
 
 export interface CreateKeyRequest {

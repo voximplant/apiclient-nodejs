@@ -16,7 +16,7 @@ export enum APIErrorCode{
    */
   ERR_5 = 5,
   /**
-   * Can not generate the unique 'api_key'.
+   * Cannot generate the unique 'api_key'.
    */
   ERR_6 = 6,
   /**
@@ -24,7 +24,7 @@ export enum APIErrorCode{
    */
   ERR_9 = 9,
   /**
-   * Can not generate the unique 'session_id'.
+   * Cannot generate the unique 'session_id'.
    */
   ERR_10 = 10,
   /**
@@ -108,11 +108,11 @@ export enum APIErrorCode{
    */
   ERR_107 = 107,
   /**
-   * Exceeded the application count limit per the account.
+   * Exceeded the application count limit per account.
    */
   ERR_108 = 108,
   /**
-   * Exceeded the user count limit per the account.
+   * Exceeded the user count limit per account.
    */
   ERR_109 = 109,
   /**
@@ -128,11 +128,11 @@ export enum APIErrorCode{
    */
   ERR_112 = 112,
   /**
-   * Account's name must be at least 5 and up to 20 characters long
+   * Account's name must be at least 5 and up to 20 characters long.
    */
   ERR_113 = 113,
   /**
-   * Account's name should start with a letter and can contain latin characters, digits, hyphen
+   * Account's name should start with a letter and can contain latin characters, digits, hyphen.
    */
   ERR_114 = 114,
   /**
@@ -156,7 +156,7 @@ export enum APIErrorCode{
    */
   ERR_121 = 121,
   /**
-   * The user name should start with a letter or digit and can contain latin characters, digits, hyphen and must be at least 5 characters long
+   * The user name should start with a letter or digit and can contain latin characters, digits, hyphen and must be at least 5 characters long.
    */
   ERR_122 = 122,
   /**
@@ -172,7 +172,7 @@ export enum APIErrorCode{
    */
   ERR_127 = 127,
   /**
-   * Account's e-mail isn't unique.
+   * Account's email isn't unique.
    */
   ERR_128 = 128,
   /**
@@ -204,7 +204,7 @@ export enum APIErrorCode{
    */
   ERR_135 = 135,
   /**
-   * Invalid e-mail.
+   * Invalid email.
    */
   ERR_136 = 136,
   /**
@@ -216,7 +216,7 @@ export enum APIErrorCode{
    */
   ERR_139 = 139,
   /**
-   * Exceed the max SMS code entering attempts.
+   * Exceeded the max SMS code entering attempts.
    */
   ERR_140 = 140,
   /**
@@ -252,15 +252,15 @@ export enum APIErrorCode{
    */
   ERR_152 = 152,
   /**
-   * The card payment amount must be greater than 10$
+   * The card payment amount must be greater than 10$.
    */
   ERR_153 = 153,
   /**
-   * The 'min_balance' must be greater than 1 $
+   * The 'min_balance' must be greater than 1 $.
    */
   ERR_154 = 154,
   /**
-   * The 'card_overrun_value' must be greater than 10$
+   * The 'card_overrun_value' must be greater than 10$.
    */
   ERR_155 = 155,
   /**
@@ -292,19 +292,19 @@ export enum APIErrorCode{
    */
   ERR_162 = 162,
   /**
-   * The 'account_first_name' parameter length must be less than 50
+   * The 'account_first_name' parameter length must be less than 50.
    */
   ERR_163 = 163,
   /**
-   * The 'account_last_name' parameter length must be less than 50
+   * The 'account_last_name' parameter length must be less than 50.
    */
   ERR_164 = 164,
   /**
-   * Exceed the max SMS sending attempts.
+   * Exceeded the max SMS sending attempts.
    */
   ERR_165 = 165,
   /**
-   * Repeat SMS sending after 3 minutes
+   * Repeat SMS sending after 3 minutes.
    */
   ERR_166 = 166,
   /**
@@ -324,21 +324,17 @@ export enum APIErrorCode{
    */
   ERR_170 = 170,
   /**
-   * The 'min_balance' must be less than 50 $
+   * The 'min_balance' must be less than 50 $.
    */
   ERR_171 = 171,
   /**
-   * Exceeded the SIP white list network count limit per the account.
+   * Exceeded the SIP white list network count limit per account.
    */
   ERR_172 = 172,
   /**
    * The account name is forbidden by the black list. Try another name.
    */
   ERR_173 = 173,
-  /**
-   * The 'sms_message' parameter is invalid.
-   */
-  ERR_174 = 174,
   /**
    * The 'rule_name' isn't unique.
    */
@@ -347,14 +343,6 @@ export enum APIErrorCode{
    * The 'parent_account_id' parameter is invalid.
    */
   ERR_177 = 177,
-  /**
-   * Invalid excluded application name.
-   */
-  ERR_178 = 178,
-  /**
-   * The 'excluded_application_id' parameter is invalid.
-   */
-  ERR_179 = 179,
   /**
    * The 'excluded_user_id' parameter is invalid.
    */
@@ -384,10 +372,6 @@ export enum APIErrorCode{
    */
   ERR_186 = 186,
   /**
-   * Exceeded the unverified CallerID count limit per the account. Try to verify or delete some unverified CallerID.
-   */
-  ERR_187 = 187,
-  /**
    * The 'callerid_number' isn't unique.
    */
   ERR_188 = 188,
@@ -407,10 +391,6 @@ export enum APIErrorCode{
    * The 'sms_id' parameter is invalid.
    */
   ERR_192 = 192,
-  /**
-   * The callerid number is forbidden.
-   */
-  ERR_193 = 193,
   /**
    * The 'child_account_id' parameter is invalid.
    */
@@ -435,10 +415,6 @@ export enum APIErrorCode{
    * The 'child_account_email' parameter is invalid.
    */
   ERR_199 = 199,
-  /**
-   * The 'new_child_account_name' parameter is invalid.
-   */
-  ERR_200 = 200,
   /**
    * The 'new_child_account_email' parameter is invalid.
    */
@@ -540,7 +516,7 @@ export enum APIErrorCode{
    */
   ERR_225 = 225,
   /**
-   * The payment amount is very low. The amount must be greater than 500 RUR.
+   * The payment amount is very low. The amount must be greater than N.
    */
   ERR_226 = 226,
   /**
@@ -587,10 +563,6 @@ export enum APIErrorCode{
    * The 'child_transaction_description' parameter length must be less than 120.
    */
   ERR_237 = 237,
-  /**
-   * The 'acceptable_waiting_time' list size must be less than 30.
-   */
-  ERR_238 = 238,
   /**
    * The 'country_code' parameter is invalid.
    */
@@ -640,7 +612,7 @@ export enum APIErrorCode{
    */
   ERR_250 = 250,
   /**
-   * Call service error
+   * Call service error.
    */
   ERR_251 = 251,
   /**
@@ -660,10 +632,6 @@ export enum APIErrorCode{
    */
   ERR_255 = 255,
   /**
-   * Not found parent account.
-   */
-  ERR_256 = 256,
-  /**
    * The 'reference_ip' parameter is invalid.
    */
   ERR_257 = 257,
@@ -676,7 +644,7 @@ export enum APIErrorCode{
    */
   ERR_259 = 259,
   /**
-   * Denied access to the media link.
+   * Access to the media link is denied.
    */
   ERR_260 = 260,
   /**
@@ -724,7 +692,7 @@ export enum APIErrorCode{
    */
   ERR_271 = 271,
   /**
-   * Exceeded the maximum possible number of sip registrations.
+   * Exceeded the maximum possible number of SIP registrations.
    */
   ERR_272 = 272,
   /**
@@ -780,7 +748,7 @@ export enum APIErrorCode{
    */
   ERR_288 = 288,
   /**
-   * Exceeded the admin user count limit per the account.
+   * Exceeded the admin user count limit per account.
    */
   ERR_289 = 289,
   /**
@@ -804,7 +772,7 @@ export enum APIErrorCode{
    */
   ERR_294 = 294,
   /**
-   * Exceeded the admin role count limit per the account.
+   * Exceeded the admin role count limit per account.
    */
   ERR_295 = 295,
   /**
@@ -815,14 +783,6 @@ export enum APIErrorCode{
    * The 'denied_entries' parameter is invalid.
    */
   ERR_297 = 297,
-  /**
-   * The 'included_admin_user_id' parameter is invalid.
-   */
-  ERR_298 = 298,
-  /**
-   * The 'excluded_admin_user_id' parameter is invalid.
-   */
-  ERR_299 = 299,
   /**
    * The 'like_admin_role_id' parameter is invalid.
    */
@@ -864,7 +824,7 @@ export enum APIErrorCode{
    */
   ERR_309 = 309,
   /**
-   * Forbidden to edit the contractor. Please send an email to the VoxImplant team instead.
+   * Forbidden to edit the contractor. Please send an email to the Voximplant team instead.
    */
   ERR_310 = 310,
   /**
@@ -908,7 +868,7 @@ export enum APIErrorCode{
    */
   ERR_320 = 320,
   /**
-   * The authorized IP not found.
+   * The authorized IP is not found.
    */
   ERR_321 = 321,
   /**
@@ -916,7 +876,7 @@ export enum APIErrorCode{
    */
   ERR_322 = 322,
   /**
-   * Exceeded the authorized IP count limit per the account.
+   * Exceeded the authorized IP count limit per account.
    */
   ERR_323 = 323,
   /**
@@ -936,43 +896,35 @@ export enum APIErrorCode{
    */
   ERR_327 = 327,
   /**
-   * Occupied subscription.
-   */
-  ERR_330 = 330,
-  /**
    * No phones in the stock.
    */
   ERR_331 = 331,
   /**
-   * Insufficient phones in the stock, available %1$s
+   * Insufficient phones in the stock, available N.
    */
   ERR_332 = 332,
   /**
-   * Not found country by code 'UA'
-   */
-  ERR_333 = 333,
-  /**
-   * Not found country's region by code
+   * Country's region is not found by code.
    */
   ERR_334 = 334,
   /**
-   * Phone number already exists
+   * Phone number already exists.
    */
   ERR_335 = 335,
   /**
-   * Ambiguous region
+   * Ambiguous region.
    */
   ERR_336 = 336,
   /**
-   * Not found user documents
+   * User documents are not found.
    */
   ERR_337 = 337,
   /**
-   * Verification user's document already complete
+   * Verification user's document already complete.
    */
   ERR_338 = 338,
   /**
-   * User documents not exists
+   * User documents don't exist.
    */
   ERR_339 = 339,
   /**
@@ -980,13 +932,9 @@ export enum APIErrorCode{
    */
   ERR_340 = 340,
   /**
-   * Not found record by id
+   * Record is not found by ID.
    */
   ERR_341 = 341,
-  /**
-   * The 'queue_id' parameter is invalid.
-   */
-  ERR_342 = 342,
   /**
    * The 'individual_full_name' parameter is invalid.
    */
@@ -1040,27 +988,27 @@ export enum APIErrorCode{
    */
   ERR_355 = 355,
   /**
-   * The call history report isn't ready.
+   * The call history report isn't ready yet.
    */
   ERR_356 = 356,
   /**
-   * The call history report generating failed.
+   * The call history report generation failed.
    */
   ERR_357 = 357,
   /**
-   * Invalid verification type
+   * Invalid verification type.
    */
   ERR_358 = 358,
   /**
-   * Invalid salutation
+   * Invalid salutation.
    */
   ERR_359 = 359,
   /**
-   * Not found voxbone verification type
+   * Voxbone verification type is not found.
    */
   ERR_360 = 360,
   /**
-   * Not found proof of address
+   * Proof of address is not found.
    */
   ERR_361 = 361,
   /**
@@ -1076,7 +1024,7 @@ export enum APIErrorCode{
    */
   ERR_364 = 364,
   /**
-   * Not found purchase info.
+   * Purchase info is not found.
    */
   ERR_365 = 365,
   /**
@@ -1088,15 +1036,15 @@ export enum APIErrorCode{
    */
   ERR_367 = 367,
   /**
-   * Phone provider error: %1$s
+   * Phone provider error.
    */
   ERR_368 = 368,
   /**
-   * Incorrect parameter 'phone_owner_region_code'
+   * Incorrect parameter 'phone_owner_region_code'.
    */
   ERR_369 = 369,
   /**
-   * Incorrect parameter 'phone_owner_region_code' or 'phone_owner_zip_code'
+   * Incorrect parameter 'phone_owner_region_code' or 'phone_owner_zip_code'.
    */
   ERR_370 = 370,
   /**
@@ -1104,11 +1052,11 @@ export enum APIErrorCode{
    */
   ERR_371 = 371,
   /**
-   * The 'pstn_blacklist_phone' parameter is invalid
+   * The 'pstn_blacklist_phone' parameter is invalid.
    */
   ERR_372 = 372,
   /**
-   * Exceeded the PSTN blacklist phones count limit per the account.
+   * Exceeded the PSTN blacklist phones count limit per account.
    */
   ERR_373 = 373,
   /**
@@ -1152,31 +1100,23 @@ export enum APIErrorCode{
    */
   ERR_383 = 383,
   /**
-   * Push credential has already attached to any of applications: 
+   * Push credential has already attached to any of applications: .
    */
   ERR_384 = 384,
   /**
-   * Sending sms error
+   * Sending sms error.
    */
   ERR_385 = 385,
   /**
-   * Sms disabled for number 
+   * SMS disabled for number.
    */
   ERR_386 = 386,
-  /**
-   * Sms disabling error
-   */
-  ERR_387 = 387,
-  /**
-   * Sms enabling error
-   */
-  ERR_388 = 388,
   /**
    * No bank card order.
    */
   ERR_389 = 389,
   /**
-   * The card payment amount must be less than %1$s $.
+   * The card payment amount must be less than N.
    */
   ERR_390 = 390,
   /**
@@ -1184,7 +1124,7 @@ export enum APIErrorCode{
    */
   ERR_391 = 391,
   /**
-   * Please enter the captcha!
+   * Please enter the captcha!.
    */
   ERR_392 = 392,
   /**
@@ -1236,7 +1176,7 @@ export enum APIErrorCode{
    */
   ERR_407 = 407,
   /**
-   * The contact data must be at least 1 and up to 1024 characters long
+   * The contact data must be at least 1 and up to 1024 characters long.
    */
   ERR_408 = 408,
   /**
@@ -1248,7 +1188,7 @@ export enum APIErrorCode{
    */
   ERR_410 = 410,
   /**
-   * Exceeded the contact count limit per the account.
+   * Exceeded the contact count limit per account.
    */
   ERR_411 = 411,
   /**
@@ -1268,11 +1208,11 @@ export enum APIErrorCode{
    */
   ERR_415 = 415,
   /**
-   * Repeat after %1$s seconds
+   * Repeat after N seconds.
    */
   ERR_416 = 416,
   /**
-   * The contact description must be at least 1 and up to 1024 characters long
+   * The contact description must be at least 1 and up to 1024 characters long.
    */
   ERR_417 = 417,
   /**
