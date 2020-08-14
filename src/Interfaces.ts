@@ -1,4 +1,4 @@
-import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SkillInfo,BankCard,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,ChildAccountSubscription,ChildAccountSubscriptionTemplate} from './Structures';
+import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SkillInfo,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsTransaction,FailedSms,SmsHistory,A2PSmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,ChildAccountSubscription,ChildAccountSubscriptionTemplate} from './Structures';
 export interface UtilsReturns{
   'GetAccountInfo':GetAccountInfoResponse
   'SetAccountInfo':SetAccountInfoResponse
@@ -20,10 +20,8 @@ export interface UtilsReturns{
   'SetUserInfo':SetUserInfoResponse
   'GetUsers':GetUsersResponse
   'TransferMoneyToUser':TransferMoneyToUserResponse
-  'CreateCallList':CreateCallListResponse
   'CreateManualCallList':CreateManualCallListResponse
   'StartNextCallTask':StartNextCallTaskResponse
-  'AppendToCallList':AppendToCallListResponse
   'GetCallLists':GetCallListsResponse
   'GetCallListDetails':GetCallListDetailsResponse
   'StopCallListProcessing':StopCallListProcessingResponse
@@ -88,8 +86,6 @@ export interface UtilsReturns{
   'SetSkillInfo':SetSkillInfoResponse
   'GetSkills':GetSkillsResponse
   'BindSkill':BindSkillResponse
-  'ConfigCardPayments':ConfigCardPaymentsResponse
-  'GetPaymentCredentials':GetPaymentCredentialsResponse
   'AddAdminUser':AddAdminUserResponse
   'DelAdminUser':DelAdminUserResponse
   'SetAdminUserInfo':SetAdminUserInfoResponse
@@ -121,8 +117,10 @@ export interface UtilsReturns{
   'GetDialogflowKeys':GetDialogflowKeysResponse
   'BindDialogflowKeys':BindDialogflowKeysResponse
   'SendSmsMessage':SendSmsMessageResponse
+  'A2PSendSms':A2PSendSmsResponse
   'ControlSms':ControlSmsResponse
   'GetSmsHistory':GetSmsHistoryResponse
+  'A2PGetSmsHistory':A2PGetSmsHistoryResponse
   'GetRecordStorages':GetRecordStoragesResponse
   'CreateKey':CreateKeyResponse
   'GetKeys':GetKeysResponse
@@ -182,7 +180,7 @@ export interface SetAccountInfoRequest {
   */
   languageCode?:string
   /**
-   *The account location (timezone). Examples: America/Los_Angeles, GMT-8, GMT-08:00, GMT+10
+   *The account location (timezone). Examples: America/Los_Angeles, Etc/GMT-8, Etc/GMT+10
   */
   location?:string
   /**
@@ -298,7 +296,7 @@ export interface SetChildAccountInfoRequest {
   */
   languageCode?:string
   /**
-   *The child account location (timezone). Examples: America/Los_Angeles, GMT-8, GMT-08:00, GMT+10
+   *The child account location (timezone). Examples: America/Los_Angeles, Etc/GMT-8, Etc/GMT+10
   */
   location?:string
   /**
@@ -991,74 +989,6 @@ export interface UsersInterface {
   transferMoneyToUser: (request:TransferMoneyToUserRequest) => Promise<TransferMoneyToUserResponse>
 }
 
-export interface CreateCallListRequest {
-  /**
-   *The rule ID. It's specified in the <a href='//manage.voximplant.com/#applications'>Applications</a> section of the Control Panel
-  */
-  ruleId:number
-  /**
-   *Call list priority. The value is in the range of [0 ... 2^31] where zero is the highest priority.
-  */
-  priority:number
-  /**
-   *Number simultaneously processed tasks.
-  */
-  maxSimultaneous:number
-  /**
-   *Number of attempts. Minimum is <b>1</b>, maximum is <b>5</b>.
-  */
-  numAttempts:number
-  /**
-   *File name, up to 255 characters and can't contain the '/' and '\' symbols.
-  */
-  name:string
-  /**
-   *Send as "body" part of the HTTP request or as multiform. The sending "file_content" via URL is at its own risk because the network devices tend to drop HTTP requests with large headers.
-  */
-  fileContent:string
-  /**
-   *Interval between call attempts in seconds. The default is 0.
-  */
-  intervalSeconds?:number
-  /**
-   *Queue Id. For processing call list with PDS (predictive dialer) the ID of the queue must be specified.
-  */
-  queueId?:number
-  /**
-   *Average waiting time in the queue(seconds). Default is 1
-  */
-  avgWaitingSec?:number
-  /**
-   *Encoding file. The default is UTF-8.
-  */
-  encoding?:string
-  /**
-   *Separator values. The default is ';'
-  */
-  delimiter?:string
-  /**
-   *Escape character. Used for parsing csv
-  */
-  escape?:string
-  /**
-   *Specifies the IP from the geolocation of call list subscribers. It allows selecting the nearest server for serving subscribers.
-  */
-  referenceIp?:string
-}
-export interface CreateCallListResponse {
-  /**
-   *true
-  */
-  result:boolean
-  /**
-   *The number of stored records
-  */
-  count:number
-  /**
-   *The list ID.
-  */
-  listId:number
-}
 export interface CreateManualCallListRequest {
   /**
    *The rule ID.
@@ -1136,46 +1066,6 @@ export interface StartNextCallTaskResponse {
   result:number
   /**
    *The list id.
-  */
-  listId:number
-}
-export interface AppendToCallListRequest {
-  /**
-   *The call list ID
-  */
-  listId:number
-  /**
-   *Can be used instead of <b>list_id</b>. The unique name call list
-  */
-  listName:string
-  /**
-   *Send as request body or multiform.
-  */
-  fileContent:string
-  /**
-   *Encoding file. The default is UTF-8.
-  */
-  encoding?:string
-  /**
-   *Escape character. Used for parsing csv
-  */
-  escape?:string
-  /**
-   *Separator values. The default is ';'
-  */
-  delimiter?:string
-}
-export interface AppendToCallListResponse {
-  /**
-   *true
-  */
-  result:boolean
-  /**
-   *The number of stored records
-  */
-  count:number
-  /**
-   *The list ID.
   */
   listId:number
 }
@@ -1300,10 +1190,8 @@ export interface RecoverCallListResponse {
   countRecovery:number
 }
 export interface CallListsInterface {
-  createCallList: (request:CreateCallListRequest) => Promise<CreateCallListResponse>
   createManualCallList: (request:CreateManualCallListRequest) => Promise<CreateManualCallListResponse>
   startNextCallTask: (request:StartNextCallTaskRequest) => Promise<StartNextCallTaskResponse>
-  appendToCallList: (request:AppendToCallListRequest) => Promise<AppendToCallListResponse>
   getCallLists: (request:GetCallListsRequest) => Promise<GetCallListsResponse>
   getCallListDetails: (request:GetCallListDetailsRequest) => Promise<GetCallListDetailsResponse>
   stopCallListProcessing: (request:StopCallListProcessingRequest) => Promise<StopCallListProcessingResponse>
@@ -1828,7 +1716,7 @@ export interface GetCallHistoryRequest {
   */
   output?:string
   /**
-   *Set true to get records in the asynchronous mode (for csv output only). If it's true, the request could be available via <a href='//voximplant.com/docs/references/httpapi/managing_history#gethistoryreports'>GetHistoryReports</a> and <a href='//voximplant.com/docs/references/httpapi/managing_history#downloadhistoryreport'>DownloadHistoryReport</a> methods.
+   *Set true to get records in the asynchronous mode (for csv output only). If it's true, the request could be available via [GetHistoryReports] and [DownloadHistoryReport] methods.
   */
   isAsync?:boolean
 }
@@ -2126,7 +2014,7 @@ export interface GetAuditLogRequest {
   */
   output?:string
   /**
-   *Set true to get records in the asynchronous mode (for csv output only). If it's true, the request could be available via <a href='//voximplant.com/docs/references/httpapi/managing_history#gethistoryreports'>GetHistoryReports</a> and <a href='//voximplant.com/docs/references/httpapi/managing_history#downloadhistoryreport'>DownloadHistoryReport</a> methods.
+   *Set true to get records in the asynchronous mode (for csv output only). If it's true, the request could be available via [GetHistoryReports] and [DownloadHistoryReport] methods.
   */
   isAsync?:boolean
 }
@@ -2588,15 +2476,15 @@ export interface AttachPhoneNumberRequest {
   */
   countryCode:string
   /**
-   *The phone category name. See the <a href='//voximplant.com/docs/references/httpapi/managing_phone_numbers#getphonenumbercategories'>GetPhoneNumberCategories</a> method.
+   *The phone category name. See the [GetPhoneNumberCategories] method.
   */
   phoneCategoryName:string
   /**
-   *The phone region ID. See the <a href='//voximplant.com/docs/references/httpapi/managing_phone_numbers#getphonenumberregionsb'>GetPhoneNumberRegions</a> method.
+   *The phone region ID. See the [GetPhoneNumberRegions] method.
   */
   phoneRegionId:number
   /**
-   *The country state. See the <a href='//voximplant.com/docs/references/httpapi/managing_phone_numbers#getphonenumbercategories'>GetPhoneNumberCategories</a> and <a href='//voximplant.com/docs/references/httpapi/managing_phone_numbers#getphonenumbercountrystates'>GetPhoneNumberCountryStates</a> methods.
+   *The country state. See the [GetPhoneNumberCategories] and [GetPhoneNumberCountryStates] methods.
   */
   countryState?:string
   /**
@@ -2693,7 +2581,7 @@ export interface GetPhoneNumbersRequest {
   */
   countryCode?:string|string[]
   /**
-   *The phone category name. See the <a href='//voximplant.com/docs/references/httpapi/managing_phone_numbers#getphonenumbercategories'>GetPhoneNumberCategories</a> method.
+   *The phone category name. See the [GetPhoneNumberCategories] method.
   */
   phoneCategoryName?:string
   /**
@@ -2807,7 +2695,7 @@ export interface GetNewPhoneNumbersRequest {
   */
   phoneCategoryName:string
   /**
-   *The phone region ID. See the <a href='//voximplant.com/docs/references/httpapi/managing_phone_numbers#getphonenumberregions'>GetPhoneNumberRegions</a> method.
+   *The phone region ID. See the [GetPhoneNumberRegions] method.
   */
   phoneRegionId:number
   /**
@@ -2870,7 +2758,7 @@ export interface GetPhoneNumberRegionsRequest {
   */
   countryCode:string
   /**
-   *The phone category name. See the <a href='//voximplant.com/docs/references/httpapi/managing_phone_numbers#getphonenumbercategories'>GetPhoneNumberCategories</a> method.
+   *The phone category name. See the [GetPhoneNumberCategories] method.
   */
   phoneCategoryName:string
   /**
@@ -2903,7 +2791,7 @@ export interface GetActualPhoneNumberRegionRequest {
   */
   countryCode:string
   /**
-   *The phone category name. See the <a href='//voximplant.com/docs/references/httpapi/managing_phone_numbers#getphonenumbercategoriesb'>GetPhoneNumberCategories</a> method.
+   *The phone category name. See the [GetPhoneNumberCategories] method.
   */
   phoneCategoryName:string
   /**
@@ -3499,38 +3387,9 @@ export interface RobokassaPaymentSystemInterface {
   
 }
 
-export interface ConfigCardPaymentsRequest {
-  /**
-   *Set true to enable the auto charging.
-  */
-  autoCharge?:boolean
-  /**
-   *The min account balance to trigger the auto charging.
-  */
-  minBalance?:number
-  /**
-   *The card overrun value in the account currency.
-  */
-  cardOverrunValue?:number
-}
-export interface ConfigCardPaymentsResponse {
-  /**
-   *1
-  */
-  result:number
-}
-export interface GetPaymentCredentialsRequest {
-  
-}
-export interface GetPaymentCredentialsResponse {
-  /**
-   *The credit card list.
-  */
-  result:BankCard[]
-}
+
 export interface CreditCardsInterface {
-  configCardPayments: (request:ConfigCardPaymentsRequest) => Promise<ConfigCardPaymentsResponse>
-  getPaymentCredentials: (request:GetPaymentCredentialsRequest) => Promise<GetPaymentCredentialsResponse>
+  
 }
 
 
@@ -3556,11 +3415,11 @@ export interface AddAdminUserRequest {
   */
   adminUserActive?:boolean
   /**
-   *The role(s) ID created via <a href='//voximplant.com/docs/references/httpapi/managing_admin_roles'>Managing Admin Roles</a> methods. The attaching admin role ID list separated by the ';' symbol or the 'all' value.
+   *The role(s) ID created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role ID list separated by the ';' symbol or the 'all' value.
   */
   adminRoleId?:string
   /**
-   *The role(s) name(s) created via <a href='//voximplant.com/docs/references/httpapi/managing_admin_roles'>Managing Admin Roles</a> methods. The attaching admin role name that can be used instead of <b>admin_role_id</b>.
+   *The role(s) name(s) created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role name that can be used instead of <b>admin_role_id</b>.
   */
   adminRoleName?:string|string[]
 }
@@ -3681,11 +3540,11 @@ export interface AttachAdminRoleRequest {
   */
   requiredAdminUserName:string|string[]
   /**
-   *The role(s) ID created via <a href='//voximplant.com/docs/references/httpapi/managing_admin_roles'>Managing Admin Roles</a> methods. The attached admin role ID list separated by the ';' symbol or the 'all' value.
+   *The role(s) ID created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attached admin role ID list separated by the ';' symbol or the 'all' value.
   */
   adminRoleId:'any'|number|number[]
   /**
-   *The role(s) name(s) created via <a href='//voximplant.com/docs/references/httpapi/managing_admin_roles'>Managing Admin Roles</a> methods. The admin role name to attach, can be used instead of <b>admin_role_id</b>.
+   *The role(s) name(s) created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The admin role name to attach, can be used instead of <b>admin_role_id</b>.
   */
   adminRoleName:string|string[]
   /**
@@ -4035,11 +3894,11 @@ export interface GetRegulationsAddressRequest {
   */
   countryCode?:string
   /**
-   *The phone category name. See the <a href='//voximplant.com/docs/references/httpapi/managing_phone_numbers#getphonenumbercategories'>GetPhoneNumberCategories</a> method.
+   *The phone category name. See the [GetPhoneNumberCategories] method.
   */
   phoneCategoryName?:string
   /**
-   *The phone region code. See the <a href='//voximplant.com/docs/references/httpapi/managing_regulation_address#getregions'>GetRegions</a> method.
+   *The phone region code. See the [GetRegions] method.
   */
   phoneRegionCode?:string
   /**
@@ -4073,11 +3932,11 @@ export interface GetAvailableRegulationsRequest {
   */
   countryCode:string
   /**
-   *The phone category name. See the <a href='//voximplant.com/docs/references/httpapi/managing_phone_numbers#getphonenumbercategories'>GetPhoneNumberCategories</a> method.
+   *The phone category name. See the [GetPhoneNumberCategories] method.
   */
   phoneCategoryName:string
   /**
-   *The phone region code. See the <a href='//voximplant.com/docs/references/httpapi/managing_regulation_address#getregions'>GetRegions</a> method.
+   *The phone region code. See the [GetRegions] method.
   */
   phoneRegionCode?:string
 }
@@ -4111,7 +3970,7 @@ export interface GetRegionsRequest {
   */
   countryCode:string
   /**
-   *The phone category name. See the <a href='//voximplant.com/docs/references/httpapi/managing_phone_numbers#getphonenumbercategories'>GetPhoneNumberCategories</a> method.
+   *The phone category name. See the [GetPhoneNumberCategories] method.
   */
   phoneCategoryName:string
   /**
@@ -4379,7 +4238,29 @@ export interface SendSmsMessageRequest {
 export interface SendSmsMessageResponse {
   result:number
   /**
-   *The number of fragments to which the message divided.
+   *The number of fragments the message was divided into.
+  */
+  fragmentsCount:number
+}
+export interface A2PSendSmsRequest {
+  /**
+   *The source phone number.
+  */
+  srcNumber:string
+  /**
+   *The destination phone numbers separated by the ';' symbol.
+  */
+  dstNumbers:string|string[]
+  /**
+   *The message text, up to 1600 characters.
+  */
+  text:string
+}
+export interface A2PSendSmsResponse {
+  result:SmsTransaction[]
+  failed:FailedSms[]
+  /**
+   *The number of fragments the message is divided into.
   */
   fragmentsCount:number
 }
@@ -4437,10 +4318,53 @@ export interface GetSmsHistoryResponse {
   */
   totalCount:number
 }
+export interface A2PGetSmsHistoryRequest {
+  /**
+   *The source phone number.
+  */
+  sourceNumber?:string
+  /**
+   *The destination phone number.
+  */
+  destinationNumber?:string
+  /**
+   *Maximum number of resulting rows fetched. Must be not more than 1000. If left blank, then the default value of 1000 will be used.
+  */
+  count?:number
+  /**
+   *The first <b>N</b> records will be skipped in the output.
+  */
+  offset?:number
+  /**
+   *Date from which the search is to start. Format is 'yyyy-MM-dd HH:mm:ss'.
+  */
+  fromDate?:Date
+  /**
+   *Date from which the search is to end. Format is 'yyyy-MM-dd HH:mm:ss'.
+  */
+  toDate?:Date
+  /**
+   *The output format. The possible values are: json, csv.
+  */
+  output?:string
+  /**
+   *The delivery status ID: QUEUED - 1, DISPATCHED - 2, ABORTED - 3, REJECTED - 4, DELIVERED - 5, FAILED - 6, EXPIRED - 7, UNKNOWN - 8.
+  */
+  deliveryStatus?:number
+}
+export interface A2PGetSmsHistoryResponse {
+  result:A2PSmsHistory[]
+  /**
+   *Total number of distinct messages fetched.
+  */
+  totalCount:number
+}
 export interface SMSInterface {
   sendSmsMessage: (request:SendSmsMessageRequest) => Promise<SendSmsMessageResponse>
+  a2PSendSms: (request:A2PSendSmsRequest) => Promise<A2PSendSmsResponse>
   controlSms: (request:ControlSmsRequest) => Promise<ControlSmsResponse>
   getSmsHistory: (request:GetSmsHistoryRequest) => Promise<GetSmsHistoryResponse>
+  a2PGetSmsHistory: (request:A2PGetSmsHistoryRequest) => Promise<A2PGetSmsHistoryResponse>
 }
 
 export interface GetRecordStoragesRequest {
@@ -4575,7 +4499,7 @@ export interface RemoveKeyRolesResponse {
 }
 export interface AddSubUserRequest {
   /**
-   *Login of a new subuser for <a href="#how-auth-works">authentication</a>, should be unique within the Voximplant account. The login specified is always converted to lowercase.
+   *Login of a new subuser for <a href='/docs/howtos/integration/httpapi/auth'>authentication</a>, should be unique within the Voximplant account. The login specified is always converted to lowercase.
   */
   newSubuserName:string
   /**

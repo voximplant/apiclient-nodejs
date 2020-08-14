@@ -43,7 +43,7 @@ export interface AccountInfo{
    */
   languageCode?: string
   /**
-   * The account location (timezone). Examples: America/Los_Angeles, GMT-08:00
+   * The account location (timezone). Examples: America/Los_Angeles, Etc/GMT-8, Etc/GMT+10
    */
   location?: string
   /**
@@ -1470,7 +1470,7 @@ export interface ACDLockedOperatorState{
    */
   acdCalls?: ACDOperatorCall[]
   /**
-   * The operator <a href='//voximplant.com/docs/references/websdk/voximplant/operatoracdstatuses'>status string</a>. 'BANNED' string indicates temporarily <a href='//voximplant.com/blog/step-by-step-call-center-tutorial-part-7'>banned operators</a>. The following values are possible: READY, BANNED.
+   * The operator <a href='//voximplant.com/docs/references/websdk/voximplant/operatoracdstatuses'>status string</a>. 'BANNED' string indicates temporarily <a href='/docs/tutorials/step-by-step-call-center-tutorial'>banned operators</a>. The following values are possible: READY, BANNED.
    */
   status?: string
 
@@ -1719,11 +1719,11 @@ export interface AttachedPhoneInfo{
    */
   canBeUsed: boolean
   /**
-   * If <b>true</b>, SMS is supported for this phone number. SMS needs to be explicitly enabled via the <a href='//voximplant.com/docs/references/httpapi/managing_sms#controlsms'>/ControlSms</a> HTTP API before sending or receiving SMS. If SMS is supported and enabled, SMS can be sent from this phone number using the <a href='//voximplant.com/docs/references/httpapi/managing_sms#sendsmsmessage'>/SendSmsMessage</a> HTTP API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='//voximplant.com/blog/http-api-callbacks'>this article</a> for HTTP callback details.
+   * If <b>true</b>, SMS is supported for this phone number. SMS needs to be explicitly enabled via the [ControlSms] HTTP API before sending or receiving SMS. If SMS is supported and enabled, SMS can be sent from this phone number using the [SendSmsMessage] HTTP API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/howtos/integration/httpapi/callbacks'>this article</a> for HTTP callback details.
    */
   isSmsSupported: boolean
   /**
-   * If <b>true</b>, SMS sending and receiving is enabled for this phone number via the <a href='//voximplant.com/docs/references/httpapi/managing_sms#controlsms'>/ControlSms</a> HTTP API.
+   * If <b>true</b>, SMS sending and receiving is enabled for this phone number via the [ControlSms] HTTP API.
    */
   isSmsEnabled: boolean
 
@@ -1838,7 +1838,7 @@ export interface PhoneNumberCountryRegionInfo{
    */
   regulationAddressType?: string
   /**
-   * If <b>true</b>, SMS is supported for phone numbers in this region. SMS needs to be explicitly enabled for a phone number via the <a href='//voximplant.com/docs/references/httpapi/managing_sms#controlsms'>/ControlSms</a> HTTP API before sending or receiving SMS. If SMS is supported and enabled, SMS can be sent from a phone number using the <a href='//voximplant.com/docs/references/httpapi/managing_sms#sendsmsmessage'>/SendSmsMessage</a> HTTP API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='//voximplant.com/blog/http-api-callbacks'>this article</a> for HTTP callback details.
+   * If <b>true</b>, SMS is supported for phone numbers in this region. SMS needs to be explicitly enabled for a phone number via the [ControlSms] HTTP API before sending or receiving SMS. If SMS is supported and enabled, SMS can be sent from a phone number using the [SendSmsMessage] HTTP API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/howtos/integration/httpapi/callbacks'>this article</a> for HTTP callback details.
    */
   isSmsSupported: boolean
   /**
@@ -2770,6 +2770,25 @@ export interface AccountCallback{
   balanceIsChanged?: BalanceIsChanged
 
 }
+export interface A2PSmsDeliveryCallback{
+  /**
+   * The SMS delivery ID.
+   */
+  id: number
+  /**
+   * The source number.
+   */
+  sourceNumber: string
+  /**
+   * The SMS delivery status.
+   */
+  status: string
+  /**
+   * The destination number(s).
+   */
+  destinationNumbers?: string
+
+}
 export interface AccountDocumentUploadedCallback{
   /**
    * The uploaded document ID. See GetAccountDocuments.
@@ -3159,6 +3178,43 @@ export interface TranscriptionCompleteCallbackItem{
    * The cost of transcription.
    */
   transcriptionCost: number
+
+}
+export interface ClassificationCompleteCallback{
+  /**
+   * The classification info.
+   */
+  classificationComplete: ClassificationCompleteCallbackItem
+
+}
+export interface ClassificationCompleteCallbackItem{
+  /**
+   * The record ID.
+   */
+  recordId: number
+  /**
+   * Array with the classification results.
+   */
+  classificationInfo: ClassificationUnit[]
+  /**
+   * The cost of classification.
+   */
+  classificationCost: number
+
+}
+export interface ClassificationUnit{
+  /**
+   * The classification type.
+   */
+  type: string
+  /**
+   * The classification info.
+   */
+  info: string
+  /**
+   * Classification error code (if any).
+   */
+  errorCode?: string
 
 }
 export interface ExpiringAgreementCallback{
@@ -3553,6 +3609,32 @@ export interface MGPInfo{
   mgpDeactivated?: Date
 
 }
+export interface SmsTransaction{
+  /**
+   * The transaction ID.
+   */
+  transactionId: number
+  /**
+   * The SMS destination number.
+   */
+  destinationNumber: string
+
+}
+export interface FailedSms{
+  /**
+   * The SMS destination number.
+   */
+  destinationNumber: string
+  /**
+   * The error description.
+   */
+  errorDescription: string
+  /**
+   * The error code.
+   */
+  errorCode: number
+
+}
 export interface MGPTemplateInfo{
   /**
    * The MGP template ID.
@@ -3767,6 +3849,49 @@ export interface SmsHistory{
   transactionId?: number
 
 }
+export interface A2PSmsHistory{
+  /**
+   * The message ID.
+   */
+  id: number
+  /**
+   * SMS source number.
+   */
+  sourceNumber: number
+  /**
+   * SMS destination number.
+   */
+  destinationNumber: number
+  /**
+   * Number of fragments the initial message was divided into.
+   */
+  fragments: number
+  /**
+   * The message cost.
+   */
+  cost: number
+  /**
+   * The message status. 1 - Success, 2 - Error.
+   */
+  statusId: number
+  /**
+   * Error message (if any).
+   */
+  errorMessage?: string
+  /**
+   * Date of message processing. The format is yyyy-MM-dd HH:mm:ss
+   */
+  processingDate: Date
+  /**
+   * The transaction ID for this message.
+   */
+  transactionId: number
+  /**
+   * Delivery status: QUEUED, DISPATCHED, ABORTED, REJECTED, DELIVERED, FAILED, EXPIRED, UNKNOWN
+   */
+  deliveryStatus: string
+
+}
 export interface ExpiredAgreementCallback{
   /**
    * The list of the expired agreements IDs.
@@ -3813,5 +3938,9 @@ export interface GetAutochargeConfigResult{
    * The auto top-up amount in the account's currency.
    */
   cardOverrunValue: string
+  /**
+   * The email for receiving payment receipts.
+   */
+  receiptEmail: string
 
 }
