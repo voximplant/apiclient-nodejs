@@ -1,9 +1,13 @@
 {
   "name": "@voximplant/apiclient-nodejs",
-  "version": "1.1.6",
+  "version": "2.0.0",
   "description": "Voximplant API client library",
   "main": "dist/index.js",
-  "files": ["dist","src","examples"],
+  "files": [
+    "dist",
+    "src",
+    "examples"
+  ],
   "scripts": {
     "prebuild": "rimraf dist ",
     "build": "tsc"
@@ -13,11 +17,11 @@
     "url": "https://github.com/voximplant/apiclient-nodejs.git"
   },
   "homepage": "https://voximplant.com/",
-  "bugs":{
+  "bugs": {
     "url": "https://github.com/voximplant/apiclient-nodejs/issues",
     "email": "support@voximplant.com"
   },
-  "author": "Zingaya Inc. <info@voximplant.com> (http://voximplant.com)",
+  "author": "Zingaya Inc. <info@voximplant.com> (https://voximplant.com)",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^11.11.5",
@@ -25,7 +29,7 @@
     "typescript": "^3.3.4000"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "jsonwebtoken": "^8.5.1",
     "form-data": "^2.3.3"
   }

@@ -1,7 +1,7 @@
 const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
 const client = new VoximplantApiClient();
 client.onReady = function(){
-  // Attach the one US phone number to the account 1.
+  // Attach a US phone number to the account 1.
   client.PhoneNumbers.attachPhoneNumber({countryCode: 'US',
             phoneCategoryName: 'GEOGRAPHIC',
             countryState: 'CA',

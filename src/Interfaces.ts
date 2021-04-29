@@ -1,4 +1,4 @@
-import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SkillInfo,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsTransaction,FailedSms,SmsHistory,A2PSmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,ChildAccountSubscription,ChildAccountSubscriptionTemplate} from './Structures';
+import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SkillInfo,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsTransaction,FailedSms,SmsHistory,A2PSmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,KeyValueItems,KeyValueKeys} from './Structures';
 export interface UtilsReturns{
   'GetAccountInfo':GetAccountInfoResponse
   'SetAccountInfo':SetAccountInfoResponse
@@ -7,9 +7,11 @@ export interface UtilsReturns{
   'GetResourcePrice':GetResourcePriceResponse
   'GetSubscriptionPrice':GetSubscriptionPriceResponse
   'GetChildrenAccounts':GetChildrenAccountsResponse
-  'TransferMoneyToChildAccount':TransferMoneyToChildAccountResponse
   'GetMoneyAmountToCharge':GetMoneyAmountToChargeResponse
   'ChargeAccount':ChargeAccountResponse
+  'ChangeAccountPlan':ChangeAccountPlanResponse
+  'GetAccountPlans':GetAccountPlansResponse
+  'GetAvailablePlans':GetAvailablePlansResponse
   'GetAccountDocuments':GetAccountDocumentsResponse
   'AddApplication':AddApplicationResponse
   'DelApplication':DelApplicationResponse
@@ -61,6 +63,7 @@ export interface UtilsReturns{
   'AttachPhoneNumber':AttachPhoneNumberResponse
   'BindPhoneNumberToApplication':BindPhoneNumberToApplicationResponse
   'DeactivatePhoneNumber':DeactivatePhoneNumberResponse
+  'SetPhoneNumberInfo':SetPhoneNumberInfoResponse
   'GetPhoneNumbers':GetPhoneNumbersResponse
   'GetNewPhoneNumbers':GetNewPhoneNumbersResponse
   'GetPhoneNumberCategories':GetPhoneNumberCategoriesResponse
@@ -100,7 +103,7 @@ export interface UtilsReturns{
   'DelAuthorizedAccountIP':DelAuthorizedAccountIPResponse
   'GetAuthorizedAccountIPs':GetAuthorizedAccountIPsResponse
   'CheckAuthorizedAccountIP':CheckAuthorizedAccountIPResponse
-  'LinkregulationAddress':LinkregulationAddressResponse
+  'LinkRegulationAddress':LinkRegulationAddressResponse
   'GetZIPCodes':GetZIPCodesResponse
   'GetRegulationsAddress':GetRegulationsAddressResponse
   'GetAvailableRegulations':GetAvailableRegulationsResponse
@@ -138,10 +141,11 @@ export interface UtilsReturns{
   'RemoveSubUserRoles':RemoveSubUserRolesResponse
   'GetRoles':GetRolesResponse
   'GetRoleGroups':GetRoleGroupsResponse
-  'AddChildAccountSubscription':AddChildAccountSubscriptionResponse
-  'GetChildAccountSubscriptions':GetChildAccountSubscriptionsResponse
-  'GetChildAccountSubscriptionTemplates':GetChildAccountSubscriptionTemplatesResponse
-  'DeactivateChildAccountSubscription':DeactivateChildAccountSubscriptionResponse
+  'SetKeyValueItem':SetKeyValueItemResponse
+  'DelKeyValueItem':DelKeyValueItemResponse
+  'GetKeyValueItem':GetKeyValueItemResponse
+  'GetKeyValueItems':GetKeyValueItemsResponse
+  'GetKeyValueKeys':GetKeyValueKeysResponse
 }
 
 export interface NewRegistrationInterface {
@@ -155,24 +159,27 @@ export interface AccountsAuthenticationInterface {
 
 export interface GetAccountInfoRequest {
   /**
-   *Set true to get the account's live balance.
+   *Set true to get the account's live balance
   */
   returnLiveBalance?:boolean
 }
 export interface GetAccountInfoResponse {
   /**
-   *Account's info as the [AccountInfoType] object instance.
+   *Account's info as the [AccountInfoType] object instance
   */
   result:AccountInfo
   /**
-   *The preferred address for the http api requests.
+   *The preferred address for the Management API requests
   */
   apiAddress:string
 }
 export interface SetAccountInfoRequest {
+  /**
+   *The new account email
+  */
   newAccountEmail?:string
   /**
-   *The password length must be at least 6 symbols.
+   *The new account password. Must be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
   */
   newAccountPassword?:string
   /**
@@ -184,39 +191,36 @@ export interface SetAccountInfoRequest {
   */
   location?:string
   /**
-   *The first name.
+   *The first name
   */
   accountFirstName?:string
   /**
-   *The last name.
+   *The last name
   */
   accountLastName?:string
-  /**
-   *The mobile phone linked to the account.
-  */
   mobilePhone?:string
   /**
-   *The min balance value to notify by email or SMS.
+   *The min balance value to notify by email or SMS
   */
   minBalanceToNotify?:number
   /**
-   *Are the Voximplant notifications required?
+   *Voximplant notifications are required
   */
   accountNotifications?:boolean
   /**
-   *Set to true to receive the emails about the Voximplant plan changing.
+   *Set to true to receive the emails about the Voximplant plan changing
   */
   tariffChangingNotifications?:boolean
   /**
-   *Set to true to receive the emails about the Voximplant news.
+   *Set to true to receive the emails about the Voximplant news
   */
   newsNotifications?:boolean
   /**
-   *Set to true to receive the emails about a JS scenario error.
+   *Set to true to receive the emails about a JS scenario error
   */
   sendJsError?:boolean
   /**
-   *The company or businessman name.
+   *The company or businessman name
   */
   billingAddressName?:string
   /**
@@ -224,19 +228,19 @@ export interface SetAccountInfoRequest {
   */
   billingAddressCountryCode?:string
   /**
-   *The office address.
+   *The office address
   */
   billingAddressAddress?:string
   /**
-   *The office ZIP.
+   *The office ZIP
   */
   billingAddressZip?:string
   /**
-   *The office phone number.
+   *The office phone number
   */
   billingAddressPhone?:string
   /**
-   *The custom data.
+   *The custom data
   */
   accountCustomData?:string
   /**
@@ -256,39 +260,39 @@ export interface SetAccountInfoResponse {
 }
 export interface SetChildAccountInfoRequest {
   /**
-   *The child account ID list separated by the ';' symbol or the 'all' value.
+   *The child account ID list separated by the ';' symbol or the 'all' value
   */
   childAccountId:'any'|number|number[]
   /**
-   *The child account name list separated by the ';' symbol. Can be used instead of <b>child_account_id</b>.
+   *The child account name list separated by the ';' symbol. Can be used instead of <b>child_account_id</b>
   */
   childAccountName:string|string[]
   /**
-   *The child account email list separated by the ';' symbol. Can be used instead of <b>child_account_id</b>.
+   *The child account email list separated by the ';' symbol. Can be used instead of <b>child_account_id</b>
   */
   childAccountEmail:string|string[]
   /**
-   *The new child account email.
+   *The new child account email
   */
   newChildAccountEmail?:string
   /**
-   *The new child account password.
+   *The new child account password. Must be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
   */
   newChildAccountPassword?:string
   /**
-   *Are the Voximplant notifications required?
+   *Voximplant notifications are required
   */
   accountNotifications?:boolean
   /**
-   *Set to true to receive the emails about the Voximplant plan changing.
+   *Set to true to receive the emails about the Voximplant plan changing
   */
   tariffChangingNotifications?:boolean
   /**
-   *Set to true to receive the emails about the Voximplant news.
+   *Set to true to receive the emails about the Voximplant news
   */
   newsNotifications?:boolean
   /**
-   *Set false to disable the child account.
+   *Set false to disable the child account
   */
   active?:boolean
   /**
@@ -300,27 +304,27 @@ export interface SetChildAccountInfoRequest {
   */
   location?:string
   /**
-   *The min balance value to notify by email or SMS.
+   *The min balance value to notify by email or SMS
   */
   minBalanceToNotify?:number
   /**
-   *Set to true to allow the robokassa payments.
+   *Set to true to allow the robokassa payments
   */
   supportRobokassa?:boolean
   /**
-   *Set to true to allow the bank card payments.
+   *Set to true to allow the bank card payments
   */
   supportBankCard?:boolean
   /**
-   *Set to true to allow the bank invoices.
+   *Set to true to allow the bank invoices
   */
   supportInvoice?:boolean
   /**
-   *Set to true to allow use restricted directions.
+   *Set to true to allow use restricted directions
   */
   canUseRestricted?:boolean
   /**
-   *The minimum payment amount.
+   *The minimum payment amount
   */
   minPaymentAmount?:number
 }
@@ -342,7 +346,7 @@ export interface GetCurrencyRateRequest {
 }
 export interface GetCurrencyRateResponse {
   /**
-   *The exchange rates.
+   *The exchange rates
   */
   result:ExchangeRates
 }
@@ -352,160 +356,116 @@ export interface GetResourcePriceRequest {
   */
   resourceType?:string|string[]
   /**
-   *The price group ID list separated by the ';' symbol.
+   *The price group ID list separated by the ';' symbol
   */
   priceGroupId?:'any'|number|number[]
   /**
-   *The price group name template to filter.
+   *The price group name template to filter
   */
   priceGroupName?:string
   /**
-   *The resource parameter list separated by the ';' symbol. Example: a phone number list.
+   *The resource parameter list separated by the ';' symbol. Example: a phone number list
   */
   resourceParam?:string|string[]
 }
 export interface GetResourcePriceResponse {
   /**
-   *The resource prices.
+   *The resource prices
   */
   result:ResourcePrice[]
 }
 export interface GetSubscriptionPriceRequest {
   /**
-   *The subscription template ID list separated by the ';' symbol.
+   *The subscription template ID list separated by the ';' symbol
   */
   subscriptionTemplateId?:'any'|number|number[]
   /**
-   *The subscription template type. The following values are possible: PHONE_NUM, SIP_REGISTRATION.
+   *The subscription template type. The following values are possible: PHONE_NUM, SIP_REGISTRATION
   */
   subscriptionTemplateType?:string
   /**
-   *The subscription template name  (example: SIP registration, Phone GB, Phone RU 495, ...).
+   *The subscription template name  (example: SIP registration, Phone GB, Phone RU 495, ...)
   */
   subscriptionTemplateName?:string
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
 export interface GetSubscriptionPriceResponse {
   /**
-   *The subscription template prices.
+   *The subscription template prices
   */
   result:SubscriptionTemplate[]
 }
 export interface GetChildrenAccountsRequest {
   /**
-   *The account ID list separated by the ';' symbol or the 'all' value.
+   *The account ID list separated by the ';' symbol or the 'all' value
   */
   childAccountId?:'any'|number|number[]
   /**
-   *The child account name part to filter.
+   *The child account name part to filter
   */
   childAccountName?:string
   /**
-   *The child ccount email to filter.
+   *The child ccount email to filter
   */
   childAccountEmail?:string
   /**
-   *The active flag to filter.
+   *The active flag to filter
   */
   active?:boolean
   /**
-   *The frozen flag to filter.
+   *The frozen flag to filter
   */
   frozen?:boolean
   /**
-   *Set true to ignore the invalid 'child_account_id' items.
+   *Set true to ignore the invalid 'child_account_id' items
   */
   ignoreInvalidAccounts?:boolean
   /**
-   *Set true to output the account_id only.
+   *Set true to output the account_id only
   */
   briefOutput?:boolean
   /**
-   *Set true to output the account_id, account_name, account_email only.
+   *Set true to output the account_id, account_name, account_email only
   */
   mediumOutput?:boolean
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
   /**
-   *The following values are available: 'child_account_id', 'child_account_name' and 'child_account_email'.
+   *The following values are available: 'child_account_id', 'child_account_name' and 'child_account_email'
   */
   orderBy?:string
   /**
-   *Set true to get the user live balance.
+   *Set true to get the user live balance
   */
   returnLiveBalance?:boolean
 }
 export interface GetChildrenAccountsResponse {
   result:AccountInfo[]
   /**
-   *The total found user count.
+   *The total found user count
   */
   totalCount:number
   /**
-   *The returned user count.
+   *The returned user count
   */
   count:number
 }
-export interface TransferMoneyToChildAccountRequest {
-  /**
-   *The child account ID list separated by the ';' symbol.
-  */
-  childAccountId:'any'|number|number[]
-  /**
-   *The money amount, $. The absolute amount value must be equal or greater than 0.01
-  */
-  amount:number
-  /**
-   *The amount currency (the parent account currency by default). Examples: RUR, EUR, USD.
-  */
-  currency?:string
-  /**
-   *Returns error if strict_mode is true and an child account or the parent account hasn't enough money.
-  */
-  strictMode?:boolean
-  /**
-   *The child account transaction description.
-  */
-  childTransactionDescription?:string
-  /**
-   *The parent account transaction description. The following macro available: ${child_account_id}, ${child_account_name}
-  */
-  parentTransactionDescription?:string
-  /**
-   *The external payment reference (extra info).
-  */
-  paymentReference?:string
-  /**
-   *Specify the date in 24-h format: YYYY-MM-DD HH:mm:ss to skip the duplicate transaction.
-  */
-  checkDuplicateReferenceFrom?:Date
-}
-export interface TransferMoneyToChildAccountResponse {
-  /**
-   *1
-  */
-  result:number
-  /**
-   *The updated parent's account balance.
-  */
-  balance:number
-}
 export interface GetMoneyAmountToChargeRequest {
   /**
-   *The currency name. Examples: USD, RUR, EUR.
+   *The currency name. Examples: USD, RUR, EUR
   */
   currency?:string
   /**
@@ -521,11 +481,11 @@ export interface GetMoneyAmountToChargeResponse {
 }
 export interface ChargeAccountRequest {
   /**
-   *The phone ID list separated by the ';' symbol or the 'all' value. You should specify the phones having the auto_charge=false.
+   *The phone ID list separated by the ';' symbol or the 'all' value. You should specify the phones having the auto_charge=false
   */
   phoneId:'any'|number|number[]
   /**
-   *Can be used instead of <b>phone_id</b>. The phone number list separated by the ';' symbol or the 'all' value. You should specify the phones having the auto_charge=false.
+   *The phone number list separated by the ';' symbol or the 'all' value. Can be used instead of <b>phone_id</b>. You should specify the phones having the auto_charge=false
   */
   phoneNumber:string|string[]
 }
@@ -535,9 +495,55 @@ export interface ChargeAccountResponse {
   */
   result:ChargeAccountResult
   /**
-   *The current account state.
+   *The current account state
   */
   accountInfo:ShortAccountInfo
+}
+export interface ChangeAccountPlanRequest {
+  /**
+   *The plan type to config. The possible values are: IM, MAU
+  */
+  planType:string
+  /**
+   *The new plan ID with a price larger than the current plan's (see [GetAvailablePlans])
+  */
+  planSubscriptionTemplateId?:number
+}
+export interface ChangeAccountPlanResponse {
+  /**
+   *1
+  */
+  result:number
+  /**
+   *The current account state
+  */
+  accountInfo:ShortAccountInfo
+}
+export interface GetAccountPlansRequest {
+  /**
+   *The plan type list separated by the ';' symbol. The possible values are: IM, MAU
+  */
+  planType?:string|string[]
+  /**
+   *The plan ID list separated by the ';' symbol
+  */
+  planSubscriptionTemplateId?:'any'|number|number[]
+}
+export interface GetAccountPlansResponse {
+  result:AccountPlan[]
+}
+export interface GetAvailablePlansRequest {
+  /**
+   *The plan type list separated by the ';' symbol. The possible values are: IM, MAU
+  */
+  planType?:string|string[]
+  /**
+   *The plan ID list separated by the ';' symbol
+  */
+  planSubscriptionTemplateId?:'any'|number|number[]
+}
+export interface GetAvailablePlansResponse {
+  result:Plan[]
 }
 export interface GetAccountDocumentsRequest {
   /**
@@ -545,7 +551,7 @@ export interface GetAccountDocumentsRequest {
   */
   withDetails?:boolean
   /**
-   *The required account verification name to filter.
+   *The required account verification name to filter
   */
   verificationName?:string
   /**
@@ -561,17 +567,17 @@ export interface GetAccountDocumentsRequest {
   */
   toUnverifiedHoldUntil?:Date
   /**
-   *The child account ID list separated by the ';' symbol or the 'all' value.
+   *The child account ID list separated by the ';' symbol or the 'all' value
   */
   childAccountId?:'any'|number|number[]
   /**
-   *Set true to get the children account verifications only.
+   *Set true to get the children account verifications only
   */
   childrenVerificationsOnly?:boolean
 }
 export interface GetAccountDocumentsResponse {
   /**
-   *The account verifications.
+   *The account verifications
   */
   result:AccountVerifications[]
 }
@@ -583,9 +589,11 @@ export interface AccountsInterface {
   getResourcePrice: (request:GetResourcePriceRequest) => Promise<GetResourcePriceResponse>
   getSubscriptionPrice: (request:GetSubscriptionPriceRequest) => Promise<GetSubscriptionPriceResponse>
   getChildrenAccounts: (request:GetChildrenAccountsRequest) => Promise<GetChildrenAccountsResponse>
-  transferMoneyToChildAccount: (request:TransferMoneyToChildAccountRequest) => Promise<TransferMoneyToChildAccountResponse>
   getMoneyAmountToCharge: (request:GetMoneyAmountToChargeRequest) => Promise<GetMoneyAmountToChargeResponse>
   chargeAccount: (request:ChargeAccountRequest) => Promise<ChargeAccountResponse>
+  changeAccountPlan: (request:ChangeAccountPlanRequest) => Promise<ChangeAccountPlanResponse>
+  getAccountPlans: (request:GetAccountPlansRequest) => Promise<GetAccountPlansResponse>
+  getAvailablePlans: (request:GetAvailablePlansRequest) => Promise<GetAvailablePlansResponse>
   getAccountDocuments: (request:GetAccountDocumentsRequest) => Promise<GetAccountDocumentsResponse>
 }
 
@@ -613,17 +621,17 @@ export interface AddApplicationResponse {
   */
   applicationName:string
   /**
-   *This flag indicates whether a secure storage for logs and records is enabled or not.
+   *This flag indicates whether a secure storage for logs and records is enabled or not
   */
   secureRecordStorage:boolean
 }
 export interface DelApplicationRequest {
   /**
-   *The application ID list separated by the ';' symbol or the 'all' value.
+   *The application ID list separated by the ';' symbol or the 'all' value
   */
   applicationId:'any'|number|number[]
   /**
-   *The application name list separated by the ';' symbol. Can be used instead of <b>appliction_id</b>.
+   *The application name list separated by the ';' symbol. Can be used instead of <b>appliction_id</b>
   */
   applicationName:string|string[]
 }
@@ -635,11 +643,11 @@ export interface DelApplicationResponse {
 }
 export interface SetApplicationInfoRequest {
   /**
-   *The application ID.
+   *The application ID
   */
   applicationId:number
   /**
-   *Can be used instead of <b>application_id</b>.
+   *The application name that can be used instead of <b>application_id</b>
   */
   requiredApplicationName:string
   /**
@@ -661,56 +669,56 @@ export interface SetApplicationInfoResponse {
   */
   applicationName:string
   /**
-   *This flag indicates whether a secure storage for logs and records is enabled or not.
+   *This flag indicates whether a secure storage for logs and records is enabled or not
   */
   secureRecordStorage:boolean
 }
 export interface GetApplicationsRequest {
   /**
-   *The application ID to filter.
+   *The application ID to filter
   */
   applicationId?:number
   /**
-   *The application name part to filter.
+   *The application name part to filter
   */
   applicationName?:string
   /**
-   *The user ID to filter.
+   *The user ID to filter
   */
   userId?:number
   /**
-   *The excluded user ID to filter.
+   *The excluded user ID to filter
   */
   excludedUserId?:number
   /**
-   *Specify the user ID value to show it in the 'users' array output.
+   *Specify the user ID value to show it in the 'users' array output
   */
   showingUserId?:number
   /**
-   *Set true to get bound rules info.
+   *Set true to get bound rules info
   */
   withRules?:boolean
   /**
-   *Set true to get bound rules and scenarios info.
+   *Set true to get bound rules and scenarios info
   */
   withScenarios?:boolean
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
 export interface GetApplicationsResponse {
   result:ApplicationInfo[]
   /**
-   *The total found application count.
+   *The total found application count
   */
   totalCount:number
   /**
-   *The returned application count.
+   *The returned application count
   */
   count:number
 }
@@ -727,28 +735,25 @@ export interface AddUserRequest {
   */
   userName:string
   /**
-   *The user display name. The length must be less than 256.
+   *The user display name. The length must be less than 256
   */
   userDisplayName:string
   /**
-   *The user password. The length must be at least 6 symbols.
+   *The user password. Must be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
   */
   userPassword:string
   /**
-   *The application ID which new user will be bound to. Could be used instead of the <b>application_name</b> parameter.
+   *The application ID which a new user will be bound to. Can be used instead of the <b>application_name</b> parameter
   */
   applicationId:number
   /**
-   *The application name which new user will be bound to. Could be used instead of the <b>application_id</b> parameter.
+   *The application name which a new user will be bound to. Can be used instead of the <b>application_id</b> parameter
   */
   applicationName:string
   /**
-   *'True' if the user will use the parent account's money, 'false' if the user will have a separate balance.
+   *'True' if the user will use the parent account's money, 'false' if the user will have a separate balance
   */
   parentAccounting?:boolean
-  /**
-   *The user mobile phone. The length must be less than 50.
-  */
   mobilePhone?:string
   /**
    *The user enable flag
@@ -765,25 +770,25 @@ export interface AddUserResponse {
   */
   result:number
   /**
-   *The new user ID.
+   *The new user ID
   */
   userId:number
 }
 export interface DelUserRequest {
   /**
-   *The user ID list separated by the ';' symbol or the 'all' value.
+   *The user ID list separated by the ';' symbol or the 'all' value
   */
   userId:'any'|number|number[]
   /**
-   *The user name list separated by the ';' symbol that can be used instead of <b>user_id</b>.
+   *The user name list separated by the ';' symbol that can be used instead of <b>user_id</b>
   */
   userName:string|string[]
   /**
-   *Delete the specified users bound to the application ID. It is required if the <b>user_name</b> is specified.
+   *Delete the specified users bound to the application ID. It is required if the <b>user_name</b> is specified
   */
   applicationId?:number
   /**
-   *Delete the specified users bound to the application name. Could be used instead of the <b>application_id</b> parameter.
+   *Delete the specified users bound to the application name. Can be used instead of the <b>application_id</b> parameter
   */
   applicationName?:string
 }
@@ -795,19 +800,19 @@ export interface DelUserResponse {
 }
 export interface SetUserInfoRequest {
   /**
-   *The user to edit.
+   *The user to edit
   */
   userId:number
   /**
-   *Can be used instead of <b>user_id</b>.
+   *The user name that can be used instead of <b>user_id</b>
   */
   userName:string
   /**
-   *The application ID. It is required if the <b>user_name</b> is specified.
+   *The application ID. It is required if the <b>user_name</b> is specified
   */
   applicationId?:number
   /**
-   *The application name that can be used instead of <b>application_id</b>.
+   *The application name that can be used instead of <b>application_id</b>
   */
   applicationName?:string
   /**
@@ -815,15 +820,15 @@ export interface SetUserInfoRequest {
   */
   newUserName?:string
   /**
-   *The new user display name. The length must be less than 256.
+   *The new user display name. The length must be less than 256
   */
   userDisplayName?:string
   /**
-   *The new user password. The length must be at least 6 symbols.
+   *The new user password. Must be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
   */
   userPassword?:string
   /**
-   * Set 'true' to use the parent account's money, 'false' to use a separate user balance.
+   * Set 'true' to use the parent account's money, 'false' to use a separate user balance
   */
   parentAccounting?:boolean
   /**
@@ -834,9 +839,6 @@ export interface SetUserInfoRequest {
    *Any string
   */
   userCustomData?:string
-  /**
-   *The new user mobile phone. The length must be less than 50.
-  */
   mobilePhone?:string
 }
 export interface SetUserInfoResponse {
@@ -847,99 +849,99 @@ export interface SetUserInfoResponse {
 }
 export interface GetUsersRequest {
   /**
-   *The application ID to filter.
+   *The application ID to filter
   */
   applicationId:number
   /**
-   *The application name part to filter.
+   *The application name part to filter
   */
   applicationName:string
   /**
-   *The skill ID to filter.
+   *The skill ID to filter
   */
   skillId?:number
   /**
-   *The excluded skill ID to filter.
+   *The excluded skill ID to filter
   */
   excludedSkillId?:number
   /**
-   *The ACD queue ID to filter.
+   *The ACD queue ID to filter
   */
   acdQueueId?:number
   /**
-   *The excluded ACD queue ID to filter.
+   *The excluded ACD queue ID to filter
   */
   excludedAcdQueueId?:number
   /**
-   *The user ID to filter.
+   *The user ID to filter
   */
   userId?:number
   /**
-   *The user name part to filter.
+   *The user name part to filter
   */
   userName?:string
   /**
-   *The user active flag to filter.
+   *The user active flag to filter
   */
   userActive?:boolean
   /**
-   *The user display name part to filter.
+   *The user display name part to filter
   */
   userDisplayName?:string
   /**
-   *Set true to get the bound skills.
+   *Set true to get the bound skills
   */
   withSkills?:boolean
   /**
-   *Set true to get the bound queues.
+   *Set true to get the bound queues
   */
   withQueues?:boolean
   /**
-   *The ACD status list separated by the ';' symbol to filter. The following values are possible: OFFLINE, ONLINE, READY, BANNED, IN_SERVICE, AFTER_SERVICE, TIMEOUT, DND.
+   *The ACD status list separated by the ';' symbol to filter. The following values are possible: OFFLINE, ONLINE, READY, BANNED, IN_SERVICE, AFTER_SERVICE, TIMEOUT, DND
   */
   acdStatus?:string|string[]
   /**
-   *The skill to show in the 'skills' field output.
+   *The skill to show in the 'skills' field output
   */
   showingSkillId?:number
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
   /**
-   *The following values are available: 'user_id', 'user_name' and 'user_display_name'.
+   *The following values are available: 'user_id', 'user_name' and 'user_display_name'
   */
   orderBy?:string
   /**
-   *Set true to get the user live balance.
+   *Set true to get the user live balance
   */
   returnLiveBalance?:boolean
 }
 export interface GetUsersResponse {
   /**
-   *The UserInfoType records.
+   *The UserInfoType records
   */
   result:UserInfo[]
   /**
-   *The total found user count.
+   *The total found user count
   */
   totalCount:number
   /**
-   *The returned user count.
+   *The returned user count
   */
   count:number
 }
 export interface TransferMoneyToUserRequest {
   /**
-   *The user ID list separated by the ';' symbol or the 'all' value.
+   *The user ID list separated by the ';' symbol or the 'all' value
   */
   userId:'any'|number|number[]
   /**
-   *The user name list separated by the ';' symbol that can be used instead of <b>user_id</b>.
+   *The user name list separated by the ';' symbol that can be used instead of <b>user_id</b>
   */
   userName:string|string[]
   /**
@@ -947,23 +949,23 @@ export interface TransferMoneyToUserRequest {
   */
   amount:number
   /**
-   *The application ID. It is required if the <b>user_name</b> is specified.
+   *The application ID. It is required if the <b>user_name</b> is specified
   */
   applicationId?:number
   /**
-   *The application name that can be used instead of <b>application_id</b>.
+   *The application name that can be used instead of <b>application_id</b>
   */
   applicationName?:string
   /**
-   *The amount currency. Examples: RUR, EUR, USD.
+   *The amount currency. Examples: RUR, EUR, USD
   */
   currency?:string
   /**
-   *Returns error if strict_mode is true and a user or the account hasn't enough money.
+   *Returns error if strict_mode is true and a user or the account hasn't enough money
   */
   strictMode?:boolean
   /**
-   *The user transaction description.
+   *The user transaction description
   */
   userTransactionDescription?:string
   /**
@@ -977,7 +979,7 @@ export interface TransferMoneyToUserResponse {
   */
   result:number
   /**
-   *The new account balance.
+   *The new account balance
   */
   balance:number
 }
@@ -991,15 +993,15 @@ export interface UsersInterface {
 
 export interface CreateManualCallListRequest {
   /**
-   *The rule ID.
+   *The rule ID
   */
   ruleId:number
   /**
-   *Call list priority. The value is in the range of [0 ... 2^31] where zero is the highest priority.
+   *Call list priority. The value is in the range of [0 ... 2^31] where zero is the highest priority
   */
   priority:number
   /**
-   *Number simultaneously processed tasks.
+   *Number simultaneously processed tasks
   */
   maxSimultaneous:number
   /**
@@ -1007,19 +1009,19 @@ export interface CreateManualCallListRequest {
   */
   numAttempts:number
   /**
-   *File name.
+   *File name
   */
   name:string
   /**
-   *Send as "body" part of the HTTP request or as multiform. The sending "file_content" via URL is at its own risk because the network devices tend to drop HTTP requests with large headers.
+   *Send as "body" part of the HTTP request or as multiform. The sending "file_content" via URL is at its own risk because the network devices tend to drop HTTP requests with large headers
   */
   fileContent:string
   /**
-   *Interval between call attempts in seconds. The default is 0.
+   *Interval between call attempts in seconds. The default is 0
   */
   intervalSeconds?:number
   /**
-   *Encoding file. The default is UTF-8.
+   *Encoding file. The default is UTF-8
   */
   encoding?:string
   /**
@@ -1027,11 +1029,11 @@ export interface CreateManualCallListRequest {
   */
   delimiter?:string
   /**
-   *Escape character. Used for parsing csv
+   *Escape character for parsing csv
   */
   escape?:string
   /**
-   *Specifies the IP from the geolocation of call list subscribers. It allows selecting the nearest server for serving subscribers.
+   *Specifies the IP from the geolocation of the call list subscribers. It allows selecting the nearest server for serving subscribers
   */
   referenceIp?:string
 }
@@ -1045,17 +1047,17 @@ export interface CreateManualCallListResponse {
   */
   count:number
   /**
-   *The list ID.
+   *The list ID
   */
   listId:number
 }
 export interface StartNextCallTaskRequest {
   /**
-   *The list Id. Can use a set of identifiers with the separator ";"
+   *The list of the call list IDs separated by the ';' symbol
   */
-  listId:number
+  listId:'any'|number|number[]
   /**
-   *The custom param. Use to transfer the call initiator parameters to the scenario.
+   *The custom param to pass the call initiator parameters to the scenario
   */
   customParams?:string
 }
@@ -1065,13 +1067,13 @@ export interface StartNextCallTaskResponse {
   */
   result:number
   /**
-   *The list id.
+   *The list id
   */
   listId:number
 }
 export interface GetCallListsRequest {
   /**
-   *The list ID to filter. Can be a list separated by the ';' symbol or the 'all' value.
+   *The list ID to filter. Can be a list separated by the ';' symbol or the 'all' value
   */
   listId?:'any'|number|number[]
   /**
@@ -1091,39 +1093,39 @@ export interface GetCallListsRequest {
   */
   toDate?:Date
   /**
-   *The type of call list. The possible values are: AUTOMATIC and MANUAL
+   *The type of the call list. The possible values are: AUTOMATIC and MANUAL
   */
   typeList?:string
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
   /**
-   *The application ID to filter. Can be a list separated by the ';' symbol or the 'all' value.
+   *The application ID to filter. Can be a list separated by the ';' symbol or the 'all' value
   */
   applicationId?:'any'|number|number[]
 }
 export interface GetCallListsResponse {
   /**
-   *Array of lists.
+   *Array of lists
   */
   result:CallList[]
   /**
-   *The returned call list count.
+   *The returned call list count
   */
   count:number
   /**
-   *The total found call list count.
+   *The total found call list count
   */
   totalCount:number
 }
 export interface GetCallListDetailsRequest {
   /**
-   *The list ID.
+   *The list ID
   */
   listId:number
   /**
@@ -1131,7 +1133,7 @@ export interface GetCallListDetailsRequest {
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
   /**
@@ -1149,17 +1151,17 @@ export interface GetCallListDetailsRequest {
 }
 export interface GetCallListDetailsResponse {
   /**
-   *Array of tasks for the roll call.
+   *Array of tasks for the roll call
   */
   result:CallListDetail[]
   /**
-   *The number of tasks.
+   *The number of tasks
   */
   count:number
 }
 export interface StopCallListProcessingRequest {
   /**
-   *The list Id.
+   *The list Id
   */
   listId:number
 }
@@ -1169,13 +1171,13 @@ export interface StopCallListProcessingResponse {
   */
   result:boolean
   /**
-   *Result message.
+   *Result message
   */
   msg:string
 }
 export interface RecoverCallListRequest {
   /**
-   *The list Id.
+   *The list Id
   */
   listId:number
 }
@@ -1204,19 +1206,19 @@ export interface AddScenarioRequest {
   */
   scenarioName:string
   /**
-   *The scenario text. The length must be less than 128 KB.
+   *The scenario text. The length must be less than 128 KB
   */
   scenarioScript?:string
   /**
-   *The rule ID.
+   *The rule ID
   */
   ruleId?:number
   /**
-   *The rule name that can be used instead of <b>rule_id</b>.
+   *The rule name that can be used instead of <b>rule_id</b>
   */
   ruleName?:string
   /**
-   *Is the existing scenario rewrite?
+   *Rewrite the existing scenario
   */
   rewrite?:boolean
 }
@@ -1226,17 +1228,17 @@ export interface AddScenarioResponse {
   */
   result:number
   /**
-   *The new scenario ID.
+   *The new scenario ID
   */
   scenarioId:number
 }
 export interface DelScenarioRequest {
   /**
-   *The scenario ID list separated by the ';' symbol or the 'all' value.
+   *The scenario ID list separated by the ';' symbol or the 'all' value
   */
   scenarioId:'any'|number|number[]
   /**
-   *Can be used instead of <b>scenario_id</b>. The scenario name list separated by the ';' symbol.
+   *The scenario name list separated by the ';' symbol. Can be used instead of <b>scenario_id</b>
   */
   scenarioName:string|string[]
 }
@@ -1248,31 +1250,31 @@ export interface DelScenarioResponse {
 }
 export interface BindScenarioRequest {
   /**
-   *The scenario ID list separated by the ';' symbol.
+   *The scenario ID list separated by the ';' symbol
   */
   scenarioId:'any'|number|number[]
   /**
-   *Can be used instead of <b>scenario_id</b>. The scenario name list separated by the ';' symbol.
+   *The scenario name list separated by the ';' symbol. Can be used instead of <b>scenario_id</b>
   */
   scenarioName:string|string[]
   /**
-   *The rule ID.
+   *The rule ID
   */
   ruleId:number
   /**
-   *The rule name that can be used instead of <b>rule_id</b>.
+   *The rule name that can be used instead of <b>rule_id</b>
   */
   ruleName:string
   /**
-   *The application ID.
+   *The application ID
   */
   applicationId:number
   /**
-   *The application name that can be used instead of <b>application_id</b>.
+   *The application name that can be used instead of <b>application_id</b>
   */
   applicationName:string
   /**
-   *Bind or unbind?
+   *Bind or unbind (set true or false respectively)
   */
   bind?:boolean
 }
@@ -1288,7 +1290,7 @@ export interface GetScenariosRequest {
   */
   scenarioId?:number
   /**
-   *The scenario name to filter. Can be used instead of <b>scenario_id</b>. All scenarios containing this param in their names will be returned. The parameter is case insensitive.
+   *The scenario name to filter. Can be used instead of <b>scenario_id</b>. All scenarios containing this param in their names will be returned. The parameter is case insensitive
   */
   scenarioName?:string
   /**
@@ -1296,32 +1298,32 @@ export interface GetScenariosRequest {
   */
   withScript?:boolean
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
 export interface GetScenariosResponse {
   result:ScenarioInfo[]
   /**
-   *The total found scenario count.
+   *The total found scenario count
   */
   totalCount:number
   /**
-   *The returned scenario count.
+   *The returned scenario count
   */
   count:number
 }
 export interface SetScenarioInfoRequest {
   /**
-   *The scenario ID.
+   *The scenario ID
   */
   scenarioId:number
   /**
-   *The name of the scenario to edit, can be used instead of <b>scenario_id</b>.
+   *The name of the scenario to edit, can be used instead of <b>scenario_id</b>
   */
   requiredScenarioName:string
   /**
@@ -1329,7 +1331,7 @@ export interface SetScenarioInfoRequest {
   */
   scenarioName?:string
   /**
-   *The new scenario text. The length must be less than 128 KB.
+   *The new scenario text. The length must be less than 128 KB
   */
   scenarioScript?:string
 }
@@ -1341,15 +1343,15 @@ export interface SetScenarioInfoResponse {
 }
 export interface ReorderScenariosRequest {
   /**
-   *The rule ID.
+   *The rule ID
   */
   ruleId:number
   /**
-   *The rule name that can be used instead of <b>rule_id</b>.
+   *The rule name that can be used instead of <b>rule_id</b>
   */
   ruleName:string
   /**
-   *The scenario ID list separated by the ';' symbol.
+   *The scenario ID list separated by the ';' symbol
   */
   scenarioId?:'any'|number|number[]
 }
@@ -1361,23 +1363,23 @@ export interface ReorderScenariosResponse {
 }
 export interface StartScenariosRequest {
   /**
-   *The rule ID.
+   *The rule ID
   */
   ruleId:number
   /**
-   *The user ID. Run the scripts from the user if set.
+   *The user ID. Run the scripts from the user if set
   */
   userId?:number
   /**
-   *The user name that can be used instead of <b>user_id</b>. Run the scripts from the user if set.
+   *The user name that can be used instead of <b>user_id</b>. Run the scripts from the user if set
   */
   userName?:string
   /**
-   *The application ID.
+   *The application ID
   */
   applicationId?:number
   /**
-   *The application name that can be used instead of <b>application_id</b>.
+   *The application name that can be used instead of <b>application_id</b>
   */
   applicationName?:string
   /**
@@ -1385,7 +1387,7 @@ export interface StartScenariosRequest {
   */
   scriptCustomData?:string
   /**
-   *Specifies the IP from the geolocation of predicted subscribers. It allows selecting the nearest server for serving subscribers.
+   *Specifies the IP from the geolocation of predicted subscribers. It allows selecting the nearest server for serving subscribers
   */
   referenceIp?:string
   withCheckUrl?:boolean
@@ -1396,38 +1398,38 @@ export interface StartScenariosResponse {
   */
   result:number
   /**
-   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTP request on this URL will result in the [AppEvents.HttpRequest](https://voximplant.com/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for scenario, with HTTP request data passed to it.
+   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTP request on this URL will result in the [AppEvents.HttpRequest](https://voximplant.com/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for scenario, with HTTP request data passed to it
   */
   mediaSessionAccessUrl:string
   /**
-   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTPS request on this URL will result in the [AppEvents.HttpRequest](https://voximplant.com/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for scenario, with HTTP request data passed to it.
+   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTPS request on this URL will result in the [AppEvents.HttpRequest](https://voximplant.com/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for scenario, with HTTP request data passed to it
   */
   mediaSessionAccessSecureUrl:string
   mediaSessionCheckUrl:string
 }
 export interface StartConferenceRequest {
   /**
-   *The conference name. The name length must be less than 50 symbols.
+   *The conference name. The name length must be less than 50 symbols
   */
   conferenceName:string
   /**
-   *The rule ID.
+   *The rule ID
   */
   ruleId:number
   /**
-   *The user ID. Run the scripts from the user if set.
+   *The user ID. Run the scripts from the user if set
   */
   userId?:number
   /**
-   *The user name that can be used instead of <b>user_id</b>. Run the scripts from the user if set.
+   *The user name that can be used instead of <b>user_id</b>. Run the scripts from the user if set
   */
   userName?:string
   /**
-   *The application ID.
+   *The application ID
   */
   applicationId?:number
   /**
-   *The application name that can be used instead of <b>application_id</b>.
+   *The application name that can be used instead of <b>application_id</b>
   */
   applicationName?:string
   /**
@@ -1435,7 +1437,7 @@ export interface StartConferenceRequest {
   */
   scriptCustomData?:string
   /**
-   *Specifies the IP from the geolocation of predicted subscribers. It allows selecting the nearest server for serving subscribers.
+   *Specifies the IP from the geolocation of predicted subscribers. It allows selecting the nearest server for serving subscribers
   */
   referenceIp?:string
 }
@@ -1445,11 +1447,11 @@ export interface StartConferenceResponse {
   */
   result:number
   /**
-   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTP request on this URL will result in the [AppEvents.HttpRequest](https://voximplant.com/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for a scenario, with an HTTP request data passed to it.
+   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTP request on this URL will result in the [AppEvents.HttpRequest](https://voximplant.com/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for a scenario, with an HTTP request data passed to it
   */
   mediaSessionAccessUrl:string
   /**
-   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTPS request on this URL will result in the [AppEvents.HttpRequest](https://voximplant.com/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for a scenario, with an HTTP request data passed to it.
+   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTPS request on this URL will result in the [AppEvents.HttpRequest](https://voximplant.com/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for a scenario, with an HTTP request data passed to it
   */
   mediaSessionAccessSecureUrl:string
 }
@@ -1466,11 +1468,11 @@ export interface ScenariosInterface {
 
 export interface AddRuleRequest {
   /**
-   *The application ID.
+   *The application ID
   */
   applicationId:number
   /**
-   *The application name, can be used instead of <b>application_id</b>.
+   *The application name, can be used instead of <b>application_id</b>
   */
   applicationName:string
   /**
@@ -1478,23 +1480,23 @@ export interface AddRuleRequest {
   */
   ruleName:string
   /**
-   *The rule pattern regex. The length must be less than 64 KB.
+   *The rule pattern regex. The length must be less than 64 KB
   */
   rulePattern:string
   /**
-   *The scenario ID list separated by the ';' symbol.
+   *The scenario ID list separated by the ';' symbol
   */
   scenarioId:'any'|number|number[]
   /**
-   *Can be used instead of <b>scenario_id</b>. The scenario name list separated by the ';' symbol.
+   *The scenario name list separated by the ';' symbol. Can be used instead of <b>scenario_id</b>
   */
   scenarioName:string|string[]
   /**
-   *The exclude pattern regex. The length must be less than 64 KB.
+   *The exclude pattern regex. The length must be less than 64 KB
   */
   rulePatternExclude?:string
   /**
-   *Is video conference required?
+   *Video conference is required
   */
   videoConference?:boolean
 }
@@ -1504,25 +1506,25 @@ export interface AddRuleResponse {
   */
   result:number
   /**
-   *The new rule ID.
+   *The new rule ID
   */
   ruleId:number
 }
 export interface DelRuleRequest {
   /**
-   *The rule ID list separated by the ';' symbol or the 'all' value.
+   *The rule ID list separated by the ';' symbol or the 'all' value
   */
   ruleId:'any'|number|number[]
   /**
-   *Can be used instead of <b>rule_id</b>. The rule name list separated by the ';' symbol.
+   *The rule name list separated by the ';' symbol. Can be used instead of <b>rule_id</b>
   */
   ruleName:string|string[]
   /**
-   *The application ID list separated by the ';' symbol or the 'all' value.
+   *The application ID list separated by the ';' symbol or the 'all' value
   */
   applicationId:'any'|number|number[]
   /**
-   *Can be used instead of <b>application_id</b>. The application name list separated by the ';' symbol.
+   *The application name list separated by the ';' symbol. Can be used instead of <b>application_id</b>
   */
   applicationName:string|string[]
 }
@@ -1534,7 +1536,7 @@ export interface DelRuleResponse {
 }
 export interface SetRuleInfoRequest {
   /**
-   *The rule ID.
+   *The rule ID
   */
   ruleId:number
   /**
@@ -1542,15 +1544,15 @@ export interface SetRuleInfoRequest {
   */
   ruleName?:string
   /**
-   *The new rule pattern regex. The length must be less than 64 KB.
+   *The new rule pattern regex. The length must be less than 64 KB
   */
   rulePattern?:string
   /**
-   *The new exclude pattern regex. The length must be less than 64 KB.
+   *The new exclude pattern regex. The length must be less than 64 KB
   */
   rulePatternExclude?:string
   /**
-   *Is video conference required?
+   *Video conference is required
   */
   videoConference?:boolean
 }
@@ -1562,11 +1564,11 @@ export interface SetRuleInfoResponse {
 }
 export interface GetRulesRequest {
   /**
-   *The application ID.
+   *The application ID
   */
   applicationId:number
   /**
-   *The application name that can be used instead of <b>application_id</b>.
+   *The application name that can be used instead of <b>application_id</b>
   */
   applicationName:string
   /**
@@ -1574,11 +1576,11 @@ export interface GetRulesRequest {
   */
   ruleId?:number
   /**
-   *The rule name part to filter.
+   *The rule name part to filter
   */
   ruleName?:string
   /**
-   *The video conference flag to filter.
+   *The video conference flag to filter
   */
   videoConference?:boolean
   /**
@@ -1586,32 +1588,32 @@ export interface GetRulesRequest {
   */
   template?:string
   /**
-   *Set true to get bound scenarios info.
+   *Set true to get bound scenarios info
   */
   withScenarios?:boolean
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
 export interface GetRulesResponse {
   result:RuleInfo[]
   /**
-   *The total found rule count.
+   *The total found rule count
   */
   totalCount:number
   /**
-   *The returned rule count.
+   *The returned rule count
   */
   count:number
 }
 export interface ReorderRulesRequest {
   /**
-   *The rule ID list separated by the ';' symbol.
+   *The rule ID list separated by the ';' symbol
   */
   ruleId:'any'|number|number[]
 }
@@ -1644,51 +1646,51 @@ export interface GetCallHistoryRequest {
   */
   callSessionHistoryId?:'any'|number|number[]
   /**
-   *The application ID.
+   *The application ID
   */
   applicationId?:number
   /**
-   *The application name, can be used instead of <b>application_id</b>.
+   *The application name, can be used instead of <b>application_id</b>
   */
   applicationName?:string
   /**
-   *The user ID list separated by the ';' symbol. If it's specified, the output will contain the calls from the listed users only.
+   *The user ID list separated by the ';' symbol. If it's specified, the output will contain the calls from the listed users only
   */
   userId?:'any'|number|number[]
   /**
-   *The rule name to filter.
+   *The rule name to filter. Will be applied only if you set application_id or application_name
   */
   ruleName?:string
   /**
-   *The remote number list separated by the ';' symbol.
+   *The remote number list separated by the ';' symbol
   */
   remoteNumber?:string|string[]
   /**
-   *The local number list separated by the ';' symbol.
+   *The local number list separated by the ';' symbol
   */
   localNumber?:string|string[]
   /**
-   *The custom_data to filter sessions.
+   *The custom_data to filter sessions
   */
   callSessionHistoryCustomData?:string
   /**
-   *Set true to get the bound calls.
+   *Set true to get the bound calls
   */
   withCalls?:boolean
   /**
-   *Set true to get the bound records.
+   *Set true to get the bound records
   */
   withRecords?:boolean
   /**
-   *Set true to get other resources usage (see [ResourceUsageType]).
+   *Set true to get other resources usage (see [ResourceUsageType])
   */
   withOtherResources?:boolean
   /**
-   *The child account ID list separated by the ';' symbol or the 'all' value.
+   *The child account ID list separated by the ';' symbol or the 'all' value
   */
   childAccountId?:'any'|number|number[]
   /**
-   *Set true to get the children account calls only.
+   *Set true to get the children account calls only
   */
   childrenCallsOnly?:boolean
   /**
@@ -1696,49 +1698,49 @@ export interface GetCallHistoryRequest {
   */
   withHeader?:boolean
   /**
-   *Set true to get records in the descent order.
+   *Set true to get records in the descent order
   */
   descOrder?:boolean
   /**
-   *Set false to omit the 'total_count' and increase performance.
+   *Set false to omit the 'total_count' and increase performance
   */
   withTotalCount?:boolean
   /**
-   *The max returning record count.
+   *Number of returning records with a maximum value of 1000
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
   /**
-   *The output format. The following values available: json, csv.
+   *The output format. The following values available: json, csv
   */
   output?:string
   /**
-   *Set true to get records in the asynchronous mode (for csv output only). If it's true, the request could be available via [GetHistoryReports] and [DownloadHistoryReport] methods.
+   *Set true to get records in the asynchronous mode (for csv output only). If it's true, the request is available via [GetHistoryReports] and [DownloadHistoryReport] methods
   */
   isAsync?:boolean
 }
 export interface GetCallHistoryResponse {
   /**
-   *The CallSessionInfoType records in sync mode or 1 in async mode.
+   *The CallSessionInfoType records in sync mode or 1 in async mode
   */
   result:CallSessionInfo[]
   /**
-   *The total found call session count (sync mode).
+   *The total found call session count (sync mode)
   */
   totalCount:number
   /**
-   *The returned call session count (sync mode).
+   *The returned call session count (sync mode)
   */
   count:number
   /**
-   *The used timezone.
+   *The used timezone
   */
   timezone:string
   /**
-   *The history report ID (async mode).
+   *The history report ID (async mode)
   */
   historyReportId:number
 }
@@ -1748,7 +1750,7 @@ export interface GetHistoryReportsRequest {
   */
   historyReportId?:number
   /**
-   *The history report type list separated by the ';' symbol or the 'all' value. The following values are possible: calls, transactions, audit, call_list.
+   *The history report type list separated by the ';' symbol or the 'all' value. The following values are possible: calls, transactions, audit, call_list
   */
   historyType?:string|string[]
   /**
@@ -1760,34 +1762,34 @@ export interface GetHistoryReportsRequest {
   */
   createdTo?:Date
   /**
-   *Is report completed?
+   *Report is completed
   */
   isCompleted?:boolean
   /**
-   *Set true to get records in the descent order.
+   *Set true to get records in the descent order
   */
   descOrder?:boolean
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
   /**
-   *The application ID to filter. Can be a list separated by the ';' symbol or the 'all' value.
+   *The application ID to filter. Can be a list separated by the ';' symbol or the 'all' value
   */
   applicationId?:'any'|number|number[]
 }
 export interface GetHistoryReportsResponse {
   result:HistoryReport[]
   /**
-   *The total found reports count.
+   *The total found reports count
   */
   totalCount:number
   /**
-   *The returned reports count.
+   *The returned reports count
   */
   count:number
 }
@@ -1802,43 +1804,40 @@ export interface GetTransactionHistoryRequest {
   toDate:Date
   timezone?:string
   /**
-   *The transaction ID list separated by the ';' symbol.
+   *The transaction ID list separated by the ';' symbol
   */
   transactionId?:'any'|number|number[]
-  /**
-   *The external payment reference to filter.
-  */
   paymentReference?:string
   /**
-   *The transaction type list separated by the ';' symbol. The following values are possible: periodic_charge, resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, robokassa_payment, gift, add_money, subscription_cancel, adjustment, wire_transfer, refund.
+   *The transaction type list separated by the ';' symbol. The following values are possible: resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, rub_card_periodic_payment, rub_card_overrun_payment, rub_card_payment, robokassa_payment, gift, promo, adjustment, wire_transfer, us_wire_transfer, refund, discount, mgp_charge, mgp_startup, mgp_business, mgp_big_business, mgp_enterprise, mgp_large_enterprise, techsupport_charge, tax_charge, monthly_fee_charge, grace_credit_payment, grace_credit_provision, mau_charge, mau_overrun, im_charge, im_overrun, fmc_charge, sip_registration_charge, development_fee, money_transfer_to_child, money_transfer_to_parent, money_acceptance_from_child, money_acceptance_from_parent, phone_number_installation, phone_number_charge, toll_free_phone_number_installation, toll_free_phone_number_charge
   */
   transactionType?:string|string[]
   /**
-   *The user ID list separated by the ';' symbol.
+   *The user ID list separated by the ';' symbol
   */
   userId?:'any'|number|number[]
   /**
-   *The child account ID list separated by the ';' symbol or the 'all' value.
+   *The child account ID list separated by the ';' symbol or the 'all' value
   */
   childAccountId?:'any'|number|number[]
   /**
-   *Set true to get the children account transactions only.
+   *Set true to get the children account transactions only
   */
   childrenTransactionsOnly?:boolean
   /**
-   *Set true to get the users' transactions only.
+   *Set true to get the users' transactions only
   */
   usersTransactionsOnly?:boolean
   /**
-   *Set true to get records in the descent order.
+   *Set true to get records in the descent order
   */
   descOrder?:boolean
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
   /**
@@ -1846,36 +1845,36 @@ export interface GetTransactionHistoryRequest {
   */
   output?:string
   /**
-   *Set true to get records in the asynchronous mode (for csv output only). See the [GetHistoryReports], [DownloadHistoryReport] functions.
+   *Set true to get records in the asynchronous mode (for csv output only). See the [GetHistoryReports], [DownloadHistoryReport] functions
   */
   isAsync?:boolean
 }
 export interface GetTransactionHistoryResponse {
   result:TransactionInfo[]
   /**
-   *The total found transaction count.
+   *The total found transaction count
   */
   totalCount:number
   /**
-   *The used timezone. 'Etc/GMT' for example.
+   *The used timezone. 'Etc/GMT' for example
   */
   timezone:string
   /**
-   *The returned transaction count.
+   *The returned transaction count
   */
   count:number
   /**
-   *The history report ID (async mode).
+   *The history report ID (async mode)
   */
   historyReportId:number
 }
 export interface DeleteRecordRequest {
   /**
-   *Url to remove.
+   *Url to remove
   */
   recordUrl?:string
   /**
-   *The record id for remove.
+   *The record id for remove
   */
   recordId?:number
 }
@@ -1892,39 +1891,39 @@ export interface GetACDHistoryRequest {
   */
   toDate:Date
   /**
-   *The ACD session history ID list separated by the ';' symbol.
+   *The ACD session history ID list separated by the ';' symbol
   */
   acdSessionHistoryId?:'any'|number|number[]
   /**
-   *The ACD request ID list separated by the ';' symbol.
+   *The ACD request ID list separated by the ';' symbol
   */
   acdRequestId?:string|string[]
   /**
-   *The ACD queue ID list to filter separated by the ';' symbol.
+   *The ACD queue ID list to filter separated by the ';' symbol
   */
   acdQueueId?:'any'|number|number[]
   /**
-   *The user ID list to filter separated by the ';' symbol.
+   *The user ID list to filter separated by the ';' symbol
   */
   userId?:'any'|number|number[]
   /**
-   *Set true to get the calls terminated by the operator.
+   *Set true to get the calls terminated by the operator
   */
   operatorHangup?:boolean
   /**
-   *The unserviced calls by the operator.
+   *The unserviced calls by the operator
   */
   unserviced?:boolean
   /**
-   *The min waiting time filter.
+   *The min waiting time filter
   */
   minWaitingTime?:number
   /**
-   *The rejected calls by the 'max_queue_size', 'max_waiting_time' threshold.
+   *The rejected calls by the 'max_queue_size', 'max_waiting_time' threshold
   */
   rejected?:boolean
   /**
-   *Set true to get the bound events.
+   *Set true to get the bound events
   */
   withEvents?:boolean
   /**
@@ -1932,15 +1931,15 @@ export interface GetACDHistoryRequest {
   */
   withHeader?:boolean
   /**
-   *Set true to get records in the descent order.
+   *Set true to get records in the descent order
   */
   descOrder?:boolean
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
   /**
@@ -1951,11 +1950,11 @@ export interface GetACDHistoryRequest {
 export interface GetACDHistoryResponse {
   result:ACDSessionInfo[]
   /**
-   *The total found ACD session count.
+   *The total found ACD session count
   */
   totalCount:number
   /**
-   *The returned ACD session count.
+   *The returned ACD session count
   */
   count:number
 }
@@ -1970,23 +1969,23 @@ export interface GetAuditLogRequest {
   toDate:Date
   timezone?:string
   /**
-   *The audit history ID list separated by the ';' symbol.
+   *The audit history ID list separated by the ';' symbol
   */
   auditLogId?:'any'|number|number[]
   /**
-   *The admin user ID to filter.
+   *The admin user ID to filter
   */
   filteredAdminUserId?:string
   /**
-   *The IP list separated by the ';' symbol to filter.
+   *The IP list separated by the ';' symbol to filter
   */
   filteredIp?:string|string[]
   /**
-   *The function list separated by the ';' symbol to filter.
+   *The function list separated by the ';' symbol to filter
   */
   filteredCmd?:string|string[]
   /**
-   *A relation ID to filter (for example: a phone_number value, a user_id value, an application_id value).
+   *A relation ID to filter (for example: a phone_number value, a user_id value, an application_id value)
   */
   advancedFilters?:string
   /**
@@ -1994,46 +1993,46 @@ export interface GetAuditLogRequest {
   */
   withHeader?:boolean
   /**
-   *Set true to get records in the descent order.
+   *Set true to get records in the descent order
   */
   descOrder?:boolean
   /**
-   *Set false to omit the 'total_count' and increase performance.
+   *Set false to omit the 'total_count' and increase performance
   */
   withTotalCount?:boolean
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
   /**
-   *The output format. The following values available: json, csv.
+   *The output format. The following values available: json, csv
   */
   output?:string
   /**
-   *Set true to get records in the asynchronous mode (for csv output only). If it's true, the request could be available via [GetHistoryReports] and [DownloadHistoryReport] methods.
+   *Set true to get records in the asynchronous mode (for csv output only). If it's true, the request is available via [GetHistoryReports] and [DownloadHistoryReport] methods
   */
   isAsync?:boolean
 }
 export interface GetAuditLogResponse {
   result:AuditLogInfo[]
   /**
-   *The total found item count.
+   *The total found item count
   */
   totalCount:number
   /**
-   *The returned item count.
+   *The returned item count
   */
   count:number
   /**
-   *The used timezone.
+   *The used timezone
   */
   timezone:string
   /**
-   *The history report ID (async mode).
+   *The history report ID (async mode)
   */
   historyReportId:number
 }
@@ -2058,17 +2057,17 @@ export interface AddPstnBlackListItemResponse {
   */
   result:number
   /**
-   *The PSTN black list item ID.
+   *The PSTN black list item ID
   */
   pstnBlacklistId:number
 }
 export interface SetPstnBlackListItemRequest {
   /**
-   *The PSTN black list item ID.
+   *The PSTN black list item ID
   */
   pstnBlacklistId:number
   /**
-   *The new phone number in format e164.
+   *The new phone number in format e164
   */
   pstnBlacklistPhone:string
 }
@@ -2080,7 +2079,7 @@ export interface SetPstnBlackListItemResponse {
 }
 export interface DelPstnBlackListItemRequest {
   /**
-   *The PSTN black list item ID.
+   *The PSTN black list item ID
   */
   pstnBlacklistId:number
 }
@@ -2092,30 +2091,30 @@ export interface DelPstnBlackListItemResponse {
 }
 export interface GetPstnBlackListRequest {
   /**
-   *The PSTN black list item ID for filter.
+   *The PSTN black list item ID for filter
   */
   pstnBlacklistId?:number
   /**
-   *The phone number in format e164 for filter.
+   *The phone number in format e164 for filter
   */
   pstnBlacklistPhone?:string
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
 export interface GetPstnBlackListResponse {
   result:PstnBlackListInfo[]
   /**
-   *The total found phone numbers count.
+   *The total found phone numbers count
   */
   totalCount:number
   /**
-   *The returned phone numbers count.
+   *The returned phone numbers count
   */
   count:number
 }
@@ -2128,7 +2127,7 @@ export interface PSTNBlacklistInterface {
 
 export interface AddSipWhiteListItemRequest {
   /**
-   *The network address in format A.B.C.D/L or A.B.C.D/a.b.c.d (example 192.168.1.5/16).
+   *The network address in format A.B.C.D/L or A.B.C.D/a.b.c.d (example 192.168.1.5/16)
   */
   sipWhitelistNetwork:string
 }
@@ -2138,13 +2137,13 @@ export interface AddSipWhiteListItemResponse {
   */
   result:number
   /**
-   *The SIP white list item ID.
+   *The SIP white list item ID
   */
   sipWhitelistId:number
 }
 export interface DelSipWhiteListItemRequest {
   /**
-   *The SIP white list item ID to delete.
+   *The SIP white list item ID to delete
   */
   sipWhitelistId:number
 }
@@ -2176,22 +2175,22 @@ export interface GetSipWhiteListRequest {
   */
   sipWhitelistId?:number
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
 export interface GetSipWhiteListResponse {
   result:SipWhiteListInfo[]
   /**
-   *The total found networks count.
+   *The total found networks count
   */
   totalCount:number
   /**
-   *The returned networks count.
+   *The returned networks count
   */
   count:number
 }
@@ -2204,7 +2203,7 @@ export interface SIPWhiteListInterface {
 
 export interface CreateSipRegistrationRequest {
   /**
-   *The user name.
+   *The user name
   */
   sipUsername:string
   /**
@@ -2224,31 +2223,31 @@ export interface CreateSipRegistrationRequest {
   */
   password?:string
   /**
-   *Is SIP registration persistent or on the user logon?
+   *SIP registration is persistent. Set false to activate it only on the user login
   */
   isPersistent?:boolean
   /**
-   *The application ID which new SIP registration will be bound to. Could be used instead of the <b>application_name</b> parameter.
+   *The application ID which a new SIP registration will be bound to. Can be used instead of the <b>application_name</b> parameter
   */
   applicationId?:number
   /**
-   *The application name which new SIP registration will be bound to. Could be used instead of the <b>application_id</b> parameter.
+   *The application name which a new SIP registration will be bound to. Can be used instead of the <b>application_id</b> parameter
   */
   applicationName?:string
   /**
-   *The rule ID which new SIP registration will be bound to. Could be used instead of the <b>rule_name</b> parameter.
+   *The rule ID which a new SIP registration will be bound to. Can be used instead of the <b>rule_name</b> parameter
   */
   ruleId?:number
   /**
-   *The rule name which new SIP registration will be bound to. Could be used instead of the <b>rule_id</b> parameter.
+   *The rule name which a new SIP registration will be bound to. Can be used instead of the <b>rule_id</b> parameter
   */
   ruleName?:string
   /**
-   *The user ID which new SIP registration will be bound to. Could be used instead of the <b>user_name</b> parameter.
+   *The user ID which a new SIP registration will be bound to. Can be used instead of the <b>user_name</b> parameter
   */
   userId?:number
   /**
-   *The user name which new SIP registration will be bound to. Could be used instead of the <b>user_id</b> parameter.
+   *The user name which a new SIP registration will be bound to. Can be used instead of the <b>user_id</b> parameter
   */
   userName?:string
 }
@@ -2258,11 +2257,11 @@ export interface CreateSipRegistrationResponse {
   */
   result:number
   /**
-   *The sip registration id.
+   *The sip registration id
   */
   sipRegistrationId:number
   /**
-   *The current account state.
+   *The current account state
   */
   accountInfo:ShortAccountInfo
 }
@@ -2272,7 +2271,7 @@ export interface UpdateSipRegistrationRequest {
   */
   sipRegistrationId:number
   /**
-   *The user name.
+   *The user name
   */
   sipUsername?:string
   /**
@@ -2292,27 +2291,27 @@ export interface UpdateSipRegistrationRequest {
   */
   password?:string
   /**
-   *The application ID which the SIP registration will be bound to. Could be used instead of the <b>application_name</b> parameter.
+   *The application ID which the SIP registration will be bound to. Can be used instead of the <b>application_name</b> parameter
   */
   applicationId?:number
   /**
-   *The application name which the SIP registration will be bound to. Could be used instead of the <b>application_id</b> parameter.
+   *The application name which the SIP registration will be bound to. Can be used instead of the <b>application_id</b> parameter
   */
   applicationName?:string
   /**
-   *The rule ID which the SIP registration will be bound to. Could be used instead of the <b>rule_name</b> parameter.
+   *The rule ID which the SIP registration will be bound to. Can be used instead of the <b>rule_name</b> parameter
   */
   ruleId?:number
   /**
-   *The rule name which the SIP registration will be bound to. Could be used instead of the <b>rule_id</b> parameter.
+   *The rule name which the SIP registration will be bound to. Can be used instead of the <b>rule_id</b> parameter
   */
   ruleName?:string
   /**
-   *The user ID which the SIP registration will be bound to. Could be used instead of the <b>user_name</b> parameter.
+   *The user ID which the SIP registration will be bound to. Can be used instead of the <b>user_name</b> parameter
   */
   userId?:number
   /**
-   *The user name which the SIP registration will be bound to. Could be used instead of the <b>user_id</b> parameter.
+   *The user name which the SIP registration will be bound to. Can be used instead of the <b>user_id</b> parameter
   */
   userName?:string
 }
@@ -2328,31 +2327,31 @@ export interface BindSipRegistrationRequest {
   */
   sipRegistrationId?:number
   /**
-   *The application ID which the SIP registration will be bound to. Could be used instead of the <b>application_name</b> parameter.
+   *The application ID which the SIP registration will be bound to. Can be used instead of the <b>application_name</b> parameter
   */
   applicationId?:number
   /**
-   *The application name which the SIP registration will be bound to. Could be used instead of the <b>application_id</b> parameter.
+   *The application name which the SIP registration will be bound to. Can be used instead of the <b>application_id</b> parameter
   */
   applicationName?:string
   /**
-   *The rule ID which the SIP registration will be bound to. Could be used instead of the <b>rule_name</b> parameter.
+   *The rule ID which the SIP registration will be bound to. Can be used instead of the <b>rule_name</b> parameter
   */
   ruleId?:number
   /**
-   *The rule name which the SIP registration will be bound to. Could be used instead of the <b>rule_id</b> parameter.
+   *The rule name which the SIP registration will be bound to. Can be used instead of the <b>rule_id</b> parameter
   */
   ruleName?:string
   /**
-   *The user ID which the SIP registration will be bound to. Could be used instead of the <b>user_name</b> parameter.
+   *The user ID which the SIP registration will be bound to. Can be used instead of the <b>user_name</b> parameter
   */
   userId?:number
   /**
-   *The user name which the SIP registration will be bound to. Could be used instead of the <b>user_id</b> parameter.
+   *The user name which the SIP registration will be bound to. Can be used instead of the <b>user_id</b> parameter
   */
   userName?:string
   /**
-   *Bind or unbind?
+   *Bind or unbind (set true or false respectively)
   */
   bind?:boolean
 }
@@ -2376,71 +2375,71 @@ export interface DeleteSipRegistrationResponse {
 }
 export interface GetSipRegistrationsRequest {
   /**
-   *The rule ID list separated by the ';' symbol to filter. Can be used instead of <b>rule_name</b>.
+   *The rule ID list separated by the ';' symbol to filter. Can be used instead of <b>rule_name</b>
   */
   ruleId:'any'|number|number[]
   /**
-   *The rule name list separated by the ';' symbol to filter. Can be used instead of <b>rule_id</b>.
+   *The rule name list separated by the ';' symbol to filter. Can be used instead of <b>rule_id</b>
   */
   ruleName:string|string[]
   /**
-   *The user ID list separated by the ';' symbol to filter. Can be used instead of <b>user_name</b>.
+   *The user ID list separated by the ';' symbol to filter. Can be used instead of <b>user_name</b>
   */
   userId:'any'|number|number[]
   /**
-   *The user name list separated by the ';' symbol to filter. Can be used instead of <b>user_id</b>.
+   *The user name list separated by the ';' symbol to filter. Can be used instead of <b>user_id</b>
   */
   userName:string|string[]
   /**
-   *The SIP registration ID.
+   *The SIP registration ID
   */
   sipRegistrationId?:number
   /**
-   *The SIP user name to filter.
+   *The SIP user name to filter
   */
   sipUsername?:string
   /**
-   *Set true to show the frozen SIP registrations only.
+   *Set true to show the frozen SIP registrations only
   */
   deactivated?:boolean
   /**
-   *Set false to show the unsuccessful SIP registrations only.
+   *Set false to show the unsuccessful SIP registrations only
   */
   successful?:boolean
   /**
-   *The persistent flag to filter.
+   *The persistent flag to filter
   */
   isPersistent?:boolean
   /**
-   *The application ID list separated by the ';' symbol to filter. Can be used instead of <b>appliction_name</b>.
+   *The application ID list separated by the ';' symbol to filter. Can be used instead of <b>appliction_name</b>
   */
   applicationId?:'any'|number|number[]
   /**
-   *The application name list separated by the ';' symbol to filter. Can be used instead of <b>appliction_id</b>.
+   *The application name list separated by the ';' symbol to filter. Can be used instead of <b>appliction_id</b>
   */
   applicationName?:string|string[]
   /**
-   *Is a SIP registration bound to an application.
+   *Is a SIP registration bound to an application
   */
   isBoundToApplication?:boolean
   /**
-   *The list of proxy servers to use, divided by the ';' symbol.
+   *The list of proxy servers to use, divided by the ';' symbol
   */
   proxy?:string|string[]
   /**
-   *Is the SIP registration is still in progress or not?
+   *SIP registration is still in progress
   */
   inProgress?:boolean
   /**
-   *The list of SIP response codes. The __code1:code2__ means a range from __code1__ to __code2__ including; the __code1;code2__ meanse either __code1__ or __code2__. You can combine ranges, e.g., __code1;code2:code3__.
+   *The list of SIP response codes. The __code1:code2__ means a range from __code1__ to __code2__ including; the __code1;code2__ meanse either __code1__ or __code2__. You can combine ranges, e.g., __code1;code2:code3__
   */
   statusCode?:string
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
@@ -2464,31 +2463,31 @@ export interface SIPRegistrationInterface {
 
 export interface AttachPhoneNumberRequest {
   /**
-   *The phone count to attach.
+   *The phone count to attach
   */
   phoneCount:number
   /**
-   *The phone number that can be used instead of <b>phone_count</b>. See the [GetNewPhoneNumbers] method.
+   *The phone number that can be used instead of <b>phone_count</b>. See the [GetNewPhoneNumbers] method
   */
   phoneNumber:string|string[]
   /**
-   *The country code.
+   *The country code
   */
   countryCode:string
   /**
-   *The phone category name. See the [GetPhoneNumberCategories] method.
+   *The phone category name. See the [GetPhoneNumberCategories] method
   */
   phoneCategoryName:string
   /**
-   *The phone region ID. See the [GetPhoneNumberRegions] method.
+   *The phone region ID. See the [GetPhoneNumberRegions] method
   */
   phoneRegionId:number
   /**
-   *The country state. See the [GetPhoneNumberCategories] and [GetPhoneNumberCountryStates] methods.
+   *The country state. See the [GetPhoneNumberCategories] and [GetPhoneNumberCountryStates] methods
   */
   countryState?:string
   /**
-   *The phone regulation address ID.
+   *The phone regulation address ID
   */
   regulationAddressId?:number
   forceVerification?:boolean
@@ -2499,37 +2498,37 @@ export interface AttachPhoneNumberResponse {
   */
   result:number
   /**
-   *The attached phone numbers.
+   *The attached phone numbers
   */
   phoneNumbers:NewAttachedPhoneInfo[]
 }
 export interface BindPhoneNumberToApplicationRequest {
   /**
-   *The phone ID list separated by the ';' symbol or the 'all' value.
+   *The phone ID list separated by the ';' symbol or the 'all' value
   */
   phoneId:'any'|number|number[]
   /**
-   *The phone number list separated by the ';' symbol that can be used instead of <b>phone_id</b>.
+   *The phone number list separated by the ';' symbol that can be used instead of <b>phone_id</b>
   */
   phoneNumber:string|string[]
   /**
-   *The application ID.
+   *The application ID
   */
   applicationId:number
   /**
-   *The application name that can be used instead of <b>application_id</b>.
+   *The application name that can be used instead of <b>application_id</b>
   */
   applicationName:string
   /**
-   *The rule ID.
+   *The rule ID
   */
   ruleId?:number
   /**
-   *The rule name that can be used instead of <b>rule_id</b>.
+   *The rule name that can be used instead of <b>rule_id</b>
   */
   ruleName?:string
   /**
-   *Bind or unbind?
+   *Bind or unbind (set true or false respectively)
   */
   bind?:boolean
 }
@@ -2541,15 +2540,36 @@ export interface BindPhoneNumberToApplicationResponse {
 }
 export interface DeactivatePhoneNumberRequest {
   /**
-   *The phone ID list separated by the ';' symbol or the 'all' value.
+   *The phone ID list separated by the ';' symbol or the 'all' value
   */
   phoneId:'any'|number|number[]
   /**
-   *The phone number list separated by the ';' symbol that can be used instead of <b>phone_id</b>.
+   *The phone number list separated by the ';' symbol that can be used instead of <b>phone_id</b>
   */
   phoneNumber:string|string[]
 }
 export interface DeactivatePhoneNumberResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface SetPhoneNumberInfoRequest {
+  /**
+   *The phone ID list separated by the ';' symbol or the 'all' value
+  */
+  phoneId:'any'|number|number[]
+  /**
+   *The phone number list separated by the ';' symbol that can be used instead of <b>phone_id</b>
+  */
+  phoneNumber:string|string[]
+  autoCharge:boolean
+  /**
+   *If set, the callback of an inbound SMS will be sent to this url, otherwise, it will be sent to the general account URL
+  */
+  incomingSmsCallbackUrl?:string
+}
+export interface SetPhoneNumberInfoResponse {
   /**
    *1
   */
@@ -2561,15 +2581,15 @@ export interface GetPhoneNumbersRequest {
   */
   phoneId?:number
   /**
-   *The application ID.
+   *The application ID
   */
   applicationId?:number
   /**
-   *The application name that can be used instead of <b>application_id</b>.
+   *The application name that can be used instead of <b>application_id</b>
   */
   applicationName?:string
   /**
-   *Is a phone bound to an application.
+   *Is a phone bound to an application
   */
   isBoundToApplication?:boolean
   /**
@@ -2577,23 +2597,23 @@ export interface GetPhoneNumbersRequest {
   */
   phoneTemplate?:string
   /**
-   *The country code list separated by the ';' symbol.
+   *The country code list separated by the ';' symbol
   */
   countryCode?:string|string[]
   /**
-   *The phone category name. See the [GetPhoneNumberCategories] method.
+   *The phone category name. See the [GetPhoneNumberCategories] method
   */
   phoneCategoryName?:string
   /**
-   *The flag of the canceled (deleted) subscription to filter.
+   *The flag of the canceled (deleted) subscription to filter
   */
   canceled?:boolean
   /**
-   *The flag of the deactivated (frozen) subscription to filter.
+   *The flag of the deactivated (frozen) subscription to filter
   */
   deactivated?:boolean
   /**
-   *The auto_charge flag to filter.
+   *The auto_charge flag to filter
   */
   autoCharge?:boolean
   /**
@@ -2613,15 +2633,15 @@ export interface GetPhoneNumbersRequest {
   */
   toPhonePurchaseDate?:Date
   /**
-   *The child account ID list separated by the ';' symbol or the 'all' value.
+   *The child account ID list separated by the ';' symbol or the 'all' value
   */
   childAccountId?:'any'|number|number[]
   /**
-   *Set true to get the children phones only.
+   *Set true to get the children phones only
   */
   childrenPhonesOnly?:boolean
   /**
-   *The required account verification name to filter.
+   *The required account verification name to filter
   */
   verificationName?:string
   /**
@@ -2637,115 +2657,119 @@ export interface GetPhoneNumbersRequest {
   */
   toUnverifiedHoldUntil?:Date
   /**
-   *Can the unverified account use the phone?
+   *Unverified account can use the phone
   */
   canBeUsed?:boolean
   /**
-   *The following values are available: 'phone_number' (ascent order), 'phone_price' (ascent order), 'phone_country_code' (ascent order), 'deactivated' (deactivated first, active last), 'purchase_date' (descent order), 'phone_next_renewal' (ascent order), 'verification_status', 'unverified_hold_until' (ascent order), 'verification_name'.
+   *The following values are available: 'phone_number' (ascent order), 'phone_price' (ascent order), 'phone_country_code' (ascent order), 'deactivated' (deactivated first, active last), 'purchase_date' (descent order), 'phone_next_renewal' (ascent order), 'verification_status', 'unverified_hold_until' (ascent order), 'verification_name'
   */
   orderBy?:string
   /**
-   *Flag allows you to display only the numbers of the sandbox, real numbers, or all numbers. The following values are possible: 'all', 'true', 'false'.
+   *Flag allows you to display only the numbers of the sandbox, real numbers, or all numbers. The following values are possible: 'all', 'true', 'false'
   */
   sandbox?:string
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
   smsSupported?:boolean
   /**
-   *The region names list separated by the ';' symbol.
+   *The region names list separated by the ';' symbol
   */
   phoneRegionName?:string|string[]
   /**
-   *The rule ID list separated by the ';' symbol.
+   *The rule ID list separated by the ';' symbol
   */
   ruleId?:'any'|number|number[]
   /**
-   *The rule names list separated by the ';' symbol. Can be used only if __application_id__ or __application_name__ is specified.
+   *The rule names list separated by the ';' symbol. Can be used only if __application_id__ or __application_name__ is specified
   */
   ruleName?:string|string[]
   /**
-   *Is a number bound to any rule?
+   *Number is bound to some rule
   */
   isBoundToRule?:boolean
 }
 export interface GetPhoneNumbersResponse {
   result:AttachedPhoneInfo[]
   /**
-   *The total found phone count.
+   *The total found phone count
   */
   totalCount:number
   /**
-   *The returned phone count.
+   *The returned phone count
   */
   count:number
 }
 export interface GetNewPhoneNumbersRequest {
   /**
-   *The country code.
+   *The country code
   */
   countryCode:string
   /**
-   *The phone category name. See the GetPhoneNumberCategories function.
+   *The phone category name. See the GetPhoneNumberCategories function
   */
   phoneCategoryName:string
   /**
-   *The phone region ID. See the [GetPhoneNumberRegions] method.
+   *The phone region ID. See the [GetPhoneNumberRegions] method
   */
   phoneRegionId:number
   /**
-   *The country state. See the GetPhoneNumberCategories and GetPhoneNumberCountryStates functions.
+   *The country state. See the GetPhoneNumberCategories and GetPhoneNumberCountryStates functions
   */
   countryState?:string
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
 export interface GetNewPhoneNumbersResponse {
   result:NewPhoneInfo[]
   /**
-   *The total found phone count.
+   *The total found phone count
   */
   totalCount:number
   /**
-   *The returned phone count.
+   *The returned phone count
   */
   count:number
 }
 export interface GetPhoneNumberCategoriesRequest {
   /**
-   *The country code.
+   *The country code
   */
   countryCode?:string
   /**
-   *Flag allows you to display phone number categories only of the sandbox, real or all .The following values are possible: 'all', 'true', 'false'.
+   *Flag allows you to display phone number categories only of the sandbox, real or all .The following values are possible: 'all', 'true', 'false'
   */
   sandbox?:string
+  /**
+   *The 2-letter locale code. Supported values are EN, RU
+  */
+  locale?:string
 }
 export interface GetPhoneNumberCategoriesResponse {
   result:PhoneNumberCountryInfo[]
 }
 export interface GetPhoneNumberCountryStatesRequest {
   /**
-   *The country code.
+   *The country code
   */
   countryCode:string
   /**
-   *The phone category name. See the GetPhoneNumberCategories function.
+   *The phone category name. See the GetPhoneNumberCategories function
   */
   phoneCategoryName:string
   /**
-   *The country state code (example: AL, CA, ... ).
+   *The country state code (example: AL, CA, ... )
   */
   countryState?:string
 }
@@ -2754,50 +2778,62 @@ export interface GetPhoneNumberCountryStatesResponse {
 }
 export interface GetPhoneNumberRegionsRequest {
   /**
-   *The country code.
+   *The country code
   */
   countryCode:string
   /**
-   *The phone category name. See the [GetPhoneNumberCategories] method.
+   *The phone category name. See the [GetPhoneNumberCategories] method
   */
   phoneCategoryName:string
   /**
-   *The country state code (example: AL, CA, ... ).
+   *The country state code (example: AL, CA, ... )
   */
   countryState?:string
   /**
-   *Set to 'false' to show all the regions (with and without phone numbers in stock).
+   *Set to 'false' to show all the regions (with and without phone numbers in stock)
   */
   omitEmpty?:boolean
   /**
-   *The phone region ID to filter.
+   *The phone region ID to filter
   */
   phoneRegionId?:number
   /**
-   *The phone region name to filter.
+   *The phone region name to filter
   */
   phoneRegionName?:string
   /**
-   *The region phone prefix to filter.
+   *The region phone prefix to filter
   */
   phoneRegionCode?:string
+  /**
+   *The 2-letter locale code. Supported values are EN, RU
+  */
+  locale?:string
 }
 export interface GetPhoneNumberRegionsResponse {
   result:PhoneNumberCountryRegionInfo[]
 }
 export interface GetActualPhoneNumberRegionRequest {
   /**
-   *The country code.
+   *The country code
   */
   countryCode:string
   /**
-   *The phone category name. See the [GetPhoneNumberCategories] method.
+   *The phone category name. See the [GetPhoneNumberCategories] method
   */
   phoneCategoryName:string
   /**
-   *The phone region ID to filter.
+   *The phone region ID to filter
   */
   phoneRegionId:number
+  /**
+   *The country state code (example: AL, CA, ... )
+  */
+  countryState?:string
+  /**
+   *The 2-letter locale code. Supported values are EN, RU
+  */
+  locale?:string
 }
 export interface GetActualPhoneNumberRegionResponse {
   result:PhoneNumberCountryRegionInfo
@@ -2806,6 +2842,7 @@ export interface PhoneNumbersInterface {
   attachPhoneNumber: (request:AttachPhoneNumberRequest) => Promise<AttachPhoneNumberResponse>
   bindPhoneNumberToApplication: (request:BindPhoneNumberToApplicationRequest) => Promise<BindPhoneNumberToApplicationResponse>
   deactivatePhoneNumber: (request:DeactivatePhoneNumberRequest) => Promise<DeactivatePhoneNumberResponse>
+  setPhoneNumberInfo: (request:SetPhoneNumberInfoRequest) => Promise<SetPhoneNumberInfoResponse>
   getPhoneNumbers: (request:GetPhoneNumbersRequest) => Promise<GetPhoneNumbersResponse>
   getNewPhoneNumbers: (request:GetNewPhoneNumbersRequest) => Promise<GetNewPhoneNumbersResponse>
   getPhoneNumberCategories: (request:GetPhoneNumberCategoriesRequest) => Promise<GetPhoneNumberCategoriesResponse>
@@ -2816,7 +2853,7 @@ export interface PhoneNumbersInterface {
 
 export interface AddCallerIDRequest {
   /**
-   *The callerID number in E.164 format.
+   *The callerID number in E.164 format
   */
   calleridNumber:string
 }
@@ -2826,21 +2863,21 @@ export interface AddCallerIDResponse {
   */
   result:number
   /**
-   *The id of the callerID object.
+   *The id of the callerID object
   */
   calleridId:number
 }
 export interface ActivateCallerIDRequest {
   /**
-   *The id of the callerID object.
+   *The id of the callerID object
   */
   calleridId:number
   /**
-   *The callerID number that can be used instead of <b>callerid_id</b>.
+   *The callerID number that can be used instead of <b>callerid_id</b>
   */
   calleridNumber:string
   /**
-   *The verification code, see the VerifyCallerID function.
+   *The verification code, see the VerifyCallerID function
   */
   verificationCode:string
 }
@@ -2852,11 +2889,11 @@ export interface ActivateCallerIDResponse {
 }
 export interface DelCallerIDRequest {
   /**
-   *The id of the callerID object.
+   *The id of the callerID object
   */
   calleridId:number
   /**
-   *The callerID number that can be used instead of <b>callerid_id</b>.
+   *The callerID number that can be used instead of <b>callerid_id</b>
   */
   calleridNumber:string
 }
@@ -2868,48 +2905,48 @@ export interface DelCallerIDResponse {
 }
 export interface GetCallerIDsRequest {
   /**
-   *The id of the callerID object to filter.
+   *The id of the callerID object to filter
   */
   calleridId?:number
   /**
-   *The phone number to filter.
+   *The phone number to filter
   */
   calleridNumber?:string
   /**
-   *The active flag to filter.
+   *The active flag to filter
   */
   active?:boolean
   /**
-   *The following values are available: 'caller_number' (ascent order), 'verified_until' (ascent order).
+   *The following values are available: 'caller_number' (ascent order), 'verified_until' (ascent order)
   */
   orderBy?:string
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
 export interface GetCallerIDsResponse {
   result:CallerIDInfo[]
   /**
-   *The total found record count.
+   *The total found record count
   */
   totalCount:number
   /**
-   *The returned record count.
+   *The returned record count
   */
   count:number
 }
 export interface VerifyCallerIDRequest {
   /**
-   *The id of the callerID object.
+   *The id of the callerID object
   */
   calleridId:number
   /**
-   *The callerID number that can be used instead of <b>callerid_id</b>.
+   *The callerID number that can be used instead of <b>callerid_id</b>
   */
   calleridNumber:string
 }
@@ -2929,39 +2966,39 @@ export interface CallerIDsInterface {
 
 export interface AddQueueRequest {
   /**
-   *The application ID.
+   *The application ID
   */
   applicationId:number
   /**
-   *The application name that can be used instead of <b>application_id</b>.
+   *The application name that can be used instead of <b>application_id</b>
   */
   applicationName:string
   /**
-   *The queue name. The length must be less than 100.
+   *The queue name. The length must be less than 100
   */
   acdQueueName:string
   /**
-   *The integer queue priority. The highest priority is 0.
+   *The integer queue priority. The highest priority is 0
   */
   acdQueuePriority?:number
   /**
-   *Set false to disable the auto binding of operators to a queue by skills comparing.
+   *Set false to disable the auto binding of operators to a queue by skills comparing
   */
   autoBinding?:boolean
   /**
-   *The value in the range of [0.5 ... 1.0]. The value 1.0 means the service probability 100% in challenge with a lower priority queue.
+   *The value in the range of [0.5 ... 1.0]. The value 1.0 means the service probability 100% in challenge with a lower priority queue
   */
   serviceProbability?:number
   /**
-   *The max queue size.
+   *The max queue size
   */
   maxQueueSize?:number
   /**
-   *The max predicted waiting time in minutes. The client is rejected if the predicted waiting time is greater than the max predicted waiting time.
+   *The max predicted waiting time in minutes. The client is rejected if the predicted waiting time is greater than the max predicted waiting time
   */
   maxWaitingTime?:number
   /**
-   *The average service time in seconds. Specify the parameter to correct or initialize the waiting time prediction.
+   *The average service time in seconds. Specify the parameter to correct or initialize the waiting time prediction
   */
   averageServiceTime?:number
 }
@@ -2971,37 +3008,37 @@ export interface AddQueueResponse {
   */
   result:number
   /**
-   *The ACD queue ID.
+   *The ACD queue ID
   */
   acdQueueId:number
 }
 export interface BindUserToQueueRequest {
   /**
-   *Bind or unbind users.
+   *Bind or unbind users
   */
   bind:boolean
   /**
-   *The application ID.
+   *The application ID
   */
   applicationId:number
   /**
-   *The application name that can be used instead of <b>application_id</b>.
+   *The application name that can be used instead of <b>application_id</b>
   */
   applicationName:string
   /**
-   *The user ID list separated by the ';' symbol or the 'all' value to specify all users bound to the application.
+   *The user ID list separated by the ';' symbol or the 'all' value to specify all users bound to the application
   */
   userId:'any'|number|number[]
   /**
-   *The user name that can be used instead of <b>user_id</b>. The user name list separated by the ';' symbol.
+   *The user name list separated by the ';' symbol. <b>user_name</b> can be used instead of <b>user_id</b>
   */
   userName:string|string[]
   /**
-   *The ACD queue ID list separated by the ';' symbol or the 'all' value to specify all queues bound to the application.
+   *The ACD queue ID list separated by the ';' symbol or the 'all' value to specify all queues bound to the application
   */
   acdQueueId:'any'|number|number[]
   /**
-   *The queue name that can be used instead of <b>acd_queue_id</b>. The queue name list separated by the ';' symbol.
+   *The queue name that can be used instead of <b>acd_queue_id</b>. The queue name list separated by the ';' symbol
   */
   acdQueueName:string|string[]
 }
@@ -3013,11 +3050,11 @@ export interface BindUserToQueueResponse {
 }
 export interface DelQueueRequest {
   /**
-   *The ACD queue ID list separated by the ';' symbol.
+   *The ACD queue ID list separated by the ';' symbol
   */
   acdQueueId:'any'|number|number[]
   /**
-   *The ACD queue name that can be used instead of <b>acd_queue_id</b>. The ACD queue name list separated by the ';' symbol.
+   *The ACD queue name that can be used instead of <b>acd_queue_id</b>. The ACD queue name list separated by the ';' symbol
   */
   acdQueueName:string|string[]
 }
@@ -3029,43 +3066,43 @@ export interface DelQueueResponse {
 }
 export interface SetQueueInfoRequest {
   /**
-   *The ACD queue ID.
+   *The ACD queue ID
   */
   acdQueueId:number
   /**
-   *The ACD queue name that can be used instead of <b>acd_queue_id</b>.
+   *The ACD queue name that can be used instead of <b>acd_queue_id</b>
   */
   acdQueueName:string
   /**
-   *The new queue name. The length must be less than 100.
+   *The new queue name. The length must be less than 100
   */
   newAcdQueueName?:string
   /**
-   *The integer queue priority. The highest priority is 0.
+   *The integer queue priority. The highest priority is 0
   */
   acdQueuePriority?:number
   /**
-   *Set false to disable the auto binding of operators to a queue by skills comparing.
+   *Set false to disable the auto binding of operators to a queue by skills comparing
   */
   autoBinding?:boolean
   /**
-   *The value in the range of [0.5 ... 1.0]. The value 1.0 means the service probability 100% in challenge with a lower priority queue.
+   *The value in the range of [0.5 ... 1.0]. The value 1.0 means the service probability 100% in challenge with a lower priority queue
   */
   serviceProbability?:number
   /**
-   *The max queue size.
+   *The max queue size
   */
   maxQueueSize?:number
   /**
-   *The max predicted waiting time in minutes. The client is rejected if the predicted waiting time is greater than the max predicted waiting time.
+   *The max predicted waiting time in minutes. The client is rejected if the predicted waiting time is greater than the max predicted waiting time
   */
   maxWaitingTime?:number
   /**
-   *The average service time in seconds. Specify the parameter to correct or initialize the waiting time prediction.
+   *The average service time in seconds. Specify the parameter to correct or initialize the waiting time prediction
   */
   averageServiceTime?:number
   /**
-   *The new application ID.
+   *The new application ID
   */
   applicationId?:number
 }
@@ -3077,56 +3114,56 @@ export interface SetQueueInfoResponse {
 }
 export interface GetQueuesRequest {
   /**
-   *The ACD queue ID to filter.
+   *The ACD queue ID to filter
   */
   acdQueueId?:number
   /**
-   *The ACD queue name part to filter.
+   *The ACD queue name part to filter
   */
   acdQueueName?:string
   /**
-   *The application ID to filter.
+   *The application ID to filter
   */
   applicationId?:number
   /**
-   *The skill ID to filter.
+   *The skill ID to filter
   */
   skillId?:number
   /**
-   *The excluded skill ID to filter.
+   *The excluded skill ID to filter
   */
   excludedSkillId?:number
   /**
-   *Set true to get the bound skills.
+   *Set true to get the bound skills
   */
   withSkills?:boolean
   /**
-   *The skill to show in the 'skills' field output.
+   *The skill to show in the 'skills' field output
   */
   showingSkillId?:number
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
 export interface GetQueuesResponse {
   result:QueueInfo[]
   /**
-   *The total found queue count.
+   *The total found queue count
   */
   totalCount:number
   /**
-   *The returned queue count.
+   *The returned queue count
   */
   count:number
 }
 export interface GetACDStateRequest {
   /**
-   *The ACD queue ID list separated by the ';' symbol or the 'all' value.
+   *The ACD queue ID list separated by the ';' symbol or the 'all' value
   */
   acdQueueId?:'any'|number|number[]
 }
@@ -3143,27 +3180,27 @@ export interface GetACDOperatorStatisticsRequest {
   */
   userId:'any'|number|number[]
   /**
-   *Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'.
+   *Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'
   */
   toDate?:Date
   /**
-   *The ACD queue ID list separated by the ';' symbol or the 'all' value.
+   *The ACD queue ID list separated by the ';' symbol or the 'all' value
   */
   acdQueueId?:'any'|number|number[]
   /**
-   *If set to <b>true</b>, key names in returned JSON will be abbreviated to reduce response byte size. The abbreviations are: 'SA' for 'SpeedOfAnswer', 'HT' for 'HandlingTime', 'TT' for 'TalkTime', 'ACW' for 'AfterCallWork', 'TDT' for 'TotalDialingTime', 'THT' for 'TotalHandlingTime', 'TTT' for 'TotalTalkTime', 'TACW' for 'TotalAfterCallWork', 'AC' for 'AnsweredCalls', 'UAC' for 'UnansweredCalls'.
+   *If set to <b>true</b>, key names in returned JSON will be abbreviated to reduce response byte size. The abbreviations are: 'SA' for 'SpeedOfAnswer', 'HT' for 'HandlingTime', 'TT' for 'TalkTime', 'ACW' for 'AfterCallWork', 'TDT' for 'TotalDialingTime', 'THT' for 'TotalHandlingTime', 'TTT' for 'TotalTalkTime', 'TACW' for 'TotalAfterCallWork', 'AC' for 'AnsweredCalls', 'UAC' for 'UnansweredCalls'
   */
   abbreviation?:boolean
   /**
-   *List of item names abbreviations separated by the ';' symbol. Returned JSON will include keys only for the selected items. Special 'all' value defines all possible items, see [ACDOperatorStatisticsType] for a complete list. See 'abbreviation' description for complete abbreviation list.
+   *List of item names abbreviations separated by the ';' symbol. Returned JSON will include keys only for the selected items. Special 'all' value defines all possible items, see [ACDOperatorStatisticsType] for a complete list. See 'abbreviation' description for complete abbreviation list
   */
   report?:string|string[]
   /**
-   *Specifies how records are grouped by date and time. If set to 'day', the criteria is a day number. If set to 'hour_of_day', the criteria is a 60-minute interval within a day. If set to 'hour', the criteria is both day number and 60-minute interval within that day. If set to 'none', records are not grouped by date and time.
+   *Specifies how records are grouped by date and time. If set to 'day', the criteria is a day number. If set to 'hour_of_day', the criteria is a 60-minute interval within a day. If set to 'hour', the criteria is both day number and 60-minute interval within that day. If set to 'none', records are not grouped by date and time
   */
   aggregation?:string
   /**
-   *If set to 'user', first-level array in the resulting JSON will group records by the user ID, and second-level array will group them by date according to the 'aggregation' parameter. If set to 'aggregation', first-level array in the resulting JSON will group records according to the 'aggregation' parameter, and second-level array will group them by the user ID.
+   *If set to 'user', first-level array in the resulting JSON will group records by the user ID, and second-level array will group them by date according to the 'aggregation' parameter. If set to 'aggregation', first-level array in the resulting JSON will group records according to the 'aggregation' parameter, and second-level array will group them by the user ID
   */
   group?:string
 }
@@ -3179,23 +3216,23 @@ export interface GetACDQueueStatisticsRequest {
   */
   fromDate:Date
   /**
-   *Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'.
+   *Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'
   */
   toDate?:Date
   /**
-   *If set to <b>true</b>, key names in returned JSON will be abbreviated to reduce response byte size. The abbreviations are: 'WT' for 'WaitingTime', 'SA' for 'SpeedOfAnswer', 'AT' is for 'AbandonmentTime', 'HT' is for 'HandlingTime', 'TT' is for 'TalkTime', 'ACW' is for 'AfterCallWork', 'QL' is for 'QueueLength', 'TC' is for 'TotalCalls', 'AC' is for 'AnsweredCalls', 'UAC' is for 'UnansweredCalls', 'RC' is for 'RejectedCalls', 'SL' is for 'ServiceLevel', 'TWT' is for 'TotalWaitingTime', 'TST' is for 'TotalSubmissionTime', 'TAT' is for 'TotalAbandonmentTime', 'THT' is for 'TotalHandlingTime', 'TTT' is for 'TotalTalkTime', 'TACW' is for 'TotalAfterCallWork'.
+   *If set to <b>true</b>, key names in returned JSON will be abbreviated to reduce response byte size. The abbreviations are: 'WT' for 'WaitingTime', 'SA' for 'SpeedOfAnswer', 'AT' is for 'AbandonmentTime', 'HT' is for 'HandlingTime', 'TT' is for 'TalkTime', 'ACW' is for 'AfterCallWork', 'QL' is for 'QueueLength', 'TC' is for 'TotalCalls', 'AC' is for 'AnsweredCalls', 'UAC' is for 'UnansweredCalls', 'RC' is for 'RejectedCalls', 'SL' is for 'ServiceLevel', 'TWT' is for 'TotalWaitingTime', 'TST' is for 'TotalSubmissionTime', 'TAT' is for 'TotalAbandonmentTime', 'THT' is for 'TotalHandlingTime', 'TTT' is for 'TotalTalkTime', 'TACW' is for 'TotalAfterCallWork'
   */
   abbreviation?:boolean
   /**
-   *The ACD queue ID list separated by the ';' symbol or the 'all' value.
+   *The ACD queue ID list separated by the ';' symbol or the 'all' value
   */
   acdQueueId?:'any'|number|number[]
   /**
-   *List of item names abbreviations separated by the ';' symbol. Returned JSON will include keys only for the selected items. Special 'all' value defines all possible items, see [ACDQueueStatisticsType] for a complete list. See 'abbreviation' description for complete abbreviation list.
+   *List of item names abbreviations separated by the ';' symbol. Returned JSON will include keys only for the selected items. Special 'all' value defines all possible items, see [ACDQueueStatisticsType] for a complete list. See 'abbreviation' description for complete abbreviation list
   */
   report?:string|string[]
   /**
-   *Specifies how records are grouped by date and time. If set to 'day', the criteria is a day number. If set to 'hour_of_day', the criteria is a 60-minute interval within a day. If set to 'hour', the criteria is both day number and 60-minute interval within that day. If set to 'none', records are not grouped by date and time.
+   *Specifies how records are grouped by date and time. If set to 'day', the criteria is a day number. If set to 'hour_of_day', the criteria is a 60-minute interval within a day. If set to 'hour', the criteria is both day number and 60-minute interval within that day. If set to 'none', records are not grouped by date and time
   */
   aggregation?:string
 }
@@ -3215,19 +3252,19 @@ export interface GetACDOperatorStatusStatisticsRequest {
   */
   userId:string|string[]
   /**
-   *Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'.
+   *Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'
   */
   toDate?:Date
   /**
-   *The ACD status list separated by the ';' symbol. The following values are possible: OFFLINE, ONLINE, READY, BANNED, IN_SERVICE, AFTER_SERVICE, TIMEOUT, DND.
+   *The ACD status list separated by the ';' symbol. The following values are possible: OFFLINE, ONLINE, READY, BANNED, IN_SERVICE, AFTER_SERVICE, TIMEOUT, DND
   */
   acdStatus?:string|string[]
   /**
-   *Specifies how records are grouped by date and time. If set to 'day', the criteria is a day number. If set to 'hour_of_day', the criteria is a 60-minute interval within a day. If set to 'hour', the criteria is both day number and 60-minute interval within that day. If set to 'none', records are not grouped by date and time.
+   *Specifies how records are grouped by date and time. If set to 'day', the criteria is a day number. If set to 'hour_of_day', the criteria is a 60-minute interval within a day. If set to 'hour', the criteria is both day number and 60-minute interval within that day. If set to 'none', records are not grouped by date and time
   */
   aggregation?:string
   /**
-   *If set to 'user', first-level array in the resulting JSON will group records by the user ID, and second-level array will group them by date according to the 'aggregation' parameter. If set to 'aggregation', first-level array in the resulting JSON will group records according to the 'aggregation' parameter, and second-level array will group them by the user ID.
+   *If set to 'user', first-level array in the resulting JSON will group records by the user ID, and second-level array will group them by date according to the 'aggregation' parameter. If set to 'aggregation', first-level array in the resulting JSON will group records according to the 'aggregation' parameter, and second-level array will group them by the user ID
   */
   group?:string
 }
@@ -3249,9 +3286,14 @@ export interface QueuesInterface {
   getACDOperatorStatusStatistics: (request:GetACDOperatorStatusStatisticsRequest) => Promise<GetACDOperatorStatusStatisticsResponse>
 }
 
+
+export interface SmartQueuesInterface {
+  
+}
+
 export interface AddSkillRequest {
   /**
-   *The ACD operator skill name. The length must be less than 512.
+   *The ACD operator skill name. The length must be less than 512
   */
   skillName:string
 }
@@ -3267,11 +3309,11 @@ export interface AddSkillResponse {
 }
 export interface DelSkillRequest {
   /**
-   *The skill ID.
+   *The skill ID
   */
   skillId:number
   /**
-   *The skill name that can be used instead of <b>skill_id</b>.
+   *The skill name that can be used instead of <b>skill_id</b>
   */
   skillName:string
 }
@@ -3283,15 +3325,15 @@ export interface DelSkillResponse {
 }
 export interface SetSkillInfoRequest {
   /**
-   *The skill ID.
+   *The skill ID
   */
   skillId:number
   /**
-   *The skill name that can be used instead of <b>skill_id</b>.
+   *The skill name that can be used instead of <b>skill_id</b>
   */
   skillName:string
   /**
-   *The new skill name. The length must be less than 512.
+   *The new skill name. The length must be less than 512
   */
   newSkillName:string
 }
@@ -3303,68 +3345,68 @@ export interface SetSkillInfoResponse {
 }
 export interface GetSkillsRequest {
   /**
-   *The skill ID to filter.
+   *The skill ID to filter
   */
   skillId?:number
   /**
-   *The skill name part to filter.
+   *The skill name part to filter
   */
   skillName?:string
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
 export interface GetSkillsResponse {
   result:SkillInfo[]
   /**
-   *The total found skill count.
+   *The total found skill count
   */
   totalCount:number
   /**
-   *The returned skill count.
+   *The returned skill count
   */
   count:number
 }
 export interface BindSkillRequest {
   /**
-   *The skill ID list separated by the ';' symbol or the 'all' value.
+   *The skill ID list separated by the ';' symbol or the 'all' value
   */
   skillId:'any'|number|number[]
   /**
-   *Can be used instead of <b>skill_id</b>. The skill name list separated by the ';' symbol.
+   *The skill name list separated by the ';' symbol. Can be used instead of <b>skill_id</b>
   */
   skillName:string|string[]
   /**
-   *The user ID list separated by the ';' symbol or the 'all' value.
+   *The user ID list separated by the ';' symbol or the 'all' value
   */
   userId:'any'|number|number[]
   /**
-   *The user name that can be used instead of <b>user_id</b>. The user name list separated by the ';' symbol.
+   *The user name list separated by the ';' symbol. <b>user_name</b> can be used instead of <b>user_id</b>
   */
   userName:string|string[]
   /**
-   *The ACD queue ID list separated by the ';' symbol or the 'all' value.
+   *The ACD queue ID list separated by the ';' symbol or the 'all' value
   */
   acdQueueId:'any'|number|number[]
   /**
-   *The ACD queue name that can be used instead of <b>acd_queue_id</b>. The ACD queue name list separated by the ';' symbol.
+   *The ACD queue name that can be used instead of <b>acd_queue_id</b>. The ACD queue name list separated by the ';' symbol
   */
   acdQueueName:string|string[]
   /**
-   *The application ID. It is required if the <b>user_name</b> is specified.
+   *The application ID. It is required if the <b>user_name</b> is specified
   */
   applicationId?:number
   /**
-   *The application name that can be used instead of <b>application_id</b>.
+   *The application name that can be used instead of <b>application_id</b>
   */
   applicationName?:string
   /**
-   *Bind or unbind?
+   *Bind or unbind (set true or false respectively)
   */
   bind?:boolean
 }
@@ -3399,27 +3441,27 @@ export interface AgreementsInterface {
 
 export interface AddAdminUserRequest {
   /**
-   *The admin user name. The length must be less than 50.
+   *The admin user name. The length must be less than 50
   */
   newAdminUserName:string
   /**
-   *The admin user display name. The length must be less than 256.
+   *The admin user display name. The length must be less than 256
   */
   adminUserDisplayName:string
   /**
-   *The admin user password. The length must be at least 6 symbols.
+   *The admin user password. The length must be at least 6 symbols
   */
   newAdminUserPassword:string
   /**
-   *The admin user enable flag.
+   *The admin user enable flag
   */
   adminUserActive?:boolean
   /**
-   *The role(s) ID created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role ID list separated by the ';' symbol or the 'all' value.
+   *The role(s) ID created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role ID list separated by the ';' symbol or the 'all' value
   */
   adminRoleId?:string
   /**
-   *The role(s) name(s) created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role name that can be used instead of <b>admin_role_id</b>.
+   *The role(s) name(s) created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role name that can be used instead of <b>admin_role_id</b>
   */
   adminRoleName?:string|string[]
 }
@@ -3429,21 +3471,21 @@ export interface AddAdminUserResponse {
   */
   result:number
   /**
-   *The new admin user ID.
+   *The new admin user ID
   */
   adminUserId:number
   /**
-   *The admin user API key.
+   *The admin user API key
   */
   adminUserApiKey:string
 }
 export interface DelAdminUserRequest {
   /**
-   *The admin user ID list separated by the ';' symbol or the 'all' value.
+   *The admin user ID list separated by the ';' symbol or the 'all' value
   */
   requiredAdminUserId:'any'|number|number[]
   /**
-   *The admin user name to delete, can be used instead of <b>required_admin_user_id</b>.
+   *The admin user name to delete, can be used instead of <b>required_admin_user_id</b>
   */
   requiredAdminUserName:string|string[]
 }
@@ -3455,27 +3497,27 @@ export interface DelAdminUserResponse {
 }
 export interface SetAdminUserInfoRequest {
   /**
-   *The admin user to edit.
+   *The admin user to edit
   */
   requiredAdminUserId:number
   /**
-   *The admin user to edit, can be used instead of <b>required_admin_user_id</b>.
+   *The admin user to edit, can be used instead of <b>required_admin_user_id</b>
   */
   requiredAdminUserName:string
   /**
-   *The new admin user name. The length must be less than 50.
+   *The new admin user name. The length must be less than 50
   */
   newAdminUserName?:string
   /**
-   *The new admin user display name. The length must be less than 256.
+   *The new admin user display name. The length must be less than 256
   */
   adminUserDisplayName?:string
   /**
-   *The new admin user password. The length must be at least 6 symbols.
+   *The new admin user password. The length must be at least 6 symbols
   */
   newAdminUserPassword?:string
   /**
-   *The admin user enable flag.
+   *The admin user enable flag
   */
   adminUserActive?:boolean
 }
@@ -3487,68 +3529,68 @@ export interface SetAdminUserInfoResponse {
 }
 export interface GetAdminUsersRequest {
   /**
-   *The admin user ID to filter.
+   *The admin user ID to filter
   */
   requiredAdminUserId?:number
   /**
-   *The admin user name part to filter.
+   *The admin user name part to filter
   */
   requiredAdminUserName?:string
   /**
-   *The admin user display name part to filter.
+   *The admin user display name part to filter
   */
   adminUserDisplayName?:string
   /**
-   *The admin user active flag to filter.
+   *The admin user active flag to filter
   */
   adminUserActive?:boolean
   /**
-   *Set true to get the attached admin roles.
+   *Set true to get the attached admin roles
   */
   withRoles?:boolean
   /**
-   *Set true to get the admin user permissions.
+   *Set true to get the admin user permissions
   */
   withAccessEntries?:boolean
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
 export interface GetAdminUsersResponse {
   result:AdminUser[]
   /**
-   *The total found admin user count.
+   *The total found admin user count
   */
   totalCount:number
   /**
-   *The returned admin user count.
+   *The returned admin user count
   */
   count:number
 }
 export interface AttachAdminRoleRequest {
   /**
-   *The admin user ID list separated by the ';' symbol or the 'all' value.
+   *The admin user ID list separated by the ';' symbol or the 'all' value
   */
   requiredAdminUserId:'any'|number|number[]
   /**
-   *The admin user name to bind, can be used instead of <b>required_admin_user_id</b>.
+   *The admin user name to bind, can be used instead of <b>required_admin_user_id</b>
   */
   requiredAdminUserName:string|string[]
   /**
-   *The role(s) ID created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attached admin role ID list separated by the ';' symbol or the 'all' value.
+   *The role(s) ID created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attached admin role ID list separated by the ';' symbol or the 'all' value
   */
   adminRoleId:'any'|number|number[]
   /**
-   *The role(s) name(s) created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The admin role name to attach, can be used instead of <b>admin_role_id</b>.
+   *The role(s) name(s) created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The admin role name to attach, can be used instead of <b>admin_role_id</b>
   */
   adminRoleName:string|string[]
   /**
-   *The merge mode. The following values are possible: add, del, set.
+   *The merge mode. The following values are possible: add, del, set
   */
   mode?:string
 }
@@ -3568,27 +3610,27 @@ export interface AdminUsersInterface {
 
 export interface AddAdminRoleRequest {
   /**
-   *The admin role name. The length must be less than 50.
+   *The admin role name. The length must be less than 50
   */
   adminRoleName:string
   /**
-   *The admin role enable flag. If false the allowed and denied entries have no affect.
+   *The admin role enable flag. If false the allowed and denied entries have no affect
   */
   adminRoleActive?:boolean
   /**
-   *The admin role ID list separated by the ';' symbol or the 'all' value. The list specifies the roles from which the new role automatically copies all permissions (allowed_entries and denied_entries).
+   *The admin role ID list separated by the ';' symbol or the 'all' value. The list specifies the roles from which the new role automatically copies all permissions (allowed_entries and denied_entries)
   */
   likeAdminRoleId?:'any'|number|number[]
   /**
-   *The admin role name that can be used instead of <b>like_admin_role_id</b>. The name specifies a role from which the new role automatically copies all permissions (allowed_entries and denied_entries).
+   *The admin role name that can be used instead of <b>like_admin_role_id</b>. The name specifies a role from which the new role automatically copies all permissions (allowed_entries and denied_entries)
   */
   likeAdminRoleName?:string|string[]
   /**
-   *The list of allowed access entries separated by the ';' symbol (the API function names).
+   *The list of allowed access entries separated by the ';' symbol (the API function names)
   */
   allowedEntries?:string|string[]
   /**
-   *The list of denied access entries separated by the ';' symbol (the API function names).
+   *The list of denied access entries separated by the ';' symbol (the API function names)
   */
   deniedEntries?:string|string[]
 }
@@ -3598,17 +3640,17 @@ export interface AddAdminRoleResponse {
   */
   result:number
   /**
-   *The new admin role ID.
+   *The new admin role ID
   */
   adminRoleId:number
 }
 export interface DelAdminRoleRequest {
   /**
-   *The admin role ID list separated by the ';' symbol or the 'all' value.
+   *The admin role ID list separated by the ';' symbol or the 'all' value
   */
   adminRoleId:'any'|number|number[]
   /**
-   *The admin role name to delete, can be used instead of <b>admin_role_id</b>.
+   *The admin role name to delete, can be used instead of <b>admin_role_id</b>
   */
   adminRoleName:string|string[]
 }
@@ -3620,39 +3662,39 @@ export interface DelAdminRoleResponse {
 }
 export interface SetAdminRoleInfoRequest {
   /**
-   *The admin role to edit.
+   *The admin role to edit
   */
   adminRoleId:number
   /**
-   *The admin role to edit, can be used instead of <b>admin_role_id</b>.
+   *The admin role to edit, can be used instead of <b>admin_role_id</b>
   */
   adminRoleName:string
   /**
-   *The new admin role name. The length must be less than 50.
+   *The new admin role name. The length must be less than 50
   */
   newAdminRoleName?:string
   /**
-   *The admin role enable flag. If false the allowed and denied entries have no affect.
+   *The admin role enable flag. If false the allowed and denied entries have no affect
   */
   adminRoleActive?:boolean
   /**
-   *The modification mode of the permission lists (allowed_entries and denied_entries). The following values are possible: add, del, set.
+   *The modification mode of the permission lists (allowed_entries and denied_entries). The following values are possible: add, del, set
   */
   entryModificationMode?:string
   /**
-   *The list of allowed access entry changes separated by the ';' symbol (the API function names).
+   *The list of allowed access entry changes separated by the ';' symbol (the API function names)
   */
   allowedEntries?:string|string[]
   /**
-   *The list of denied access entry changes separated by the ';' symbol (the API function names).
+   *The list of denied access entry changes separated by the ';' symbol (the API function names)
   */
   deniedEntries?:string|string[]
   /**
-   *The admin role ID list separated by the ';' symbol or the 'all' value. The list specifies the roles from which the allowed_entries and denied_entries will be merged.
+   *The admin role ID list separated by the ';' symbol or the 'all' value. The list specifies the roles from which the allowed_entries and denied_entries will be merged
   */
   likeAdminRoleId?:'any'|number|number[]
   /**
-   *The admin role name, can be used instead of <b>like_admin_role_id</b>. The name specifies a role from which the allowed_entries and denied_entries will be merged.
+   *The admin role name, can be used instead of <b>like_admin_role_id</b>. The name specifies a role from which the allowed_entries and denied_entries will be merged
   */
   likeAdminRoleName?:string|string[]
 }
@@ -3664,63 +3706,63 @@ export interface SetAdminRoleInfoResponse {
 }
 export interface GetAdminRolesRequest {
   /**
-   *The admin role ID to filter.
+   *The admin role ID to filter
   */
   adminRoleId?:number
   /**
-   *The admin role name part to filter.
+   *The admin role name part to filter
   */
   adminRoleName?:string
   /**
-   *The admin role active flag to filter.
+   *The admin role active flag to filter
   */
   adminRoleActive?:boolean
   /**
-   *Set true to get the permissions.
+   *Set true to get the permissions
   */
   withEntries?:boolean
   /**
-   *Set false to omit the account roles.
+   *Set false to omit the account roles
   */
   withAccountRoles?:boolean
   /**
-   *Set false to omit the parent roles.
+   *Set false to omit the parent roles
   */
   withParentRoles?:boolean
   withSystemRoles?:boolean
   /**
-   *The attached admin user ID list separated by the ';' symbol or the 'all' value.
+   *The attached admin user ID list separated by the ';' symbol or the 'all' value
   */
   includedAdminUserId?:'any'|number|number[]
   /**
-   *The not attached admin user ID list separated by the ';' symbol or the 'all' value.
+   *The not attached admin user ID list separated by the ';' symbol or the 'all' value
   */
   excludedAdminUserId?:'any'|number|number[]
   /**
-   *Set false to get roles with partial admin user list matching.
+   *Set false to get roles with partial admin user list matching
   */
   fullAdminUsersMatching?:string
   /**
-   *The admin user to show in the 'admin_users' field output.
+   *The admin user to show in the 'admin_users' field output
   */
   showingAdminUserId?:number
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
 export interface GetAdminRolesResponse {
   result:AdminRole[]
   /**
-   *The total found admin role count.
+   *The total found admin role count
   */
   totalCount:number
   /**
-   *The returned admin role count.
+   *The returned admin role count
   */
   count:number
 }
@@ -3729,7 +3771,7 @@ export interface GetAvailableAdminRoleEntriesRequest {
 }
 export interface GetAvailableAdminRoleEntriesResponse {
   /**
-   *Array of the admin role entries.
+   *Array of the admin role entries
   */
   result:string[]
 }
@@ -3743,11 +3785,11 @@ export interface AdminRolesInterface {
 
 export interface AddAuthorizedAccountIPRequest {
   /**
-   *The authorized IP4 or network.
+   *The authorized IP4 or network
   */
   authorizedIp:string
   /**
-   *Set false to add the IP to the blacklist.
+   *Set false to add the IP to the blacklist
   */
   allowed?:boolean
 }
@@ -3759,70 +3801,70 @@ export interface AddAuthorizedAccountIPResponse {
 }
 export interface DelAuthorizedAccountIPRequest {
   /**
-   *The authorized IP4 or network to remove. Set to 'all' to remove all items.
+   *The authorized IP4 or network to remove. Set to 'all' to remove all items
   */
   authorizedIp:string
   /**
-   *Can be used instead of <b>autharized_ip</b>. Specify the parameter to remove the networks that contains the particular IP4.
+   *Specify the parameter to remove the networks that contains the particular IP4. Can be used instead of <b>autharized_ip</b>
   */
   containsIp:string
   /**
-   *Set true to remove the network from the white list. Set false to remove the network from the black list. Omit the parameter to remove the network from all lists.
+   *Set true to remove the network from the white list. Set false to remove the network from the black list. Omit the parameter to remove the network from all lists
   */
   allowed?:boolean
 }
 export interface DelAuthorizedAccountIPResponse {
   /**
-   *The removed network count.
+   *The removed network count
   */
   result:number
 }
 export interface GetAuthorizedAccountIPsRequest {
   /**
-   *The authorized IP4 or network to filter.
+   *The authorized IP4 or network to filter
   */
   authorizedIp?:string
   /**
-   *The allowed flag to filter.
+   *The allowed flag to filter
   */
   allowed?:boolean
   /**
-   *Specify the parameter to filter the networks that contains the particular IP4.
+   *Specify the parameter to filter the networks that contains the particular IP4
   */
   containsIp?:string
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
 export interface GetAuthorizedAccountIPsResponse {
   result:AuthorizedAccountIP[]
   /**
-   *The total found network count.
+   *The total found network count
   */
   totalCount:number
   /**
-   *The returned network count.
+   *The returned network count
   */
   count:number
 }
 export interface CheckAuthorizedAccountIPRequest {
   /**
-   *The IP4 to test.
+   *The IP4 to test
   */
   authorizedIp:string
 }
 export interface CheckAuthorizedAccountIPResponse {
   /**
-   *True if IP is allowed.
+   *True if IP is allowed
   */
   result:boolean
   /**
-   *The matched authorized IP or network (if found).
+   *The matched authorized IP or network (if found)
   */
   authorizedIp?:string
 }
@@ -3843,7 +3885,7 @@ export interface ContactsInterface {
   
 }
 
-export interface LinkregulationAddressRequest {
+export interface LinkRegulationAddressRequest {
   /**
    *The regulation address ID
   */
@@ -3857,12 +3899,12 @@ export interface LinkregulationAddressRequest {
   */
   phoneNumber:string
 }
-export interface LinkregulationAddressResponse {
+export interface LinkRegulationAddressResponse {
   result:boolean
 }
 export interface GetZIPCodesRequest {
   /**
-   *The country code according to the <b>ISO 3166-1 alpha-2</b>.
+   *The country code according to the <b>ISO 3166-1 alpha-2</b>
   */
   countryCode:string
   /**
@@ -3870,93 +3912,93 @@ export interface GetZIPCodesRequest {
   */
   phoneRegionCode?:string
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
 export interface GetZIPCodesResponse {
   /**
-   *The ZipCode records.
+   *The ZipCode records
   */
   result:ZipCode[]
   /**
-   *The returned zip codes count.
+   *The returned zip codes count
   */
   count:number
 }
 export interface GetRegulationsAddressRequest {
   /**
-   *The country code according to the <b>ISO 3166-1 alpha-2</b>.
+   *The country code according to the <b>ISO 3166-1 alpha-2</b>
   */
   countryCode?:string
   /**
-   *The phone category name. See the [GetPhoneNumberCategories] method.
+   *The phone category name. See the [GetPhoneNumberCategories] method
   */
   phoneCategoryName?:string
   /**
-   *The phone region code. See the [GetRegions] method.
+   *The phone region code. See the [GetRegions] method
   */
   phoneRegionCode?:string
   /**
-   *The regulation address ID.
+   *The regulation address ID
   */
   regulationAddressId?:number
   verificationId?:number
   /**
-   *Show only verified regulation address.
+   *Show only verified regulation address
   */
   verified?:boolean
   /**
-   *Show only in progress regulation address.
+   *Show only in progress regulation address
   */
   inProgress?:boolean
   withRegionCode?:boolean
 }
 export interface GetRegulationsAddressResponse {
   /**
-   *The RegulationAddress records.
+   *The RegulationAddress records
   */
   result:RegulationAddress[]
   /**
-   *The returned regulation address count.
+   *The returned regulation address count
   */
   count:number
 }
 export interface GetAvailableRegulationsRequest {
   /**
-   *The country code according to the <b>ISO 3166-1 alpha-2</b>.
+   *The country code according to the <b>ISO 3166-1 alpha-2</b>
   */
   countryCode:string
   /**
-   *The phone category name. See the [GetPhoneNumberCategories] method.
+   *The phone category name. See the [GetPhoneNumberCategories] method
   */
   phoneCategoryName:string
   /**
-   *The phone region code. See the [GetRegions] method.
+   *The phone region code. See the [GetRegions] method
   */
   phoneRegionCode?:string
 }
 export interface GetAvailableRegulationsResponse {
   /**
-   *If result equals 1: 1) the user has at least one regulation address which is appropriate for verification or 2) the verification is not required. If result equals 0, the regulations address needs to be created.
+   *If result equals 1: 1) the user has at least one regulation address which is appropriate for verification or 2) the verification is not required. If result equals 0, the regulations address needs to be created
   */
   result:boolean
   /**
-   *The available RegulationAddress records.
+   *The available RegulationAddress records
   */
   availableAddress:RegulationAddress[]
   /**
-   *The count of RegulationAddress in progress status.
+   *The count of RegulationAddress in progress status
   */
   countInProgress:number
 }
 export interface GetCountriesRequest {
   /**
-   *The country code according to the <b>ISO 3166-1 alpha-2</b>.
+   *The country code according to the <b>ISO 3166-1 alpha-2</b>
   */
   countryCode?:string
 }
@@ -3966,11 +4008,11 @@ export interface GetCountriesResponse {
 }
 export interface GetRegionsRequest {
   /**
-   *The country code according to the <b>ISO 3166-1 alpha-2</b>.
+   *The country code according to the <b>ISO 3166-1 alpha-2</b>
   */
   countryCode:string
   /**
-   *The phone category name. See the [GetPhoneNumberCategories] method.
+   *The phone category name. See the [GetPhoneNumberCategories] method
   */
   phoneCategoryName:string
   /**
@@ -3978,11 +4020,11 @@ export interface GetRegionsRequest {
   */
   cityName?:string
   /**
-   *The returned regions count.
+   *The returned regions count
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
 }
@@ -3991,7 +4033,7 @@ export interface GetRegionsResponse {
   count:number
 }
 export interface RegulationAddressInterface {
-  linkregulationAddress: (request:LinkregulationAddressRequest) => Promise<LinkregulationAddressResponse>
+  linkRegulationAddress: (request:LinkRegulationAddressRequest) => Promise<LinkRegulationAddressResponse>
   getZIPCodes: (request:GetZIPCodesRequest) => Promise<GetZIPCodesResponse>
   getRegulationsAddress: (request:GetRegulationsAddressRequest) => Promise<GetRegulationsAddressResponse>
   getAvailableRegulations: (request:GetAvailableRegulationsRequest) => Promise<GetAvailableRegulationsResponse>
@@ -4001,39 +4043,63 @@ export interface RegulationAddressInterface {
 
 export interface AddPushCredentialRequest {
   /**
-   *The push provider name. The possible values are: APPLE, APPLE_VOIP, GOOGLE.
+   *The push provider name. The possible values are: APPLE, APPLE_VOIP, GOOGLE, HUAWEI
   */
   pushProviderName:string
   /**
-   *The push provider id.
+   *The push provider id. Can be used instead of <b>push_provider_name</b>
   */
   pushProviderId:number
   /**
-   *Public and private keys in PKCS12 format.
+   *Public and private keys in PKCS12 format. Credentials for APPLE push
   */
   certContent:string
   /**
-   *The secret password for private key.
+   *The secret password for private key. Credentials for APPLE push
   */
   certPassword:string
   /**
-   *Set true for use this certificate in apple's sandbox environment
+   *Set true to use this certificate in apple's sandbox environment. Credentials for APPLE push
   */
   isDevMode:boolean
   /**
-   *The sender id, provided by Google.
+   *The sender id, provided by Google. Credentials for GOOGLE push
   */
   senderId:string
   /**
-   *The server key, provided by Google.
+   *The server key, provided by Google. Credentials for GOOGLE push
   */
   serverKey:string
   /**
-   *The bundle of Android/iOS application.
+   *The service account key file, provided by Google. Can be used instead of <b>server_key</b>. Credentials for GOOGLE push
+  */
+  serviceAccountFile:string
+  /**
+   *The client id, provided by Huawei. Credentials for HUAWEI push
+  */
+  huaweiClientId:string
+  /**
+   *The client secret, provided by Huawei. Credentials for HUAWEI push
+  */
+  huaweiClientSecret:string
+  /**
+   *The application id, provided by Huawei. Credentials for HUAWEI push
+  */
+  huaweiApplicationId:string
+  /**
+   *The application id
+  */
+  applicationId?:number
+  /**
+   *The application name that can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *The bundle of Android/iOS/Huawei application
   */
   credentialBundle?:string
   /**
-   *The parameter is required, when set 'cert_content' as POST body.
+   *The parameter is required, when set 'cert_content' as POST body. Credentials for APPLE push
   */
   certFileName?:string
 }
@@ -4043,36 +4109,52 @@ export interface AddPushCredentialResponse {
 }
 export interface SetPushCredentialRequest {
   /**
-   *The push credentials id.
+   *The push credentials id
   */
   pushCredentialId:number
   /**
-   *Public and private keys in PKCS12 format.
+   *Public and private keys in PKCS12 format. Credentials for APPLE push
   */
   certContent:string
   /**
-   *The secret password for private key.
+   *The secret password for private key. Credentials for APPLE push
   */
   certPassword:string
   /**
-   *Set true for use this certificate in apple's sandbox environment
+   *Set true to use this certificate in apple's sandbox environment. Credentials for APPLE push
   */
   isDevMode:boolean
   /**
-   *The sender id, provided by Google.
+   *The sender id, provided by Google. Credentials for GOOGLE push
   */
   senderId:string
   /**
-   *The server key, provided by Google.
+   *The server key, provided by Google. Credentials for GOOGLE push
   */
   serverKey:string
+  /**
+   *The service account key file, provided by Google. Can be used instead of <b>server_key</b>. Credentials for GOOGLE push
+  */
+  serviceAccountFile:string
+  /**
+   *The client id, provided by Huawei. Credentials for HUAWEI push
+  */
+  huaweiClientId:string
+  /**
+   *The client secret, provided by Huawei. Credentials for HUAWEI push
+  */
+  huaweiClientSecret:string
+  /**
+   *The application id, provided by Huawei. Credentials for HUAWEI push
+  */
+  huaweiApplicationId:string
 }
 export interface SetPushCredentialResponse {
   result:number
 }
 export interface DelPushCredentialRequest {
   /**
-   *The push credentials id.
+   *The push credentials id
   */
   pushCredentialId:number
 }
@@ -4081,27 +4163,27 @@ export interface DelPushCredentialResponse {
 }
 export interface GetPushCredentialRequest {
   /**
-   *The push credentials id.
+   *The push credentials id
   */
   pushCredentialId?:number
   /**
-   *The push provider name. The possible values are: APPLE, APPLE_VOIP, GOOGLE.
+   *The push provider name. The possible values are: APPLE, APPLE_VOIP, GOOGLE, HUAWEI
   */
   pushProviderName?:string
   /**
-   *The push provider id.
+   *The push provider id. Can be used instead of <b>push_provider_name</b>
   */
   pushProviderId?:number
   /**
-   *The name of bound application.
+   *The name of the bound application
   */
   applicationName?:string
   /**
-   *The id of bound application.
+   *The id of the bound application
   */
   applicationId?:number
   /**
-   *Set true to get the user's certificate.
+   *Set true to get the user's certificate
   */
   withCert?:boolean
   withSecretInfo?:boolean
@@ -4111,15 +4193,15 @@ export interface GetPushCredentialResponse {
 }
 export interface BindPushCredentialRequest {
   /**
-   *The push credentials ID list separated by the ';' symbol.
+   *The push credentials ID list separated by the ';' symbol
   */
   pushCredentialId:'any'|number|number[]
   /**
-   *The application ID list separated by the ';' symbol or the 'all' value.
+   *The application ID list separated by the ';' symbol or the 'all' value
   */
   applicationId:'any'|number|number[]
   /**
-   *Set to false for unbind. Default value is true.
+   *Set to false for unbind. Default value is true
   */
   bind?:boolean
 }
@@ -4136,19 +4218,19 @@ export interface PushCredentialsInterface {
 
 export interface AddDialogflowKeyRequest {
   /**
-   *The application ID.
+   *The application ID
   */
   applicationId:string
   /**
-   *Dialogflow credentials, provided by JWK (Json web key).
+   *Dialogflow credentials, provided by JWK (Json web key)
   */
   jsonCredentials:string
   /**
-   *The application name. Can be used instead of <b>application_id</b>.
+   *The application name. Can be used instead of <b>application_id</b>
   */
   applicationName?:string
   /**
-   *The Dialogflow keys's description.
+   *The Dialogflow keys's description
   */
   description?:string
 }
@@ -4158,11 +4240,11 @@ export interface AddDialogflowKeyResponse {
 }
 export interface SetDialogflowKeyRequest {
   /**
-   *The Dialogflow key's ID.
+   *The Dialogflow key's ID
   */
   dialogflowKeyId:number
   /**
-   *The Dialogflow keys's description. To clear previously set description leave the parameter blank or put whitespaces only.
+   *The Dialogflow keys's description. To clear previously set description leave the parameter blank or put whitespaces only
   */
   description:string
 }
@@ -4171,7 +4253,7 @@ export interface SetDialogflowKeyResponse {
 }
 export interface DelDialogflowKeyRequest {
   /**
-   *The Dialogflow key's ID.
+   *The Dialogflow key's ID
   */
   dialogflowKeyId:number
 }
@@ -4180,15 +4262,15 @@ export interface DelDialogflowKeyResponse {
 }
 export interface GetDialogflowKeysRequest {
   /**
-   *The Dialogflow key's ID.
+   *The Dialogflow key's ID
   */
   dialogflowKeyId?:number
   /**
-   *The name of bound application.
+   *The name of the bound application
   */
   applicationName?:string
   /**
-   *The id of bound application.
+   *The id of the bound application
   */
   applicationId?:number
   withSecretInfo?:boolean
@@ -4202,11 +4284,11 @@ export interface BindDialogflowKeysRequest {
   */
   dialogflowKeyId:number
   /**
-   *The application ID list separated by the ';' symbol or the 'all' value.
+   *The application ID list separated by the ';' symbol or the 'all' value
   */
   applicationId:'any'|number|number[]
   /**
-   *Set to false to unbind. Default value is true.
+   *Set to false to unbind. Default value is true
   */
   bind?:boolean
 }
@@ -4223,36 +4305,36 @@ export interface DialogflowCredentialsInterface {
 
 export interface SendSmsMessageRequest {
   /**
-   *The source phone number.
+   *The source phone number
   */
   source:string
   /**
-   *The destination phone number.
+   *The destination phone number
   */
   destination:string
   /**
-   *The message text, up to 70 characters. The message of 71-140 characters is billed like 2 messages; the message of 141-210 characters is billed like 3 messages and so on.
+   *The message text, up to 765 characters. We split long messages greater than 160 GSM-7 characters or 70 UTF-16 characters into multiple segments. Each segment is charged as one message
   */
   smsBody:string
 }
 export interface SendSmsMessageResponse {
   result:number
   /**
-   *The number of fragments the message was divided into.
+   *The number of fragments the message was divided into
   */
   fragmentsCount:number
 }
 export interface A2PSendSmsRequest {
   /**
-   *The source phone number.
+   *The source phone number
   */
   srcNumber:string
   /**
-   *The destination phone numbers separated by the ';' symbol.
+   *The destination phone numbers separated by the ';' symbol
   */
   dstNumbers:string|string[]
   /**
-   *The message text, up to 1600 characters.
+   *The message text, up to 1600 characters. We split long messages greater than 160 GSM-7 characters or 70 UTF-16 characters into multiple segments. Each segment is charged as one message
   */
   text:string
 }
@@ -4260,17 +4342,17 @@ export interface A2PSendSmsResponse {
   result:SmsTransaction[]
   failed:FailedSms[]
   /**
-   *The number of fragments the message is divided into.
+   *The number of fragments the message is divided into
   */
   fragmentsCount:number
 }
 export interface ControlSmsRequest {
   /**
-   *The phone number.
+   *The phone number
   */
   phoneNumber:string
   /**
-   *The SMS control command. The following values are possible: enable, disable.
+   *The SMS control command. The following values are possible: enable, disable
   */
   command:string
 }
@@ -4279,83 +4361,83 @@ export interface ControlSmsResponse {
 }
 export interface GetSmsHistoryRequest {
   /**
-   *The source phone number.
+   *The source phone number
   */
   sourceNumber?:string
   /**
-   *The destination phone number.
+   *The destination phone number
   */
   destinationNumber?:string
   /**
-   *Sent or received SMS. Possible values: 'IN', 'OUT', 'in, 'out'. Leave blank to get both incoming and outgoing messages.
+   *Sent or received SMS. Possible values: 'IN', 'OUT', 'in, 'out'. Leave blank to get both incoming and outgoing messages
   */
   direction?:string
   /**
-   *Maximum number of resulting rows fetched. Must be not more than 1000. If left blank, then the default value of 1000 will be used.
+   *Maximum number of resulting rows fetched. Must be not more than 1000. If left blank, then the default value of 1000 will be used
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
   /**
-   *Date from which to perform search. Format is 'yyyy-MM-dd HH:mm:ss'.
+   *Date from which to perform search. Format is 'yyyy-MM-dd HH:mm:ss'
   */
   fromDate?:Date
   /**
-   *Date until which to perform search. Format is 'yyyy-MM-dd HH:mm:ss'.
+   *Date until which to perform search. Format is 'yyyy-MM-dd HH:mm:ss'
   */
   toDate?:Date
   /**
-   *The output format. The following values available: json, csv.
+   *The output format. The following values available: json, csv
   */
   output?:string
 }
 export interface GetSmsHistoryResponse {
   result:SmsHistory[]
   /**
-   *Total number of distinct messages fetched.
+   *Total number of messages matching the query parameters
   */
   totalCount:number
 }
 export interface A2PGetSmsHistoryRequest {
   /**
-   *The source phone number.
+   *The source phone number
   */
   sourceNumber?:string
   /**
-   *The destination phone number.
+   *The destination phone number
   */
   destinationNumber?:string
   /**
-   *Maximum number of resulting rows fetched. Must be not more than 1000. If left blank, then the default value of 1000 will be used.
+   *Maximum number of resulting rows fetched. Must be not more than 1000. If left blank, then the default value of 1000 will be used
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
   /**
-   *Date from which the search is to start. Format is 'yyyy-MM-dd HH:mm:ss'.
+   *Date from which the search is to start. Format is 'yyyy-MM-dd HH:mm:ss'
   */
   fromDate?:Date
   /**
-   *Date from which the search is to end. Format is 'yyyy-MM-dd HH:mm:ss'.
+   *Date from which the search is to end. Format is 'yyyy-MM-dd HH:mm:ss'
   */
   toDate?:Date
   /**
-   *The output format. The possible values are: json, csv.
+   *The output format. The possible values are: json, csv
   */
   output?:string
   /**
-   *The delivery status ID: QUEUED - 1, DISPATCHED - 2, ABORTED - 3, REJECTED - 4, DELIVERED - 5, FAILED - 6, EXPIRED - 7, UNKNOWN - 8.
+   *The delivery status ID: QUEUED - 1, DISPATCHED - 2, ABORTED - 3, REJECTED - 4, DELIVERED - 5, FAILED - 6, EXPIRED - 7, UNKNOWN - 8
   */
   deliveryStatus?:number
 }
 export interface A2PGetSmsHistoryResponse {
   result:A2PSmsHistory[]
   /**
-   *Total number of distinct messages fetched.
+   *Total number of messages matching the query parameters
   */
   totalCount:number
 }
@@ -4369,11 +4451,11 @@ export interface SMSInterface {
 
 export interface GetRecordStoragesRequest {
   /**
-   *The record storage ID list separated by the ';' symbol.
+   *The record storage ID list separated by the ';' symbol
   */
   recordStorageId?:'any'|number|number[]
   /**
-   *The record storage name list separated by the ';' symbol.
+   *The record storage name list separated by the ';' symbol
   */
   recordStorageName?:string|string[]
   withPrivate?:boolean
@@ -4392,15 +4474,15 @@ export interface MGPInterface {
 
 export interface CreateKeyRequest {
   /**
-   *The key's description.
+   *The key's description
   */
   description?:string
   /**
-   *The role ID list separated by the ';' symbol. Use it instead of **role_name**, but not combine with.
+   *The role ID list separated by the ';' symbol. Use it instead of **role_name**, but not combine with
   */
   roleId?:'any'|number|number[]
   /**
-   *The role name list separated by the ';' symbol. Use it instead of **role_id**, but not combine with.
+   *The role name list separated by the ';' symbol. Use it instead of **role_id**, but not combine with
   */
   roleName?:string|string[]
 }
@@ -4409,19 +4491,19 @@ export interface CreateKeyResponse {
 }
 export interface GetKeysRequest {
   /**
-   *The key's ID.
+   *The key's ID
   */
   keyId?:string
   /**
-   *Show roles for the key.
+   *Show roles for the key
   */
   withRoles?:boolean
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
 }
@@ -4434,7 +4516,7 @@ export interface UpdateKeyRequest {
   */
   keyId:string
   /**
-   *The key's description.
+   *The key's description
   */
   description:string
 }
@@ -4443,7 +4525,7 @@ export interface UpdateKeyResponse {
 }
 export interface DeleteKeyRequest {
   /**
-   *The key's ID.
+   *The key's ID
   */
   keyId:string
 }
@@ -4452,15 +4534,15 @@ export interface DeleteKeyResponse {
 }
 export interface SetKeyRolesRequest {
   /**
-   *The key's ID.
+   *The key's ID
   */
   keyId:string
   /**
-   *The role id list separated by the ';' symbol.
+   *The role id list separated by the ';' symbol
   */
   roleId:'any'|number|number[]
   /**
-   *The role name list separated by the ';' symbol.
+   *The role name list separated by the ';' symbol
   */
   roleName:string|string[]
 }
@@ -4469,11 +4551,11 @@ export interface SetKeyRolesResponse {
 }
 export interface GetKeyRolesRequest {
   /**
-   *The key's ID.
+   *The key's ID
   */
   keyId:string
   /**
-   *Show the roles' additional properties.
+   *Show the roles' additional properties
   */
   withExpandedRoles?:boolean
 }
@@ -4482,15 +4564,15 @@ export interface GetKeyRolesResponse {
 }
 export interface RemoveKeyRolesRequest {
   /**
-   *The key's ID.
+   *The key's ID
   */
   keyId:string
   /**
-   *The role id list separated by the ';' symbol.
+   *The role id list separated by the ';' symbol
   */
   roleId:'any'|number|number[]
   /**
-   *The role name list separated by the ';' symbol.
+   *The role name list separated by the ';' symbol
   */
   roleName:string|string[]
 }
@@ -4499,23 +4581,23 @@ export interface RemoveKeyRolesResponse {
 }
 export interface AddSubUserRequest {
   /**
-   *Login of a new subuser for <a href='/docs/howtos/integration/httpapi/auth'>authentication</a>, should be unique within the Voximplant account. The login specified is always converted to lowercase.
+   *The new subuser login for <a href='/docs/howtos/integration/httpapi/auth'>authentication</a>, should be unique within the Voximplant account. The login specified is always converted to lowercase
   */
   newSubuserName:string
   /**
-   *Password of a new subuser, plain text.
+   *The new subuser password. Must be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
   */
   newSubuserPassword:string
   /**
-   *The role id list separated by the ';' symbol.
+   *The role id list separated by the ';' symbol
   */
   roleId?:'any'|number|number[]
   /**
-   *The role name list separated by the ';' symbol.
+   *The role name list separated by the ';' symbol
   */
   roleName?:string|string[]
   /**
-   *Description of a new subuser.
+   *Description of a new subuser
   */
   description?:string
 }
@@ -4524,7 +4606,7 @@ export interface AddSubUserResponse {
 }
 export interface GetSubUsersRequest {
   /**
-   *The subuser's ID.
+   *The subuser's ID
   */
   subuserId?:number
   /**
@@ -4532,11 +4614,11 @@ export interface GetSubUsersRequest {
   */
   withRoles?:boolean
   /**
-   *The first <b>N</b> records will be skipped in the output.
+   *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
   /**
-   *The max returning record count.
+   *The max returning record count
   */
   count?:number
 }
@@ -4545,19 +4627,19 @@ export interface GetSubUsersResponse {
 }
 export interface SetSubUserInfoRequest {
   /**
-   *The subuser's ID.
+   *The subuser's ID
   */
   subuserId:number
   /**
-   *The subuser old password. It is required if __new_subuser_password__ is specified.
+   *The subuser old password. It is required if __new_subuser_password__ is specified
   */
   oldSubuserPassword?:string
   /**
-   *The new user password. The length must be at least 6 symbols.
+   *The new user password. Must be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
   */
   newSubuserPassword?:string
   /**
-   *The new subuser description.
+   *The new subuser description
   */
   description?:string
 }
@@ -4566,7 +4648,7 @@ export interface SetSubUserInfoResponse {
 }
 export interface DelSubUserRequest {
   /**
-   *The subuser's ID.
+   *The subuser's ID
   */
   subuserId:number
 }
@@ -4575,15 +4657,15 @@ export interface DelSubUserResponse {
 }
 export interface SetSubUserRolesRequest {
   /**
-   *The subuser's ID.
+   *The subuser's ID
   */
   subuserId:number
   /**
-   *The role id list separated by the ';' symbol.
+   *The role id list separated by the ';' symbol
   */
   roleId:'any'|number|number[]
   /**
-   *The role name list separated by the ';' symbol.
+   *The role name list separated by the ';' symbol
   */
   roleName:string|string[]
 }
@@ -4592,11 +4674,11 @@ export interface SetSubUserRolesResponse {
 }
 export interface GetSubUserRolesRequest {
   /**
-   *The subuser's ID.
+   *The subuser's ID
   */
   subuserId:number
   /**
-   *Show the roles' additional properties.
+   *Show the roles' additional properties
   */
   withExpandedRoles?:boolean
 }
@@ -4605,19 +4687,19 @@ export interface GetSubUserRolesResponse {
 }
 export interface RemoveSubUserRolesRequest {
   /**
-   *The subuser's ID.
+   *The subuser's ID
   */
   subuserId:number
   /**
-   *The role id list separated by the ';' symbol.
+   *The role id list separated by the ';' symbol
   */
   roleId:'any'|number|number[]
   /**
-   *The role name list separated by the ';' symbol.
+   *The role name list separated by the ';' symbol
   */
   roleName:string|string[]
   /**
-   *Remove roles from all subuser keys.
+   *Remove roles from all subuser keys
   */
   force?:boolean
 }
@@ -4626,7 +4708,7 @@ export interface RemoveSubUserRolesResponse {
 }
 export interface GetRolesRequest {
   /**
-   *The role group.
+   *The role group
   */
   groupName?:string
 }
@@ -4658,66 +4740,140 @@ export interface RoleSystemInterface {
   getRoleGroups: (request:GetRoleGroupsRequest) => Promise<GetRoleGroupsResponse>
 }
 
-export interface AddChildAccountSubscriptionRequest {
+export interface SetKeyValueItemRequest {
   /**
-   *The child account ID.
+   *Key to create, up to 200 charactrers
   */
-  childAccountId:number
+  key:string
   /**
-   *The subscription template ID.
+   *Value for the specified key, up to 2000 charactrers
   */
-  subscriptionTemplateId:number
+  value:string
   /**
-   *The subscription name.
+   *The application ID
   */
-  subscriptionName?:string
+  applicationId:number
+  /**
+   *The application name
+  */
+  applicationName?:string
+  /**
+   *Key expiry time in seconds. The value is in range of 0..7,776,000 (90 days), the default value is 30 days (2,592,000 seconds). The TTL is converted to an **expires_at** Unix timestamp field as part of the storage object. Note that one of the two parameters (ttl or expires_at) must be set
+  */
+  ttl?:number
+  /**
+   *Expiration date based on **ttl** (timestamp without milliseconds). Note that one of the two parameters (ttl or expires_at) must be set
+  */
+  expiresAt?:number
 }
-export interface AddChildAccountSubscriptionResponse {
-  result:number
-  subscriptions:ChildAccountSubscription[]
-}
-export interface GetChildAccountSubscriptionsRequest {
+export interface SetKeyValueItemResponse {
   /**
-   *The child account ID.
+   *The key-value item
   */
-  childAccountId:number
-  /**
-   *The subscription ID. If empty, then all the non-deactivated subscriptions for the current child account will be retrieved.
-  */
-  subscriptionId?:number
+  result:KeyValueItems
 }
-export interface GetChildAccountSubscriptionsResponse {
-  result:ChildAccountSubscription[]
-}
-export interface GetChildAccountSubscriptionTemplatesRequest {
-  
-}
-export interface GetChildAccountSubscriptionTemplatesResponse {
-  result:ChildAccountSubscriptionTemplate[]
-}
-export interface DeactivateChildAccountSubscriptionRequest {
+export interface DelKeyValueItemRequest {
   /**
-   *The subscription ID to be deactivated.
+   *Key to delete, up to 200 charactrers
   */
-  subscriptionId:number
+  key:string
   /**
-   *The child account ID.
+   *The application ID
   */
-  childAccountId:number
+  applicationId:number
   /**
-   *The deactivation UTC date in 24-h format: YYYY-MM-DD HH:mm:ss. If empty, then the current date + 1 day is used as a cancellation date.
+   *The application name
   */
-  subscriptionFinishDate?:Date
+  applicationName?:string
 }
-export interface DeactivateChildAccountSubscriptionResponse {
-  /**
-   *1
-  */
+export interface DelKeyValueItemResponse {
   result:number
 }
+export interface GetKeyValueItemRequest {
+  /**
+   *Key to get, up to 200 charactrers
+  */
+  key:string
+  /**
+   *The application ID
+  */
+  applicationId:number
+  /**
+   *The application name
+  */
+  applicationName?:string
+}
+export interface GetKeyValueItemResponse {
+  /**
+   *The key-value item
+  */
+  result:KeyValueItems
+}
+export interface GetKeyValueItemsRequest {
+  /**
+   *Key pattern, up to 200 charactrers
+  */
+  key:string
+  /**
+   *The application ID
+  */
+  applicationId:number
+  /**
+   *Number of items to show per page with a maximum value of 50. Default value is 10
+  */
+  count?:number
+  /**
+   *Number of items to skip (e.g. if you set count = 20 and offset = 0 the first time, the next time, offset has to be equal to 20 to skip the items shown earlier). Default value is 0
+  */
+  offset?:number
+  /**
+   *The application name
+  */
+  applicationName?:string
+}
+export interface GetKeyValueItemsResponse {
+  /**
+   *The key-value pairs
+  */
+  result:KeyValueItems
+}
+export interface GetKeyValueKeysRequest {
+  /**
+   *The application ID
+  */
+  applicationId:number
+  /**
+   *Key pattern, up to 200 charactrers
+  */
+  key?:string
+  /**
+   *Number of items to show per page with a maximum value of 50. Default value is 10
+  */
+  count?:number
+  /**
+   *Number of items to skip (e.g. if you set count = 20 and offset = 0 the first time, the next time, offset has to be equal to 20 to skip the items shown earlier). Default value is 0
+  */
+  offset?:number
+  /**
+   *The application name
+  */
+  applicationName?:string
+}
+export interface GetKeyValueKeysResponse {
+  /**
+   *The key-value keys
+  */
+  result:KeyValueKeys
+}
+export interface KeyValueStorageInterface {
+  setKeyValueItem: (request:SetKeyValueItemRequest) => Promise<SetKeyValueItemResponse>
+  delKeyValueItem: (request:DelKeyValueItemRequest) => Promise<DelKeyValueItemResponse>
+  getKeyValueItem: (request:GetKeyValueItemRequest) => Promise<GetKeyValueItemResponse>
+  getKeyValueItems: (request:GetKeyValueItemsRequest) => Promise<GetKeyValueItemsResponse>
+  getKeyValueKeys: (request:GetKeyValueKeysRequest) => Promise<GetKeyValueKeysResponse>
+}
+
+
 export interface ChildAccountsInterface {
-  addChildAccountSubscription: (request:AddChildAccountSubscriptionRequest) => Promise<AddChildAccountSubscriptionResponse>
-  getChildAccountSubscriptions: (request:GetChildAccountSubscriptionsRequest) => Promise<GetChildAccountSubscriptionsResponse>
-  getChildAccountSubscriptionTemplates: (request:GetChildAccountSubscriptionTemplatesRequest) => Promise<GetChildAccountSubscriptionTemplatesResponse>
-  deactivateChildAccountSubscription: (request:DeactivateChildAccountSubscriptionRequest) => Promise<DeactivateChildAccountSubscriptionResponse>
+  
 }
