@@ -3094,6 +3094,8 @@ export default class TypeTransformer{
             return data.toISOString().replace(/T/, ' ').replace(/\..+/, '');
           if(type==='timestamp') 
             return data.toISOString().replace(/T/, ' ').replace(/\..+/, ''); 
+          if(type==='intlist') 
+            return Array.isArray(data) ? data.join(';') : data;
           else return data};
   }
 }
