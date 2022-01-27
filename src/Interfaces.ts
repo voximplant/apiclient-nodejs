@@ -1,4 +1,4 @@
-import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SkillInfo,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsTransaction,FailedSms,SmsHistory,A2PSmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,KeyValueItems,KeyValueKeys} from './Structures';
+import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,OutboundTestPhonenumberInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SmartQueueMetricsResult,SmartQueueState,SQAgentSelectionStrategies,SQTaskSelectionStrategies,GetSQQueuesResult,SQSkillBindingModes,GetSQSkillsResult,SQAgentBindingModes,GetSQAgentsResult,SkillInfo,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsTransaction,FailedSms,SmsHistory,A2PSmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,KeyValueItems,KeyValueKeys,AccountInvocie} from './Structures';
 export interface UtilsReturns{
   'GetAccountInfo':GetAccountInfoResponse
   'SetAccountInfo':SetAccountInfoResponse
@@ -70,11 +70,17 @@ export interface UtilsReturns{
   'GetPhoneNumberCountryStates':GetPhoneNumberCountryStatesResponse
   'GetPhoneNumberRegions':GetPhoneNumberRegionsResponse
   'GetActualPhoneNumberRegion':GetActualPhoneNumberRegionResponse
+  'GetAccountPhoneNumberCountries':GetAccountPhoneNumberCountriesResponse
   'AddCallerID':AddCallerIDResponse
   'ActivateCallerID':ActivateCallerIDResponse
   'DelCallerID':DelCallerIDResponse
   'GetCallerIDs':GetCallerIDsResponse
   'VerifyCallerID':VerifyCallerIDResponse
+  'AddOutboundTestPhoneNumber':AddOutboundTestPhoneNumberResponse
+  'VerifyOutboundTestPhoneNumber':VerifyOutboundTestPhoneNumberResponse
+  'ActivateOutboundTestPhoneNumber':ActivateOutboundTestPhoneNumberResponse
+  'DelOutboundTestPhoneNumber':DelOutboundTestPhoneNumberResponse
+  'GetOutboundTestPhoneNumbers':GetOutboundTestPhoneNumbersResponse
   'AddQueue':AddQueueResponse
   'BindUserToQueue':BindUserToQueueResponse
   'DelQueue':DelQueueResponse
@@ -84,6 +90,24 @@ export interface UtilsReturns{
   'GetACDOperatorStatistics':GetACDOperatorStatisticsResponse
   'GetACDQueueStatistics':GetACDQueueStatisticsResponse
   'GetACDOperatorStatusStatistics':GetACDOperatorStatusStatisticsResponse
+  'GetSmartQueueRealtimeMetrics':GetSmartQueueRealtimeMetricsResponse
+  'GetSmartQueueDayHistory':GetSmartQueueDayHistoryResponse
+  'RequestSmartQueueHistory':RequestSmartQueueHistoryResponse
+  'GetSQState':GetSQStateResponse
+  'SQ_AddQueue':SQ_AddQueueResponse
+  'SQ_SetQueueInfo':SQ_SetQueueInfoResponse
+  'SQ_DelQueue':SQ_DelQueueResponse
+  'SQ_GetQueues':SQ_GetQueuesResponse
+  'SQ_AddSkill':SQ_AddSkillResponse
+  'SQ_DelSkill':SQ_DelSkillResponse
+  'SQ_SetSkillInfo':SQ_SetSkillInfoResponse
+  'SQ_BindSkill':SQ_BindSkillResponse
+  'SQ_UnbindSkill':SQ_UnbindSkillResponse
+  'SQ_GetSkills':SQ_GetSkillsResponse
+  'SQ_BindAgent':SQ_BindAgentResponse
+  'SQ_UnbindAgent':SQ_UnbindAgentResponse
+  'SQ_GetAgents':SQ_GetAgentsResponse
+  'SQ_SetAgentInfo':SQ_SetAgentInfoResponse
   'AddSkill':AddSkillResponse
   'DelSkill':DelSkillResponse
   'SetSkillInfo':SetSkillInfoResponse
@@ -146,6 +170,7 @@ export interface UtilsReturns{
   'GetKeyValueItem':GetKeyValueItemResponse
   'GetKeyValueItems':GetKeyValueItemsResponse
   'GetKeyValueKeys':GetKeyValueKeysResponse
+  'GetAccountInvoices':GetAccountInvoicesResponse
 }
 
 export interface NewRegistrationInterface {
@@ -228,7 +253,7 @@ export interface SetAccountInfoRequest {
   */
   billingAddressCountryCode?:string
   /**
-   *The office address
+   *The valid address that needs to be specified to pay for any services. It can't be deleted later, only changed
   */
   billingAddressAddress?:string
   /**
@@ -260,7 +285,7 @@ export interface SetAccountInfoResponse {
 }
 export interface SetChildAccountInfoRequest {
   /**
-   *The child account ID list separated by the ';' symbol or the 'all' value
+   *The child account ID list separated by the ';' symbol. Use the 'all' value to select all child accounts
   */
   childAccountId:'any'|number|number[]
   /**
@@ -352,7 +377,7 @@ export interface GetCurrencyRateResponse {
 }
 export interface GetResourcePriceRequest {
   /**
-   *The resource type list separated by the ';' symbol. The possible values are: AUDIOHDCONFERENCE, AUDIOHDRECORD, AUDIORECORD, CALLLIST, CALLSESSION, DIALOGFLOW, IM, PSTN_IN_ALASKA, PSTN_IN_GB, PSTN_IN_GEOGRAPHIC, PSTN_IN_GEO_PH, PSTN_IN_RU, PSTN_IN_RU_TOLLFREE, PSTN_INTERNATIONAL, PSTNINTEST, PSTN_IN_TF_AR, PSTN_IN_TF_AT, PSTN_IN_TF_AU, PSTN_IN_TF_BE, PSTN_IN_TF_BR, PSTN_IN_TF_CA, PSTN_IN_TF_CO, PSTN_IN_TF_CY, PSTN_IN_TF_DE, PSTN_IN_TF_DK, PSTN_IN_TF_DO, PSTN_IN_TF_FI, PSTN_IN_TF_FR, PSTN_IN_TF_GB, PSTN_IN_TF_HR, PSTN_IN_TF_HU, PSTN_IN_TF_IL, PSTN_IN_TF_LT, PSTN_IN_TF_PE, PSTN_IN_TF_US, PSTN_IN_US, PSTNOUT, PSTNOUT_EEA, PSTNOUTEMERG, PSTNOUT_KZ, PSTNOUT_LOCAL, PSTN_OUT_LOCAL_RU, RELAYED_TRAFFIC, SIPOUT, SIPOUTVIDEO, SMSINPUT, SMSOUT, SMSOUT_INTERNATIONAL, TRANSCRIPTION, TTS_TEXT_GOOGLE, TTS_YANDEX, USER_LOGON, VIDEOCALL, VIDEORECORD, VOICEMAILDETECTION, VOIPIN, VOIPOUT, VOIPOUTVIDEO, YANDEXASR, ASR, ASR_GOOGLE_ENHANCED
+   *The resource type list separated by the ';' symbol. The possible values are AUDIOHDCONFERENCE, AUDIOHDRECORD, AUDIORECORD, CALLLIST, CALLSESSION, DIALOGFLOW, IM, PSTN_IN_ALASKA, PSTN_IN_GB, PSTN_IN_GEOGRAPHIC, PSTN_IN_GEO_PH, PSTN_IN_RU, PSTN_IN_RU_TOLLFREE, PSTN_INTERNATIONAL, PSTNINTEST, PSTN_IN_TF_AR, PSTN_IN_TF_AT, PSTN_IN_TF_AU, PSTN_IN_TF_BE, PSTN_IN_TF_BR, PSTN_IN_TF_CA, PSTN_IN_TF_CO, PSTN_IN_TF_CY, PSTN_IN_TF_DE, PSTN_IN_TF_DK, PSTN_IN_TF_DO, PSTN_IN_TF_FI, PSTN_IN_TF_FR, PSTN_IN_TF_GB, PSTN_IN_TF_HR, PSTN_IN_TF_HU, PSTN_IN_TF_IL, PSTN_IN_TF_LT, PSTN_IN_TF_PE, PSTN_IN_TF_US, PSTN_IN_US, PSTNOUT, PSTNOUT_EEA, PSTNOUTEMERG, PSTNOUT_KZ, PSTNOUT_LOCAL, PSTN_OUT_LOCAL_RU, RELAYED_TRAFFIC, SIPOUT, SIPOUTVIDEO, SMSINPUT, SMSOUT, SMSOUT_INTERNATIONAL, TRANSCRIPTION, TTS_TEXT_GOOGLE, TTS_YANDEX, USER_LOGON, VIDEOCALL, VIDEORECORD, VOICEMAILDETECTION, VOIPIN, VOIPOUT, VOIPOUTVIDEO, YANDEXASR, ASR, ASR_GOOGLE_ENHANCED
   */
   resourceType?:string|string[]
   /**
@@ -404,7 +429,7 @@ export interface GetSubscriptionPriceResponse {
 }
 export interface GetChildrenAccountsRequest {
   /**
-   *The account ID list separated by the ';' symbol or the 'all' value
+   *The account ID list separated by the ';' symbol. Use the 'all' value to select all accounts
   */
   childAccountId?:'any'|number|number[]
   /**
@@ -481,11 +506,11 @@ export interface GetMoneyAmountToChargeResponse {
 }
 export interface ChargeAccountRequest {
   /**
-   *The phone ID list separated by the ';' symbol or the 'all' value. You should specify the phones having the auto_charge=false
+   *The phone ID list separated by the ';' symbol. Use the 'all' value to select all phone ids. You should specify the phones having the auto_charge=false
   */
   phoneId:'any'|number|number[]
   /**
-   *The phone number list separated by the ';' symbol or the 'all' value. Can be used instead of <b>phone_id</b>. You should specify the phones having the auto_charge=false
+   *The phone number list separated by the ';' symbol. Use the 'all' value to select all phone numbers. Can be used instead of <b>phone_id</b>. You should specify the phones having the auto_charge=false
   */
   phoneNumber:string|string[]
 }
@@ -501,7 +526,7 @@ export interface ChargeAccountResponse {
 }
 export interface ChangeAccountPlanRequest {
   /**
-   *The plan type to config. The possible values are: IM, MAU
+   *The plan type to config. The possible values are IM, MAU
   */
   planType:string
   /**
@@ -521,7 +546,7 @@ export interface ChangeAccountPlanResponse {
 }
 export interface GetAccountPlansRequest {
   /**
-   *The plan type list separated by the ';' symbol. The possible values are: IM, MAU
+   *The plan type list separated by the ';' symbol. The possible values are IM, MAU
   */
   planType?:string|string[]
   /**
@@ -534,7 +559,7 @@ export interface GetAccountPlansResponse {
 }
 export interface GetAvailablePlansRequest {
   /**
-   *The plan type list separated by the ';' symbol. The possible values are: IM, MAU
+   *The plan type list separated by the ';' symbol. The possible values are IM, MAU
   */
   planType?:string|string[]
   /**
@@ -567,7 +592,7 @@ export interface GetAccountDocumentsRequest {
   */
   toUnverifiedHoldUntil?:Date
   /**
-   *The child account ID list separated by the ';' symbol or the 'all' value
+   *The child account ID list separated by the ';' symbol. Use the 'all' value to select all child accounts
   */
   childAccountId?:'any'|number|number[]
   /**
@@ -627,11 +652,11 @@ export interface AddApplicationResponse {
 }
 export interface DelApplicationRequest {
   /**
-   *The application ID list separated by the ';' symbol or the 'all' value
+   *The application ID list separated by the ';' symbol. Use the 'all' value to select all applications
   */
   applicationId:'any'|number|number[]
   /**
-   *The application name list separated by the ';' symbol. Can be used instead of <b>appliction_id</b>
+   *The application name list separated by the ';' symbol. Can be used instead of <b>application_id</b>
   */
   applicationName:string|string[]
 }
@@ -682,18 +707,6 @@ export interface GetApplicationsRequest {
    *The application name part to filter
   */
   applicationName?:string
-  /**
-   *The user ID to filter
-  */
-  userId?:number
-  /**
-   *The excluded user ID to filter
-  */
-  excludedUserId?:number
-  /**
-   *Specify the user ID value to show it in the 'users' array output
-  */
-  showingUserId?:number
   /**
    *Set true to get bound rules info
   */
@@ -776,7 +789,7 @@ export interface AddUserResponse {
 }
 export interface DelUserRequest {
   /**
-   *The user ID list separated by the ';' symbol or the 'all' value
+   *The user ID list separated by the ';' symbol. Use the 'all' value to select all users
   */
   userId:'any'|number|number[]
   /**
@@ -937,7 +950,7 @@ export interface GetUsersResponse {
 }
 export interface TransferMoneyToUserRequest {
   /**
-   *The user ID list separated by the ';' symbol or the 'all' value
+   *The user ID list separated by the ';' symbol. Use the 'all' value to select all users
   */
   userId:'any'|number|number[]
   /**
@@ -1001,7 +1014,7 @@ export interface CreateManualCallListRequest {
   */
   priority:number
   /**
-   *Number simultaneously processed tasks
+   *Number of simultaneously processed tasks
   */
   maxSimultaneous:number
   /**
@@ -1073,7 +1086,7 @@ export interface StartNextCallTaskResponse {
 }
 export interface GetCallListsRequest {
   /**
-   *The list ID to filter. Can be a list separated by the ';' symbol or the 'all' value
+   *The list ID to filter. Can be a list separated by the ';' symbol. Use the 'all' value to select all lists
   */
   listId?:'any'|number|number[]
   /**
@@ -1093,7 +1106,7 @@ export interface GetCallListsRequest {
   */
   toDate?:Date
   /**
-   *The type of the call list. The possible values are: AUTOMATIC and MANUAL
+   *The type of the call list. The possible values are AUTOMATIC and MANUAL
   */
   typeList?:string
   /**
@@ -1105,7 +1118,7 @@ export interface GetCallListsRequest {
   */
   offset?:number
   /**
-   *The application ID to filter. Can be a list separated by the ';' symbol or the 'all' value
+   *The application ID to filter. Can be a list separated by the ';' symbol. Use the 'all' value to select all applications
   */
   applicationId?:'any'|number|number[]
 }
@@ -1234,7 +1247,7 @@ export interface AddScenarioResponse {
 }
 export interface DelScenarioRequest {
   /**
-   *The scenario ID list separated by the ';' symbol or the 'all' value
+   *The scenario ID list separated by the ';' symbol. Use the 'all' value to select all scenarios
   */
   scenarioId:'any'|number|number[]
   /**
@@ -1383,7 +1396,7 @@ export interface StartScenariosRequest {
   */
   applicationName?:string
   /**
-   *The script custom data (like a script argument). Can be accessed in JS scenario via the <a href='//voximplant.com/docs/references/voxengine/voxengine#customdata'>VoxEngine.customData()</a> method
+   *The script custom data (like a script argument). Can be accessed in JS scenario via the <a href='//voximplant.com/docs/references/voxengine/voxengine/customdata'>VoxEngine.customData()</a> method
   */
   scriptCustomData?:string
   /**
@@ -1433,7 +1446,7 @@ export interface StartConferenceRequest {
   */
   applicationName?:string
   /**
-   *The script custom data (like a script argument). Can be accessed in JS scenario via the <a href='//voximplant.com/docs/references/voxengine/voxengine#customdata'>VoxEngine.customData()</a> method
+   *The script custom data (like a script argument). Can be accessed in JS scenario via the <a href='//voximplant.com/docs/references/voxengine/voxengine/customdata'>VoxEngine.customData()</a> method
   */
   scriptCustomData?:string
   /**
@@ -1512,7 +1525,7 @@ export interface AddRuleResponse {
 }
 export interface DelRuleRequest {
   /**
-   *The rule ID list separated by the ';' symbol or the 'all' value
+   *The rule ID list separated by the ';' symbol. Use the 'all' value to select all rules
   */
   ruleId:'any'|number|number[]
   /**
@@ -1520,7 +1533,7 @@ export interface DelRuleRequest {
   */
   ruleName:string|string[]
   /**
-   *The application ID list separated by the ';' symbol or the 'all' value
+   *The application ID list separated by the ';' symbol. Use the 'all' value to select all applications
   */
   applicationId:'any'|number|number[]
   /**
@@ -1686,7 +1699,7 @@ export interface GetCallHistoryRequest {
   */
   withOtherResources?:boolean
   /**
-   *The child account ID list separated by the ';' symbol or the 'all' value
+   *The child account ID list separated by the ';' symbol. Use the 'all' value to select all child accounts
   */
   childAccountId?:'any'|number|number[]
   /**
@@ -1706,11 +1719,11 @@ export interface GetCallHistoryRequest {
   */
   withTotalCount?:boolean
   /**
-   *Number of returning records with a maximum value of 1000
+   *The number of returning records. In the synchronous mode, the maximum value is 1000
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output
+   *The number of records to skip in the output with a maximum value of 10000
   */
   offset?:number
   /**
@@ -1718,7 +1731,7 @@ export interface GetCallHistoryRequest {
   */
   output?:string
   /**
-   *Set true to get records in the asynchronous mode (for csv output only). If it's true, the request is available via [GetHistoryReports] and [DownloadHistoryReport] methods
+   *Set true to get records in the asynchronous mode (for csv output only). <b>Use this mode to download large amounts of data</b>. See the [GetHistoryReports], [DownloadHistoryReport] functions for details
   */
   isAsync?:boolean
 }
@@ -1750,7 +1763,7 @@ export interface GetHistoryReportsRequest {
   */
   historyReportId?:number
   /**
-   *The history report type list separated by the ';' symbol or the 'all' value. The following values are possible: calls, transactions, audit, call_list
+   *The history report type list separated by the ';' symbol. Use the 'all' value to select all history report types. The following values are possible: calls, transactions, audit, call_list
   */
   historyType?:string|string[]
   /**
@@ -1778,7 +1791,7 @@ export interface GetHistoryReportsRequest {
   */
   offset?:number
   /**
-   *The application ID to filter. Can be a list separated by the ';' symbol or the 'all' value
+   *The application ID to filter. Can be a list separated by the ';' symbol. Use the 'all' value to select all applications
   */
   applicationId?:'any'|number|number[]
 }
@@ -1809,7 +1822,7 @@ export interface GetTransactionHistoryRequest {
   transactionId?:'any'|number|number[]
   paymentReference?:string
   /**
-   *The transaction type list separated by the ';' symbol. The following values are possible: resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, rub_card_periodic_payment, rub_card_overrun_payment, rub_card_payment, robokassa_payment, gift, promo, adjustment, wire_transfer, us_wire_transfer, refund, discount, mgp_charge, mgp_startup, mgp_business, mgp_big_business, mgp_enterprise, mgp_large_enterprise, techsupport_charge, tax_charge, monthly_fee_charge, grace_credit_payment, grace_credit_provision, mau_charge, mau_overrun, im_charge, im_overrun, fmc_charge, sip_registration_charge, development_fee, money_transfer_to_child, money_transfer_to_parent, money_acceptance_from_child, money_acceptance_from_parent, phone_number_installation, phone_number_charge, toll_free_phone_number_installation, toll_free_phone_number_charge
+   *The transaction type list separated by the ';' symbol. The following values are possible: resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, rub_card_periodic_payment, rub_card_overrun_payment, rub_card_payment, robokassa_payment, gift, promo, adjustment, wire_transfer, us_wire_transfer, refund, discount, mgp_charge, mgp_startup, mgp_business, mgp_big_business, mgp_enterprise, mgp_large_enterprise, techsupport_charge, tax_charge, monthly_fee_charge, grace_credit_payment, grace_credit_provision, mau_charge, mau_overrun, im_charge, im_overrun, fmc_charge, sip_registration_charge, development_fee, money_transfer_to_child, money_transfer_to_parent, money_acceptance_from_child, money_acceptance_from_parent, phone_number_installation, phone_number_charge, toll_free_phone_number_installation, toll_free_phone_number_charge, services, user_money_transfer
   */
   transactionType?:string|string[]
   /**
@@ -1817,7 +1830,7 @@ export interface GetTransactionHistoryRequest {
   */
   userId?:'any'|number|number[]
   /**
-   *The child account ID list separated by the ';' symbol or the 'all' value
+   *The child account ID list separated by the ';' symbol. Use the 'all' value to select all child accounts
   */
   childAccountId?:'any'|number|number[]
   /**
@@ -1833,11 +1846,11 @@ export interface GetTransactionHistoryRequest {
   */
   descOrder?:boolean
   /**
-   *The max returning record count
+   *The number of returning records. In the synchronous mode, the maximum value is 1000
   */
   count?:number
   /**
-   *The first <b>N</b> records will be skipped in the output
+   *The number of records to skip in the output with a maximum value of 10000
   */
   offset?:number
   /**
@@ -1845,9 +1858,13 @@ export interface GetTransactionHistoryRequest {
   */
   output?:string
   /**
-   *Set true to get records in the asynchronous mode (for csv output only). See the [GetHistoryReports], [DownloadHistoryReport] functions
+   *Set true to get records in the asynchronous mode (for csv output only). <b>Use this mode to download large amounts of data</b>. See the [GetHistoryReports], [DownloadHistoryReport] functions for details
   */
   isAsync?:boolean
+  /**
+   *Set true to get transactions on hold (transactions for which money is reserved but not yet withdrawn from the account)
+  */
+  isUncommitted?:boolean
 }
 export interface GetTransactionHistoryResponse {
   result:TransactionInfo[]
@@ -2411,11 +2428,11 @@ export interface GetSipRegistrationsRequest {
   */
   isPersistent?:boolean
   /**
-   *The application ID list separated by the ';' symbol to filter. Can be used instead of <b>appliction_name</b>
+   *The application ID list separated by the ';' symbol to filter. Can be used instead of <b>application_name</b>
   */
   applicationId?:'any'|number|number[]
   /**
-   *The application name list separated by the ';' symbol to filter. Can be used instead of <b>appliction_id</b>
+   *The application name list separated by the ';' symbol to filter. Can be used instead of <b>application_id</b>
   */
   applicationName?:string|string[]
   /**
@@ -2504,7 +2521,7 @@ export interface AttachPhoneNumberResponse {
 }
 export interface BindPhoneNumberToApplicationRequest {
   /**
-   *The phone ID list separated by the ';' symbol or the 'all' value
+   *The phone ID list separated by the ';' symbol. Use the 'all' value to select all phone ids
   */
   phoneId:'any'|number|number[]
   /**
@@ -2540,7 +2557,7 @@ export interface BindPhoneNumberToApplicationResponse {
 }
 export interface DeactivatePhoneNumberRequest {
   /**
-   *The phone ID list separated by the ';' symbol or the 'all' value
+   *The phone ID list separated by the ';' symbol. Use the 'all' value to select all phone ids
   */
   phoneId:'any'|number|number[]
   /**
@@ -2556,7 +2573,7 @@ export interface DeactivatePhoneNumberResponse {
 }
 export interface SetPhoneNumberInfoRequest {
   /**
-   *The phone ID list separated by the ';' symbol or the 'all' value
+   *The phone ID list separated by the ';' symbol. Use the 'all' value to select all phone ids
   */
   phoneId:'any'|number|number[]
   /**
@@ -2579,7 +2596,11 @@ export interface GetPhoneNumbersRequest {
   /**
    *The particular phone ID to filter
   */
-  phoneId?:number
+  phoneId?:'any'|number|number[]
+  /**
+   *The phone number list separated by the ';' symbol that can be used instead of <b>phone_id</b>
+  */
+  phoneNumber?:string|string[]
   /**
    *The application ID
   */
@@ -2633,7 +2654,7 @@ export interface GetPhoneNumbersRequest {
   */
   toPhonePurchaseDate?:Date
   /**
-   *The child account ID list separated by the ';' symbol or the 'all' value
+   *The child account ID list separated by the ';' symbol. Use the 'all' value to select all child accounts
   */
   childAccountId?:'any'|number|number[]
   /**
@@ -2695,6 +2716,9 @@ export interface GetPhoneNumbersRequest {
   isBoundToRule?:boolean
 }
 export interface GetPhoneNumbersResponse {
+  /**
+   *Phone numbers info
+  */
   result:AttachedPhoneInfo[]
   /**
    *The total found phone count
@@ -2711,7 +2735,7 @@ export interface GetNewPhoneNumbersRequest {
   */
   countryCode:string
   /**
-   *The phone category name. See the GetPhoneNumberCategories function
+   *The phone category name. See the [GetPhoneNumberCategories] function
   */
   phoneCategoryName:string
   /**
@@ -2744,9 +2768,9 @@ export interface GetNewPhoneNumbersResponse {
 }
 export interface GetPhoneNumberCategoriesRequest {
   /**
-   *The country code
+   *Country code list separated by the ';' symbol
   */
-  countryCode?:string
+  countryCode?:string|string[]
   /**
    *Flag allows you to display phone number categories only of the sandbox, real or all .The following values are possible: 'all', 'true', 'false'
   */
@@ -2838,6 +2862,18 @@ export interface GetActualPhoneNumberRegionRequest {
 export interface GetActualPhoneNumberRegionResponse {
   result:PhoneNumberCountryRegionInfo
 }
+export interface GetAccountPhoneNumberCountriesRequest {
+  /**
+   *The application ID list separated by the ';' symbol to filter
+  */
+  applicationId?:'any'|number|number[]
+}
+export interface GetAccountPhoneNumberCountriesResponse {
+  /**
+   *Array of country codes
+  */
+  result:string[]
+}
 export interface PhoneNumbersInterface {
   attachPhoneNumber: (request:AttachPhoneNumberRequest) => Promise<AttachPhoneNumberResponse>
   bindPhoneNumberToApplication: (request:BindPhoneNumberToApplicationRequest) => Promise<BindPhoneNumberToApplicationResponse>
@@ -2849,6 +2885,7 @@ export interface PhoneNumbersInterface {
   getPhoneNumberCountryStates: (request:GetPhoneNumberCountryStatesRequest) => Promise<GetPhoneNumberCountryStatesResponse>
   getPhoneNumberRegions: (request:GetPhoneNumberRegionsRequest) => Promise<GetPhoneNumberRegionsResponse>
   getActualPhoneNumberRegion: (request:GetActualPhoneNumberRegionRequest) => Promise<GetActualPhoneNumberRegionResponse>
+  getAccountPhoneNumberCountries: (request:GetAccountPhoneNumberCountriesRequest) => Promise<GetAccountPhoneNumberCountriesResponse>
 }
 
 export interface AddCallerIDRequest {
@@ -2964,6 +3001,62 @@ export interface CallerIDsInterface {
   verifyCallerID: (request:VerifyCallerIDRequest) => Promise<VerifyCallerIDResponse>
 }
 
+export interface AddOutboundTestPhoneNumberRequest {
+  /**
+   *The personal phone number in the E.164 format
+  */
+  phoneNumber:string
+}
+export interface AddOutboundTestPhoneNumberResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface VerifyOutboundTestPhoneNumberRequest {
+  
+}
+export interface VerifyOutboundTestPhoneNumberResponse {
+  /**
+   *The number of attempts left for the day. The number is reset every day at 00:00 UTC
+  */
+  dailyAttemptsLeft:number
+}
+export interface ActivateOutboundTestPhoneNumberRequest {
+  /**
+   *The verification code, see the [VerifyOutboundTestPhoneNumber] function
+  */
+  verificationCode:string
+}
+export interface ActivateOutboundTestPhoneNumberResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface DelOutboundTestPhoneNumberRequest {
+  
+}
+export interface DelOutboundTestPhoneNumberResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface GetOutboundTestPhoneNumbersRequest {
+  
+}
+export interface GetOutboundTestPhoneNumbersResponse {
+  result:OutboundTestPhonenumberInfo[]
+}
+export interface OutboundTestNumbersInterface {
+  addOutboundTestPhoneNumber: (request:AddOutboundTestPhoneNumberRequest) => Promise<AddOutboundTestPhoneNumberResponse>
+  verifyOutboundTestPhoneNumber: (request:VerifyOutboundTestPhoneNumberRequest) => Promise<VerifyOutboundTestPhoneNumberResponse>
+  activateOutboundTestPhoneNumber: (request:ActivateOutboundTestPhoneNumberRequest) => Promise<ActivateOutboundTestPhoneNumberResponse>
+  delOutboundTestPhoneNumber: (request:DelOutboundTestPhoneNumberRequest) => Promise<DelOutboundTestPhoneNumberResponse>
+  getOutboundTestPhoneNumbers: (request:GetOutboundTestPhoneNumbersRequest) => Promise<GetOutboundTestPhoneNumbersResponse>
+}
+
 export interface AddQueueRequest {
   /**
    *The application ID
@@ -3026,7 +3119,7 @@ export interface BindUserToQueueRequest {
   */
   applicationName:string
   /**
-   *The user ID list separated by the ';' symbol or the 'all' value to specify all users bound to the application
+   *The user ID list separated by the ';' symbol. Use the 'all' value to specify all users bound to the application
   */
   userId:'any'|number|number[]
   /**
@@ -3034,7 +3127,7 @@ export interface BindUserToQueueRequest {
   */
   userName:string|string[]
   /**
-   *The ACD queue ID list separated by the ';' symbol or the 'all' value to specify all queues bound to the application
+   *The ACD queue ID list separated by the ';' symbol. Use the 'all' value to specify all queues bound to the application
   */
   acdQueueId:'any'|number|number[]
   /**
@@ -3163,7 +3256,7 @@ export interface GetQueuesResponse {
 }
 export interface GetACDStateRequest {
   /**
-   *The ACD queue ID list separated by the ';' symbol or the 'all' value
+   *The ACD queue ID list separated by the ';' symbol. Use the 'all' value to select all ACD queues
   */
   acdQueueId?:'any'|number|number[]
 }
@@ -3176,7 +3269,7 @@ export interface GetACDOperatorStatisticsRequest {
   */
   fromDate:Date
   /**
-   *The user ID list separated by the ';' symbol or the 'all' value. 
+   *The user ID list separated by the ';' symbol. Use the 'all' value to select all users
   */
   userId:'any'|number|number[]
   /**
@@ -3184,7 +3277,7 @@ export interface GetACDOperatorStatisticsRequest {
   */
   toDate?:Date
   /**
-   *The ACD queue ID list separated by the ';' symbol or the 'all' value
+   *The ACD queue ID list separated by the ';' symbol. Use the 'all' value to select all ACD queues
   */
   acdQueueId?:'any'|number|number[]
   /**
@@ -3224,7 +3317,7 @@ export interface GetACDQueueStatisticsRequest {
   */
   abbreviation?:boolean
   /**
-   *The ACD queue ID list separated by the ';' symbol or the 'all' value
+   *The ACD queue ID list separated by the ';' symbol. Use the 'all' value to select all ACD queues
   */
   acdQueueId?:'any'|number|number[]
   /**
@@ -3248,7 +3341,7 @@ export interface GetACDOperatorStatusStatisticsRequest {
   */
   fromDate:Date
   /**
-   *The user ID list separated by the ';' symbol or the 'all' value. 
+   *The user ID list separated by the ';' symbol. Use the 'all' value to select all users
   */
   userId:string|string[]
   /**
@@ -3286,9 +3379,802 @@ export interface QueuesInterface {
   getACDOperatorStatusStatistics: (request:GetACDOperatorStatusStatisticsRequest) => Promise<GetACDOperatorStatusStatisticsResponse>
 }
 
-
-export interface SmartQueuesInterface {
-  
+export interface GetSmartQueueRealtimeMetricsRequest {
+  /**
+   *The application ID to search by
+  */
+  applicationId:number
+  /**
+   *The application name to search by. Can be used instead of the <b>application_id</b> parameter
+  */
+  applicationName:string
+  /**
+   *The report type. Possible values are calls_blocked_percentage, count_blocked_calls, average_abandonment_rate, count_abandonment_calls, service_level, occupancy_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_banned_time, min_time_in_queue,max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime
+  */
+  reportType:string|string[]
+  /**
+   *The user ID list with a maximum of 5 values separated by the ';' symbol. Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+  */
+  userId?:'any'|number|number[]
+  /**
+   *The user name list separated by the ';' symbol. <b>user_name</b> can be used instead of <b>user_id</b>
+  */
+  userName?:string|string[]
+  /**
+   *The smart queue ID list with a maximum of 5 values separated by the ';' symbol. Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+  */
+  sqQueueId?:'any'|number|number[]
+  /**
+   *The smart queue name list separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+  */
+  sqQueueName?:string|string[]
+  /**
+   *The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. Default is the current time minus 30 minutes
+  */
+  fromDate?:Date
+  /**
+   *The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. Default is the current time
+  */
+  toDate?:Date
+  /**
+   *The selected timezone or the 'auto' value (the account location)
+  */
+  timezone?:string
+  /**
+   *Interval format: YYYY-MM-DD HH:mm:ss. Default is 30 minutes
+  */
+  interval?:string
+  /**
+   *Group the result by **agent** or *queue*. The **agent** grouping is allowed for 1 queue and for the occupancy_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_banned_time, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime report types. The **queue** grouping allowed for the calls_blocked_percentage, count_blocked_calls, average_abandonment_rate, count_abandonment_calls, service_level, occupancy_rate, min_time_in_queue, max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime report types
+  */
+  groupBy?:string
+  /**
+   *Maximum waiting time. Required for the **service_level** report type
+  */
+  maxWaitingSec?:number
+}
+export interface GetSmartQueueRealtimeMetricsResponse {
+  result:SmartQueueMetricsResult[]
+  /**
+   *The used timezone, e.g., 'Etc/GMT'
+  */
+  timezone:string
+}
+export interface GetSmartQueueDayHistoryRequest {
+  /**
+   *The application ID to search by
+  */
+  applicationId:number
+  /**
+   *The application name to search by. Can be used instead of the <b>application_id</b> parameter
+  */
+  applicationName:string
+  /**
+   *The smart queue ID list with a maximum of 5 values separated by the ';' symbol. Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+  */
+  sqQueueId:'any'|number|number[]
+  /**
+   *The report type. Possible values are calls_blocked_percentage, count_blocked_calls, average_abandonment_rate, count_abandonment_calls, service_level, occupancy_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_banned_time, min_time_in_queue,max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime
+  */
+  reportType:string|string[]
+  /**
+   *The user ID list with a maximum of 5 values separated by the ';' symbol. Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+  */
+  userId?:'any'|number|number[]
+  /**
+   *The user name list separated by the ';' symbol. <b>user_name</b> can be used instead of <b>user_id</b>
+  */
+  userName?:string|string[]
+  /**
+   *The smart queue name list separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+  */
+  sqQueueName?:string|string[]
+  /**
+   *The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. Default is the current time minus 1 day
+  */
+  fromDate?:Date
+  /**
+   *The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. Default is the current time
+  */
+  toDate?:Date
+  /**
+   *The selected timezone or the 'auto' value (the account location)
+  */
+  timezone?:string
+  /**
+   *Interval format: YYYY-MM-DD HH:mm:ss. Default is 1 day
+  */
+  interval?:string
+  /**
+   *Group the result by **agent** or *queue*. The **agent** grouping is allowed only for 1 queue and for the occupancy_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_banned_time, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime report types. The **queue** grouping allowed for the calls_blocked_percentage, count_blocked_calls, average_abandonment_rate, count_abandonment_calls, service_level, occupancy_rate, min_time_in_queue, max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime report types
+  */
+  groupBy?:string
+  /**
+   *Maximum waiting time. Required for the **service_level** report type
+  */
+  maxWaitingSec?:number
+}
+export interface GetSmartQueueDayHistoryResponse {
+  result:SmartQueueMetricsResult[]
+  /**
+   *The used timezone, e.g., 'Etc/GMT'
+  */
+  timezone:string
+}
+export interface RequestSmartQueueHistoryRequest {
+  /**
+   *The application ID to search by
+  */
+  applicationId:number
+  /**
+   *The application name to search by. Can be used instead of the <b>application_id</b> parameter
+  */
+  applicationName:string
+  /**
+   *The smart queue ID list with a maximum of 5 values separated by the ';' symbol. Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+  */
+  sqQueueId:'any'|number|number[]
+  /**
+   *The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. Default is the current time minus 1 day
+  */
+  fromDate:Date
+  /**
+   *The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. Default is the current time
+  */
+  toDate:Date
+  /**
+   *The report type. Possible values are calls_blocked_percentage, count_blocked_calls, average_abandonment_rate, count_abandonment_calls, service_level, occupancy_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_banned_time, min_time_in_queue,max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime
+  */
+  reportType:string|string[]
+  /**
+   *The user ID list with a maximum of 5 values separated by the ';' symbol. Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+  */
+  userId?:'any'|number|number[]
+  /**
+   *The user name list separated by the ';' symbol. Can be used instead of <b>user_id</b>
+  */
+  userName?:string|string[]
+  /**
+   *The smart queue name list separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+  */
+  sqQueueName?:string|string[]
+  /**
+   *The selected timezone or the 'auto' value (the account location)
+  */
+  timezone?:string
+  /**
+   *Interval format: YYYY-MM-DD HH:mm:ss. Default is 1 day
+  */
+  interval?:string
+  /**
+   *Group the result by **agent** or *queue*. The **agent** grouping is allowed only for 1 queue and for the occupancy_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_banned_time, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime report types. The **queue** grouping allowed for the calls_blocked_percentage, count_blocked_calls, average_abandonment_rate, count_abandonment_calls, service_level, occupancy_rate, min_time_in_queue, max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime report types
+  */
+  groupBy?:string
+  /**
+   *Maximum waiting time. Required for the **service_level** report type
+  */
+  maxWaitingSec?:number
+}
+export interface RequestSmartQueueHistoryResponse {
+  /**
+   *1
+  */
+  result:number
+  /**
+   *History report ID
+  */
+  historyReportId:number
+}
+export interface GetSQStateRequest {
+  /**
+   *The application ID to search by
+  */
+  applicationId:number
+  /**
+   *The smart queue ID list separated by the ';' symbol. Use the 'all' value to select all smart queues
+  */
+  sqQueueId:'any'|number|number[]
+  /**
+   *The application name to search by. Can be used instead of the <b>application_id</b> parameter
+  */
+  applicationName?:string
+  /**
+   *The smart queue name list separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+  */
+  sqQueueName?:string|string[]
+  /**
+   *The selected timezone or the 'auto' value (the account location)
+  */
+  timezone?:string
+}
+export interface GetSQStateResponse {
+  result:SmartQueueState[]
+}
+export interface SQ_AddQueueRequest {
+  /**
+   *ID of the application to bind to
+  */
+  applicationId:number
+  /**
+   *Unique smart queue name within the application, up to 100 characters
+  */
+  sqQueueName:string
+  /**
+   *Agent selection strategy for calls
+  */
+  callAgentSelection:SQAgentSelectionStrategies[]
+  /**
+   *Strategy of prioritizing CALL-type requests for service
+  */
+  callTaskSelection:SQTaskSelectionStrategies[]
+  /**
+   *Name of the application to bind to. Can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *Agent selection strategy for messages. Equals to the **call_agent_selection** value by default
+  */
+  imAgentSelection?:SQAgentSelectionStrategies[]
+  /**
+   *Strategy of prioritizing IM-type requests for service. Equals to the **call_task_selection** value by default
+  */
+  imTaskSelection?:SQTaskSelectionStrategies[]
+  fallbackAgentSelection?:string
+  /**
+   *Comment, up to 200 characters
+  */
+  description?:string
+  /**
+   *Maximum time in minutes that a CALL-type request can remain in the queue without being assigned to an agent
+  */
+  callMaxWaitingTime?:number
+  /**
+   *Maximum time in minutes that an IM-type request can remain in the queue without being assigned to an agent
+  */
+  imMaxWaitingTime?:number
+  /**
+   *Maximum size of the queue with CALL-type requests
+  */
+  callMaxQueueSize?:number
+  /**
+   *Maximum size of the queue with IM-type requests
+  */
+  imMaxQueueSize?:number
+}
+export interface SQ_AddQueueResponse {
+  /**
+   *ID of the added queue
+  */
+  sqQueueId:number
+}
+export interface SQ_SetQueueInfoRequest {
+  /**
+   *ID of the application to search by
+  */
+  applicationId:number
+  /**
+   *ID of the smart queue to search for
+  */
+  sqQueueId:number
+  /**
+   *Name of the application to search by. Can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *Name of the smart queue to search for. Can be used instead of <b>sq_queue_id</b>
+  */
+  sqQueueName?:string
+  /**
+   *New smart queue name within the application, up to 100 characters
+  */
+  newSqQueueName?:string
+  /**
+   *Agent selection strategy for calls
+  */
+  callAgentSelection?:SQAgentSelectionStrategies[]
+  /**
+   *Agent selection strategy for messages. Equals to the **call_agent_selection** value by default
+  */
+  imAgentSelection?:SQAgentSelectionStrategies[]
+  /**
+   *Strategy of prioritizing CALL-type requests for service
+  */
+  callTaskSelection?:SQTaskSelectionStrategies[]
+  /**
+   *Strategy of prioritizing IM-type requests for service. Equals to the **call_task_selection** value by default
+  */
+  imTaskSelection?:SQTaskSelectionStrategies[]
+  fallbackAgentSelection?:string
+  /**
+   *Comment, up to 200 characters
+  */
+  description?:string
+  /**
+   *Maximum time in minutes that a CALL-type request can remain in the queue without being assigned to an agent
+  */
+  callMaxWaitingTime?:number
+  /**
+   *Maximum time in minutes that an IM-type request can remain in the queue without being assigned to an agent
+  */
+  imMaxWaitingTime?:number
+  /**
+   *Maximum size of the queue with CALL-type requests
+  */
+  callMaxQueueSize?:number
+  /**
+   *Maximum size of the queue with IM-type requests
+  */
+  imMaxQueueSize?:number
+}
+export interface SQ_SetQueueInfoResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface SQ_DelQueueRequest {
+  /**
+   *ID of the application to search by
+  */
+  applicationId:number
+  /**
+   *List of smart queue IDs separated by the ';' symbol. Use 'all' to delete all the queues
+  */
+  sqQueueId:'any'|number|number[]
+  /**
+   *Name of the application to search by. Can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *List of smart queue names separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+  */
+  sqQueueName?:string|string[]
+}
+export interface SQ_DelQueueResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface SQ_GetQueuesRequest {
+  /**
+   *ID of the application to search by
+  */
+  applicationId:number
+  /**
+   *Name of the application to search by. Can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *List of smart queue IDs separated by the ';' symbol
+  */
+  sqQueueId?:'any'|number|number[]
+  /**
+   *List of smart queue names separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+  */
+  sqQueueName?:string|string[]
+  /**
+   *Substring of the smart queue name to filter
+  */
+  sqQueueNameTemplate?:string
+  /**
+   *ID of the user that is bound to the queue
+  */
+  userId?:number
+  /**
+   *Name of the user that is bound to the queue. Can be used instead of <b>user_id</b>
+  */
+  userName?:string
+  /**
+   *ID of the user that is not bound to the queue
+  */
+  excludedUserId?:number
+  /**
+   *Name of the user that is not bound to the queue. Can be used instead of <b>excluded_user_id</b>
+  */
+  excludedUserName?:string
+  /**
+   *Number of items to show in the output
+  */
+  count?:number
+  /**
+   *Number of items to skip in the output
+  */
+  offset?:number
+}
+export interface SQ_GetQueuesResponse {
+  /**
+   *The found skill(s)
+  */
+  result:GetSQQueuesResult
+}
+export interface SQ_AddSkillRequest {
+  /**
+   *ID of the application to bind to
+  */
+  applicationId:number
+  /**
+   *Unique skill name within the application
+  */
+  sqSkillName:string
+  /**
+   *Name of the application to bind to. Can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *Comment, up to 200 characters
+  */
+  description?:string
+}
+export interface SQ_AddSkillResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface SQ_DelSkillRequest {
+  /**
+   *ID of the application to search by
+  */
+  applicationId:number
+  /**
+   *List of skill IDs separated by the ';' symbol. Use 'all' to delete all the skills
+  */
+  sqSkillId:'any'|number|number[]
+  /**
+   *Name of the application to search by. Can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *List of skill names separated by the ';' symbol. Can be used instead of <b>sq_skill_id</b>
+  */
+  sqSkillName?:string|string[]
+}
+export interface SQ_DelSkillResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface SQ_SetSkillInfoRequest {
+  /**
+   *ID of the application to search by
+  */
+  applicationId:number
+  /**
+   *ID of the skill
+  */
+  sqSkillId:number
+  /**
+   *Name of the application to search by. Can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *Name of the skill. Can be used instead of <b>sq_skill_id</b>
+  */
+  sqSkillName?:string
+  /**
+   *New unique skill name within the application
+  */
+  newSqSkillName?:string
+  /**
+   *Comment, up to 200 characters
+  */
+  description?:string
+}
+export interface SQ_SetSkillInfoResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface SQ_BindSkillRequest {
+  /**
+   *ID of the application to search by
+  */
+  applicationId:number
+  /**
+   *List of user IDs separated by the ';' symbol. Use 'all' to select all the users
+  */
+  userId:'any'|number|number[]
+  /**
+   *Skills to be bound to agents in the json array format. The array should contain objects with the <b>sq_skill_id</b>/<b>sq_skill_name</b> and <b>sq_skill_level</b> keys where skill levels range from 1 to 5
+  */
+  sqSkills:any
+  /**
+   *Name of the application to search by. Can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *List of user names separated by the ';' symbol. Can be used instead of <b>user_id</b>
+  */
+  userName?:string|string[]
+  /**
+   *Binding mode
+  */
+  bindMode?:SQSkillBindingModes[]
+}
+export interface SQ_BindSkillResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface SQ_UnbindSkillRequest {
+  /**
+   *ID of the application to search by
+  */
+  applicationId:number
+  /**
+   *List of user IDs separated by the ';' symbol. Use 'all' to select all the users
+  */
+  userId:'any'|number|number[]
+  /**
+   *List of skill IDs separated by the ';' symbol. Use 'all' to undbind all the skills
+  */
+  sqSkillId:'any'|number|number[]
+  /**
+   *Name of the application to search by. Can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *List of user names separated by the ';' symbol. Can be used instead of <b>user_id</b>
+  */
+  userName?:string|string[]
+  /**
+   *List of skill names separated by the ';' symbol. Can be used instead of <b>sq_skill_id</b>
+  */
+  sqSkillName?:string|string[]
+}
+export interface SQ_UnbindSkillResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface SQ_GetSkillsRequest {
+  /**
+   *ID of the application to search by
+  */
+  applicationId:number
+  /**
+   *Name of the application to search by. Can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *List of user IDs separated by the ';' symbol
+  */
+  userId?:'any'|number|number[]
+  /**
+   *List of user names separated by the ';' symbol. Can be used instead of <b>user_id</b>
+  */
+  userName?:string|string[]
+  /**
+   *List of skill IDs separated by the ';' symbol
+  */
+  sqSkillId?:'any'|number|number[]
+  /**
+   *List of skill names separated by the ';' symbol. Can be used instead of <b>sq_skill_id</b>
+  */
+  sqSkillName?:string|string[]
+  /**
+   *Substring of the skill name to filter, case-insensitive
+  */
+  sqSkillNameTemplate?:string
+  /**
+   *ID of the user that is not bound to the skill
+  */
+  excludedUserId?:number
+  /**
+   *Name of the user that is not bound to the skill. Can be used instead of <b>excluded_user_id</b>
+  */
+  excludedUserName?:string
+  /**
+   *Number of items to show in the output
+  */
+  count?:number
+  /**
+   *Number of items to skip in the output
+  */
+  offset?:number
+}
+export interface SQ_GetSkillsResponse {
+  /**
+   *The found skill(s).
+  */
+  result:GetSQSkillsResult
+}
+export interface SQ_BindAgentRequest {
+  /**
+   *ID of the application to search by
+  */
+  applicationId:number
+  /**
+   *ID of the smart queue
+  */
+  sqQueueId:number
+  /**
+   *List of user IDs separated by the ';' symbol. Use 'all' to select all the users
+  */
+  userId:'any'|number|number[]
+  /**
+   *Name of the application to search by. Can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *Name of the smart queue
+  */
+  sqQueueName?:string
+  /**
+   *List of user names separated by the ';' symbol. Can be used instead of <b>user_id</b>
+  */
+  userName?:string|string[]
+  /**
+   *Binding mode
+  */
+  bindMode?:SQAgentBindingModes[]
+}
+export interface SQ_BindAgentResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface SQ_UnbindAgentRequest {
+  /**
+   *ID of the application to search by
+  */
+  applicationId:number
+  /**
+   *List of smart queue IDs separated by the ';' symbol. Use 'all' to select all the queues
+  */
+  sqQueueId:'any'|number|number[]
+  /**
+   *List of user IDs separated by the ';' symbol. Use 'all' to select all the users
+  */
+  userId:'any'|number|number[]
+  /**
+   *Name of the application to search by. Can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *List of smart queue names separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+  */
+  sqQueueName?:string|string[]
+  /**
+   *List of user names separated by the ';' symbol. Can be used instead of <b>user_id</b>
+  */
+  userName?:string|string[]
+}
+export interface SQ_UnbindAgentResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface SQ_GetAgentsRequest {
+  /**
+   *ID of the application to search by
+  */
+  applicationId:number
+  /**
+   *Name of the application to search by. Can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *List of smart queue IDs separated by the ';' symbol. Use 'all' to select all the queues
+  */
+  sqQueueId?:'any'|number|number[]
+  /**
+   *List of smart queue names separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+  */
+  sqQueueName?:string|string[]
+  /**
+   *ID of the smart queue to exclude
+  */
+  excludedSqQueueId?:number
+  /**
+   *Name of the smart queue to exclude. Can be used instead of <b>excluded_sq_queue_id</b>
+  */
+  excludedSqQueueName?:string
+  /**
+   *Skills to filter in the json array format. The array should contain objects with the <b>sq_skill_id</b>/<b>sq_skill_name</b>, <b>min_sq_skill_level</b>, and <b>max_sq_skill_level</b> keys where skill levels range from 1 to 5
+  */
+  sqSkills?:any
+  /**
+   *List of user IDs separated by the ';' symbol
+  */
+  userId?:'any'|number|number[]
+  /**
+   *List of user names separated by the ';' symbol. Can be used instead of <b>user_id</b>
+  */
+  userName?:string|string[]
+  /**
+   *Substring of the user name to filter
+  */
+  userNameTemplate?:string
+  /**
+   *Filter statuses in the json array format. The array should contain objects with the <b>sq_status_type</b> and <b>sq_status_name</b> keys. Possible values for <b>sq_status_type</b> are 'CALL' and'IM'. Possible values for <b>sq_status_name</b> are 'OFFLINE', 'ONLINE', 'READY', 'IN_SERVICE', 'AFTER_SERVICE', 'DND'
+  */
+  sqStatuses?:any
+  /**
+   *Display agent skills
+  */
+  withSqSkills?:boolean
+  /**
+   *Display agent queues
+  */
+  withSqQueues?:boolean
+  /**
+   *Display agent current statuses
+  */
+  withSqStatuses?:boolean
+  /**
+   *Number of items to show in the output
+  */
+  count?:number
+  /**
+   *Number of items to skip in the output
+  */
+  offset?:number
+}
+export interface SQ_GetAgentsResponse {
+  /**
+   *The found agent(s)
+  */
+  result:GetSQAgentsResult
+}
+export interface SQ_SetAgentInfoRequest {
+  /**
+   *ID of the application to search by
+  */
+  applicationId:number
+  /**
+   *List of user IDs separated by the ';' symbol. Use 'all' to select all the users
+  */
+  userId:'any'|number|number[]
+  /**
+   *The agent can handle calls. When set to false, the agent is excluded from the CALL-request distribution
+  */
+  handleCalls:boolean
+  /**
+   *Name of the application to search by. Can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *List of user names separated by the ';' symbol. Can be used instead of <b>user_id</b>
+  */
+  userName?:string|string[]
+  /**
+   *Maximum number of chats that the user processes simultaneously
+  */
+  maxSimultaneousConversations?:number
+}
+export interface SQ_SetAgentInfoResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface SmartQueueInterface {
+  getSmartQueueRealtimeMetrics: (request:GetSmartQueueRealtimeMetricsRequest) => Promise<GetSmartQueueRealtimeMetricsResponse>
+  getSmartQueueDayHistory: (request:GetSmartQueueDayHistoryRequest) => Promise<GetSmartQueueDayHistoryResponse>
+  requestSmartQueueHistory: (request:RequestSmartQueueHistoryRequest) => Promise<RequestSmartQueueHistoryResponse>
+  getSQState: (request:GetSQStateRequest) => Promise<GetSQStateResponse>
+  sQ_AddQueue: (request:SQ_AddQueueRequest) => Promise<SQ_AddQueueResponse>
+  sQ_SetQueueInfo: (request:SQ_SetQueueInfoRequest) => Promise<SQ_SetQueueInfoResponse>
+  sQ_DelQueue: (request:SQ_DelQueueRequest) => Promise<SQ_DelQueueResponse>
+  sQ_GetQueues: (request:SQ_GetQueuesRequest) => Promise<SQ_GetQueuesResponse>
+  sQ_AddSkill: (request:SQ_AddSkillRequest) => Promise<SQ_AddSkillResponse>
+  sQ_DelSkill: (request:SQ_DelSkillRequest) => Promise<SQ_DelSkillResponse>
+  sQ_SetSkillInfo: (request:SQ_SetSkillInfoRequest) => Promise<SQ_SetSkillInfoResponse>
+  sQ_BindSkill: (request:SQ_BindSkillRequest) => Promise<SQ_BindSkillResponse>
+  sQ_UnbindSkill: (request:SQ_UnbindSkillRequest) => Promise<SQ_UnbindSkillResponse>
+  sQ_GetSkills: (request:SQ_GetSkillsRequest) => Promise<SQ_GetSkillsResponse>
+  sQ_BindAgent: (request:SQ_BindAgentRequest) => Promise<SQ_BindAgentResponse>
+  sQ_UnbindAgent: (request:SQ_UnbindAgentRequest) => Promise<SQ_UnbindAgentResponse>
+  sQ_GetAgents: (request:SQ_GetAgentsRequest) => Promise<SQ_GetAgentsResponse>
+  sQ_SetAgentInfo: (request:SQ_SetAgentInfoRequest) => Promise<SQ_SetAgentInfoResponse>
 }
 
 export interface AddSkillRequest {
@@ -3374,7 +4260,7 @@ export interface GetSkillsResponse {
 }
 export interface BindSkillRequest {
   /**
-   *The skill ID list separated by the ';' symbol or the 'all' value
+   *The skill ID list separated by the ';' symbol. Use the 'all' value to select all skills
   */
   skillId:'any'|number|number[]
   /**
@@ -3382,7 +4268,7 @@ export interface BindSkillRequest {
   */
   skillName:string|string[]
   /**
-   *The user ID list separated by the ';' symbol or the 'all' value
+   *The user ID list separated by the ';' symbol. Use the 'all' value to select all users
   */
   userId:'any'|number|number[]
   /**
@@ -3390,7 +4276,7 @@ export interface BindSkillRequest {
   */
   userName:string|string[]
   /**
-   *The ACD queue ID list separated by the ';' symbol or the 'all' value
+   *The ACD queue ID list separated by the ';' symbol. Use the 'all' value to select all ACD queues
   */
   acdQueueId:'any'|number|number[]
   /**
@@ -3457,7 +4343,7 @@ export interface AddAdminUserRequest {
   */
   adminUserActive?:boolean
   /**
-   *The role(s) ID created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role ID list separated by the ';' symbol or the 'all' value
+   *The role(s) ID created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role ID list separated by the ';' symbol. Use the 'all' value to select all admin roles
   */
   adminRoleId?:string
   /**
@@ -3481,7 +4367,7 @@ export interface AddAdminUserResponse {
 }
 export interface DelAdminUserRequest {
   /**
-   *The admin user ID list separated by the ';' symbol or the 'all' value
+   *The admin user ID list separated by the ';' symbol. Use the 'all' value to select all admin users
   */
   requiredAdminUserId:'any'|number|number[]
   /**
@@ -3574,7 +4460,7 @@ export interface GetAdminUsersResponse {
 }
 export interface AttachAdminRoleRequest {
   /**
-   *The admin user ID list separated by the ';' symbol or the 'all' value
+   *The admin user ID list separated by the ';' symbol. Use the 'all' value to select all admin users
   */
   requiredAdminUserId:'any'|number|number[]
   /**
@@ -3582,7 +4468,7 @@ export interface AttachAdminRoleRequest {
   */
   requiredAdminUserName:string|string[]
   /**
-   *The role(s) ID created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attached admin role ID list separated by the ';' symbol or the 'all' value
+   *The role(s) ID created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attached admin role ID list separated by the ';' symbol. Use the 'all' value to select alladmin roles
   */
   adminRoleId:'any'|number|number[]
   /**
@@ -3618,7 +4504,7 @@ export interface AddAdminRoleRequest {
   */
   adminRoleActive?:boolean
   /**
-   *The admin role ID list separated by the ';' symbol or the 'all' value. The list specifies the roles from which the new role automatically copies all permissions (allowed_entries and denied_entries)
+   *The admin role ID list separated by the ';' symbol. Use the 'all' value to select all admin roles. The list specifies the roles from which the new role automatically copies all permissions (allowed_entries and denied_entries)
   */
   likeAdminRoleId?:'any'|number|number[]
   /**
@@ -3646,7 +4532,7 @@ export interface AddAdminRoleResponse {
 }
 export interface DelAdminRoleRequest {
   /**
-   *The admin role ID list separated by the ';' symbol or the 'all' value
+   *The admin role ID list separated by the ';' symbol. Use the 'all' value to select all admin roles
   */
   adminRoleId:'any'|number|number[]
   /**
@@ -3690,7 +4576,7 @@ export interface SetAdminRoleInfoRequest {
   */
   deniedEntries?:string|string[]
   /**
-   *The admin role ID list separated by the ';' symbol or the 'all' value. The list specifies the roles from which the allowed_entries and denied_entries will be merged
+   *The admin role ID list separated by the ';' symbol. Use the 'all' value to select all admin roles. The list specifies the roles from which the allowed_entries and denied_entries will be merged
   */
   likeAdminRoleId?:'any'|number|number[]
   /**
@@ -3731,11 +4617,11 @@ export interface GetAdminRolesRequest {
   withParentRoles?:boolean
   withSystemRoles?:boolean
   /**
-   *The attached admin user ID list separated by the ';' symbol or the 'all' value
+   *The attached admin user ID list separated by the ';' symbol. Use the 'all' value to select all admin users
   */
   includedAdminUserId?:'any'|number|number[]
   /**
-   *The not attached admin user ID list separated by the ';' symbol or the 'all' value
+   *Not attached admin user ID list separated by the ';' symbol. Use the 'all' value to select all admin users
   */
   excludedAdminUserId?:'any'|number|number[]
   /**
@@ -4043,7 +4929,7 @@ export interface RegulationAddressInterface {
 
 export interface AddPushCredentialRequest {
   /**
-   *The push provider name. The possible values are: APPLE, APPLE_VOIP, GOOGLE, HUAWEI
+   *The push provider name. The possible values are APPLE, APPLE_VOIP, GOOGLE, HUAWEI
   */
   pushProviderName:string
   /**
@@ -4167,7 +5053,7 @@ export interface GetPushCredentialRequest {
   */
   pushCredentialId?:number
   /**
-   *The push provider name. The possible values are: APPLE, APPLE_VOIP, GOOGLE, HUAWEI
+   *The push provider name. The possible values are APPLE, APPLE_VOIP, GOOGLE, HUAWEI
   */
   pushProviderName?:string
   /**
@@ -4197,7 +5083,7 @@ export interface BindPushCredentialRequest {
   */
   pushCredentialId:'any'|number|number[]
   /**
-   *The application ID list separated by the ';' symbol or the 'all' value
+   *The application ID list separated by the ';' symbol. Use the 'all' value to select all applications
   */
   applicationId:'any'|number|number[]
   /**
@@ -4284,7 +5170,7 @@ export interface BindDialogflowKeysRequest {
   */
   dialogflowKeyId:number
   /**
-   *The application ID list separated by the ';' symbol or the 'all' value
+   *The application ID list separated by the ';' symbol. Use the 'all' value to select all applications
   */
   applicationId:'any'|number|number[]
   /**
@@ -4330,7 +5216,7 @@ export interface A2PSendSmsRequest {
   */
   srcNumber:string
   /**
-   *The destination phone numbers separated by the ';' symbol
+   *The destination phone numbers separated by the ';' symbol. The maximum number of these phone numbers is 100
   */
   dstNumbers:string|string[]
   /**
@@ -4373,7 +5259,7 @@ export interface GetSmsHistoryRequest {
   */
   direction?:string
   /**
-   *Maximum number of resulting rows fetched. Must be not more than 1000. If left blank, then the default value of 1000 will be used
+   *Maximum number of resulting rows fetched. Must be not bigger than 1000. If left blank, then the default value of 1000 will be used
   */
   count?:number
   /**
@@ -4410,7 +5296,7 @@ export interface A2PGetSmsHistoryRequest {
   */
   destinationNumber?:string
   /**
-   *Maximum number of resulting rows fetched. Must be not more than 1000. If left blank, then the default value of 1000 will be used
+   *Maximum number of resulting rows fetched. Must be not bigger than 1000. If left blank, then the default value of 1000 will be used
   */
   count?:number
   /**
@@ -4426,7 +5312,7 @@ export interface A2PGetSmsHistoryRequest {
   */
   toDate?:Date
   /**
-   *The output format. The possible values are: json, csv
+   *The output format. The possible values are json, csv
   */
   output?:string
   /**
@@ -4742,11 +5628,11 @@ export interface RoleSystemInterface {
 
 export interface SetKeyValueItemRequest {
   /**
-   *Key to create, up to 200 charactrers
+   *Key, up to 200 characters. A key can contain a namespace that is written before the ':' symbol, for example, test:1234. Thus, namespace 'test' can be used as a pattern in the [GetKeyValueItems](/docs/references/httpapi/keyvaluestorage#getkeyvalueitems) and [GetKeyValueKeys](/docs/references/httpapi/keyvaluestorage#getkeyvaluekeys) methods to find the keys with the same namespace
   */
   key:string
   /**
-   *Value for the specified key, up to 2000 charactrers
+   *Value for the specified key, up to 2000 characters
   */
   value:string
   /**
@@ -4774,7 +5660,7 @@ export interface SetKeyValueItemResponse {
 }
 export interface DelKeyValueItemRequest {
   /**
-   *Key to delete, up to 200 charactrers
+   *Key, up to 200 characters
   */
   key:string
   /**
@@ -4791,7 +5677,7 @@ export interface DelKeyValueItemResponse {
 }
 export interface GetKeyValueItemRequest {
   /**
-   *Key to get, up to 200 charactrers
+   *Key, up to 200 characters
   */
   key:string
   /**
@@ -4811,7 +5697,7 @@ export interface GetKeyValueItemResponse {
 }
 export interface GetKeyValueItemsRequest {
   /**
-   *Key pattern, up to 200 charactrers
+   *Namespace that keys should contain, up to 200 characters
   */
   key:string
   /**
@@ -4843,7 +5729,7 @@ export interface GetKeyValueKeysRequest {
   */
   applicationId:number
   /**
-   *Key pattern, up to 200 charactrers
+   *Namespace that keys should contain, up to 200 characters
   */
   key?:string
   /**
@@ -4871,6 +5757,35 @@ export interface KeyValueStorageInterface {
   getKeyValueItem: (request:GetKeyValueItemRequest) => Promise<GetKeyValueItemResponse>
   getKeyValueItems: (request:GetKeyValueItemsRequest) => Promise<GetKeyValueItemsResponse>
   getKeyValueKeys: (request:GetKeyValueKeysRequest) => Promise<GetKeyValueKeysResponse>
+}
+
+export interface GetAccountInvoicesRequest {
+  status?:string
+  /**
+   *Number of invooces to show per page. Default value is 20
+  */
+  count?:number
+  /**
+   *Number of invoices to skip (e.g. if you set count = 20 and offset = 0 the first time, the next time, offset has to be equal to 20 to skip the items shown earlier). Default value is 0
+  */
+  offset?:number
+}
+export interface GetAccountInvoicesResponse {
+  /**
+   *Array of the account invoices
+  */
+  result:AccountInvocie
+  /**
+   *Total number of invoices matching the query parameters
+  */
+  totalCount:number
+  /**
+   *Number of returned invoices matching the query parameters
+  */
+  count:number
+}
+export interface InvoicesInterface {
+  getAccountInvoices: (request:GetAccountInvoicesRequest) => Promise<GetAccountInvoicesResponse>
 }
 
 
