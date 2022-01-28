@@ -1232,11 +1232,15 @@ export enum APIErrorCode{
    */
   INVALID_PLAN_TYPE = 426,
   /**
-   * Invalid list type. Possible values are: 'automatic' and 'manual'
+   * Invalid list type. Possible values are 'automatic' and 'manual'
    */
   INVALID_LIST_TYPE = 427,
   /**
-   * Invalid status. Possible values are: 'in progress', 'canceled' and 'completed'
+   * Invalid status. Possible values are 'in progress', 'canceled' and 'completed'
    */
   INVALID_STATUS = 428,
+  /**
+   * Invalid token format
+   */
+  INVALID_TOKEN_FORMAT = 447,
 }

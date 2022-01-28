@@ -1,6 +1,6 @@
 import TypeTransformer from './TypeTransformer';
-import {UtilsReturns, NewRegistrationInterface,AccountsAuthenticationInterface,GetAccountInfoRequest,GetAccountInfoResponse,SetAccountInfoRequest,SetAccountInfoResponse,SetChildAccountInfoRequest,SetChildAccountInfoResponse,GetCurrencyRateRequest,GetCurrencyRateResponse,GetResourcePriceRequest,GetResourcePriceResponse,GetSubscriptionPriceRequest,GetSubscriptionPriceResponse,GetChildrenAccountsRequest,GetChildrenAccountsResponse,GetMoneyAmountToChargeRequest,GetMoneyAmountToChargeResponse,ChargeAccountRequest,ChargeAccountResponse,ChangeAccountPlanRequest,ChangeAccountPlanResponse,GetAccountPlansRequest,GetAccountPlansResponse,GetAvailablePlansRequest,GetAvailablePlansResponse,GetAccountDocumentsRequest,GetAccountDocumentsResponse,AccountsInterface,AddApplicationRequest,AddApplicationResponse,DelApplicationRequest,DelApplicationResponse,SetApplicationInfoRequest,SetApplicationInfoResponse,GetApplicationsRequest,GetApplicationsResponse,ApplicationsInterface,AddUserRequest,AddUserResponse,DelUserRequest,DelUserResponse,SetUserInfoRequest,SetUserInfoResponse,GetUsersRequest,GetUsersResponse,TransferMoneyToUserRequest,TransferMoneyToUserResponse,UsersInterface,CreateManualCallListRequest,CreateManualCallListResponse,StartNextCallTaskRequest,StartNextCallTaskResponse,GetCallListsRequest,GetCallListsResponse,GetCallListDetailsRequest,GetCallListDetailsResponse,StopCallListProcessingRequest,StopCallListProcessingResponse,RecoverCallListRequest,RecoverCallListResponse,CallListsInterface,AddScenarioRequest,AddScenarioResponse,DelScenarioRequest,DelScenarioResponse,BindScenarioRequest,BindScenarioResponse,GetScenariosRequest,GetScenariosResponse,SetScenarioInfoRequest,SetScenarioInfoResponse,ReorderScenariosRequest,ReorderScenariosResponse,StartScenariosRequest,StartScenariosResponse,StartConferenceRequest,StartConferenceResponse,ScenariosInterface,AddRuleRequest,AddRuleResponse,DelRuleRequest,DelRuleResponse,SetRuleInfoRequest,SetRuleInfoResponse,GetRulesRequest,GetRulesResponse,ReorderRulesRequest,ReorderRulesResponse,RulesInterface,GetCallHistoryRequest,GetCallHistoryResponse,GetHistoryReportsRequest,GetHistoryReportsResponse,GetTransactionHistoryRequest,GetTransactionHistoryResponse,DeleteRecordRequest,DeleteRecordResponse,GetACDHistoryRequest,GetACDHistoryResponse,GetAuditLogRequest,GetAuditLogResponse,HistoryInterface,AddPstnBlackListItemRequest,AddPstnBlackListItemResponse,SetPstnBlackListItemRequest,SetPstnBlackListItemResponse,DelPstnBlackListItemRequest,DelPstnBlackListItemResponse,GetPstnBlackListRequest,GetPstnBlackListResponse,PSTNBlacklistInterface,AddSipWhiteListItemRequest,AddSipWhiteListItemResponse,DelSipWhiteListItemRequest,DelSipWhiteListItemResponse,SetSipWhiteListItemRequest,SetSipWhiteListItemResponse,GetSipWhiteListRequest,GetSipWhiteListResponse,SIPWhiteListInterface,CreateSipRegistrationRequest,CreateSipRegistrationResponse,UpdateSipRegistrationRequest,UpdateSipRegistrationResponse,BindSipRegistrationRequest,BindSipRegistrationResponse,DeleteSipRegistrationRequest,DeleteSipRegistrationResponse,GetSipRegistrationsRequest,GetSipRegistrationsResponse,SIPRegistrationInterface,AttachPhoneNumberRequest,AttachPhoneNumberResponse,BindPhoneNumberToApplicationRequest,BindPhoneNumberToApplicationResponse,DeactivatePhoneNumberRequest,DeactivatePhoneNumberResponse,SetPhoneNumberInfoRequest,SetPhoneNumberInfoResponse,GetPhoneNumbersRequest,GetPhoneNumbersResponse,GetNewPhoneNumbersRequest,GetNewPhoneNumbersResponse,GetPhoneNumberCategoriesRequest,GetPhoneNumberCategoriesResponse,GetPhoneNumberCountryStatesRequest,GetPhoneNumberCountryStatesResponse,GetPhoneNumberRegionsRequest,GetPhoneNumberRegionsResponse,GetActualPhoneNumberRegionRequest,GetActualPhoneNumberRegionResponse,PhoneNumbersInterface,AddCallerIDRequest,AddCallerIDResponse,ActivateCallerIDRequest,ActivateCallerIDResponse,DelCallerIDRequest,DelCallerIDResponse,GetCallerIDsRequest,GetCallerIDsResponse,VerifyCallerIDRequest,VerifyCallerIDResponse,CallerIDsInterface,AddQueueRequest,AddQueueResponse,BindUserToQueueRequest,BindUserToQueueResponse,DelQueueRequest,DelQueueResponse,SetQueueInfoRequest,SetQueueInfoResponse,GetQueuesRequest,GetQueuesResponse,GetACDStateRequest,GetACDStateResponse,GetACDOperatorStatisticsRequest,GetACDOperatorStatisticsResponse,GetACDQueueStatisticsRequest,GetACDQueueStatisticsResponse,GetACDOperatorStatusStatisticsRequest,GetACDOperatorStatusStatisticsResponse,QueuesInterface,SmartQueuesInterface,AddSkillRequest,AddSkillResponse,DelSkillRequest,DelSkillResponse,SetSkillInfoRequest,SetSkillInfoResponse,GetSkillsRequest,GetSkillsResponse,BindSkillRequest,BindSkillResponse,SkillsInterface,RobokassaPaymentSystemInterface,CreditCardsInterface,AgreementsInterface,AddAdminUserRequest,AddAdminUserResponse,DelAdminUserRequest,DelAdminUserResponse,SetAdminUserInfoRequest,SetAdminUserInfoResponse,GetAdminUsersRequest,GetAdminUsersResponse,AttachAdminRoleRequest,AttachAdminRoleResponse,AdminUsersInterface,AddAdminRoleRequest,AddAdminRoleResponse,DelAdminRoleRequest,DelAdminRoleResponse,SetAdminRoleInfoRequest,SetAdminRoleInfoResponse,GetAdminRolesRequest,GetAdminRolesResponse,GetAvailableAdminRoleEntriesRequest,GetAvailableAdminRoleEntriesResponse,AdminRolesInterface,AddAuthorizedAccountIPRequest,AddAuthorizedAccountIPResponse,DelAuthorizedAccountIPRequest,DelAuthorizedAccountIPResponse,GetAuthorizedAccountIPsRequest,GetAuthorizedAccountIPsResponse,CheckAuthorizedAccountIPRequest,CheckAuthorizedAccountIPResponse,AuthorizedIPsInterface,ContractorsInterface,ContactsInterface,LinkRegulationAddressRequest,LinkRegulationAddressResponse,GetZIPCodesRequest,GetZIPCodesResponse,GetRegulationsAddressRequest,GetRegulationsAddressResponse,GetAvailableRegulationsRequest,GetAvailableRegulationsResponse,GetCountriesRequest,GetCountriesResponse,GetRegionsRequest,GetRegionsResponse,RegulationAddressInterface,AddPushCredentialRequest,AddPushCredentialResponse,SetPushCredentialRequest,SetPushCredentialResponse,DelPushCredentialRequest,DelPushCredentialResponse,GetPushCredentialRequest,GetPushCredentialResponse,BindPushCredentialRequest,BindPushCredentialResponse,PushCredentialsInterface,AddDialogflowKeyRequest,AddDialogflowKeyResponse,SetDialogflowKeyRequest,SetDialogflowKeyResponse,DelDialogflowKeyRequest,DelDialogflowKeyResponse,GetDialogflowKeysRequest,GetDialogflowKeysResponse,BindDialogflowKeysRequest,BindDialogflowKeysResponse,DialogflowCredentialsInterface,SendSmsMessageRequest,SendSmsMessageResponse,A2PSendSmsRequest,A2PSendSmsResponse,ControlSmsRequest,ControlSmsResponse,GetSmsHistoryRequest,GetSmsHistoryResponse,A2PGetSmsHistoryRequest,A2PGetSmsHistoryResponse,SMSInterface,GetRecordStoragesRequest,GetRecordStoragesResponse,RecordStoragesInterface,MGPInterface,CreateKeyRequest,CreateKeyResponse,GetKeysRequest,GetKeysResponse,UpdateKeyRequest,UpdateKeyResponse,DeleteKeyRequest,DeleteKeyResponse,SetKeyRolesRequest,SetKeyRolesResponse,GetKeyRolesRequest,GetKeyRolesResponse,RemoveKeyRolesRequest,RemoveKeyRolesResponse,AddSubUserRequest,AddSubUserResponse,GetSubUsersRequest,GetSubUsersResponse,SetSubUserInfoRequest,SetSubUserInfoResponse,DelSubUserRequest,DelSubUserResponse,SetSubUserRolesRequest,SetSubUserRolesResponse,GetSubUserRolesRequest,GetSubUserRolesResponse,RemoveSubUserRolesRequest,RemoveSubUserRolesResponse,GetRolesRequest,GetRolesResponse,GetRoleGroupsRequest,GetRoleGroupsResponse,RoleSystemInterface,SetKeyValueItemRequest,SetKeyValueItemResponse,DelKeyValueItemRequest,DelKeyValueItemResponse,GetKeyValueItemRequest,GetKeyValueItemResponse,GetKeyValueItemsRequest,GetKeyValueItemsResponse,GetKeyValueKeysRequest,GetKeyValueKeysResponse,KeyValueStorageInterface,ChildAccountsInterface} from './Interfaces'
-import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SkillInfo,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsTransaction,FailedSms,SmsHistory,A2PSmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,KeyValueItems,KeyValueKeys} from './Structures'
+import {UtilsReturns, NewRegistrationInterface,AccountsAuthenticationInterface,GetAccountInfoRequest,GetAccountInfoResponse,SetAccountInfoRequest,SetAccountInfoResponse,SetChildAccountInfoRequest,SetChildAccountInfoResponse,GetCurrencyRateRequest,GetCurrencyRateResponse,GetResourcePriceRequest,GetResourcePriceResponse,GetSubscriptionPriceRequest,GetSubscriptionPriceResponse,GetChildrenAccountsRequest,GetChildrenAccountsResponse,GetMoneyAmountToChargeRequest,GetMoneyAmountToChargeResponse,ChargeAccountRequest,ChargeAccountResponse,ChangeAccountPlanRequest,ChangeAccountPlanResponse,GetAccountPlansRequest,GetAccountPlansResponse,GetAvailablePlansRequest,GetAvailablePlansResponse,GetAccountDocumentsRequest,GetAccountDocumentsResponse,AccountsInterface,AddApplicationRequest,AddApplicationResponse,DelApplicationRequest,DelApplicationResponse,SetApplicationInfoRequest,SetApplicationInfoResponse,GetApplicationsRequest,GetApplicationsResponse,ApplicationsInterface,AddUserRequest,AddUserResponse,DelUserRequest,DelUserResponse,SetUserInfoRequest,SetUserInfoResponse,GetUsersRequest,GetUsersResponse,TransferMoneyToUserRequest,TransferMoneyToUserResponse,UsersInterface,CreateManualCallListRequest,CreateManualCallListResponse,StartNextCallTaskRequest,StartNextCallTaskResponse,GetCallListsRequest,GetCallListsResponse,GetCallListDetailsRequest,GetCallListDetailsResponse,StopCallListProcessingRequest,StopCallListProcessingResponse,RecoverCallListRequest,RecoverCallListResponse,CallListsInterface,AddScenarioRequest,AddScenarioResponse,DelScenarioRequest,DelScenarioResponse,BindScenarioRequest,BindScenarioResponse,GetScenariosRequest,GetScenariosResponse,SetScenarioInfoRequest,SetScenarioInfoResponse,ReorderScenariosRequest,ReorderScenariosResponse,StartScenariosRequest,StartScenariosResponse,StartConferenceRequest,StartConferenceResponse,ScenariosInterface,AddRuleRequest,AddRuleResponse,DelRuleRequest,DelRuleResponse,SetRuleInfoRequest,SetRuleInfoResponse,GetRulesRequest,GetRulesResponse,ReorderRulesRequest,ReorderRulesResponse,RulesInterface,GetCallHistoryRequest,GetCallHistoryResponse,GetHistoryReportsRequest,GetHistoryReportsResponse,GetTransactionHistoryRequest,GetTransactionHistoryResponse,DeleteRecordRequest,DeleteRecordResponse,GetACDHistoryRequest,GetACDHistoryResponse,GetAuditLogRequest,GetAuditLogResponse,HistoryInterface,AddPstnBlackListItemRequest,AddPstnBlackListItemResponse,SetPstnBlackListItemRequest,SetPstnBlackListItemResponse,DelPstnBlackListItemRequest,DelPstnBlackListItemResponse,GetPstnBlackListRequest,GetPstnBlackListResponse,PSTNBlacklistInterface,AddSipWhiteListItemRequest,AddSipWhiteListItemResponse,DelSipWhiteListItemRequest,DelSipWhiteListItemResponse,SetSipWhiteListItemRequest,SetSipWhiteListItemResponse,GetSipWhiteListRequest,GetSipWhiteListResponse,SIPWhiteListInterface,CreateSipRegistrationRequest,CreateSipRegistrationResponse,UpdateSipRegistrationRequest,UpdateSipRegistrationResponse,BindSipRegistrationRequest,BindSipRegistrationResponse,DeleteSipRegistrationRequest,DeleteSipRegistrationResponse,GetSipRegistrationsRequest,GetSipRegistrationsResponse,SIPRegistrationInterface,AttachPhoneNumberRequest,AttachPhoneNumberResponse,BindPhoneNumberToApplicationRequest,BindPhoneNumberToApplicationResponse,DeactivatePhoneNumberRequest,DeactivatePhoneNumberResponse,SetPhoneNumberInfoRequest,SetPhoneNumberInfoResponse,GetPhoneNumbersRequest,GetPhoneNumbersResponse,GetNewPhoneNumbersRequest,GetNewPhoneNumbersResponse,GetPhoneNumberCategoriesRequest,GetPhoneNumberCategoriesResponse,GetPhoneNumberCountryStatesRequest,GetPhoneNumberCountryStatesResponse,GetPhoneNumberRegionsRequest,GetPhoneNumberRegionsResponse,GetActualPhoneNumberRegionRequest,GetActualPhoneNumberRegionResponse,GetAccountPhoneNumberCountriesRequest,GetAccountPhoneNumberCountriesResponse,PhoneNumbersInterface,AddCallerIDRequest,AddCallerIDResponse,ActivateCallerIDRequest,ActivateCallerIDResponse,DelCallerIDRequest,DelCallerIDResponse,GetCallerIDsRequest,GetCallerIDsResponse,VerifyCallerIDRequest,VerifyCallerIDResponse,CallerIDsInterface,AddOutboundTestPhoneNumberRequest,AddOutboundTestPhoneNumberResponse,VerifyOutboundTestPhoneNumberRequest,VerifyOutboundTestPhoneNumberResponse,ActivateOutboundTestPhoneNumberRequest,ActivateOutboundTestPhoneNumberResponse,DelOutboundTestPhoneNumberRequest,DelOutboundTestPhoneNumberResponse,GetOutboundTestPhoneNumbersRequest,GetOutboundTestPhoneNumbersResponse,OutboundTestNumbersInterface,AddQueueRequest,AddQueueResponse,BindUserToQueueRequest,BindUserToQueueResponse,DelQueueRequest,DelQueueResponse,SetQueueInfoRequest,SetQueueInfoResponse,GetQueuesRequest,GetQueuesResponse,GetACDStateRequest,GetACDStateResponse,GetACDOperatorStatisticsRequest,GetACDOperatorStatisticsResponse,GetACDQueueStatisticsRequest,GetACDQueueStatisticsResponse,GetACDOperatorStatusStatisticsRequest,GetACDOperatorStatusStatisticsResponse,QueuesInterface,GetSmartQueueRealtimeMetricsRequest,GetSmartQueueRealtimeMetricsResponse,GetSmartQueueDayHistoryRequest,GetSmartQueueDayHistoryResponse,RequestSmartQueueHistoryRequest,RequestSmartQueueHistoryResponse,GetSQStateRequest,GetSQStateResponse,SQ_AddQueueRequest,SQ_AddQueueResponse,SQ_SetQueueInfoRequest,SQ_SetQueueInfoResponse,SQ_DelQueueRequest,SQ_DelQueueResponse,SQ_GetQueuesRequest,SQ_GetQueuesResponse,SQ_AddSkillRequest,SQ_AddSkillResponse,SQ_DelSkillRequest,SQ_DelSkillResponse,SQ_SetSkillInfoRequest,SQ_SetSkillInfoResponse,SQ_BindSkillRequest,SQ_BindSkillResponse,SQ_UnbindSkillRequest,SQ_UnbindSkillResponse,SQ_GetSkillsRequest,SQ_GetSkillsResponse,SQ_BindAgentRequest,SQ_BindAgentResponse,SQ_UnbindAgentRequest,SQ_UnbindAgentResponse,SQ_GetAgentsRequest,SQ_GetAgentsResponse,SQ_SetAgentInfoRequest,SQ_SetAgentInfoResponse,SmartQueueInterface,AddSkillRequest,AddSkillResponse,DelSkillRequest,DelSkillResponse,SetSkillInfoRequest,SetSkillInfoResponse,GetSkillsRequest,GetSkillsResponse,BindSkillRequest,BindSkillResponse,SkillsInterface,RobokassaPaymentSystemInterface,CreditCardsInterface,AgreementsInterface,AddAdminUserRequest,AddAdminUserResponse,DelAdminUserRequest,DelAdminUserResponse,SetAdminUserInfoRequest,SetAdminUserInfoResponse,GetAdminUsersRequest,GetAdminUsersResponse,AttachAdminRoleRequest,AttachAdminRoleResponse,AdminUsersInterface,AddAdminRoleRequest,AddAdminRoleResponse,DelAdminRoleRequest,DelAdminRoleResponse,SetAdminRoleInfoRequest,SetAdminRoleInfoResponse,GetAdminRolesRequest,GetAdminRolesResponse,GetAvailableAdminRoleEntriesRequest,GetAvailableAdminRoleEntriesResponse,AdminRolesInterface,AddAuthorizedAccountIPRequest,AddAuthorizedAccountIPResponse,DelAuthorizedAccountIPRequest,DelAuthorizedAccountIPResponse,GetAuthorizedAccountIPsRequest,GetAuthorizedAccountIPsResponse,CheckAuthorizedAccountIPRequest,CheckAuthorizedAccountIPResponse,AuthorizedIPsInterface,ContractorsInterface,ContactsInterface,LinkRegulationAddressRequest,LinkRegulationAddressResponse,GetZIPCodesRequest,GetZIPCodesResponse,GetRegulationsAddressRequest,GetRegulationsAddressResponse,GetAvailableRegulationsRequest,GetAvailableRegulationsResponse,GetCountriesRequest,GetCountriesResponse,GetRegionsRequest,GetRegionsResponse,RegulationAddressInterface,AddPushCredentialRequest,AddPushCredentialResponse,SetPushCredentialRequest,SetPushCredentialResponse,DelPushCredentialRequest,DelPushCredentialResponse,GetPushCredentialRequest,GetPushCredentialResponse,BindPushCredentialRequest,BindPushCredentialResponse,PushCredentialsInterface,AddDialogflowKeyRequest,AddDialogflowKeyResponse,SetDialogflowKeyRequest,SetDialogflowKeyResponse,DelDialogflowKeyRequest,DelDialogflowKeyResponse,GetDialogflowKeysRequest,GetDialogflowKeysResponse,BindDialogflowKeysRequest,BindDialogflowKeysResponse,DialogflowCredentialsInterface,SendSmsMessageRequest,SendSmsMessageResponse,A2PSendSmsRequest,A2PSendSmsResponse,ControlSmsRequest,ControlSmsResponse,GetSmsHistoryRequest,GetSmsHistoryResponse,A2PGetSmsHistoryRequest,A2PGetSmsHistoryResponse,SMSInterface,GetRecordStoragesRequest,GetRecordStoragesResponse,RecordStoragesInterface,MGPInterface,CreateKeyRequest,CreateKeyResponse,GetKeysRequest,GetKeysResponse,UpdateKeyRequest,UpdateKeyResponse,DeleteKeyRequest,DeleteKeyResponse,SetKeyRolesRequest,SetKeyRolesResponse,GetKeyRolesRequest,GetKeyRolesResponse,RemoveKeyRolesRequest,RemoveKeyRolesResponse,AddSubUserRequest,AddSubUserResponse,GetSubUsersRequest,GetSubUsersResponse,SetSubUserInfoRequest,SetSubUserInfoResponse,DelSubUserRequest,DelSubUserResponse,SetSubUserRolesRequest,SetSubUserRolesResponse,GetSubUserRolesRequest,GetSubUserRolesResponse,RemoveSubUserRolesRequest,RemoveSubUserRolesResponse,GetRolesRequest,GetRolesResponse,GetRoleGroupsRequest,GetRoleGroupsResponse,RoleSystemInterface,SetKeyValueItemRequest,SetKeyValueItemResponse,DelKeyValueItemRequest,DelKeyValueItemResponse,GetKeyValueItemRequest,GetKeyValueItemResponse,GetKeyValueItemsRequest,GetKeyValueItemsResponse,GetKeyValueKeysRequest,GetKeyValueKeysResponse,KeyValueStorageInterface,GetAccountInvoicesRequest,GetAccountInvoicesResponse,InvoicesInterface,ChildAccountsInterface} from './Interfaces'
+import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,OutboundTestPhonenumberInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SmartQueueMetricsResult,SmartQueueState,SQAgentSelectionStrategies,SQTaskSelectionStrategies,GetSQQueuesResult,SQSkillBindingModes,GetSQSkillsResult,SQAgentBindingModes,GetSQAgentsResult,SkillInfo,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsTransaction,FailedSms,SmsHistory,A2PSmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,KeyValueItems,KeyValueKeys,AccountInvocie} from './Structures'
 import * as fs from "fs";
 import * as jwt from 'jsonwebtoken';
 import axios from 'axios';
@@ -265,9 +265,6 @@ export default class VoximplantApiClient{
     getApplications: (request:GetApplicationsRequest):Promise<GetApplicationsResponse> => {
       const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
                 {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
-                {rawName:'user_id', name:'userId', transformer: TypeTransformer.to('number')},
-                {rawName:'excluded_user_id', name:'excludedUserId', transformer: TypeTransformer.to('number')},
-                {rawName:'showing_user_id', name:'showingUserId', transformer: TypeTransformer.to('number')},
                 {rawName:'with_rules', name:'withRules', transformer: TypeTransformer.to('boolean')},
                 {rawName:'with_scenarios', name:'withScenarios', transformer: TypeTransformer.to('boolean')},
                 {rawName:'count', name:'count', transformer: TypeTransformer.to('number')},
@@ -696,7 +693,8 @@ export default class VoximplantApiClient{
                 {rawName:'count', name:'count', transformer: TypeTransformer.to('number')},
                 {rawName:'offset', name:'offset', transformer: TypeTransformer.to('number')},
                 {rawName:'output', name:'output', transformer: TypeTransformer.to('string')},
-                {rawName:'is_async', name:'isAsync', transformer: TypeTransformer.to('boolean')}];
+                {rawName:'is_async', name:'isAsync', transformer: TypeTransformer.to('boolean')},
+                {rawName:'is_uncommitted', name:'isUncommitted', transformer: TypeTransformer.to('boolean')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('[TransactionInfoType]')},
                 {rawName:'total_count', name:'totalCount', transformer: TypeTransformer.from('number')},
                 {rawName:'timezone', name:'timezone', transformer: TypeTransformer.from('string')},
@@ -992,7 +990,8 @@ export default class VoximplantApiClient{
      * Gets the account phone numbers.
     */
     getPhoneNumbers: (request:GetPhoneNumbersRequest):Promise<GetPhoneNumbersResponse> => {
-      const reqMapper = [{rawName:'phone_id', name:'phoneId', transformer: TypeTransformer.to('number')},
+      const reqMapper = [{rawName:'phone_id', name:'phoneId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'phone_number', name:'phoneNumber', transformer: TypeTransformer.to('stringlist')},
                 {rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
                 {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
                 {rawName:'is_bound_to_application', name:'isBoundToApplication', transformer: TypeTransformer.to('boolean')},
@@ -1045,7 +1044,7 @@ export default class VoximplantApiClient{
      * Gets the phone number categories.
     */
     getPhoneNumberCategories: (request:GetPhoneNumberCategoriesRequest):Promise<GetPhoneNumberCategoriesResponse> => {
-      const reqMapper = [{rawName:'country_code', name:'countryCode', transformer: TypeTransformer.to('string')},
+      const reqMapper = [{rawName:'country_code', name:'countryCode', transformer: TypeTransformer.to('stringlist')},
                 {rawName:'sandbox', name:'sandbox', transformer: TypeTransformer.to('string')},
                 {rawName:'locale', name:'locale', transformer: TypeTransformer.to('string')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('[PhoneNumberCountryInfoType]')}];
@@ -1087,6 +1086,14 @@ export default class VoximplantApiClient{
                 {rawName:'locale', name:'locale', transformer: TypeTransformer.to('string')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('PhoneNumberCountryRegionInfoType')}];
       return this.makeRequest('GetActualPhoneNumberRegion',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Gets all countries where the specific account has phone numbers.
+    */
+    getAccountPhoneNumberCountries: (request:GetAccountPhoneNumberCountriesRequest):Promise<GetAccountPhoneNumberCountriesResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('intlist')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('[string]')}];
+      return this.makeRequest('GetAccountPhoneNumberCountries',request,[reqMapper,respMapper]);
     }
   }
 
@@ -1142,6 +1149,49 @@ export default class VoximplantApiClient{
                 {rawName:'callerid_number', name:'calleridNumber', transformer: TypeTransformer.to('string')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
       return this.makeRequest('VerifyCallerID',request,[reqMapper,respMapper]);
+    }
+  }
+
+  public OutboundTestNumbers:OutboundTestNumbersInterface = {
+    /**
+     * Adds a personal phone number to test outbound calls. Only one personal phone number can be used. To replace it with another, delete the existing one first.
+    */
+    addOutboundTestPhoneNumber: (request:AddOutboundTestPhoneNumberRequest):Promise<AddOutboundTestPhoneNumberResponse> => {
+      const reqMapper = [{rawName:'phone_number', name:'phoneNumber', transformer: TypeTransformer.to('string')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('AddOutboundTestPhoneNumber',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Starts a call to the added phone number and pronounces a verification code. You have only 5 verification attempts per day and 100 in total. 1 minute should pass between 2 attempts.
+    */
+    verifyOutboundTestPhoneNumber: (request:VerifyOutboundTestPhoneNumberRequest):Promise<VerifyOutboundTestPhoneNumberResponse> => {
+      const reqMapper = [];
+      const respMapper = [{rawName:'daily_attempts_left', name:'dailyAttemptsLeft', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('VerifyOutboundTestPhoneNumber',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Activates the phone number by the verification code.
+    */
+    activateOutboundTestPhoneNumber: (request:ActivateOutboundTestPhoneNumberRequest):Promise<ActivateOutboundTestPhoneNumberResponse> => {
+      const reqMapper = [{rawName:'verification_code', name:'verificationCode', transformer: TypeTransformer.to('string')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('ActivateOutboundTestPhoneNumber',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Deletes the existing phone number.
+    */
+    delOutboundTestPhoneNumber: (request:DelOutboundTestPhoneNumberRequest):Promise<DelOutboundTestPhoneNumberResponse> => {
+      const reqMapper = [];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('DelOutboundTestPhoneNumber',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Shows the phone number info.
+    */
+    getOutboundTestPhoneNumbers: (request:GetOutboundTestPhoneNumbersRequest):Promise<GetOutboundTestPhoneNumbersResponse> => {
+      const reqMapper = [];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('[OutboundTestPhonenumberInfoType]')}];
+      return this.makeRequest('GetOutboundTestPhoneNumbers',request,[reqMapper,respMapper]);
     }
   }
 
@@ -1272,6 +1322,294 @@ export default class VoximplantApiClient{
     }
   }
 
+  public SmartQueue:SmartQueueInterface = {
+    /**
+     * Gets the metrics for the specified smart queue for the last 30 minutes.
+    */
+    getSmartQueueRealtimeMetrics: (request:GetSmartQueueRealtimeMetricsRequest):Promise<GetSmartQueueRealtimeMetricsResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'report_type', name:'reportType', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'user_id', name:'userId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'user_name', name:'userName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'from_date', name:'fromDate', transformer: TypeTransformer.to('timestamp')},
+                {rawName:'to_date', name:'toDate', transformer: TypeTransformer.to('timestamp')},
+                {rawName:'timezone', name:'timezone', transformer: TypeTransformer.to('string')},
+                {rawName:'interval', name:'interval', transformer: TypeTransformer.to('string')},
+                {rawName:'group_by', name:'groupBy', transformer: TypeTransformer.to('string')},
+                {rawName:'max_waiting_sec', name:'maxWaitingSec', transformer: TypeTransformer.to('number')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('[SmartQueueMetricsResult]')},
+                {rawName:'timezone', name:'timezone', transformer: TypeTransformer.from('string')}];
+      return this.makeRequest('GetSmartQueueRealtimeMetrics',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Gets the metrics for the specified smart queue for the last 2 days.
+    */
+    getSmartQueueDayHistory: (request:GetSmartQueueDayHistoryRequest):Promise<GetSmartQueueDayHistoryResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'report_type', name:'reportType', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'user_id', name:'userId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'user_name', name:'userName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'from_date', name:'fromDate', transformer: TypeTransformer.to('timestamp')},
+                {rawName:'to_date', name:'toDate', transformer: TypeTransformer.to('timestamp')},
+                {rawName:'timezone', name:'timezone', transformer: TypeTransformer.to('string')},
+                {rawName:'interval', name:'interval', transformer: TypeTransformer.to('string')},
+                {rawName:'group_by', name:'groupBy', transformer: TypeTransformer.to('string')},
+                {rawName:'max_waiting_sec', name:'maxWaitingSec', transformer: TypeTransformer.to('number')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('[SmartQueueMetricsResult]')},
+                {rawName:'timezone', name:'timezone', transformer: TypeTransformer.from('string')}];
+      return this.makeRequest('GetSmartQueueDayHistory',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Gets history for the specified smart queue.
+    */
+    requestSmartQueueHistory: (request:RequestSmartQueueHistoryRequest):Promise<RequestSmartQueueHistoryResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'from_date', name:'fromDate', transformer: TypeTransformer.to('timestamp')},
+                {rawName:'to_date', name:'toDate', transformer: TypeTransformer.to('timestamp')},
+                {rawName:'report_type', name:'reportType', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'user_id', name:'userId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'user_name', name:'userName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'timezone', name:'timezone', transformer: TypeTransformer.to('string')},
+                {rawName:'interval', name:'interval', transformer: TypeTransformer.to('string')},
+                {rawName:'group_by', name:'groupBy', transformer: TypeTransformer.to('string')},
+                {rawName:'max_waiting_sec', name:'maxWaitingSec', transformer: TypeTransformer.to('number')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')},
+                {rawName:'history_report_id', name:'historyReportId', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('RequestSmartQueueHistory',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Gets the current state of the specified smart queue.
+    */
+    getSQState: (request:GetSQStateRequest):Promise<GetSQStateResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'timezone', name:'timezone', transformer: TypeTransformer.to('string')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('[SmartQueueState]')}];
+      return this.makeRequest('GetSQState',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Adds a new queue.
+    */
+    sQ_AddQueue: (request:SQ_AddQueueRequest):Promise<SQ_AddQueueResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('string')},
+                {rawName:'call_agent_selection', name:'callAgentSelection', transformer: TypeTransformer.to('[SQAgentSelectionStrategies]')},
+                {rawName:'call_task_selection', name:'callTaskSelection', transformer: TypeTransformer.to('[SQTaskSelectionStrategies]')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'im_agent_selection', name:'imAgentSelection', transformer: TypeTransformer.to('[SQAgentSelectionStrategies]')},
+                {rawName:'im_task_selection', name:'imTaskSelection', transformer: TypeTransformer.to('[SQTaskSelectionStrategies]')},
+                {rawName:'description', name:'description', transformer: TypeTransformer.to('string')},
+                {rawName:'call_max_waiting_time', name:'callMaxWaitingTime', transformer: TypeTransformer.to('number')},
+                {rawName:'im_max_waiting_time', name:'imMaxWaitingTime', transformer: TypeTransformer.to('number')},
+                {rawName:'call_max_queue_size', name:'callMaxQueueSize', transformer: TypeTransformer.to('number')},
+                {rawName:'im_max_queue_size', name:'imMaxQueueSize', transformer: TypeTransformer.to('number')}];
+      const respMapper = [{rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('SQ_AddQueue',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Edits an existing queue.
+    */
+    sQ_SetQueueInfo: (request:SQ_SetQueueInfoRequest):Promise<SQ_SetQueueInfoResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.to('number')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('string')},
+                {rawName:'new_sq_queue_name', name:'newSqQueueName', transformer: TypeTransformer.to('string')},
+                {rawName:'call_agent_selection', name:'callAgentSelection', transformer: TypeTransformer.to('[SQAgentSelectionStrategies]')},
+                {rawName:'im_agent_selection', name:'imAgentSelection', transformer: TypeTransformer.to('[SQAgentSelectionStrategies]')},
+                {rawName:'call_task_selection', name:'callTaskSelection', transformer: TypeTransformer.to('[SQTaskSelectionStrategies]')},
+                {rawName:'im_task_selection', name:'imTaskSelection', transformer: TypeTransformer.to('[SQTaskSelectionStrategies]')},
+                {rawName:'description', name:'description', transformer: TypeTransformer.to('string')},
+                {rawName:'call_max_waiting_time', name:'callMaxWaitingTime', transformer: TypeTransformer.to('number')},
+                {rawName:'im_max_waiting_time', name:'imMaxWaitingTime', transformer: TypeTransformer.to('number')},
+                {rawName:'call_max_queue_size', name:'callMaxQueueSize', transformer: TypeTransformer.to('number')},
+                {rawName:'im_max_queue_size', name:'imMaxQueueSize', transformer: TypeTransformer.to('number')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('SQ_SetQueueInfo',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Deletes a queue.
+    */
+    sQ_DelQueue: (request:SQ_DelQueueRequest):Promise<SQ_DelQueueResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('stringlist')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('SQ_DelQueue',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Gets the queue(s).
+    */
+    sQ_GetQueues: (request:SQ_GetQueuesRequest):Promise<SQ_GetQueuesResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'sq_queue_name_template', name:'sqQueueNameTemplate', transformer: TypeTransformer.to('string')},
+                {rawName:'user_id', name:'userId', transformer: TypeTransformer.to('number')},
+                {rawName:'user_name', name:'userName', transformer: TypeTransformer.to('string')},
+                {rawName:'excluded_user_id', name:'excludedUserId', transformer: TypeTransformer.to('number')},
+                {rawName:'excluded_user_name', name:'excludedUserName', transformer: TypeTransformer.to('string')},
+                {rawName:'count', name:'count', transformer: TypeTransformer.to('number')},
+                {rawName:'offset', name:'offset', transformer: TypeTransformer.to('number')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('GetSQQueuesResult')}];
+      return this.makeRequest('SQ_GetQueues',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Adds a new skill to the app.
+    */
+    sQ_AddSkill: (request:SQ_AddSkillRequest):Promise<SQ_AddSkillResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'sq_skill_name', name:'sqSkillName', transformer: TypeTransformer.to('string')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'description', name:'description', transformer: TypeTransformer.to('string')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('SQ_AddSkill',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Deletes a skill and detaches it from agents.
+    */
+    sQ_DelSkill: (request:SQ_DelSkillRequest):Promise<SQ_DelSkillResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'sq_skill_id', name:'sqSkillId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'sq_skill_name', name:'sqSkillName', transformer: TypeTransformer.to('stringlist')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('SQ_DelSkill',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Edits an existing skill.
+    */
+    sQ_SetSkillInfo: (request:SQ_SetSkillInfoRequest):Promise<SQ_SetSkillInfoResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'sq_skill_id', name:'sqSkillId', transformer: TypeTransformer.to('number')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'sq_skill_name', name:'sqSkillName', transformer: TypeTransformer.to('string')},
+                {rawName:'new_sq_skill_name', name:'newSqSkillName', transformer: TypeTransformer.to('string')},
+                {rawName:'description', name:'description', transformer: TypeTransformer.to('string')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('SQ_SetSkillInfo',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Binds skills to agents.
+    */
+    sQ_BindSkill: (request:SQ_BindSkillRequest):Promise<SQ_BindSkillResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'user_id', name:'userId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'sq_skills', name:'sqSkills', transformer: TypeTransformer.to('Object')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'user_name', name:'userName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'bind_mode', name:'bindMode', transformer: TypeTransformer.to('[SQSkillBindingModes]')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('SQ_BindSkill',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Unbinds skills from agents.
+    */
+    sQ_UnbindSkill: (request:SQ_UnbindSkillRequest):Promise<SQ_UnbindSkillResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'user_id', name:'userId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'sq_skill_id', name:'sqSkillId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'user_name', name:'userName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'sq_skill_name', name:'sqSkillName', transformer: TypeTransformer.to('stringlist')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('SQ_UnbindSkill',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Gets the skill(s).
+    */
+    sQ_GetSkills: (request:SQ_GetSkillsRequest):Promise<SQ_GetSkillsResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'user_id', name:'userId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'user_name', name:'userName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'sq_skill_id', name:'sqSkillId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'sq_skill_name', name:'sqSkillName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'sq_skill_name_template', name:'sqSkillNameTemplate', transformer: TypeTransformer.to('string')},
+                {rawName:'excluded_user_id', name:'excludedUserId', transformer: TypeTransformer.to('number')},
+                {rawName:'excluded_user_name', name:'excludedUserName', transformer: TypeTransformer.to('string')},
+                {rawName:'count', name:'count', transformer: TypeTransformer.to('number')},
+                {rawName:'offset', name:'offset', transformer: TypeTransformer.to('number')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('GetSQSkillsResult')}];
+      return this.makeRequest('SQ_GetSkills',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Binds agents to a queue.
+    */
+    sQ_BindAgent: (request:SQ_BindAgentRequest):Promise<SQ_BindAgentResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.to('number')},
+                {rawName:'user_id', name:'userId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('string')},
+                {rawName:'user_name', name:'userName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'bind_mode', name:'bindMode', transformer: TypeTransformer.to('[SQAgentBindingModes]')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('SQ_BindAgent',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Unbinds agents from queues.
+    */
+    sQ_UnbindAgent: (request:SQ_UnbindAgentRequest):Promise<SQ_UnbindAgentResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'user_id', name:'userId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'user_name', name:'userName', transformer: TypeTransformer.to('stringlist')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('SQ_UnbindAgent',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Gets agents.
+    */
+    sQ_GetAgents: (request:SQ_GetAgentsRequest):Promise<SQ_GetAgentsResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'excluded_sq_queue_id', name:'excludedSqQueueId', transformer: TypeTransformer.to('number')},
+                {rawName:'excluded_sq_queue_name', name:'excludedSqQueueName', transformer: TypeTransformer.to('string')},
+                {rawName:'sq_skills', name:'sqSkills', transformer: TypeTransformer.to('Object')},
+                {rawName:'user_id', name:'userId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'user_name', name:'userName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'user_name_template', name:'userNameTemplate', transformer: TypeTransformer.to('string')},
+                {rawName:'sq_statuses', name:'sqStatuses', transformer: TypeTransformer.to('Object')},
+                {rawName:'with_sq_skills', name:'withSqSkills', transformer: TypeTransformer.to('boolean')},
+                {rawName:'with_sq_queues', name:'withSqQueues', transformer: TypeTransformer.to('boolean')},
+                {rawName:'with_sq_statuses', name:'withSqStatuses', transformer: TypeTransformer.to('boolean')},
+                {rawName:'count', name:'count', transformer: TypeTransformer.to('number')},
+                {rawName:'offset', name:'offset', transformer: TypeTransformer.to('number')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('GetSQAgentsResult')}];
+      return this.makeRequest('SQ_GetAgents',request,[reqMapper,respMapper]);
+    },
+    /**
+     * Edits the agent settings.
+    */
+    sQ_SetAgentInfo: (request:SQ_SetAgentInfoRequest):Promise<SQ_SetAgentInfoResponse> => {
+      const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'user_id', name:'userId', transformer: TypeTransformer.to('intlist')},
+                {rawName:'handle_calls', name:'handleCalls', transformer: TypeTransformer.to('boolean')},
+                {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
+                {rawName:'user_name', name:'userName', transformer: TypeTransformer.to('stringlist')},
+                {rawName:'max_simultaneous_conversations', name:'maxSimultaneousConversations', transformer: TypeTransformer.to('number')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('SQ_SetAgentInfo',request,[reqMapper,respMapper]);
+    }
+  }
 
   public Skills:SkillsInterface = {
     /**
@@ -1962,7 +2300,7 @@ export default class VoximplantApiClient{
 
   public KeyValueStorage:KeyValueStorageInterface = {
     /**
-     * Creates a key-value pair. If an already existing key is passed, the method will return the existing item. The keys should be unique within a Voximplant application.
+     * Creates or updates a key-value pair. If an existing key is passed, the method will return the existing item and will change the value if needed. The keys should be unique within a Voximplant application.
     */
     setKeyValueItem: (request:SetKeyValueItemRequest):Promise<SetKeyValueItemResponse> => {
       const reqMapper = [{rawName:'key', name:'key', transformer: TypeTransformer.to('string')},
@@ -2017,6 +2355,20 @@ export default class VoximplantApiClient{
                 {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('KeyValueKeys')}];
       return this.makeRequest('GetKeyValueKeys',request,[reqMapper,respMapper]);
+    }
+  }
+
+  public Invoices:InvoicesInterface = {
+    /**
+     * Gets all invoices of the specified USD or EUR account.
+    */
+    getAccountInvoices: (request:GetAccountInvoicesRequest):Promise<GetAccountInvoicesResponse> => {
+      const reqMapper = [{rawName:'count', name:'count', transformer: TypeTransformer.to('number')},
+                {rawName:'offset', name:'offset', transformer: TypeTransformer.to('number')}];
+      const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('AccountInvocie')},
+                {rawName:'total_count', name:'totalCount', transformer: TypeTransformer.from('number')},
+                {rawName:'count', name:'count', transformer: TypeTransformer.from('number')}];
+      return this.makeRequest('GetAccountInvoices',request,[reqMapper,respMapper]);
     }
   }
 

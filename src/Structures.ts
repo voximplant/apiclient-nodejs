@@ -269,7 +269,7 @@ export interface AccountPlan{
    */
   nextCharge: Date
   /**
-   * The plan type. The possible values are: IM, MAU
+   * The plan type. The possible values are IM, MAU
    */
   planType: string
   /**
@@ -327,7 +327,7 @@ export interface Plan{
    */
   planSubscriptionTemplateId: number
   /**
-   * The plan type. The possible values are: IM, MAU
+   * The plan type. The possible values are IM, MAU
    */
   planType: string
   /**
@@ -388,10 +388,6 @@ export interface ApplicationInfo{
    * This flag indicates whether a secure storage for logs and records is enabled or not
    */
   secureRecordStorage: boolean
-  /**
-   * The filtered users. (Note: a user object contains the 'user_id' field only)
-   */
-  users?: UserInfo[]
 
 }
 export interface ClonedApplication{
@@ -616,7 +612,7 @@ export interface CallSessionInfo{
    */
   logFileUrl: string
   /**
-   * The finish reason. Possible values are: __Normal termination__, __Insufficient funds__, __Internal error (billing timeout)__, __Terminated administratively__, __JS Error__, __Timeout__
+   * The finish reason. Possible values are __Normal termination__, __Insufficient funds__, __Internal error (billing timeout)__, __Terminated administratively__, __JS Error__, __Timeout__
    */
   finishReason?: string
   /**
@@ -714,7 +710,7 @@ export interface TransactionInfo{
    */
   currency: string
   /**
-   * The transaction type. The following values are possible: resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, rub_card_periodic_payment, rub_card_overrun_payment, rub_card_payment, robokassa_payment, gift, promo, adjustment, wire_transfer, us_wire_transfer, refund, discount, mgp_charge, mgp_startup, mgp_business, mgp_big_business, mgp_enterprise, mgp_large_enterprise, techsupport_charge, tax_charge, monthly_fee_charge, grace_credit_payment, grace_credit_provision, mau_charge, mau_overrun, im_charge, im_overrun, fmc_charge, sip_registration_charge, development_fee, money_transfer_to_child, money_transfer_to_parent, money_acceptance_from_child, money_acceptance_from_parent, phone_number_installation, phone_number_charge, toll_free_phone_number_installation, toll_free_phone_number_charge
+   * The transaction type. The following values are possible: resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, rub_card_periodic_payment, rub_card_overrun_payment, rub_card_payment, robokassa_payment, gift, promo, adjustment, wire_transfer, us_wire_transfer, refund, discount, mgp_charge, mgp_startup, mgp_business, mgp_big_business, mgp_enterprise, mgp_large_enterprise, techsupport_charge, tax_charge, monthly_fee_charge, grace_credit_payment, grace_credit_provision, mau_charge, mau_overrun, im_charge, im_overrun, fmc_charge, sip_registration_charge, development_fee, money_transfer_to_child, money_transfer_to_parent, money_acceptance_from_child, money_acceptance_from_parent, phone_number_installation, phone_number_charge, toll_free_phone_number_installation, toll_free_phone_number_charge, services, user_money_transfer
    */
   transactionType: string
   /**
@@ -729,7 +725,7 @@ export interface ResourceUsage{
    */
   resourceUsageId: number
   /**
-   * The resource type. The possible values are: CALLSESSION, VIDEOCALL, VIDEORECORD, VOICEMAILDETECTION, YANDEXASR, ASR, TRANSCRIPTION, TTS_TEXT_GOOGLE, TTS_YANDEX, AUDIOHDCONFERENCE
+   * The resource type. The possible values are CALLSESSION, VIDEOCALL, VIDEORECORD, VOICEMAILDETECTION, YANDEXASR, ASR, TRANSCRIPTION, TTS_TEXT_GOOGLE, TTS_YANDEX, AUDIOHDCONFERENCE
    */
   resourceType: string
   /**
@@ -800,7 +796,7 @@ export interface Record{
    */
   transcriptionUrl?: string
   /**
-   * The status of transcription. The possible values are: Not required, In progress, Complete
+   * The status of transcription. The possible values are Not required, In progress, Complete
    */
   transcriptionStatus?: string
 
@@ -1726,6 +1722,30 @@ export interface AttachedPhoneInfo{
    * If set, the callback of an inbound SMS will be sent to this url, otherwise, it will be sent to the general account URL
    */
   incomingSmsCallbackUrl?: string
+  /**
+   * If <b>true</b>, you need to make a request to enable calls to emergency numbers
+   */
+  emergencyCallsToBeEnabled: boolean
+  /**
+   * If <b>true</b>, calls to emergency numbers are enabled
+   */
+  emergencyCallsEnabled: boolean
+  /**
+   * Phone number subscription ID
+   */
+  subscriptionId: number
+  /**
+   * Full application name, e.g. myapp.myaccount.n1.voximplant.com
+   */
+  extendedApplicationName?: string
+  /**
+   * Phone region name
+   */
+  phoneRegionName?: string
+  /**
+   * UTC date of an event associated with the number in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  modified: Date
 
 }
 export interface NewAttachedPhoneInfo{
@@ -1768,6 +1788,10 @@ export interface PhoneNumberCountryInfo{
    * The phone categories
    */
   phoneCategories: PhoneNumberCountryCategoryInfo[]
+  /**
+   * If <b>true</b>, you need to make a request to enable calls to emergency numbers
+   */
+  emergencyCallsToBeEnabled: boolean
 
 }
 export interface PhoneNumberCountryCategoryInfo{
@@ -1846,7 +1870,7 @@ export interface PhoneNumberCountryRegionInfo{
    */
   isNeedRegulationAddress?: boolean
   /**
-   * The type of regulation address. The possible values are: LOCAL, NATIONAL, WORLDWIDE
+   * The type of regulation address. The possible values are LOCAL, NATIONAL, WORLDWIDE
    */
   regulationAddressType?: string
   /**
@@ -1911,6 +1935,21 @@ export interface CallerIDInfo{
    * The verification ending date in format: YYYY-MM-DD (for the verified callerID)
    */
   verifiedUntil?: Date
+
+}
+export interface OutboundTestPhonenumberInfo{
+  /**
+   * The personal phone number
+   */
+  phoneNumber: string
+  /**
+   * The verification status
+   */
+  isVerified: boolean
+  /**
+   * The country code
+   */
+  countryCode: string
 
 }
 export interface ContactInfo{
@@ -2021,7 +2060,7 @@ export interface ExchangeRates{
 }
 export interface ResourcePrice{
   /**
-   * The resource type name. The possible values are: AUDIOHDCONFERENCE, AUDIOHDRECORD, AUDIORECORD, CALLLIST, CALLSESSION, DIALOGFLOW, IM, PSTN_IN_ALASKA, PSTN_IN_GB, PSTN_IN_GEOGRAPHIC, PSTN_IN_GEO_PH, PSTN_IN_RU, PSTN_IN_RU_TOLLFREE, PSTN_INTERNATIONAL, PSTNINTEST, PSTN_IN_TF_AR, PSTN_IN_TF_AT, PSTN_IN_TF_AU, PSTN_IN_TF_BE, PSTN_IN_TF_BR, PSTN_IN_TF_CA, PSTN_IN_TF_CO, PSTN_IN_TF_CY, PSTN_IN_TF_DE, PSTN_IN_TF_DK, PSTN_IN_TF_DO, PSTN_IN_TF_FI, PSTN_IN_TF_FR, PSTN_IN_TF_GB, PSTN_IN_TF_HR, PSTN_IN_TF_HU, PSTN_IN_TF_IL, PSTN_IN_TF_LT, PSTN_IN_TF_PE, PSTN_IN_TF_US, PSTN_IN_US, PSTNOUT, PSTNOUT_EEA, PSTNOUTEMERG, PSTNOUT_KZ, PSTNOUT_LOCAL, PSTN_OUT_LOCAL_RU, RELAYED_TRAFFIC, SIPOUT, SIPOUTVIDEO, SMSINPUT, SMSOUT, SMSOUT_INTERNATIONAL, TRANSCRIPTION, TTS_TEXT_GOOGLE, TTS_YANDEX, USER_LOGON, VIDEOCALL, VIDEORECORD, VOICEMAILDETECTION, VOIPIN, VOIPOUT, VOIPOUTVIDEO, YANDEXASR, ASR, ASR_GOOGLE_ENHANCED
+   * The resource type name. The possible values are AUDIOHDCONFERENCE, AUDIOHDRECORD, AUDIORECORD, CALLLIST, CALLSESSION, DIALOGFLOW, IM, PSTN_IN_ALASKA, PSTN_IN_GB, PSTN_IN_GEOGRAPHIC, PSTN_IN_GEO_PH, PSTN_IN_RU, PSTN_IN_RU_TOLLFREE, PSTN_INTERNATIONAL, PSTNINTEST, PSTN_IN_TF_AR, PSTN_IN_TF_AT, PSTN_IN_TF_AU, PSTN_IN_TF_BE, PSTN_IN_TF_BR, PSTN_IN_TF_CA, PSTN_IN_TF_CO, PSTN_IN_TF_CY, PSTN_IN_TF_DE, PSTN_IN_TF_DK, PSTN_IN_TF_DO, PSTN_IN_TF_FI, PSTN_IN_TF_FR, PSTN_IN_TF_GB, PSTN_IN_TF_HR, PSTN_IN_TF_HU, PSTN_IN_TF_IL, PSTN_IN_TF_LT, PSTN_IN_TF_PE, PSTN_IN_TF_US, PSTN_IN_US, PSTNOUT, PSTNOUT_EEA, PSTNOUTEMERG, PSTNOUT_KZ, PSTNOUT_LOCAL, PSTN_OUT_LOCAL_RU, RELAYED_TRAFFIC, SIPOUT, SIPOUTVIDEO, SMSINPUT, SMSOUT, SMSOUT_INTERNATIONAL, TRANSCRIPTION, TTS_TEXT_GOOGLE, TTS_YANDEX, USER_LOGON, VIDEOCALL, VIDEORECORD, VOICEMAILDETECTION, VOIPIN, VOIPOUT, VOIPOUTVIDEO, YANDEXASR, ASR, ASR_GOOGLE_ENHANCED
    */
   resourceType: string
   /**
@@ -2110,7 +2149,7 @@ export interface CallList{
    */
   intervalSeconds: number
   /**
-   * The status name. The possible values are: __In progress__, __Completed__, __Canceled__
+   * The status name. The possible values are __In progress__, __Completed__, __Canceled__
    */
   status: string
 
@@ -2145,11 +2184,11 @@ export interface CallListDetail{
    */
   attemptsLeft: number
   /**
-   * The status ID. The possible values are: __0__ (status = New), __1__ (status = In progress), __2__ (status = Processed), __3__ (status = Error), __4__ (status = Canceled)
+   * The status ID. The possible values are __0__ (status = New), __1__ (status = In progress), __2__ (status = Processed), __3__ (status = Error), __4__ (status = Canceled)
    */
   statusId: number
   /**
-   * The status name. The possible values are: __New__ (status_id = 0), __In progress__ (status_id = 1), __Processed__ (status_id = 2), __Error__ (status_id = 3), __Canceled__ (status_id = 4)
+   * The status name. The possible values are __New__ (status_id = 0), __In progress__ (status_id = 1), __Processed__ (status_id = 2), __Error__ (status_id = 3), __Canceled__ (status_id = 4)
    */
   status: string
 
@@ -2184,11 +2223,11 @@ export interface SIPRegistration{
    */
   successful?: boolean
   /**
-   * The status code from SIP registration
+   * The status code from a SIP registration
    */
   statusCode?: number
   /**
-   * The error message from SIP registration
+   * The error message from a SIP registration
    */
   errorMessage?: string
   /**
@@ -2615,7 +2654,7 @@ export interface SubscriptionTemplate{
    */
   requiredVerification: string
   /**
-   * The verification status. Possible values are: REQUIRED, IN_PROGRESS, VERIFIED, NOT_REQUIRED
+   * The verification status. Possible values are REQUIRED, IN_PROGRESS, VERIFIED, NOT_REQUIRED
    */
   verificationStatus: string
 
@@ -2633,7 +2672,7 @@ export interface AccountCallback{
    */
   callbackId: number
   /**
-   * The callback type. The following values are possible: account_document_verified, account_is_frozen, account_is_unfrozen, activate_successful, call_history_report, card_expired, card_expires_in_month, card_payment, card_payment_failed, js_fail, min_balance, regulation_address_verified, renewed_subscriptions, reset_account_password_request, sip_registration_fail, stagnant_account, subscription_is_detached, subscription_is_frozen, transaction_history_report, plan_config, unverified_subscription_detached, sms_inbound, account_document_uploaded, balance_is_changed, restored_agreement_status, expired_agreement, expiring_agreement, new_invoice, transcription_complete, expiring_callerid, wire_transfer, robokassa_payment, regulation_address_uploaded, next_charge_alert
+   * The callback type
    */
   type: string
   /**
@@ -2673,139 +2712,127 @@ export interface AccountCallback{
    */
   currency: string
   /**
-   * The specific account callback details
+   * Deprecated. Please use the unified <b>account_document_status_updated</b> callback instead
    */
   accountDocumentUploaded?: AccountDocumentUploadedCallback
   /**
-   * The specific account callback details
+   * Received when proof of address is uploaded
    */
   regulationAddressUploaded?: RegulationAddressUploadedCallback
   /**
-   * The specific account callback details
+   * Deprecated. Please use the unified <b>account_document_status_updated</b> callback instead
    */
   accountDocumentVerified?: AccountDocumentVerifiedCallback
   /**
-   * The specific account callback details
+   * Received when an account is frozen
    */
   accountIsFrozen?: AccountIsFrozenCallback
   /**
-   * The specific account callback details
+   * Received when an account is unfrozen
    */
   accountIsUnfrozen?: AccountIsUnfrozenCallback
   /**
-   * The specific account callback details
+   * Received when a new (not child) account is created
    */
   activateSuccessful?: ActivateSuccessfulCallback
   /**
-   * The specific account callback details
+   * Received when a call history report is ready
    */
   callHistoryReport?: CallHistoryReportCallback
   /**
-   * The specific account callback details
+   * Received when a card is expired
    */
   cardExpired?: CardExpiredCallback
   /**
-   * The specific account callback details
+   * Received when one month is left for a card to be expired
    */
   cardExpiresInMonth?: CardExpiresInMonthCallback
   /**
-   * The specific account callback details
+   * Received when a bank card payment is made
    */
   cardPayment?: CardPaymentCallback
   /**
-   * The specific account callback details
+   * Received when a bank card payment is failed
    */
   cardPaymentFailed?: CardPaymentFailedCallback
   /**
-   * The specific account callback details
+   * Received when a robokassa payment is made
    */
   robokassaPayment?: RobokassaPaymentCallback
   /**
-   * The specific account callback details
+   * Received when a wire transfer is made
    */
   wireTransfer?: WireTransferCallback
   /**
-   * The specific account callback details. See the 'send_js_error' parameter of the 'SetAccountInfo' function
+   * Received when <b>send_js_error</b> is set to true and a JS error occures. See the 'send_js_error' parameter of the 'SetAccountInfo' function
    */
   jsFail?: JSFailCallback
   /**
-   * The specific account callback details
+   * Received when the minimum balance is reached
    */
   minBalance?: MinBalanceCallback
   /**
-   * The specific account callback details
+   * Received when proof of address is verified
    */
   regulationAddressVerified?: RegulationAddressVerifiedCallback
   /**
-   * The specific account callback details
+   * Received when subscriptions are renewed
    */
   renewedSubscriptions?: RenewedSubscriptionsCallback
   /**
-   * The specific account callback details
+   * Received when an account password reset is requested
    */
   resetAccountPasswordRequest?: ResetAccountPasswordRequestCallback
   /**
-   * The specific account callback details
+   * Received when one or several SIP registrations are failed
    */
   sipRegistrationFail?: SIPRegistrationFailCallback
   /**
-   * The specific account callback details
+   * Received when one or several SIP registrations are recovered
    */
-  stagnantAccount?: StagnantAccountCallback
+  sipRegistrationRecovered?: SIPRegistrationRecoveredCallback
   /**
-   * The specific account callback details
+   * Received when a subscription is frozen
    */
   subscriptionIsFrozen?: SubscriptionIsFrozenCallback
   /**
-   * The specific account callback details
+   * Received when a subscription is canceled
    */
   subscriptionIsDetached?: SubscriptionIsDetachedCallback
   /**
-   * The specific account callback details
+   * Received when a transaction history report is ready
    */
   transactionHistoryReport?: TransactionHistoryReportCallback
   /**
-   * The specific account callback details
-   */
-  planConfig?: PlanConfigCallback
-  /**
-   * The specific account callback details
+   * Received when an unverified subscription is canceled
    */
   unverifiedSubscriptionDetached?: UnverifiedSubscriptionDetachedCallback
   /**
-   * The specific account callback details
+   * Received when a caller ID is about to be expired
    */
   expiringCallerid?: ExpiringCallerIDCallback
   /**
-   * The specific account callback details
+   * Received when a transcription is saved
    */
   transcriptionComplete?: TranscriptionCompleteCallback
   /**
-   * The specific account callback details
+   * Received when an inbound SMS is gotten
    */
   smsInbound?: InboundSmsCallback
   /**
-   * The specific account callback details
-   */
-  newInvoice?: NewInvoiceCallback
-  /**
-   * The specific account callback details
+   * Received for the accounts for which the confirmation documents waiting period expires in 20/15/10/5/1 day(s)
    */
   expiringAgreement?: ExpiringAgreementCallback
   /**
-   * The specific account callback details
+   * Received for the accounts for which the confirmation documents waiting period has already expired or expires today
    */
   expiredAgreement?: ExpiredAgreementCallback
   /**
-   * The specific account callback details
+   * Received when an expiration date of the confirmation documents waiting period is changed
    */
   restoredAgreementStatus?: RestoredAgreementStatusCallback
   /**
-   * The specific account callback details
-   */
-  balanceIsChanged?: BalanceIsChanged
-  /**
-   * The specific account callback details
+   * Received when a plan is to be renewed in 3 days, but there is not enough money
    */
   nextChargeAlert?: NextChargeAlertCallback
   /**
@@ -2813,13 +2840,29 @@ export interface AccountCallback{
    */
   certificateExpired?: CertificateExpiredCallback
   /**
-   * The specific account callback details
+   * Received for the accounts whose Apple VOIP certificates are expired
    */
   expiredCertificates?: ExpiredCertificateCallback
   /**
-   * The specific account callback details
+   * Received for the accounts whose Apple VOIP certificates expire in 14 or fewer days
    */
   expiringCertificates?: ExpiringCertificateCallback
+  /**
+   * Received when the verification status is updated
+   */
+  accountDocumentStatusUpdated?: AccountDocumentStatusUpdatedCallback
+  /**
+   * Received when A2P SMS are activated
+   */
+  a2pSmsActivated?: A2PActivatedCallback
+  /**
+   * Received when the verification status is changed to PENDING
+   */
+  regulationAddressDocumentsRequested?: RegulationAddressDocumentsRequestedCallback
+  /**
+   * Received when a monthly invoice is sent
+   */
+  invoiceReceived?: InvoiceReceivedCallback
 
 }
 export interface A2PSmsDeliveryCallback{
@@ -2855,7 +2898,7 @@ export interface AccountDocumentUploadedCallback{
    */
   verificationName: string
   /**
-   * Status of the user in the context of entrepreneurial activity. Possible values are: 'individual', 'entrepreneur', 'legal entity'
+   * Status of the user in the context of entrepreneurial activity. Possible values are 'individual', 'entrepreneur', 'legal entity'
    */
   legalStatus: string
 
@@ -2905,7 +2948,7 @@ export interface AccountDocumentVerifiedCallback{
    */
   verificationName: string
   /**
-   * Status of the user in the context of entrepreneurial activity. Possible values are: 'individual', 'entrepreneur', 'legal entity'
+   * Status of the user in the context of entrepreneurial activity. Possible values are 'individual', 'entrepreneur', 'legal entity'
    */
   legalStatus: string
 
@@ -3072,7 +3115,36 @@ export interface ResetAccountPasswordRequestCallback{
 }
 export interface SIPRegistrationFailCallback{
   /**
-   * The SIP registration ID
+   * SIP registration array
+   */
+  sipRegistrations: SIPRegistrationIsFailedCallbackItem[]
+
+}
+export interface SIPRegistrationIsFailedCallbackItem{
+  /**
+   * SIP registration ID
+   */
+  sipRegistrationId: number
+  /**
+   * Status code from a SIP registration
+   */
+  statusCode: string
+  /**
+   * Error message from a SIP registration
+   */
+  errorMessage?: string
+
+}
+export interface SIPRegistrationRecoveredCallback{
+  /**
+   * SIP registration array
+   */
+  sipRegistrations: SIPRegistrationIsRecoveredCallbackItem[]
+
+}
+export interface SIPRegistrationIsRecoveredCallbackItem{
+  /**
+   * SIP registration ID
    */
   sipRegistrationId: number
 
@@ -3146,7 +3218,7 @@ export interface TransactionHistoryReportCallback{
 }
 export interface PlanConfigCallback{
   /**
-   * The plan type. The possible values are: IM, MAU
+   * The plan type. The possible values are IM, MAU
    */
   planType: string
   /**
@@ -3248,43 +3320,6 @@ export interface TranscriptionCompleteCallbackItem{
   transcriptionCost: number
 
 }
-export interface ClassificationCompleteCallback{
-  /**
-   * The classification info
-   */
-  classificationComplete: ClassificationCompleteCallbackItem
-
-}
-export interface ClassificationCompleteCallbackItem{
-  /**
-   * The record ID
-   */
-  recordId: number
-  /**
-   * Array with the classification results
-   */
-  classificationInfo: ClassificationUnit[]
-  /**
-   * The cost of classification
-   */
-  classificationCost: number
-
-}
-export interface ClassificationUnit{
-  /**
-   * The classification type
-   */
-  type: string
-  /**
-   * The classification info
-   */
-  info: string
-  /**
-   * Classification error code (if any)
-   */
-  errorCode?: string
-
-}
 export interface ExpiringAgreementCallback{
   /**
    * The date of agreement expiration in format: YYYY-MM-DD
@@ -3375,6 +3410,94 @@ export interface SubscriptionCallbackDetailsSipRegistrations{
    * Sip registration id
    */
   sipRegistrationId: number
+
+}
+export interface A2PActivatedCallback{
+  /**
+   * A2P messages are allowed
+   */
+  a2pEnabled: boolean
+
+}
+export interface AccountDocumentStatusUpdatedCallback{
+  /**
+   * Uploaded document ID
+   */
+  accountDocumentId: number
+  /**
+   * Previous document verification status. The following values are possible: WAITING_CONFIRMATION_DOCS, VERIFIED, REJECTED
+   */
+  previousAccountDocumentStatus: string
+  /**
+   * Document verification status. The following values are possible: WAITING_CONFIRMATION_DOCS, VERIFIED, REJECTED
+   */
+  accountDocumentStatus: string
+  /**
+   * UTC time when the status is updated
+   */
+  updateTime: Date
+  /**
+   * Reviewer's comment
+   */
+  comment?: string
+  /**
+   * Status of the user in the context of entrepreneurial activity. Possible values are 'individual', 'entrepreneur', 'legal entity'
+   */
+  legalStatus: string
+
+}
+export interface RegulationAddressDocumentsRequestedCallback{
+  /**
+   * Uploaded document ID
+   */
+  regulationAddressId: number
+  /**
+   * Uploaded document name
+   */
+  regulationAddressName: string
+  /**
+   * Document verification status. The following values are possible: IN_PROGRESS, VERIFIED, DECLINED, PENDING
+   */
+  regulationAddressStatus: string
+  /**
+   * UTC time when the status is updated
+   */
+  updateTime: Date
+  /**
+   * Account belongs to an individual
+   */
+  isIndividual: boolean
+  /**
+   * Reviewer's comment
+   */
+  comment?: string
+
+}
+export interface InvoiceReceivedCallback{
+  /**
+   * Invoice ID
+   */
+  invoiceId: number
+  /**
+   * Date when invoice is created
+   */
+  invoiceDate: Date
+  /**
+   * Date when invoice is received
+   */
+  receivalDate: Date
+  /**
+   * Amount of money in the invoice (excluding taxes)
+   */
+  amount: string
+  /**
+   * Tax amount in the invoice
+   */
+  taxAmount: string
+  /**
+   * Invoice currency
+   */
+  currency: string
 
 }
 export interface ZipCode{
@@ -3491,7 +3614,7 @@ export interface RegulationRegionRecord{
 }
 export interface BankCard{
   /**
-   * The payment system. The possible values are: ALFABANK, BRAINTREE
+   * The payment system. The possible values are ALFABANK, BRAINTREE
    */
   bankCardProvider: string
   /**
@@ -3527,7 +3650,7 @@ export interface BankCard{
    */
   cardHolder?: string
   /**
-   * The card's payment system. The possible values are: VISA, MASTER CARD
+   * The card's payment system. The possible values are VISA, MASTER CARD
    */
   cardType?: string
 
@@ -3605,7 +3728,7 @@ export interface PushCredentialInfo{
    */
   pushProviderId: number
   /**
-   * The push provider name. The possible values are: APPLE, APPLE_VOIP, GOOGLE, HUAWEI
+   * The push provider name. The possible values are APPLE, APPLE_VOIP, GOOGLE, HUAWEI
    */
   pushProviderName: string
   /**
@@ -3767,10 +3890,6 @@ export interface MGPInfo{
 
 }
 export interface SmsTransaction{
-  /**
-   * The transaction ID
-   */
-  transactionId: number
   /**
    * The SMS destination number
    */
@@ -3993,7 +4112,7 @@ export interface SmsHistory{
    */
   statusId: string
   /**
-   * Error message if any
+   * Error message (if any)
    */
   errorMessage?: string
   /**
@@ -4101,13 +4220,166 @@ export interface GetAutochargeConfigResult{
   receiptEmail: string
 
 }
+export interface GetSQQueuesResult{
+  /**
+   * ID of the smart queue
+   */
+  sqQueueId: number
+  /**
+   * Name of the smart queue
+   */
+  sqQueueName: string
+  /**
+   * Agent selection strategy
+   */
+  agentSelection: string
+  /**
+   * Strategy of prioritizing requests for service
+   */
+  taskSelection: string
+  /**
+   * Comment
+   */
+  description?: string
+  /**
+   * UTC date of the queue creation in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  created?: Date
+  /**
+   * UTC date of the queue modification in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  modified?: Date
+  /**
+   * Maximum time in minutes that a CALL-type request can remain in the queue without being assigned to an agent
+   */
+  callMaxWaitingTime?: number
+  /**
+   * Maximum time in minutes that an IM-type request can remain in the queue without being assigned to an agent
+   */
+  imMaxWaitingTime?: number
+  /**
+   * Maximum size of the queue with CALL-type requests
+   */
+  callMaxQueueSize?: number
+  /**
+   * Maximum size of the queue with IM-type requests
+   */
+  imMaxQueueSize?: number
+
+}
+export interface GetSQSkillsResult{
+  /**
+   * ID of the skill
+   */
+  sqSkillId: number
+  /**
+   * Name of the skill
+   */
+  sqSkillName: string
+  /**
+   * Comment
+   */
+  description?: string
+  /**
+   * UTC date of the queue creation in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  created?: Date
+  /**
+   * UTC date of the queue modification in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  modified?: Date
+
+}
+export interface GetSQAgentsResult{
+  /**
+   * ID of the user
+   */
+  userId?: number
+  /**
+   * Name of the user
+   */
+  userName?: string
+  /**
+   * Display name of the user
+   */
+  userDisplayName?: string
+  /**
+   * Maximum number of chats that the user processes simultaneously
+   */
+  maxSimultaneousConversations?: number
+  /**
+   * Agent statuses info
+   */
+  sqStatuses?: SmartQueueStateAgentStatus[]
+  /**
+   * JSON array of the agent's queues
+   */
+  sqQueues?: any
+  /**
+   * JSON array of the agent's skills
+   */
+  sqSkills?: any
+
+}
+export interface SQAgentSelectionStrategies{
+  /**
+   * The most qualified agent
+   */
+  MOSTQUALIFIED?: string
+  /**
+   * The least qualified agent
+   */
+  LEASTQUALIFIED?: string
+  /**
+   * Agent who has been free the longest since the end of the last call
+   */
+  MAXWAITINGTIME?: string
+
+}
+export interface SQTaskSelectionStrategies{
+  /**
+   * Calls or messages with the highest priority are the first to distribute to agents
+   */
+  MAXPRIORITY?: string
+  /**
+   * Calls or messages with the longest waiting time are the first to distribute to agents
+   */
+  MAXWAITINGTIME?: string
+
+}
+export interface SQSkillBindingModes{
+  /**
+   * Add new skills to the agents
+   */
+  add?: string
+  /**
+   * Replace agent skills with new ones
+   */
+  replaceSkills?: string
+  /**
+   * Replace agents with new ones
+   */
+  replaceAgents?: string
+
+}
+export interface SQAgentBindingModes{
+  /**
+   * Add new agents to the queue
+   */
+  add?: string
+  /**
+   * Replace agents with new ones
+   */
+  replace?: string
+
+}
 export interface SmartQueueMetricsResult{
   /**
    * The report type(s)
    */
   reportType: string
   /**
-   * Grouping by **agent** or **queue**
+   * Grouping by agent or queue
    */
   groups: SmartQueueMetricsGroups[]
 
@@ -4175,11 +4447,11 @@ export interface SmartQueueState{
 }
 export interface SmartQueueStateTask{
   /**
-   * The task type: CALL, IM
+   * The task type. Possible values are CALL, IM
    */
   taskType: string
   /**
-   * The task status: IN_QUEUE, DISTRIBUTED, IN_PROCESSING
+   * The task status. Possible values are IN_QUEUE, DISTRIBUTED, IN_PROCESSING
    */
   status: string
   /**
@@ -4222,9 +4494,9 @@ export interface SmartQueueStateAgent{
    */
   sqSkills: SmartQueueAgentSkill[]
   /**
-   * Agent status info
+   * Agent statuses info
    */
-  sqStatuses: SmartQueueStateAgentStatus
+  sqStatuses: SmartQueueStateAgentStatus[]
 
 }
 export interface SmartQueueAgentSkill{
@@ -4314,5 +4586,116 @@ export interface KeyValueKeys{
    * Expiration date based on **ttl** (timestamp without milliseconds)
    */
   expiresAt: number
+
+}
+export interface AccountInvocie{
+  /**
+   * Invoice period
+   */
+  period: InvoicePeriod
+  /**
+   * Info on all money spent in the invoice
+   */
+  amount: InvoiceTotalDetails
+  /**
+   * Invoice id
+   */
+  invoiceId: number
+  /**
+   * Detailed info on each spending
+   */
+  rows: InvoiceSpendingDetails
+  /**
+   * Unique invoice number
+   */
+  invoiceNumber: string
+  /**
+   * Date when the invoice is created in format: YYYY-MM-DD
+   */
+  invoiceDate: Date
+  /**
+   * Invoice status
+   */
+  status: string
+
+}
+export interface InvoicePeriod{
+  /**
+   * From date in format: YYYY-MM-DD
+   */
+  from: Date
+  /**
+   * To date in format: YYYY-MM-DD
+   */
+  to: Date
+
+}
+export interface InvoiceTotalDetails{
+  /**
+   * Total amount of taxes
+   */
+  taxAmount: number
+  /**
+   * Invoice total amount including taxes
+   */
+  totalAmount: number
+  /**
+   * Discounted amount to pay
+   */
+  amountToPay: number
+  /**
+   * Discount
+   */
+  discountAmount: number
+  /**
+   * Invoice currency
+   */
+  currency: string
+
+}
+export interface InvoiceSpendingDetails{
+  /**
+   * Paid amount
+   */
+  amount: InvoiceTotalDetails
+  /**
+   * Service name
+   */
+  serviceName: string
+  /**
+   * Array of taxes
+   */
+  taxes: InvoiceTaxesDetails
+
+}
+export interface InvoiceTaxesDetails{
+  /**
+   * Taxable sum
+   */
+  taxableMeasure: number
+  /**
+   * Paid amount
+   */
+  amount: number
+  /**
+   * Tax type. Possible values: Federal, State, County, City, Unincorporated
+   */
+  level: string
+  /**
+   * Tax rate
+   */
+  rate: number
+  /**
+   * Tax name
+   */
+  name: string
+  /**
+   * Tax currency
+   */
+  currency: string
+  /**
+   * Tax category
+   */
+  category: string
 
 }
