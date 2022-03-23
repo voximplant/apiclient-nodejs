@@ -710,7 +710,7 @@ export interface TransactionInfo{
    */
   currency: string
   /**
-   * The transaction type. The following values are possible: resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, rub_card_periodic_payment, rub_card_overrun_payment, rub_card_payment, robokassa_payment, gift, promo, adjustment, wire_transfer, us_wire_transfer, refund, discount, mgp_charge, mgp_startup, mgp_business, mgp_big_business, mgp_enterprise, mgp_large_enterprise, techsupport_charge, tax_charge, monthly_fee_charge, grace_credit_payment, grace_credit_provision, mau_charge, mau_overrun, im_charge, im_overrun, fmc_charge, sip_registration_charge, development_fee, money_transfer_to_child, money_transfer_to_parent, money_acceptance_from_child, money_acceptance_from_parent, phone_number_installation, phone_number_charge, toll_free_phone_number_installation, toll_free_phone_number_charge, services, user_money_transfer
+   * The transaction type. The following values are possible: resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, rub_card_periodic_payment, rub_card_overrun_payment, rub_card_payment, robokassa_payment, gift, promo, adjustment, wire_transfer, us_wire_transfer, refund, discount, mgp_charge, mgp_startup, mgp_business, mgp_big_business, mgp_enterprise, mgp_large_enterprise, techsupport_charge, tax_charge, monthly_fee_charge, grace_credit_payment, grace_credit_provision, mau_charge, mau_overrun, im_charge, im_overrun, fmc_charge, sip_registration_charge, development_fee, money_transfer_to_child, money_transfer_to_parent, money_acceptance_from_child, money_acceptance_from_parent, phone_number_installation, phone_number_charge, toll_free_phone_number_installation, toll_free_phone_number_charge, services, user_money_transfer, paypal_payment, paypal_overrun_payment, paypal_periodic_payment
    */
   transactionType: string
   /**
@@ -947,7 +947,7 @@ export interface ACDSessionInfo{
    */
   acdSessionHistoryId: number
   /**
-   * The ACD request ID. See the [ACDRequest.id()](https://voximplant.com/docs/references/voxengine/acd/acdrequest#id) VoxEngine method
+   * The ACD request ID. See the [ACDRequest.id()](/docs/references/voxengine/acd/acdrequest#id) VoxEngine method
    */
   acdRequestId: string
   /**
@@ -1462,7 +1462,7 @@ export interface ACDLockedOperatorState{
    */
   acdCalls?: ACDOperatorCall[]
   /**
-   * The operator <a href='//voximplant.com/docs/references/websdk/voximplant/operatoracdstatuses'>status string</a>. 'BANNED' string indicates temporarily <a href='/docs/tutorials/step-by-step-call-center-tutorial'>banned operators</a>. The following values are possible: READY, BANNED
+   * The operator <a href='/docs/references/websdk/voximplant/operatoracdstatuses'>status string</a>. 'BANNED' string indicates temporarily <a href='/docs/guides/smartqueue/acdv1'>banned operators</a>. The following values are possible: READY, BANNED
    */
   status?: string
 
@@ -1481,7 +1481,7 @@ export interface ACDAfterServiceOperatorState{
    */
   userDisplayName: string
   /**
-   * The operator <a href='//voximplant.com/docs/references/websdk/voximplant/operatoracdstatuses'>status string</a>
+   * The operator <a href='/docs/references/websdk/voximplant/operatoracdstatuses'>status string</a>
    */
   status?: string
 
@@ -1711,7 +1711,7 @@ export interface AttachedPhoneInfo{
    */
   canBeUsed: boolean
   /**
-   * If <b>true</b>, SMS is supported for this phone number. SMS needs to be explicitly enabled via the [ControlSms] Management API before sending or receiving SMS. If SMS is supported and enabled, SMS can be sent from this phone number using the [SendSmsMessage] Management API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/howtos/integration/httpapi/callbacks'>this article</a> for HTTP callback details
+   * If <b>true</b>, SMS is supported for this phone number. SMS needs to be explicitly enabled via the [ControlSms] Management API before sending or receiving SMS. If SMS is supported and enabled, SMS can be sent from this phone number using the [SendSmsMessage] Management API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/guides/managementapi/callbacks'>this article</a> for HTTP callback details
    */
   isSmsSupported: boolean
   /**
@@ -1874,7 +1874,7 @@ export interface PhoneNumberCountryRegionInfo{
    */
   regulationAddressType?: string
   /**
-   * If <b>true</b>, SMS is supported for phone numbers in this region. SMS needs to be explicitly enabled for a phone number via the [ControlSms] Management API before sending or receiving SMS. If SMS is supported and enabled, SMS can be sent from a phone number using the [SendSmsMessage] Management API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/howtos/integration/httpapi/callbacks'>this article</a> for HTTP callback details
+   * If <b>true</b>, SMS is supported for phone numbers in this region. SMS needs to be explicitly enabled for a phone number via the [ControlSms] Management API before sending or receiving SMS. If SMS is supported and enabled, SMS can be sent from a phone number using the [SendSmsMessage] Management API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/guides/managementapi/callbacks'>this article</a> for HTTP callback details
    */
   isSmsSupported: boolean
   /**
@@ -3974,7 +3974,7 @@ export interface SubUserView{
    */
   subuserId: number
   /**
-   * The subuser name, can be used as __subuser_login__ to <a href='/docs/howtos/integration/httpapi/auth'>authenticate</a>
+   * The subuser name, can be used as __subuser_login__ to <a href='/docs/guides/managementapi/authorization'>authenticate</a>
    */
   subuserName: string
   /**

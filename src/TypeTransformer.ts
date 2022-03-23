@@ -1350,12 +1350,6 @@ export default class TypeTransformer{
       if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.to('string')(data['currency']);  
       return xData;
 },
-    'AllocateAlfaBankPaymentResultType': function(data){
-      const xData = {};
-      if(typeof data['formUrl'] !== 'undefined') xData['formUrl'] = TypeTransformer.to('string')(data['formUrl']);
-      if(typeof data['payment_id '] !== 'undefined') xData['paymentId '] = TypeTransformer.to('string')(data['payment_id ']);  
-      return xData;
-},
     'PstnBlackListInfoType': function(data){
       const xData = {};
       if(typeof data['pstn_blacklist_id'] !== 'undefined') xData['pstnBlacklistId'] = TypeTransformer.to('number')(data['pstn_blacklist_id']);
@@ -3067,12 +3061,6 @@ export default class TypeTransformer{
       if(typeof data['msg'] !== 'undefined') xData['msg'] = TypeTransformer.from('string')(data['msg']);
       if(typeof data['amount'] !== 'undefined') xData['amount'] = TypeTransformer.from('number')(data['amount']);
       if(typeof data['currency'] !== 'undefined') xData['currency'] = TypeTransformer.from('string')(data['currency']);
-      return xData;
-},
-    'AllocateAlfaBankPaymentResult': function(data){
-      const xData = {};
-      if(typeof data['formUrl'] !== 'undefined') xData['formUrl'] = TypeTransformer.from('string')(data['formUrl']);
-      if(typeof data['paymentId '] !== 'undefined') xData['payment_id '] = TypeTransformer.from('string')(data['paymentId ']);
       return xData;
 },
     'PstnBlackListInfo': function(data){

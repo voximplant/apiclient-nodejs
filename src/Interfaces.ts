@@ -94,6 +94,9 @@ export interface UtilsReturns{
   'GetSmartQueueDayHistory':GetSmartQueueDayHistoryResponse
   'RequestSmartQueueHistory':RequestSmartQueueHistoryResponse
   'GetSQState':GetSQStateResponse
+  'SQ_SetAgentCustomStatusMapping':SQ_SetAgentCustomStatusMappingResponse
+  'SQ_GetAgentCustomStatusMapping':SQ_GetAgentCustomStatusMappingResponse
+  'SQ_DeleteAgentCustomStatusMapping':SQ_DeleteAgentCustomStatusMappingResponse
   'SQ_AddQueue':SQ_AddQueueResponse
   'SQ_SetQueueInfo':SQ_SetQueueInfoResponse
   'SQ_DelQueue':SQ_DelQueueResponse
@@ -1396,7 +1399,7 @@ export interface StartScenariosRequest {
   */
   applicationName?:string
   /**
-   *The script custom data (like a script argument). Can be accessed in JS scenario via the <a href='//voximplant.com/docs/references/voxengine/voxengine/customdata'>VoxEngine.customData()</a> method
+   *The script custom data (like a script argument). Can be accessed in JS scenario via the <a href='/docs/references/voxengine/voxengine/customdata'>VoxEngine.customData()</a> method
   */
   scriptCustomData?:string
   /**
@@ -1411,11 +1414,11 @@ export interface StartScenariosResponse {
   */
   result:number
   /**
-   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTP request on this URL will result in the [AppEvents.HttpRequest](https://voximplant.com/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for scenario, with HTTP request data passed to it
+   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTP request on this URL will result in the [AppEvents.HttpRequest](/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for scenario, with HTTP request data passed to it
   */
   mediaSessionAccessUrl:string
   /**
-   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTPS request on this URL will result in the [AppEvents.HttpRequest](https://voximplant.com/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for scenario, with HTTP request data passed to it
+   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTPS request on this URL will result in the [AppEvents.HttpRequest](/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for scenario, with HTTP request data passed to it
   */
   mediaSessionAccessSecureUrl:string
   mediaSessionCheckUrl:string
@@ -1446,7 +1449,7 @@ export interface StartConferenceRequest {
   */
   applicationName?:string
   /**
-   *The script custom data (like a script argument). Can be accessed in JS scenario via the <a href='//voximplant.com/docs/references/voxengine/voxengine/customdata'>VoxEngine.customData()</a> method
+   *The script custom data (like a script argument). Can be accessed in JS scenario via the <a href='/docs/references/voxengine/voxengine/customdata'>VoxEngine.customData()</a> method
   */
   scriptCustomData?:string
   /**
@@ -1460,11 +1463,11 @@ export interface StartConferenceResponse {
   */
   result:number
   /**
-   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTP request on this URL will result in the [AppEvents.HttpRequest](https://voximplant.com/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for a scenario, with an HTTP request data passed to it
+   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTP request on this URL will result in the [AppEvents.HttpRequest](/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for a scenario, with an HTTP request data passed to it
   */
   mediaSessionAccessUrl:string
   /**
-   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTPS request on this URL will result in the [AppEvents.HttpRequest](https://voximplant.com/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for a scenario, with an HTTP request data passed to it
+   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTPS request on this URL will result in the [AppEvents.HttpRequest](/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for a scenario, with an HTTP request data passed to it
   */
   mediaSessionAccessSecureUrl:string
 }
@@ -1655,7 +1658,7 @@ export interface GetCallHistoryRequest {
   toDate:Date
   timezone?:string
   /**
-   *The call session history ID list separated by the ';' symbol. The sessions IDs can be accessed in JS scenario via the <b>sessionID</b> property of the <a href='//voximplant.com/docs/references/voxengine/appevents#started'>AppEvents.Started</a> event
+   *The call session history ID list separated by the ';' symbol. The sessions IDs can be accessed in JS scenario via the <b>sessionID</b> property of the <a href='/docs/references/voxengine/appevents#started'>AppEvents.Started</a> event
   */
   callSessionHistoryId?:'any'|number|number[]
   /**
@@ -1822,7 +1825,7 @@ export interface GetTransactionHistoryRequest {
   transactionId?:'any'|number|number[]
   paymentReference?:string
   /**
-   *The transaction type list separated by the ';' symbol. The following values are possible: resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, rub_card_periodic_payment, rub_card_overrun_payment, rub_card_payment, robokassa_payment, gift, promo, adjustment, wire_transfer, us_wire_transfer, refund, discount, mgp_charge, mgp_startup, mgp_business, mgp_big_business, mgp_enterprise, mgp_large_enterprise, techsupport_charge, tax_charge, monthly_fee_charge, grace_credit_payment, grace_credit_provision, mau_charge, mau_overrun, im_charge, im_overrun, fmc_charge, sip_registration_charge, development_fee, money_transfer_to_child, money_transfer_to_parent, money_acceptance_from_child, money_acceptance_from_parent, phone_number_installation, phone_number_charge, toll_free_phone_number_installation, toll_free_phone_number_charge, services, user_money_transfer
+   *The transaction type list separated by the ';' symbol. The following values are possible: resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, rub_card_periodic_payment, rub_card_overrun_payment, rub_card_payment, robokassa_payment, gift, promo, adjustment, wire_transfer, us_wire_transfer, refund, discount, mgp_charge, mgp_startup, mgp_business, mgp_big_business, mgp_enterprise, mgp_large_enterprise, techsupport_charge, tax_charge, monthly_fee_charge, grace_credit_payment, grace_credit_provision, mau_charge, mau_overrun, im_charge, im_overrun, fmc_charge, sip_registration_charge, development_fee, money_transfer_to_child, money_transfer_to_parent, money_acceptance_from_child, money_acceptance_from_parent, phone_number_installation, phone_number_charge, toll_free_phone_number_installation, toll_free_phone_number_charge, services, user_money_transfer, paypal_payment, paypal_overrun_payment, paypal_periodic_payment
   */
   transactionType?:string|string[]
   /**
@@ -3590,6 +3593,58 @@ export interface GetSQStateRequest {
 export interface GetSQStateResponse {
   result:SmartQueueState[]
 }
+export interface SQ_SetAgentCustomStatusMappingRequest {
+  /**
+   *Status name
+  */
+  sqStatusName:string
+  /**
+   *Custom status name
+  */
+  customStatusName:string
+  /**
+   *Application ID
+  */
+  applicationId:number
+}
+export interface SQ_SetAgentCustomStatusMappingResponse {
+  /**
+   *1
+  */
+  result:number
+}
+export interface SQ_GetAgentCustomStatusMappingRequest {
+  /**
+   *Application ID
+  */
+  applicationId?:number
+}
+export interface SQ_GetAgentCustomStatusMappingResponse {
+  /**
+   *Status name
+  */
+  sqStatusName:string
+  /**
+   *Custom status name
+  */
+  customStatusName:string
+}
+export interface SQ_DeleteAgentCustomStatusMappingRequest {
+  /**
+   *Application ID
+  */
+  applicationId:number
+  /**
+   *Status name
+  */
+  sqStatusName?:string
+}
+export interface SQ_DeleteAgentCustomStatusMappingResponse {
+  /**
+   *1
+  */
+  result:number
+}
 export interface SQ_AddQueueRequest {
   /**
    *ID of the application to bind to
@@ -4161,6 +4216,9 @@ export interface SmartQueueInterface {
   getSmartQueueDayHistory: (request:GetSmartQueueDayHistoryRequest) => Promise<GetSmartQueueDayHistoryResponse>
   requestSmartQueueHistory: (request:RequestSmartQueueHistoryRequest) => Promise<RequestSmartQueueHistoryResponse>
   getSQState: (request:GetSQStateRequest) => Promise<GetSQStateResponse>
+  sQ_SetAgentCustomStatusMapping: (request:SQ_SetAgentCustomStatusMappingRequest) => Promise<SQ_SetAgentCustomStatusMappingResponse>
+  sQ_GetAgentCustomStatusMapping: (request:SQ_GetAgentCustomStatusMappingRequest) => Promise<SQ_GetAgentCustomStatusMappingResponse>
+  sQ_DeleteAgentCustomStatusMapping: (request:SQ_DeleteAgentCustomStatusMappingRequest) => Promise<SQ_DeleteAgentCustomStatusMappingResponse>
   sQ_AddQueue: (request:SQ_AddQueueRequest) => Promise<SQ_AddQueueResponse>
   sQ_SetQueueInfo: (request:SQ_SetQueueInfoRequest) => Promise<SQ_SetQueueInfoResponse>
   sQ_DelQueue: (request:SQ_DelQueueRequest) => Promise<SQ_DelQueueResponse>
@@ -4343,11 +4401,11 @@ export interface AddAdminUserRequest {
   */
   adminUserActive?:boolean
   /**
-   *The role(s) ID created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role ID list separated by the ';' symbol. Use the 'all' value to select all admin roles
+   *The role(s) ID created via <a href='/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role ID list separated by the ';' symbol. Use the 'all' value to select all admin roles
   */
   adminRoleId?:string
   /**
-   *The role(s) name(s) created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role name that can be used instead of <b>admin_role_id</b>
+   *The role(s) name(s) created via <a href='/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role name that can be used instead of <b>admin_role_id</b>
   */
   adminRoleName?:string|string[]
 }
@@ -4468,11 +4526,11 @@ export interface AttachAdminRoleRequest {
   */
   requiredAdminUserName:string|string[]
   /**
-   *The role(s) ID created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attached admin role ID list separated by the ';' symbol. Use the 'all' value to select alladmin roles
+   *The role(s) ID created via <a href='/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attached admin role ID list separated by the ';' symbol. Use the 'all' value to select alladmin roles
   */
   adminRoleId:'any'|number|number[]
   /**
-   *The role(s) name(s) created via <a href='//voximplant.com/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The admin role name to attach, can be used instead of <b>admin_role_id</b>
+   *The role(s) name(s) created via <a href='/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The admin role name to attach, can be used instead of <b>admin_role_id</b>
   */
   adminRoleName:string|string[]
   /**
@@ -5467,7 +5525,7 @@ export interface RemoveKeyRolesResponse {
 }
 export interface AddSubUserRequest {
   /**
-   *The new subuser login for <a href='/docs/howtos/integration/httpapi/auth'>authentication</a>, should be unique within the Voximplant account. The login specified is always converted to lowercase
+   *The new subuser login for managent api authentication, should be unique within the Voximplant account. The login specified is always converted to lowercase
   */
   newSubuserName:string
   /**
