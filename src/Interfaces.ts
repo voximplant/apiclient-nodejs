@@ -23,6 +23,7 @@ export interface UtilsReturns{
   'GetUsers':GetUsersResponse
   'TransferMoneyToUser':TransferMoneyToUserResponse
   'CreateManualCallList':CreateManualCallListResponse
+  'CreateCallList':CreateCallListResponse
   'StartNextCallTask':StartNextCallTaskResponse
   'GetCallLists':GetCallListsResponse
   'GetCallListDetails':GetCallListDetailsResponse
@@ -1067,6 +1068,68 @@ export interface CreateManualCallListResponse {
   */
   listId:number
 }
+
+export interface CreateCallListRequest {
+  /**
+   *The rule ID
+   */
+  ruleId:number
+  /**
+   *Call list priority. The value is in the range of [0 ... 2^31] where zero is the highest priority
+   */
+  priority:number
+  /**
+   *Number of simultaneously processed tasks
+   */
+  maxSimultaneous:number
+  /**
+   *Number of attempts. Should be equal or greater than <b>1</b>
+   */
+  numAttempts:number
+  /**
+   *File name
+   */
+  name:string
+  /**
+   *Send as "body" part of the HTTP request or as multiform. The sending "file_content" via URL is at its own risk because the network devices tend to drop HTTP requests with large headers
+   */
+  fileContent:string
+  /**
+   *Interval between call attempts in seconds. The default is 0
+   */
+  intervalSeconds?:number
+  /**
+   *Encoding file. The default is UTF-8
+   */
+  encoding?:string
+  /**
+   *Separator values. The default is ';'
+   */
+  delimiter?:string
+  /**
+   *Escape character for parsing csv
+   */
+  escape?:string
+  /**
+   *Specifies the IP from the geolocation of the call list subscribers. It allows selecting the nearest server for serving subscribers
+   */
+  referenceIp?:string
+}
+export interface CreateCallListResponse {
+  /**
+   *true
+   */
+  result:boolean
+  /**
+   *The number of stored records
+   */
+  count:number
+  /**
+   *The list ID
+   */
+  listId:number
+}
+
 export interface StartNextCallTaskRequest {
   /**
    *The list of the call list IDs separated by the ';' symbol
@@ -1209,6 +1272,7 @@ export interface RecoverCallListResponse {
 }
 export interface CallListsInterface {
   createManualCallList: (request:CreateManualCallListRequest) => Promise<CreateManualCallListResponse>
+  createCallList: (request:CreateCallListRequest) => Promise<CreateCallListResponse>
   startNextCallTask: (request:StartNextCallTaskRequest) => Promise<StartNextCallTaskResponse>
   getCallLists: (request:GetCallListsRequest) => Promise<GetCallListsResponse>
   getCallListDetails: (request:GetCallListDetailsRequest) => Promise<GetCallListDetailsResponse>
