@@ -369,7 +369,7 @@ export default class VoximplantApiClient{
 
   public CallLists:CallListsInterface = {
     /**
-     * Adds a new CSV file for automatic call list processing and bind it with the specified rule. To send a file, use the request body. To start processing calls, use the function [StartNextCallTask]. <b>IMPORTANT:</b> the account's balance should be equal or greater than 1 USD. If the balance is lower than 1 USD, the call list processing won't start, or it stops immediately if it was active.
+     * Adds a new CSV file for manual call list processing and bind it with the specified rule. To send a file, use the request body. To start processing calls, use the function [StartNextCallTask]. <b>IMPORTANT:</b> the account's balance should be equal or greater than 1 USD. If the balance is lower than 1 USD, the call list processing won't start, or it stops immediately if it was active.
     */
     createManualCallList: (request:CreateManualCallListRequest):Promise<CreateManualCallListResponse> => {
       const reqMapper = [{rawName:'rule_id', name:'ruleId', transformer: TypeTransformer.to('number')},
@@ -389,7 +389,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('CreateManualCallList',request,[reqMapper,respMapper]);
     },
       /**
-       * Adds a new CSV file for manual call list processing and bind it with the specified rule. To send a file, use the request body. To start processing calls, use the function [StartNextCallTask]. <b>IMPORTANT:</b> the account's balance should be equal or greater than 1 USD. If the balance is lower than 1 USD, the call list processing won't start, or it stops immediately if it was active.
+       * Adds a new CSV file for automatic call list processing and bind it with the specified rule. To send a file, use the request body. To start processing calls, use the function [StartNextCallTask]. <b>IMPORTANT:</b> the account's balance should be equal or greater than 1 USD. If the balance is lower than 1 USD, the call list processing won't start, or it stops immediately if it was active.
        */
       createCallList: (request:CreateCallListRequest):Promise<CreateCallListResponse> => {
           const reqMapper = [{rawName:'rule_id', name:'ruleId', transformer: TypeTransformer.to('number')},
