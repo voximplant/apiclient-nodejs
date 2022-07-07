@@ -13,12 +13,12 @@ export default class VoximplantApiClient{
 
   constructor(pathToCredentials?:string,private host?:string){
     const path = process.env.VOXIMPLANT_CREDENTIALS || pathToCredentials
-    fs.readFile(path,'utf8',(err,data)=>{
-      if(err) throw err;
+    try {
+      const data = fs.readFileSync(path, 'utf8')
       this.key = JSON.parse(data);
-      if(this.onReady)
-        this.onReady(this);
-    });
+    } catch (err) {
+      throw err
+    }
   }
   private makeRequest<T extends keyof UtilsReturns>(request:T,requestData:any,transformer:any[]):Promise<UtilsReturns[T]>{
     const form = new FormData();
