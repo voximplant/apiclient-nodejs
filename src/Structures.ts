@@ -572,23 +572,35 @@ export interface SipWhiteListInfo{
    * The network address in format A.B.C.D/L
    */
   sipWhitelistNetwork: string
+  /**
+   * The network address description
+   */
+  description?: string
 
 }
 export interface CallSessionInfo{
   /**
-   * The call session history ID
+   * The routing rule name
+   */
+  ruleName: string
+  /**
+   * The application name
+   */
+  applicationName: string
+  /**
+   * The unique JS session identifier
    */
   callSessionHistoryId: number
   /**
-   * The account ID
+   * The account ID that initiates the JS session
    */
   accountId: number
   /**
-   * The application ID
+   * The application ID that initiates the JS session
    */
   applicationId: number
   /**
-   * The user ID
+   * The user ID that initiates the JS session
    */
   userId: number
   /**
@@ -596,7 +608,7 @@ export interface CallSessionInfo{
    */
   startDate: Date
   /**
-   * The session duration in seconds
+   * The entire JS session duration in seconds. The session can contain multiple calls
    */
   duration?: number
   /**
@@ -608,15 +620,15 @@ export interface CallSessionInfo{
    */
   mediaServerAddress: string
   /**
-   * The session log URL
+   * The link to the session log. The log retention policy is 1 month, after that time this field clears
    */
   logFileUrl: string
   /**
-   * The finish reason. Possible values are __Normal termination__, __Insufficient funds__, __Internal error (billing timeout)__, __Terminated administratively__, __JS Error__, __Timeout__
+   * The finish reason. Possible values are __Normal termination__, __Insufficient funds__, __Internal error (billing timeout)__, __Terminated administratively__, __JS session error__, __Timeout__
    */
   finishReason?: string
   /**
-   * The bound calls
+   * The calls within JS session, including durations, cost, phone numbers and other information
    */
   calls?: CallInfo[]
   /**
@@ -647,15 +659,15 @@ export interface CallInfo{
    */
   duration?: number
   /**
-   * The local number
+   * The local number on the platform side
    */
   localNumber: string
   /**
-   * The remote number
+   * The remote number on the client side
    */
   remoteNumber: string
   /**
-   * The remote number type
+   * The type of the remote number, such as PSTN, mobile, user or sip address
    */
   remoteNumberType: string
   /**
@@ -683,7 +695,7 @@ export interface CallInfo{
    */
   cost?: number
   /**
-   * The custom data
+   * The custom data passed to the JS session
    */
   customData?: string
 
@@ -1072,6 +1084,10 @@ export interface QueueInfo{
    * The service level thresholds in seconds
    */
   slThresholds?: number[]
+  /**
+   * Number of agents bound to the queue
+   */
+  operatorcount?: number
 
 }
 export interface QueueSkills{
@@ -1635,6 +1651,14 @@ export interface NewPhoneInfo{
    * The phone region name
    */
   phoneRegionName: string
+  /**
+   * The phone number installation tax reserve
+   */
+  phoneInstallationTaxReserve: number
+  /**
+   * The phone number tax reserve
+   */
+  phoneTaxReserve: number
 
 }
 export interface AttachedPhoneInfo{
@@ -1695,9 +1719,9 @@ export interface AttachedPhoneInfo{
    */
   categoryName: string
   /**
-   * The required account verification name
+   * Verification is required for the account
    */
-  requiredVerification?: string
+  requiredVerification?: boolean
   /**
    * The account verification status. The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
    */
@@ -1758,9 +1782,9 @@ export interface NewAttachedPhoneInfo{
    */
   phoneNumber: string
   /**
-   * The required account verification name
+   * Verification is required for the account
    */
-  requiredVerification?: string
+  requiredVerification?: boolean
   /**
    * The account verification status. The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
    */
@@ -1850,9 +1874,9 @@ export interface PhoneNumberCountryRegionInfo{
    */
   verificationStatus?: string
   /**
-   * The required account verification name
+   * Verification is required for the account
    */
-  requiredVerification?: string
+  requiredVerification?: boolean
   /**
    * The phone monthly charge
    */
@@ -1893,6 +1917,14 @@ export interface PhoneNumberCountryRegionInfo{
    * The localized phone region name
    */
   localizedPhoneRegionName: string
+  /**
+   * The phone number installation tax reserve
+   */
+  phoneInstallationTaxReserve: number
+  /**
+   * The phone number tax reserve
+   */
+  phoneTaxReserve: number
 
 }
 export interface MultipleNumbersPrice{
@@ -1908,6 +1940,14 @@ export interface MultipleNumbersPrice{
    * The installation price for one number, i.e., the total multiple numbers installation price divided by the __count__ value
    */
   installationPrice: number
+  /**
+   * The phone number installation tax reserve
+   */
+  installationTaxReserve: number
+  /**
+   * The phone number tax reserve
+   */
+  taxReserve: number
 
 }
 export interface CallerIDInfo{
@@ -2650,13 +2690,21 @@ export interface SubscriptionTemplate{
    */
   subscriptionTemplateName: string
   /**
-   * The name of the required verification
+   * Verification is required for the account
    */
-  requiredVerification: string
+  requiredVerification: boolean
   /**
    * The verification status. Possible values are REQUIRED, IN_PROGRESS, VERIFIED, NOT_REQUIRED
    */
   verificationStatus: string
+  /**
+   * The phone number installation tax reserve
+   */
+  installationTaxReserve: number
+  /**
+   * The phone number tax reserve
+   */
+  taxReserve: number
 
 }
 export interface AccountCallbacks{
@@ -3058,7 +3106,7 @@ export interface RegulationAddressVerifiedCallback{
    */
   regulationAddressId: number
   /**
-   * The document verification status. The following values are possible: IN_PROGRESS, VERIFIED, DECLINED, PENDING
+   * The document verification status. The following values are possible: VERIFIED, DECLINED
    */
   regulationAddressStatus: string
   /**
@@ -3311,7 +3359,7 @@ export interface TranscriptionCompleteCallbackItem{
    */
   transcriptionUrl: string
   /**
-   * The call session history id
+   * The call session history ID
    */
   callSessionHistoryId: number
   /**
@@ -3891,6 +3939,10 @@ export interface MGPInfo{
 }
 export interface SmsTransaction{
   /**
+   * Message ID
+   */
+  messageId: number
+  /**
    * The SMS destination number
    */
   destinationNumber: string
@@ -4084,9 +4136,9 @@ export interface ChildAccountSubscriptionTemplate{
 }
 export interface SmsHistory{
   /**
-   * Id of the message
+   * Message ID
    */
-  smsId: number
+  messageId: number
   /**
    * Number being called from
    */
@@ -4123,13 +4175,17 @@ export interface SmsHistory{
    * Id of the transaction for this message
    */
   transactionId?: number
+  /**
+   * Stored message text
+   */
+  text?: string
 
 }
 export interface A2PSmsHistory{
   /**
-   * The message ID
+   * Message ID
    */
-  id: number
+  messageId: number
   /**
    * SMS source number
    */
@@ -4166,6 +4222,10 @@ export interface A2PSmsHistory{
    * Delivery status: QUEUED, DISPATCHED, ABORTED, REJECTED, DELIVERED, FAILED, EXPIRED, UNKNOWN
    */
   deliveryStatus: string
+  /**
+   * Stored message text
+   */
+  text?: string
 
 }
 export interface ExpiredAgreementCallback{
@@ -4265,6 +4325,10 @@ export interface GetSQQueuesResult{
    * Maximum size of the queue with IM-type requests
    */
   imMaxQueueSize?: number
+  /**
+   * Number of agents bound to the queue
+   */
+  agentcount?: number
 
 }
 export interface GetSQSkillsResult{
@@ -4364,18 +4428,26 @@ export interface SQSkillBindingModes{
 }
 export interface SQAgentBindingModes{
   /**
-   * Add new agents to the queue
+   * Add additional queues to the agent
+   */
+  addQueues?: string
+  /**
+   * Unbind all the existing agents from the queue and bind new agents
+   */
+  replaceAgents?: string
+  /**
+   * Remove all the queues from the agent and bind new queues
    */
   add?: string
   /**
-   * Replace agents with new ones
+   * Unbind all the existing agents and all the existing queues, then bind the specified queues to the specified agents
    */
   replace?: string
 
 }
 export interface SmartQueueMetricsResult{
   /**
-   * The report type(s)
+   * The report type(s). Possible values are calls_blocked_percentage, count_blocked_calls, average_abandonment_rate, count_abandonment_calls, service_level, occupancy_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_banned_time, min_time_in_queue,max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime, sum_agents_custom_1_time ... sum_agents_custom_10_time
    */
   reportType: string
   /**

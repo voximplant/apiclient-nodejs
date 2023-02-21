@@ -510,7 +510,7 @@ export enum APIErrorCode{
   /**
    * The 'amount' parameter is invalid
    */
-  INVALID_AMOUNT = 313,
+  INVALID_AMOUNT = 225,
   /**
    * The payment amount is very low. The amount must be greater than N
    */
@@ -1240,7 +1240,595 @@ export enum APIErrorCode{
    */
   INVALID_STATUS = 428,
   /**
-   * Invalid token format
+   * The 'resource_type' parameter is invalid.
+   */
+  INVALID_RESOURCE_TYPE = 429,
+  /**
+   * The 'price_group_name' parameter is invalid.
+   */
+  INVALID_PRICE_GROUP_NAME = 430,
+  /**
+   * Invalid key id.
+   */
+  INVALID_KEY_ID = 433,
+  /**
+   * Invalid subuser id.
+   */
+  INVALID_SUB_USER_ID = 434,
+  /**
+   * Invalid role set.
+   */
+  INVALID_ROLE_SET = 435,
+  /**
+   * Sub user login isn't unique.
+   */
+  SUB_USER_LOGIN_NOT_UNIQUE = 436,
+  /**
+   * Max number of keys exceeded.
+   */
+  MAX_NUMBER_OF_KEYS_EXCEEDED = 437,
+  /**
+   * Max number of subusers exceeded.
+   */
+  MAX_NUMBER_OF_SUB_USERS_EXCEEDED = 438,
+  /**
+   * Subuser has at least one key with this roles.
+   */
+  SUB_USER_HAS_KEYS_WITH_ROLES_TO_REMOVE = 439,
+  /**
+   * The 'role_id' parameter is invalid.
+   */
+  INVALID_ROLE_ID = 440,
+  /**
+   * The 'role_name' parameter is invalid.
+   */
+  INVALID_ROLE_NAME = 441,
+  /**
+   * The 'resource_discount_id' parameter is invalid.
+   */
+  INVALID_RESOURCE_DISCOUNT_ID = 442,
+  /**
+   * The 'subscription_discount_id' parameter is invalid.
+   */
+  INVALID_SUBSCRIPTION_DISCOUNT_ID = 443,
+  /**
+   * The 'target_price_calculation_account_id' is forbidden for user.
+   */
+  INVALID_TARGET_PRICE_CALCULATION_ACCOUNT_ID = 444,
+  /**
+   * The 'subscription_periodic_fixed' must be greater than the base price.
+   */
+  INVALID_SUBSCRIPTION_PERIODIC_FIXED = 445,
+  /**
+   * The 'subscription_installation_fixed' must be greater than the base price.
+   */
+  INVALID_SUBSCRIPTION_INSTALLATION_FIXED = 446,
+  /**
+   * Invalid token format.
    */
   INVALID_TOKEN_FORMAT = 447,
+  /**
+   * Current subuser password is missing.
+   */
+  CURRENT_SUB_USER_PASSWORD_MISSING = 448,
+  /**
+   * Using 'role_id' and 'role_name' at the same_time.
+   */
+  ROLE_ID_AND_ROLE_NAME_AT_THE_SAME_TIME = 449,
+  /**
+   * The 'mgp_template_id' parameter is invalid.
+   */
+  INVALID_MGP_TEMPLATE_ID = 450,
+  /**
+   * The account's tax rate ID must be the same as the MGP tax rate ID.
+   */
+  INVALID_ACCOUNT_TAX_RATE_ID = 451,
+  /**
+   * Subuser name must be at least 5 and up to 20 characters long.
+   */
+  INVALID_SUB_USER_NAME_LEN = 452,
+  /**
+   * Subuser name should start with a letter and can contain latin characters
+   */
+  INVALID_SUB_USER_NAME_SYMBOLS = 453,
+  /**
+   * The token TTL exceeds the maximum limit.
+   */
+  INVALID_TOKEN_TTL = 454,
+  /**
+   * Token issued in the future.
+   */
+  TOKEN_ISSUED_IN_FUTURE = 455,
+  /**
+   * The token has expired.
+   */
+  TOKEN_EXPIRED = 456,
+  /**
+   * The 'min_payment_amount' parameter is invalid.
+   */
+  INVALID_MIN_PAYMENT_AMOUNT = 457,
+  /**
+   * Specify only one of the following parameters: %1$s
+   */
+  ONLY_ONE_OF_PARAMETERS = 458,
+  /**
+   * Unknown report type.
+   */
+  UNKNOWN_REPORT_TYPE = 459,
+  /**
+   * The 'per_time' parameter is invalid.
+   */
+  UNKNOWN_PERIOD = 460,
+  /**
+   * The 'resource id' parameter is invalid.
+   */
+  INVALID_RESOURCE_ID = 461,
+  /**
+   * New user name should start with a letter or digit and can contain latin characters
+   */
+  INVALID_NEW_USER_NAME = 462,
+  /**
+   * Blank password is not allowed. Please specify a new password at least 8 characters long.
+   */
+  EMPTY_NEW_PASSWORD = 463,
+  /**
+   * Password should be at least 8 characters long and contain uppercase characters (A-Z)
+   */
+  REQUIRED_CHARACTERS_NEW_PASSWORD = 464,
+  /**
+   * The 'dialogflow_key_id' parameter is invalid.
+   */
+  INVALID_DIALOGFLOW_KEY_ID = 465,
+  /**
+   * The 'billing_address_state' parameter length must be less than 
+   */
+  INVALID_BILLING_ADDRESS_STATE_LEN = 466,
+  /**
+   * The old contractor has a debt and can't be changed
+   */
+  CONTRACTOR_WITH_DEBT = 467,
+  /**
+   * Can't change the contractor because previous period is not closed
+   */
+  INVALID_CHANGE_CONTRACTOR_IN_PREV_PERIOD = 468,
+  /**
+   * Invalid value specified for the ‘direction’ parameter. Allowed parameter values are: 'IN'
+   */
+  INVALID_SMS_DIRECTION_PARAMETER = 470,
+  /**
+   * Cannot fetch the subscription templates for the current account as it does not support child account management.
+   */
+  CANT_GET_TEMPLATES_FOR_ACCOUNT = 471,
+  /**
+   * The following agent parameters can not be found: 
+   */
+  EMPTY_AGREEMENT_ARGUMENTS = 472,
+  /**
+   * Operation denied for the current status of the document: %s.
+   */
+  INVALID_DOCUMENT_STATUS = 473,
+  /**
+   * The 'document_id' parameter is invalid.
+   */
+  INVALID_DOCUMENT_ID = 474,
+  /**
+   * The 'individual_phone_number' parameter is invalid.
+   */
+  INVALID_INDIVIDUAL_PHONE_NUMBER = 475,
+  /**
+   * The 'legal_status' parameter is invalid.
+   */
+  INVALID_LEGAL_STATUS = 476,
+  /**
+   * The \'%s\' parameter length must not exceed %d symbols.
+   */
+  LENGTH_EXCEEDED = 477,
+  /**
+   * The 'proxy_passport_series' parameter is invalid.
+   */
+  INVALID_PROXY_PASSPORT_SERIES = 478,
+  /**
+   * The 'proxy_passport_number' parameter is invalid.
+   */
+  INVALID_PROXY_PASSPORT_NUMBER = 479,
+  /**
+   * Update failed. You cannot change your individual taxpayer number. To change it
+   */
+  CONTRACTOR_DATA_CONFLICTS_WITH_AGREEMENT = 480,
+  /**
+   * The 'agreement' parameter is invalid.
+   */
+  INVALID_AGREEMENT_DOCUMENT = 481,
+  /**
+   * Invalid MIME type.
+   */
+  INVALID_MIME_TYPE = 482,
+  /**
+   * Invalid email.
+   */
+  INVALID_AGREEMENT_EMAIL = 483,
+  /**
+   * HTTP request was rejected due to probable automatic request resend. Try again later.
+   */
+  HTTP_REQUEST_REJECTED = 484,
+  /**
+   * Specify the '%s' parameter
+   */
+  PARAMETER_CANT_BE_EMPTY = 485,
+  /**
+   * Specify the '%1$s' parameter.
+   */
+  PARAMETER_CANT_BE_EMPTY_EX = 485,
+  /**
+   * Invalid 'bik' parameter value.
+   */
+  INVALID_BIK = 486,
+  /**
+   * Invalid 'expense_account' parameter value.
+   */
+  INVALID_EXPENSE_ACCOUNT = 487,
+  /**
+   * Invalid 'correspondent_account' parameter value.
+   */
+  INVALID_CORRESPONDENT_ACCOUNT = 488,
+  /**
+   * Can't change the contractor in a closed period
+   */
+  INVALID_CHANGE_CONTRACTOR_IN_PERIOD = 489,
+  /**
+   * Not found selected contractor
+   */
+  INVALID_CONTRATOR = 490,
+  /**
+   * The '%1$s' must be greater than %3$s%4$s.
+   */
+  LOW_AMOUNT = 491,
+  /**
+   * The '%1$s' parameter is forbidden.
+   */
+  FORBIDDEN_PARAMETER = 492,
+  /**
+   * The '%1$s' isn't unique.
+   */
+  VALUE_NOT_UNIQUE = 493,
+  /**
+   * The queues limit per application is exceeded.
+   */
+  SC_QUEUE_COUNT_LIMIT = 494,
+  /**
+   * The skill count limit per application is exceeded.";
+   */
+  SC_SKILL_COUNT_LIMIT = 495,
+  /**
+   * The '%1$s' parameter is invalid.
+   */
+  INVALID = 496,
+  /**
+   * %2$s should be in range of %3$s..%4$s
+   */
+  INVALID_RANGE = 497,
+  /**
+   * Agent can be assigned up to 5 skills
+   */
+  MAX_AGENT_SKILLS_EXCEEDED = 498,
+  /**
+   * The '%1$s' parameter length must be less than %3$s.
+   */
+  TOO_LONG = 499,
+  /**
+   * The 'partner_code' parameter length must be less than 
+   */
+  INVALID_PARTNER_CODE_LENGTH = 500,
+  /**
+   * File not found.
+   */
+  FILE_NOT_FOUND = 501,
+  /**
+   * No routes for numbers %3$s in dst_numbers
+   */
+  NO_ROUTE_FOR_DST_NUMBERS = 506,
+  /**
+   * The 'src_number' parameter is invalid.
+   */
+  INVALID_SRC_NUMBER = 507,
+  /**
+   * The 'text' parameter is invalid. 
+   */
+  INVALID_TEXT = 508,
+  /**
+   * A2P SMS disabled for number %1$s
+   */
+  A2P_SMS_DISABLED = 509,
+  /**
+   * Registration incomplete
+   */
+  REGISTRATION_INCOMPLETE = 511,
+  /**
+   * '%1$s' parameter changes limit exceeded.
+   */
+  EXCEED = 512,
+  /**
+   * Unable to send an email
+   */
+  UNABLE_SEND_EMAIL = 513,
+  /**
+   * Account creation has already started
+   */
+  LOCKED = 514,
+  /**
+   * The same operation has been performed recently. Please
+   */
+  SAME_OPERATION_LIMIT = 515,
+  /**
+   * Payment in progress.
+   */
+  PAYMENT_IN_PROGRESS = 516,
+  /**
+   * The combined length of the '%1$s' and '%2$s' parameters can't be less than 6 characters.
+   */
+  INSUFFICIENT_PASSPORT_DATA_LENGTH = 517,
+  /**
+   * Invalid SSL Certificate type. You have specified the VOIP provider type in your request but the certificate provided is not of type VoIP.
+   */
+  CERT_APPLE_INVALID = 518,
+  /**
+   * Invalid SSL Certificate type. You have provided the VOIP certificate type in your request but the provider specified is not of type VOIP.
+   */
+  CERT_APPLE_VOIP_INVALID = 519,
+  /**
+   * SSL Certificate is expired. Expiration date: %s
+   */
+  CERT_EXPIRED = 520,
+  /**
+   * SSL Certificate is not yet valid. Please check the \'Not Valid Before\' parameter in the certificate properties.
+   */
+  CERT_NOT_YET_VALID = 521,
+  /**
+   * SSL Certificate does not support production mode. Please check the \'is_dev_mode\' parameter in your request.
+   */
+  CERT_PROD_MODE_NOT_SUPPORTED = 522,
+  /**
+   * Password is too weak
+   */
+  PASSWORD_TOO_WEAK = 523,
+  /**
+   * Password can't contain spaces.
+   */
+  WHITESPACES_NOT_ALLOWED = 524,
+  /**
+   * Grouping by user can be specified for %s reports only.
+   */
+  INAPPROPRIATE_AGENT_REPORTS = 525,
+  /**
+   * Grouping by queue can be specified for %s reports only.
+   */
+  INAPPROPRIATE_QUEUE_REPORTS = 526,
+  /**
+   * Please make a request outside VPN.
+   */
+  VPN_IS_NOT_ALLOWED = 527,
+  /**
+   * Sms is not supported
+   */
+  NOT_SUPPORT_SMS = 528,
+  /**
+   * The list of phone numbers for this category is not available.
+   */
+  PHONE_NUMBERS_LIST_IS_NOT_AVAILABLE = 529,
+  /**
+   * Cannot get the number list for this category. Please
+   */
+  BUYING_BY_PHONE_NUMBER_IS_NOT_SUPPORTED = 530,
+  /**
+   * This phone category does not require a regulation address.
+   */
+  REGULATION_ADDRESS_NOT_REQUIRED = 531,
+  /**
+   * This regulation address does not require additional documents.
+   */
+  REGULATION_ADDRESS_NOT_REQUIRED_ADDITIONAL_DOCUMENTS = 532,
+  /**
+   * We do not accept cards issued outside Russian Federation.
+   */
+  ALFABANK_PAYMENT_BY_NOT_RUS_CARD_FORBIDDEN = 533,
+  /**
+   * Can't find a proper email for receipts.
+   */
+  NO_EMAIL_FOR_RECEIPT = 534,
+  /**
+   * Please choose a password that you haven't used before.
+   */
+  PASSWORD_WAS_ALREADY_USED = 535,
+  /**
+   * Cannot add or delete Authorized IPs because this setting is managed by your parent account.
+   */
+  PARENT_AUTHORIZED_IPS_USED = 536,
+  /**
+   * Changing the email is only possible with password authentication.
+   */
+  ONLY_PASSWORD_AUTHENTICATION_FOR_EMAIL_CHANGING = 537,
+  /**
+   * Onboarding is currently in progress.
+   */
+  ONBOARDING_IN_PROGRESS = 538,
+  /**
+   * Update failed. No active onboarding process found.
+   */
+  ONBOARDING_NOT_STARTED = 539,
+  /**
+   * This type of subscription has been already attached
+   */
+  COUNTABLE_SUBSCRIPTION_WAS_ALREADY_USED = 540,
+  /**
+   * Countable subscription must be in active status
+   */
+  COUNTABLE_SUBSCRIPTION_MUST_BE_IN_ACTIVE_STATUS = 541,
+  /**
+   * The 'number_status' parameter is invalid.
+   */
+  INVALID_NUMBER_STATUS = 542,
+  /**
+   * The billing address is incorrect. Please check it and try again.
+   */
+  CAN_NOT_PAY_WITHOUT_VALID_ADDR = 543,
+  /**
+   * Invalid custom_record_storage_id.
+   */
+  INVALID_CUSTOM_RECORD_STORAGE_ID = 544,
+  /**
+   * Invalid 'host' parameter value.
+   */
+  INVALID_HOST_PARAMETER = 545,
+  /**
+   * Invalid Application IDs.
+   */
+  INVALID_APPLICATION_IDS = 546,
+  /**
+   * Test phone number already exists.
+   */
+  TEST_NUMBER_ALREADY_EXISTS = 547,
+  /**
+   * Test phone number does not exist.
+   */
+  TEST_NUMBER_NO_NUMBER = 548,
+  /**
+   * Test phone number is already verified.
+   */
+  TEST_NUMBER_VERIFIED = 549,
+  /**
+   * No attempts left to enter the verification code.
+   */
+  TEST_NUMBER_CODE_ATTEMPTS_LIMIT = 550,
+  /**
+   * Please get a code first.
+   */
+  TEST_NUMBER_NO_CODE = 551,
+  /**
+   * Wrong verification code.
+   */
+  TEST_NUMBER_WRONG_CODE = 552,
+  /**
+   * No attempts left to verify this number.
+   */
+  TEST_NUMBER_VERIFICATION_LIMIT = 553,
+  /**
+   * You've reached the daily limit on verification calls
+   */
+  TEST_NUMBER_VERIFICATION_DAILY_LIMIT = 554,
+  /**
+   * The 'verification_code' parameter is invalid.
+   */
+  INVALID_TEST_NUMBER_VERIFICATION_CODE = 555,
+  /**
+   * You can add only 10 emails addresses.
+   */
+  EMAIL_COUNT_LIMIT = 556,
+  /**
+   * Report was not found.
+   */
+  REPORT_NOT_FOUND = 557,
+  /**
+   * Application was not found.
+   */
+  APPLICATION_NOT_FOUND = 558,
+  /**
+   * Please enter a custom status that you haven't used before.
+   */
+  SQ_CUSTOM_STATUS_ALREADY_EXISTS = 559,
+  /**
+   * We need your email address to send a receipt after payment.
+   */
+  EMPTY_BILLING_EMAIL = 560,
+  /**
+   * You cannot use this currency with the current storage region. Please choose another currency or storage region.
+   */
+  MISMATCH_CURRENCY_AND_REGION = 561,
+  /**
+   * You cannot call this function for custom record storages.
+   */
+  FORBIDDEN_LINK_REMOVING = 562,
+  /**
+   * You cannot bind more than %1$s queues to an agent.
+   */
+  EXCEEDED_QUEUES_PER_AGENT_LIMIT = 563,
+  /**
+   * The 'price' parameter is invalid.
+   */
+  INVALID_SETTING_MGP_PRICE = 564,
+  /**
+   * Setting MGP already exists.
+   */
+  SETTING_MGP_ALREADY_EXISTS = 565,
+  /**
+   * Setting MGP doesn't exists.
+   */
+  SETTING_MGP_DOES_NOT_EXISTS = 566,
+  /**
+   * Account MGP already exists.
+   */
+  ACCOUNT_MGP_ALREADY_EXISTS = 567,
+  /**
+   * Account MGP doesn't exists.
+   */
+  ACCOUNT_MGP_DOES_NOT_EXISTS = 568,
+  /**
+   * Date range must be within %1$d days.
+   */
+  DATE_RANGE_LIMIT = 569,
+  /**
+   * The caller ID is already verified. You can extend the verification after %1$d day(s).
+   */
+  CALLER_ID_ALREADY_VERIFIED = 570,
+  /**
+   * MGP template doesn't exists.
+   */
+  MGP_TEMPLATE_DOES_NOT_EXISTS = 571,
+  /**
+   * Address not found.
+   */
+  AVALARA_ADDR_NOT_FOUND = 572,
+  /**
+   * You cannot transfer funds to this user
+   */
+  USER_WITHOUT_SEPARATE_BILLING_ACCOUNT = 573,
+  /**
+   * Cannot verify your documents at phone numbers provider. %1$s
+   */
+  BICS_DOCUMENT_FILE_ERROR = 574,
+  /**
+   * Required fields for phone number provider are missing or invalid. %1$s
+   */
+  BICS_MANDATORY_FIELDS_ERROR = 575,
+  /**
+   * Cannot buy the selected phone number. %1$s
+   */
+  BICS_NUMBERS_ERROR = 576,
+  /**
+   * Cannot request phone numbers request from the provider. Please contact support.
+   */
+  BICS_REQUEST_ERROR = 577,
+  /**
+   * Phone number provider is temporarily unavailable. Please contact support.
+   */
+  BICS_SERVICE_UNAVAILABLE = 578,
+  /**
+   * Required address for phone number provider is invalid. %1$s
+   */
+  BICS_ADDRESS_ERROR = 579,
+  /**
+   * Cannot purchase the selected phone number. Please contact support.
+   */
+  BICS_ORDER_ERROR = 580,
+  /**
+   * No phone numbers available for the current request. Please contact support.
+   */
+  PHONE_PROVIDER_NO_SUCH_PRODUCT = 581,
+  /**
+   * Specify a valid mobile number.
+   */
+  INVALID_PHONE_TO_PAYMENTS = 583,
+  /**
+   * Specified phone number is rented. Please enter a personal phone number.
+   */
+  PHONE_IS_NOT_PERSONAL = 584,
 }
