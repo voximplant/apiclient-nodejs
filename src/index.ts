@@ -1,6 +1,6 @@
 import TypeTransformer from './TypeTransformer';
 import {UtilsReturns, NewRegistrationInterface,AccountsAuthenticationInterface,GetAccountInfoRequest,GetAccountInfoResponse,SetAccountInfoRequest,SetAccountInfoResponse,SetChildAccountInfoRequest,SetChildAccountInfoResponse,GetCurrencyRateRequest,GetCurrencyRateResponse,GetResourcePriceRequest,GetResourcePriceResponse,GetSubscriptionPriceRequest,GetSubscriptionPriceResponse,GetChildrenAccountsRequest,GetChildrenAccountsResponse,GetMoneyAmountToChargeRequest,GetMoneyAmountToChargeResponse,ChargeAccountRequest,ChargeAccountResponse,ChangeAccountPlanRequest,ChangeAccountPlanResponse,GetAccountPlansRequest,GetAccountPlansResponse,GetAvailablePlansRequest,GetAvailablePlansResponse,GetAccountDocumentsRequest,GetAccountDocumentsResponse,AccountsInterface,AddApplicationRequest,AddApplicationResponse,DelApplicationRequest,DelApplicationResponse,SetApplicationInfoRequest,SetApplicationInfoResponse,GetApplicationsRequest,GetApplicationsResponse,ApplicationsInterface,AddUserRequest,AddUserResponse,DelUserRequest,DelUserResponse,SetUserInfoRequest,SetUserInfoResponse,GetUsersRequest,GetUsersResponse,TransferMoneyToUserRequest,TransferMoneyToUserResponse,UsersInterface,CreateManualCallListRequest,CreateManualCallListResponse,StartNextCallTaskRequest,StartNextCallTaskResponse,GetCallListsRequest,GetCallListsResponse,GetCallListDetailsRequest,GetCallListDetailsResponse,StopCallListProcessingRequest,StopCallListProcessingResponse,RecoverCallListRequest,RecoverCallListResponse,CallListsInterface,AddScenarioRequest,AddScenarioResponse,DelScenarioRequest,DelScenarioResponse,BindScenarioRequest,BindScenarioResponse,GetScenariosRequest,GetScenariosResponse,SetScenarioInfoRequest,SetScenarioInfoResponse,ReorderScenariosRequest,ReorderScenariosResponse,StartScenariosRequest,StartScenariosResponse,StartConferenceRequest,StartConferenceResponse,ScenariosInterface,AddRuleRequest,AddRuleResponse,DelRuleRequest,DelRuleResponse,SetRuleInfoRequest,SetRuleInfoResponse,GetRulesRequest,GetRulesResponse,ReorderRulesRequest,ReorderRulesResponse,RulesInterface,GetCallHistoryRequest,GetCallHistoryResponse,GetHistoryReportsRequest,GetHistoryReportsResponse,GetTransactionHistoryRequest,GetTransactionHistoryResponse,DeleteRecordRequest,DeleteRecordResponse,GetACDHistoryRequest,GetACDHistoryResponse,GetAuditLogRequest,GetAuditLogResponse,HistoryInterface,AddPstnBlackListItemRequest,AddPstnBlackListItemResponse,SetPstnBlackListItemRequest,SetPstnBlackListItemResponse,DelPstnBlackListItemRequest,DelPstnBlackListItemResponse,GetPstnBlackListRequest,GetPstnBlackListResponse,PSTNBlacklistInterface,AddSipWhiteListItemRequest,AddSipWhiteListItemResponse,DelSipWhiteListItemRequest,DelSipWhiteListItemResponse,SetSipWhiteListItemRequest,SetSipWhiteListItemResponse,GetSipWhiteListRequest,GetSipWhiteListResponse,SIPWhiteListInterface,CreateSipRegistrationRequest,CreateSipRegistrationResponse,UpdateSipRegistrationRequest,UpdateSipRegistrationResponse,BindSipRegistrationRequest,BindSipRegistrationResponse,DeleteSipRegistrationRequest,DeleteSipRegistrationResponse,GetSipRegistrationsRequest,GetSipRegistrationsResponse,SIPRegistrationInterface,AttachPhoneNumberRequest,AttachPhoneNumberResponse,BindPhoneNumberToApplicationRequest,BindPhoneNumberToApplicationResponse,DeactivatePhoneNumberRequest,DeactivatePhoneNumberResponse,SetPhoneNumberInfoRequest,SetPhoneNumberInfoResponse,GetPhoneNumbersRequest,GetPhoneNumbersResponse,GetNewPhoneNumbersRequest,GetNewPhoneNumbersResponse,GetPhoneNumberCategoriesRequest,GetPhoneNumberCategoriesResponse,GetPhoneNumberCountryStatesRequest,GetPhoneNumberCountryStatesResponse,GetPhoneNumberRegionsRequest,GetPhoneNumberRegionsResponse,GetActualPhoneNumberRegionRequest,GetActualPhoneNumberRegionResponse,GetAccountPhoneNumberCountriesRequest,GetAccountPhoneNumberCountriesResponse,PhoneNumbersInterface,AddCallerIDRequest,AddCallerIDResponse,ActivateCallerIDRequest,ActivateCallerIDResponse,DelCallerIDRequest,DelCallerIDResponse,GetCallerIDsRequest,GetCallerIDsResponse,VerifyCallerIDRequest,VerifyCallerIDResponse,CallerIDsInterface,AddOutboundTestPhoneNumberRequest,AddOutboundTestPhoneNumberResponse,VerifyOutboundTestPhoneNumberRequest,VerifyOutboundTestPhoneNumberResponse,ActivateOutboundTestPhoneNumberRequest,ActivateOutboundTestPhoneNumberResponse,DelOutboundTestPhoneNumberRequest,DelOutboundTestPhoneNumberResponse,GetOutboundTestPhoneNumbersRequest,GetOutboundTestPhoneNumbersResponse,OutboundTestNumbersInterface,AddQueueRequest,AddQueueResponse,BindUserToQueueRequest,BindUserToQueueResponse,DelQueueRequest,DelQueueResponse,SetQueueInfoRequest,SetQueueInfoResponse,GetQueuesRequest,GetQueuesResponse,GetACDStateRequest,GetACDStateResponse,GetACDOperatorStatisticsRequest,GetACDOperatorStatisticsResponse,GetACDQueueStatisticsRequest,GetACDQueueStatisticsResponse,GetACDOperatorStatusStatisticsRequest,GetACDOperatorStatusStatisticsResponse,QueuesInterface,GetSmartQueueRealtimeMetricsRequest,GetSmartQueueRealtimeMetricsResponse,GetSmartQueueDayHistoryRequest,GetSmartQueueDayHistoryResponse,RequestSmartQueueHistoryRequest,RequestSmartQueueHistoryResponse,GetSQStateRequest,GetSQStateResponse,SQ_SetAgentCustomStatusMappingRequest,SQ_SetAgentCustomStatusMappingResponse,SQ_GetAgentCustomStatusMappingRequest,SQ_GetAgentCustomStatusMappingResponse,SQ_DeleteAgentCustomStatusMappingRequest,SQ_DeleteAgentCustomStatusMappingResponse,SQ_AddQueueRequest,SQ_AddQueueResponse,SQ_SetQueueInfoRequest,SQ_SetQueueInfoResponse,SQ_DelQueueRequest,SQ_DelQueueResponse,SQ_GetQueuesRequest,SQ_GetQueuesResponse,SQ_AddSkillRequest,SQ_AddSkillResponse,SQ_DelSkillRequest,SQ_DelSkillResponse,SQ_SetSkillInfoRequest,SQ_SetSkillInfoResponse,SQ_BindSkillRequest,SQ_BindSkillResponse,SQ_UnbindSkillRequest,SQ_UnbindSkillResponse,SQ_GetSkillsRequest,SQ_GetSkillsResponse,SQ_BindAgentRequest,SQ_BindAgentResponse,SQ_UnbindAgentRequest,SQ_UnbindAgentResponse,SQ_GetAgentsRequest,SQ_GetAgentsResponse,SQ_SetAgentInfoRequest,SQ_SetAgentInfoResponse,SmartQueueInterface,AddSkillRequest,AddSkillResponse,DelSkillRequest,DelSkillResponse,SetSkillInfoRequest,SetSkillInfoResponse,GetSkillsRequest,GetSkillsResponse,BindSkillRequest,BindSkillResponse,SkillsInterface,RobokassaPaymentSystemInterface,CreditCardsInterface,AgreementsInterface,AddAdminUserRequest,AddAdminUserResponse,DelAdminUserRequest,DelAdminUserResponse,SetAdminUserInfoRequest,SetAdminUserInfoResponse,GetAdminUsersRequest,GetAdminUsersResponse,AttachAdminRoleRequest,AttachAdminRoleResponse,AdminUsersInterface,AddAdminRoleRequest,AddAdminRoleResponse,DelAdminRoleRequest,DelAdminRoleResponse,SetAdminRoleInfoRequest,SetAdminRoleInfoResponse,GetAdminRolesRequest,GetAdminRolesResponse,GetAvailableAdminRoleEntriesRequest,GetAvailableAdminRoleEntriesResponse,AdminRolesInterface,AddAuthorizedAccountIPRequest,AddAuthorizedAccountIPResponse,DelAuthorizedAccountIPRequest,DelAuthorizedAccountIPResponse,GetAuthorizedAccountIPsRequest,GetAuthorizedAccountIPsResponse,CheckAuthorizedAccountIPRequest,CheckAuthorizedAccountIPResponse,AuthorizedIPsInterface,ContractorsInterface,ContactsInterface,LinkRegulationAddressRequest,LinkRegulationAddressResponse,GetZIPCodesRequest,GetZIPCodesResponse,GetRegulationsAddressRequest,GetRegulationsAddressResponse,GetAvailableRegulationsRequest,GetAvailableRegulationsResponse,GetCountriesRequest,GetCountriesResponse,GetRegionsRequest,GetRegionsResponse,RegulationAddressInterface,AddPushCredentialRequest,AddPushCredentialResponse,SetPushCredentialRequest,SetPushCredentialResponse,DelPushCredentialRequest,DelPushCredentialResponse,GetPushCredentialRequest,GetPushCredentialResponse,BindPushCredentialRequest,BindPushCredentialResponse,PushCredentialsInterface,AddDialogflowKeyRequest,AddDialogflowKeyResponse,SetDialogflowKeyRequest,SetDialogflowKeyResponse,DelDialogflowKeyRequest,DelDialogflowKeyResponse,GetDialogflowKeysRequest,GetDialogflowKeysResponse,BindDialogflowKeysRequest,BindDialogflowKeysResponse,DialogflowCredentialsInterface,SendSmsMessageRequest,SendSmsMessageResponse,A2PSendSmsRequest,A2PSendSmsResponse,ControlSmsRequest,ControlSmsResponse,GetSmsHistoryRequest,GetSmsHistoryResponse,A2PGetSmsHistoryRequest,A2PGetSmsHistoryResponse,SMSInterface,GetRecordStoragesRequest,GetRecordStoragesResponse,RecordStoragesInterface,MGPInterface,CreateKeyRequest,CreateKeyResponse,GetKeysRequest,GetKeysResponse,UpdateKeyRequest,UpdateKeyResponse,DeleteKeyRequest,DeleteKeyResponse,SetKeyRolesRequest,SetKeyRolesResponse,GetKeyRolesRequest,GetKeyRolesResponse,RemoveKeyRolesRequest,RemoveKeyRolesResponse,AddSubUserRequest,AddSubUserResponse,GetSubUsersRequest,GetSubUsersResponse,SetSubUserInfoRequest,SetSubUserInfoResponse,DelSubUserRequest,DelSubUserResponse,SetSubUserRolesRequest,SetSubUserRolesResponse,GetSubUserRolesRequest,GetSubUserRolesResponse,RemoveSubUserRolesRequest,RemoveSubUserRolesResponse,GetRolesRequest,GetRolesResponse,GetRoleGroupsRequest,GetRoleGroupsResponse,RoleSystemInterface,SetKeyValueItemRequest,SetKeyValueItemResponse,DelKeyValueItemRequest,DelKeyValueItemResponse,GetKeyValueItemRequest,GetKeyValueItemResponse,GetKeyValueItemsRequest,GetKeyValueItemsResponse,GetKeyValueKeysRequest,GetKeyValueKeysResponse,KeyValueStorageInterface,GetAccountInvoicesRequest,GetAccountInvoicesResponse,InvoicesInterface,ChildAccountsInterface} from './Interfaces'
-import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,OutboundTestPhonenumberInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SmartQueueMetricsResult,SmartQueueState,SQAgentSelectionStrategies,SQTaskSelectionStrategies,GetSQQueuesResult,SQSkillBindingModes,GetSQSkillsResult,SQAgentBindingModes,GetSQAgentsResult,SkillInfo,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsTransaction,FailedSms,SmsHistory,A2PSmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,KeyValueItems,KeyValueKeys,AccountInvocie} from './Structures'
+import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,OutboundTestPhonenumberInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SmartQueueMetricsResult,SmartQueueState,GetSQQueuesResult,SQSkillBindingModes,GetSQSkillsResult,SQAgentBindingModes,GetSQAgentsResult,SkillInfo,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsTransaction,FailedSms,SmsHistory,A2PSmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,KeyValueItems,KeyValueKeys,AccountInvocie} from './Structures'
 import * as fs from "fs";
 import * as jwt from 'jsonwebtoken';
 import axios from 'axios';
@@ -20,6 +20,13 @@ export default class VoximplantApiClient{
         this.onReady(this);
     });
   }
+  public generateAuthHeader() {
+    const date = (+ new Date())/1000|0;
+    const tokenData = {iss:this.key.account_id, iat:date, exp:date+64}
+    const token = jwt.sign(tokenData, this.key.private_key, { algorithm: 'RS256', header:{kid: this.key.key_id}});
+    const authHeader = 'Bearer ' + token;
+    return authHeader;
+    } 
   private makeRequest<T extends keyof UtilsReturns>(request:T,requestData:any,transformer:any[]):Promise<UtilsReturns[T]>{
     const form = new FormData();
     form.append('cmd', request);
@@ -32,7 +39,7 @@ export default class VoximplantApiClient{
     const nowTS = (+ new Date())/1000|0;
     const tokenData = {iss:this.key.account_id, iat:nowTS, exp:nowTS+64}
     const token = jwt.sign(tokenData, this.key.private_key, { algorithm: 'RS256', header:{kid: this.key.key_id}});
-    return axios.post(`https://${this.host || 'api.voximplant.com'}/platform_api`, form, { headers: { ...form.getHeaders(), 'Authorization': 'Bearer ' + token } })
+    return axios.post(`https://${this.host || 'api.voximplant.com'}/platform_api`, form, { headers: { ...form.getHeaders(), 'Authorization': this.generateAuthHeader()} })
             .then(response=>{
               if(response.data&&response.data.errors) return response.data;
               const returnData = {};
@@ -80,7 +87,9 @@ export default class VoximplantApiClient{
                 {rawName:'billing_address_phone', name:'billingAddressPhone', transformer: TypeTransformer.to('string')},
                 {rawName:'account_custom_data', name:'accountCustomData', transformer: TypeTransformer.to('string')},
                 {rawName:'callback_url', name:'callbackUrl', transformer: TypeTransformer.to('string')},
-                {rawName:'callback_salt', name:'callbackSalt', transformer: TypeTransformer.to('string')}];
+                {rawName:'callback_salt', name:'callbackSalt', transformer: TypeTransformer.to('string')},
+                {rawName:'store_outbound_sms', name:'storeOutboundSms', transformer: TypeTransformer.to('boolean')},
+                {rawName:'store_inbound_sms', name:'storeInboundSms', transformer: TypeTransformer.to('boolean')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
       return this.makeRequest('SetAccountInfo',request,[reqMapper,respMapper]);
     },
@@ -452,7 +461,7 @@ export default class VoximplantApiClient{
 
   public Scenarios:ScenariosInterface = {
     /**
-     * Adds a new scenario. Please use the POST method.
+     * Adds a new scenario to the <a href="https://voximplant.com/docs/gettingstarted/basicconcepts/scenarios#shared-scenarios">Shared</a> folder, so the scenario is available in all the existing applications. Please use the POST method.
     */
     addScenario: (request:AddScenarioRequest):Promise<AddScenarioResponse> => {
       const reqMapper = [{rawName:'scenario_name', name:'scenarioName', transformer: TypeTransformer.to('string')},
@@ -474,7 +483,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('DelScenario',request,[reqMapper,respMapper]);
     },
     /**
-     * Bind the scenario list to the rule. You should specify the application_id or application_name if you specify the rule_name.
+     * Bind the scenario list to the rule. You should specify the application_id or application_name if you specify the rule_name. Please note, the scenario and the routing rule need to be within the same application.
     */
     bindScenario: (request:BindScenarioRequest):Promise<BindScenarioResponse> => {
       const reqMapper = [{rawName:'scenario_id', name:'scenarioId', transformer: TypeTransformer.to('intlist')},
@@ -502,7 +511,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('GetScenarios',request,[reqMapper,respMapper]);
     },
     /**
-     * Edits the scenario. Please use the POST method.
+     * Edits the scenario. You can edit the scenario's name and body. Please use the POST method.
     */
     setScenarioInfo: (request:SetScenarioInfoRequest):Promise<SetScenarioInfoResponse> => {
       const reqMapper = [{rawName:'scenario_id', name:'scenarioId', transformer: TypeTransformer.to('number')},
@@ -523,7 +532,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('ReorderScenarios',request,[reqMapper,respMapper]);
     },
     /**
-     * Runs JavaScript scenarios on a Voximplant server. The scenarios run in a new media session.
+     * Runs JavaScript scenarios on a Voximplant server. The scenarios run in a new media session. To start a scenario, pass the routing rule ID associated with the necessary scenario. You can use both GET and POST requests, but we recommend using the POST mode if you pass some data in the custom_data field. The maximum number of simultaneous requests is 200. If you exceed this number, you get the 429 error code.
     */
     startScenarios: (request:StartScenariosRequest):Promise<StartScenariosResponse> => {
       const reqMapper = [{rawName:'rule_id', name:'ruleId', transformer: TypeTransformer.to('number')},
@@ -535,7 +544,8 @@ export default class VoximplantApiClient{
                 {rawName:'reference_ip', name:'referenceIp', transformer: TypeTransformer.to('string')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')},
                 {rawName:'media_session_access_url', name:'mediaSessionAccessUrl', transformer: TypeTransformer.from('string')},
-                {rawName:'media_session_access_secure_url', name:'mediaSessionAccessSecureUrl', transformer: TypeTransformer.from('string')}];
+                {rawName:'media_session_access_secure_url', name:'mediaSessionAccessSecureUrl', transformer: TypeTransformer.from('string')},
+                {rawName:'call_session_history_id', name:'callSessionHistoryId', transformer: TypeTransformer.from('number')}];
       return this.makeRequest('StartScenarios',request,[reqMapper,respMapper]);
     },
     /**
@@ -552,7 +562,8 @@ export default class VoximplantApiClient{
                 {rawName:'reference_ip', name:'referenceIp', transformer: TypeTransformer.to('string')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')},
                 {rawName:'media_session_access_url', name:'mediaSessionAccessUrl', transformer: TypeTransformer.from('string')},
-                {rawName:'media_session_access_secure_url', name:'mediaSessionAccessSecureUrl', transformer: TypeTransformer.from('string')}];
+                {rawName:'media_session_access_secure_url', name:'mediaSessionAccessSecureUrl', transformer: TypeTransformer.from('string')},
+                {rawName:'call_session_history_id', name:'callSessionHistoryId', transformer: TypeTransformer.from('number')}];
       return this.makeRequest('StartConference',request,[reqMapper,respMapper]);
     }
   }
@@ -627,7 +638,7 @@ export default class VoximplantApiClient{
 
   public History:HistoryInterface = {
     /**
-     * Gets the call history.
+     * Gets the account's call history, including call duration, cost, logs and other call information. You can filter the call history by a certain date
     */
     getCallHistory: (request:GetCallHistoryRequest):Promise<GetCallHistoryResponse> => {
       const reqMapper = [{rawName:'from_date', name:'fromDate', transformer: TypeTransformer.to('timestamp')},
@@ -703,7 +714,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('GetTransactionHistory',request,[reqMapper,respMapper]);
     },
     /**
-     * Try to remove record and transcription files.
+     * Try to remove a record and transcription files.
     */
     deleteRecord: (request:DeleteRecordRequest):Promise<DeleteRecordResponse> => {
       const reqMapper = [{rawName:'record_url', name:'recordUrl', transformer: TypeTransformer.to('string')},
@@ -810,7 +821,8 @@ export default class VoximplantApiClient{
      * Adds a new network address to the SIP white list.
     */
     addSipWhiteListItem: (request:AddSipWhiteListItemRequest):Promise<AddSipWhiteListItemResponse> => {
-      const reqMapper = [{rawName:'sip_whitelist_network', name:'sipWhitelistNetwork', transformer: TypeTransformer.to('string')}];
+      const reqMapper = [{rawName:'sip_whitelist_network', name:'sipWhitelistNetwork', transformer: TypeTransformer.to('string')},
+                {rawName:'description', name:'description', transformer: TypeTransformer.to('string')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')},
                 {rawName:'sip_whitelist_id', name:'sipWhitelistId', transformer: TypeTransformer.from('number')}];
       return this.makeRequest('AddSipWhiteListItem',request,[reqMapper,respMapper]);
@@ -828,7 +840,8 @@ export default class VoximplantApiClient{
     */
     setSipWhiteListItem: (request:SetSipWhiteListItemRequest):Promise<SetSipWhiteListItemResponse> => {
       const reqMapper = [{rawName:'sip_whitelist_id', name:'sipWhitelistId', transformer: TypeTransformer.to('number')},
-                {rawName:'sip_whitelist_network', name:'sipWhitelistNetwork', transformer: TypeTransformer.to('string')}];
+                {rawName:'sip_whitelist_network', name:'sipWhitelistNetwork', transformer: TypeTransformer.to('string')},
+                {rawName:'description', name:'description', transformer: TypeTransformer.to('string')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
       return this.makeRequest('SetSipWhiteListItem',request,[reqMapper,respMapper]);
     },
@@ -1265,7 +1278,8 @@ export default class VoximplantApiClient{
                 {rawName:'with_skills', name:'withSkills', transformer: TypeTransformer.to('boolean')},
                 {rawName:'showing_skill_id', name:'showingSkillId', transformer: TypeTransformer.to('number')},
                 {rawName:'count', name:'count', transformer: TypeTransformer.to('number')},
-                {rawName:'offset', name:'offset', transformer: TypeTransformer.to('number')}];
+                {rawName:'offset', name:'offset', transformer: TypeTransformer.to('number')},
+                {rawName:'with_operatorcount', name:'withOperatorcount', transformer: TypeTransformer.to('boolean')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('[QueueInfoType]')},
                 {rawName:'total_count', name:'totalCount', transformer: TypeTransformer.from('number')},
                 {rawName:'count', name:'count', transformer: TypeTransformer.from('number')}];
@@ -1399,7 +1413,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('GetSQState',request,[reqMapper,respMapper]);
     },
     /**
-     * Adds a status if there is no match for the given internal status in agent_status_mapping and renames it if there is a match. It means that if the passed **sq_status_name** parameter is not in the smart_queue.agent_status_mapping table (smart_queue.agent_status_mapping#status_id = smart_queue.status#id), a new entry is created in there; if it is, the **name** field in its mapping is replaced with **custom_status_name**.
+     * Adds a status if there is no match for the given internal status and renames it if there is a match. It means that if the passed **sq_status_name** parameter is not in the mapping table, a new entry is created in there; if it is, the **name** field in its mapping is replaced with **custom_status_name**.
     */
     sQ_SetAgentCustomStatusMapping: (request:SQ_SetAgentCustomStatusMappingRequest):Promise<SQ_SetAgentCustomStatusMappingResponse> => {
       const reqMapper = [{rawName:'sq_status_name', name:'sqStatusName', transformer: TypeTransformer.to('string')},
@@ -1409,7 +1423,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('SQ_SetAgentCustomStatusMapping',request,[reqMapper,respMapper]);
     },
     /**
-     * Returns the list of sq-statuses (smart_queue.status) and custom statuses (smart_queue.agent_status_mapping) matches. If there is no match for an sq-status, only the name of this status is returned.
+     * Returns the mapping list of SQ statuses and custom statuses. SQ statuses are returned whether or not they have mappings to custom statuses.
     */
     sQ_GetAgentCustomStatusMapping: (request:SQ_GetAgentCustomStatusMappingRequest):Promise<SQ_GetAgentCustomStatusMappingResponse> => {
       const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')}];
@@ -1418,7 +1432,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('SQ_GetAgentCustomStatusMapping',request,[reqMapper,respMapper]);
     },
     /**
-     * Removes a mapping from smart_queue.agent_status_mapping. If there is no such mapping in the database, does nothing.
+     * Removes a mapping from the mapping table. If there is no such mapping, does nothing.
     */
     sQ_DeleteAgentCustomStatusMapping: (request:SQ_DeleteAgentCustomStatusMappingRequest):Promise<SQ_DeleteAgentCustomStatusMappingResponse> => {
       const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
@@ -1432,16 +1446,17 @@ export default class VoximplantApiClient{
     sQ_AddQueue: (request:SQ_AddQueueRequest):Promise<SQ_AddQueueResponse> => {
       const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
                 {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('string')},
-                {rawName:'call_agent_selection', name:'callAgentSelection', transformer: TypeTransformer.to('[SQAgentSelectionStrategies]')},
-                {rawName:'call_task_selection', name:'callTaskSelection', transformer: TypeTransformer.to('[SQTaskSelectionStrategies]')},
+                {rawName:'call_agent_selection', name:'callAgentSelection', transformer: TypeTransformer.to('string')},
+                {rawName:'call_task_selection', name:'callTaskSelection', transformer: TypeTransformer.to('string')},
                 {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
-                {rawName:'im_agent_selection', name:'imAgentSelection', transformer: TypeTransformer.to('[SQAgentSelectionStrategies]')},
-                {rawName:'im_task_selection', name:'imTaskSelection', transformer: TypeTransformer.to('[SQTaskSelectionStrategies]')},
+                {rawName:'im_agent_selection', name:'imAgentSelection', transformer: TypeTransformer.to('string')},
+                {rawName:'im_task_selection', name:'imTaskSelection', transformer: TypeTransformer.to('string')},
                 {rawName:'description', name:'description', transformer: TypeTransformer.to('string')},
                 {rawName:'call_max_waiting_time', name:'callMaxWaitingTime', transformer: TypeTransformer.to('number')},
                 {rawName:'im_max_waiting_time', name:'imMaxWaitingTime', transformer: TypeTransformer.to('number')},
                 {rawName:'call_max_queue_size', name:'callMaxQueueSize', transformer: TypeTransformer.to('number')},
-                {rawName:'im_max_queue_size', name:'imMaxQueueSize', transformer: TypeTransformer.to('number')}];
+                {rawName:'im_max_queue_size', name:'imMaxQueueSize', transformer: TypeTransformer.to('number')},
+                {rawName:'priority', name:'priority', transformer: TypeTransformer.to('number')}];
       const respMapper = [{rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.from('number')}];
       return this.makeRequest('SQ_AddQueue',request,[reqMapper,respMapper]);
     },
@@ -1454,15 +1469,16 @@ export default class VoximplantApiClient{
                 {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
                 {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('string')},
                 {rawName:'new_sq_queue_name', name:'newSqQueueName', transformer: TypeTransformer.to('string')},
-                {rawName:'call_agent_selection', name:'callAgentSelection', transformer: TypeTransformer.to('[SQAgentSelectionStrategies]')},
-                {rawName:'im_agent_selection', name:'imAgentSelection', transformer: TypeTransformer.to('[SQAgentSelectionStrategies]')},
-                {rawName:'call_task_selection', name:'callTaskSelection', transformer: TypeTransformer.to('[SQTaskSelectionStrategies]')},
-                {rawName:'im_task_selection', name:'imTaskSelection', transformer: TypeTransformer.to('[SQTaskSelectionStrategies]')},
+                {rawName:'call_agent_selection', name:'callAgentSelection', transformer: TypeTransformer.to('string')},
+                {rawName:'im_agent_selection', name:'imAgentSelection', transformer: TypeTransformer.to('string')},
+                {rawName:'call_task_selection', name:'callTaskSelection', transformer: TypeTransformer.to('string')},
+                {rawName:'im_task_selection', name:'imTaskSelection', transformer: TypeTransformer.to('string')},
                 {rawName:'description', name:'description', transformer: TypeTransformer.to('string')},
                 {rawName:'call_max_waiting_time', name:'callMaxWaitingTime', transformer: TypeTransformer.to('number')},
                 {rawName:'im_max_waiting_time', name:'imMaxWaitingTime', transformer: TypeTransformer.to('number')},
                 {rawName:'call_max_queue_size', name:'callMaxQueueSize', transformer: TypeTransformer.to('number')},
-                {rawName:'im_max_queue_size', name:'imMaxQueueSize', transformer: TypeTransformer.to('number')}];
+                {rawName:'im_max_queue_size', name:'imMaxQueueSize', transformer: TypeTransformer.to('number')},
+                {rawName:'priority', name:'priority', transformer: TypeTransformer.to('number')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
       return this.makeRequest('SQ_SetQueueInfo',request,[reqMapper,respMapper]);
     },
@@ -1491,7 +1507,8 @@ export default class VoximplantApiClient{
                 {rawName:'excluded_user_id', name:'excludedUserId', transformer: TypeTransformer.to('number')},
                 {rawName:'excluded_user_name', name:'excludedUserName', transformer: TypeTransformer.to('string')},
                 {rawName:'count', name:'count', transformer: TypeTransformer.to('number')},
-                {rawName:'offset', name:'offset', transformer: TypeTransformer.to('number')}];
+                {rawName:'offset', name:'offset', transformer: TypeTransformer.to('number')},
+                {rawName:'with_agentcount', name:'withAgentcount', transformer: TypeTransformer.to('boolean')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('GetSQQueuesResult')}];
       return this.makeRequest('SQ_GetQueues',request,[reqMapper,respMapper]);
     },
@@ -1579,7 +1596,7 @@ export default class VoximplantApiClient{
     */
     sQ_BindAgent: (request:SQ_BindAgentRequest):Promise<SQ_BindAgentResponse> => {
       const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
-                {rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.to('number')},
+                {rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.to('string')},
                 {rawName:'user_id', name:'userId', transformer: TypeTransformer.to('intlist')},
                 {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
                 {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('string')},
@@ -1606,6 +1623,7 @@ export default class VoximplantApiClient{
     */
     sQ_GetAgents: (request:SQ_GetAgentsRequest):Promise<SQ_GetAgentsResponse> => {
       const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
+                {rawName:'handle_calls', name:'handleCalls', transformer: TypeTransformer.to('boolean')},
                 {rawName:'application_name', name:'applicationName', transformer: TypeTransformer.to('string')},
                 {rawName:'sq_queue_id', name:'sqQueueId', transformer: TypeTransformer.to('intlist')},
                 {rawName:'sq_queue_name', name:'sqQueueName', transformer: TypeTransformer.to('stringlist')},
@@ -1641,7 +1659,7 @@ export default class VoximplantApiClient{
 
   public Skills:SkillsInterface = {
     /**
-     * Adds a new ACD operator skill.
+     * Adds a new operator's skill. Works only for ACDv1. For SmartQueue/ACDv2, use <a href="#how-auth-works">this reference</a>.
     */
     addSkill: (request:AddSkillRequest):Promise<AddSkillResponse> => {
       const reqMapper = [{rawName:'skill_name', name:'skillName', transformer: TypeTransformer.to('string')}];
@@ -1650,7 +1668,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('AddSkill',request,[reqMapper,respMapper]);
     },
     /**
-     * Deletes the skill.
+     * Deletes an operator's skill. Works only for ACDv1. For SmartQueue/ACDv2, use <a href="#how-auth-works">this reference</a>.
     */
     delSkill: (request:DelSkillRequest):Promise<DelSkillResponse> => {
       const reqMapper = [{rawName:'skill_id', name:'skillId', transformer: TypeTransformer.to('number')},
@@ -1659,7 +1677,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('DelSkill',request,[reqMapper,respMapper]);
     },
     /**
-     * Edits the skill.
+     * Edits an operator's skill. Works only for ACDv1. For SmartQueue/ACDv2, use <a href="#how-auth-works">this reference</a>.
     */
     setSkillInfo: (request:SetSkillInfoRequest):Promise<SetSkillInfoResponse> => {
       const reqMapper = [{rawName:'skill_id', name:'skillId', transformer: TypeTransformer.to('number')},
@@ -1669,7 +1687,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('SetSkillInfo',request,[reqMapper,respMapper]);
     },
     /**
-     * Gets the skills.
+     * Gets the skills of an operator. Works only for ACDv1. For SmartQueue/ACDv2, use <a href="#how-auth-works">this reference</a>.
     */
     getSkills: (request:GetSkillsRequest):Promise<GetSkillsResponse> => {
       const reqMapper = [{rawName:'skill_id', name:'skillId', transformer: TypeTransformer.to('number')},
@@ -1682,7 +1700,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('GetSkills',request,[reqMapper,respMapper]);
     },
     /**
-     * Binds the specified skills to the users (ACD operators) and/or the ACD queues.
+     * Binds the specified skills to the users (ACD operators) and/or the ACD queues. Works only for ACDv1. For SmartQueue/ACDv2, use <a href="#how-auth-works">this reference</a>.
     */
     bindSkill: (request:BindSkillRequest):Promise<BindSkillResponse> => {
       const reqMapper = [{rawName:'skill_id', name:'skillId', transformer: TypeTransformer.to('intlist')},
@@ -1848,7 +1866,8 @@ export default class VoximplantApiClient{
     */
     addAuthorizedAccountIP: (request:AddAuthorizedAccountIPRequest):Promise<AddAuthorizedAccountIPResponse> => {
       const reqMapper = [{rawName:'authorized_ip', name:'authorizedIp', transformer: TypeTransformer.to('string')},
-                {rawName:'allowed', name:'allowed', transformer: TypeTransformer.to('boolean')}];
+                {rawName:'allowed', name:'allowed', transformer: TypeTransformer.to('boolean')},
+                {rawName:'description', name:'description', transformer: TypeTransformer.to('string')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')}];
       return this.makeRequest('AddAuthorizedAccountIP',request,[reqMapper,respMapper]);
     },
@@ -1870,7 +1889,8 @@ export default class VoximplantApiClient{
                 {rawName:'allowed', name:'allowed', transformer: TypeTransformer.to('boolean')},
                 {rawName:'contains_ip', name:'containsIp', transformer: TypeTransformer.to('string')},
                 {rawName:'count', name:'count', transformer: TypeTransformer.to('number')},
-                {rawName:'offset', name:'offset', transformer: TypeTransformer.to('number')}];
+                {rawName:'offset', name:'offset', transformer: TypeTransformer.to('number')},
+                {rawName:'description', name:'description', transformer: TypeTransformer.to('string')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('[AuthorizedAccountIPType]')},
                 {rawName:'total_count', name:'totalCount', transformer: TypeTransformer.from('number')},
                 {rawName:'count', name:'count', transformer: TypeTransformer.from('number')}];
@@ -2095,8 +2115,10 @@ export default class VoximplantApiClient{
     sendSmsMessage: (request:SendSmsMessageRequest):Promise<SendSmsMessageResponse> => {
       const reqMapper = [{rawName:'source', name:'source', transformer: TypeTransformer.to('string')},
                 {rawName:'destination', name:'destination', transformer: TypeTransformer.to('string')},
-                {rawName:'sms_body', name:'smsBody', transformer: TypeTransformer.to('string')}];
+                {rawName:'sms_body', name:'smsBody', transformer: TypeTransformer.to('string')},
+                {rawName:'store_body', name:'storeBody', transformer: TypeTransformer.to('boolean')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('number')},
+                {rawName:'message_id', name:'messageId', transformer: TypeTransformer.from('number')},
                 {rawName:'fragments_count', name:'fragmentsCount', transformer: TypeTransformer.from('number')}];
       return this.makeRequest('SendSmsMessage',request,[reqMapper,respMapper]);
     },
@@ -2106,7 +2128,8 @@ export default class VoximplantApiClient{
     a2PSendSms: (request:A2PSendSmsRequest):Promise<A2PSendSmsResponse> => {
       const reqMapper = [{rawName:'src_number', name:'srcNumber', transformer: TypeTransformer.to('string')},
                 {rawName:'dst_numbers', name:'dstNumbers', transformer: TypeTransformer.to('stringlist')},
-                {rawName:'text', name:'text', transformer: TypeTransformer.to('string')}];
+                {rawName:'text', name:'text', transformer: TypeTransformer.to('string')},
+                {rawName:'store_body', name:'storeBody', transformer: TypeTransformer.to('boolean')}];
       const respMapper = [{rawName:'result', name:'result', transformer: TypeTransformer.from('[SmsTransaction]')},
                 {rawName:'failed', name:'failed', transformer: TypeTransformer.from('[FailedSms]')},
                 {rawName:'fragments_count', name:'fragmentsCount', transformer: TypeTransformer.from('number')}];

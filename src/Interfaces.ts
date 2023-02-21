@@ -1,4 +1,4 @@
-import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,OutboundTestPhonenumberInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SmartQueueMetricsResult,SmartQueueState,SQAgentSelectionStrategies,SQTaskSelectionStrategies,GetSQQueuesResult,SQSkillBindingModes,GetSQSkillsResult,SQAgentBindingModes,GetSQAgentsResult,SkillInfo,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsTransaction,FailedSms,SmsHistory,A2PSmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,KeyValueItems,KeyValueKeys,AccountInvocie} from './Structures';
+import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,OutboundTestPhonenumberInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SmartQueueMetricsResult,SmartQueueState,GetSQQueuesResult,SQSkillBindingModes,GetSQSkillsResult,SQAgentBindingModes,GetSQAgentsResult,SkillInfo,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsTransaction,FailedSms,SmsHistory,A2PSmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,KeyValueItems,KeyValueKeys,AccountInvocie} from './Structures';
 export interface UtilsReturns{
   'GetAccountInfo':GetAccountInfoResponse
   'SetAccountInfo':SetAccountInfoResponse
@@ -279,6 +279,14 @@ export interface SetAccountInfoRequest {
    *If salt string is specified, each HTTP request made by the Voximplant cloud toward the <b>callback_url</b> will have a <b>salt</b> field set to MD5 hash of account information and salt. That hash can be used be a developer to ensure that HTTP request is made by the Voximplant cloud
   */
   callbackSalt?:string
+  /**
+   *Set to true to store outbound message texts. Default value is false
+  */
+  storeOutboundSms?:boolean
+  /**
+   *Set to true to store inbound message texts. Default value is false
+  */
+  storeInboundSms?:boolean
 }
 export interface SetAccountInfoResponse {
   /**
@@ -288,15 +296,15 @@ export interface SetAccountInfoResponse {
 }
 export interface SetChildAccountInfoRequest {
   /**
-   *The child account ID list separated by the ';' symbol. Use the 'all' value to select all child accounts
+   *The child account ID list separated by semicolon (;). Use the 'all' value to select all child accounts
   */
   childAccountId:'any'|number|number[]
   /**
-   *The child account name list separated by the ';' symbol. Can be used instead of <b>child_account_id</b>
+   *The child account name list separated by semicolon (;). Can be used instead of <b>child_account_id</b>
   */
   childAccountName:string|string[]
   /**
-   *The child account email list separated by the ';' symbol. Can be used instead of <b>child_account_id</b>
+   *The child account email list separated by semicolon (;). Can be used instead of <b>child_account_id</b>
   */
   childAccountEmail:string|string[]
   /**
@@ -364,7 +372,7 @@ export interface SetChildAccountInfoResponse {
 }
 export interface GetCurrencyRateRequest {
   /**
-   *The currency code list separated by the ';' symbol. Examples: RUR, EUR, USD
+   *The currency code list separated by semicolon (;). Examples: RUR, EUR, USD
   */
   currency:string|string[]
   /**
@@ -380,11 +388,11 @@ export interface GetCurrencyRateResponse {
 }
 export interface GetResourcePriceRequest {
   /**
-   *The resource type list separated by the ';' symbol. The possible values are AUDIOHDCONFERENCE, AUDIOHDRECORD, AUDIORECORD, CALLLIST, CALLSESSION, DIALOGFLOW, IM, PSTN_IN_ALASKA, PSTN_IN_GB, PSTN_IN_GEOGRAPHIC, PSTN_IN_GEO_PH, PSTN_IN_RU, PSTN_IN_RU_TOLLFREE, PSTN_INTERNATIONAL, PSTNINTEST, PSTN_IN_TF_AR, PSTN_IN_TF_AT, PSTN_IN_TF_AU, PSTN_IN_TF_BE, PSTN_IN_TF_BR, PSTN_IN_TF_CA, PSTN_IN_TF_CO, PSTN_IN_TF_CY, PSTN_IN_TF_DE, PSTN_IN_TF_DK, PSTN_IN_TF_DO, PSTN_IN_TF_FI, PSTN_IN_TF_FR, PSTN_IN_TF_GB, PSTN_IN_TF_HR, PSTN_IN_TF_HU, PSTN_IN_TF_IL, PSTN_IN_TF_LT, PSTN_IN_TF_PE, PSTN_IN_TF_US, PSTN_IN_US, PSTNOUT, PSTNOUT_EEA, PSTNOUTEMERG, PSTNOUT_KZ, PSTNOUT_LOCAL, PSTN_OUT_LOCAL_RU, RELAYED_TRAFFIC, SIPOUT, SIPOUTVIDEO, SMSINPUT, SMSOUT, SMSOUT_INTERNATIONAL, TRANSCRIPTION, TTS_TEXT_GOOGLE, TTS_YANDEX, USER_LOGON, VIDEOCALL, VIDEORECORD, VOICEMAILDETECTION, VOIPIN, VOIPOUT, VOIPOUTVIDEO, YANDEXASR, ASR, ASR_GOOGLE_ENHANCED
+   *The resource type list separated by semicolon (;). The possible values are AUDIOHDCONFERENCE, AUDIOHDRECORD, AUDIORECORD, CALLLIST, CALLSESSION, DIALOGFLOW, IM, PSTN_IN_ALASKA, PSTN_IN_GB, PSTN_IN_GEOGRAPHIC, PSTN_IN_GEO_PH, PSTN_IN_RU, PSTN_IN_RU_TOLLFREE, PSTN_INTERNATIONAL, PSTNINTEST, PSTN_IN_TF_AR, PSTN_IN_TF_AT, PSTN_IN_TF_AU, PSTN_IN_TF_BE, PSTN_IN_TF_BR, PSTN_IN_TF_CA, PSTN_IN_TF_CO, PSTN_IN_TF_CY, PSTN_IN_TF_DE, PSTN_IN_TF_DK, PSTN_IN_TF_DO, PSTN_IN_TF_FI, PSTN_IN_TF_FR, PSTN_IN_TF_GB, PSTN_IN_TF_HR, PSTN_IN_TF_HU, PSTN_IN_TF_IL, PSTN_IN_TF_LT, PSTN_IN_TF_PE, PSTN_IN_TF_US, PSTN_IN_US, PSTNOUT, PSTNOUT_EEA, PSTNOUTEMERG, PSTNOUT_KZ, PSTNOUT_LOCAL, PSTN_OUT_LOCAL_RU, RELAYED_TRAFFIC, SIPOUT, SIPOUTVIDEO, SMSINPUT, SMSOUT, SMSOUT_INTERNATIONAL, TRANSCRIPTION, TTS_TEXT_GOOGLE, TTS_YANDEX, USER_LOGON, VIDEOCALL, VIDEORECORD, VOICEMAILDETECTION, VOIPIN, VOIPOUT, VOIPOUTVIDEO, YANDEXASR, ASR, ASR_GOOGLE_ENHANCED
   */
   resourceType?:string|string[]
   /**
-   *The price group ID list separated by the ';' symbol
+   *The price group ID list separated by semicolon (;)
   */
   priceGroupId?:'any'|number|number[]
   /**
@@ -392,7 +400,7 @@ export interface GetResourcePriceRequest {
   */
   priceGroupName?:string
   /**
-   *The resource parameter list separated by the ';' symbol. Example: a phone number list
+   *The resource parameter list separated by semicolon (;). Example: a phone number list
   */
   resourceParam?:string|string[]
 }
@@ -404,7 +412,7 @@ export interface GetResourcePriceResponse {
 }
 export interface GetSubscriptionPriceRequest {
   /**
-   *The subscription template ID list separated by the ';' symbol
+   *The subscription template ID list separated by semicolon (;)
   */
   subscriptionTemplateId?:'any'|number|number[]
   /**
@@ -432,7 +440,7 @@ export interface GetSubscriptionPriceResponse {
 }
 export interface GetChildrenAccountsRequest {
   /**
-   *The account ID list separated by the ';' symbol. Use the 'all' value to select all accounts
+   *The account ID list separated by semicolon (;). Use the 'all' value to select all accounts
   */
   childAccountId?:'any'|number|number[]
   /**
@@ -509,11 +517,11 @@ export interface GetMoneyAmountToChargeResponse {
 }
 export interface ChargeAccountRequest {
   /**
-   *The phone ID list separated by the ';' symbol. Use the 'all' value to select all phone ids. You should specify the phones having the auto_charge=false
+   *The phone ID list separated by semicolon (;). Use the 'all' value to select all phone ids. You should specify the phones having the auto_charge=false
   */
   phoneId:'any'|number|number[]
   /**
-   *The phone number list separated by the ';' symbol. Use the 'all' value to select all phone numbers. Can be used instead of <b>phone_id</b>. You should specify the phones having the auto_charge=false
+   *The phone number list separated by semicolon (;). Use the 'all' value to select all phone numbers. Can be used instead of <b>phone_id</b>. You should specify the phones having the auto_charge=false
   */
   phoneNumber:string|string[]
 }
@@ -549,11 +557,11 @@ export interface ChangeAccountPlanResponse {
 }
 export interface GetAccountPlansRequest {
   /**
-   *The plan type list separated by the ';' symbol. The possible values are IM, MAU
+   *The plan type list separated by semicolon (;). The possible values are IM, MAU
   */
   planType?:string|string[]
   /**
-   *The plan ID list separated by the ';' symbol
+   *The plan ID list separated by semicolon (;)
   */
   planSubscriptionTemplateId?:'any'|number|number[]
 }
@@ -562,11 +570,11 @@ export interface GetAccountPlansResponse {
 }
 export interface GetAvailablePlansRequest {
   /**
-   *The plan type list separated by the ';' symbol. The possible values are IM, MAU
+   *The plan type list separated by semicolon (;). The possible values are IM, MAU
   */
   planType?:string|string[]
   /**
-   *The plan ID list separated by the ';' symbol
+   *The plan ID list separated by semicolon (;)
   */
   planSubscriptionTemplateId?:'any'|number|number[]
 }
@@ -583,7 +591,7 @@ export interface GetAccountDocumentsRequest {
   */
   verificationName?:string
   /**
-   *The account verification status list separated by the ';' symbol. The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
+   *The account verification status list separated by semicolon (;). The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
   */
   verificationStatus?:string|string[]
   /**
@@ -595,7 +603,7 @@ export interface GetAccountDocumentsRequest {
   */
   toUnverifiedHoldUntil?:Date
   /**
-   *The child account ID list separated by the ';' symbol. Use the 'all' value to select all child accounts
+   *The child account ID list separated by semicolon (;). Use the 'all' value to select all child accounts
   */
   childAccountId?:'any'|number|number[]
   /**
@@ -655,11 +663,11 @@ export interface AddApplicationResponse {
 }
 export interface DelApplicationRequest {
   /**
-   *The application ID list separated by the ';' symbol. Use the 'all' value to select all applications
+   *The application ID list separated by semicolon (;). Use the 'all' value to select all applications
   */
   applicationId:'any'|number|number[]
   /**
-   *The application name list separated by the ';' symbol. Can be used instead of <b>application_id</b>
+   *The application name list separated by semicolon (;). Can be used instead of <b>application_id</b>
   */
   applicationName:string|string[]
 }
@@ -792,11 +800,11 @@ export interface AddUserResponse {
 }
 export interface DelUserRequest {
   /**
-   *The user ID list separated by the ';' symbol. Use the 'all' value to select all users
+   *The user ID list separated by semicolon (;). Use the 'all' value to select all users
   */
   userId:'any'|number|number[]
   /**
-   *The user name list separated by the ';' symbol that can be used instead of <b>user_id</b>
+   *The user name list separated by semicolon (;) that can be used instead of <b>user_id</b>
   */
   userName:string|string[]
   /**
@@ -913,7 +921,7 @@ export interface GetUsersRequest {
   */
   withQueues?:boolean
   /**
-   *The ACD status list separated by the ';' symbol to filter. The following values are possible: OFFLINE, ONLINE, READY, BANNED, IN_SERVICE, AFTER_SERVICE, TIMEOUT, DND
+   *The ACD status list separated by semicolon (;) to filter. The following values are possible: OFFLINE, ONLINE, READY, BANNED, IN_SERVICE, AFTER_SERVICE, TIMEOUT, DND
   */
   acdStatus?:string|string[]
   /**
@@ -953,11 +961,11 @@ export interface GetUsersResponse {
 }
 export interface TransferMoneyToUserRequest {
   /**
-   *The user ID list separated by the ';' symbol. Use the 'all' value to select all users
+   *The user ID list separated by semicolon (;). Use the 'all' value to select all users
   */
   userId:'any'|number|number[]
   /**
-   *The user name list separated by the ';' symbol that can be used instead of <b>user_id</b>
+   *The user name list separated by semicolon (;) that can be used instead of <b>user_id</b>
   */
   userName:string|string[]
   /**
@@ -1069,7 +1077,7 @@ export interface CreateManualCallListResponse {
 }
 export interface StartNextCallTaskRequest {
   /**
-   *The list of the call list IDs separated by the ';' symbol
+   *The list of the call list IDs separated by semicolon (;)
   */
   listId:'any'|number|number[]
   /**
@@ -1089,7 +1097,7 @@ export interface StartNextCallTaskResponse {
 }
 export interface GetCallListsRequest {
   /**
-   *The list ID to filter. Can be a list separated by the ';' symbol. Use the 'all' value to select all lists
+   *The list ID to filter. Can be a list separated by semicolon (;). Use the 'all' value to select all lists
   */
   listId?:'any'|number|number[]
   /**
@@ -1121,7 +1129,7 @@ export interface GetCallListsRequest {
   */
   offset?:number
   /**
-   *The application ID to filter. Can be a list separated by the ';' symbol. Use the 'all' value to select all applications
+   *The application ID to filter. Can be a list separated by semicolon (;). Use the 'all' value to select all applications
   */
   applicationId?:'any'|number|number[]
 }
@@ -1222,11 +1230,11 @@ export interface AddScenarioRequest {
   */
   scenarioName:string
   /**
-   *The scenario text. The length must be less than 128 KB
+   *The scenario text. Use the application/x-www-form-urlencoded content type with UTF-8 encoding. The length must be less than 128 KB
   */
   scenarioScript?:string
   /**
-   *The rule ID
+   *The rule ID. The new scenario binds to the specified rule. Please note, if you do not bind the scenario to any rule, you cannot execute the scenario
   */
   ruleId?:number
   /**
@@ -1250,11 +1258,11 @@ export interface AddScenarioResponse {
 }
 export interface DelScenarioRequest {
   /**
-   *The scenario ID list separated by the ';' symbol. Use the 'all' value to select all scenarios
+   *The scenario ID list separated by semicolon (;). Use the 'all' value to delete all scenarios in all applications
   */
   scenarioId:'any'|number|number[]
   /**
-   *The scenario name list separated by the ';' symbol. Can be used instead of <b>scenario_id</b>
+   *The scenario name list separated by semicolon (;). Can be used instead of <b>scenario_id</b>
   */
   scenarioName:string|string[]
 }
@@ -1266,15 +1274,15 @@ export interface DelScenarioResponse {
 }
 export interface BindScenarioRequest {
   /**
-   *The scenario ID list separated by the ';' symbol
+   *The scenario ID list separated by semicolon (;)
   */
   scenarioId:'any'|number|number[]
   /**
-   *The scenario name list separated by the ';' symbol. Can be used instead of <b>scenario_id</b>
+   *The scenario name list separated by semicolon (;). Can be used instead of <b>scenario_id</b>
   */
   scenarioName:string|string[]
   /**
-   *The rule ID
+   *The rule ID to bind the scenario. The rule and the scenario need to be in the same application
   */
   ruleId:number
   /**
@@ -1347,7 +1355,7 @@ export interface SetScenarioInfoRequest {
   */
   scenarioName?:string
   /**
-   *The new scenario text. The length must be less than 128 KB
+   *The new scenario text. Use the application/x-www-form-urlencoded content type with UTF-8 encoding. The length must be less than 128 KB
   */
   scenarioScript?:string
 }
@@ -1367,7 +1375,7 @@ export interface ReorderScenariosRequest {
   */
   ruleName:string
   /**
-   *The scenario ID list separated by the ';' symbol
+   *The scenario ID list separated by semicolon (;)
   */
   scenarioId?:'any'|number|number[]
 }
@@ -1379,7 +1387,7 @@ export interface ReorderScenariosResponse {
 }
 export interface StartScenariosRequest {
   /**
-   *The rule ID
+   *The rule ID that needs to be launched. Please note, the necessary scenario needs to be attached to the rule
   */
   ruleId:number
   /**
@@ -1399,7 +1407,7 @@ export interface StartScenariosRequest {
   */
   applicationName?:string
   /**
-   *The script custom data (like a script argument). Can be accessed in JS scenario via the <a href='/docs/references/voxengine/voxengine/customdata'>VoxEngine.customData()</a> method
+   *The script custom data, that can be accessed in the scenario via the <a href='/docs/references/voxengine/voxengine/customdata'>VoxEngine.customData()</a> method. Use the application/x-www-form-urlencoded content type with UTF-8 encoding.
   */
   scriptCustomData?:string
   /**
@@ -1414,14 +1422,18 @@ export interface StartScenariosResponse {
   */
   result:number
   /**
-   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTP request on this URL will result in the [AppEvents.HttpRequest](/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for scenario, with HTTP request data passed to it
+   *The URL to control a created media session. You can use it for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTP request on this URL will result in the [AppEvents.HttpRequest](/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for scenario, with HTTP request data passed to it
   */
   mediaSessionAccessUrl:string
   /**
-   *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTPS request on this URL will result in the [AppEvents.HttpRequest](/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for scenario, with HTTP request data passed to it
+   *The URL to control a created media session. You can use it for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTPS request on this URL will result in the [AppEvents.HttpRequest](/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for scenario, with HTTP request data passed to it
   */
   mediaSessionAccessSecureUrl:string
   mediaSessionCheckUrl:string
+  /**
+   *The call session history ID. To search a call session result, paste the ID to the <a href='/docs/references/httpapi/history#getcallhistory'>GetCallHistory</a> method's <b>call_session_history_id</b> parameter
+  */
+  callSessionHistoryId:number
 }
 export interface StartConferenceRequest {
   /**
@@ -1429,7 +1441,7 @@ export interface StartConferenceRequest {
   */
   conferenceName:string
   /**
-   *The rule ID
+   *The rule ID that needs to be launched. Please note, the necessary scenario needs to be attached to the rule
   */
   ruleId:number
   /**
@@ -1449,7 +1461,7 @@ export interface StartConferenceRequest {
   */
   applicationName?:string
   /**
-   *The script custom data (like a script argument). Can be accessed in JS scenario via the <a href='/docs/references/voxengine/voxengine/customdata'>VoxEngine.customData()</a> method
+   *The script custom data, that can be accessed in the scenario via the <a href='/docs/references/voxengine/voxengine/customdata'>VoxEngine.customData()</a> method. Use the application/x-www-form-urlencoded content type with UTF-8 encoding.
   */
   scriptCustomData?:string
   /**
@@ -1470,6 +1482,10 @@ export interface StartConferenceResponse {
    *The URL to control a created media session. It can be used for arbitrary tasks such as stopping scenario or passing additional data to it. Making HTTPS request on this URL will result in the [AppEvents.HttpRequest](/docs/references/voxengine/appevents#httprequest) VoxEngine event being triggered for a scenario, with an HTTP request data passed to it
   */
   mediaSessionAccessSecureUrl:string
+  /**
+   *The call session history ID. To search a call session result, paste the ID to the <a href='/docs/references/httpapi/history#getcallhistory'>GetCallHistory</a> method's <b>call_session_history_id</b> parameter
+  */
+  callSessionHistoryId:number
 }
 export interface ScenariosInterface {
   addScenario: (request:AddScenarioRequest) => Promise<AddScenarioResponse>
@@ -1500,11 +1516,11 @@ export interface AddRuleRequest {
   */
   rulePattern:string
   /**
-   *The scenario ID list separated by the ';' symbol
+   *The scenario ID list separated by semicolon (;)
   */
   scenarioId:'any'|number|number[]
   /**
-   *The scenario name list separated by the ';' symbol. Can be used instead of <b>scenario_id</b>
+   *The scenario name list separated by semicolon (;). Can be used instead of <b>scenario_id</b>
   */
   scenarioName:string|string[]
   /**
@@ -1528,19 +1544,19 @@ export interface AddRuleResponse {
 }
 export interface DelRuleRequest {
   /**
-   *The rule ID list separated by the ';' symbol. Use the 'all' value to select all rules
+   *The rule ID list separated by semicolon (;). Use the 'all' value to select all rules
   */
   ruleId:'any'|number|number[]
   /**
-   *The rule name list separated by the ';' symbol. Can be used instead of <b>rule_id</b>
+   *The rule name list separated by semicolon (;). Can be used instead of <b>rule_id</b>
   */
   ruleName:string|string[]
   /**
-   *The application ID list separated by the ';' symbol. Use the 'all' value to select all applications
+   *The application ID list separated by semicolon (;). Use the 'all' value to select all applications
   */
   applicationId:'any'|number|number[]
   /**
-   *The application name list separated by the ';' symbol. Can be used instead of <b>application_id</b>
+   *The application name list separated by semicolon (;). Can be used instead of <b>application_id</b>
   */
   applicationName:string|string[]
 }
@@ -1629,7 +1645,7 @@ export interface GetRulesResponse {
 }
 export interface ReorderRulesRequest {
   /**
-   *The rule ID list separated by the ';' symbol
+   *The rule ID list separated by semicolon (;)
   */
   ruleId:'any'|number|number[]
 }
@@ -1658,11 +1674,11 @@ export interface GetCallHistoryRequest {
   toDate:Date
   timezone?:string
   /**
-   *The call session history ID list separated by the ';' symbol. The sessions IDs can be accessed in JS scenario via the <b>sessionID</b> property of the <a href='/docs/references/voxengine/appevents#started'>AppEvents.Started</a> event
+   *To get the call history for the specific sessions, pass the session IDs to this parameter separated by a semicolon (;). You can find the session ID in the <a href='/docs/references/voxengine/appevents#started'>AppEvents.Started</a> event's <b>sessionID</b> property in a scenario, or retrieve it from the <b>call_session_history_id</b> value returned from the <a href='https://voximplant.com/docs/references/httpapi/scenarios#reorderscenarios'>StartScenarios</a> or <a href='https://voximplant.com/docs/references/httpapi/scenarios#startconference'>StartConference</a> methods
   */
   callSessionHistoryId?:'any'|number|number[]
   /**
-   *The application ID
+   *To receive the call history for a specific application, pass the application ID to this parameter
   */
   applicationId?:number
   /**
@@ -1670,31 +1686,31 @@ export interface GetCallHistoryRequest {
   */
   applicationName?:string
   /**
-   *The user ID list separated by the ';' symbol. If it's specified, the output will contain the calls from the listed users only
+   *To receive the call history for a specific users, pass the user ID list separated by semicolon (;). If it's specified, the output contains the calls from the listed users only
   */
   userId?:'any'|number|number[]
   /**
-   *The rule name to filter. Will be applied only if you set application_id or application_name
+   *To receive the call history for a specific routing rule, pass the rule name to this parameter. Applies only if you set application_id or application_name
   */
   ruleName?:string
   /**
-   *The remote number list separated by the ';' symbol
+   *To receive a call history for a specific remote numbers, pass the number list separated by semicolon (;). A remote number is a number on the client side
   */
   remoteNumber?:string|string[]
   /**
-   *The local number list separated by the ';' symbol
+   *To receive a call history for a specific local numbers, pass the number list separated by semicolon (;). A local number is a number on the platform side
   */
   localNumber?:string|string[]
   /**
-   *The custom_data to filter sessions
+   *To filter the call history by the custom_data passed to the call sessions, pass the custom data to this parameter
   */
   callSessionHistoryCustomData?:string
   /**
-   *Set true to get the bound calls
+   *Specifies whether to receive a list of sessions with all calls within the sessions, including phone numbers, call cost and other information
   */
   withCalls?:boolean
   /**
-   *Set true to get the bound records
+   *Specifies whether to get the calls' records
   */
   withRecords?:boolean
   /**
@@ -1702,7 +1718,7 @@ export interface GetCallHistoryRequest {
   */
   withOtherResources?:boolean
   /**
-   *The child account ID list separated by the ';' symbol. Use the 'all' value to select all child accounts
+   *The child account ID list separated by semicolon (;). Use the 'all' value to select all child accounts
   */
   childAccountId?:'any'|number|number[]
   /**
@@ -1766,7 +1782,7 @@ export interface GetHistoryReportsRequest {
   */
   historyReportId?:number
   /**
-   *The history report type list separated by the ';' symbol. Use the 'all' value to select all history report types. The following values are possible: calls, transactions, audit, call_list
+   *The history report type list separated by semicolon (;). Use the 'all' value to select all history report types. The following values are possible: calls, transactions, audit, call_list
   */
   historyType?:string|string[]
   /**
@@ -1794,7 +1810,7 @@ export interface GetHistoryReportsRequest {
   */
   offset?:number
   /**
-   *The application ID to filter. Can be a list separated by the ';' symbol. Use the 'all' value to select all applications
+   *The application ID to filter. Can be a list separated by semicolon (;). Use the 'all' value to select all applications
   */
   applicationId?:'any'|number|number[]
 }
@@ -1820,20 +1836,20 @@ export interface GetTransactionHistoryRequest {
   toDate:Date
   timezone?:string
   /**
-   *The transaction ID list separated by the ';' symbol
+   *The transaction ID list separated by semicolon (;)
   */
   transactionId?:'any'|number|number[]
   paymentReference?:string
   /**
-   *The transaction type list separated by the ';' symbol. The following values are possible: resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, rub_card_periodic_payment, rub_card_overrun_payment, rub_card_payment, robokassa_payment, gift, promo, adjustment, wire_transfer, us_wire_transfer, refund, discount, mgp_charge, mgp_startup, mgp_business, mgp_big_business, mgp_enterprise, mgp_large_enterprise, techsupport_charge, tax_charge, monthly_fee_charge, grace_credit_payment, grace_credit_provision, mau_charge, mau_overrun, im_charge, im_overrun, fmc_charge, sip_registration_charge, development_fee, money_transfer_to_child, money_transfer_to_parent, money_acceptance_from_child, money_acceptance_from_parent, phone_number_installation, phone_number_charge, toll_free_phone_number_installation, toll_free_phone_number_charge, services, user_money_transfer, paypal_payment, paypal_overrun_payment, paypal_periodic_payment
+   *The transaction type list separated by semicolon (;). The following values are possible: resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, rub_card_periodic_payment, rub_card_overrun_payment, rub_card_payment, robokassa_payment, gift, promo, adjustment, wire_transfer, us_wire_transfer, refund, discount, mgp_charge, mgp_startup, mgp_business, mgp_big_business, mgp_enterprise, mgp_large_enterprise, techsupport_charge, tax_charge, monthly_fee_charge, grace_credit_payment, grace_credit_provision, mau_charge, mau_overrun, im_charge, im_overrun, fmc_charge, sip_registration_charge, development_fee, money_transfer_to_child, money_transfer_to_parent, money_acceptance_from_child, money_acceptance_from_parent, phone_number_installation, phone_number_charge, toll_free_phone_number_installation, toll_free_phone_number_charge, services, user_money_transfer, paypal_payment, paypal_overrun_payment, paypal_periodic_payment
   */
   transactionType?:string|string[]
   /**
-   *The user ID list separated by the ';' symbol
+   *The user ID list separated by semicolon (;)
   */
   userId?:'any'|number|number[]
   /**
-   *The child account ID list separated by the ';' symbol. Use the 'all' value to select all child accounts
+   *The child account ID list separated by semicolon (;). Use the 'all' value to select all child accounts
   */
   childAccountId?:'any'|number|number[]
   /**
@@ -1890,11 +1906,11 @@ export interface GetTransactionHistoryResponse {
 }
 export interface DeleteRecordRequest {
   /**
-   *Url to remove
+   *The record URL to remove. You can retrieve the record URL via the <a href="https://voximplant.com/docs/references/httpapi/structure/callsessioninfotype#records">CallSessionInfoType.records</a> method
   */
   recordUrl?:string
   /**
-   *The record id for remove
+   *The record ID to remove. You can retrieve the record ID via the <a href="https://voximplant.com/docs/references/httpapi/structure/callsessioninfotype#records">CallSessionInfoType.records</a> method
   */
   recordId?:number
 }
@@ -1911,19 +1927,19 @@ export interface GetACDHistoryRequest {
   */
   toDate:Date
   /**
-   *The ACD session history ID list separated by the ';' symbol
+   *The ACD session history ID list separated by semicolon (;)
   */
   acdSessionHistoryId?:'any'|number|number[]
   /**
-   *The ACD request ID list separated by the ';' symbol
+   *The ACD request ID list separated by semicolon (;)
   */
   acdRequestId?:string|string[]
   /**
-   *The ACD queue ID list to filter separated by the ';' symbol
+   *The ACD queue ID list to filter separated by semicolon (;)
   */
   acdQueueId?:'any'|number|number[]
   /**
-   *The user ID list to filter separated by the ';' symbol
+   *The user ID list to filter separated by semicolon (;)
   */
   userId?:'any'|number|number[]
   /**
@@ -1989,7 +2005,7 @@ export interface GetAuditLogRequest {
   toDate:Date
   timezone?:string
   /**
-   *The audit history ID list separated by the ';' symbol
+   *The audit history ID list separated by semicolon (;)
   */
   auditLogId?:'any'|number|number[]
   /**
@@ -1997,11 +2013,11 @@ export interface GetAuditLogRequest {
   */
   filteredAdminUserId?:string
   /**
-   *The IP list separated by the ';' symbol to filter
+   *The IP list separated by semicolon (;) to filter
   */
   filteredIp?:string|string[]
   /**
-   *The function list separated by the ';' symbol to filter
+   *The function list separated by semicolon (;) to filter
   */
   filteredCmd?:string|string[]
   /**
@@ -2150,6 +2166,10 @@ export interface AddSipWhiteListItemRequest {
    *The network address in format A.B.C.D/L or A.B.C.D/a.b.c.d (example 192.168.1.5/16)
   */
   sipWhitelistNetwork:string
+  /**
+   *The network address description
+  */
+  description?:string
 }
 export interface AddSipWhiteListItemResponse {
   /**
@@ -2182,6 +2202,10 @@ export interface SetSipWhiteListItemRequest {
    *The new network address in format A.B.C.D/L or A.B.C.D/a.b.c.d (example 192.168.1.5/16)
   */
   sipWhitelistNetwork:string
+  /**
+   *The network address description
+  */
+  description?:string
 }
 export interface SetSipWhiteListItemResponse {
   /**
@@ -2395,19 +2419,19 @@ export interface DeleteSipRegistrationResponse {
 }
 export interface GetSipRegistrationsRequest {
   /**
-   *The rule ID list separated by the ';' symbol to filter. Can be used instead of <b>rule_name</b>
+   *The rule ID list separated by semicolon (;) to filter. Can be used instead of <b>rule_name</b>
   */
   ruleId:'any'|number|number[]
   /**
-   *The rule name list separated by the ';' symbol to filter. Can be used instead of <b>rule_id</b>
+   *The rule name list separated by semicolon (;) to filter. Can be used instead of <b>rule_id</b>
   */
   ruleName:string|string[]
   /**
-   *The user ID list separated by the ';' symbol to filter. Can be used instead of <b>user_name</b>
+   *The user ID list separated by semicolon (;) to filter. Can be used instead of <b>user_name</b>
   */
   userId:'any'|number|number[]
   /**
-   *The user name list separated by the ';' symbol to filter. Can be used instead of <b>user_id</b>
+   *The user name list separated by semicolon (;) to filter. Can be used instead of <b>user_id</b>
   */
   userName:string|string[]
   /**
@@ -2431,11 +2455,11 @@ export interface GetSipRegistrationsRequest {
   */
   isPersistent?:boolean
   /**
-   *The application ID list separated by the ';' symbol to filter. Can be used instead of <b>application_name</b>
+   *The application ID list separated by semicolon (;) to filter. Can be used instead of <b>application_name</b>
   */
   applicationId?:'any'|number|number[]
   /**
-   *The application name list separated by the ';' symbol to filter. Can be used instead of <b>application_id</b>
+   *The application name list separated by semicolon (;) to filter. Can be used instead of <b>application_id</b>
   */
   applicationName?:string|string[]
   /**
@@ -2443,7 +2467,7 @@ export interface GetSipRegistrationsRequest {
   */
   isBoundToApplication?:boolean
   /**
-   *The list of proxy servers to use, divided by the ';' symbol
+   *The list of proxy servers to use, divided by semicolon (;)
   */
   proxy?:string|string[]
   /**
@@ -2524,11 +2548,11 @@ export interface AttachPhoneNumberResponse {
 }
 export interface BindPhoneNumberToApplicationRequest {
   /**
-   *The phone ID list separated by the ';' symbol. Use the 'all' value to select all phone ids
+   *The phone ID list separated by semicolon (;). Use the 'all' value to select all phone ids
   */
   phoneId:'any'|number|number[]
   /**
-   *The phone number list separated by the ';' symbol that can be used instead of <b>phone_id</b>
+   *The phone number list separated by semicolon (;) that can be used instead of <b>phone_id</b>
   */
   phoneNumber:string|string[]
   /**
@@ -2560,11 +2584,11 @@ export interface BindPhoneNumberToApplicationResponse {
 }
 export interface DeactivatePhoneNumberRequest {
   /**
-   *The phone ID list separated by the ';' symbol. Use the 'all' value to select all phone ids
+   *The phone ID list separated by semicolon (;). Use the 'all' value to select all phone ids
   */
   phoneId:'any'|number|number[]
   /**
-   *The phone number list separated by the ';' symbol that can be used instead of <b>phone_id</b>
+   *The phone number list separated by semicolon (;) that can be used instead of <b>phone_id</b>
   */
   phoneNumber:string|string[]
 }
@@ -2576,11 +2600,11 @@ export interface DeactivatePhoneNumberResponse {
 }
 export interface SetPhoneNumberInfoRequest {
   /**
-   *The phone ID list separated by the ';' symbol. Use the 'all' value to select all phone ids
+   *The phone ID list separated by semicolon (;). Use the 'all' value to select all phone ids
   */
   phoneId:'any'|number|number[]
   /**
-   *The phone number list separated by the ';' symbol that can be used instead of <b>phone_id</b>
+   *The phone number list separated by semicolon (;) that can be used instead of <b>phone_id</b>
   */
   phoneNumber:string|string[]
   autoCharge:boolean
@@ -2601,7 +2625,7 @@ export interface GetPhoneNumbersRequest {
   */
   phoneId?:'any'|number|number[]
   /**
-   *The phone number list separated by the ';' symbol that can be used instead of <b>phone_id</b>
+   *The phone number list separated by semicolon (;) that can be used instead of <b>phone_id</b>
   */
   phoneNumber?:string|string[]
   /**
@@ -2621,7 +2645,7 @@ export interface GetPhoneNumbersRequest {
   */
   phoneTemplate?:string
   /**
-   *The country code list separated by the ';' symbol
+   *The country code list separated by semicolon (;)
   */
   countryCode?:string|string[]
   /**
@@ -2657,7 +2681,7 @@ export interface GetPhoneNumbersRequest {
   */
   toPhonePurchaseDate?:Date
   /**
-   *The child account ID list separated by the ';' symbol. Use the 'all' value to select all child accounts
+   *The child account ID list separated by semicolon (;). Use the 'all' value to select all child accounts
   */
   childAccountId?:'any'|number|number[]
   /**
@@ -2669,7 +2693,7 @@ export interface GetPhoneNumbersRequest {
   */
   verificationName?:string
   /**
-   *The account verification status list separated by the ';' symbol. The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
+   *The account verification status list separated by semicolon (;). The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
   */
   verificationStatus?:string|string[]
   /**
@@ -2702,15 +2726,15 @@ export interface GetPhoneNumbersRequest {
   offset?:number
   smsSupported?:boolean
   /**
-   *The region names list separated by the ';' symbol
+   *The region names list separated by semicolon (;)
   */
   phoneRegionName?:string|string[]
   /**
-   *The rule ID list separated by the ';' symbol
+   *The rule ID list separated by semicolon (;)
   */
   ruleId?:'any'|number|number[]
   /**
-   *The rule names list separated by the ';' symbol. Can be used only if __application_id__ or __application_name__ is specified
+   *The rule names list separated by semicolon (;). Can be used only if __application_id__ or __application_name__ is specified
   */
   ruleName?:string|string[]
   /**
@@ -2771,7 +2795,7 @@ export interface GetNewPhoneNumbersResponse {
 }
 export interface GetPhoneNumberCategoriesRequest {
   /**
-   *Country code list separated by the ';' symbol
+   *Country code list separated by semicolon (;)
   */
   countryCode?:string|string[]
   /**
@@ -2867,7 +2891,7 @@ export interface GetActualPhoneNumberRegionResponse {
 }
 export interface GetAccountPhoneNumberCountriesRequest {
   /**
-   *The application ID list separated by the ';' symbol to filter
+   *The application ID list separated by semicolon (;) to filter
   */
   applicationId?:'any'|number|number[]
 }
@@ -3122,19 +3146,19 @@ export interface BindUserToQueueRequest {
   */
   applicationName:string
   /**
-   *The user ID list separated by the ';' symbol. Use the 'all' value to specify all users bound to the application
+   *The user ID list separated by semicolon (;). Use the 'all' value to specify all users bound to the application
   */
   userId:'any'|number|number[]
   /**
-   *The user name list separated by the ';' symbol. <b>user_name</b> can be used instead of <b>user_id</b>
+   *The user name list separated by semicolon (;). <b>user_name</b> can be used instead of <b>user_id</b>
   */
   userName:string|string[]
   /**
-   *The ACD queue ID list separated by the ';' symbol. Use the 'all' value to specify all queues bound to the application
+   *The ACD queue ID list separated by semicolon (;). Use the 'all' value to specify all queues bound to the application
   */
   acdQueueId:'any'|number|number[]
   /**
-   *The queue name that can be used instead of <b>acd_queue_id</b>. The queue name list separated by the ';' symbol
+   *The queue name that can be used instead of <b>acd_queue_id</b>. The queue name list separated by semicolon (;)
   */
   acdQueueName:string|string[]
 }
@@ -3146,11 +3170,11 @@ export interface BindUserToQueueResponse {
 }
 export interface DelQueueRequest {
   /**
-   *The ACD queue ID list separated by the ';' symbol
+   *The ACD queue ID list separated by semicolon (;)
   */
   acdQueueId:'any'|number|number[]
   /**
-   *The ACD queue name that can be used instead of <b>acd_queue_id</b>. The ACD queue name list separated by the ';' symbol
+   *The ACD queue name that can be used instead of <b>acd_queue_id</b>. The ACD queue name list separated by semicolon (;)
   */
   acdQueueName:string|string[]
 }
@@ -3245,6 +3269,10 @@ export interface GetQueuesRequest {
    *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
+  /**
+   *Number of agents bound to the queue
+  */
+  withOperatorcount?:boolean
 }
 export interface GetQueuesResponse {
   result:QueueInfo[]
@@ -3259,7 +3287,7 @@ export interface GetQueuesResponse {
 }
 export interface GetACDStateRequest {
   /**
-   *The ACD queue ID list separated by the ';' symbol. Use the 'all' value to select all ACD queues
+   *The ACD queue ID list separated by semicolon (;). Use the 'all' value to select all ACD queues
   */
   acdQueueId?:'any'|number|number[]
 }
@@ -3272,7 +3300,7 @@ export interface GetACDOperatorStatisticsRequest {
   */
   fromDate:Date
   /**
-   *The user ID list separated by the ';' symbol. Use the 'all' value to select all users
+   *The user ID list separated by semicolon (;). Use the 'all' value to select all users
   */
   userId:'any'|number|number[]
   /**
@@ -3280,7 +3308,7 @@ export interface GetACDOperatorStatisticsRequest {
   */
   toDate?:Date
   /**
-   *The ACD queue ID list separated by the ';' symbol. Use the 'all' value to select all ACD queues
+   *The ACD queue ID list separated by semicolon (;). Use the 'all' value to select all ACD queues
   */
   acdQueueId?:'any'|number|number[]
   /**
@@ -3288,7 +3316,7 @@ export interface GetACDOperatorStatisticsRequest {
   */
   abbreviation?:boolean
   /**
-   *List of item names abbreviations separated by the ';' symbol. Returned JSON will include keys only for the selected items. Special 'all' value defines all possible items, see [ACDOperatorStatisticsType] for a complete list. See 'abbreviation' description for complete abbreviation list
+   *List of item names abbreviations separated by semicolon (;). Returned JSON will include keys only for the selected items. Special 'all' value defines all possible items, see [ACDOperatorStatisticsType] for a complete list. See 'abbreviation' description for complete abbreviation list
   */
   report?:string|string[]
   /**
@@ -3320,11 +3348,11 @@ export interface GetACDQueueStatisticsRequest {
   */
   abbreviation?:boolean
   /**
-   *The ACD queue ID list separated by the ';' symbol. Use the 'all' value to select all ACD queues
+   *The ACD queue ID list separated by semicolon (;). Use the 'all' value to select all ACD queues
   */
   acdQueueId?:'any'|number|number[]
   /**
-   *List of item names abbreviations separated by the ';' symbol. Returned JSON will include keys only for the selected items. Special 'all' value defines all possible items, see [ACDQueueStatisticsType] for a complete list. See 'abbreviation' description for complete abbreviation list
+   *List of item names abbreviations separated by semicolon (;). Returned JSON will include keys only for the selected items. Special 'all' value defines all possible items, see [ACDQueueStatisticsType] for a complete list. See 'abbreviation' description for complete abbreviation list
   */
   report?:string|string[]
   /**
@@ -3344,7 +3372,7 @@ export interface GetACDOperatorStatusStatisticsRequest {
   */
   fromDate:Date
   /**
-   *The user ID list separated by the ';' symbol. Use the 'all' value to select all users
+   *The user ID list separated by semicolon (;). Use the 'all' value to select all users
   */
   userId:string|string[]
   /**
@@ -3352,7 +3380,7 @@ export interface GetACDOperatorStatusStatisticsRequest {
   */
   toDate?:Date
   /**
-   *The ACD status list separated by the ';' symbol. The following values are possible: OFFLINE, ONLINE, READY, BANNED, IN_SERVICE, AFTER_SERVICE, TIMEOUT, DND
+   *The ACD status list separated by semicolon (;). The following values are possible: OFFLINE, ONLINE, READY, BANNED, IN_SERVICE, AFTER_SERVICE, TIMEOUT, DND
   */
   acdStatus?:string|string[]
   /**
@@ -3392,23 +3420,23 @@ export interface GetSmartQueueRealtimeMetricsRequest {
   */
   applicationName:string
   /**
-   *The report type. Possible values are calls_blocked_percentage, count_blocked_calls, average_abandonment_rate, count_abandonment_calls, service_level, occupancy_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_banned_time, min_time_in_queue,max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime
+   *The report type. Possible values are: calls_blocked_percentage, count_blocked_calls, im_blocked_chats_percentage, im_count_blocked_chats, im_answered_chats_rate, average_abandonment_rate, count_abandonment_calls, service_level, im_service_level, occupancy_rate, im_agent_occupancy_rate, agent_utilization_rate, im_agent_utilization_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_in_service_incoming_time, sum_agents_in_service_outcoming_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_custom_1_time, sum_agents_custom_2_time, sum_agents_custom_3_time, sum_agents_custom_4_time, sum_agents_custom_5_time, sum_agents_custom_6_time, sum_agents_custom_7_time, sum_agents_custom_8_time, sum_agents_custom_9_time, sum_agents_custom_10_time, sum_agents_banned_time, im_sum_agents_online_time, im_sum_agents_ready_time, im_sum_agents_in_service_time, im_sum_agents_dnd_time, im_sum_agents_custom_1_time, im_sum_agents_custom_2_time, im_sum_agents_custom_3_time, im_sum_agents_custom_4_time, im_sum_agents_custom_5_time, im_sum_agents_custom_6_time, im_sum_agents_custom_7_time, im_sum_agents_custom_8_time, im_sum_agents_custom_9_time, im_sum_agents_custom_10_time, im_sum_agents_banned_time, average_agents_idle_time, max_agents_idle_time, min_agents_idle_time, percentile_0_25_agents_idle_time, percentile_0_50_agents_idle_time, percentile_0_75_agents_idle_time, min_time_in_queue, max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, im_min_answer_speed, im_max_answer_speed, im_average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime, count_agent_unanswered_calls, im_count_agent_unanswered_chats, min_reaction_time, max_reaction_time, average_reaction_time, im_min_reaction_time, im_max_reaction_time, im_average_reaction_time, im_count_abandonment_chats, im_count_lost_chats, im_lost_chats_rate
   */
   reportType:string|string[]
   /**
-   *The user ID list with a maximum of 5 values separated by the ';' symbol. Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+   *The user ID list with a maximum of 5 values separated by semicolon (;). Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
   */
   userId?:'any'|number|number[]
   /**
-   *The user name list separated by the ';' symbol. <b>user_name</b> can be used instead of <b>user_id</b>
+   *The user name list separated by semicolon (;). <b>user_name</b> can be used instead of <b>user_id</b>
   */
   userName?:string|string[]
   /**
-   *The smart queue ID list with a maximum of 5 values separated by the ';' symbol. Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+   *The smart queue ID list with a maximum of 5 values separated by semicolon (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
   */
   sqQueueId?:'any'|number|number[]
   /**
-   *The smart queue name list separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+   *The smart queue name list separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
   /**
@@ -3453,23 +3481,23 @@ export interface GetSmartQueueDayHistoryRequest {
   */
   applicationName:string
   /**
-   *The smart queue ID list with a maximum of 5 values separated by the ';' symbol. Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+   *The smart queue ID list with a maximum of 5 values separated by semicolon (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
   */
   sqQueueId:'any'|number|number[]
   /**
-   *The report type. Possible values are calls_blocked_percentage, count_blocked_calls, average_abandonment_rate, count_abandonment_calls, service_level, occupancy_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_banned_time, min_time_in_queue,max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime
+   *The report type. Possible values are: calls_blocked_percentage, count_blocked_calls, im_blocked_chats_percentage, im_count_blocked_chats, im_answered_chats_rate, average_abandonment_rate, count_abandonment_calls, service_level, im_service_level, occupancy_rate, im_agent_occupancy_rate, agent_utilization_rate, im_agent_utilization_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_in_service_incoming_time, sum_agents_in_service_outcoming_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_custom_1_time, sum_agents_custom_2_time, sum_agents_custom_3_time, sum_agents_custom_4_time, sum_agents_custom_5_time, sum_agents_custom_6_time, sum_agents_custom_7_time, sum_agents_custom_8_time, sum_agents_custom_9_time, sum_agents_custom_10_time, sum_agents_banned_time, im_sum_agents_online_time, im_sum_agents_ready_time, im_sum_agents_in_service_time, im_sum_agents_dnd_time, im_sum_agents_custom_1_time, im_sum_agents_custom_2_time, im_sum_agents_custom_3_time, im_sum_agents_custom_4_time, im_sum_agents_custom_5_time, im_sum_agents_custom_6_time, im_sum_agents_custom_7_time, im_sum_agents_custom_8_time, im_sum_agents_custom_9_time, im_sum_agents_custom_10_time, im_sum_agents_banned_time, average_agents_idle_time, max_agents_idle_time, min_agents_idle_time, percentile_0_25_agents_idle_time, percentile_0_50_agents_idle_time, percentile_0_75_agents_idle_time, min_time_in_queue, max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, im_min_answer_speed, im_max_answer_speed, im_average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime, count_agent_unanswered_calls, im_count_agent_unanswered_chats, min_reaction_time, max_reaction_time, average_reaction_time, im_min_reaction_time, im_max_reaction_time, im_average_reaction_time, im_count_abandonment_chats, im_count_lost_chats, im_lost_chats_rate
   */
   reportType:string|string[]
   /**
-   *The user ID list with a maximum of 5 values separated by the ';' symbol. Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+   *The user ID list with a maximum of 5 values separated by semicolon (;). Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
   */
   userId?:'any'|number|number[]
   /**
-   *The user name list separated by the ';' symbol. <b>user_name</b> can be used instead of <b>user_id</b>
+   *The user name list separated by semicolon (;). <b>user_name</b> can be used instead of <b>user_id</b>
   */
   userName?:string|string[]
   /**
-   *The smart queue name list separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+   *The smart queue name list separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
   /**
@@ -3514,7 +3542,7 @@ export interface RequestSmartQueueHistoryRequest {
   */
   applicationName:string
   /**
-   *The smart queue ID list with a maximum of 5 values separated by the ';' symbol. Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+   *The smart queue ID list with a maximum of 5 values separated by semicolon (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
   */
   sqQueueId:'any'|number|number[]
   /**
@@ -3526,19 +3554,19 @@ export interface RequestSmartQueueHistoryRequest {
   */
   toDate:Date
   /**
-   *The report type. Possible values are calls_blocked_percentage, count_blocked_calls, average_abandonment_rate, count_abandonment_calls, service_level, occupancy_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_banned_time, min_time_in_queue,max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime
+   *The report type. Possible values are: calls_blocked_percentage, count_blocked_calls, im_blocked_chats_percentage, im_count_blocked_chats, im_answered_chats_rate, average_abandonment_rate, count_abandonment_calls, service_level, im_service_level, occupancy_rate, im_agent_occupancy_rate, agent_utilization_rate, im_agent_utilization_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_in_service_incoming_time, sum_agents_in_service_outcoming_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_custom_1_time, sum_agents_custom_2_time, sum_agents_custom_3_time, sum_agents_custom_4_time, sum_agents_custom_5_time, sum_agents_custom_6_time, sum_agents_custom_7_time, sum_agents_custom_8_time, sum_agents_custom_9_time, sum_agents_custom_10_time, sum_agents_banned_time, im_sum_agents_online_time, im_sum_agents_ready_time, im_sum_agents_in_service_time, im_sum_agents_dnd_time, im_sum_agents_custom_1_time, im_sum_agents_custom_2_time, im_sum_agents_custom_3_time, im_sum_agents_custom_4_time, im_sum_agents_custom_5_time, im_sum_agents_custom_6_time, im_sum_agents_custom_7_time, im_sum_agents_custom_8_time, im_sum_agents_custom_9_time, im_sum_agents_custom_10_time, im_sum_agents_banned_time, average_agents_idle_time, max_agents_idle_time, min_agents_idle_time, percentile_0_25_agents_idle_time, percentile_0_50_agents_idle_time, percentile_0_75_agents_idle_time, min_time_in_queue, max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, im_min_answer_speed, im_max_answer_speed, im_average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime, count_agent_unanswered_calls, im_count_agent_unanswered_chats, min_reaction_time, max_reaction_time, average_reaction_time, im_min_reaction_time, im_max_reaction_time, im_average_reaction_time, im_count_abandonment_chats, im_count_lost_chats, im_lost_chats_rate
   */
   reportType:string|string[]
   /**
-   *The user ID list with a maximum of 5 values separated by the ';' symbol. Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+   *The user ID list with a maximum of 5 values separated by semicolon (;). Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
   */
   userId?:'any'|number|number[]
   /**
-   *The user name list separated by the ';' symbol. Can be used instead of <b>user_id</b>
+   *The user name list separated by semicolon (;). Can be used instead of <b>user_id</b>
   */
   userName?:string|string[]
   /**
-   *The smart queue name list separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+   *The smart queue name list separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
   /**
@@ -3574,7 +3602,7 @@ export interface GetSQStateRequest {
   */
   applicationId:number
   /**
-   *The smart queue ID list separated by the ';' symbol. Use the 'all' value to select all smart queues
+   *The smart queue ID list separated by semicolon (;). Use the 'all' value to select all smart queues
   */
   sqQueueId:'any'|number|number[]
   /**
@@ -3582,7 +3610,7 @@ export interface GetSQStateRequest {
   */
   applicationName?:string
   /**
-   *The smart queue name list separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+   *The smart queue name list separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
   /**
@@ -3655,25 +3683,25 @@ export interface SQ_AddQueueRequest {
   */
   sqQueueName:string
   /**
-   *Agent selection strategy for calls
+   *Agent selection strategy for calls. Accepts one of the following values: "MOST_QUALIFIED", "LEAST_QUALIFIED", "MAX_WAITING_TIME"
   */
-  callAgentSelection:SQAgentSelectionStrategies[]
+  callAgentSelection:string
   /**
-   *Strategy of prioritizing CALL-type requests for service
+   *Strategy of prioritizing CALL-type requests for service. Accepts one of the following values: "MAX_PRIORITY", "MAX_WAITING_TIME"
   */
-  callTaskSelection:SQTaskSelectionStrategies[]
+  callTaskSelection:string
   /**
    *Name of the application to bind to. Can be used instead of <b>application_id</b>
   */
   applicationName?:string
   /**
-   *Agent selection strategy for messages. Equals to the **call_agent_selection** value by default
+   *Agent selection strategy for messages. Accepts one of the following values: "MOST_QUALIFIED", "LEAST_QUALIFIED", "MAX_WAITING_TIME". Equals to the **call_agent_selection** value by default
   */
-  imAgentSelection?:SQAgentSelectionStrategies[]
+  imAgentSelection?:string
   /**
-   *Strategy of prioritizing IM-type requests for service. Equals to the **call_task_selection** value by default
+   *Strategy of prioritizing IM-type requests for service. Accepts one of the following values: "MAX_PRIORITY", "MAX_WAITING_TIME". Equals to the **call_task_selection** value by default
   */
-  imTaskSelection?:SQTaskSelectionStrategies[]
+  imTaskSelection?:string
   fallbackAgentSelection?:string
   /**
    *Comment, up to 200 characters
@@ -3695,6 +3723,10 @@ export interface SQ_AddQueueRequest {
    *Maximum size of the queue with IM-type requests
   */
   imMaxQueueSize?:number
+  /**
+   *The queue's priority from 1 to 100
+  */
+  priority?:number
 }
 export interface SQ_AddQueueResponse {
   /**
@@ -3724,21 +3756,21 @@ export interface SQ_SetQueueInfoRequest {
   */
   newSqQueueName?:string
   /**
-   *Agent selection strategy for calls
+   *Agent selection strategy for calls. Accepts one of the following values: "MOST_QUALIFIED", "LEAST_QUALIFIED", "MAX_WAITING_TIME"
   */
-  callAgentSelection?:SQAgentSelectionStrategies[]
+  callAgentSelection?:string
   /**
-   *Agent selection strategy for messages. Equals to the **call_agent_selection** value by default
+   *Agent selection strategy for messages. Accepts one of the following values: "MOST_QUALIFIED", "LEAST_QUALIFIED", "MAX_WAITING_TIME". Equals to the **call_agent_selection** value by default
   */
-  imAgentSelection?:SQAgentSelectionStrategies[]
+  imAgentSelection?:string
   /**
-   *Strategy of prioritizing CALL-type requests for service
+   *Strategy of prioritizing CALL-type requests for service. Accepts one of the following values: "MAX_PRIORITY", "MAX_WAITING_TIME"
   */
-  callTaskSelection?:SQTaskSelectionStrategies[]
+  callTaskSelection?:string
   /**
-   *Strategy of prioritizing IM-type requests for service. Equals to the **call_task_selection** value by default
+   *Strategy of prioritizing IM-type requests for service. Accepts one of the following values: "MAX_PRIORITY", "MAX_WAITING_TIME". Equals to the **call_task_selection** value by default
   */
-  imTaskSelection?:SQTaskSelectionStrategies[]
+  imTaskSelection?:string
   fallbackAgentSelection?:string
   /**
    *Comment, up to 200 characters
@@ -3760,6 +3792,10 @@ export interface SQ_SetQueueInfoRequest {
    *Maximum size of the queue with IM-type requests
   */
   imMaxQueueSize?:number
+  /**
+   *The queue's priority from 1 to 100
+  */
+  priority?:number
 }
 export interface SQ_SetQueueInfoResponse {
   /**
@@ -3773,7 +3809,7 @@ export interface SQ_DelQueueRequest {
   */
   applicationId:number
   /**
-   *List of smart queue IDs separated by the ';' symbol. Use 'all' to delete all the queues
+   *List of smart queue IDs separated by semicolon (;). Use 'all' to delete all the queues
   */
   sqQueueId:'any'|number|number[]
   /**
@@ -3781,7 +3817,7 @@ export interface SQ_DelQueueRequest {
   */
   applicationName?:string
   /**
-   *List of smart queue names separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+   *List of smart queue names separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
 }
@@ -3801,11 +3837,11 @@ export interface SQ_GetQueuesRequest {
   */
   applicationName?:string
   /**
-   *List of smart queue IDs separated by the ';' symbol
+   *List of smart queue IDs separated by semicolon (;)
   */
   sqQueueId?:'any'|number|number[]
   /**
-   *List of smart queue names separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+   *List of smart queue names separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
   /**
@@ -3836,10 +3872,14 @@ export interface SQ_GetQueuesRequest {
    *Number of items to skip in the output
   */
   offset?:number
+  /**
+   *Number of agents bound to the queue
+  */
+  withAgentcount?:boolean
 }
 export interface SQ_GetQueuesResponse {
   /**
-   *The found skill(s)
+   *The found queue(s)
   */
   result:GetSQQueuesResult
 }
@@ -3873,7 +3913,7 @@ export interface SQ_DelSkillRequest {
   */
   applicationId:number
   /**
-   *List of skill IDs separated by the ';' symbol. Use 'all' to delete all the skills
+   *List of skill IDs separated by semicolon (;). Use 'all' to delete all the skills
   */
   sqSkillId:'any'|number|number[]
   /**
@@ -3881,7 +3921,7 @@ export interface SQ_DelSkillRequest {
   */
   applicationName?:string
   /**
-   *List of skill names separated by the ';' symbol. Can be used instead of <b>sq_skill_id</b>
+   *List of skill names separated by semicolon (;). Can be used instead of <b>sq_skill_id</b>
   */
   sqSkillName?:string|string[]
 }
@@ -3929,7 +3969,7 @@ export interface SQ_BindSkillRequest {
   */
   applicationId:number
   /**
-   *List of user IDs separated by the ';' symbol. Use 'all' to select all the users
+   *List of user IDs separated by semicolon (;). Use 'all' to select all the users
   */
   userId:'any'|number|number[]
   /**
@@ -3941,7 +3981,7 @@ export interface SQ_BindSkillRequest {
   */
   applicationName?:string
   /**
-   *List of user names separated by the ';' symbol. Can be used instead of <b>user_id</b>
+   *List of user names separated by semicolon (;). Can be used instead of <b>user_id</b>
   */
   userName?:string|string[]
   /**
@@ -3961,11 +4001,11 @@ export interface SQ_UnbindSkillRequest {
   */
   applicationId:number
   /**
-   *List of user IDs separated by the ';' symbol. Use 'all' to select all the users
+   *List of user IDs separated by semicolon (;). Use 'all' to select all the users
   */
   userId:'any'|number|number[]
   /**
-   *List of skill IDs separated by the ';' symbol. Use 'all' to undbind all the skills
+   *List of skill IDs separated by semicolon (;). Use 'all' to undbind all the skills
   */
   sqSkillId:'any'|number|number[]
   /**
@@ -3973,11 +4013,11 @@ export interface SQ_UnbindSkillRequest {
   */
   applicationName?:string
   /**
-   *List of user names separated by the ';' symbol. Can be used instead of <b>user_id</b>
+   *List of user names separated by semicolon (;). Can be used instead of <b>user_id</b>
   */
   userName?:string|string[]
   /**
-   *List of skill names separated by the ';' symbol. Can be used instead of <b>sq_skill_id</b>
+   *List of skill names separated by semicolon (;). Can be used instead of <b>sq_skill_id</b>
   */
   sqSkillName?:string|string[]
 }
@@ -3997,19 +4037,19 @@ export interface SQ_GetSkillsRequest {
   */
   applicationName?:string
   /**
-   *List of user IDs separated by the ';' symbol
+   *List of user IDs separated by semicolon (;)
   */
   userId?:'any'|number|number[]
   /**
-   *List of user names separated by the ';' symbol. Can be used instead of <b>user_id</b>
+   *List of user names separated by semicolon (;). Can be used instead of <b>user_id</b>
   */
   userName?:string|string[]
   /**
-   *List of skill IDs separated by the ';' symbol
+   *List of skill IDs separated by semicolon (;)
   */
   sqSkillId?:'any'|number|number[]
   /**
-   *List of skill names separated by the ';' symbol. Can be used instead of <b>sq_skill_id</b>
+   *List of skill names separated by semicolon (;). Can be used instead of <b>sq_skill_id</b>
   */
   sqSkillName?:string|string[]
   /**
@@ -4045,11 +4085,11 @@ export interface SQ_BindAgentRequest {
   */
   applicationId:number
   /**
-   *ID of the smart queue
+   *ID of the smart queue. Pass a list of values divided by ; or the "all" keyword
   */
-  sqQueueId:number
+  sqQueueId:string
   /**
-   *List of user IDs separated by the ';' symbol. Use 'all' to select all the users
+   *List of user IDs separated by semicolon (;). Use 'all' to select all the users
   */
   userId:'any'|number|number[]
   /**
@@ -4057,11 +4097,11 @@ export interface SQ_BindAgentRequest {
   */
   applicationName?:string
   /**
-   *Name of the smart queue
+   *Name of the smart queue. Pass a list of names divided by ; or the "all" keyword
   */
   sqQueueName?:string
   /**
-   *List of user names separated by the ';' symbol. Can be used instead of <b>user_id</b>
+   *List of user names separated by semicolon (;). Can be used instead of <b>user_id</b>
   */
   userName?:string|string[]
   /**
@@ -4081,11 +4121,11 @@ export interface SQ_UnbindAgentRequest {
   */
   applicationId:number
   /**
-   *List of smart queue IDs separated by the ';' symbol. Use 'all' to select all the queues
+   *List of smart queue IDs separated by semicolon (;). Use 'all' to select all the queues
   */
   sqQueueId:'any'|number|number[]
   /**
-   *List of user IDs separated by the ';' symbol. Use 'all' to select all the users
+   *List of user IDs separated by semicolon (;). Use 'all' to select all the users
   */
   userId:'any'|number|number[]
   /**
@@ -4093,11 +4133,11 @@ export interface SQ_UnbindAgentRequest {
   */
   applicationName?:string
   /**
-   *List of smart queue names separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+   *List of smart queue names separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
   /**
-   *List of user names separated by the ';' symbol. Can be used instead of <b>user_id</b>
+   *List of user names separated by semicolon (;). Can be used instead of <b>user_id</b>
   */
   userName?:string|string[]
 }
@@ -4113,15 +4153,19 @@ export interface SQ_GetAgentsRequest {
   */
   applicationId:number
   /**
+   *The agent can handle calls. When set to false, the agent is excluded from the CALL-request distribution
+  */
+  handleCalls:boolean
+  /**
    *Name of the application to search by. Can be used instead of <b>application_id</b>
   */
   applicationName?:string
   /**
-   *List of smart queue IDs separated by the ';' symbol. Use 'all' to select all the queues
+   *List of smart queue IDs separated by semicolon (;). Use 'all' to select all the queues
   */
   sqQueueId?:'any'|number|number[]
   /**
-   *List of smart queue names separated by the ';' symbol. Can be used instead of <b>sq_queue_id</b>
+   *List of smart queue names separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
   /**
@@ -4137,11 +4181,11 @@ export interface SQ_GetAgentsRequest {
   */
   sqSkills?:any
   /**
-   *List of user IDs separated by the ';' symbol
+   *List of user IDs separated by semicolon (;)
   */
   userId?:'any'|number|number[]
   /**
-   *List of user names separated by the ';' symbol. Can be used instead of <b>user_id</b>
+   *List of user names separated by semicolon (;). Can be used instead of <b>user_id</b>
   */
   userName?:string|string[]
   /**
@@ -4185,7 +4229,7 @@ export interface SQ_SetAgentInfoRequest {
   */
   applicationId:number
   /**
-   *List of user IDs separated by the ';' symbol. Use 'all' to select all the users
+   *List of user IDs separated by semicolon (;). Use 'all' to select all the users
   */
   userId:'any'|number|number[]
   /**
@@ -4197,7 +4241,7 @@ export interface SQ_SetAgentInfoRequest {
   */
   applicationName?:string
   /**
-   *List of user names separated by the ';' symbol. Can be used instead of <b>user_id</b>
+   *List of user names separated by semicolon (;). Can be used instead of <b>user_id</b>
   */
   userName?:string|string[]
   /**
@@ -4318,27 +4362,27 @@ export interface GetSkillsResponse {
 }
 export interface BindSkillRequest {
   /**
-   *The skill ID list separated by the ';' symbol. Use the 'all' value to select all skills
+   *The skill ID list separated by semicolon (;). Use the 'all' value to select all skills
   */
   skillId:'any'|number|number[]
   /**
-   *The skill name list separated by the ';' symbol. Can be used instead of <b>skill_id</b>
+   *The skill name list separated by semicolon (;). Can be used instead of <b>skill_id</b>
   */
   skillName:string|string[]
   /**
-   *The user ID list separated by the ';' symbol. Use the 'all' value to select all users
+   *The user ID list separated by semicolon (;). Use the 'all' value to select all users
   */
   userId:'any'|number|number[]
   /**
-   *The user name list separated by the ';' symbol. <b>user_name</b> can be used instead of <b>user_id</b>
+   *The user name list separated by semicolon (;). <b>user_name</b> can be used instead of <b>user_id</b>
   */
   userName:string|string[]
   /**
-   *The ACD queue ID list separated by the ';' symbol. Use the 'all' value to select all ACD queues
+   *The ACD queue ID list separated by semicolon (;). Use the 'all' value to select all ACD queues
   */
   acdQueueId:'any'|number|number[]
   /**
-   *The ACD queue name that can be used instead of <b>acd_queue_id</b>. The ACD queue name list separated by the ';' symbol
+   *The ACD queue name that can be used instead of <b>acd_queue_id</b>. The ACD queue name list separated by semicolon (;)
   */
   acdQueueName:string|string[]
   /**
@@ -4401,7 +4445,7 @@ export interface AddAdminUserRequest {
   */
   adminUserActive?:boolean
   /**
-   *The role(s) ID created via <a href='/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role ID list separated by the ';' symbol. Use the 'all' value to select all admin roles
+   *The role(s) ID created via <a href='/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role ID list separated by semicolon (;). Use the 'all' value to select all admin roles
   */
   adminRoleId?:string
   /**
@@ -4425,7 +4469,7 @@ export interface AddAdminUserResponse {
 }
 export interface DelAdminUserRequest {
   /**
-   *The admin user ID list separated by the ';' symbol. Use the 'all' value to select all admin users
+   *The admin user ID list separated by semicolon (;). Use the 'all' value to select all admin users
   */
   requiredAdminUserId:'any'|number|number[]
   /**
@@ -4518,7 +4562,7 @@ export interface GetAdminUsersResponse {
 }
 export interface AttachAdminRoleRequest {
   /**
-   *The admin user ID list separated by the ';' symbol. Use the 'all' value to select all admin users
+   *The admin user ID list separated by semicolon (;). Use the 'all' value to select all admin users
   */
   requiredAdminUserId:'any'|number|number[]
   /**
@@ -4526,7 +4570,7 @@ export interface AttachAdminRoleRequest {
   */
   requiredAdminUserName:string|string[]
   /**
-   *The role(s) ID created via <a href='/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attached admin role ID list separated by the ';' symbol. Use the 'all' value to select alladmin roles
+   *The role(s) ID created via <a href='/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attached admin role ID list separated by semicolon (;). Use the 'all' value to select alladmin roles
   */
   adminRoleId:'any'|number|number[]
   /**
@@ -4562,7 +4606,7 @@ export interface AddAdminRoleRequest {
   */
   adminRoleActive?:boolean
   /**
-   *The admin role ID list separated by the ';' symbol. Use the 'all' value to select all admin roles. The list specifies the roles from which the new role automatically copies all permissions (allowed_entries and denied_entries)
+   *The admin role ID list separated by semicolon (;). Use the 'all' value to select all admin roles. The list specifies the roles from which the new role automatically copies all permissions (allowed_entries and denied_entries)
   */
   likeAdminRoleId?:'any'|number|number[]
   /**
@@ -4570,11 +4614,11 @@ export interface AddAdminRoleRequest {
   */
   likeAdminRoleName?:string|string[]
   /**
-   *The list of allowed access entries separated by the ';' symbol (the API function names)
+   *The list of allowed access entries separated by semicolon (;) (the API function names)
   */
   allowedEntries?:string|string[]
   /**
-   *The list of denied access entries separated by the ';' symbol (the API function names)
+   *The list of denied access entries separated by semicolon (;) (the API function names)
   */
   deniedEntries?:string|string[]
 }
@@ -4590,7 +4634,7 @@ export interface AddAdminRoleResponse {
 }
 export interface DelAdminRoleRequest {
   /**
-   *The admin role ID list separated by the ';' symbol. Use the 'all' value to select all admin roles
+   *The admin role ID list separated by semicolon (;). Use the 'all' value to select all admin roles
   */
   adminRoleId:'any'|number|number[]
   /**
@@ -4626,15 +4670,15 @@ export interface SetAdminRoleInfoRequest {
   */
   entryModificationMode?:string
   /**
-   *The list of allowed access entry changes separated by the ';' symbol (the API function names)
+   *The list of allowed access entry changes separated by semicolon (;) (the API function names)
   */
   allowedEntries?:string|string[]
   /**
-   *The list of denied access entry changes separated by the ';' symbol (the API function names)
+   *The list of denied access entry changes separated by semicolon (;) (the API function names)
   */
   deniedEntries?:string|string[]
   /**
-   *The admin role ID list separated by the ';' symbol. Use the 'all' value to select all admin roles. The list specifies the roles from which the allowed_entries and denied_entries will be merged
+   *The admin role ID list separated by semicolon (;). Use the 'all' value to select all admin roles. The list specifies the roles from which the allowed_entries and denied_entries will be merged
   */
   likeAdminRoleId?:'any'|number|number[]
   /**
@@ -4675,11 +4719,11 @@ export interface GetAdminRolesRequest {
   withParentRoles?:boolean
   withSystemRoles?:boolean
   /**
-   *The attached admin user ID list separated by the ';' symbol. Use the 'all' value to select all admin users
+   *The attached admin user ID list separated by semicolon (;). Use the 'all' value to select all admin users
   */
   includedAdminUserId?:'any'|number|number[]
   /**
-   *Not attached admin user ID list separated by the ';' symbol. Use the 'all' value to select all admin users
+   *Not attached admin user ID list separated by semicolon (;). Use the 'all' value to select all admin users
   */
   excludedAdminUserId?:'any'|number|number[]
   /**
@@ -4736,6 +4780,10 @@ export interface AddAuthorizedAccountIPRequest {
    *Set false to add the IP to the blacklist
   */
   allowed?:boolean
+  /**
+   *The IP address description
+  */
+  description?:string
 }
 export interface AddAuthorizedAccountIPResponse {
   /**
@@ -4784,6 +4832,10 @@ export interface GetAuthorizedAccountIPsRequest {
    *The first <b>N</b> records will be skipped in the output
   */
   offset?:number
+  /**
+   *The IP address description
+  */
+  description?:string
 }
 export interface GetAuthorizedAccountIPsResponse {
   result:AuthorizedAccountIP[]
@@ -5137,11 +5189,11 @@ export interface GetPushCredentialResponse {
 }
 export interface BindPushCredentialRequest {
   /**
-   *The push credentials ID list separated by the ';' symbol
+   *The push credentials ID list separated by semicolon (;)
   */
   pushCredentialId:'any'|number|number[]
   /**
-   *The application ID list separated by the ';' symbol. Use the 'all' value to select all applications
+   *The application ID list separated by semicolon (;). Use the 'all' value to select all applications
   */
   applicationId:'any'|number|number[]
   /**
@@ -5228,7 +5280,7 @@ export interface BindDialogflowKeysRequest {
   */
   dialogflowKeyId:number
   /**
-   *The application ID list separated by the ';' symbol. Use the 'all' value to select all applications
+   *The application ID list separated by semicolon (;). Use the 'all' value to select all applications
   */
   applicationId:'any'|number|number[]
   /**
@@ -5260,9 +5312,17 @@ export interface SendSmsMessageRequest {
    *The message text, up to 765 characters. We split long messages greater than 160 GSM-7 characters or 70 UTF-16 characters into multiple segments. Each segment is charged as one message
   */
   smsBody:string
+  /**
+   *Set to true to store outbound message texts. Default value is false
+  */
+  storeBody?:boolean
 }
 export interface SendSmsMessageResponse {
   result:number
+  /**
+   *Message ID
+  */
+  messageId:number
   /**
    *The number of fragments the message was divided into
   */
@@ -5270,17 +5330,21 @@ export interface SendSmsMessageResponse {
 }
 export interface A2PSendSmsRequest {
   /**
-   *The source phone number
+   *The SenderID for outbound SMS. Please contact support for installing a SenderID
   */
   srcNumber:string
   /**
-   *The destination phone numbers separated by the ';' symbol. The maximum number of these phone numbers is 100
+   *The destination phone numbers separated by semicolon (;). The maximum number of these phone numbers is 100
   */
   dstNumbers:string|string[]
   /**
    *The message text, up to 1600 characters. We split long messages greater than 160 GSM-7 characters or 70 UTF-16 characters into multiple segments. Each segment is charged as one message
   */
   text:string
+  /**
+   *Set to true to store outbound message texts. Default value is false
+  */
+  storeBody?:boolean
 }
 export interface A2PSendSmsResponse {
   result:SmsTransaction[]
@@ -5395,11 +5459,11 @@ export interface SMSInterface {
 
 export interface GetRecordStoragesRequest {
   /**
-   *The record storage ID list separated by the ';' symbol
+   *The record storage ID list separated by semicolon (;)
   */
   recordStorageId?:'any'|number|number[]
   /**
-   *The record storage name list separated by the ';' symbol
+   *The record storage name list separated by semicolon (;)
   */
   recordStorageName?:string|string[]
   withPrivate?:boolean
@@ -5422,11 +5486,11 @@ export interface CreateKeyRequest {
   */
   description?:string
   /**
-   *The role ID list separated by the ';' symbol. Use it instead of **role_name**, but not combine with
+   *The role ID list separated by semicolon (;). Use it instead of **role_name**, but not combine with
   */
   roleId?:'any'|number|number[]
   /**
-   *The role name list separated by the ';' symbol. Use it instead of **role_id**, but not combine with
+   *The role name list separated by semicolon (;). Use it instead of **role_id**, but not combine with
   */
   roleName?:string|string[]
 }
@@ -5482,11 +5546,11 @@ export interface SetKeyRolesRequest {
   */
   keyId:string
   /**
-   *The role id list separated by the ';' symbol
+   *The role id list separated by semicolon (;)
   */
   roleId:'any'|number|number[]
   /**
-   *The role name list separated by the ';' symbol
+   *The role name list separated by semicolon (;)
   */
   roleName:string|string[]
 }
@@ -5512,11 +5576,11 @@ export interface RemoveKeyRolesRequest {
   */
   keyId:string
   /**
-   *The role id list separated by the ';' symbol
+   *The role id list separated by semicolon (;)
   */
   roleId:'any'|number|number[]
   /**
-   *The role name list separated by the ';' symbol
+   *The role name list separated by semicolon (;)
   */
   roleName:string|string[]
 }
@@ -5533,11 +5597,11 @@ export interface AddSubUserRequest {
   */
   newSubuserPassword:string
   /**
-   *The role id list separated by the ';' symbol
+   *The role id list separated by semicolon (;)
   */
   roleId?:'any'|number|number[]
   /**
-   *The role name list separated by the ';' symbol
+   *The role name list separated by semicolon (;)
   */
   roleName?:string|string[]
   /**
@@ -5605,11 +5669,11 @@ export interface SetSubUserRolesRequest {
   */
   subuserId:number
   /**
-   *The role id list separated by the ';' symbol
+   *The role id list separated by semicolon (;)
   */
   roleId:'any'|number|number[]
   /**
-   *The role name list separated by the ';' symbol
+   *The role name list separated by semicolon (;)
   */
   roleName:string|string[]
 }
@@ -5635,11 +5699,11 @@ export interface RemoveSubUserRolesRequest {
   */
   subuserId:number
   /**
-   *The role id list separated by the ';' symbol
+   *The role id list separated by semicolon (;)
   */
   roleId:'any'|number|number[]
   /**
-   *The role name list separated by the ';' symbol
+   *The role name list separated by semicolon (;)
   */
   roleName:string|string[]
   /**
