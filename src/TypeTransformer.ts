@@ -3498,6 +3498,8 @@ export default class TypeTransformer{
             return data.toISOString().replace(/T/, ' ').replace(/\..+/, ''); 
           if(type==='intlist') 
             return Array.isArray(data) ? data.join(';') : data;
+          if(type==='file')
+            return data.toString();
           if(type==='boolean') 
             return String(data);
           else return data};

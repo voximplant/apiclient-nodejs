@@ -22,8 +22,7 @@ export interface UtilsReturns{
   'SetUserInfo':SetUserInfoResponse
   'GetUsers':GetUsersResponse
   'TransferMoneyToUser':TransferMoneyToUserResponse
-  'CreateManualCallList':CreateManualCallListResponse
-  'StartNextCallTask':StartNextCallTaskResponse
+  'CreateCallList':CreateCallListResponse
   'GetCallLists':GetCallListsResponse
   'GetCallListDetails':GetCallListDetailsResponse
   'StopCallListProcessing':StopCallListProcessingResponse
@@ -42,6 +41,7 @@ export interface UtilsReturns{
   'GetRules':GetRulesResponse
   'ReorderRules':ReorderRulesResponse
   'GetCallHistory':GetCallHistoryResponse
+  'GetBriefCallHistory':GetBriefCallHistoryResponse
   'GetHistoryReports':GetHistoryReportsResponse
   'GetTransactionHistory':GetTransactionHistoryResponse
   'DeleteRecord':DeleteRecordResponse
@@ -359,10 +359,6 @@ export interface SetChildAccountInfoRequest {
    *Set to true to allow use restricted directions
   */
   canUseRestricted?:boolean
-  /**
-   *The minimum payment amount
-  */
-  minPaymentAmount?:number
 }
 export interface SetChildAccountInfoResponse {
   /**
@@ -1015,9 +1011,9 @@ export interface UsersInterface {
   transferMoneyToUser: (request:TransferMoneyToUserRequest) => Promise<TransferMoneyToUserResponse>
 }
 
-export interface CreateManualCallListRequest {
+export interface CreateCallListRequest {
   /**
-   *The rule ID
+   *The rule ID. It's specified in the <a href='//manage.voximplant.com/applications'>Applications</a> section of the Control Panel
   */
   ruleId:number
   /**
@@ -1029,17 +1025,17 @@ export interface CreateManualCallListRequest {
   */
   maxSimultaneous:number
   /**
-   *Number of attempts. Should be equal or greater than <b>1</b>
+   *Number of attempts. Minimum is <b>1</b>, maximum is <b>5</b>
   */
   numAttempts:number
   /**
-   *File name
+   *File name, up to 255 characters and can't contain the '/' and '\' symbols
   */
   name:string
   /**
    *Send as "body" part of the HTTP request or as multiform. The sending "file_content" via URL is at its own risk because the network devices tend to drop HTTP requests with large headers
   */
-  fileContent:string
+  fileContent:Buffer
   /**
    *Interval between call attempts in seconds. The default is 0
   */
@@ -1061,7 +1057,7 @@ export interface CreateManualCallListRequest {
   */
   referenceIp?:string
 }
-export interface CreateManualCallListResponse {
+export interface CreateCallListResponse {
   /**
    *true
   */
@@ -1072,26 +1068,6 @@ export interface CreateManualCallListResponse {
   count:number
   /**
    *The list ID
-  */
-  listId:number
-}
-export interface StartNextCallTaskRequest {
-  /**
-   *The list of the call list IDs separated by semicolon (;)
-  */
-  listId:'any'|number|number[]
-  /**
-   *The custom param to pass the call initiator parameters to the scenario
-  */
-  customParams?:string
-}
-export interface StartNextCallTaskResponse {
-  /**
-   *true
-  */
-  result:number
-  /**
-   *The list id
   */
   listId:number
 }
@@ -1216,8 +1192,7 @@ export interface RecoverCallListResponse {
   countRecovery:number
 }
 export interface CallListsInterface {
-  createManualCallList: (request:CreateManualCallListRequest) => Promise<CreateManualCallListResponse>
-  startNextCallTask: (request:StartNextCallTaskRequest) => Promise<StartNextCallTaskResponse>
+  createCallList: (request:CreateCallListRequest) => Promise<CreateCallListResponse>
   getCallLists: (request:GetCallListsRequest) => Promise<GetCallListsResponse>
   getCallListDetails: (request:GetCallListDetailsRequest) => Promise<GetCallListDetailsResponse>
   stopCallListProcessing: (request:StopCallListProcessingRequest) => Promise<StopCallListProcessingResponse>
@@ -1776,6 +1751,71 @@ export interface GetCallHistoryResponse {
   */
   historyReportId:number
 }
+export interface GetBriefCallHistoryRequest {
+  /**
+   *The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+  */
+  fromDate:Date
+  /**
+   *The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+  */
+  toDate:Date
+  /**
+   *The output format. The following values available: csv
+  */
+  output:string
+  /**
+   *Set true to get records in the asynchronous mode. <b>Use this mode to download large amounts of data</b>. See the [GetHistoryReports], [DownloadHistoryReport] functions for details
+  */
+  isAsync:boolean
+  timezone?:string
+  /**
+   *To get the call history for the specific sessions, pass the session IDs to this parameter separated by a semicolon (;). You can find the session ID in the <a href='/docs/references/voxengine/appevents#started'>AppEvents.Started</a> event's <b>sessionID</b> property in a scenario, or retrieve it from the <b>call_session_history_id</b> value returned from the <a href='https://voximplant.com/docs/references/httpapi/scenarios#reorderscenarios'>StartScenarios</a> or <a href='https://voximplant.com/docs/references/httpapi/scenarios#startconference'>StartConference</a> methods
+  */
+  callSessionHistoryId?:'any'|number|number[]
+  /**
+   *To receive the call history for a specific application, pass the application ID to this parameter
+  */
+  applicationId?:number
+  /**
+   *The application name, can be used instead of <b>application_id</b>
+  */
+  applicationName?:string
+  /**
+   *To receive the call history for a specific routing rule, pass the rule name to this parameter. Applies only if you set application_id or application_name
+  */
+  ruleName?:string
+  /**
+   *To receive a call history for a specific remote numbers, pass the number list separated by semicolon (;). A remote number is a number on the client side
+  */
+  remoteNumber?:string|string[]
+  /**
+   *To receive a call history for a specific local numbers, pass the number list separated by semicolon (;). A local number is a number on the platform side
+  */
+  localNumber?:string|string[]
+  /**
+   *To filter the call history by the custom_data passed to the call sessions, pass the custom data to this parameter
+  */
+  callSessionHistoryCustomData?:string
+  /**
+   *Set false to get a CSV file without the column names if the output=csv
+  */
+  withHeader?:boolean
+  /**
+   *Set true to get records in the descent order
+  */
+  descOrder?:boolean
+}
+export interface GetBriefCallHistoryResponse {
+  /**
+   *In the async mode, the value is always 1
+  */
+  result:number
+  /**
+   *The history report ID
+  */
+  historyReportId:number
+}
 export interface GetHistoryReportsRequest {
   /**
    *The history report ID to filter
@@ -2074,6 +2114,7 @@ export interface GetAuditLogResponse {
 }
 export interface HistoryInterface {
   getCallHistory: (request:GetCallHistoryRequest) => Promise<GetCallHistoryResponse>
+  getBriefCallHistory: (request:GetBriefCallHistoryRequest) => Promise<GetBriefCallHistoryResponse>
   getHistoryReports: (request:GetHistoryReportsRequest) => Promise<GetHistoryReportsResponse>
   getTransactionHistory: (request:GetTransactionHistoryRequest) => Promise<GetTransactionHistoryResponse>
   deleteRecord: (request:DeleteRecordRequest) => Promise<DeleteRecordResponse>

@@ -620,7 +620,7 @@ export interface CallSessionInfo{
    */
   mediaServerAddress: string
   /**
-   * The link to the session log. The log retention policy is 1 month, after that time this field clears
+   * The link to the session log. The log retention policy is 1 month, after that time this field clears. If you have issues accessing the log file, check if the application has "Secure storage of applications and logs" feature enabled. In this case, you need to <a href='/docs/guides/managementapi/secureobjects'>authorize</a>.
    */
   logFileUrl: string
   /**
@@ -792,7 +792,7 @@ export interface Record{
    */
   duration?: number
   /**
-   * The record URL
+   * The record URL.  If you have issues accessing the record file, check if the application has "Secure storage of applications and logs" feature enabled. In this case, you need to <a href='/docs/guides/managementapi/secureobjects'>authorize</a>.
    */
   recordUrl?: string
   /**
