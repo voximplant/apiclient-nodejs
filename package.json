@@ -1,6 +1,6 @@
 {
   "name": "@voximplant/apiclient-nodejs",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Voximplant API client library",
   "main": "dist/index.js",
   "files": [
@@ -29,13 +29,13 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/node": "^11.11.5",
-    "rimraf": "^2.6.3",
-    "typescript": "^3.3.4000"
+    "@types/node": "11.11.5",
+    "rimraf": "2.7.1",
+    "typescript": "3.9.10"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "form-data": "^2.3.3",
-    "jsonwebtoken": "^8.5.1"
+    "axios": "0.21.4",
+    "form-data": "2.5.1",
+    "jsonwebtoken": "8.5.1"
   }
 }

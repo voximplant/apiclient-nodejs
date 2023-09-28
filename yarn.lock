@@ -5,7 +5,7 @@ __metadata:
   version: 6
   cacheKey: 8
 
-"@types/node@npm:^11.11.5":
+"@types/node@npm:11.11.5":
   version: 11.11.5
   resolution: "@types/node@npm:11.11.5"
   checksum: c33eac3c34f176aec87b98de95247c0347a59c69a86ed88a286be1478aeb19ae285b30165014998a242953bbfdd193e2d9c76c2127074a7fe8700ac588596336
@@ -16,12 +16,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@voximplant/apiclient-nodejs@workspace:."
   dependencies:
-    "@types/node": ^11.11.5
-    axios: ^0.21.1
-    form-data: ^2.3.3
-    jsonwebtoken: ^8.5.1
-    rimraf: ^2.6.3
-    typescript: ^3.3.4000
+    "@types/node": 11.11.5
+    axios: 0.21.4
+    form-data: 2.5.1
+    jsonwebtoken: 8.5.1
+    rimraf: 2.7.1
+    typescript: 3.9.10
   languageName: unknown
   linkType: soft
 
@@ -32,7 +32,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.21.1":
+"axios@npm:0.21.4":
   version: 0.21.4
   resolution: "axios@npm:0.21.4"
   dependencies:
@@ -107,7 +107,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"form-data@npm:^2.3.3":
+"form-data@npm:2.5.1":
   version: 2.5.1
   resolution: "form-data@npm:2.5.1"
   dependencies:
@@ -156,7 +156,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonwebtoken@npm:^8.5.1":
+"jsonwebtoken@npm:8.5.1":
   version: 8.5.1
   resolution: "jsonwebtoken@npm:8.5.1"
   dependencies:
@@ -292,7 +292,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rimraf@npm:^2.6.3":
+"rimraf@npm:2.7.1":
   version: 2.7.1
   resolution: "rimraf@npm:2.7.1"
   dependencies:
@@ -319,7 +319,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^3.3.4000":
+"typescript@npm:3.9.10":
   version: 3.9.10
   resolution: "typescript@npm:3.9.10"
   bin:
@@ -329,7 +329,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^3.3.4000#~builtin<compat/typescript>":
+"typescript@patch:typescript@3.9.10#~builtin<compat/typescript>":
   version: 3.9.10
   resolution: "typescript@patch:typescript@npm%3A3.9.10#~builtin<compat/typescript>::version=3.9.10&hash=bda367"
   bin:
