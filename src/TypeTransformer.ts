@@ -660,8 +660,6 @@ export default class TypeTransformer{
       if(typeof data['phone_count'] !== 'undefined') xData['phoneCount'] = TypeTransformer.to('number')(data['phone_count']);
       if(typeof data['verification_status'] !== 'undefined') xData['verificationStatus'] = TypeTransformer.to('string')(data['verification_status']);
       if(typeof data['required_verification'] !== 'undefined') xData['requiredVerification'] = TypeTransformer.to('boolean')(data['required_verification']);
-      if(typeof data['phone_price'] !== 'undefined') xData['phonePrice'] = TypeTransformer.to('number')(data['phone_price']);
-      if(typeof data['phone_installation_price'] !== 'undefined') xData['phoneInstallationPrice'] = TypeTransformer.to('number')(data['phone_installation_price']);
       if(typeof data['phone_period'] !== 'undefined') xData['phonePeriod'] = TypeTransformer.to('string')(data['phone_period']);
       if(typeof data['is_need_regulation_address'] !== 'undefined') xData['isNeedRegulationAddress'] = TypeTransformer.to('boolean')(data['is_need_regulation_address']);
       if(typeof data['regulation_address_type'] !== 'undefined') xData['regulationAddressType'] = TypeTransformer.to('string')(data['regulation_address_type']);
@@ -671,16 +669,26 @@ export default class TypeTransformer{
       if(typeof data['localized_phone_category_name'] !== 'undefined') xData['localizedPhoneCategoryName'] = TypeTransformer.to('string')(data['localized_phone_category_name']);
       if(typeof data['localized_phone_region_name'] !== 'undefined') xData['localizedPhoneRegionName'] = TypeTransformer.to('string')(data['localized_phone_region_name']);
       if(typeof data['phone_installation_tax_reserve'] !== 'undefined') xData['phoneInstallationTaxReserve'] = TypeTransformer.to('number')(data['phone_installation_tax_reserve']);
-      if(typeof data['phone_tax_reserve'] !== 'undefined') xData['phoneTaxReserve'] = TypeTransformer.to('number')(data['phone_tax_reserve']);  
+      if(typeof data['phone_tax_reserve'] !== 'undefined') xData['phoneTaxReserve'] = TypeTransformer.to('number')(data['phone_tax_reserve']);
+      if(typeof data['local_price'] !== 'undefined') xData['localPrice'] = TypeTransformer.to('number')(data['local_price']);
+      if(typeof data['local_installation_price'] !== 'undefined') xData['localInstallationPrice'] = TypeTransformer.to('number')(data['local_installation_price']);
+      if(typeof data['local_currency'] !== 'undefined') xData['localCurrency'] = TypeTransformer.to('string')(data['local_currency']);
+      if(typeof data['account_price'] !== 'undefined') xData['accountPrice'] = TypeTransformer.to('number')(data['account_price']);
+      if(typeof data['account_installation_price'] !== 'undefined') xData['accountInstallationPrice'] = TypeTransformer.to('number')(data['account_installation_price']);
+      if(typeof data['account_currency'] !== 'undefined') xData['accountCurrency'] = TypeTransformer.to('string')(data['account_currency']);  
       return xData;
 },
     'MultipleNumbersPrice': function(data){
       const xData = {};
       if(typeof data['count'] !== 'undefined') xData['count'] = TypeTransformer.to('number')(data['count']);
-      if(typeof data['price'] !== 'undefined') xData['price'] = TypeTransformer.to('number')(data['price']);
-      if(typeof data['installation_price'] !== 'undefined') xData['installationPrice'] = TypeTransformer.to('number')(data['installation_price']);
       if(typeof data['installation_tax_reserve'] !== 'undefined') xData['installationTaxReserve'] = TypeTransformer.to('number')(data['installation_tax_reserve']);
-      if(typeof data['tax_reserve'] !== 'undefined') xData['taxReserve'] = TypeTransformer.to('number')(data['tax_reserve']);  
+      if(typeof data['tax_reserve'] !== 'undefined') xData['taxReserve'] = TypeTransformer.to('number')(data['tax_reserve']);
+      if(typeof data['local_price'] !== 'undefined') xData['localPrice'] = TypeTransformer.to('number')(data['local_price']);
+      if(typeof data['local_installation_price'] !== 'undefined') xData['localInstallationPrice'] = TypeTransformer.to('number')(data['local_installation_price']);
+      if(typeof data['local_currency'] !== 'undefined') xData['localCurrency'] = TypeTransformer.to('string')(data['local_currency']);
+      if(typeof data['account_price'] !== 'undefined') xData['accountPrice'] = TypeTransformer.to('number')(data['account_price']);
+      if(typeof data['account_installation_price'] !== 'undefined') xData['accountInstallationPrice'] = TypeTransformer.to('number')(data['account_installation_price']);
+      if(typeof data['account_currency'] !== 'undefined') xData['accountCurrency'] = TypeTransformer.to('string')(data['account_currency']);  
       return xData;
 },
     'CallerIDInfoType': function(data){
@@ -742,6 +750,7 @@ export default class TypeTransformer{
     'ExchangeRates': function(data){
       const xData = {};
       if(typeof data['RUR'] !== 'undefined') xData['RUR'] = TypeTransformer.to('number')(data['RUR']);
+      if(typeof data['KZT'] !== 'undefined') xData['KZT'] = TypeTransformer.to('number')(data['KZT']);
       if(typeof data['EUR'] !== 'undefined') xData['EUR'] = TypeTransformer.to('number')(data['EUR']);
       if(typeof data['USD'] !== 'undefined') xData['USD'] = TypeTransformer.to('number')(data['USD']);  
       return xData;
@@ -2391,8 +2400,6 @@ export default class TypeTransformer{
       if(typeof data['phoneCount'] !== 'undefined') xData['phone_count'] = TypeTransformer.from('number')(data['phoneCount']);
       if(typeof data['verificationStatus'] !== 'undefined') xData['verification_status'] = TypeTransformer.from('string')(data['verificationStatus']);
       if(typeof data['requiredVerification'] !== 'undefined') xData['required_verification'] = TypeTransformer.from('boolean')(data['requiredVerification']);
-      if(typeof data['phonePrice'] !== 'undefined') xData['phone_price'] = TypeTransformer.from('number')(data['phonePrice']);
-      if(typeof data['phoneInstallationPrice'] !== 'undefined') xData['phone_installation_price'] = TypeTransformer.from('number')(data['phoneInstallationPrice']);
       if(typeof data['phonePeriod'] !== 'undefined') xData['phone_period'] = TypeTransformer.from('string')(data['phonePeriod']);
       if(typeof data['isNeedRegulationAddress'] !== 'undefined') xData['is_need_regulation_address'] = TypeTransformer.from('boolean')(data['isNeedRegulationAddress']);
       if(typeof data['regulationAddressType'] !== 'undefined') xData['regulation_address_type'] = TypeTransformer.from('string')(data['regulationAddressType']);
@@ -2403,15 +2410,25 @@ export default class TypeTransformer{
       if(typeof data['localizedPhoneRegionName'] !== 'undefined') xData['localized_phone_region_name'] = TypeTransformer.from('string')(data['localizedPhoneRegionName']);
       if(typeof data['phoneInstallationTaxReserve'] !== 'undefined') xData['phone_installation_tax_reserve'] = TypeTransformer.from('number')(data['phoneInstallationTaxReserve']);
       if(typeof data['phoneTaxReserve'] !== 'undefined') xData['phone_tax_reserve'] = TypeTransformer.from('number')(data['phoneTaxReserve']);
+      if(typeof data['localPrice'] !== 'undefined') xData['local_price'] = TypeTransformer.from('number')(data['localPrice']);
+      if(typeof data['localInstallationPrice'] !== 'undefined') xData['local_installation_price'] = TypeTransformer.from('number')(data['localInstallationPrice']);
+      if(typeof data['localCurrency'] !== 'undefined') xData['local_currency'] = TypeTransformer.from('string')(data['localCurrency']);
+      if(typeof data['accountPrice'] !== 'undefined') xData['account_price'] = TypeTransformer.from('number')(data['accountPrice']);
+      if(typeof data['accountInstallationPrice'] !== 'undefined') xData['account_installation_price'] = TypeTransformer.from('number')(data['accountInstallationPrice']);
+      if(typeof data['accountCurrency'] !== 'undefined') xData['account_currency'] = TypeTransformer.from('string')(data['accountCurrency']);
       return xData;
 },
     'MultipleNumbersPrice': function(data){
       const xData = {};
       if(typeof data['count'] !== 'undefined') xData['count'] = TypeTransformer.from('number')(data['count']);
-      if(typeof data['price'] !== 'undefined') xData['price'] = TypeTransformer.from('number')(data['price']);
-      if(typeof data['installationPrice'] !== 'undefined') xData['installation_price'] = TypeTransformer.from('number')(data['installationPrice']);
       if(typeof data['installationTaxReserve'] !== 'undefined') xData['installation_tax_reserve'] = TypeTransformer.from('number')(data['installationTaxReserve']);
       if(typeof data['taxReserve'] !== 'undefined') xData['tax_reserve'] = TypeTransformer.from('number')(data['taxReserve']);
+      if(typeof data['localPrice'] !== 'undefined') xData['local_price'] = TypeTransformer.from('number')(data['localPrice']);
+      if(typeof data['localInstallationPrice'] !== 'undefined') xData['local_installation_price'] = TypeTransformer.from('number')(data['localInstallationPrice']);
+      if(typeof data['localCurrency'] !== 'undefined') xData['local_currency'] = TypeTransformer.from('string')(data['localCurrency']);
+      if(typeof data['accountPrice'] !== 'undefined') xData['account_price'] = TypeTransformer.from('number')(data['accountPrice']);
+      if(typeof data['accountInstallationPrice'] !== 'undefined') xData['account_installation_price'] = TypeTransformer.from('number')(data['accountInstallationPrice']);
+      if(typeof data['accountCurrency'] !== 'undefined') xData['account_currency'] = TypeTransformer.from('string')(data['accountCurrency']);
       return xData;
 },
     'CallerIDInfo': function(data){
@@ -2473,6 +2490,7 @@ export default class TypeTransformer{
     'ExchangeRates': function(data){
       const xData = {};
       if(typeof data['RUR'] !== 'undefined') xData['RUR'] = TypeTransformer.from('number')(data['RUR']);
+      if(typeof data['KZT'] !== 'undefined') xData['KZT'] = TypeTransformer.from('number')(data['KZT']);
       if(typeof data['EUR'] !== 'undefined') xData['EUR'] = TypeTransformer.from('number')(data['EUR']);
       if(typeof data['USD'] !== 'undefined') xData['USD'] = TypeTransformer.from('number')(data['USD']);
       return xData;

@@ -786,7 +786,7 @@ export default class VoximplantApiClient{
 
   public PSTNBlacklist:PSTNBlacklistInterface = {
     /**
-     * Add a new phone number to the PSTN blacklist. Blacklist is used to block inbound calls from specified phone numbers to numbers purchased from Voximplant. Since we have no control over exact phone number format for calls from SIP integrations, blacklisting such numbers should be done via JavaScript scenarios.
+     * Add a new phone number to the PSTN blacklist. Blacklist is used to block incoming calls from specified phone numbers to numbers purchased from Voximplant. Since we have no control over exact phone number format for calls from SIP integrations, blacklisting such numbers should be done via JavaScript scenarios.
     */
     addPstnBlackListItem: (request:AddPstnBlackListItemRequest):Promise<AddPstnBlackListItemResponse> => {
       const reqMapper = [{rawName:'pstn_blacklist_phone', name:'pstnBlacklistPhone', transformer: TypeTransformer.to('string')}];
@@ -1348,7 +1348,7 @@ export default class VoximplantApiClient{
 
   public SmartQueue:SmartQueueInterface = {
     /**
-     * Gets the metrics for the specified smart queue for the last 30 minutes.
+     * Gets the metrics for the specified SmartQueue for the last 30 minutes. Refer to the <a href="/docs/guides/contact-center/reporting">SmartQueue reporting guide</a> to learn more.
     */
     getSmartQueueRealtimeMetrics: (request:GetSmartQueueRealtimeMetricsRequest):Promise<GetSmartQueueRealtimeMetricsResponse> => {
       const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
@@ -1369,7 +1369,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('GetSmartQueueRealtimeMetrics',request,[reqMapper,respMapper]);
     },
     /**
-     * Gets the metrics for the specified smart queue for the last 2 days.
+     * Gets the metrics for the specified SmartQueue for the last 2 days. Refer to the <a href="/docs/guides/contact-center/reporting">SmartQueue reporting guide</a> to learn more.
     */
     getSmartQueueDayHistory: (request:GetSmartQueueDayHistoryRequest):Promise<GetSmartQueueDayHistoryResponse> => {
       const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
@@ -1390,7 +1390,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('GetSmartQueueDayHistory',request,[reqMapper,respMapper]);
     },
     /**
-     * Gets history for the specified smart queue.
+     * Gets history for the specified SmartQueue. Refer to the <a href="/docs/guides/contact-center/reporting">SmartQueue reporting guide</a> to learn more.
     */
     requestSmartQueueHistory: (request:RequestSmartQueueHistoryRequest):Promise<RequestSmartQueueHistoryResponse> => {
       const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
@@ -1411,7 +1411,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('RequestSmartQueueHistory',request,[reqMapper,respMapper]);
     },
     /**
-     * Gets the current state of the specified smart queue.
+     * Gets the current state of the specified SmartQueue.
     */
     getSQState: (request:GetSQStateRequest):Promise<GetSQStateResponse> => {
       const reqMapper = [{rawName:'application_id', name:'applicationId', transformer: TypeTransformer.to('number')},
@@ -2146,7 +2146,7 @@ export default class VoximplantApiClient{
       return this.makeRequest('A2PSendSms',request,[reqMapper,respMapper]);
     },
     /**
-     * Enables or disables sending and receiving SMS for the phone number. Can be used only for phone numbers with SMS support, which is indicated by the <b>is_sms_supported</b> property in the objects returned by the [GetPhoneNumbers] Management API. Each inbound SMS message is charged according to the <a href='//voximplant.com/pricing'>pricing</a>. If enabled, SMS can be sent from this phone number using the [SendSmsMessage] Management API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/guides/managementapi/callbacks'>this article</a> for HTTP callback details.
+     * Enables or disables sending and receiving SMS for the phone number. Can be used only for phone numbers with SMS support, which is indicated by the <b>is_sms_supported</b> property in the objects returned by the [GetPhoneNumbers] Management API. Each incoming SMS message is charged according to the <a href='//voximplant.com/pricing'>pricing</a>. If enabled, SMS can be sent from this phone number using the [SendSmsMessage] Management API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/guides/managementapi/callbacks'>this article</a> for HTTP callback details.
     */
     controlSms: (request:ControlSmsRequest):Promise<ControlSmsResponse> => {
       const reqMapper = [{rawName:'phone_number', name:'phoneNumber', transformer: TypeTransformer.to('string')},

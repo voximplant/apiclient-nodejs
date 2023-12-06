@@ -284,7 +284,7 @@ export interface SetAccountInfoRequest {
   */
   storeOutboundSms?:boolean
   /**
-   *Set to true to store inbound message texts. Default value is false
+   *Set to true to store incoming message texts. Default value is false
   */
   storeInboundSms?:boolean
 }
@@ -368,7 +368,7 @@ export interface SetChildAccountInfoResponse {
 }
 export interface GetCurrencyRateRequest {
   /**
-   *The currency code list separated by semicolon (;). Examples: RUR, EUR, USD
+   *The currency code list separated by semicolon (;). Examples: RUR, KZT, EUR, USD
   */
   currency:string|string[]
   /**
@@ -1822,7 +1822,7 @@ export interface GetHistoryReportsRequest {
   */
   historyReportId?:number
   /**
-   *The history report type list separated by semicolon (;). Use the 'all' value to select all history report types. The following values are possible: calls, transactions, audit, call_list
+   *The history report type list separated by semicolon (;). Use the 'all' value to select all history report types. The following values are possible: calls, calls_brief, transactions, audit, call_list
   */
   historyType?:string|string[]
   /**
@@ -2650,7 +2650,7 @@ export interface SetPhoneNumberInfoRequest {
   phoneNumber:string|string[]
   autoCharge:boolean
   /**
-   *If set, the callback of an inbound SMS will be sent to this url, otherwise, it will be sent to the general account URL
+   *If set, the callback of an incoming SMS will be sent to this url, otherwise, it will be sent to the general account URL
   */
   incomingSmsCallbackUrl?:string
 }
@@ -3473,11 +3473,11 @@ export interface GetSmartQueueRealtimeMetricsRequest {
   */
   userName?:string|string[]
   /**
-   *The smart queue ID list with a maximum of 5 values separated by semicolon (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+   *The SmartQueue ID list with a maximum of 5 values separated by semicolon (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
   */
   sqQueueId?:'any'|number|number[]
   /**
-   *The smart queue name list separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
+   *The SmartQueue name list separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
   /**
@@ -3522,7 +3522,7 @@ export interface GetSmartQueueDayHistoryRequest {
   */
   applicationName:string
   /**
-   *The smart queue ID list with a maximum of 5 values separated by semicolon (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+   *The SmartQueue ID list with a maximum of 5 values separated by semicolon (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
   */
   sqQueueId:'any'|number|number[]
   /**
@@ -3538,7 +3538,7 @@ export interface GetSmartQueueDayHistoryRequest {
   */
   userName?:string|string[]
   /**
-   *The smart queue name list separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
+   *The SmartQueue name list separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
   /**
@@ -3583,7 +3583,7 @@ export interface RequestSmartQueueHistoryRequest {
   */
   applicationName:string
   /**
-   *The smart queue ID list with a maximum of 5 values separated by semicolon (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+   *The SmartQueue ID list with a maximum of 5 values separated by semicolon (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
   */
   sqQueueId:'any'|number|number[]
   /**
@@ -3607,7 +3607,7 @@ export interface RequestSmartQueueHistoryRequest {
   */
   userName?:string|string[]
   /**
-   *The smart queue name list separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
+   *The SmartQueue name list separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
   /**
@@ -3643,7 +3643,7 @@ export interface GetSQStateRequest {
   */
   applicationId:number
   /**
-   *The smart queue ID list separated by semicolon (;). Use the 'all' value to select all smart queues
+   *The SmartQueue ID list separated by semicolon (;). Use the 'all' value to select all SmartQueues
   */
   sqQueueId:'any'|number|number[]
   /**
@@ -3651,7 +3651,7 @@ export interface GetSQStateRequest {
   */
   applicationName?:string
   /**
-   *The smart queue name list separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
+   *The SmartQueue name list separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
   /**
@@ -3720,7 +3720,7 @@ export interface SQ_AddQueueRequest {
   */
   applicationId:number
   /**
-   *Unique smart queue name within the application, up to 100 characters
+   *Unique SmartQueue name within the application, up to 100 characters
   */
   sqQueueName:string
   /**
@@ -3781,7 +3781,7 @@ export interface SQ_SetQueueInfoRequest {
   */
   applicationId:number
   /**
-   *ID of the smart queue to search for
+   *ID of the SmartQueue to search for
   */
   sqQueueId:number
   /**
@@ -3789,11 +3789,11 @@ export interface SQ_SetQueueInfoRequest {
   */
   applicationName?:string
   /**
-   *Name of the smart queue to search for. Can be used instead of <b>sq_queue_id</b>
+   *Name of the SmartQueue to search for. Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string
   /**
-   *New smart queue name within the application, up to 100 characters
+   *New SmartQueue name within the application, up to 100 characters
   */
   newSqQueueName?:string
   /**
@@ -3850,7 +3850,7 @@ export interface SQ_DelQueueRequest {
   */
   applicationId:number
   /**
-   *List of smart queue IDs separated by semicolon (;). Use 'all' to delete all the queues
+   *List of SmartQueue IDs separated by semicolon (;). Use 'all' to delete all the queues
   */
   sqQueueId:'any'|number|number[]
   /**
@@ -3858,7 +3858,7 @@ export interface SQ_DelQueueRequest {
   */
   applicationName?:string
   /**
-   *List of smart queue names separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
+   *List of SmartQueue names separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
 }
@@ -3878,15 +3878,15 @@ export interface SQ_GetQueuesRequest {
   */
   applicationName?:string
   /**
-   *List of smart queue IDs separated by semicolon (;)
+   *List of SmartQueue IDs separated by semicolon (;)
   */
   sqQueueId?:'any'|number|number[]
   /**
-   *List of smart queue names separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
+   *List of SmartQueue names separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
   /**
-   *Substring of the smart queue name to filter
+   *Substring of the SmartQueue name to filter
   */
   sqQueueNameTemplate?:string
   /**
@@ -4126,7 +4126,7 @@ export interface SQ_BindAgentRequest {
   */
   applicationId:number
   /**
-   *ID of the smart queue. Pass a list of values divided by ; or the "all" keyword
+   *ID of the SmartQueue. Pass a list of values divided by ; or the "all" keyword
   */
   sqQueueId:string
   /**
@@ -4138,7 +4138,7 @@ export interface SQ_BindAgentRequest {
   */
   applicationName?:string
   /**
-   *Name of the smart queue. Pass a list of names divided by ; or the "all" keyword
+   *Name of the SmartQueue. Pass a list of names divided by ; or the "all" keyword
   */
   sqQueueName?:string
   /**
@@ -4162,7 +4162,7 @@ export interface SQ_UnbindAgentRequest {
   */
   applicationId:number
   /**
-   *List of smart queue IDs separated by semicolon (;). Use 'all' to select all the queues
+   *List of SmartQueue IDs separated by semicolon (;). Use 'all' to select all the queues
   */
   sqQueueId:'any'|number|number[]
   /**
@@ -4174,7 +4174,7 @@ export interface SQ_UnbindAgentRequest {
   */
   applicationName?:string
   /**
-   *List of smart queue names separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
+   *List of SmartQueue names separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
   /**
@@ -4202,19 +4202,19 @@ export interface SQ_GetAgentsRequest {
   */
   applicationName?:string
   /**
-   *List of smart queue IDs separated by semicolon (;). Use 'all' to select all the queues
+   *List of SmartQueue IDs separated by semicolon (;). Use 'all' to select all the queues
   */
   sqQueueId?:'any'|number|number[]
   /**
-   *List of smart queue names separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
+   *List of SmartQueue names separated by semicolon (;). Can be used instead of <b>sq_queue_id</b>
   */
   sqQueueName?:string|string[]
   /**
-   *ID of the smart queue to exclude
+   *ID of the SmartQueue to exclude
   */
   excludedSqQueueId?:number
   /**
-   *Name of the smart queue to exclude. Can be used instead of <b>excluded_sq_queue_id</b>
+   *Name of the SmartQueue to exclude. Can be used instead of <b>excluded_sq_queue_id</b>
   */
   excludedSqQueueName?:string
   /**
@@ -5430,11 +5430,11 @@ export interface GetSmsHistoryRequest {
   */
   offset?:number
   /**
-   *Date from which to perform search. Format is 'yyyy-MM-dd HH:mm:ss'
+   *Date from which to perform search. Format is 'yyyy-MM-dd HH:mm:ss', time zone is UTC
   */
   fromDate?:Date
   /**
-   *Date until which to perform search. Format is 'yyyy-MM-dd HH:mm:ss'
+   *Date until which to perform search. Format is 'yyyy-MM-dd HH:mm:ss', time zone is UTC
   */
   toDate?:Date
   /**
@@ -5467,11 +5467,11 @@ export interface A2PGetSmsHistoryRequest {
   */
   offset?:number
   /**
-   *Date from which the search is to start. Format is 'yyyy-MM-dd HH:mm:ss'
+   *Date from which the search is to start. Format is 'yyyy-MM-dd HH:mm:ss', time zone is UTC
   */
   fromDate?:Date
   /**
-   *Date from which the search is to end. Format is 'yyyy-MM-dd HH:mm:ss'
+   *Date from which the search is to end. Format is 'yyyy-MM-dd HH:mm:ss', time zone is UTC
   */
   toDate?:Date
   /**

@@ -1743,7 +1743,7 @@ export interface AttachedPhoneInfo{
    */
   isSmsEnabled: boolean
   /**
-   * If set, the callback of an inbound SMS will be sent to this url, otherwise, it will be sent to the general account URL
+   * If set, the callback of an incoming SMS will be sent to this url, otherwise, it will be sent to the general account URL
    */
   incomingSmsCallbackUrl?: string
   /**
@@ -1878,14 +1878,6 @@ export interface PhoneNumberCountryRegionInfo{
    */
   requiredVerification?: boolean
   /**
-   * The phone monthly charge
-   */
-  phonePrice: number
-  /**
-   * The phone installation price (without the first monthly fee)
-   */
-  phoneInstallationPrice: number
-  /**
    * The charge period in 24-h format: Y-M-D H:m:s. Example: 0-1-0 0:0:0 is 1 month
    */
   phonePeriod: string
@@ -1925,6 +1917,30 @@ export interface PhoneNumberCountryRegionInfo{
    * The phone number tax reserve
    */
   phoneTaxReserve: number
+  /**
+   * Phone number price from the price list
+   */
+  localPrice?: number
+  /**
+   * Phone number installation price from the price list
+   */
+  localInstallationPrice?: number
+  /**
+   * Price list currency
+   */
+  localCurrency?: string
+  /**
+   * Phone number price in the account currency
+   */
+  accountPrice?: number
+  /**
+   * Phone number installation price in the account currency
+   */
+  accountInstallationPrice?: number
+  /**
+   * Account currency
+   */
+  accountCurrency?: string
 
 }
 export interface MultipleNumbersPrice{
@@ -1933,14 +1949,6 @@ export interface MultipleNumbersPrice{
    */
   count: number
   /**
-   * The subscription price for one number, i.e., the total multiple numbers subscription price divided by the __count__ value
-   */
-  price: number
-  /**
-   * The installation price for one number, i.e., the total multiple numbers installation price divided by the __count__ value
-   */
-  installationPrice: number
-  /**
    * The phone number installation tax reserve
    */
   installationTaxReserve: number
@@ -1948,6 +1956,30 @@ export interface MultipleNumbersPrice{
    * The phone number tax reserve
    */
   taxReserve: number
+  /**
+   * Phone number price from the price list
+   */
+  localPrice?: number
+  /**
+   * Phone number installation price from the price list
+   */
+  localInstallationPrice?: number
+  /**
+   * Price list currency
+   */
+  localCurrency?: string
+  /**
+   * Phone number price in the account currency
+   */
+  accountPrice?: number
+  /**
+   * Phone number installation price in the account currency
+   */
+  accountInstallationPrice?: number
+  /**
+   * Account currency
+   */
+  accountCurrency?: string
 
 }
 export interface CallerIDInfo{
@@ -2088,6 +2120,10 @@ export interface ExchangeRates{
    * The RUR exchange rate
    */
   RUR?: number
+  /**
+   * The KZT exchange rate
+   */
+  KZT?: number
   /**
    * The EUR exchange rate
    */
@@ -2864,7 +2900,7 @@ export interface AccountCallback{
    */
   transcriptionComplete?: TranscriptionCompleteCallback
   /**
-   * Received when an inbound SMS is gotten
+   * Received when an incoming SMS is gotten
    */
   smsInbound?: InboundSmsCallback
   /**
@@ -3822,7 +3858,7 @@ export interface PushCredentialContent{
 }
 export interface InboundSmsCallback{
   /**
-   * The inbound SMS info
+   * The incoming SMS info
    */
   smsInbound: InboundSmsCallbackItem
 
@@ -4282,11 +4318,11 @@ export interface GetAutochargeConfigResult{
 }
 export interface GetSQQueuesResult{
   /**
-   * ID of the smart queue
+   * ID of the SmartQueue
    */
   sqQueueId: number
   /**
-   * Name of the smart queue
+   * Name of the SmartQueue
    */
   sqQueueName: string
   /**
@@ -4458,11 +4494,11 @@ export interface SmartQueueMetricsResult{
 }
 export interface SmartQueueMetricsGroups{
   /**
-   * The smart queue ID
+   * The SmartQueue ID
    */
   sqQueueId?: number
   /**
-   * The smart queue name
+   * The SmartQueue name
    */
   sqQueueName?: string
   /**
@@ -4500,11 +4536,11 @@ export interface SmartQueueMetricsGroupsValues{
 }
 export interface SmartQueueState{
   /**
-   * The smart queue ID
+   * The SmartQueue ID
    */
   sqQueueId: number
   /**
-   * The smart queue name
+   * The SmartQueue name
    */
   sqQueueName: string
   /**
@@ -4543,7 +4579,7 @@ export interface SmartQueueStateTask{
    */
   processingTime: number
   /**
-   * Custom data
+   * Custom data text string for the current task. You can set the custom data in the [enqueueTask](/docs/references/voxengine/voxengine/enqueuetask#enqueuetask) method
    */
   customData?: any
 
