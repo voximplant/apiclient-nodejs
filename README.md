@@ -1,6 +1,6 @@
 # Voximplant API client library
 
-#### Version 2.4.0
+#### Version 2.5.0
 
 ## Prerequisites
 

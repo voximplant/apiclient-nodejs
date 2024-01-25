@@ -1,4 +1,4 @@
-import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,OutboundTestPhonenumberInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SmartQueueMetricsResult,SmartQueueState,GetSQQueuesResult,SQSkillBindingModes,GetSQSkillsResult,SQAgentBindingModes,GetSQAgentsResult,SkillInfo,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsTransaction,FailedSms,SmsHistory,A2PSmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,KeyValueItems,KeyValueKeys,AccountInvocie} from './Structures';
+import {AccountInfo,ExchangeRates,ResourcePrice,SubscriptionTemplate,GetMoneyAmountToChargeResult,ChargeAccountResult,ShortAccountInfo,AccountPlan,Plan,AccountVerifications,ApplicationInfo,UserInfo,CallList,CallListDetail,ScenarioInfo,RuleInfo,CallSessionInfo,HistoryReport,TransactionInfo,ACDSessionInfo,AuditLogInfo,PstnBlackListInfo,SipWhiteListInfo,SIPRegistration,NewAttachedPhoneInfo,AttachedPhoneInfo,NewPhoneInfo,PhoneNumberCountryInfo,PhoneNumberCountryStateInfo,PhoneNumberCountryRegionInfo,CallerIDInfo,OutboundTestPhonenumberInfo,QueueInfo,ACDState,ACDOperatorAggregationGroup,ACDQueueStatistics,ACDOperatorStatusAggregationGroup,SmartQueueMetricsResult,SmartQueueState,GetSQQueuesResult,GetSQSkillsResult,GetSQAgentsResult,SkillInfo,AdminUser,AdminRole,AuthorizedAccountIP,ZipCode,RegulationAddress,RegulationCountry,RegulationRegionRecord,PushCredentialInfo,DialogflowKeyInfo,SmsTransaction,FailedSms,SmsHistory,A2PSmsHistory,RecordStorageInfo,KeyInfo,KeyView,RoleView,SubUserID,SubUserView,RoleGroupView,KeyValueItems,KeyValueKeys,AccountInvocie} from './Structures';
 export interface UtilsReturns{
   'GetAccountInfo':GetAccountInfoResponse
   'SetAccountInfo':SetAccountInfoResponse
@@ -1382,13 +1382,14 @@ export interface StartScenariosRequest {
   */
   applicationName?:string
   /**
-   *The script custom data, that can be accessed in the scenario via the <a href='/docs/references/voxengine/voxengine/customdata'>VoxEngine.customData()</a> method. Use the application/x-www-form-urlencoded content type with UTF-8 encoding.
+   *The script custom data, that can be accessed in the scenario via the <a href='/docs/references/voxengine/voxengine/customdata'>VoxEngine.customData()</a> method. Use the application/x-www-form-urlencoded content type with UTF-8 encoding
   */
   scriptCustomData?:string
   /**
    *Specifies the IP from the geolocation of predicted subscribers. It allows selecting the nearest server for serving subscribers
   */
   referenceIp?:string
+  serverLocation?:string
   withCheckUrl?:boolean
 }
 export interface StartScenariosResponse {
@@ -3728,7 +3729,7 @@ export interface SQ_AddQueueRequest {
   */
   callAgentSelection:string
   /**
-   *Strategy of prioritizing CALL-type requests for service. Accepts one of the following values: "MAX_PRIORITY", "MAX_WAITING_TIME"
+   *Call type requests prioritizing strategy. Accepts one of the [SQTaskSelectionStrategies] enum values
   */
   callTaskSelection:string
   /**
@@ -3740,7 +3741,7 @@ export interface SQ_AddQueueRequest {
   */
   imAgentSelection?:string
   /**
-   *Strategy of prioritizing IM-type requests for service. Accepts one of the following values: "MAX_PRIORITY", "MAX_WAITING_TIME". Equals to the **call_task_selection** value by default
+   *IM type requests prioritizing strategy. Accepts one of the [SQTaskSelectionStrategies] enum values. Equals to the **call_task_selection** value by default
   */
   imTaskSelection?:string
   fallbackAgentSelection?:string
@@ -4026,9 +4027,9 @@ export interface SQ_BindSkillRequest {
   */
   userName?:string|string[]
   /**
-   *Binding mode
+   *Binding mode. Accepts one of the [SQSkillBindingModes] enum values
   */
-  bindMode?:SQSkillBindingModes[]
+  bindMode?:string
 }
 export interface SQ_BindSkillResponse {
   /**
@@ -4146,9 +4147,9 @@ export interface SQ_BindAgentRequest {
   */
   userName?:string|string[]
   /**
-   *Binding mode
+   *Binding mode. Accepts one of the [SQAgentBindingModes] enum values
   */
-  bindMode?:SQAgentBindingModes[]
+  bindMode?:string
 }
 export interface SQ_BindAgentResponse {
   /**
