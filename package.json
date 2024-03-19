@@ -1,6 +1,6 @@
 {
   "name": "@voximplant/apiclient-nodejs",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "Voximplant API client library",
   "main": "dist/index.js",
   "files": [
@@ -24,7 +24,7 @@
   },
   "author": {
     "email": "info@voximplant.com",
-    "name": "Zingaya Inc.",
+    "name": "Voximplant, Inc.",
     "url": "https://voximplant.com"
   },
   "license": "Apache-2.0",

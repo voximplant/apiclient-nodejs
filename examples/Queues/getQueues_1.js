@@ -1,8 +1,8 @@
-const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
+const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
 const client = new VoximplantApiClient();
-client.onReady = function(){
+client.onReady = function () {
   // Get the two queues.
-  client.Queues.getQueues({count: '2'})
-        .then(ev=>console.log(ev))
-        .catch(err=>console.error(err));
+  client.Queues.getQueues({ count: '2' })
+    .then((ev) => console.log(ev))
+    .catch((err) => console.error(err));
 };

@@ -1,9 +1,8 @@
-const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
+const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
 const client = new VoximplantApiClient();
-client.onReady = function(){
+client.onReady = function () {
   // Get the current state of the SmartQueue with id = 1.
-  client.SmartQueue.getSQState({applicationId: '1',
-            sqQueueId: '1'})
-        .then(ev=>console.log(ev))
-        .catch(err=>console.error(err));
+  client.SmartQueue.getSQState({ applicationId: '1', sqQueueId: '1' })
+    .then((ev) => console.log(ev))
+    .catch((err) => console.error(err));
 };

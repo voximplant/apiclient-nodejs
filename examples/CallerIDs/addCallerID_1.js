@@ -1,8 +1,8 @@
-const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
+const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
 const client = new VoximplantApiClient();
-client.onReady = function(){
+client.onReady = function () {
   // undefined
-  client.CallerIDs.addCallerID({calleridNumber: '74953331122'})
-        .then(ev=>console.log(ev))
-        .catch(err=>console.error(err));
+  client.CallerIDs.addCallerID({ calleridNumber: '74953331122' })
+    .then((ev) => console.log(ev))
+    .catch((err) => console.error(err));
 };

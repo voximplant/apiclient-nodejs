@@ -1,4809 +1,4581 @@
-export interface APIError{
+export interface APIError {
   /**
    * The error code
    */
-  code: number
+  code: number;
   /**
    * The error description
    */
-  msg: string
-
+  msg: string;
 }
-export interface AccountInfo{
+export interface AccountInfo {
   /**
    * The account's ID
    */
-  accountId: number
+  accountId: number;
   /**
    * The account's name
    */
-  accountName: string
+  accountName: string;
   /**
    * The account's email
    */
-  accountEmail: string
+  accountEmail: string;
   /**
    * The account API key. Use password or api_key authentication to show the api_key
    */
-  apiKey?: string
+  apiKey?: string;
   /**
    * The first name
    */
-  accountFirstName?: string
+  accountFirstName?: string;
   /**
    * The last name
    */
-  accountLastName?: string
+  accountLastName?: string;
   /**
    * The UTC account created time in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  created: Date
+  created: Date;
   /**
    * The notification language code (2 symbols, ISO639-1). Examples: en, ru
    */
-  languageCode?: string
+  languageCode?: string;
   /**
    * The account location (timezone). Examples: America/Los_Angeles, Etc/GMT-8, Etc/GMT+10
    */
-  location?: string
+  location?: string;
   /**
    * The min balance value to notify by email or SMS
    */
-  minBalanceToNotify?: number
+  minBalanceToNotify?: number;
   /**
-   * Voximplant notifications are required
+   * Whether Voximplant notifications are required
    */
-  accountNotifications?: boolean
+  accountNotifications?: boolean;
   /**
-   * Voximplant plan changing notifications are required
+   * Whether Voximplant plan changing notifications are required
    */
-  tariffChangingNotifications?: boolean
+  tariffChangingNotifications?: boolean;
   /**
-   * Voximplant news notifications are required
+   * Whether Voximplant news notifications are required
    */
-  newsNotifications?: boolean
+  newsNotifications?: boolean;
   /**
    * The company or businessman name
    */
-  billingAddressName?: string
+  billingAddressName?: string;
   /**
    * The billing address country code (2 symbols, ISO 3166-1 alpha-2). Examples: US, RU, GB
    */
-  billingAddressCountryCode?: string
+  billingAddressCountryCode?: string;
   /**
    * The office address
    */
-  billingAddressAddress?: string
+  billingAddressAddress?: string;
   /**
    * The office ZIP
    */
-  billingAddressZip?: string
+  billingAddressZip?: string;
   /**
    * The office phone number
    */
-  billingAddressPhone?: string
+  billingAddressPhone?: string;
   /**
    * The office state (US) or province (Canada), up to 100 characters. Examples: California, Illinois, British Columbia
    */
-  billingAddressState?: string
+  billingAddressState?: string;
   /**
-   * The account activation flag
+   * Whether the account is ctive
    */
-  active: boolean
+  active: boolean;
   /**
-   * Is account blocked by Voximplant admins or not
+   * Whether account is blocked by Voximplant admins
    */
-  frozen?: boolean
+  frozen?: boolean;
   /**
    * The account's money
    */
-  balance?: number
+  balance?: number;
   /**
    * The account's credit limit
    */
-  creditLimit?: number
+  creditLimit?: number;
   /**
    * The currency code (USD, RUR, EUR, ...)
    */
-  currency?: string
+  currency?: string;
   /**
-   * Robokassa payments are allowed
+   * Whether Robokassa payments are allowed
    */
-  supportRobokassa?: boolean
+  supportRobokassa?: boolean;
   /**
-   * Bank card payments are allowed
+   * Whether Bank card payments are allowed
    */
-  supportBankCard?: boolean
+  supportBankCard?: boolean;
   /**
-   * Bank invoices are allowed
+   * Whether Bank invoices are allowed
    */
-  supportInvoice?: boolean
+  supportInvoice?: boolean;
   /**
    * The custom data
    */
-  accountCustomData?: string
+  accountCustomData?: string;
   /**
    * The allowed access entries (the API function names)
    */
-  accessEntries?: string[]
+  accessEntries?: string[];
   /**
-   * Set true to get the admin user permissions
+   * Whether the admin user permissions are granted
    */
-  withAccessEntries?: boolean
+  withAccessEntries?: boolean;
   /**
    * If URL is specified, Voximplant cloud will make HTTP POST requests to it when something happens. For a full list of reasons see the <b>type</b> field of the [AccountCallback] structure. The HTTP request will have a JSON-encoded body that conforms to the [AccountCallbacks] structure
    */
-  callbackUrl?: string
+  callbackUrl?: string;
   /**
    * If salt string is specified, each HTTP request made by the Voximplant cloud toward the <b>callback_url</b> will have a <b>salt</b> field set to MD5 hash of account information and salt. That hash can be used be a developer to ensure that HTTP request is made by the Voximplant cloud
    */
-  callbackSalt?: string
+  callbackSalt?: string;
   /**
-   * Sending email when a JS error occures
+   * Whether to send an email when a JS error occures
    */
-  sendJsError?: boolean
+  sendJsError?: boolean;
   /**
    * The payments limits applicable to each payment method
    */
-  billingLimits?: BillingLimits
+  billingLimits?: BillingLimits;
   /**
-   * One-way SMS activation flag
+   * Whether to activate one-way SMS
    */
-  a2pSmsEnabled?: boolean
-
+  a2pSmsEnabled?: boolean;
 }
-export interface BillingLimits{
+export interface BillingLimits {
   /**
    * The Robokassa limits
    */
-  robokassa?: BillingLimitInfo
+  robokassa?: BillingLimitInfo;
   /**
    * The bank card limits
    */
-  bankCard?: BankCardBillingLimitInfo
+  bankCard?: BankCardBillingLimitInfo;
   /**
    * The invoice limits
    */
-  invoice?: BillingLimitInfo
-
+  invoice?: BillingLimitInfo;
 }
-export interface BillingLimitInfo{
+export interface BillingLimitInfo {
   /**
    * The minimum amount
    */
-  minAmount: number
+  minAmount: number;
   /**
    * The currency
    */
-  currency: string
-
+  currency: string;
 }
-export interface BankCardBillingLimitInfo{
+export interface BankCardBillingLimitInfo {
   /**
    * The minimum amount
    */
-  minAmount: number
+  minAmount: number;
   /**
    * The currency
    */
-  currency: string
-
+  currency: string;
 }
-export interface ShortAccountInfo{
+export interface ShortAccountInfo {
   /**
    * The account's ID
    */
-  accountId: number
+  accountId: number;
   /**
-   * Is account blocked by Voximplant admins or not
+   * Whether account is blocked by Voximplant admins or not
    */
-  frozen?: boolean
+  frozen?: boolean;
   /**
    * The account's money
    */
-  balance?: number
+  balance?: number;
   /**
    * The currency code (USD, RUR, EUR, ...)
    */
-  currency?: string
-
+  currency?: string;
 }
-export interface ClonedAccount{
+export interface ClonedAccount {
   /**
    * The account's ID
    */
-  accountId: number
+  accountId: number;
   /**
    * The account's name
    */
-  accountName: string
+  accountName: string;
   /**
    * The account's email
    */
-  accountEmail: string
+  accountEmail: string;
   /**
-   * The account activation flag
+   * Whether the account is active
    */
-  active: boolean
+  active: boolean;
   /**
    * The account API key
    */
-  apiKey: string
+  apiKey: string;
   /**
    * The cloned users
    */
-  users: ClonedUser[]
+  users: ClonedUser[];
   /**
    * The cloned scenarios
    */
-  scenarios: ClonedScenario[]
+  scenarios: ClonedScenario[];
   /**
    * The cloned applications
    */
-  applications: ClonedApplication[]
+  applications: ClonedApplication[];
   /**
    * The cloned ACD queues
    */
-  acdQueues: ClonedACDQueue[]
+  acdQueues: ClonedACDQueue[];
   /**
    * The cloned ACD skills
    */
-  acdSkills: ClonedACDSkill[]
+  acdSkills: ClonedACDSkill[];
   /**
    * The cloned admin roles
    */
-  adminRoles: ClonedAdminRole[]
+  adminRoles: ClonedAdminRole[];
   /**
    * The cloned admin users
    */
-  adminUsers: ClonedAdminUser[]
-
+  adminUsers: ClonedAdminUser[];
 }
-export interface AccountPlan{
+export interface AccountPlan {
   /**
    * The current plan ID
    */
-  planSubscriptionTemplateId: number
+  planSubscriptionTemplateId: number;
   /**
    * The next charge date, format: YYYY-MM-DD
    */
-  nextCharge: Date
+  nextCharge: Date;
   /**
    * The plan type. The possible values are IM, MAU
    */
-  planType: string
+  planType: string;
   /**
    * The plan name
    */
-  planName: string
+  planName: string;
   /**
    * The plan monthly charge
    */
-  periodicCharge: number
+  periodicCharge: number;
   /**
    * The account plan package array
    */
-  packages: AccountPlanPackage[]
-
+  packages: AccountPlanPackage[];
 }
-export interface AccountPlanPackage{
+export interface AccountPlanPackage {
   /**
    * The price group IDs
    */
-  priceGroupId: number[]
+  priceGroupId: number[];
   /**
    * The package name
    */
-  packageName?: string
+  packageName?: string;
   /**
    * Overrun is enabled
    */
-  mayOverrun: boolean
+  mayOverrun: boolean;
   /**
    * The overrun amount
    */
-  overrunPrice: number
+  overrunPrice: number;
   /**
    * The number of resources (e.g., messages) per overrun
    */
-  overrunResources: number
+  overrunResources: number;
   /**
    * The resource left in the package
    */
-  resourceLeft: number
+  resourceLeft: number;
   /**
    * The current package size (including overrun)
    */
-  packageSize: number
+  packageSize: number;
   /**
    * The original package size (excluding overrun)
    */
-  origPackageSize: number
-
+  origPackageSize: number;
 }
-export interface Plan{
+export interface Plan {
   /**
    * The current plan ID
    */
-  planSubscriptionTemplateId: number
+  planSubscriptionTemplateId: number;
   /**
    * The plan type. The possible values are IM, MAU
    */
-  planType: string
+  planType: string;
   /**
    * The plan name
    */
-  planName: string
+  planName: string;
   /**
    * The plan monthly charge
    */
-  periodicCharge: number
+  periodicCharge: number;
   /**
    * The account package array
    */
-  packages: PlanPackage[]
-
+  packages: PlanPackage[];
 }
-export interface PlanPackage{
+export interface PlanPackage {
   /**
    * The price group IDs
    */
-  priceGroupId: number[]
+  priceGroupId: number[];
   /**
    * The package name
    */
-  packageName?: string
+  packageName?: string;
   /**
-   * Overrun is enabled
+   * Whether overrun is enabled
    */
-  mayOverrun: boolean
+  mayOverrun: boolean;
   /**
    * The overrun amount
    */
-  overrunPrice: number
+  overrunPrice: number;
   /**
    * The number of resources (e.g., messages) per overrun
    */
-  overrunResources: number
+  overrunResources: number;
   /**
    * The package size
    */
-  packageSize: number
-
+  packageSize: number;
 }
-export interface ApplicationInfo{
+export interface ApplicationInfo {
   /**
    * The application ID
    */
-  applicationId: number
+  applicationId: number;
   /**
    * The full application name
    */
-  applicationName: string
+  applicationName: string;
   /**
    * The application editing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  modified: Date
+  modified: Date;
   /**
-   * This flag indicates whether a secure storage for logs and records is enabled or not
+   * Whether a secure storage for logs and records is enabled
    */
-  secureRecordStorage: boolean
-
+  secureRecordStorage: boolean;
 }
-export interface ClonedApplication{
+export interface ClonedApplication {
   /**
    * The application ID
    */
-  applicationId: number
+  applicationId: number;
   /**
    * The full application name
    */
-  applicationName: string
+  applicationName: string;
   /**
    * The cloned rules
    */
-  users: ClonedRule[]
-
+  users: ClonedRule[];
 }
-export interface UserInfo{
+export interface UserInfo {
   /**
    * The user ID
    */
-  userId: number
+  userId: number;
   /**
    * The user name
    */
-  userName: string
+  userName: string;
   /**
    * The display user name
    */
-  userDisplayName: string
+  userDisplayName: string;
   /**
-   * The user active flag
+   * Whether the user is active
    */
-  userActive: boolean
+  userActive: boolean;
   /**
-   * 'True' if the user uses the parent account's money, 'false' if the user has a separate balance
+   * Whether the user uses the parent account's money, 'false' if the user has a separate balance
    */
-  parentAccounting: boolean
+  parentAccounting: boolean;
   /**
    * The current user's money in the currency specified for the account. The value is the number rounded to 4 decimal places and it changes during the calls, transcribing, purchases etc
    */
-  liveBalance: number
+  liveBalance: number;
   /**
    * The current user's money in the currency specified for the account. The value is the number rounded to 4 decimal places. The parameter is the alias to live_balance by default. But there is a possibility to make the alias to fixed_balance: just to pass return_live_balance=false into the [GetAccountInfo] method
    */
-  balance: number
+  balance: number;
   /**
    * The last committed balance which was approved by billing's transaction
    */
-  fixedBalance: number
+  fixedBalance: number;
   /**
    * The custom data
    */
-  userCustomData?: string
+  userCustomData?: string;
   /**
    * The bound applications
    */
-  applications?: ApplicationInfo[]
+  applications?: ApplicationInfo[];
   /**
    * The bound skills
    */
-  skills?: SkillInfo[]
+  skills?: SkillInfo[];
   /**
    * The bound ACD queues
    */
-  acdQueues?: ACDQueueOperatorInfo[]
+  acdQueues?: ACDQueueOperatorInfo[];
   /**
    * The ACD operator status. The following values are possible: OFFLINE, ONLINE, READY, BANNED, IN_SERVICE, AFTER_SERVICE, TIMEOUT, DND
    */
-  acdStatus?: string
+  acdStatus?: string;
   /**
    * The ACD status changing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  acdStatusChangeTime: Date
+  acdStatusChangeTime: Date;
   /**
    * The user editing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  created: Date
+  created: Date;
   /**
    * The user editing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  modified: Date
-
+  modified: Date;
 }
-export interface ClonedUser{
+export interface ClonedUser {
   /**
    * The user ID
    */
-  userId: number
+  userId: number;
   /**
    * The user name
    */
-  userName: string
-
+  userName: string;
 }
-export interface ScenarioInfo{
+export interface ScenarioInfo {
   /**
    * The scenario ID
    */
-  scenarioId: number
+  scenarioId: number;
   /**
    * The scenario name
    */
-  scenarioName: string
+  scenarioName: string;
   /**
    * The scenario text
    */
-  scenarioScript?: string
+  scenarioScript?: string;
   /**
    * The scenario editing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  modified: Date
+  modified: Date;
   /**
-   * 'True' if the scenario belongs to the parent account, 'false' if the scenario belongs to the current account
+   * Whether the scenario belongs to the parent account, 'false' if the scenario belongs to the current account
    */
-  parent: boolean
-
+  parent: boolean;
 }
-export interface ClonedScenario{
+export interface ClonedScenario {
   /**
    * The scenario ID
    */
-  scenarioId: number
+  scenarioId: number;
   /**
    * The scenario name
    */
-  scenarioName: string
-
+  scenarioName: string;
 }
-export interface RuleInfo{
+export interface RuleInfo {
   /**
    * The rule ID
    */
-  ruleId: number
+  ruleId: number;
   /**
    * The application ID
    */
-  applicationId: number
+  applicationId: number;
   /**
    * The rule name
    */
-  ruleName: string
+  ruleName: string;
   /**
    * The rule pattern regex
    */
-  rulePattern: string
+  rulePattern: string;
   /**
-   * The rule pattern exlude regex
+   * The rule pattern excluding regex
    */
-  rulePatternExclude?: string
+  rulePatternExclude?: string;
   /**
-   * Video conference is required
+   * Whether video conference is required
    */
-  videoConference: boolean
+  videoConference: boolean;
   /**
    * The bound scenarios
    */
-  scenarios: ScenarioInfo[]
+  scenarios: ScenarioInfo[];
   /**
    * The rule editing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  modified: Date
-
+  modified: Date;
 }
-export interface ClonedRule{
+export interface ClonedRule {
   /**
    * The rule ID
    */
-  ruleId: number
+  ruleId: number;
   /**
    * The rule name
    */
-  ruleName: string
-
+  ruleName: string;
 }
-export interface SipWhiteListInfo{
+export interface SipWhiteListInfo {
   /**
    * The SIP white list item ID
    */
-  sipWhitelistId: number
+  sipWhitelistId: number;
   /**
    * The network address in format A.B.C.D/L
    */
-  sipWhitelistNetwork: string
+  sipWhitelistNetwork: string;
   /**
    * The network address description
    */
-  description?: string
-
+  description?: string;
 }
-export interface CallSessionInfo{
+export interface CallSessionInfo {
   /**
    * The routing rule name
    */
-  ruleName: string
+  ruleName: string;
   /**
    * The application name
    */
-  applicationName: string
+  applicationName: string;
   /**
    * The unique JS session identifier
    */
-  callSessionHistoryId: number
+  callSessionHistoryId: number;
   /**
    * The account ID that initiates the JS session
    */
-  accountId: number
+  accountId: number;
   /**
    * The application ID that initiates the JS session
    */
-  applicationId: number
+  applicationId: number;
   /**
    * The user ID that initiates the JS session
    */
-  userId: number
+  userId: number;
   /**
    * The start date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  startDate: Date
+  startDate: Date;
   /**
    * The entire JS session duration in seconds. The session can contain multiple calls
    */
-  duration?: number
+  duration?: number;
   /**
    * The initiator IP address
    */
-  initiatorAddress: string
+  initiatorAddress: string;
   /**
    * The media server IP address
    */
-  mediaServerAddress: string
+  mediaServerAddress: string;
   /**
    * The link to the session log. The log retention policy is 1 month, after that time this field clears. If you have issues accessing the log file, check if the application has "Secure storage of applications and logs" feature enabled. In this case, you need to <a href='/docs/guides/managementapi/secureobjects'>authorize</a>.
    */
-  logFileUrl: string
+  logFileUrl: string;
   /**
-   * The finish reason. Possible values are __Normal termination__, __Insufficient funds__, __Internal error (billing timeout)__, __Terminated administratively__, __JS session error__, __Timeout__
+   * Finish reason. Possible values are __Normal termination__, __Insufficient funds__, __Internal error (billing timeout)__, __Terminated administratively__, __JS session error__, __Timeout__
    */
-  finishReason?: string
+  finishReason?: string;
   /**
-   * The calls within JS session, including durations, cost, phone numbers and other information
+   * Calls within the JS session, including durations, cost, phone numbers and other information
    */
-  calls?: CallInfo[]
+  calls?: CallInfo[];
   /**
-   * The used resorces
+   * Used resources
    */
-  otherResourceUsage?: ResourceUsage[]
+  otherResourceUsage?: ResourceUsage[];
   /**
-   * The bound records
+   * Bound records
    */
-  records?: Record[]
+  records?: Record[];
   /**
-   * The custom data
+   * Custom data
    */
-  customData?: string
-
+  customData?: string;
 }
-export interface CallInfo{
+export interface CallInfo {
   /**
    * The call history ID
    */
-  callId: number
+  callId: number;
   /**
    * The start time in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  startTime: Date
+  startTime: Date;
   /**
    * The call duration in seconds
    */
-  duration?: number
+  duration?: number;
   /**
    * The local number on the platform side
    */
-  localNumber: string
+  localNumber: string;
   /**
    * The remote number on the client side
    */
-  remoteNumber: string
+  remoteNumber: string;
   /**
    * The type of the remote number, such as PSTN, mobile, user or sip address
    */
-  remoteNumberType: string
+  remoteNumberType: string;
   /**
-   * The incoming flag
+   * Whether the call is incoming
    */
-  incoming: boolean
+  incoming: boolean;
   /**
-   * The success flag
+   * Whether the call is successful
    */
-  successful: boolean
+  successful: boolean;
   /**
    * The transaction ID
    */
-  transactionId: number
+  transactionId: number;
   /**
    * The record URL
    */
-  recordUrl?: string
+  recordUrl?: string;
   /**
    * The media server IP address
    */
-  mediaServerAddress: string
+  mediaServerAddress: string;
   /**
    * The call cost
    */
-  cost?: number
+  cost?: number;
   /**
    * The custom data passed to the JS session
    */
-  customData?: string
-
+  customData?: string;
 }
-export interface TransactionInfo{
+export interface TransactionInfo {
   /**
    * The transaction ID
    */
-  transactionId: number
+  transactionId: number;
   /**
    * The account ID
    */
-  accountId: string
+  accountId: string;
   /**
    * The transaction date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  performedAt: Date
+  performedAt: Date;
   /**
    * The transaction amount, $
    */
-  amount: number
+  amount: number;
   /**
-   * The amount currency (USD, RUR, EUR, ...). 
+   * The amount currency (USD, RUR, EUR, ...).
    */
-  currency: string
+  currency: string;
   /**
-   * The transaction type. The following values are possible: resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, rub_card_periodic_payment, rub_card_overrun_payment, rub_card_payment, robokassa_payment, gift, promo, adjustment, wire_transfer, us_wire_transfer, refund, discount, mgp_charge, mgp_startup, mgp_business, mgp_big_business, mgp_enterprise, mgp_large_enterprise, techsupport_charge, tax_charge, monthly_fee_charge, grace_credit_payment, grace_credit_provision, mau_charge, mau_overrun, im_charge, im_overrun, fmc_charge, sip_registration_charge, development_fee, money_transfer_to_child, money_transfer_to_parent, money_acceptance_from_child, money_acceptance_from_parent, phone_number_installation, phone_number_charge, toll_free_phone_number_installation, toll_free_phone_number_charge, services, user_money_transfer, paypal_payment, paypal_overrun_payment, paypal_periodic_payment
+   * The transaction type. The following values are possible: gift_revoke, resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, rub_card_periodic_payment, rub_card_overrun_payment, rub_card_payment, robokassa_payment, gift, promo, adjustment, wire_transfer, us_wire_transfer, refund, discount, mgp_charge, mgp_startup, mgp_business, mgp_big_business, mgp_enterprise, mgp_large_enterprise, techsupport_charge, tax_charge, monthly_fee_charge, grace_credit_payment, grace_credit_provision, mau_charge, mau_overrun, im_charge, im_overrun, fmc_charge, sip_registration_charge, development_fee, money_transfer_to_child, money_transfer_to_parent, money_acceptance_from_child, money_acceptance_from_parent, phone_number_installation, phone_number_charge, toll_free_phone_number_installation, toll_free_phone_number_charge, services, user_money_transfer, paypal_payment, paypal_overrun_payment, paypal_periodic_payment
    */
-  transactionType: string
+  transactionType: string;
   /**
    * The transaction description
    */
-  transactionDescription?: string
-
+  transactionDescription?: string;
 }
-export interface ResourceUsage{
+export interface ResourceUsage {
   /**
    * The resource usage ID
    */
-  resourceUsageId: number
+  resourceUsageId: number;
   /**
    * The resource type. The possible values are CALLSESSION, VIDEOCALL, VIDEORECORD, VOICEMAILDETECTION, YANDEXASR, ASR, TRANSCRIPTION, TTS_TEXT_GOOGLE, TTS_YANDEX, AUDIOHDCONFERENCE
    */
-  resourceType: string
+  resourceType: string;
   /**
    * The resource cost
    */
-  cost?: number
+  cost?: number;
   /**
    * The description
    */
-  description?: string
+  description?: string;
   /**
    * The start resource using time in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  usedAt: Date
+  usedAt: Date;
   /**
    * The transaction ID
    */
-  transactionId: number
+  transactionId: number;
   /**
    * The resource quantity
    */
-  resourceQuantity?: number
+  resourceQuantity?: number;
   /**
    * The resource unit
    */
-  unit?: string
+  unit?: string;
   /**
    * The reference to call
    */
-  refCallId?: number
-
+  refCallId?: number;
 }
-export interface Record{
+export interface Record {
   /**
    * The record ID
    */
-  recordId: number
+  recordId: number;
   /**
    * The record name
    */
-  recordName?: string
+  recordName?: string;
   /**
    * The record cost
    */
-  cost?: number
+  cost?: number;
   /**
    * The start recording time in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  startTime: Date
+  startTime: Date;
   /**
    * The call duration in seconds
    */
-  duration?: number
+  duration?: number;
   /**
    * The record URL.  If you have issues accessing the record file, check if the application has "Secure storage of applications and logs" feature enabled. In this case, you need to <a href='/docs/guides/managementapi/secureobjects'>authorize</a>.
    */
-  recordUrl?: string
+  recordUrl?: string;
   /**
    * The transaction ID
    */
-  transactionId: number
+  transactionId: number;
   /**
    * The file size
    */
-  fileSize?: number
+  fileSize?: number;
   /**
    * Transcription URL. To open the URL, please add authorization parameters and <b>record_id</b> to it
    */
-  transcriptionUrl?: string
+  transcriptionUrl?: string;
   /**
    * The status of transcription. The possible values are Not required, In progress, Complete
    */
-  transcriptionStatus?: string
-
+  transcriptionStatus?: string;
 }
-export interface AuditLogInfo{
+export interface AuditLogInfo {
   /**
    * The  ID
    */
-  auditLogId: number
+  auditLogId: number;
   /**
    * The account ID
    */
-  accountId: number
+  accountId: number;
   /**
    * The action time in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  requested: Date
+  requested: Date;
   /**
    * The initiator IP address
    */
-  ip: string
+  ip: string;
   /**
    * The called function
    */
-  cmdName: string
+  cmdName: string;
   /**
    * The arguments of the called function (they may be masked or resolved)
    */
-  cmdArgs: any
+  cmdArgs: any;
   /**
    * The modified values
    */
-  cmdResult?: any
-
+  cmdResult?: any;
 }
-export interface HistoryReport{
+export interface HistoryReport {
   /**
    * The call history report ID
    */
-  historyReportId: number
+  historyReportId: number;
   /**
    * The history report type. The following values are possible: calls, transactions, audit, call_list
    */
-  historyType: string
+  historyType: string;
   /**
    * The creation time in the UTC timezone in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  created: Date
+  created: Date;
   /**
    * The report format type. The following values are possible: csv
    */
-  format?: string
+  format?: string;
   /**
    * The UTC completion time in 24-h format: YYYY-MM-DD HH:mm:ss. The report is completed if the field exists
    */
-  completed?: Date
+  completed?: Date;
   /**
    * The report file name
    */
-  fileName?: string
+  fileName?: string;
   /**
    * The report file size
    */
-  fileSize?: number
+  fileSize?: number;
   /**
    * The gzipped report size to download
    */
-  downloadSize?: number
+  downloadSize?: number;
   /**
    * The download attempt count
    */
-  downloadCount?: number
+  downloadCount?: number;
   /**
    * The last download UTC time in 24-h format: YYYY-MM-DD HH:mm:ss. The report is completed if the field exists
    */
-  lastDownloaded?: Date
+  lastDownloaded?: Date;
   /**
    * Store the report until the UTC time in 24-h format: YYYY-MM-DD HH:mm:ss. The report is completed if the field exists
    */
-  storeUntil?: Date
+  storeUntil?: Date;
   /**
    * The report error
    */
-  error?: APIError
+  error?: APIError;
   /**
    * The report order filters (the saved [GetCallHistory], [GetTransactionHistory] parameters)
    */
-  filters?: any
+  filters?: any;
   /**
    * The calculated report data (the specific report data, see [CalculatedCallHistoryDataType], [CalculatedTransactionHistoryDataType])
    */
-  calculatedData?: any
-
+  calculatedData?: any;
 }
-export interface CalculatedCallHistoryData{
+export interface CalculatedCallHistoryData {
   /**
    * The session count in the report
    */
-  sessionCount: number
+  sessionCount: number;
   /**
    * The total found filtered session count
    */
-  totalSessionCount: number
+  totalSessionCount: number;
   /**
    * The selected timezone
    */
-  timezone: string
-
+  timezone: string;
 }
-export interface CalculatedTransactionHistoryData{
+export interface CalculatedTransactionHistoryData {
   /**
    * The transaction count in the report
    */
-  transactionCount: number
+  transactionCount: number;
   /**
    * The total found filtered transaction count
    */
-  totalTransactionCount: number
+  totalTransactionCount: number;
   /**
    * The start account/user balance with currency. Example: 2.3 USD
    */
-  startBalance?: string
+  startBalance?: string;
   /**
    * The end account/user balance with currency. Example: 12.5 RUR
    */
-  endBalance?: string
+  endBalance?: string;
   /**
    * The account ID
    */
-  accountId?: number
+  accountId?: number;
   /**
    * The user ID
    */
-  userId?: number
+  userId?: number;
   /**
    * The user name
    */
-  userName?: number
+  userName?: number;
   /**
    * The selected timezone
    */
-  timezone: string
-
+  timezone: string;
 }
-export interface ACDSessionInfo{
+export interface ACDSessionInfo {
   /**
    * The ACD session history ID
    */
-  acdSessionHistoryId: number
+  acdSessionHistoryId: number;
   /**
    * The ACD request ID. See the [ACDRequest.id()](/docs/references/voxengine/acd/acdrequest#id) VoxEngine method
    */
-  acdRequestId: string
+  acdRequestId: string;
   /**
    * The account ID
    */
-  accountId: number
+  accountId: number;
   /**
    * The UTC start date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  beginTime: Date
+  beginTime: Date;
   /**
    * The request priority
    */
-  priority: number
+  priority: number;
   /**
    * The ACD queue ID
    */
-  acdQueueId?: number
+  acdQueueId?: number;
   /**
    * The user ID
    */
-  userId?: number
+  userId?: number;
   /**
    * The waiting duration in seconds
    */
-  waitingDuration?: number
+  waitingDuration?: number;
   /**
    * The conversation duration in seconds
    */
-  inServiceDuration?: number
+  inServiceDuration?: number;
   /**
    * The after service duration in seconds
    */
-  afterServiceDuration?: number
+  afterServiceDuration?: number;
   /**
    * The bound events
    */
-  events?: ACDSessionEventInfo[]
-
+  events?: ACDSessionEventInfo[];
 }
-export interface ACDSessionEventInfo{
+export interface ACDSessionEventInfo {
   /**
    * The ACD session event ID
    */
-  acdSessionEventId: number
+  acdSessionEventId: number;
   /**
    * The UTC start date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  time: Date
+  time: Date;
   /**
    * The event type name
    */
-  type: string
+  type: string;
   /**
    * The user ID
    */
-  userId?: number
+  userId?: number;
   /**
    * The custom data
    */
-  customData?: string
-
+  customData?: string;
 }
-export interface QueueInfo{
+export interface QueueInfo {
   /**
    * The ACD queue ID
    */
-  acdQueueId: number
+  acdQueueId: number;
   /**
    * The queue name
    */
-  acdQueueName: string
+  acdQueueName: string;
   /**
    * The application ID
    */
-  applicationId?: number
+  applicationId?: number;
   /**
    * The integer queue priority. The highest priority is 0
    */
-  acdQueuePriority: number
+  acdQueuePriority: number;
   /**
    * The value in the range of [0.5 ... 1.0]. The value 1.0 means the service probability 100% in challenge with a lower priority queue
    */
-  serviceProbability: number
+  serviceProbability: number;
   /**
    * Set false to disable the auto binding of operators to a queue by skills comparing
    */
-  autoBinding: boolean
+  autoBinding: boolean;
   /**
    * The maximum predicted waiting time in minutes. When a call is going to be enqueued to the queue, its predicted waiting time should be less or equal to the maximum predicted waiting time; otherwise, a call would be rejected
    */
-  maxWaitingTime?: number
+  maxWaitingTime?: number;
   /**
    * The maximum number of calls that can be enqueued into this queue
    */
-  maxQueueSize?: number
+  maxQueueSize?: number;
   /**
    * The average service time in seconds. Specify the parameter to correct or initialize the waiting time prediction
    */
-  averageServiceTime?: number
+  averageServiceTime?: number;
   /**
    * The ACD queue creating UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  created: Date
+  created: Date;
   /**
    * The ACD queue editing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  modified: Date
+  modified: Date;
   /**
    * The ACD queue deleting UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  deleted?: Date
+  deleted?: Date;
   /**
    * The queue users info
    */
-  users?: QueueUsers[]
+  users?: QueueUsers[];
   /**
    * The queue skills info
    */
-  skills?: QueueSkills[]
+  skills?: QueueSkills[];
   /**
    * The service level thresholds in seconds
    */
-  slThresholds?: number[]
+  slThresholds?: number[];
   /**
    * Number of agents bound to the queue
    */
-  operatorcount?: number
-
+  operatorcount?: number;
 }
-export interface QueueSkills{
+export interface QueueSkills {
   /**
    * The skill ID
    */
-  skillId: number
+  skillId: number;
   /**
    * The skill name
    */
-  skillName: string
-
+  skillName: string;
 }
-export interface QueueUsers{
+export interface QueueUsers {
   /**
    * The user ID
    */
-  userId: number
-
+  userId: number;
 }
-export interface ACDState{
+export interface ACDState {
   /**
    * The queues' states
    */
-  acdQueues: ACDQueueState[]
-
+  acdQueues: ACDQueueState[];
 }
-export interface ACDOperatorAggregationGroup{
+export interface ACDOperatorAggregationGroup {
   /**
    * If aggregation was enabled, contains user ID for the results
    */
-  userId?: string
+  userId?: string;
   /**
    * If aggregation was enabled, contains UTC date for the results in 24-h 'YYYY-MM-DD' format
    */
-  date?: Date
+  date?: Date;
   /**
    * If aggregation was enabled, contains the 60-minute interval number from 1 to 24
    */
-  hour?: number
+  hour?: number;
   /**
    * List of records grouped by date or user ID according to the 'group' method call argument
    */
-  statistics: ACDOperatorStatistics[]
-
+  statistics: ACDOperatorStatistics[];
 }
-export interface ACDOperatorStatusAggregationGroup{
+export interface ACDOperatorStatusAggregationGroup {
   /**
    * If aggregation was enabled, contains user ID for the results
    */
-  userId?: string
+  userId?: string;
   /**
    * If aggregation was enabled, contains UTC date for the results in 24-h 'YYYY-MM-DD' format
    */
-  date?: Date
+  date?: Date;
   /**
    * If aggregation was enabled, contains the 60-minute interval number from 1 to 24
    */
-  hour?: number
+  hour?: number;
   /**
    * List of records grouped by date or user ID according to the 'group' method call argument
    */
-  statistics: ACDOperatorStatusStatistics[]
-
+  statistics: ACDOperatorStatusStatistics[];
 }
-export interface ACDOperatorStatistics{
+export interface ACDOperatorStatistics {
   /**
    * If aggregation was enabled, contains user ID for the results
    */
-  userId?: string
+  userId?: string;
   /**
    * If aggregation was enabled, contains UTC date for the results in 24-h 'YYYY-MM-DD' format
    */
-  date?: Date
+  date?: Date;
   /**
    * If aggregation was enabled, contains the 60-minute interval number from 1 to 24
    */
-  hour?: number
+  hour?: number;
   /**
    * Delay between a call started to ring and operator answered it. Name is 'SpeedOfAnswer' if 'abbreviation' is set to 'false'
    */
-  SA?: ACDStatisticsItem
+  SA?: ACDStatisticsItem;
   /**
    * Time between operator answering and ending a call. Name is 'TalkTime' if 'abbreviation' is set to 'false'
    */
-  TT?: ACDStatisticsItem
+  TT?: ACDStatisticsItem;
   /**
    * Time between operator ended a call and changed status to a one different from the 'AFTER_SERVICE'. This time is tracked only if operator changed status to 'AFTER_SERVICE' after the call. Name is 'AfterCallWork' if 'abbreviation' is set to 'false'
    */
-  ACW?: ACDStatisticsItem
+  ACW?: ACDStatisticsItem;
   /**
    * Sum of 'TalkTime' and 'AfterCallWork'. Name is 'HandlingTime' if 'abbreviation' is set to 'false'
    */
-  HT?: ACDStatisticsItem
+  HT?: ACDStatisticsItem;
   /**
    * Number of answered calls. Name is 'AnsweredCalls' if 'abbreviation' is set to 'false'
    */
-  AC?: number
+  AC?: number;
   /**
    * Number of unanswered calls. Name is 'UnansweredCalls' if 'abbreviation' is set to 'false'
    */
-  UAC?: number
+  UAC?: number;
   /**
    * Sum of delays between calls started to ring and operator answered them, in seconds. Name is 'TotalDialingTime' if 'abbreviation' is set to 'false'
    */
-  TDT?: number
+  TDT?: number;
   /**
    * Sum of 'HandlingTime', in seconds. Name is 'TotalHandlingTime' if 'abbreviation' is set to 'false'
    */
-  THT?: number
+  THT?: number;
   /**
    * Sum of 'TalkTime', in seconds. Name is 'TotalTalkTime' if 'abbreviation' is set to 'false'
    */
-  TTT?: number
+  TTT?: number;
   /**
    * Sum of 'AfterCallWork', in seconds. Name is 'TotalAfterCallWork' if 'abbreviation' is set to 'false'
    */
-  TACW?: number
-
+  TACW?: number;
 }
-export interface ACDOperatorStatusStatistics{
+export interface ACDOperatorStatusStatistics {
   /**
    * If aggregation was enabled, contains user ID  for the results
    */
-  userId?: string
+  userId?: string;
   /**
    * If aggregation was enabled, contains UTC date  for the results in 24-h 'YYYY-MM-DD' format
    */
-  date?: Date
+  date?: Date;
   /**
    * If aggregation was enabled, contains the  60-minute interval number from 1 to 24
    */
-  hour?: number
+  hour?: number;
   /**
    * The user statistics
    */
-  acdStatus?: ACDOperatorStatusStatisticsDetail[]
-
+  acdStatus?: ACDOperatorStatusStatisticsDetail[];
 }
-export interface ACDOperatorStatusStatisticsDetail{
+export interface ACDOperatorStatusStatisticsDetail {
   /**
    * The OFFLINE status statistics
    */
-  OFFLINE?: ACDStatisticsItem
+  OFFLINE?: ACDStatisticsItem;
   /**
    * The ONLINE status statistics
    */
-  ONLINE?: ACDStatisticsItem
+  ONLINE?: ACDStatisticsItem;
   /**
    * The READY status statistics
    */
-  READY?: ACDStatisticsItem
+  READY?: ACDStatisticsItem;
   /**
    * The BANNED status statistics
    */
-  BANNED?: ACDStatisticsItem
+  BANNED?: ACDStatisticsItem;
   /**
    * The IN_SERVICE status statistics
    */
-  INSERVICE?: ACDStatisticsItem
+  INSERVICE?: ACDStatisticsItem;
   /**
    * The AFTER_SERVICE status statistics
    */
-  AFTERSERVICE?: ACDStatisticsItem
+  AFTERSERVICE?: ACDStatisticsItem;
   /**
    * The TIMEOUT status statistics
    */
-  TIMEOUT?: ACDStatisticsItem
+  TIMEOUT?: ACDStatisticsItem;
   /**
    * The DND status statistics
    */
-  DND?: ACDStatisticsItem
-
+  DND?: ACDStatisticsItem;
 }
-export interface ACDQueueStatistics{
+export interface ACDQueueStatistics {
   /**
    * If aggregation was enabled, contains UTC date for the results in 24-h 'YYYY-MM-DD' format
    */
-  date?: Date
+  date?: Date;
   /**
    * If aggregation was enabled, contains the 60-minute interval number from 1 to 24
    */
-  hour?: number
+  hour?: number;
   /**
    * Delay between user called and operator answered the call (or call is terminated). Name is 'WaitingTime' if 'abbreviation' is set to 'false'
    */
-  WT?: ACDStatisticsItem
+  WT?: ACDStatisticsItem;
   /**
    * Delay between a call started to ring and operator answered it. Name is 'SpeedOfAnswer' if 'abbreviation' is set to 'false'
    */
-  SA?: ACDStatisticsItem
+  SA?: ACDStatisticsItem;
   /**
    * Time between user called Voximplant cloud and time they disconnect not reaching the operator. Name is 'AbandonmentTime' if 'abbreviation' is set to 'false'
    */
-  AT?: ACDStatisticsItem
+  AT?: ACDStatisticsItem;
   /**
    * Sum of 'TalkTime' and 'AfterCallWork'. Name is 'HandlingTime' if 'abbreviation' is set to 'false'
    */
-  HT?: ACDStatisticsItem
+  HT?: ACDStatisticsItem;
   /**
    * Time between operator answering and ending a call. Name is 'TalkTime' if 'abbreviation' is set to 'false'
    */
-  TT?: ACDStatisticsItem
+  TT?: ACDStatisticsItem;
   /**
    * Time between operator ended a call and changed status to a one different from the 'AFTER_SERVICE'. This time is tracked only if operator changed status to 'AFTER_SERVICE' after the call. Name is 'AfterCallWork' if 'abbreviation' is set to 'false'
    */
-  ACW?: ACDStatisticsItem
+  ACW?: ACDStatisticsItem;
   /**
    * How many users are in the queue. Name is 'QueueLength' if 'abbreviation' is set to 'false'
    */
-  QL?: ACDStatisticsItem
+  QL?: ACDStatisticsItem;
   /**
    * Total number of calls. Name is 'TotalCalls' if 'abbreviation' is set to 'false'
    */
-  TC?: number
+  TC?: number;
   /**
    * Number of answered calls. Name is 'AnsweredCalls' if 'abbreviation' is set to 'false'
    */
-  AC?: ACDStatisticsCalls[]
+  AC?: ACDStatisticsCalls[];
   /**
    * Number of unanswered calls. Name is 'UnansweredCalls' if 'abbreviation' is set to 'false'
    */
-  UAC?: ACDStatisticsCalls[]
+  UAC?: ACDStatisticsCalls[];
   /**
    * Number of calls rejected by the ACD. Call is rejected if all operators are offline or banned, or queue length is exceeded, or predicted answer time exceeds maximum specified for the query. Name is 'RejectedCalls' if 'abbreviation' is set to 'false'
    */
-  RC?: ACDStatisticsCalls[]
+  RC?: ACDStatisticsCalls[];
   /**
    * List of service levels. Name is 'ServiceLevel' if 'abbreviation' is set to 'false'
    */
-  SL?: ACDQueueStatisticsServiceLevel[]
+  SL?: ACDQueueStatisticsServiceLevel[];
   /**
    * Sum of 'WaitingTime', in seconds. Name is 'TotalWaitingTime' if 'abbreviation' is set to 'false'
    */
-  TWT?: number
+  TWT?: number;
   /**
    * Sum of 'SpeedOfAnswer', in seconds. Name is 'TotalSubmissionTime' if 'abbreviation' is set to 'false'
    */
-  TST?: number
+  TST?: number;
   /**
    * Sum for all times between user called Voximplant cloud and time they disconnect not reaching the operator, in seconds. Name is 'TotalAbandonmentTime' if 'abbreviation' is set to 'false'
    */
-  TAT?: number
+  TAT?: number;
   /**
    * Sum of 'HandlingTime', in seconds. Name is 'TotalHandlingTime' if 'abbreviation' is set to 'false'
    */
-  THT?: number
+  THT?: number;
   /**
    * Sum of 'TalkTime', in seconds. Name is 'TotalTalkTime' if 'abbreviation' is set to 'false'
    */
-  TTT?: number
+  TTT?: number;
   /**
    * Sum of 'AfterCallWork', in seconds. Name is 'TotalAfterCallWork' if 'abbreviation' is set to 'false'
    */
-  TACW?: number
-
+  TACW?: number;
 }
-export interface ACDQueueStatisticsServiceLevel{
+export interface ACDQueueStatisticsServiceLevel {
   /**
    * Maximum time, is seconds, user was waiting operator for a given service level
    */
-  acceptableWaitingTime: number
+  acceptableWaitingTime: number;
   /**
    * Number of calls for a given service level
    */
-  callCount: number
+  callCount: number;
   /**
    * Percentage of calls for a given service level, from 0 (non-inclusive) up to 1 (all calls)
    */
-  serviceLevel: number
-
+  serviceLevel: number;
 }
-export interface ACDStatisticsItem{
+export interface ACDStatisticsItem {
   /**
    * Minimum value over the aggregated interval, in seconds
    */
-  min: number
+  min: number;
   /**
    * Average value over the aggregated interval, in seconds
    */
-  avg: number
+  avg: number;
   /**
    * Maximum value over the aggregated interval, in seconds
    */
-  max: number
+  max: number;
   /**
    * Samples count over the aggregated interval
    */
-  count: number
+  count: number;
   /**
    * Sum of all samples over the aggregated interval, in seconds
    */
-  sum: number
-
+  sum: number;
 }
-export interface ACDStatisticsCalls{
+export interface ACDStatisticsCalls {
   /**
    * Absolute number of calls
    */
-  count: number
+  count: number;
   /**
    * Percentage of answered/rejected/unanswered calls, is counted against total number of calls
    */
-  percent: number
-
+  percent: number;
 }
-export interface ACDQueueState{
+export interface ACDQueueState {
   /**
    * The ACD queue ID
    */
-  acdQueueId: number
+  acdQueueId: number;
   /**
    * List of operators with the 'READY' state that can accept a call from this queue
    */
-  readyOperators: ACDReadyOperatorState[]
+  readyOperators: ACDReadyOperatorState[];
   /**
    * Number of ready operators
    */
-  readyOperatorsCount: number
+  readyOperatorsCount: number;
   /**
    * List of operators with the 'READY' state that can't accept a call from this queue. Operator can't accept a call if they are temporarily banned or they are servicing a call right now
    */
-  lockedOperators: ACDLockedOperatorState[]
+  lockedOperators: ACDLockedOperatorState[];
   /**
    * Number of locked operators
    */
-  lockedOperatorsCount: number
+  lockedOperatorsCount: number;
   /**
    * List of operators with the 'AFTER_SERVICE' state. This state is set right after a call is ended to indicate a call postprocessing
    */
-  afterServiceOperators: ACDAfterServiceOperatorState[]
+  afterServiceOperators: ACDAfterServiceOperatorState[];
   /**
    * Number of operators with the 'AFTER SERVICE' state
    */
-  afterServiceOperatorCount: number
+  afterServiceOperatorCount: number;
   /**
    * List of calls enqueued into this queue that are being serviced right now by operators
    */
-  servicingCalls: ACDServicingCallState[]
+  servicingCalls: ACDServicingCallState[];
   /**
    * List of calls enqueued into this queue that are not yet serviced by operators
    */
-  waitingCalls: ACDWaitingCallState[]
-
+  waitingCalls: ACDWaitingCallState[];
 }
-export interface ACDReadyOperatorState{
+export interface ACDReadyOperatorState {
   /**
    * The user ID of the operator
    */
-  userId: number
+  userId: number;
   /**
    * The user name of the operator
    */
-  userName: string
+  userName: string;
   /**
    * The display user name of the operator
    */
-  userDisplayName: string
+  userDisplayName: string;
   /**
    * The idle duration in seconds. The minimum of the duration after the last hangup and the duration after the operator status changing to READY
    */
-  idleDuration: number
-
+  idleDuration: number;
 }
-export interface ACDLockedOperatorState{
+export interface ACDLockedOperatorState {
   /**
    * The user ID of the operator
    */
-  userId: number
+  userId: number;
   /**
    * The user name of the operator
    */
-  userName: string
+  userName: string;
   /**
    * The display user name of the operator
    */
-  userDisplayName: string
+  userDisplayName: string;
   /**
    * The UTC time when the operator becomes unavailable in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  unreached?: Date
+  unreached?: Date;
   /**
    * The operator locks
    */
-  locks?: ACDLock[]
+  locks?: ACDLock[];
   /**
    * The ACD operator calls
    */
-  acdCalls?: ACDOperatorCall[]
+  acdCalls?: ACDOperatorCall[];
   /**
    * The operator <a href='/docs/references/websdk/voximplant/operatoracdstatuses'>status string</a>. 'BANNED' string indicates temporarily <a href='/docs/guides/smartqueue/acdv1'>banned operators</a>. The following values are possible: READY, BANNED
    */
-  status?: string
-
+  status?: string;
 }
-export interface ACDAfterServiceOperatorState{
+export interface ACDAfterServiceOperatorState {
   /**
    * The user ID of the operator
    */
-  userId: number
+  userId: number;
   /**
    * The user name of the operator
    */
-  userName: string
+  userName: string;
   /**
    * The display user name of the operator
    */
-  userDisplayName: string
+  userDisplayName: string;
   /**
    * The operator <a href='/docs/references/websdk/voximplant/operatoracdstatuses'>status string</a>
    */
-  status?: string
-
+  status?: string;
 }
-export interface ACDLock{
+export interface ACDLock {
   /**
    * The ACD lock ID
    */
-  id: string
+  id: string;
   /**
    * The UTC lock created time in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  created: Date
-
+  created: Date;
 }
-export interface ACDOperatorCall{
+export interface ACDOperatorCall {
   /**
    * The ACD session history ID of the request
    */
-  acdSessionHistoryId: number
+  acdSessionHistoryId: number;
   /**
    * The internal ACD session history ID
    */
-  acdRequestId: string
+  acdRequestId: string;
   /**
    * The ACD queue ID
    */
-  acdQueueId: number
+  acdQueueId: number;
   /**
    * The ACD queue name
    */
-  acdQueueName: string
+  acdQueueName: string;
   /**
    * The client callerid
    */
-  callerid?: string
+  callerid?: string;
   /**
    * The begin time of the request in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  beginTime: Date
+  beginTime: Date;
   /**
    * The submission time of the request in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  submitted?: Date
-
+  submitted?: Date;
 }
-export interface ACDServicingCallState{
+export interface ACDServicingCallState {
   /**
    * The user ID of the operator
    */
-  userId: number
+  userId: number;
   /**
    * The user name of the operator
    */
-  userName: string
+  userName: string;
   /**
    * The display user name of the operator
    */
-  userDisplayName: string
+  userDisplayName: string;
   /**
    * The request priority
    */
-  priority: number
+  priority: number;
   /**
    * The client callerid
    */
-  callerid?: string
+  callerid?: string;
   /**
    * The begin time of the request in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  beginTime: Date
+  beginTime: Date;
   /**
    * The waiting time before servicing in seconds
    */
-  waitingTime: number
+  waitingTime: number;
   /**
    * The ACD session history ID of the request
    */
-  acdSessionHistoryId: number
-
+  acdSessionHistoryId: number;
 }
-export interface ACDWaitingCallState{
+export interface ACDWaitingCallState {
   /**
    * The user ID of the operator to try to service the request
    */
-  userId?: number
+  userId?: number;
   /**
    * The user name of the operator
    */
-  userName: string
+  userName: string;
   /**
    * The display user name of the operator
    */
-  userDisplayName: string
+  userDisplayName: string;
   /**
    * The request priority
    */
-  priority: number
+  priority: number;
   /**
    * The client callerid
    */
-  callerid?: string
+  callerid?: string;
   /**
    * The begin time of the request in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  beginTime: Date
+  beginTime: Date;
   /**
    * The waiting time in seconds
    */
-  waitingTime: number
+  waitingTime: number;
   /**
    * The predicted minutes left to start servicing
    */
-  minutesToSubmit: number
+  minutesToSubmit: number;
   /**
    * The ACD session history ID of the request
    */
-  acdSessionHistoryId: number
-
+  acdSessionHistoryId: number;
 }
-export interface NewPhoneInfo{
+export interface NewPhoneInfo {
   /**
    * The phone ID
    */
-  phoneId: number
+  phoneId: number;
   /**
    * The phone number
    */
-  phoneNumber: string
+  phoneNumber: string;
   /**
    * The phone monthly charge
    */
-  phonePrice: number
+  phonePrice: number;
   /**
    * The phone installation price (without the first monthly fee)
    */
-  phoneInstallationPrice: number
+  phoneInstallationPrice: number;
   /**
    * The phone country code (2 symbols)
    */
-  phoneCountryCode: string
+  phoneCountryCode: string;
   /**
    * The charge period in 24-h format: Y-M-D H:m:s. Example: 0-1-0 0:0:0 is 1 month
    */
-  phonePeriod: string
+  phonePeriod: string;
   /**
    * The phone category name (MOBILE, GEOGRAPHIC, TOLLFREE, MOSCOW495)
    */
-  phoneCategoryName: string
+  phoneCategoryName: string;
   /**
    * The phone region name
    */
-  phoneRegionName: string
+  phoneRegionName: string;
   /**
    * The phone number installation tax reserve
    */
-  phoneInstallationTaxReserve: number
+  phoneInstallationTaxReserve: number;
   /**
    * The phone number tax reserve
    */
-  phoneTaxReserve: number
-
+  phoneTaxReserve: number;
 }
-export interface AttachedPhoneInfo{
+export interface AttachedPhoneInfo {
   /**
    * The phone ID
    */
-  phoneId: number
+  phoneId: number;
   /**
    * The phone number
    */
-  phoneNumber: string
+  phoneNumber: string;
   /**
    * The phone monthly charge
    */
-  phonePrice: number
+  phonePrice: number;
   /**
    * The phone country code (2 symbols)
    */
-  phoneCountryCode: string
+  phoneCountryCode: string;
   /**
    * The next renewal date in format: YYYY-MM-DD
    */
-  phoneNextRenewal: Date
+  phoneNextRenewal: Date;
   /**
    * The purchase date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  phonePurchaseDate: Date
+  phonePurchaseDate: Date;
   /**
    * The flag of the frozen subscription
    */
-  deactivated: boolean
+  deactivated: boolean;
   /**
    * The flag of the deleted subscription
    */
-  canceled: boolean
+  canceled: boolean;
   /**
    * The auto_charge flag
    */
-  autoCharge: boolean
+  autoCharge: boolean;
   /**
    * The id of the bound application
    */
-  applicationId?: number
+  applicationId?: number;
   /**
    * The name of the bound application
    */
-  applicationName?: string
+  applicationName?: string;
   /**
    * The id of the bound rule
    */
-  ruleId?: number
+  ruleId?: number;
   /**
    * The name of the bound rule
    */
-  ruleName?: string
+  ruleName?: string;
   /**
    * The phone category name (MOBILE, GEOGRAPHIC, TOLLFREE, MOSCOW495)
    */
-  categoryName: string
+  categoryName: string;
   /**
    * Verification is required for the account
    */
-  requiredVerification?: boolean
+  requiredVerification?: boolean;
   /**
    * The account verification status. The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
    */
-  verificationStatus?: string
+  verificationStatus?: string;
   /**
    * Unverified phone hold until the date in format: YYYY-MM-DD (if the account verification is required). The number will be detached on that day automatically!
    */
-  unverifiedHoldUntil?: Date
+  unverifiedHoldUntil?: Date;
   /**
    * Unverified account can use the phone
    */
-  canBeUsed: boolean
+  canBeUsed: boolean;
   /**
    * If <b>true</b>, SMS is supported for this phone number. SMS needs to be explicitly enabled via the [ControlSms] Management API before sending or receiving SMS. If SMS is supported and enabled, SMS can be sent from this phone number using the [SendSmsMessage] Management API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/guides/managementapi/callbacks'>this article</a> for HTTP callback details
    */
-  isSmsSupported: boolean
+  isSmsSupported: boolean;
   /**
    * If <b>true</b>, SMS sending and receiving is enabled for this phone number via the [ControlSms] Management API
    */
-  isSmsEnabled: boolean
+  isSmsEnabled: boolean;
   /**
    * If set, the callback of an incoming SMS will be sent to this url, otherwise, it will be sent to the general account URL
    */
-  incomingSmsCallbackUrl?: string
+  incomingSmsCallbackUrl?: string;
   /**
    * If <b>true</b>, you need to make a request to enable calls to emergency numbers
    */
-  emergencyCallsToBeEnabled: boolean
+  emergencyCallsToBeEnabled: boolean;
   /**
    * If <b>true</b>, calls to emergency numbers are enabled
    */
-  emergencyCallsEnabled: boolean
+  emergencyCallsEnabled: boolean;
   /**
    * Phone number subscription ID
    */
-  subscriptionId: number
+  subscriptionId: number;
   /**
    * Full application name, e.g. myapp.myaccount.n1.voximplant.com
    */
-  extendedApplicationName?: string
+  extendedApplicationName?: string;
   /**
    * Phone region name
    */
-  phoneRegionName?: string
+  phoneRegionName?: string;
   /**
    * UTC date of an event associated with the number in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  modified: Date
-
+  modified: Date;
 }
-export interface NewAttachedPhoneInfo{
+export interface NewAttachedPhoneInfo {
   /**
    * The phone ID
    */
-  phoneId: number
+  phoneId: number;
   /**
    * The phone number
    */
-  phoneNumber: string
+  phoneNumber: string;
   /**
    * Verification is required for the account
    */
-  requiredVerification?: boolean
+  requiredVerification?: boolean;
   /**
    * The account verification status. The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
    */
-  verificationStatus?: string
+  verificationStatus?: string;
   /**
    * Unverified phone hold until the date in format: YYYY-MM-DD (if the account verification is required). The number will be detached on that day automatically!
    */
-  unverifiedHoldUntil?: Date
-
+  unverifiedHoldUntil?: Date;
 }
-export interface PhoneNumberCountryInfo{
+export interface PhoneNumberCountryInfo {
   /**
    * The country code
    */
-  countryCode: string
+  countryCode: string;
   /**
    * The country phone prefix
    */
-  phonePrefix: string
+  phonePrefix: string;
   /**
    * True if can list phone numbers
    */
-  canListPhoneNumbers: boolean
+  canListPhoneNumbers: boolean;
   /**
    * The phone categories
    */
-  phoneCategories: PhoneNumberCountryCategoryInfo[]
+  phoneCategories: PhoneNumberCountryCategoryInfo[];
   /**
    * If <b>true</b>, you need to make a request to enable calls to emergency numbers
    */
-  emergencyCallsToBeEnabled: boolean
-
+  emergencyCallsToBeEnabled: boolean;
 }
-export interface PhoneNumberCountryCategoryInfo{
+export interface PhoneNumberCountryCategoryInfo {
   /**
    * The phone category name
    */
-  phoneCategoryName: string
+  phoneCategoryName: string;
   /**
    * True if a country state is used to choose the phone with the category
    */
-  countryHasStates: boolean
+  countryHasStates: boolean;
   /**
    * The localized country name
    */
-  localizedCountryName: string
+  localizedCountryName: string;
   /**
    * The localized phone category name
    */
-  localizedPhoneCategoryName: string
+  localizedPhoneCategoryName: string;
   /**
    * The localized phone region name
    */
-  localizedPhoneRegionName: string
-
+  localizedPhoneRegionName: string;
 }
-export interface PhoneNumberCountryStateInfo{
+export interface PhoneNumberCountryStateInfo {
   /**
    * The country state code
    */
-  countryState: string
+  countryState: string;
   /**
    * The full country state name
    */
-  countryStateName: string
-
+  countryStateName: string;
 }
-export interface PhoneNumberCountryRegionInfo{
+export interface PhoneNumberCountryRegionInfo {
   /**
    * The region ID
    */
-  phoneRegionId: number
+  phoneRegionId: number;
   /**
    * The full region name
    */
-  phoneRegionName: string
+  phoneRegionName: string;
   /**
    * The region phone prefix
    */
-  phoneRegionCode: string
+  phoneRegionCode: string;
   /**
    * The phone number count in stock for the region
    */
-  phoneCount: number
+  phoneCount: number;
   /**
    * The account verification status. The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
    */
-  verificationStatus?: string
+  verificationStatus?: string;
   /**
    * Verification is required for the account
    */
-  requiredVerification?: boolean
+  requiredVerification?: boolean;
   /**
    * The charge period in 24-h format: Y-M-D H:m:s. Example: 0-1-0 0:0:0 is 1 month
    */
-  phonePeriod: string
+  phonePeriod: string;
   /**
    * The flag of the need proof of address
    */
-  isNeedRegulationAddress?: boolean
+  isNeedRegulationAddress?: boolean;
   /**
    * The type of regulation address. The possible values are LOCAL, NATIONAL, WORLDWIDE
    */
-  regulationAddressType?: string
+  regulationAddressType?: string;
   /**
    * If <b>true</b>, SMS is supported for phone numbers in this region. SMS needs to be explicitly enabled for a phone number via the [ControlSms] Management API before sending or receiving SMS. If SMS is supported and enabled, SMS can be sent from a phone number using the [SendSmsMessage] Management API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/guides/managementapi/callbacks'>this article</a> for HTTP callback details
    */
-  isSmsSupported: boolean
+  isSmsSupported: boolean;
   /**
    * [Array](MultipleNumbersPrice) with info about multiple numbers subscription for the child accounts
    */
-  multipleNumbersPrice: MultipleNumbersPrice[]
+  multipleNumbersPrice: MultipleNumbersPrice[];
   /**
    * The localized country name
    */
-  localizedCountryName: string
+  localizedCountryName: string;
   /**
    * The localized phone category name
    */
-  localizedPhoneCategoryName: string
+  localizedPhoneCategoryName: string;
   /**
    * The localized phone region name
    */
-  localizedPhoneRegionName: string
+  localizedPhoneRegionName: string;
   /**
    * The phone number installation tax reserve
    */
-  phoneInstallationTaxReserve: number
+  phoneInstallationTaxReserve: number;
   /**
    * The phone number tax reserve
    */
-  phoneTaxReserve: number
+  phoneTaxReserve: number;
   /**
    * Phone number price from the price list
    */
-  localPrice?: number
+  localPrice?: number;
   /**
    * Phone number installation price from the price list
    */
-  localInstallationPrice?: number
+  localInstallationPrice?: number;
   /**
    * Price list currency
    */
-  localCurrency?: string
+  localCurrency?: string;
   /**
    * Phone number price in the account currency
    */
-  accountPrice?: number
+  accountPrice?: number;
   /**
    * Phone number installation price in the account currency
    */
-  accountInstallationPrice?: number
+  accountInstallationPrice?: number;
   /**
    * Account currency
    */
-  accountCurrency?: string
-
+  accountCurrency?: string;
 }
-export interface MultipleNumbersPrice{
+export interface MultipleNumbersPrice {
   /**
    * The number of subscriptions which must be purchased simultaneously to enable a multiple numbers subscription
    */
-  count: number
+  count: number;
   /**
    * The phone number installation tax reserve
    */
-  installationTaxReserve: number
+  installationTaxReserve: number;
   /**
    * The phone number tax reserve
    */
-  taxReserve: number
+  taxReserve: number;
   /**
    * Phone number price from the price list
    */
-  localPrice?: number
+  localPrice?: number;
   /**
    * Phone number installation price from the price list
    */
-  localInstallationPrice?: number
+  localInstallationPrice?: number;
   /**
    * Price list currency
    */
-  localCurrency?: string
+  localCurrency?: string;
   /**
    * Phone number price in the account currency
    */
-  accountPrice?: number
+  accountPrice?: number;
   /**
    * Phone number installation price in the account currency
    */
-  accountInstallationPrice?: number
+  accountInstallationPrice?: number;
   /**
    * Account currency
    */
-  accountCurrency?: string
-
+  accountCurrency?: string;
 }
-export interface CallerIDInfo{
+export interface CallerIDInfo {
   /**
    * The callerID id
    */
-  calleridId: number
+  calleridId: number;
   /**
    * The callerID number
    */
-  calleridNumber: string
+  calleridNumber: string;
   /**
    * The active flag
    */
-  active: boolean
+  active: boolean;
   /**
    * The code entering attempts left for the unverified callerID
    */
-  codeEnteringAttemptsLeft?: number
+  codeEnteringAttemptsLeft?: number;
   /**
    * The verification call attempts left for the unverified callerID
    */
-  verificationCallAttemptsLeft?: number
+  verificationCallAttemptsLeft?: number;
   /**
    * The verification ending date in format: YYYY-MM-DD (for the verified callerID)
    */
-  verifiedUntil?: Date
-
+  verifiedUntil?: Date;
 }
-export interface OutboundTestPhonenumberInfo{
+export interface OutboundTestPhonenumberInfo {
   /**
    * The personal phone number
    */
-  phoneNumber: string
+  phoneNumber: string;
   /**
    * The verification status
    */
-  isVerified: boolean
+  isVerified: boolean;
   /**
    * The country code
    */
-  countryCode: string
-
+  countryCode: string;
 }
-export interface ContactInfo{
+export interface ContactInfo {
   /**
    * The contact ID
    */
-  contactId: number
+  contactId: number;
   /**
    * The contact type. The following values are available: 'email'
    */
-  contactType: string
+  contactType: string;
   /**
    * The contact data (i.g. email)
    */
-  contactData: string
+  contactData: string;
   /**
    * The persistent flag
    */
-  isPersistent: boolean
+  isPersistent: boolean;
   /**
    * The contact description
    */
-  description?: string
+  description?: string;
   /**
    * The verification code sending timeout is seconds
    */
-  nextVerificationAfterSec?: number
+  nextVerificationAfterSec?: number;
   /**
    * The activation time in the UTC timezone in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  verified?: Date
+  verified?: Date;
   /**
    * The attached notification group list. The following groups are available: 'news', 'tariff_changing', 'account', 'development'
    */
-  notificationGroup?: string[]
+  notificationGroup?: string[];
   /**
    * The creation time in the UTC timezone in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  created: Date
+  created: Date;
   /**
    * The contact editing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  modified: Date
-
+  modified: Date;
 }
-export interface ACDQueueOperatorInfo{
+export interface ACDQueueOperatorInfo {
   /**
    * The ACD queue ID
    */
-  acdQueueId: number
+  acdQueueId: number;
   /**
    * The ACD queue name
    */
-  acdQueueName: string
+  acdQueueName: string;
   /**
    * The user is bound to the ACD queue in manual mode if false
    */
-  autoLink: boolean
-
+  autoLink: boolean;
 }
-export interface ClonedACDQueue{
+export interface ClonedACDQueue {
   /**
    * The ACD queue ID
    */
-  acdQueueId: number
+  acdQueueId: number;
   /**
    * The ACD queue name
    */
-  acdQueueName: string
-
+  acdQueueName: string;
 }
-export interface SkillInfo{
+export interface SkillInfo {
   /**
    * The skill ID
    */
-  skillId: number
+  skillId: number;
   /**
    * The skill name
    */
-  skillName: string
-
+  skillName: string;
 }
-export interface ClonedACDSkill{
+export interface ClonedACDSkill {
   /**
    * The ACD skill ID
    */
-  skillId: number
+  skillId: number;
   /**
    * The ACD skill name
    */
-  skillName: string
-
+  skillName: string;
 }
-export interface ExchangeRates{
+export interface ExchangeRates {
   /**
    * The RUR exchange rate
    */
-  RUR?: number
+  RUR?: number;
   /**
    * The KZT exchange rate
    */
-  KZT?: number
+  KZT?: number;
   /**
    * The EUR exchange rate
    */
-  EUR?: number
+  EUR?: number;
   /**
    * The USD exchange rate. It's always equal to 1
    */
-  USD?: number
-
+  USD?: number;
 }
-export interface ResourcePrice{
+export interface ResourcePrice {
   /**
    * The resource type name. The possible values are AUDIOHDCONFERENCE, AUDIOHDRECORD, AUDIORECORD, CALLLIST, CALLSESSION, DIALOGFLOW, IM, PSTN_IN_ALASKA, PSTN_IN_GB, PSTN_IN_GEOGRAPHIC, PSTN_IN_GEO_PH, PSTN_IN_RU, PSTN_IN_RU_TOLLFREE, PSTN_INTERNATIONAL, PSTNINTEST, PSTN_IN_TF_AR, PSTN_IN_TF_AT, PSTN_IN_TF_AU, PSTN_IN_TF_BE, PSTN_IN_TF_BR, PSTN_IN_TF_CA, PSTN_IN_TF_CO, PSTN_IN_TF_CY, PSTN_IN_TF_DE, PSTN_IN_TF_DK, PSTN_IN_TF_DO, PSTN_IN_TF_FI, PSTN_IN_TF_FR, PSTN_IN_TF_GB, PSTN_IN_TF_HR, PSTN_IN_TF_HU, PSTN_IN_TF_IL, PSTN_IN_TF_LT, PSTN_IN_TF_PE, PSTN_IN_TF_US, PSTN_IN_US, PSTNOUT, PSTNOUT_EEA, PSTNOUTEMERG, PSTNOUT_KZ, PSTNOUT_LOCAL, PSTN_OUT_LOCAL_RU, RELAYED_TRAFFIC, SIPOUT, SIPOUTVIDEO, SMSINPUT, SMSOUT, SMSOUT_INTERNATIONAL, TRANSCRIPTION, TTS_TEXT_GOOGLE, TTS_YANDEX, USER_LOGON, VIDEOCALL, VIDEORECORD, VOICEMAILDETECTION, VOIPIN, VOIPOUT, VOIPOUTVIDEO, YANDEXASR, ASR, ASR_GOOGLE_ENHANCED
    */
-  resourceType: string
+  resourceType: string;
   /**
    * The price group array
    */
-  priceGroups: PriceGroup[]
-
+  priceGroups: PriceGroup[];
 }
-export interface PriceGroup{
+export interface PriceGroup {
   /**
    * The price group name. Example: Russia Mobile
    */
-  priceGroupName: string
+  priceGroupName: string;
   /**
    * The price group ID
    */
-  priceGroupId: number
+  priceGroupId: number;
   /**
    * The price for the 'num_resources_per_price' resource count
    */
-  price: number
+  price: number;
   /**
    * The resource count per price
    */
-  numResourcesPerPrice: number
+  numResourcesPerPrice: number;
   /**
    * The resource rounding quantum
    */
-  quantum: number
+  quantum: number;
   /**
    * The available resource parameters
    */
-  params: ResourceParams
-
+  params: ResourceParams;
 }
-export interface ResourceParams{
+export interface ResourceParams {
   /**
    * The allowed parameter prefixes. Example: 7495
    */
-  allowed: string[]
+  allowed: string[];
   /**
    * The forbidden parameter prefixes. Example: 7800
    */
-  forbidden?: string[]
+  forbidden?: string[];
   /**
    * The requested parameters. Example: 79263331122
    */
-  requested?: string[]
-
+  requested?: string[];
 }
-export interface CallList{
+export interface CallList {
   /**
    * The list ID
    */
-  listId: number
+  listId: number;
   /**
    * The list name
    */
-  listName: string
+  listName: string;
   /**
    * The priority of the call list
    */
-  priority: number
+  priority: number;
   /**
    * The rule id
    */
-  ruleId: number
+  ruleId: number;
   /**
    * The maximum number of simultaneous tasks
    */
-  maxSimultaneous: number
+  maxSimultaneous: number;
   /**
    * The number of task attempts run, which failed to call
    */
-  numAttempts: number
+  numAttempts: number;
   /**
    * The date of submitted the list in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  dtSubmit: Date
+  dtSubmit: Date;
   /**
    * The completion date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  dtComplete?: Date
+  dtComplete?: Date;
   /**
    * The interval between attempts in seconds
    */
-  intervalSeconds: number
+  intervalSeconds: number;
   /**
    * The status name. The possible values are __In progress__, __Completed__, __Canceled__
    */
-  status: string
-
+  status: string;
 }
-export interface CallListDetail{
+export interface CallListDetail {
   /**
    * The list ID
    */
-  listId: number
+  listId: number;
   /**
    * Data for transmission to the script
    */
-  customData: string
+  customData: string;
   /**
    * Time with which to start the job in 24-h format: HH:mm:ss
    */
-  startExecutionTime: Date
+  startExecutionTime: Date;
   /**
    * Time after which the task cannot be performed in 24-h format: HH:mm:ss
    */
-  finishExecutionTime: Date
+  finishExecutionTime: Date;
   /**
    * Results of the task, if it was granted, or information about the runtime error
    */
-  resultData: string
+  resultData: string;
   /**
    * Date and time of the last attempt to perform a task
    */
-  lastAttempt: string
+  lastAttempt: string;
   /**
    * Number of remaining attempts
    */
-  attemptsLeft: number
+  attemptsLeft: number;
   /**
    * The status ID. The possible values are __0__ (status = New), __1__ (status = In progress), __2__ (status = Processed), __3__ (status = Error), __4__ (status = Canceled)
    */
-  statusId: number
+  statusId: number;
   /**
    * The status name. The possible values are __New__ (status_id = 0), __In progress__ (status_id = 1), __Processed__ (status_id = 2), __Error__ (status_id = 3), __Canceled__ (status_id = 4)
    */
-  status: string
-
+  status: string;
 }
-export interface SIPRegistration{
+export interface SIPRegistration {
   /**
    * The SIP registration ID
    */
-  sipRegistrationId: number
+  sipRegistrationId: number;
   /**
    * The user name from sip proxy
    */
-  sipUsername: string
+  sipUsername: string;
   /**
    * The sip proxy
    */
-  proxy: string
+  proxy: string;
   /**
    * The last time updated
    */
-  lastUpdated: number
+  lastUpdated: number;
   /**
    * The SIP authentications user
    */
-  authUser?: string
+  authUser?: string;
   /**
    * The outbound proxy
    */
-  outboundProxy?: string
+  outboundProxy?: string;
   /**
    * The successful SIP registration
    */
-  successful?: boolean
+  successful?: boolean;
   /**
    * The status code from a SIP registration
    */
-  statusCode?: number
+  statusCode?: number;
   /**
    * The error message from a SIP registration
    */
-  errorMessage?: string
+  errorMessage?: string;
   /**
    * The subscription deactivation flag. The SIP registration is frozen if true
    */
-  deactivated: boolean
+  deactivated: boolean;
   /**
    * The next subscription renewal date in format: YYYY-MM-DD
    */
-  nextSubscriptionRenewal: Date
+  nextSubscriptionRenewal: Date;
   /**
    * The purchase date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  purchaseDate: Date
+  purchaseDate: Date;
   /**
    * The subscription monthly charge
    */
-  subscriptionPrice: string
+  subscriptionPrice: string;
   /**
    * SIP registration is persistent. Set false to activate it only on the user login
    */
-  isPersistent: boolean
+  isPersistent: boolean;
   /**
    * The id of the bound user
    */
-  userId?: number
+  userId?: number;
   /**
    * The name of the bound user
    */
-  userName?: string
+  userName?: string;
   /**
    * The id of the bound application
    */
-  applicationId?: number
+  applicationId?: number;
   /**
    * The name of the bound application
    */
-  applicationName?: string
+  applicationName?: string;
   /**
    * The id of the bound rule
    */
-  ruleId?: number
+  ruleId?: number;
   /**
    * The name of the bound rule
    */
-  ruleName?: string
-
+  ruleName?: string;
 }
-export interface AdminRole{
+export interface AdminRole {
   /**
    * The admin role ID
    */
-  adminRoleId: number
+  adminRoleId: number;
   /**
    * The admin role name
    */
-  adminRoleName: string
+  adminRoleName: string;
   /**
    * If false the allowed and denied entries have no affect
    */
-  adminRoleActive: boolean
+  adminRoleActive: boolean;
   /**
    * It's a system role
    */
-  systemRole: boolean
+  systemRole: boolean;
   /**
    * The admin role editing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  modified: Date
+  modified: Date;
   /**
    * The allowed access entries (the API function names)
    */
-  allowedEntries?: string[]
+  allowedEntries?: string[];
   /**
    * The denied access entries (the API function names)
    */
-  deniedEntries?: string[]
-
+  deniedEntries?: string[];
 }
-export interface ClonedAdminRole{
+export interface ClonedAdminRole {
   /**
    * The admin role ID
    */
-  adminRoleId: number
+  adminRoleId: number;
   /**
    * The admin role name
    */
-  adminRoleName: string
-
+  adminRoleName: string;
 }
-export interface AdminUser{
+export interface AdminUser {
   /**
    * The admin user ID
    */
-  adminUserId: number
+  adminUserId: number;
   /**
    * The admin user name
    */
-  adminUserName: string
+  adminUserName: string;
   /**
    * The admin user display name
    */
-  adminUserDisplayName: string
+  adminUserDisplayName: string;
   /**
    * Login is allowed
    */
-  adminUserActive: boolean
+  adminUserActive: boolean;
   /**
    * The admin user editing UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  modified: Date
+  modified: Date;
   /**
    * The allowed access entries (the API function names)
    */
-  accessEntries?: string[]
+  accessEntries?: string[];
   /**
    * The attached admin roles
    */
-  adminRoles?: AdminRole[]
-
+  adminRoles?: AdminRole[];
 }
-export interface ClonedAdminUser{
+export interface ClonedAdminUser {
   /**
    * The admin user ID
    */
-  adminUserId: number
+  adminUserId: number;
   /**
    * The admin user name
    */
-  adminUserName: string
+  adminUserName: string;
   /**
    * The API key of the admin user
    */
-  adminUserApiKey: string
-
+  adminUserApiKey: string;
 }
-export interface GetMoneyAmountToChargeResult{
+export interface GetMoneyAmountToChargeResult {
   /**
    * The money amount of the subscriptions + plan + negative_balance in the specified currency
    */
-  amount: number
+  amount: number;
   /**
    * The 'amount' value minus the positive account balance in the specified currency
    */
-  minAmount: number
+  minAmount: number;
   /**
    * Exists if bank card payments are allowed. It's the maximum of the 'amount' in USD and the min_card_payment (10$)
    */
-  bankCardAmountUsd?: number
+  bankCardAmountUsd?: number;
   /**
    * Exists if bank card payments are allowed. It's the maximum of the 'min_amount' in USD and the min_card_payment (10$)
    */
-  minBankCardAmountUsd?: number
+  minBankCardAmountUsd?: number;
   /**
    * Exists if robokassa payments are allowed. It's the maximum of the 'min_amount' in RUR and the min_robokassa_payment (500 RUR)
    */
-  robokassaAmountRub?: number
+  robokassaAmountRub?: number;
   /**
    * Exists if robokassa payments are allowed. It's the maximum of the 'min_amount' in RUR and the min_robokassa_payment (500 RUR)
    */
-  minRobokassaAmountRub?: number
+  minRobokassaAmountRub?: number;
   /**
    * The subscriptions to charge
    */
-  subscriptions: SubscriptionsToCharge[]
-
+  subscriptions: SubscriptionsToCharge[];
 }
-export interface ChargeAccountResult{
+export interface ChargeAccountResult {
   /**
    * The charged money amount
    */
-  chargedAmount: number
+  chargedAmount: number;
   /**
    * The charged phone list
    */
-  phones?: ChargedPhone[]
-
+  phones?: ChargedPhone[];
 }
-export interface ChargedPhone{
+export interface ChargedPhone {
   /**
    * The phone ID
    */
-  phoneId: number
+  phoneId: number;
   /**
    * The phone number
    */
-  phoneNumber: string
+  phoneNumber: string;
   /**
    * Subscription is frozen
    */
-  deactivated: boolean
+  deactivated: boolean;
   /**
    * Phone number has been charged
    */
-  isCharged: boolean
-
+  isCharged: boolean;
 }
-export interface SubscriptionsToCharge{
+export interface SubscriptionsToCharge {
   /**
    * The money amount to charge in the specified currency
    */
-  subscriptionAmount: number
+  subscriptionAmount: number;
   /**
    * The subscription type, example: PHONE_NUM, SIP_REGISTRATION
    */
-  subscriptionType: string
+  subscriptionType: string;
   /**
    * The subscription description (details). Example: the subscribed phone number
    */
-  subscriptionDescription: string
+  subscriptionDescription: string;
   /**
    * The auto charge flag
    */
-  subscriptionAutoCharge: boolean
+  subscriptionAutoCharge: boolean;
   /**
    * The next renewal date, format: YYYY-MM-DD. Displayed for only verified phone numbers
    */
-  subscriptionNextRenewal?: Date
-
+  subscriptionNextRenewal?: Date;
 }
-export interface AuthorizedAccountIP{
+export interface AuthorizedAccountIP {
   /**
    * The authorized IP4 or network
    */
-  authorizedIp: string
+  authorizedIp: string;
   /**
    * The allowed flag (true - whitelist, false - blacklist)
    */
-  allowed: boolean
+  allowed: boolean;
   /**
    * The item creating UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  created: Date
-
+  created: Date;
 }
-export interface ContractorInfo{
+export interface ContractorInfo {
   /**
    * Russian-specific ID for tax purposes
    */
-  inn: string
+  inn: string;
   /**
    * Additional Russian-specific ID for tax purposes for businesses; there is no KPP for individual entrepreneurs
    */
-  kpp?: string
+  kpp?: string;
   /**
    * The full company name
    */
-  companyName: string
+  companyName: string;
   /**
    * The full company address with a postcode
    */
-  companyAddress: string
+  companyAddress: string;
   /**
    * The company phone
    */
-  companyPhone?: string
+  companyPhone?: string;
   /**
    * The correspondence address
    */
-  correspondenceAddress?: string
+  correspondenceAddress?: string;
   /**
    * The correspondence email
    */
-  correspondenceEmail?: string
+  correspondenceEmail?: string;
   /**
    * The correspondence to
    */
-  correspondenceTo?: string
+  correspondenceTo?: string;
   /**
    * The contract info
    */
-  contract?: ContractInfo
-
+  contract?: ContractInfo;
 }
-export interface ContractInfo{
+export interface ContractInfo {
   /**
    * The agreement number
    */
-  agreementNumber?: string
+  agreementNumber?: string;
   /**
    * The agreement date in format: YYYY-MM-DD
    */
-  agreementDate?: Date
-
+  agreementDate?: Date;
 }
-export interface ContractorInvoice{
+export interface ContractorInvoice {
   /**
    * The invoice number
    */
-  invoiceNumber: string
+  invoiceNumber: string;
   /**
    * The invoice date in format: YYYY-MM-DD
    */
-  invoiceDate: Date
+  invoiceDate: Date;
   /**
    * The post payment flag
    */
-  isPostPayment: boolean
+  isPostPayment: boolean;
   /**
    * The from date in format: YYYY-MM-DD
    */
-  fromDate?: Date
+  fromDate?: Date;
   /**
    * The to date in format: YYYY-MM-DD
    */
-  toDate?: Date
+  toDate?: Date;
   /**
    * The total invoice amount (RUR)
    */
-  totalAmount: number
+  totalAmount: number;
   /**
    * The paid amount (RUR)
    */
-  paidAmount?: number
+  paidAmount?: number;
   /**
    * The service list
    */
-  services: ContractorInvoiceService
-
+  services: ContractorInvoiceService;
 }
-export interface ContractorInvoiceService{
+export interface ContractorInvoiceService {
   /**
    * The service name
    */
-  serviceName: string
+  serviceName: string;
   /**
    * The service cost (RUR)
    */
-  serviceCost: number
-
+  serviceCost: number;
 }
-export interface AccountVerificationDocument{
+export interface AccountVerificationDocument {
   /**
    * The account verification document ID
    */
-  accountDocumentId: number
+  accountDocumentId: number;
   /**
    * Account belongs to an individual
    */
-  isIndividual: boolean
+  isIndividual: boolean;
   /**
    * The reviewer's comment
    */
-  comment?: string
+  comment?: string;
   /**
    * The UTC date of the document upload in format: YYYY-MM-DD HH::mm:ss
    */
-  uploaded: Date
+  uploaded: Date;
   /**
    * The account document status. The following values are possible: ACCEPTED, REJECTED, IN_PROGRESS, INCOMPLETE_SET
    */
-  accountDocumentStatus: string
-
+  accountDocumentStatus: string;
 }
-export interface AccountVerification{
+export interface AccountVerification {
   /**
    * The verification name
    */
-  verificationName: string
+  verificationName: string;
   /**
    * The account verification status. The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED, NOT_REQUIRED
    */
-  verificationStatus: string
+  verificationStatus: string;
   /**
    * Unverified subscriptions hold until the date in format: YYYY-MM-DD (if the account verification is required). Some subscriptions will be detached on that day automatically!
    */
-  unverifiedHoldUntil?: Date
+  unverifiedHoldUntil?: Date;
   /**
    * The uploaded documents
    */
-  documents?: AccountVerificationDocument[]
-
+  documents?: AccountVerificationDocument[];
 }
-export interface AccountVerifications{
+export interface AccountVerifications {
   /**
    * The account ID
    */
-  accountId: number
+  accountId: number;
   /**
    * The account verifications
    */
-  verifications: AccountVerification[]
-
+  verifications: AccountVerification[];
 }
-export interface SubscriptionTemplate{
+export interface SubscriptionTemplate {
   /**
    * The subscription template ID
    */
-  subscriptionTemplateId: number
+  subscriptionTemplateId: number;
   /**
    * ID of the original currency
    */
-  currencyId: number
+  currencyId: number;
   /**
    * The subscription installation price (without the first monthly fee)
    */
-  installationPrice: number
+  installationPrice: number;
   /**
    * The subscription installation price in the original currency
    */
-  installationPriceInCurrency: number
+  installationPriceInCurrency: number;
   /**
    * The subscription monthly fee, including taxes and discounts
    */
-  price: number
+  price: number;
   /**
    * The subscription monthly fee in the original currency
    */
-  priceInCurrency: number
+  priceInCurrency: number;
   /**
    * The charge period in 24-h format: Y-M-D H:m:s. Example: 0-1-0 0:0:0 is 1 month
    */
-  period: string
+  period: string;
   /**
    * The subscription template type. The following values are possible: PHONE_NUM, SIP_REGISTRATION
    */
-  subscriptionTemplateType: string
+  subscriptionTemplateType: string;
   /**
    * The subscription template name (example: SIP registration, Phone GB, Phone RU 495, ...)
    */
-  subscriptionTemplateName: string
+  subscriptionTemplateName: string;
   /**
    * Verification is required for the account
    */
-  requiredVerification: boolean
+  requiredVerification: boolean;
   /**
    * The verification status. Possible values are REQUIRED, IN_PROGRESS, VERIFIED, NOT_REQUIRED
    */
-  verificationStatus: string
+  verificationStatus: string;
   /**
    * The phone number installation tax reserve
    */
-  installationTaxReserve: number
+  installationTaxReserve: number;
   /**
    * The phone number tax reserve
    */
-  taxReserve: number
-
+  taxReserve: number;
 }
-export interface AccountCallbacks{
+export interface AccountCallbacks {
   /**
    * The account callback array
    */
-  callbacks: AccountCallback[]
-
+  callbacks: AccountCallback[];
 }
-export interface AccountCallback{
+export interface AccountCallback {
   /**
    * The callback ID (sequence)
    */
-  callbackId: number
+  callbackId: number;
   /**
    * The callback type
    */
-  type: string
+  type: string;
   /**
    * The account ID
    */
-  accountId: number
+  accountId: number;
   /**
    * The security hash: hash = md5(account_salt + account_id + api_key + callback_id). Example: 50c5fe2290cd7409b37e673b8b05e495
    */
-  hash: string
+  hash: string;
   /**
    * The account name
    */
-  accountName: string
+  accountName: string;
   /**
    * The account email
    */
-  accountEmail: string
+  accountEmail: string;
   /**
    * The notification language code (2 symbols, ISO639-1). Examples: en, ru
    */
-  languageCode: string
+  languageCode: string;
   /**
    * The first name
    */
-  accountFirstName: string
+  accountFirstName: string;
   /**
    * The last name
    */
-  accountLastName: string
+  accountLastName: string;
   /**
    * The account's money
    */
-  balance: number
+  balance: number;
   /**
    * The currency code (USD, RUR, EUR, ...)
    */
-  currency: string
+  currency: string;
   /**
    * Deprecated. Please use the unified <b>account_document_status_updated</b> callback instead
    */
-  accountDocumentUploaded?: AccountDocumentUploadedCallback
+  accountDocumentUploaded?: AccountDocumentUploadedCallback;
   /**
    * Received when proof of address is uploaded
    */
-  regulationAddressUploaded?: RegulationAddressUploadedCallback
+  regulationAddressUploaded?: RegulationAddressUploadedCallback;
   /**
    * Deprecated. Please use the unified <b>account_document_status_updated</b> callback instead
    */
-  accountDocumentVerified?: AccountDocumentVerifiedCallback
+  accountDocumentVerified?: AccountDocumentVerifiedCallback;
   /**
    * Received when an account is frozen
    */
-  accountIsFrozen?: AccountIsFrozenCallback
+  accountIsFrozen?: AccountIsFrozenCallback;
   /**
    * Received when an account is unfrozen
    */
-  accountIsUnfrozen?: AccountIsUnfrozenCallback
+  accountIsUnfrozen?: AccountIsUnfrozenCallback;
   /**
    * Received when a new (not child) account is created
    */
-  activateSuccessful?: ActivateSuccessfulCallback
+  activateSuccessful?: ActivateSuccessfulCallback;
   /**
    * Received when a call history report is ready
    */
-  callHistoryReport?: CallHistoryReportCallback
+  callHistoryReport?: CallHistoryReportCallback;
   /**
    * Received when a card is expired
    */
-  cardExpired?: CardExpiredCallback
+  cardExpired?: CardExpiredCallback;
   /**
    * Received when one month is left for a card to be expired
    */
-  cardExpiresInMonth?: CardExpiresInMonthCallback
+  cardExpiresInMonth?: CardExpiresInMonthCallback;
   /**
    * Received when a bank card payment is made
    */
-  cardPayment?: CardPaymentCallback
+  cardPayment?: CardPaymentCallback;
   /**
    * Received when a bank card payment is failed
    */
-  cardPaymentFailed?: CardPaymentFailedCallback
+  cardPaymentFailed?: CardPaymentFailedCallback;
   /**
    * Received when a robokassa payment is made
    */
-  robokassaPayment?: RobokassaPaymentCallback
+  robokassaPayment?: RobokassaPaymentCallback;
   /**
    * Received when a wire transfer is made
    */
-  wireTransfer?: WireTransferCallback
+  wireTransfer?: WireTransferCallback;
   /**
-   * Received when <b>send_js_error</b> is set to true and a JS error occures. See the 'send_js_error' parameter of the 'SetAccountInfo' function
+   * Received when <b>send_js_error</b> is set to true and a JS error occurs. See the 'send_js_error' parameter of the 'SetAccountInfo' function
    */
-  jsFail?: JSFailCallback
+  jsFail?: JSFailCallback;
   /**
    * Received when the minimum balance is reached
    */
-  minBalance?: MinBalanceCallback
+  minBalance?: MinBalanceCallback;
   /**
    * Received when proof of address is verified
    */
-  regulationAddressVerified?: RegulationAddressVerifiedCallback
+  regulationAddressVerified?: RegulationAddressVerifiedCallback;
   /**
    * Received when subscriptions are renewed
    */
-  renewedSubscriptions?: RenewedSubscriptionsCallback
+  renewedSubscriptions?: RenewedSubscriptionsCallback;
   /**
    * Received when an account password reset is requested
    */
-  resetAccountPasswordRequest?: ResetAccountPasswordRequestCallback
+  resetAccountPasswordRequest?: ResetAccountPasswordRequestCallback;
   /**
    * Received when one or several SIP registrations are failed
    */
-  sipRegistrationFail?: SIPRegistrationFailCallback
+  sipRegistrationFail?: SIPRegistrationFailCallback;
   /**
    * Received when one or several SIP registrations are recovered
    */
-  sipRegistrationRecovered?: SIPRegistrationRecoveredCallback
+  sipRegistrationRecovered?: SIPRegistrationRecoveredCallback;
   /**
    * Received when a subscription is frozen
    */
-  subscriptionIsFrozen?: SubscriptionIsFrozenCallback
+  subscriptionIsFrozen?: SubscriptionIsFrozenCallback;
   /**
    * Received when a subscription is canceled
    */
-  subscriptionIsDetached?: SubscriptionIsDetachedCallback
+  subscriptionIsDetached?: SubscriptionIsDetachedCallback;
   /**
    * Received when a transaction history report is ready
    */
-  transactionHistoryReport?: TransactionHistoryReportCallback
+  transactionHistoryReport?: TransactionHistoryReportCallback;
   /**
    * Received when an unverified subscription is canceled
    */
-  unverifiedSubscriptionDetached?: UnverifiedSubscriptionDetachedCallback
+  unverifiedSubscriptionDetached?: UnverifiedSubscriptionDetachedCallback;
   /**
    * Received when a caller ID is about to be expired
    */
-  expiringCallerid?: ExpiringCallerIDCallback
+  expiringCallerid?: ExpiringCallerIDCallback;
   /**
    * Received when a transcription is saved
    */
-  transcriptionComplete?: TranscriptionCompleteCallback
+  transcriptionComplete?: TranscriptionCompleteCallback;
   /**
    * Received when an incoming SMS is gotten
    */
-  smsInbound?: InboundSmsCallback
+  smsInbound?: InboundSmsCallback;
   /**
    * Received for the accounts for which the confirmation documents waiting period expires in 20/15/10/5/1 day(s)
    */
-  expiringAgreement?: ExpiringAgreementCallback
+  expiringAgreement?: ExpiringAgreementCallback;
   /**
    * Received for the accounts for which the confirmation documents waiting period has already expired or expires today
    */
-  expiredAgreement?: ExpiredAgreementCallback
+  expiredAgreement?: ExpiredAgreementCallback;
   /**
    * Received when an expiration date of the confirmation documents waiting period is changed
    */
-  restoredAgreementStatus?: RestoredAgreementStatusCallback
+  restoredAgreementStatus?: RestoredAgreementStatusCallback;
   /**
    * Received when a plan is to be renewed in 3 days, but there is not enough money
    */
-  nextChargeAlert?: NextChargeAlertCallback
+  nextChargeAlert?: NextChargeAlertCallback;
   /**
    * Deprecated. Please use the <b>expired_certificates</b> and <b>expiring_certificates</b> callbacks instead
    */
-  certificateExpired?: CertificateExpiredCallback
+  certificateExpired?: CertificateExpiredCallback;
   /**
    * Received for the accounts whose Apple VOIP certificates are expired
    */
-  expiredCertificates?: ExpiredCertificateCallback
+  expiredCertificates?: ExpiredCertificateCallback;
   /**
    * Received for the accounts whose Apple VOIP certificates expire in 14 or fewer days
    */
-  expiringCertificates?: ExpiringCertificateCallback
+  expiringCertificates?: ExpiringCertificateCallback;
   /**
    * Received when the verification status is updated
    */
-  accountDocumentStatusUpdated?: AccountDocumentStatusUpdatedCallback
+  accountDocumentStatusUpdated?: AccountDocumentStatusUpdatedCallback;
   /**
    * Received when A2P SMS are activated
    */
-  a2pSmsActivated?: A2PActivatedCallback
+  a2pSmsActivated?: A2PActivatedCallback;
   /**
    * Received when the verification status is changed to PENDING
    */
-  regulationAddressDocumentsRequested?: RegulationAddressDocumentsRequestedCallback
+  regulationAddressDocumentsRequested?: RegulationAddressDocumentsRequestedCallback;
   /**
    * Received when a monthly invoice is sent
    */
-  invoiceReceived?: InvoiceReceivedCallback
-
+  invoiceReceived?: InvoiceReceivedCallback;
 }
-export interface A2PSmsDeliveryCallback{
+export interface A2PSmsDeliveryCallback {
   /**
    * The SMS delivery ID
    */
-  id: number
+  id: number;
   /**
    * The source number
    */
-  sourceNumber: string
+  sourceNumber: string;
   /**
    * The SMS delivery status
    */
-  status: string
+  status: string;
   /**
    * The destination number(s)
    */
-  destinationNumbers?: string
-
+  destinationNumbers?: string;
 }
-export interface AccountDocumentUploadedCallback{
+export interface AccountDocumentUploadedCallback {
   /**
    * The uploaded document ID. See GetAccountDocuments
    */
-  accountDocumentId: number
+  accountDocumentId: number;
   /**
    * The UTC date of the document upload in format: YYYY-MM-DD HH::mm:ss
    */
-  uploaded: Date
+  uploaded: Date;
   /**
    * The verification name (type)
    */
-  verificationName: string
+  verificationName: string;
   /**
    * Status of the user in the context of entrepreneurial activity. Possible values are 'individual', 'entrepreneur', 'legal entity'
    */
-  legalStatus: string
-
+  legalStatus: string;
 }
-export interface BalanceIsChanged{
-  
-
-}
-export interface RegulationAddressUploadedCallback{
+export interface BalanceIsChanged {}
+export interface RegulationAddressUploadedCallback {
   /**
    * The uploaded document ID. See GetRegulationsAddress
    */
-  regulationAddressId: number
+  regulationAddressId: number;
   /**
    * The UTC date of the document upload in format: YYYY-MM-DD HH::mm:ss
    */
-  uploaded: Date
+  uploaded: Date;
   /**
    * Account belongs to an individual
    */
-  isIndividual: boolean
+  isIndividual: boolean;
   /**
    * The regulation address name
    */
-  regulationAddressName: string
-
+  regulationAddressName: string;
 }
-export interface AccountDocumentVerifiedCallback{
+export interface AccountDocumentVerifiedCallback {
   /**
    * The uploaded document ID
    */
-  accountDocumentId: number
+  accountDocumentId: number;
   /**
    * The document verification status. The following values are possible: WAITING_CONFIRMATION_DOCS, VERIFIED, REJECTED
    */
-  accountDocumentStatus: string
+  accountDocumentStatus: string;
   /**
    * The UTC date of the document upload in format: YYYY-MM-DD HH::mm:ss
    */
-  uploaded: Date
+  uploaded: Date;
   /**
    * The reviewer's comment
    */
-  comment?: string
+  comment?: string;
   /**
    * The verification name (type)
    */
-  verificationName: string
+  verificationName: string;
   /**
    * Status of the user in the context of entrepreneurial activity. Possible values are 'individual', 'entrepreneur', 'legal entity'
    */
-  legalStatus: string
-
+  legalStatus: string;
 }
-export interface AccountIsFrozenCallback{
-  
-
-}
-export interface AccountIsUnfrozenCallback{
-  
-
-}
-export interface ActivateSuccessfulCallback{
-  
-
-}
-export interface CallHistoryReportCallback{
+export interface AccountIsFrozenCallback {}
+export interface AccountIsUnfrozenCallback {}
+export interface ActivateSuccessfulCallback {}
+export interface CallHistoryReportCallback {
   /**
    * The history report ID
    */
-  historyReportId: number
+  historyReportId: number;
   /**
    * Success flag
    */
-  success: boolean
+  success: boolean;
   /**
    * The UTC order date in format: YYYY-MM-DD HH::mm:ss
    */
-  orderDate: Date
-
+  orderDate: Date;
 }
-export interface CardExpiredCallback{
-  
-
-}
-export interface CardExpiresInMonthCallback{
-  
-
-}
-export interface CardPaymentCallback{
+export interface CardExpiredCallback {}
+export interface CardExpiresInMonthCallback {}
+export interface CardPaymentCallback {
   /**
    * The transaction ID
    */
-  transactionId: number
+  transactionId: number;
   /**
    * The transaction type
    */
-  transactionType: string
+  transactionType: string;
   /**
    * The amount in the account currency
    */
-  amount: number
-
+  amount: number;
 }
-export interface CardPaymentFailedCallback{
-  
-
-}
-export interface RobokassaPaymentCallback{
+export interface CardPaymentFailedCallback {}
+export interface RobokassaPaymentCallback {
   /**
    * The transaction ID
    */
-  transactionId: number
+  transactionId: number;
   /**
    * The transaction type
    */
-  transactionType: string
+  transactionType: string;
   /**
    * The amount in the account currency
    */
-  amount: number
-
+  amount: number;
 }
-export interface WireTransferCallback{
+export interface WireTransferCallback {
   /**
    * The transaction ID
    */
-  transactionId: number
+  transactionId: number;
   /**
    * The transaction type
    */
-  transactionType: string
+  transactionType: string;
   /**
    * The amount in the account currency
    */
-  amount: number
-
+  amount: number;
 }
-export interface JSFailCallback{
-  
-
-}
-export interface MinBalanceCallback{
+export interface JSFailCallback {}
+export interface MinBalanceCallback {
   /**
    * True if the credit threshold exceeded. The credit threshold = credit_limit - min_balance_to_notify, wherein min_balance_to_notify > 0
    */
-  isMinCredit: boolean
+  isMinCredit: boolean;
   /**
    * True if the callback is repeated
    */
-  isRepeated: boolean
-
+  isRepeated: boolean;
 }
-export interface RegulationAddressVerifiedCallback{
+export interface RegulationAddressVerifiedCallback {
   /**
    * The uploaded document ID
    */
-  regulationAddressId: number
+  regulationAddressId: number;
   /**
    * The document verification status. The following values are possible: VERIFIED, DECLINED
    */
-  regulationAddressStatus: string
+  regulationAddressStatus: string;
   /**
    * The UTC date of the document upload in format: YYYY-MM-DD HH::mm:ss
    */
-  uploaded: Date
+  uploaded: Date;
   /**
    * Account belongs to an individual
    */
-  isIndividual: boolean
+  isIndividual: boolean;
   /**
    * The reviewer's comment
    */
-  comment?: string
+  comment?: string;
   /**
    * The regulation address name
    */
-  regulationAddressName: string
-
+  regulationAddressName: string;
 }
-export interface RenewedSubscriptionsCallback{
+export interface RenewedSubscriptionsCallback {
   /**
    * The renewed subscription list
    */
-  subscriptions: RenewedSubscriptionsCallbackItem[]
-
+  subscriptions: RenewedSubscriptionsCallbackItem[];
 }
-export interface RenewedSubscriptionsCallbackItem{
+export interface RenewedSubscriptionsCallbackItem {
   /**
    * The subscription type, example: PHONE_NUM, SIP_REGISTRATION, PLAN
    */
-  type: string
+  type: string;
   /**
    * The subscription description (details). Example: the subscribed phone number
    */
-  name: string
+  name: string;
   /**
    * The subscription cost
    */
-  cost: number
+  cost: number;
   /**
    * The next renewal date, format: YYYY-MM-DD
    */
-  nextRenewal: Date
+  nextRenewal: Date;
   /**
    * Info about the phone numbers or sip registrations that the subscription is attached to
    */
-  details: SubscriptionCallbackDetails[]
-
+  details: SubscriptionCallbackDetails[];
 }
-export interface ResetAccountPasswordRequestCallback{
-  
-
-}
-export interface SIPRegistrationFailCallback{
+export interface ResetAccountPasswordRequestCallback {}
+export interface SIPRegistrationFailCallback {
   /**
    * SIP registration array
    */
-  sipRegistrations: SIPRegistrationIsFailedCallbackItem[]
-
+  sipRegistrations: SIPRegistrationIsFailedCallbackItem[];
 }
-export interface SIPRegistrationIsFailedCallbackItem{
+export interface SIPRegistrationIsFailedCallbackItem {
   /**
    * SIP registration ID
    */
-  sipRegistrationId: number
+  sipRegistrationId: number;
   /**
    * Status code from a SIP registration
    */
-  statusCode: string
+  statusCode: string;
   /**
    * Error message from a SIP registration
    */
-  errorMessage?: string
-
+  errorMessage?: string;
 }
-export interface SIPRegistrationRecoveredCallback{
+export interface SIPRegistrationRecoveredCallback {
   /**
    * SIP registration array
    */
-  sipRegistrations: SIPRegistrationIsRecoveredCallbackItem[]
-
+  sipRegistrations: SIPRegistrationIsRecoveredCallbackItem[];
 }
-export interface SIPRegistrationIsRecoveredCallbackItem{
+export interface SIPRegistrationIsRecoveredCallbackItem {
   /**
    * SIP registration ID
    */
-  sipRegistrationId: number
-
+  sipRegistrationId: number;
 }
-export interface SubscriptionIsDetachedCallback{
+export interface SubscriptionIsDetachedCallback {
   /**
    * The detached subscription list
    */
-  subscriptions: SubscriptionIsDetachedCallbackItem[]
-
+  subscriptions: SubscriptionIsDetachedCallbackItem[];
 }
-export interface SubscriptionIsDetachedCallbackItem{
+export interface SubscriptionIsDetachedCallbackItem {
   /**
    * The subscription type, example: PHONE_NUM, SIP_REGISTRATION
    */
-  type: string
+  type: string;
   /**
    * The subscription description (details). Example: the subscribed phone number
    */
-  name: string
+  name: string;
   /**
    * Info about the phone numbers or sip registrations that the subscription is attached to
    */
-  details: SubscriptionCallbackDetails[]
-
+  details: SubscriptionCallbackDetails[];
 }
-export interface SubscriptionIsFrozenCallback{
+export interface SubscriptionIsFrozenCallback {
   /**
    * The frozen subscription list
    */
-  subscriptions: SubscriptionIsFrozenCallbackItem[]
-
+  subscriptions: SubscriptionIsFrozenCallbackItem[];
 }
-export interface SubscriptionIsFrozenCallbackItem{
+export interface SubscriptionIsFrozenCallbackItem {
   /**
    * The subscription type, example: PHONE_NUM, SIP_REGISTRATION
    */
-  type: string
+  type: string;
   /**
    * The subscription description (details). Example: the subscribed phone number
    */
-  name: string
+  name: string;
   /**
    * The subscription cost
    */
-  cost: number
+  cost: number;
   /**
    * Info about the phone numbers or sip registrations that the subscription is attached to
    */
-  details: SubscriptionCallbackDetails[]
-
+  details: SubscriptionCallbackDetails[];
 }
-export interface StagnantAccountCallback{
-  
-
-}
-export interface TransactionHistoryReportCallback{
+export interface StagnantAccountCallback {}
+export interface TransactionHistoryReportCallback {
   /**
    * The history report ID
    */
-  historyReportId: number
+  historyReportId: number;
   /**
    * Success flag
    */
-  success: boolean
+  success: boolean;
   /**
    * The UTC order date in format: YYYY-MM-DD HH::mm:ss
    */
-  orderDate: Date
-
+  orderDate: Date;
 }
-export interface PlanConfigCallback{
+export interface PlanConfigCallback {
   /**
    * The plan type. The possible values are IM, MAU
    */
-  planType: string
+  planType: string;
   /**
    * The plan name
    */
-  planName: string
+  planName: string;
   /**
    * The account plan package array
    */
-  packages: PlanPackageConfig[]
-
+  packages: PlanPackageConfig[];
 }
-export interface PlanPackageConfig{
+export interface PlanPackageConfig {
   /**
    * The price group IDs
    */
-  priceGroupId: number[]
+  priceGroupId: number[];
   /**
    * The package name
    */
-  packageName?: string
+  packageName?: string;
   /**
    * The package UUID
    */
-  packageUuid: string
+  packageUuid: string;
   /**
    * Overrun is enabled
    */
-  mayOverrun: boolean
+  mayOverrun: boolean;
   /**
    * The current package size (including overrun)
    */
-  packageSize: number
-
+  packageSize: number;
 }
-export interface UnverifiedSubscriptionDetachedCallback{
+export interface UnverifiedSubscriptionDetachedCallback {
   /**
    * The frozen subscription list
    */
-  subscriptions: UnverifiedSubscriptionDetachedCallbackItem[]
-
+  subscriptions: UnverifiedSubscriptionDetachedCallbackItem[];
 }
-export interface UnverifiedSubscriptionDetachedCallbackItem{
+export interface UnverifiedSubscriptionDetachedCallbackItem {
   /**
    * The subscription type, example: PHONE_NUM, SIP_REGISTRATION
    */
-  type: string
+  type: string;
   /**
    * The subscription description (details). Example: the subscribed phone number
    */
-  name: string
+  name: string;
   /**
    * Info about the phone numbers or sip registrations that the subscription is attached to
    */
-  details: SubscriptionCallbackDetails[]
-
+  details: SubscriptionCallbackDetails[];
 }
-export interface ExpiringCallerIDCallback{
+export interface ExpiringCallerIDCallback {
   /**
    * The list of expiring Caller IDs
    */
-  callerids: string[]
+  callerids: string[];
   /**
    * The Caller IDs expiration date in YYYY-MM-DD format
    */
-  expirationDate: Date
-
+  expirationDate: Date;
 }
-export interface ExpiredCallerIDCallback{
+export interface ExpiredCallerIDCallback {
   /**
    * The list of the expired Caller IDs
    */
-  callerids: string[]
-
+  callerids: string[];
 }
-export interface TranscriptionCompleteCallback{
+export interface TranscriptionCompleteCallback {
   /**
    * The transcription info
    */
-  transcriptionComplete: TranscriptionCompleteCallbackItem
-
+  transcriptionComplete: TranscriptionCompleteCallbackItem;
 }
-export interface TranscriptionCompleteCallbackItem{
+export interface TranscriptionCompleteCallbackItem {
   /**
    * The record url
    */
-  recordUrl: string
+  recordUrl: string;
   /**
    * Transcription URL. To open the URL, please add authorization parameters and <b>record_id</b> to it
    */
-  transcriptionUrl: string
+  transcriptionUrl: string;
   /**
    * The call session history ID
    */
-  callSessionHistoryId: number
+  callSessionHistoryId: number;
   /**
    * The cost of transcription
    */
-  transcriptionCost: number
-
+  transcriptionCost: number;
 }
-export interface ExpiringAgreementCallback{
+export interface ExpiringAgreementCallback {
   /**
    * The date of agreement expiration in format: YYYY-MM-DD
    */
-  expirationDate: Date
+  expirationDate: Date;
   /**
    * The number of days left until an expiration date
    */
-  untilExpiration: number
-
+  untilExpiration: number;
 }
-export interface NextChargeAlertCallback{
+export interface NextChargeAlertCallback {
   /**
    * The price (in the account currency) of all subscription plans to be renewed on the 1st day of the month
    */
-  requiredMoney: number
+  requiredMoney: number;
   /**
    * The amount of money in the account currency required to renew the subscription plans
    */
-  insufficientFundsAmount: number
-
+  insufficientFundsAmount: number;
 }
-export interface CertificateExpiredCallback{
-  
-
-}
-export interface ExpiredCertificateCallback{
+export interface CertificateExpiredCallback {}
+export interface ExpiredCertificateCallback {
   /**
    * The expired certificates info
    */
-  certificates: CertificateInfo[]
-
+  certificates: CertificateInfo[];
 }
-export interface ExpiringCertificateCallback{
+export interface ExpiringCertificateCallback {
   /**
    * The expiring certificates info
    */
-  certificates: CertificateInfo[]
-
+  certificates: CertificateInfo[];
 }
-export interface CertificateInfo{
+export interface CertificateInfo {
   /**
    * The push credential id
    */
-  pushCredentialId: number
+  pushCredentialId: number;
   /**
    * The push certificate file name
    */
-  certFileName: string
+  certFileName: string;
   /**
    * The push certificate expiration date in YYYY-MM-DD format
    */
-  expirationDate?: Date
+  expirationDate?: Date;
   /**
    * Array of application names
    */
-  applications?: string[]
-
+  applications?: string[];
 }
-export interface SubscriptionCallbackDetails{
+export interface SubscriptionCallbackDetails {
   /**
    * Type that the subscription is attached to. Possible values are PHONE and SIP_REGISTRATION
    */
-  type: string
+  type: string;
   /**
    * Object containing the subscription's phone numbers and their ids if type = PHONE
    */
-  phoneNumbers?: SubscriptionCallbackDetailsPhoneNumbers[]
+  phoneNumbers?: SubscriptionCallbackDetailsPhoneNumbers[];
   /**
    * Object containing the subscription's sip registrations ids if type = SIP_REGISTRATION
    */
-  sipRegistrations?: SubscriptionCallbackDetailsSipRegistrations[]
-
+  sipRegistrations?: SubscriptionCallbackDetailsSipRegistrations[];
 }
-export interface SubscriptionCallbackDetailsPhoneNumbers{
+export interface SubscriptionCallbackDetailsPhoneNumbers {
   /**
    * Phone number id
    */
-  phoneId: number
+  phoneId: number;
   /**
    * Phone number
    */
-  phoneNumber: string
-
+  phoneNumber: string;
 }
-export interface SubscriptionCallbackDetailsSipRegistrations{
+export interface SubscriptionCallbackDetailsSipRegistrations {
   /**
    * Sip registration id
    */
-  sipRegistrationId: number
-
+  sipRegistrationId: number;
 }
-export interface A2PActivatedCallback{
+export interface A2PActivatedCallback {
   /**
    * A2P messages are allowed
    */
-  a2pEnabled: boolean
-
+  a2pEnabled: boolean;
 }
-export interface AccountDocumentStatusUpdatedCallback{
+export interface AccountDocumentStatusUpdatedCallback {
   /**
    * Uploaded document ID
    */
-  accountDocumentId: number
+  accountDocumentId: number;
   /**
    * Previous document verification status. The following values are possible: WAITING_CONFIRMATION_DOCS, VERIFIED, REJECTED
    */
-  previousAccountDocumentStatus: string
+  previousAccountDocumentStatus: string;
   /**
    * Document verification status. The following values are possible: WAITING_CONFIRMATION_DOCS, VERIFIED, REJECTED
    */
-  accountDocumentStatus: string
+  accountDocumentStatus: string;
   /**
    * UTC time when the status is updated
    */
-  updateTime: Date
+  updateTime: Date;
   /**
    * Reviewer's comment
    */
-  comment?: string
+  comment?: string;
   /**
    * Status of the user in the context of entrepreneurial activity. Possible values are 'individual', 'entrepreneur', 'legal entity'
    */
-  legalStatus: string
-
+  legalStatus: string;
 }
-export interface RegulationAddressDocumentsRequestedCallback{
+export interface RegulationAddressDocumentsRequestedCallback {
   /**
    * Uploaded document ID
    */
-  regulationAddressId: number
+  regulationAddressId: number;
   /**
    * Uploaded document name
    */
-  regulationAddressName: string
+  regulationAddressName: string;
   /**
    * Document verification status. The following values are possible: IN_PROGRESS, VERIFIED, DECLINED, PENDING
    */
-  regulationAddressStatus: string
+  regulationAddressStatus: string;
   /**
    * UTC time when the status is updated
    */
-  updateTime: Date
+  updateTime: Date;
   /**
    * Account belongs to an individual
    */
-  isIndividual: boolean
+  isIndividual: boolean;
   /**
    * Reviewer's comment
    */
-  comment?: string
-
+  comment?: string;
 }
-export interface InvoiceReceivedCallback{
+export interface InvoiceReceivedCallback {
   /**
    * Invoice ID
    */
-  invoiceId: number
+  invoiceId: number;
   /**
    * Date when invoice is created
    */
-  invoiceDate: Date
+  invoiceDate: Date;
   /**
    * Date when invoice is received
    */
-  receivalDate: Date
+  receivalDate: Date;
   /**
    * Amount of money in the invoice (excluding taxes)
    */
-  amount: string
+  amount: string;
   /**
    * Tax amount in the invoice
    */
-  taxAmount: string
+  taxAmount: string;
   /**
    * Invoice currency
    */
-  currency: string
-
+  currency: string;
 }
-export interface ZipCode{
+export interface ZipCode {
   /**
    * The city name
    */
-  city: string
+  city: string;
   /**
    * The zip code
    */
-  zipCode: string
-
+  zipCode: string;
 }
-export interface RegulationCountry{
+export interface RegulationCountry {
   /**
    * The country code A2
    */
-  countryCode: string
+  countryCode: string;
   /**
    * The country name
    */
-  countryName: string
-
+  countryName: string;
 }
-export interface RegulationAddress{
+export interface RegulationAddress {
   /**
    * The regulation address ID
    */
-  regulationAddressId: number
+  regulationAddressId: number;
   /**
    * The external ID
    */
-  externalId: string
+  externalId: string;
   /**
    * The country code
    */
-  countryCode: string
+  countryCode: string;
   /**
    * The phone category name
    */
-  phoneCategoryName: string
+  phoneCategoryName: string;
   /**
    * The salutation. Possible values: MR, MS, COMPANY
    */
-  salutation: string
+  salutation: string;
   /**
    * The company name
    */
-  company?: string
+  company?: string;
   /**
    * The first name
    */
-  firstName?: string
+  firstName?: string;
   /**
    * The last name
    */
-  lastName?: string
+  lastName?: string;
   /**
    * The owner country code
    */
-  ownerCountryCode?: string
+  ownerCountryCode?: string;
   /**
    * The city name
    */
-  city: string
+  city: string;
   /**
    * The zip code
    */
-  zipCode: string
+  zipCode: string;
   /**
    * The zip code
    */
-  street: string
+  street: string;
   /**
    * The builder number
    */
-  builderNumber: string
+  builderNumber: string;
   /**
    * The builder latter
    */
-  builderLatter?: string
+  builderLatter?: string;
   /**
    * The status verification. Possible values: IN_PROGRESS, VERIFIED, DECLINED
    */
-  status?: string
+  status?: string;
   /**
    * The reject message
    */
-  rejectMessage?: string
-
+  rejectMessage?: string;
 }
-export interface RegulationRegionRecord{
+export interface RegulationRegionRecord {
   /**
    * The regulation address ID
    */
-  phoneRegionId: number
+  phoneRegionId: number;
   /**
    * The region name
    */
-  phoneRegionName: string
+  phoneRegionName: string;
   /**
-   * The phone region code 
+   * The phone region code
    */
-  phoneRegionCode: string
+  phoneRegionCode: string;
   /**
    * The need to confirm the address
    */
-  isNeedRegulationAddress: boolean
+  isNeedRegulationAddress: boolean;
   /**
    * The regulation address type. Available: LOCAL, NATIONAL, WORLDWIDE
    */
-  regulationAddressType: string
-
+  regulationAddressType: string;
 }
-export interface BankCard{
+export interface BankCard {
   /**
    * The payment system. The possible values are ALFABANK, BRAINTREE
    */
-  bankCardProvider: string
+  bankCardProvider: string;
   /**
    * The auto_charge flag
    */
-  autoCharge: boolean
+  autoCharge: boolean;
   /**
    * The min account balance to trigger the auto charging
    */
-  minBalance : number
+  minBalance: number;
   /**
    * The card overrun value in the account currency
    */
-  cardOverrunValue: number
+  cardOverrunValue: number;
   /**
    * The card expiration year
    */
-  expirationYear: number
+  expirationYear: number;
   /**
    * The card expiration month
    */
-  expirationMonth: number
+  expirationMonth: number;
   /**
    * The last card number digits
    */
-  acct: number
+  acct: number;
   /**
    * The last card error
    */
-  lastError?: BankCardError
+  lastError?: BankCardError;
   /**
    * The cardholder’s first name and last name
    */
-  cardHolder?: string
+  cardHolder?: string;
   /**
    * The card's payment system. The possible values are VISA, MASTER CARD
    */
-  cardType?: string
-
+  cardType?: string;
 }
-export interface BankCardError{
+export interface BankCardError {
   /**
    * The error date in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  date: Date
+  date: Date;
   /**
    * The error message
    */
-  msg: string
+  msg: string;
   /**
    * The amount in the payment currency
    */
-  amount?: number
+  amount?: number;
   /**
    * The payment currency
    */
-  currency?: string
-
+  currency?: string;
 }
-export interface AllocateAlfaBankPaymentResult{
+export interface AllocateAlfaBankPaymentResult {
   /**
    * The URL to redirect
    */
-  formUrl: string
+  formUrl: string;
   /**
    * The payment ID
    */
-  paymentId : string
-
+  paymentId: string;
 }
-export interface PstnBlackListInfo{
+export interface PstnBlackListInfo {
   /**
    * The black list item ID
    */
-  pstnBlacklistId: number
+  pstnBlacklistId: number;
   /**
    * The phone number
    */
-  pstnBlacklistPhone : string
-
+  pstnBlacklistPhone: string;
 }
-export interface DialogflowKeyInfo{
+export interface DialogflowKeyInfo {
   /**
    * The Dialogflow key's id
    */
-  dialogflowKeyId: number
+  dialogflowKeyId: number;
   /**
    * The key's content
    */
-  content?: DialogflowKey
+  content?: DialogflowKey;
   /**
    * Bound applications
    */
-  applications?: ApplicationInfo[]
-
+  applications?: ApplicationInfo[];
 }
-export interface DialogflowKey{
+export interface DialogflowKey {
   /**
    * The project ID from Json Web Key
    */
-  projectId: string
-
+  projectId: string;
 }
-export interface PushCredentialInfo{
+export interface PushCredentialInfo {
   /**
    * The push credential id
    */
-  pushCredentialId: number
+  pushCredentialId: number;
   /**
    * The push provider id
    */
-  pushProviderId: number
+  pushProviderId: number;
   /**
    * The push provider name. The possible values are APPLE, APPLE_VOIP, GOOGLE, HUAWEI
    */
-  pushProviderName: string
+  pushProviderName: string;
   /**
    * The bundle of Android/iOS application
    */
-  credentialBundle?: string
+  credentialBundle?: string;
   /**
    * The credentials content
    */
-  content?: PushCredentialContent[]
+  content?: PushCredentialContent[];
   /**
    * Bound applications
    */
-  applications?: ApplicationInfo[]
-
+  applications?: ApplicationInfo[];
 }
-export interface PushCredentialContent{
+export interface PushCredentialContent {
   /**
    * The file name. Credentials for APPLE push
    */
-  certFileName?: string
+  certFileName?: string;
   /**
    * The certificate content in BASE64. Credentials for APPLE push
    */
-  certContent?: string
+  certContent?: string;
   /**
    * The use in a Apple sandbox environment. Credentials for APPLE push
    */
-  isDevMode: boolean
+  isDevMode: boolean;
   /**
    * The sender id provided by Google. Credentials for GOOGLE push
    */
-  senderId?: string
+  senderId?: string;
   /**
    * The client id, provided by Huawei. Credentials for HUAWEI push
    */
-  huaweiClientId: string
+  huaweiClientId: string;
   /**
    * The application id, provided by Huawei. Credentials for HUAWEI push
    */
-  huaweiApplicationId: string
-
+  huaweiApplicationId: string;
 }
-export interface InboundSmsCallback{
+export interface InboundSmsCallback {
   /**
    * The incoming SMS info
    */
-  smsInbound: InboundSmsCallbackItem
-
+  smsInbound: InboundSmsCallbackItem;
 }
-export interface InboundSmsCallbackItem{
+export interface InboundSmsCallbackItem {
   /**
    * The source phone number
    */
-  sourceNumber: string
+  sourceNumber: string;
   /**
    * The destination phone number
    */
-  destinationNumber: string
+  destinationNumber: string;
   /**
    * The message
    */
-  smsBody: string
-
+  smsBody: string;
 }
-export interface NewInvoiceCallback{
+export interface NewInvoiceCallback {
   /**
    * The invoice info
    */
-  newInvoice: NewInvoiceCallbackItem
-
+  newInvoice: NewInvoiceCallbackItem;
 }
-export interface NewInvoiceCallbackItem{
+export interface NewInvoiceCallbackItem {
   /**
    * The invoice unique number
    */
-  invoiceNumber: string
+  invoiceNumber: string;
   /**
    * The invoice date
    */
-  invoiceDate: string
+  invoiceDate: string;
   /**
    * It's a prepayment
    */
-  prepayment: boolean
+  prepayment: boolean;
   /**
    * The invoice currency
    */
-  currency: string
+  currency: string;
   /**
    * The invoice's total amount including taxes
    */
-  totalAmount: number
+  totalAmount: number;
   /**
    * The total amount of taxes
    */
-  totalTaxAmount: number
+  totalTaxAmount: number;
   /**
    * Array with the services that were provided
    */
-  units: InvoiceUnits[]
-
+  units: InvoiceUnits[];
 }
-export interface InvoiceUnits{
+export interface InvoiceUnits {
   /**
    * The service name
    */
-  description: string
+  description: string;
   /**
    * The service fee (excluding taxes)
    */
-  amount?: number
+  amount?: number;
   /**
    * The tax rate in the range of [0 ... 1]
    */
-  vatRate: number
+  vatRate: number;
   /**
    * The tax amount
    */
-  taxAmount: number
-
+  taxAmount: number;
 }
-export interface RecordStorageInfo{
+export interface RecordStorageInfo {
   /**
    * The record storage ID
    */
-  recordStorageId?: number
+  recordStorageId?: number;
   /**
    * The record storage name
    */
-  recordStorageName?: string
-
+  recordStorageName?: string;
 }
-export interface MGPInfo{
+export interface MGPInfo {
   /**
    * The MGP ID
    */
-  mgpId: number
+  mgpId: number;
   /**
    * The MGP template ID
    */
-  mgpTemplateId: number
+  mgpTemplateId: number;
   /**
    * The MGP template price
    */
-  mgpTemplatePrice: number
+  mgpTemplatePrice: number;
   /**
    * The MGP template currency
    */
-  mgpTemplateCurrency: string
+  mgpTemplateCurrency: string;
   /**
    * The MGP activation date
    */
-  mgpActivated: Date
+  mgpActivated: Date;
   /**
    * The MGP deactivation date
    */
-  mgpDeactivated?: Date
-
+  mgpDeactivated?: Date;
 }
-export interface SmsTransaction{
+export interface SmsTransaction {
   /**
    * Message ID
    */
-  messageId: number
+  messageId: number;
   /**
    * The SMS destination number
    */
-  destinationNumber: string
-
+  destinationNumber: string;
 }
-export interface FailedSms{
+export interface FailedSms {
   /**
    * The SMS destination number
    */
-  destinationNumber: string
+  destinationNumber: string;
   /**
    * The error description
    */
-  errorDescription: string
+  errorDescription: string;
   /**
    * The error code
    */
-  errorCode: number
-
+  errorCode: number;
 }
-export interface MGPTemplateInfo{
+export interface MGPTemplateInfo {
   /**
    * The MGP template ID
    */
-  mgpTemplateId: number
+  mgpTemplateId: number;
   /**
    * The MGP template name
    */
-  mgpTemplateName: string
+  mgpTemplateName: string;
   /**
    * The MGP template price
    */
-  mgpTemplatePrice: number
+  mgpTemplatePrice: number;
   /**
    * The MGP template currency
    */
-  mgpTemplateCurrency: string
-
+  mgpTemplateCurrency: string;
 }
-export interface KeyInfo{
+export interface KeyInfo {
   /**
    * Client email
    */
-  accountEmail: string
+  accountEmail: string;
   /**
    * The account ID
    */
-  accountId: number
+  accountId: number;
   /**
    * The key ID
    */
-  keyId: string
+  keyId: string;
   /**
    * The private key
    */
-  privateKey: string
-
+  privateKey: string;
 }
-export interface KeyView{
+export interface KeyView {
   /**
    * The key ID
    */
-  keyId: string
+  keyId: string;
   /**
    * The key roles
    */
-  roles?: RoleView[]
+  roles?: RoleView[];
   /**
    * The key description
    */
-  description: string
+  description: string;
   /**
    * The key subuser
    */
-  subuser?: SubUserView[]
-
+  subuser?: SubUserView[];
 }
-export interface SubUserView{
+export interface SubUserView {
   /**
    * The subuser ID
    */
-  subuserId: number
+  subuserId: number;
   /**
    * The subuser name, can be used as __subuser_login__ to <a href='/docs/guides/managementapi/authorization'>authenticate</a>
    */
-  subuserName: string
+  subuserName: string;
   /**
    * The subuser description
    */
-  description?: string
+  description?: string;
   /**
    * The subuser roles
    */
-  roles?: RoleView[]
-
+  roles?: RoleView[];
 }
-export interface SubUserID{
+export interface SubUserID {
   /**
    * The subuser ID
    */
-  subuserId: number
-
+  subuserId: number;
 }
-export interface RoleView{
+export interface RoleView {
   /**
    * The role name
    */
-  roleName: string
+  roleName: string;
   /**
    * The role ID
    */
-  roleId: number
+  roleId: number;
   /**
    * Shows that the role is inherited
    */
-  inherited?: boolean
+  inherited?: boolean;
   /**
    * Child roles IDs array
    */
-  childIds?: number[]
+  childIds?: number[];
   /**
    * Parent roles IDs array
    */
-  parentRoleId?: number[]
+  parentRoleId?: number[];
   /**
    * Shows that the role is gui only
    */
-  guiOnly: boolean
-
+  guiOnly: boolean;
 }
-export interface RoleGroupView{
+export interface RoleGroupView {
   /**
    * The role group ID
    */
-  id: number
+  id: number;
   /**
    * The role group name
    */
-  name: string
-
+  name: string;
 }
-export interface ChildAccountSubscription{
+export interface ChildAccountSubscription {
   /**
    * The subscription ID
    */
-  subscriptionId: number
+  subscriptionId: number;
   /**
    * The subscription name
    */
-  subscriptionName: string
+  subscriptionName: string;
   /**
    * The subscription template ID
    */
-  subscriptionTemplateId: number
+  subscriptionTemplateId: number;
   /**
    * The subscription is prolonged automatically
    */
-  autoCharge?: boolean
+  autoCharge?: boolean;
   /**
    * The next charge UTC date in format: YYYY-MM-DD
    */
-  nextRenewal?: Date
+  nextRenewal?: Date;
   /**
    * The periodic payment amount
    */
-  periodicPrice?: number
+  periodicPrice?: number;
   /**
    * The subscription is active
    */
-  active?: boolean
-
+  active?: boolean;
 }
-export interface ChildAccountSubscriptionTemplate{
+export interface ChildAccountSubscriptionTemplate {
   /**
    * The subscription template ID
    */
-  subscriptionTemplateId: number
+  subscriptionTemplateId: number;
   /**
    * The subscription template name
    */
-  subscriptionTemplateName: string
+  subscriptionTemplateName: string;
   /**
    * The subscription template installation price
    */
-  installationPrice: number
+  installationPrice: number;
   /**
    * The subscription template periodic price
    */
-  periodicPrice: number
-
+  periodicPrice: number;
 }
-export interface SmsHistory{
+export interface SmsHistory {
   /**
    * Message ID
    */
-  messageId: number
+  messageId: number;
   /**
    * Number being called from
    */
-  sourceNumber: number
+  sourceNumber: number;
   /**
    * Number being called to
    */
-  destinationNumber: number
+  destinationNumber: number;
   /**
    * Incoming or outgoing message
    */
-  direction: string
+  direction: string;
   /**
    * Number of fragments the initial message was divided into
    */
-  fragments: number
+  fragments: number;
   /**
    * Cost of the message
    */
-  cost: number
+  cost: number;
   /**
    * Status of the message. 1 - Success, 2 - Error
    */
-  statusId: string
+  statusId: string;
   /**
    * Error message (if any)
    */
-  errorMessage?: string
+  errorMessage?: string;
   /**
    * Date of message processing. The format is yyyy-MM-dd HH:mm:ss
    */
-  processedDate: Date
+  processedDate: Date;
   /**
    * Id of the transaction for this message
    */
-  transactionId?: number
+  transactionId?: number;
   /**
    * Stored message text
    */
-  text?: string
-
+  text?: string;
 }
-export interface A2PSmsHistory{
+export interface A2PSmsHistory {
   /**
    * Message ID
    */
-  messageId: number
+  messageId: number;
   /**
    * SMS source number
    */
-  sourceNumber: number
+  sourceNumber: number;
   /**
    * SMS destination number
    */
-  destinationNumber: number
+  destinationNumber: number;
   /**
    * Number of fragments the initial message was divided into
    */
-  fragments: number
+  fragments: number;
   /**
    * The message cost
    */
-  cost: number
+  cost: number;
   /**
    * The message status. 1 - Success, 2 - Error
    */
-  statusId: string
+  statusId: string;
   /**
    * Error message (if any)
    */
-  errorMessage?: string
+  errorMessage?: string;
   /**
    * Date of message processing. The format is yyyy-MM-dd HH:mm:ss
    */
-  processingDate: Date
+  processingDate: Date;
   /**
    * The transaction ID for this message
    */
-  transactionId: number
+  transactionId: number;
   /**
    * Delivery status: QUEUED, DISPATCHED, ABORTED, REJECTED, DELIVERED, FAILED, EXPIRED, UNKNOWN
    */
-  deliveryStatus: string
+  deliveryStatus: string;
   /**
    * Stored message text
    */
-  text?: string
-
+  text?: string;
 }
-export interface ExpiredAgreementCallback{
+export interface ExpiredAgreementCallback {
   /**
    * The list of the expired agreements IDs
    */
-  documentIds: number[]
-
+  documentIds: number[];
 }
-export interface RestoredAgreementStatusCallback{
+export interface RestoredAgreementStatusCallback {
   /**
    * ID of the agreement document which status has been changed
    */
-  documentId: number
+  documentId: number;
   /**
    * The new date of agreement expiration in format: YYYY-MM-DD
    */
-  expirationDate: Date
-
+  expirationDate: Date;
 }
-export interface GetMaxBankCardPaymentResult{
+export interface GetMaxBankCardPaymentResult {
   /**
    * The maximum payment for the specified card. It's always equal or less than **new_max_payment**
    */
-  maxPayment: number
+  maxPayment: number;
   /**
    * The maximum payment available for any card. The values depends on payment gateways, previous transactions during the last 24 hours, etc
    */
-  newMaxPayment: number
+  newMaxPayment: number;
   /**
    * The currency code (USD, RUR, ...)
    */
-  currency: string
-
+  currency: string;
 }
-export interface GetAutochargeConfigResult{
+export interface GetAutochargeConfigResult {
   /**
    * Is auto charge enabled or not
    */
-  autoCharge: boolean
+  autoCharge: boolean;
   /**
    * The auto charge threshold
    */
-  minBalance: number
+  minBalance: number;
   /**
    * The auto top-up amount in the account's currency
    */
-  cardOverrunValue: string
+  cardOverrunValue: string;
   /**
    * The email for receiving payment receipts
    */
-  receiptEmail: string
-
+  receiptEmail: string;
 }
-export interface GetSQQueuesResult{
+export interface GetSQQueuesResult {
   /**
    * ID of the SmartQueue
    */
-  sqQueueId: number
+  sqQueueId: number;
   /**
    * Name of the SmartQueue
    */
-  sqQueueName: string
+  sqQueueName: string;
   /**
    * Agent selection strategy
    */
-  agentSelection: string
+  agentSelection: string;
   /**
    * Strategy of prioritizing requests for service
    */
-  taskSelection: string
+  taskSelection: string;
   /**
    * Comment
    */
-  description?: string
+  description?: string;
   /**
    * UTC date of the queue creation in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  created?: Date
+  created?: Date;
   /**
    * UTC date of the queue modification in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  modified?: Date
+  modified?: Date;
   /**
    * Maximum time in minutes that a CALL-type request can remain in the queue without being assigned to an agent
    */
-  callMaxWaitingTime?: number
+  callMaxWaitingTime?: number;
   /**
    * Maximum time in minutes that an IM-type request can remain in the queue without being assigned to an agent
    */
-  imMaxWaitingTime?: number
+  imMaxWaitingTime?: number;
   /**
    * Maximum size of the queue with CALL-type requests
    */
-  callMaxQueueSize?: number
+  callMaxQueueSize?: number;
   /**
    * Maximum size of the queue with IM-type requests
    */
-  imMaxQueueSize?: number
+  imMaxQueueSize?: number;
   /**
    * Number of agents bound to the queue
    */
-  agentcount?: number
-
+  agentcount?: number;
 }
-export interface GetSQSkillsResult{
+export interface GetSQSkillsResult {
   /**
    * ID of the skill
    */
-  sqSkillId: number
+  sqSkillId: number;
   /**
    * Name of the skill
    */
-  sqSkillName: string
+  sqSkillName: string;
   /**
    * Comment
    */
-  description?: string
+  description?: string;
   /**
    * UTC date of the queue creation in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  created?: Date
+  created?: Date;
   /**
    * UTC date of the queue modification in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  modified?: Date
-
+  modified?: Date;
 }
-export interface GetSQAgentsResult{
+export interface GetSQAgentsResult {
   /**
    * ID of the user
    */
-  userId?: number
+  userId?: number;
   /**
    * Name of the user
    */
-  userName?: string
+  userName?: string;
   /**
    * Display name of the user
    */
-  userDisplayName?: string
+  userDisplayName?: string;
   /**
    * Maximum number of chats that the user processes simultaneously
    */
-  maxSimultaneousConversations?: number
+  maxSimultaneousConversations?: number;
   /**
    * Agent statuses info
    */
-  sqStatuses?: SmartQueueStateAgentStatus[]
+  sqStatuses?: SmartQueueStateAgentStatus[];
   /**
    * JSON array of the agent's queues
    */
-  sqQueues?: any
+  sqQueues?: any;
   /**
    * JSON array of the agent's skills
    */
-  sqSkills?: any
-
+  sqSkills?: any;
 }
-export interface SQAgentSelectionStrategies{
+export interface SQAgentSelectionStrategies {
   /**
    * The most qualified agent
    */
-  MOSTQUALIFIED?: string
+  MOSTQUALIFIED?: string;
   /**
    * The least qualified agent
    */
-  LEASTQUALIFIED?: string
+  LEASTQUALIFIED?: string;
   /**
    * Agent who has been free the longest since the end of the last call
    */
-  MAXWAITINGTIME?: string
-
+  MAXWAITINGTIME?: string;
 }
-export interface SQTaskSelectionStrategies{
+export interface SQTaskSelectionStrategies {
   /**
    * Calls or messages with the highest priority are the first to distribute to agents
    */
-  MAXPRIORITY?: string
+  MAXPRIORITY?: string;
   /**
    * Calls or messages with the longest waiting time are the first to distribute to agents
    */
-  MAXWAITINGTIME?: string
-
+  MAXWAITINGTIME?: string;
 }
-export interface SQSkillBindingModes{
+export interface SQSkillBindingModes {
   /**
    * Add new skills to the agents
    */
-  add?: string
+  add?: string;
   /**
    * Replace agent skills with new ones
    */
-  replaceSkills?: string
+  replaceSkills?: string;
   /**
    * Replace agents with new ones
    */
-  replaceAgents?: string
-
+  replaceAgents?: string;
 }
-export interface SQAgentBindingModes{
+export interface SQAgentBindingModes {
   /**
    * Add additional queues to the agent
    */
-  addQueues?: string
+  addQueues?: string;
   /**
    * Unbind all the existing agents from the queue and bind new agents
    */
-  replaceAgents?: string
+  replaceAgents?: string;
   /**
    * Remove all the queues from the agent and bind new queues
    */
-  add?: string
+  add?: string;
   /**
    * Unbind all the existing agents and all the existing queues, then bind the specified queues to the specified agents
    */
-  replace?: string
-
+  replace?: string;
 }
-export interface SmartQueueMetricsResult{
+export interface SmartQueueMetricsResult {
   /**
    * The report type(s). Possible values are calls_blocked_percentage, count_blocked_calls, average_abandonment_rate, count_abandonment_calls, service_level, occupancy_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_banned_time, min_time_in_queue,max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime, sum_agents_custom_1_time ... sum_agents_custom_10_time
    */
-  reportType: string
+  reportType: string;
   /**
    * Grouping by agent or queue
    */
-  groups: SmartQueueMetricsGroups[]
-
+  groups: SmartQueueMetricsGroups[];
 }
-export interface SmartQueueMetricsGroups{
+export interface SmartQueueMetricsGroups {
   /**
    * The SmartQueue ID
    */
-  sqQueueId?: number
+  sqQueueId?: number;
   /**
    * The SmartQueue name
    */
-  sqQueueName?: string
+  sqQueueName?: string;
   /**
    * The user ID
    */
-  userId?: number
+  userId?: number;
   /**
    * The user name
    */
-  userName?: string
+  userName?: string;
   /**
    * The user display name
    */
-  userDisplayName?: string
+  userDisplayName?: string;
   /**
    * The group values
    */
-  values: SmartQueueMetricsGroupsValues[]
-
+  values: SmartQueueMetricsGroupsValues[];
 }
-export interface SmartQueueMetricsGroupsValues{
+export interface SmartQueueMetricsGroupsValues {
   /**
    * The start of the period
    */
-  fromDate: Date
+  fromDate: Date;
   /**
    * The end of the period
    */
-  toDate: Date
+  toDate: Date;
   /**
    * The report value
    */
-  value: number
-
+  value: number;
 }
-export interface SmartQueueState{
+export interface SmartQueueState {
   /**
    * The SmartQueue ID
    */
-  sqQueueId: number
+  sqQueueId: number;
   /**
    * The SmartQueue name
    */
-  sqQueueName: string
+  sqQueueName: string;
   /**
    * The list of logged-in agents with their skills and statuses
    */
-  sqAgents: SmartQueueStateAgent[]
+  sqAgents: SmartQueueStateAgent[];
   /**
    * The list of tasks
    */
-  tasks: SmartQueueStateTask[]
-
+  tasks: SmartQueueStateTask[];
 }
-export interface SmartQueueStateTask{
+export interface SmartQueueStateTask {
   /**
    * The task type. Possible values are CALL, IM
    */
-  taskType: string
+  taskType: string;
   /**
    * The task status. Possible values are IN_QUEUE, DISTRIBUTED, IN_PROCESSING
    */
-  status: string
+  status: string;
   /**
    * Selected agent
    */
-  userId?: number
+  userId?: number;
   /**
    * Task skills
    */
-  sqSkills: SmartQueueTaskSkill[]
+  sqSkills: SmartQueueTaskSkill[];
   /**
    * Waiting time in ms
    */
-  waitingTime: number
+  waitingTime: number;
   /**
    * Processing time in ms
    */
-  processingTime: number
+  processingTime: number;
   /**
    * Custom data text string for the current task. You can set the custom data in the [enqueueTask](/docs/references/voxengine/voxengine/enqueuetask#enqueuetask) method
    */
-  customData?: any
-
+  customData?: any;
 }
-export interface SmartQueueStateAgent{
+export interface SmartQueueStateAgent {
   /**
    * The user ID
    */
-  userId: number
+  userId: number;
   /**
    * The user name
    */
-  userName: string
+  userName: string;
   /**
    * The display user name
    */
-  userDisplayName: string
+  userDisplayName: string;
   /**
    * Agent skills
    */
-  sqSkills: SmartQueueAgentSkill[]
+  sqSkills: SmartQueueAgentSkill[];
   /**
    * Agent statuses info
    */
-  sqStatuses: SmartQueueStateAgentStatus[]
-
+  sqStatuses: SmartQueueStateAgentStatus[];
 }
-export interface SmartQueueAgentSkill{
+export interface SmartQueueAgentSkill {
   /**
    * The agent skill ID
    */
-  sqSkillId: number
+  sqSkillId: number;
   /**
    * The agent skill name
    */
-  sqSkillName: string
+  sqSkillName: string;
   /**
    * The agent skill level
    */
-  sqSkillLevel: number
-
+  sqSkillLevel: number;
 }
-export interface SmartQueueTaskSkill{
+export interface SmartQueueTaskSkill {
   /**
    * The skill name
    */
-  sqSkillName: string
+  sqSkillName: string;
   /**
    * The skill level
    */
-  sqSkillLevel: number
-
+  sqSkillLevel: number;
 }
-export interface SmartQueueStateAgentStatus{
+export interface SmartQueueStateAgentStatus {
   /**
    * The IM status info
    */
-  IM: SmartQueueStateAgentStatus_
+  IM: SmartQueueStateAgentStatus_;
   /**
    * The CALL status info
    */
-  CALL: SmartQueueStateAgentStatus_
-
+  CALL: SmartQueueStateAgentStatus_;
 }
-export interface SmartQueueStateAgentStatus_{
+export interface SmartQueueStateAgentStatus_ {
   /**
    * The status name
    */
-  sqStatusName: string
+  sqStatusName: string;
   /**
    * Time in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  fromDate: Date
-
+  fromDate: Date;
 }
-export interface KeyValueItems{
+export interface KeyValueItems {
   /**
    * Key that matches the specified key or key pattern
    */
-  key: string
+  key: string;
   /**
    * Value for the specified key
    */
-  value: string
+  value: string;
   /**
    * Expiration date based on **ttl** (timestamp without milliseconds)
    */
-  expiresAt: number
-
+  expiresAt: number;
 }
-export interface KeyValuePairs{
+export interface KeyValuePairs {
   /**
    * Key that matches the pattern
    */
-  key: string
+  key: string;
   /**
    * Value for the specified key
    */
-  value: string
+  value: string;
   /**
    * Expiration date based on **ttl** (timestamp without milliseconds)
    */
-  expiresAt: number
-
+  expiresAt: number;
 }
-export interface KeyValueKeys{
+export interface KeyValueKeys {
   /**
    * Key that matches the pattern
    */
-  key: string
+  key: string;
   /**
    * Expiration date based on **ttl** (timestamp without milliseconds)
    */
-  expiresAt: number
-
+  expiresAt: number;
 }
-export interface AccountInvocie{
+export interface AccountInvoice {
   /**
    * Invoice period
    */
-  period: InvoicePeriod
+  period: InvoicePeriod;
   /**
    * Info on all money spent in the invoice
    */
-  amount: InvoiceTotalDetails
+  amount: InvoiceTotalDetails;
   /**
    * Invoice id
    */
-  invoiceId: number
+  invoiceId: number;
   /**
    * Detailed info on each spending
    */
-  rows: InvoiceSpendingDetails
+  rows: InvoiceSpendingDetails;
   /**
    * Unique invoice number
    */
-  invoiceNumber: string
+  invoiceNumber: string;
   /**
    * Date when the invoice is created in format: YYYY-MM-DD
    */
-  invoiceDate: Date
+  invoiceDate: Date;
   /**
    * Invoice status
    */
-  status: string
-
+  status: string;
 }
-export interface InvoicePeriod{
+export interface InvoicePeriod {
   /**
    * From date in format: YYYY-MM-DD
    */
-  from: Date
+  from: Date;
   /**
    * To date in format: YYYY-MM-DD
    */
-  to: Date
-
+  to: Date;
 }
-export interface InvoiceTotalDetails{
+export interface InvoiceTotalDetails {
   /**
    * Total amount of taxes
    */
-  taxAmount: number
+  taxAmount: number;
   /**
    * Invoice total amount including taxes
    */
-  totalAmount: number
+  totalAmount: number;
   /**
    * Discounted amount to pay
    */
-  amountToPay: number
+  amountToPay: number;
   /**
    * Discount
    */
-  discountAmount: number
+  discountAmount: number;
   /**
    * Invoice currency
    */
-  currency: string
-
+  currency: string;
 }
-export interface InvoiceSpendingDetails{
+export interface InvoiceSpendingDetails {
   /**
    * Paid amount
    */
-  amount: InvoiceTotalDetails
+  amount: InvoiceTotalDetails;
   /**
    * Service name
    */
-  serviceName: string
+  serviceName: string;
   /**
    * Array of taxes
    */
-  taxes: InvoiceTaxesDetails
-
+  taxes: InvoiceTaxesDetails;
 }
-export interface InvoiceTaxesDetails{
+export interface InvoiceTaxesDetails {
   /**
    * Taxable sum
    */
-  taxableMeasure: number
+  taxableMeasure: number;
   /**
    * Paid amount
    */
-  amount: number
+  amount: number;
   /**
    * Tax type. Possible values: Federal, State, County, City, Unincorporated
    */
-  level: string
+  level: string;
   /**
    * Tax rate
    */
-  rate: number
+  rate: number;
   /**
    * Tax name
    */
-  name: string
+  name: string;
   /**
    * Tax currency
    */
-  currency: string
+  currency: string;
   /**
    * Tax category
    */
-  category: string
-
+  category: string;
 }

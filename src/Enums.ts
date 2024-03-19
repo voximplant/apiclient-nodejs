@@ -1,4 +1,4 @@
-export enum APIErrorCode{
+export enum APIErrorCode {
   /**
    * Fatal error
    */
@@ -1380,7 +1380,7 @@ export enum APIErrorCode{
    */
   INVALID_DIALOGFLOW_KEY_ID = 465,
   /**
-   * The 'billing_address_state' parameter length must be less than 
+   * The 'billing_address_state' parameter length must be less than
    */
   INVALID_BILLING_ADDRESS_STATE_LEN = 466,
   /**
@@ -1400,7 +1400,7 @@ export enum APIErrorCode{
    */
   CANT_GET_TEMPLATES_FOR_ACCOUNT = 471,
   /**
-   * The following agent parameters can not be found: 
+   * The following agent parameters can not be found:
    */
   EMPTY_AGREEMENT_ARGUMENTS = 472,
   /**
@@ -1516,7 +1516,7 @@ export enum APIErrorCode{
    */
   TOO_LONG = 499,
   /**
-   * The 'partner_code' parameter length must be less than 
+   * The 'partner_code' parameter length must be less than
    */
   INVALID_PARTNER_CODE_LENGTH = 500,
   /**
@@ -1532,7 +1532,7 @@ export enum APIErrorCode{
    */
   INVALID_SRC_NUMBER = 507,
   /**
-   * The 'text' parameter is invalid. 
+   * The 'text' parameter is invalid.
    */
   INVALID_TEXT = 508,
   /**

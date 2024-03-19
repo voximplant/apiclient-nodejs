@@ -1,9 +1,11 @@
-const VoximplantApiClient = require("@voximplant/apiclient-nodejs").default;
+const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
 const client = new VoximplantApiClient();
-client.onReady = function(){
+client.onReady = function () {
   // Get the time agents spent in the DIALING status for all SmartQueues within one application.
-  client.SmartQueue.getSmartQueueRealtimeMetrics({applicationId: '1',
-            reportType: 'sum_agents_dialing_time'})
-        .then(ev=>console.log(ev))
-        .catch(err=>console.error(err));
+  client.SmartQueue.getSmartQueueRealtimeMetrics({
+    applicationId: '1',
+    reportType: 'sum_agents_dialing_time',
+  })
+    .then((ev) => console.log(ev))
+    .catch((err) => console.error(err));
 };
