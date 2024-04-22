@@ -100,7 +100,7 @@ export enum APIErrorCode {
    */
   REQUIRED_OUTPUT_FORMAT_TYPE_IS_NOT_SUPPORTED = 105,
   /**
-   * Account's name isn't unique
+   * Account's name is not unique
    */
   ACCOUNTS_NAME_ALREADY_USED = 106,
   /**
@@ -148,7 +148,7 @@ export enum APIErrorCode {
    */
   INVALID_USER_ID = 117,
   /**
-   * The user name isn't unique
+   * The user name is not unique
    */
   USER_NAME_ISNT_UNIQUE = 118,
   /**
@@ -172,11 +172,11 @@ export enum APIErrorCode {
    */
   INSUFFICIENT_MONEY = 127,
   /**
-   * Account's email isn't unique
+   * Account's email is not unique
    */
   ACCOUNTS_EMAIL_ISNT_UNIQUE = 128,
   /**
-   * Application name isn't unique
+   * Application name is not unique
    */
   APPLICATION_NAME_ISNT_UNIQUE = 129,
   /**
@@ -184,7 +184,7 @@ export enum APIErrorCode {
    */
   SCRIPT_TEXT_IS_TOO_LONG = 130,
   /**
-   * The account isn't activated
+   * The account is not activated
    */
   ACCOUNT_ISNT_ACTIVATED = 131,
   /**
@@ -192,7 +192,7 @@ export enum APIErrorCode {
    */
   INVALID_SCENARIO_ID = 132,
   /**
-   * The scenario name isn't unique
+   * The scenario name is not unique
    */
   SCENARIO_NAME_ISNT_UNIQUE = 133,
   /**
@@ -208,7 +208,7 @@ export enum APIErrorCode {
    */
   INVALID_EMAIL = 136,
   /**
-   * The account isn't logged
+   * The account is not logged
    */
   ACCOUNT_ISNT_LOGGED = 137,
   /**
@@ -336,7 +336,7 @@ export enum APIErrorCode {
    */
   ACCOUNT_NAME_FORBIDDEN = 173,
   /**
-   * The 'rule_name' isn't unique
+   * The 'rule_name' is not unique
    */
   DUPLICATE_RULE_NAME = 175,
   /**
@@ -372,7 +372,7 @@ export enum APIErrorCode {
    */
   INVALID_VERIFICATION_CODE = 414,
   /**
-   * The 'callerid_number' isn't unique
+   * The 'callerid_number' is not unique
    */
   DUPLICATE_CALLERID_NUMBER = 188,
   /**
@@ -484,7 +484,7 @@ export enum APIErrorCode {
    */
   INVALID_ACD_QUEUE_ID = 218,
   /**
-   * Queue's name isn't unique
+   * Queue's name is not unique
    */
   DUPLICATE_QUEUES_NAME = 219,
   /**
@@ -492,7 +492,7 @@ export enum APIErrorCode {
    */
   SKILL_NAME_TOO_LONG = 220,
   /**
-   * Skill's name isn't unique
+   * Skill's name is not unique
    */
   DUPLICATE_SKILL_NAME = 221,
   /**
@@ -748,7 +748,7 @@ export enum APIErrorCode {
    */
   ADMIN_USER_COUNT_LIMIT_EXCEEDED = 289,
   /**
-   * The admin_user_name isn't unique
+   * The admin_user_name is not unique
    */
   DUPLICATE_ADMIN_USER_NAME = 290,
   /**
@@ -764,7 +764,7 @@ export enum APIErrorCode {
    */
   ADMIN_ROLE_NAME_TOO_LONG = 293,
   /**
-   * The admin_role_name isn't unique
+   * The admin_role_name is not unique
    */
   DUPLICATE_ADMIN_ROLE_NAME = 294,
   /**
@@ -912,7 +912,7 @@ export enum APIErrorCode {
    */
   VERIFICATION_USERS_DOCUMENT_ALREADY_COMPLETE = 338,
   /**
-   * User documents don't exist
+   * User documents do not exist
    */
   NO_USER_DOCUMENTS = 339,
   /**
@@ -976,7 +976,7 @@ export enum APIErrorCode {
    */
   INVALID_CALL_HISTORY_REPORT_ID = 355,
   /**
-   * The call history report isn't ready yet
+   * The call history report is not ready yet
    */
   CALL_HISTORY_REPORT_IN_PROGRESS = 356,
   /**
@@ -1116,7 +1116,7 @@ export enum APIErrorCode {
    */
   CAPTCHA_ERROR = 392,
   /**
-   * The user isn't bound to the application
+   * The user is not bound to the application
    */
   USER_NOT_BOUND_TO_THE_APPLICATION = 393,
   /**
@@ -1124,7 +1124,7 @@ export enum APIErrorCode {
    */
   SIP_REGISTRATION_IS_PERSISTENT = 394,
   /**
-   * It's your phone number
+   * The phone number is yours
    */
   PHONE_NUMBER_UNUSABLE = 395,
   /**
@@ -1160,7 +1160,7 @@ export enum APIErrorCode {
    */
   INVALID_CONTACT_DATA = 406,
   /**
-   * The contact isn't unique
+   * The contact is not unique
    */
   DUPLICATE_CONTACT = 407,
   /**
@@ -1208,11 +1208,11 @@ export enum APIErrorCode {
    */
   SCENARIO_COUNT_LIMIT_PER_RULE_IS_EXCEEDED = 419,
   /**
-   * Multi subscription doesn't exists
+   * Multi subscription does not exist
    */
   MULTI_SUBSCRIPTION_DOESNT_EXISTS = 420,
   /**
-   * Multi subscription doesn't exist for the specified numbers
+   * Multi subscription does not exist for the specified numbers
    */
   MULTI_SUBSCRIPTION_DOESNT_EXIST_FOR_NUMBERS = 421,
   /**
@@ -1224,7 +1224,7 @@ export enum APIErrorCode {
    */
   INVALID_DESTINATION = 423,
   /**
-   * Provided regulation address can't be used for numbers in the specified region
+   * Provided regulation address cannot be used for numbers in the specified region
    */
   REGULATION_ADDRESS_AND_REGION_MISMATCH = 424,
   /**
@@ -1260,7 +1260,7 @@ export enum APIErrorCode {
    */
   INVALID_ROLE_SET = 435,
   /**
-   * Sub user login isn't unique.
+   * Sub user login is not unique.
    */
   SUB_USER_LOGIN_NOT_UNIQUE = 436,
   /**
@@ -1384,11 +1384,11 @@ export enum APIErrorCode {
    */
   INVALID_BILLING_ADDRESS_STATE_LEN = 466,
   /**
-   * The old contractor has a debt and can't be changed
+   * The old contractor has a debt and cannot be changed
    */
   CONTRACTOR_WITH_DEBT = 467,
   /**
-   * Can't change the contractor because previous period is not closed
+   * Cannot change the contractor because previous period is not closed
    */
   INVALID_CHANGE_CONTRACTOR_IN_PREV_PERIOD = 468,
   /**
@@ -1448,7 +1448,7 @@ export enum APIErrorCode {
    */
   INVALID_AGREEMENT_EMAIL = 483,
   /**
-   * HTTP request was rejected due to probable automatic request resend. Try again later.
+   * HTTP request is rejected due to probable automatic request resend. Try again later.
    */
   HTTP_REQUEST_REJECTED = 484,
   /**
@@ -1472,7 +1472,7 @@ export enum APIErrorCode {
    */
   INVALID_CORRESPONDENT_ACCOUNT = 488,
   /**
-   * Can't change the contractor in a closed period
+   * Cannot change the contractor in a closed period
    */
   INVALID_CHANGE_CONTRACTOR_IN_PERIOD = 489,
   /**
@@ -1488,7 +1488,7 @@ export enum APIErrorCode {
    */
   FORBIDDEN_PARAMETER = 492,
   /**
-   * The '%1$s' isn't unique.
+   * The '%1$s' is not unique.
    */
   VALUE_NOT_UNIQUE = 493,
   /**
@@ -1564,7 +1564,7 @@ export enum APIErrorCode {
    */
   PAYMENT_IN_PROGRESS = 516,
   /**
-   * The combined length of the '%1$s' and '%2$s' parameters can't be less than 6 characters.
+   * The combined length of the '%1$s' and '%2$s' parameters cannot be less than 6 characters.
    */
   INSUFFICIENT_PASSPORT_DATA_LENGTH = 517,
   /**
@@ -1592,7 +1592,7 @@ export enum APIErrorCode {
    */
   PASSWORD_TOO_WEAK = 523,
   /**
-   * Password can't contain spaces.
+   * Password cannot contain spaces.
    */
   WHITESPACES_NOT_ALLOWED = 524,
   /**
@@ -1632,11 +1632,11 @@ export enum APIErrorCode {
    */
   ALFABANK_PAYMENT_BY_NOT_RUS_CARD_FORBIDDEN = 533,
   /**
-   * Can't find a proper email for receipts.
+   * Cannot find a proper email for receipts.
    */
   NO_EMAIL_FOR_RECEIPT = 534,
   /**
-   * Please choose a password that you haven't used before.
+   * Please choose a password that you have not used before.
    */
   PASSWORD_WAS_ALREADY_USED = 535,
   /**
@@ -1724,15 +1724,15 @@ export enum APIErrorCode {
    */
   EMAIL_COUNT_LIMIT = 556,
   /**
-   * Report was not found.
+   * Report is not found.
    */
   REPORT_NOT_FOUND = 557,
   /**
-   * Application was not found.
+   * Application is not found.
    */
   APPLICATION_NOT_FOUND = 558,
   /**
-   * Please enter a custom status that you haven't used before.
+   * Please enter a custom status that you have not used before.
    */
   SQ_CUSTOM_STATUS_ALREADY_EXISTS = 559,
   /**
@@ -1760,7 +1760,7 @@ export enum APIErrorCode {
    */
   SETTING_MGP_ALREADY_EXISTS = 565,
   /**
-   * Setting MGP doesn't exists.
+   * Setting MGP does not exist.
    */
   SETTING_MGP_DOES_NOT_EXISTS = 566,
   /**
@@ -1768,7 +1768,7 @@ export enum APIErrorCode {
    */
   ACCOUNT_MGP_ALREADY_EXISTS = 567,
   /**
-   * Account MGP doesn't exists.
+   * Account MGP does not exist.
    */
   ACCOUNT_MGP_DOES_NOT_EXISTS = 568,
   /**
@@ -1780,7 +1780,7 @@ export enum APIErrorCode {
    */
   CALLER_ID_ALREADY_VERIFIED = 570,
   /**
-   * MGP template doesn't exists.
+   * MGP template does not exist.
    */
   MGP_TEMPLATE_DOES_NOT_EXISTS = 571,
   /**

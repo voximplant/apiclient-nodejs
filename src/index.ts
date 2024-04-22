@@ -1390,7 +1390,7 @@ export default class VoximplantApiClient {
 
   public CallLists: CallListsInterface = {
     /**
-     * Adds a new CSV file for call list processing and starts the specified rule immediately. To send a file, use the request body. To set the call time constraints, use the following options in a CSV file: <ul><li>**__start_execution_time** – when the call list processing will start every day, UTC+0 24-h format: HH:mm:ss</li><li>**__end_execution_time** – when the call list processing will stop every day,  UTC+0 24-h format: HH:mm:ss</li><li>**__start_at** – when the call list processing will start, UNIX timestamp. If not specified, the processing will start immediately after a method call</li></ul><br>This method accepts CSV files with custom delimiters, such a commas (,), semicolons (;) and other. To specify a delimiter, pass it to the <b>delimiter</b> parameter.<br/><b>IMPORTANT:</b> the account's balance should be equal or greater than 1 USD. If the balance is lower than 1 USD, the call list processing won't start, or it stops immediately if it was active.
+     * Adds a new CSV file for call list processing and starts the specified rule immediately. To send a file, use the request body. To set the call time constraints, use the following options in a CSV file: <ul><li>**__start_execution_time** – when the call list processing starts every day, UTC+0 24-h format: HH:mm:ss</li><li>**__end_execution_time** – when the call list processing stops every day,  UTC+0 24-h format: HH:mm:ss</li><li>**__start_at** – when the call list processing starts, UNIX timestamp. If not specified, the processing starts immediately after a method call</li></ul><br>This method accepts CSV files with custom delimiters, such a commas (,), semicolons (;) and other. To specify a delimiter, pass it to the <b>delimiter</b> parameter.<br/><b>IMPORTANT:</b> the account's balance should be equal or greater than 1 USD. If the balance is lower than 1 USD, the call list processing does not start, or it stops immediately if it is active.
      */
     createCallList: (request: CreateCallListRequest): Promise<CreateCallListResponse> => {
       const reqMapper = [
@@ -1701,7 +1701,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('StartScenarios', request, [reqMapper, respMapper]);
     },
     /**
-     * Runs a session for video conferencing or joins the existing video conference session.<br/><br/>When you create a session by calling this method, a scenario runs on one of the servers dedicated to video conferencing. All further method calls with the same **conference_name** won't create a new video conference session but join the existing one.<br/><br/>Use the [StartScenarios] method for creating audio conferences.
+     * Runs a session for video conferencing or joins the existing video conference session.<br/><br/>When you create a session by calling this method, a scenario runs on one of the servers dedicated to video conferencing. All further method calls with the same **conference_name** do not create a new video conference session but join the existing one.<br/><br/>Use the [StartScenarios] method for creating audio conferences.
      */
     startConference: (request: StartConferenceRequest): Promise<StartConferenceResponse> => {
       const reqMapper = [
@@ -2274,7 +2274,7 @@ export default class VoximplantApiClient {
 
   public PSTNBlacklist: PSTNBlacklistInterface = {
     /**
-     * Add a new phone number to the PSTN blacklist. Blacklist is used to block incoming calls from specified phone numbers to numbers purchased from Voximplant. Since we have no control over exact phone number format for calls from SIP integrations, blacklisting such numbers should be done via JavaScript scenarios.
+     * Add a new phone number to the PSTN blacklist. Use blacklist to block incoming calls from specified phone numbers to numbers purchased from Voximplant. Since we have no control over exact phone number format for calls from SIP integrations, blacklisting such numbers should be done via JavaScript scenarios.
      */
     addPstnBlackListItem: (
       request: AddPstnBlackListItemRequest
@@ -2463,7 +2463,7 @@ export default class VoximplantApiClient {
 
   public SIPRegistration: SIPRegistrationInterface = {
     /**
-     * Create a new SIP registration. You should specify the application_id or application_name if you specify the rule_name or user_id, or user_name. You should set is_persistent=true if you specify the user_id or user_name. You can bind only one SIP registration to the user (the previous SIP registration will be auto unbound).<br><br>Please note that when you create a SIP registration, we reserve the subscription fee and taxes for the upcoming month. Read more in the <a href='/docs/gettingstarted/billing'>Billing</a> page.
+     * Create a new SIP registration. You should specify the application_id or application_name if you specify the rule_name or user_id, or user_name. You should set is_persistent=true if you specify the user_id or user_name. You can bind only one SIP registration to the user (the previous SIP registration are automatically unbound).<br><br>Please note that when you create a SIP registration, we reserve the subscription fee and taxes for the upcoming month. Read more in the <a href='/docs/gettingstarted/billing'>Billing</a> page.
      */
     createSipRegistration: (
       request: CreateSipRegistrationRequest
@@ -2514,7 +2514,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('CreateSipRegistration', request, [reqMapper, respMapper]);
     },
     /**
-     * Update SIP registration. You should specify the application_id or application_name if you specify the rule_name or user_id, or user_name. You can bind only one SIP registration to the user (the previous SIP registration will be auto unbound).
+     * Update SIP registration. You should specify the application_id or application_name if you specify the rule_name or user_id, or user_name. You can bind only one SIP registration to the user (the previous SIP registration is automatically unbound).
      */
     updateSipRegistration: (
       request: UpdateSipRegistrationRequest
@@ -2555,7 +2555,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('UpdateSipRegistration', request, [reqMapper, respMapper]);
     },
     /**
-     * Bind the SIP registration to the application/user or unbind the SIP registration from the application/user. You should specify the application_id or application_name if you specify the rule_name or user_id, or user_name. You should specify the sip_registration_id if you set bind=true. You can bind only one SIP registration to the user (the previous SIP registration will be auto unbound).
+     * Bind the SIP registration to the application/user or unbind the SIP registration from the application/user. You should specify the application_id or application_name if you specify the rule_name or user_id, or user_name. You should specify the sip_registration_id if you set bind=true. You can bind only one SIP registration to the user (the previous SIP registration is automatically unbound).
      */
     bindSipRegistration: (
       request: BindSipRegistrationRequest
@@ -2994,7 +2994,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('GetPhoneNumberCountryStates', request, [reqMapper, respMapper]);
     },
     /**
-     * Get the country regions of the phone numbers. The response will also contain the info about multiple numbers subscription for the child accounts.
+     * Get the country regions of the phone numbers. The response also contains the info about multiple numbers subscription for the child accounts.
      */
     getPhoneNumberRegions: (
       request: GetPhoneNumberRegionsRequest
@@ -3039,7 +3039,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('GetPhoneNumberRegions', request, [reqMapper, respMapper]);
     },
     /**
-     * Get actual info on the country region of the phone numbers. The response will also contain the info about multiple numbers subscription for the child accounts.
+     * Get actual info on the country region of the phone numbers. The response also contains the info about multiple numbers subscription for the child accounts.
      */
     getActualPhoneNumberRegion: (
       request: GetActualPhoneNumberRegionRequest
@@ -3094,7 +3094,7 @@ export default class VoximplantApiClient {
 
   public CallerIDs: CallerIDsInterface = {
     /**
-     * Adds a new caller ID. Caller ID is the phone that will be displayed to the called user. This number can be used for call back.
+     * Adds a new caller ID. Caller ID is the phone that is displayed to the called user. This number can be used for call back.
      */
     addCallerID: (request: AddCallerIDRequest): Promise<AddCallerIDResponse> => {
       const reqMapper = [
@@ -3133,7 +3133,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('ActivateCallerID', request, [reqMapper, respMapper]);
     },
     /**
-     * Deletes the CallerID. Note: you can't delete a CID permanently (the antispam defence).
+     * Deletes the CallerID. Note: you cannot delete a CID permanently (the antispam defence).
      */
     delCallerID: (request: DelCallerIDRequest): Promise<DelCallerIDResponse> => {
       const reqMapper = [
@@ -3197,7 +3197,7 @@ export default class VoximplantApiClient {
 
   public OutboundTestNumbers: OutboundTestNumbersInterface = {
     /**
-     * Adds a personal phone number to test outbound calls. Only one personal phone number can be used. To replace it with another, delete the existing one first.
+     * Adds a personal phone number to test outgoing calls. Only one personal phone number can be used. To replace it with another, delete the existing one first.
      */
     addOutboundTestPhoneNumber: (
       request: AddOutboundTestPhoneNumberRequest
@@ -5540,7 +5540,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('A2PSendSms', request, [reqMapper, respMapper]);
     },
     /**
-     * Enables or disables sending and receiving SMS for the phone number. Can be used only for phone numbers with SMS support, which is indicated by the <b>is_sms_supported</b> property in the objects returned by the [GetPhoneNumbers] Management API. Each incoming SMS message is charged according to the <a href='//voximplant.com/pricing'>pricing</a>. If enabled, SMS can be sent from this phone number using the [SendSmsMessage] Management API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/guides/managementapi/callbacks'>this article</a> for HTTP callback details.
+     * Enables or disables sending and receiving SMS for the phone number. Can be used only for phone numbers with SMS support, which is indicated by the <b>is_sms_supported</b> property in the objects returned by the [GetPhoneNumbers] Management API. Each incoming SMS message is charged according to the <a href='//voximplant.com/pricing'>pricing</a>. If enabled, SMS can be sent from this phone number via the [SendSmsMessage] Management API and received via the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/guides/managementapi/callbacks'>this article</a> for HTTP callback details.
      */
     controlSms: (request: ControlSmsRequest): Promise<ControlSmsResponse> => {
       const reqMapper = [
@@ -5657,6 +5657,7 @@ export default class VoximplantApiClient {
     createKey: (request: CreateKeyRequest): Promise<CreateKeyResponse> => {
       const reqMapper = [
         { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
+        { rawName: 'key_name', name: 'keyName', transformer: TypeTransformer.to('string') },
         { rawName: 'role_id', name: 'roleId', transformer: TypeTransformer.to('intlist') },
         { rawName: 'role_name', name: 'roleName', transformer: TypeTransformer.to('stringlist') },
       ];
@@ -5687,6 +5688,7 @@ export default class VoximplantApiClient {
       const reqMapper = [
         { rawName: 'key_id', name: 'keyId', transformer: TypeTransformer.to('string') },
         { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
+        { rawName: 'key_name', name: 'keyName', transformer: TypeTransformer.to('string') },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5898,7 +5900,7 @@ export default class VoximplantApiClient {
 
   public KeyValueStorage: KeyValueStorageInterface = {
     /**
-     * Creates or updates a key-value pair. If an existing key is passed, the method will return the existing item and will change the value if needed. The keys should be unique within a Voximplant application.
+     * Creates or updates a key-value pair. If an existing key is passed, the method returns the existing item and changes the value if needed. The keys should be unique within a Voximplant application.
      */
     setKeyValueItem: (request: SetKeyValueItemRequest): Promise<SetKeyValueItemResponse> => {
       const reqMapper = [

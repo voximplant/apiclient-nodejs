@@ -130,11 +130,11 @@ export interface AccountInfo {
    */
   withAccessEntries?: boolean;
   /**
-   * If URL is specified, Voximplant cloud will make HTTP POST requests to it when something happens. For a full list of reasons see the <b>type</b> field of the [AccountCallback] structure. The HTTP request will have a JSON-encoded body that conforms to the [AccountCallbacks] structure
+   * If URL is specified, Voximplant cloud makes HTTP POST requests to it when something happens. For a full list of reasons see the <b>type</b> field of the [AccountCallback] structure. The HTTP request has a JSON-encoded body that conforms to the [AccountCallbacks] structure
    */
   callbackUrl?: string;
   /**
-   * If salt string is specified, each HTTP request made by the Voximplant cloud toward the <b>callback_url</b> will have a <b>salt</b> field set to MD5 hash of account information and salt. That hash can be used be a developer to ensure that HTTP request is made by the Voximplant cloud
+   * If salt string is specified, each HTTP request made by the Voximplant cloud toward the <b>callback_url</b> has a <b>salt</b> field set to MD5 hash of account information and salt. That hash can be used be a developer to ensure that HTTP request is made by the Voximplant cloud
    */
   callbackSalt?: string;
   /**
@@ -288,7 +288,7 @@ export interface AccountPlanPackage {
    */
   packageName?: string;
   /**
-   * Overrun is enabled
+   * Whether overrun is enabled
    */
   mayOverrun: boolean;
   /**
@@ -406,7 +406,7 @@ export interface UserInfo {
    */
   userDisplayName: string;
   /**
-   * Whether the user is active
+   * Whether the user is active. Inactive users cannot log in to applications
    */
   userActive: boolean;
   /**
@@ -422,7 +422,7 @@ export interface UserInfo {
    */
   balance: number;
   /**
-   * The last committed balance which was approved by billing's transaction
+   * The last committed balance which has been approved by billing's transaction
    */
   fixedBalance: number;
   /**
@@ -1014,7 +1014,7 @@ export interface QueueInfo {
    */
   serviceProbability: number;
   /**
-   * Set false to disable the auto binding of operators to a queue by skills comparing
+   * Whether to enable the auto binding of operators to a queue by skills comparing
    */
   autoBinding: boolean;
   /**
@@ -1082,15 +1082,15 @@ export interface ACDState {
 }
 export interface ACDOperatorAggregationGroup {
   /**
-   * If aggregation was enabled, contains user ID for the results
+   * If aggregation is enabled, contains user ID for the results
    */
   userId?: string;
   /**
-   * If aggregation was enabled, contains UTC date for the results in 24-h 'YYYY-MM-DD' format
+   * If aggregation is enabled, contains UTC date for the results in 24-h 'YYYY-MM-DD' format
    */
   date?: Date;
   /**
-   * If aggregation was enabled, contains the 60-minute interval number from 1 to 24
+   * If aggregation is enabled, contains the 60-minute interval number from 1 to 24
    */
   hour?: number;
   /**
@@ -1100,15 +1100,15 @@ export interface ACDOperatorAggregationGroup {
 }
 export interface ACDOperatorStatusAggregationGroup {
   /**
-   * If aggregation was enabled, contains user ID for the results
+   * If aggregation is enabled, contains user ID for the results
    */
   userId?: string;
   /**
-   * If aggregation was enabled, contains UTC date for the results in 24-h 'YYYY-MM-DD' format
+   * If aggregation is enabled, contains UTC date for the results in 24-h 'YYYY-MM-DD' format
    */
   date?: Date;
   /**
-   * If aggregation was enabled, contains the 60-minute interval number from 1 to 24
+   * If aggregation is enabled, contains the 60-minute interval number from 1 to 24
    */
   hour?: number;
   /**
@@ -1118,15 +1118,15 @@ export interface ACDOperatorStatusAggregationGroup {
 }
 export interface ACDOperatorStatistics {
   /**
-   * If aggregation was enabled, contains user ID for the results
+   * If aggregation is enabled, contains user ID for the results
    */
   userId?: string;
   /**
-   * If aggregation was enabled, contains UTC date for the results in 24-h 'YYYY-MM-DD' format
+   * If aggregation is enabled, contains UTC date for the results in 24-h 'YYYY-MM-DD' format
    */
   date?: Date;
   /**
-   * If aggregation was enabled, contains the 60-minute interval number from 1 to 24
+   * If aggregation is enabled, contains the 60-minute interval number from 1 to 24
    */
   hour?: number;
   /**
@@ -1172,15 +1172,15 @@ export interface ACDOperatorStatistics {
 }
 export interface ACDOperatorStatusStatistics {
   /**
-   * If aggregation was enabled, contains user ID  for the results
+   * If aggregation is enabled, contains user ID for the results
    */
   userId?: string;
   /**
-   * If aggregation was enabled, contains UTC date  for the results in 24-h 'YYYY-MM-DD' format
+   * If aggregation is enabled, contains UTC date for the results in 24-h 'YYYY-MM-DD' format
    */
   date?: Date;
   /**
-   * If aggregation was enabled, contains the  60-minute interval number from 1 to 24
+   * If aggregation is enabled, contains the 60-minute interval number from 1 to 24
    */
   hour?: number;
   /**
@@ -1224,11 +1224,11 @@ export interface ACDOperatorStatusStatisticsDetail {
 }
 export interface ACDQueueStatistics {
   /**
-   * If aggregation was enabled, contains UTC date for the results in 24-h 'YYYY-MM-DD' format
+   * If aggregation is enabled, contains UTC date for the results in 24-h 'YYYY-MM-DD' format
    */
   date?: Date;
   /**
-   * If aggregation was enabled, contains the 60-minute interval number from 1 to 24
+   * If aggregation is enabled, contains the 60-minute interval number from 1 to 24
    */
   hour?: number;
   /**
@@ -1306,7 +1306,7 @@ export interface ACDQueueStatistics {
 }
 export interface ACDQueueStatisticsServiceLevel {
   /**
-   * Maximum time, is seconds, user was waiting operator for a given service level
+   * Maximum time, is seconds, user is waiting operator for a given service level
    */
   acceptableWaitingTime: number;
   /**
@@ -1364,7 +1364,7 @@ export interface ACDQueueState {
    */
   readyOperatorsCount: number;
   /**
-   * List of operators with the 'READY' state that can't accept a call from this queue. Operator can't accept a call if they are temporarily banned or they are servicing a call right now
+   * List of operators with the 'READY' state that cannot accept a call from this queue. Operator cannot accept a call if they are temporarily banned or they are servicing a call right now
    */
   lockedOperators: ACDLockedOperatorState[];
   /**
@@ -1634,15 +1634,15 @@ export interface AttachedPhoneInfo {
    */
   phonePurchaseDate: Date;
   /**
-   * The flag of the frozen subscription
+   * Whether the subscription is frozen
    */
   deactivated: boolean;
   /**
-   * The flag of the deleted subscription
+   * Whether the subscription is cancelled
    */
   canceled: boolean;
   /**
-   * The auto_charge flag
+   * Whether to charge automatically
    */
   autoCharge: boolean;
   /**
@@ -1666,7 +1666,7 @@ export interface AttachedPhoneInfo {
    */
   categoryName: string;
   /**
-   * Verification is required for the account
+   * Whether the verification is required for the account
    */
   requiredVerification?: boolean;
   /**
@@ -1674,31 +1674,31 @@ export interface AttachedPhoneInfo {
    */
   verificationStatus?: string;
   /**
-   * Unverified phone hold until the date in format: YYYY-MM-DD (if the account verification is required). The number will be detached on that day automatically!
+   * Unverified phone hold until the date in format: YYYY-MM-DD (if the account verification is required). The number is detached on that day automatically!
    */
   unverifiedHoldUntil?: Date;
   /**
-   * Unverified account can use the phone
+   * Whether a not verified account can use the phone
    */
   canBeUsed: boolean;
   /**
-   * If <b>true</b>, SMS is supported for this phone number. SMS needs to be explicitly enabled via the [ControlSms] Management API before sending or receiving SMS. If SMS is supported and enabled, SMS can be sent from this phone number using the [SendSmsMessage] Management API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/guides/managementapi/callbacks'>this article</a> for HTTP callback details
+   * Whether SMS is supported for this phone number. SMS needs to be explicitly enabled via the [ControlSms] Management API before sending or receiving SMS. If SMS is supported and enabled, SMS can be sent from this phone number via the [SendSmsMessage] Management API and received via the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/guides/managementapi/callbacks'>this article</a> for HTTP callback details
    */
   isSmsSupported: boolean;
   /**
-   * If <b>true</b>, SMS sending and receiving is enabled for this phone number via the [ControlSms] Management API
+   * Whether SMS sending and receiving is enabled for this phone number via the [ControlSms] Management API
    */
   isSmsEnabled: boolean;
   /**
-   * If set, the callback of an incoming SMS will be sent to this url, otherwise, it will be sent to the general account URL
+   * If set, the callback of an incoming SMS is sent to this url, otherwise, it is sent to the general account URL
    */
   incomingSmsCallbackUrl?: string;
   /**
-   * If <b>true</b>, you need to make a request to enable calls to emergency numbers
+   * Whether you need to make a request to enable calls to emergency numbers
    */
   emergencyCallsToBeEnabled: boolean;
   /**
-   * If <b>true</b>, calls to emergency numbers are enabled
+   * Whether calls to emergency numbers are enabled
    */
   emergencyCallsEnabled: boolean;
   /**
@@ -1728,7 +1728,7 @@ export interface NewAttachedPhoneInfo {
    */
   phoneNumber: string;
   /**
-   * Verification is required for the account
+   * Whether verification is required for the account
    */
   requiredVerification?: boolean;
   /**
@@ -1736,7 +1736,7 @@ export interface NewAttachedPhoneInfo {
    */
   verificationStatus?: string;
   /**
-   * Unverified phone hold until the date in format: YYYY-MM-DD (if the account verification is required). The number will be detached on that day automatically!
+   * Unverified phone hold until the date in format: YYYY-MM-DD (if the account verification is required). The number is detached on that day automatically!
    */
   unverifiedHoldUntil?: Date;
 }
@@ -1750,7 +1750,7 @@ export interface PhoneNumberCountryInfo {
    */
   phonePrefix: string;
   /**
-   * True if can list phone numbers
+   * Whether to list phone numbers
    */
   canListPhoneNumbers: boolean;
   /**
@@ -1758,7 +1758,7 @@ export interface PhoneNumberCountryInfo {
    */
   phoneCategories: PhoneNumberCountryCategoryInfo[];
   /**
-   * If <b>true</b>, you need to make a request to enable calls to emergency numbers
+   * Whether you need to make a request to enable calls to emergency numbers
    */
   emergencyCallsToBeEnabled: boolean;
 }
@@ -1768,7 +1768,7 @@ export interface PhoneNumberCountryCategoryInfo {
    */
   phoneCategoryName: string;
   /**
-   * True if a country state is used to choose the phone with the category
+   * Whether the chosen phone number country has states
    */
   countryHasStates: boolean;
   /**
@@ -1816,7 +1816,7 @@ export interface PhoneNumberCountryRegionInfo {
    */
   verificationStatus?: string;
   /**
-   * Verification is required for the account
+   * Whether verification is required for the account
    */
   requiredVerification?: boolean;
   /**
@@ -1824,7 +1824,7 @@ export interface PhoneNumberCountryRegionInfo {
    */
   phonePeriod: string;
   /**
-   * The flag of the need proof of address
+   * Whether to need proof of address
    */
   isNeedRegulationAddress?: boolean;
   /**
@@ -1832,7 +1832,7 @@ export interface PhoneNumberCountryRegionInfo {
    */
   regulationAddressType?: string;
   /**
-   * If <b>true</b>, SMS is supported for phone numbers in this region. SMS needs to be explicitly enabled for a phone number via the [ControlSms] Management API before sending or receiving SMS. If SMS is supported and enabled, SMS can be sent from a phone number using the [SendSmsMessage] Management API and received using the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/guides/managementapi/callbacks'>this article</a> for HTTP callback details
+   * Whether SMS is supported for phone numbers in this region. SMS needs to be explicitly enabled for a phone number via the [ControlSms] Management API before sending or receiving SMS. If SMS is supported and enabled, SMS can be sent from a phone number via the [SendSmsMessage] Management API and received via the [InboundSmsCallback] property of the HTTP callback. See <a href='/docs/guides/managementapi/callbacks'>this article</a> for HTTP callback details
    */
   isSmsSupported: boolean;
   /**
@@ -1932,7 +1932,7 @@ export interface CallerIDInfo {
    */
   calleridNumber: string;
   /**
-   * The active flag
+   * Whether active
    */
   active: boolean;
   /**
@@ -1954,7 +1954,7 @@ export interface OutboundTestPhonenumberInfo {
    */
   phoneNumber: string;
   /**
-   * The verification status
+   * Whether the phone number is verified
    */
   isVerified: boolean;
   /**
@@ -1976,7 +1976,7 @@ export interface ContactInfo {
    */
   contactData: string;
   /**
-   * The persistent flag
+   * Whether the contact is persistent
    */
   isPersistent: boolean;
   /**
@@ -2014,7 +2014,7 @@ export interface ACDQueueOperatorInfo {
    */
   acdQueueName: string;
   /**
-   * The user is bound to the ACD queue in manual mode if false
+   * Whether the user is bound to the ACD queue in manual mode if false
    */
   autoLink: boolean;
 }
@@ -2062,7 +2062,7 @@ export interface ExchangeRates {
    */
   EUR?: number;
   /**
-   * The USD exchange rate. It's always equal to 1
+   * The USD exchange rate. It is always equal to 1
    */
   USD?: number;
 }
@@ -2176,7 +2176,7 @@ export interface CallListDetail {
    */
   finishExecutionTime: Date;
   /**
-   * Results of the task, if it was granted, or information about the runtime error
+   * Results of the task, if it is granted, or information about the runtime error
    */
   resultData: string;
   /**
@@ -2218,11 +2218,11 @@ export interface SIPRegistration {
    */
   authUser?: string;
   /**
-   * The outbound proxy
+   * The outgoing proxy
    */
   outboundProxy?: string;
   /**
-   * The successful SIP registration
+   * Whether the SIP registration is successful
    */
   successful?: boolean;
   /**
@@ -2234,7 +2234,7 @@ export interface SIPRegistration {
    */
   errorMessage?: string;
   /**
-   * The subscription deactivation flag. The SIP registration is frozen if true
+   * Whether the subscription is deactivation. The SIP registration is frozen if true
    */
   deactivated: boolean;
   /**
@@ -2250,7 +2250,7 @@ export interface SIPRegistration {
    */
   subscriptionPrice: string;
   /**
-   * SIP registration is persistent. Set false to activate it only on the user login
+   * Whether the SIP registration is persistent. Set false to activate it only on the user login
    */
   isPersistent: boolean;
   /**
@@ -2288,11 +2288,11 @@ export interface AdminRole {
    */
   adminRoleName: string;
   /**
-   * If false the allowed and denied entries have no affect
+   * Whether to ignore the allowed and denied entries
    */
   adminRoleActive: boolean;
   /**
-   * It's a system role
+   * Whether it is a system role
    */
   systemRole: boolean;
   /**
@@ -2332,7 +2332,7 @@ export interface AdminUser {
    */
   adminUserDisplayName: string;
   /**
-   * Login is allowed
+   * Whether login is allowed
    */
   adminUserActive: boolean;
   /**
@@ -2372,19 +2372,19 @@ export interface GetMoneyAmountToChargeResult {
    */
   minAmount: number;
   /**
-   * Exists if bank card payments are allowed. It's the maximum of the 'amount' in USD and the min_card_payment (10$)
+   * Exists if bank card payments are allowed. It is the maximum of the 'amount' in USD and the min_card_payment (10$)
    */
   bankCardAmountUsd?: number;
   /**
-   * Exists if bank card payments are allowed. It's the maximum of the 'min_amount' in USD and the min_card_payment (10$)
+   * Exists if bank card payments are allowed. It is the maximum of the 'min_amount' in USD and the min_card_payment (10$)
    */
   minBankCardAmountUsd?: number;
   /**
-   * Exists if robokassa payments are allowed. It's the maximum of the 'min_amount' in RUR and the min_robokassa_payment (500 RUR)
+   * Exists if robokassa payments are allowed. It is the maximum of the 'min_amount' in RUR and the min_robokassa_payment (500 RUR)
    */
   robokassaAmountRub?: number;
   /**
-   * Exists if robokassa payments are allowed. It's the maximum of the 'min_amount' in RUR and the min_robokassa_payment (500 RUR)
+   * Exists if robokassa payments are allowed. It is the maximum of the 'min_amount' in RUR and the min_robokassa_payment (500 RUR)
    */
   minRobokassaAmountRub?: number;
   /**
@@ -2412,11 +2412,11 @@ export interface ChargedPhone {
    */
   phoneNumber: string;
   /**
-   * Subscription is frozen
+   * Whether the subscription is frozen
    */
   deactivated: boolean;
   /**
-   * Phone number has been charged
+   * Whether the phone number has been charged
    */
   isCharged: boolean;
 }
@@ -2434,7 +2434,7 @@ export interface SubscriptionsToCharge {
    */
   subscriptionDescription: string;
   /**
-   * The auto charge flag
+   * Whether the subscription charges automatically
    */
   subscriptionAutoCharge: boolean;
   /**
@@ -2448,7 +2448,7 @@ export interface AuthorizedAccountIP {
    */
   authorizedIp: string;
   /**
-   * The allowed flag (true - whitelist, false - blacklist)
+   * Whether the IP is allowed (true - whitelist, false - blacklist)
    */
   allowed: boolean;
   /**
@@ -2514,7 +2514,7 @@ export interface ContractorInvoice {
    */
   invoiceDate: Date;
   /**
-   * The post payment flag
+   * Whether it is post payment
    */
   isPostPayment: boolean;
   /**
@@ -2554,7 +2554,7 @@ export interface AccountVerificationDocument {
    */
   accountDocumentId: number;
   /**
-   * Account belongs to an individual
+   * Whether the account belongs to an individual
    */
   isIndividual: boolean;
   /**
@@ -2580,7 +2580,7 @@ export interface AccountVerification {
    */
   verificationStatus: string;
   /**
-   * Unverified subscriptions hold until the date in format: YYYY-MM-DD (if the account verification is required). Some subscriptions will be detached on that day automatically!
+   * Unverified subscriptions hold until the date in format: YYYY-MM-DD (if the account verification is required). Some subscriptions are detached on that day automatically!
    */
   unverifiedHoldUntil?: Date;
   /**
@@ -2636,7 +2636,7 @@ export interface SubscriptionTemplate {
    */
   subscriptionTemplateName: string;
   /**
-   * Verification is required for the account
+   * Whether verification is required for the account
    */
   requiredVerification: boolean;
   /**
@@ -2903,7 +2903,7 @@ export interface RegulationAddressUploadedCallback {
    */
   uploaded: Date;
   /**
-   * Account belongs to an individual
+   * Whether the account belongs to an individual
    */
   isIndividual: boolean;
   /**
@@ -2946,7 +2946,7 @@ export interface CallHistoryReportCallback {
    */
   historyReportId: number;
   /**
-   * Success flag
+   * Whether the request is successful
    */
   success: boolean;
   /**
@@ -3002,11 +3002,11 @@ export interface WireTransferCallback {
 export interface JSFailCallback {}
 export interface MinBalanceCallback {
   /**
-   * True if the credit threshold exceeded. The credit threshold = credit_limit - min_balance_to_notify, wherein min_balance_to_notify > 0
+   * Whether the credit threshold exceeded. The credit threshold = credit_limit - min_balance_to_notify, wherein min_balance_to_notify > 0
    */
   isMinCredit: boolean;
   /**
-   * True if the callback is repeated
+   * Whether the callback is repeated
    */
   isRepeated: boolean;
 }
@@ -3024,7 +3024,7 @@ export interface RegulationAddressVerifiedCallback {
    */
   uploaded: Date;
   /**
-   * Account belongs to an individual
+   * Whether the account belongs to an individual
    */
   isIndividual: boolean;
   /**
@@ -3148,7 +3148,7 @@ export interface TransactionHistoryReportCallback {
    */
   historyReportId: number;
   /**
-   * Success flag
+   * Whether the request is successful
    */
   success: boolean;
   /**
@@ -3184,7 +3184,7 @@ export interface PlanPackageConfig {
    */
   packageUuid: string;
   /**
-   * Overrun is enabled
+   * Whether overrun is enabled
    */
   mayOverrun: boolean;
   /**
@@ -3335,7 +3335,7 @@ export interface SubscriptionCallbackDetailsSipRegistrations {
 }
 export interface A2PActivatedCallback {
   /**
-   * A2P messages are allowed
+   * Whether A2P messages are allowed
    */
   a2pEnabled: boolean;
 }
@@ -3383,7 +3383,7 @@ export interface RegulationAddressDocumentsRequestedCallback {
    */
   updateTime: Date;
   /**
-   * Account belongs to an individual
+   * Whether the account belongs to an individual
    */
   isIndividual: boolean;
   /**
@@ -3517,7 +3517,7 @@ export interface RegulationRegionRecord {
    */
   phoneRegionCode: string;
   /**
-   * The need to confirm the address
+   * Whether need to confirm the address
    */
   isNeedRegulationAddress: boolean;
   /**
@@ -3531,7 +3531,7 @@ export interface BankCard {
    */
   bankCardProvider: string;
   /**
-   * The auto_charge flag
+   * Whether the auto_charge is enabled
    */
   autoCharge: boolean;
   /**
@@ -3661,7 +3661,7 @@ export interface PushCredentialContent {
    */
   certContent?: string;
   /**
-   * The use in a Apple sandbox environment. Credentials for APPLE push
+   * Whether to use in a Apple sandbox environment. Credentials for APPLE push
    */
   isDevMode: boolean;
   /**
@@ -3713,7 +3713,7 @@ export interface NewInvoiceCallbackItem {
    */
   invoiceDate: string;
   /**
-   * It's a prepayment
+   * Whether it is a prepayment
    */
   prepayment: boolean;
   /**
@@ -3864,6 +3864,10 @@ export interface KeyView {
    * The key subuser
    */
   subuser?: SubUserView[];
+  /**
+   * The key's name
+   */
+  keyName: string;
 }
 export interface SubUserView {
   /**
@@ -3899,7 +3903,7 @@ export interface RoleView {
    */
   roleId: number;
   /**
-   * Shows that the role is inherited
+   * Whether the role is inherited
    */
   inherited?: boolean;
   /**
@@ -3911,7 +3915,7 @@ export interface RoleView {
    */
   parentRoleId?: number[];
   /**
-   * Shows that the role is gui only
+   * Whether the role is gui only
    */
   guiOnly: boolean;
 }
@@ -3939,7 +3943,7 @@ export interface ChildAccountSubscription {
    */
   subscriptionTemplateId: number;
   /**
-   * The subscription is prolonged automatically
+   * Whether the subscription is prolonged automatically
    */
   autoCharge?: boolean;
   /**
@@ -3951,7 +3955,7 @@ export interface ChildAccountSubscription {
    */
   periodicPrice?: number;
   /**
-   * The subscription is active
+   * Whether the subscription is active
    */
   active?: boolean;
 }
@@ -3991,7 +3995,7 @@ export interface SmsHistory {
    */
   direction: string;
   /**
-   * Number of fragments the initial message was divided into
+   * Number of fragments the initial message is divided into
    */
   fragments: number;
   /**
@@ -4033,7 +4037,7 @@ export interface A2PSmsHistory {
    */
   destinationNumber: number;
   /**
-   * Number of fragments the initial message was divided into
+   * Number of fragments the initial message is divided into
    */
   fragments: number;
   /**
@@ -4083,7 +4087,7 @@ export interface RestoredAgreementStatusCallback {
 }
 export interface GetMaxBankCardPaymentResult {
   /**
-   * The maximum payment for the specified card. It's always equal or less than **new_max_payment**
+   * The maximum payment for the specified card. It always equals or less than **new_max_payment**
    */
   maxPayment: number;
   /**
@@ -4097,7 +4101,7 @@ export interface GetMaxBankCardPaymentResult {
 }
 export interface GetAutochargeConfigResult {
   /**
-   * Is auto charge enabled or not
+   * Whether auto charge enabled or not
    */
   autoCharge: boolean;
   /**

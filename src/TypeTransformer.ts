@@ -2518,6 +2518,8 @@ export default class TypeTransformer {
         xData['description'] = TypeTransformer.to('string')(data['description']);
       if (typeof data['subuser'] !== 'undefined')
         xData['subuser'] = TypeTransformer.to('SubUserView[]')(data['subuser']);
+      if (typeof data['key_name'] !== 'undefined')
+        xData['keyName'] = TypeTransformer.to('string')(data['key_name']);
       return xData;
     },
     SubUserView: function (data) {
@@ -5514,6 +5516,8 @@ export default class TypeTransformer {
         xData['description'] = TypeTransformer.from('string')(data['description']);
       if (typeof data['subuser'] !== 'undefined')
         xData['subuser'] = TypeTransformer.from('SubUserView[]')(data['subuser']);
+      if (typeof data['keyName'] !== 'undefined')
+        xData['key_name'] = TypeTransformer.from('string')(data['keyName']);
       return xData;
     },
     SubUserView: function (data) {
