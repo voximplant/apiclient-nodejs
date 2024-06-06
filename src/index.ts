@@ -1403,7 +1403,7 @@ export default class VoximplantApiClient {
         },
         { rawName: 'num_attempts', name: 'numAttempts', transformer: TypeTransformer.to('number') },
         { rawName: 'name', name: 'name', transformer: TypeTransformer.to('string') },
-        { rawName: 'file_content', name: 'fileContent', transformer: TypeTransformer.to('string') },
+        { rawName: 'file_content', name: 'fileContent', transformer: TypeTransformer.to('file') },
         {
           rawName: 'interval_seconds',
           name: 'intervalSeconds',

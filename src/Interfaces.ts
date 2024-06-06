@@ -1131,7 +1131,7 @@ export interface CreateCallListRequest {
   /**
    *Send as "body" part of the HTTP request or as multiform. The sending "file_content" via URL is at its own risk because the network devices tend to drop HTTP requests with large headers
    */
-  fileContent: string;
+  fileContent: Buffer;
   /**
    *Interval between call attempts in seconds. The default is 0
    */
