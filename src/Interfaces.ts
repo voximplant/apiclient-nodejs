@@ -1131,7 +1131,7 @@ export interface CreateCallListRequest {
   /**
    *Send as "body" part of the HTTP request or as multiform. The sending "file_content" via URL is at its own risk because the network devices tend to drop HTTP requests with large headers
    */
-  fileContent: Buffer;
+  fileContent: string;
   /**
    *Interval between call attempts in seconds. The default is 0
    */
@@ -1629,6 +1629,10 @@ export interface AddRuleRequest {
    *Whether video conference is required
    */
   videoConference?: boolean;
+  /**
+   *The service account ID to bind to the rule. Read more in the [guide](/docs/guides/voxengine/management-api)
+   */
+  bindKeyId?: string;
 }
 
 export interface AddRuleResponse {
@@ -1687,6 +1691,10 @@ export interface SetRuleInfoRequest {
    *Whether video conference is required
    */
   videoConference?: boolean;
+  /**
+   *The service account ID to bind to the rule. Read more in the [guide](/docs/guides/voxengine/management-api)
+   */
+  bindKeyId?: string;
 }
 
 export interface SetRuleInfoResponse {
@@ -1716,6 +1724,10 @@ export interface GetRulesRequest {
    *Whether it is a video conference to filter
    */
   videoConference?: boolean;
+  /**
+   *The service account ID bound to the rule. Read more in the [guide](/docs/guides/voxengine/management-api)
+   */
+  attachedKeyId?: string;
   /**
    *Search for template matching
    */
@@ -5369,7 +5381,7 @@ export interface AddPushCredentialRequest {
    */
   pushProviderName: string;
   /**
-   *The push provider id. Can be used instead of <b>push_provider_name</b>
+   *The push provider id. Can be used instead of <b>push_provider_name</b>. The possible values are: 1 — APPLE, 2 — GOOGLE, 3 — APPLE_VOIP, 5 — HUAWEI.
    */
   pushProviderId: number;
   /**
@@ -5496,7 +5508,7 @@ export interface GetPushCredentialRequest {
    */
   pushProviderName?: string;
   /**
-   *The push provider id. Can be used instead of <b>push_provider_name</b>
+   *The push provider id. Can be used instead of <b>push_provider_name</b>. The possible values are: 1 — APPLE, 2 — GOOGLE, 3 — APPLE_VOIP, 5 — HUAWEI.
    */
   pushProviderId?: number;
   /**

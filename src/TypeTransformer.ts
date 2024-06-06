@@ -1414,6 +1414,10 @@ export default class TypeTransformer {
         xData['statusId'] = TypeTransformer.to('number')(data['status_id']);
       if (typeof data['status'] !== 'undefined')
         xData['status'] = TypeTransformer.to('string')(data['status']);
+      if (typeof data['task_id'] !== 'undefined')
+        xData['taskId'] = TypeTransformer.to('number')(data['task_id']);
+      if (typeof data['task_uuid'] !== 'undefined')
+        xData['taskUuid'] = TypeTransformer.to('string')(data['task_uuid']);
       return xData;
     },
     SIPRegistrationType: function (data) {
@@ -4395,6 +4399,10 @@ export default class TypeTransformer {
         xData['status_id'] = TypeTransformer.from('number')(data['statusId']);
       if (typeof data['status'] !== 'undefined')
         xData['status'] = TypeTransformer.from('string')(data['status']);
+      if (typeof data['taskId'] !== 'undefined')
+        xData['task_id'] = TypeTransformer.from('number')(data['taskId']);
+      if (typeof data['taskUuid'] !== 'undefined')
+        xData['task_uuid'] = TypeTransformer.from('string')(data['taskUuid']);
       return xData;
     },
     SIPRegistration: function (data) {

@@ -1390,7 +1390,7 @@ export default class VoximplantApiClient {
 
   public CallLists: CallListsInterface = {
     /**
-     * Adds a new CSV file for call list processing and starts the specified rule immediately. To send a file, use the request body. To set the call time constraints, use the following options in a CSV file: <ul><li>**__start_execution_time** – when the call list processing starts every day, UTC+0 24-h format: HH:mm:ss</li><li>**__end_execution_time** – when the call list processing stops every day,  UTC+0 24-h format: HH:mm:ss</li><li>**__start_at** – when the call list processing starts, UNIX timestamp. If not specified, the processing starts immediately after a method call</li></ul><br>This method accepts CSV files with custom delimiters, such a commas (,), semicolons (;) and other. To specify a delimiter, pass it to the <b>delimiter</b> parameter.<br/><b>IMPORTANT:</b> the account's balance should be equal or greater than 1 USD. If the balance is lower than 1 USD, the call list processing does not start, or it stops immediately if it is active.
+     * Adds a new CSV file for call list processing and starts the specified rule immediately. To send a file, use the request body. To set the call time constraints, use the following options in a CSV file: <ul><li>**__start_execution_time** – when the call list processing starts every day, UTC+0 24-h format: HH:mm:ss</li><li>**__end_execution_time** – when the call list processing stops every day,  UTC+0 24-h format: HH:mm:ss</li><li>**__start_at** – when the call list processing starts, UNIX timestamp. If not specified, the processing starts immediately after a method call</li><li>**__task_uuid** – call list UUID. A string up to 40 characters, can contain latin letters, digits, hyphens (-) and colons (:). Unique within the call list</li></ul><br>This method accepts CSV files with custom delimiters, such a commas (,), semicolons (;) and other. To specify a delimiter, pass it to the <b>delimiter</b> parameter.<br/><b>IMPORTANT:</b> the account's balance should be equal or greater than 1 USD. If the balance is lower than 1 USD, the call list processing does not start, or it stops immediately if it is active.
      */
     createCallList: (request: CreateCallListRequest): Promise<CreateCallListResponse> => {
       const reqMapper = [
@@ -1403,7 +1403,7 @@ export default class VoximplantApiClient {
         },
         { rawName: 'num_attempts', name: 'numAttempts', transformer: TypeTransformer.to('number') },
         { rawName: 'name', name: 'name', transformer: TypeTransformer.to('string') },
-        { rawName: 'file_content', name: 'fileContent', transformer: TypeTransformer.to('file') },
+        { rawName: 'file_content', name: 'fileContent', transformer: TypeTransformer.to('string') },
         {
           rawName: 'interval_seconds',
           name: 'intervalSeconds',
@@ -1791,6 +1791,7 @@ export default class VoximplantApiClient {
           name: 'videoConference',
           transformer: TypeTransformer.to('boolean'),
         },
+        { rawName: 'bind_key_id', name: 'bindKeyId', transformer: TypeTransformer.to('string') },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -1839,6 +1840,7 @@ export default class VoximplantApiClient {
           name: 'videoConference',
           transformer: TypeTransformer.to('boolean'),
         },
+        { rawName: 'bind_key_id', name: 'bindKeyId', transformer: TypeTransformer.to('string') },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -1866,6 +1868,11 @@ export default class VoximplantApiClient {
           rawName: 'video_conference',
           name: 'videoConference',
           transformer: TypeTransformer.to('boolean'),
+        },
+        {
+          rawName: 'attached_key_id',
+          name: 'attachedKeyId',
+          transformer: TypeTransformer.to('string'),
         },
         { rawName: 'template', name: 'template', transformer: TypeTransformer.to('string') },
         {

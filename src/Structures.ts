@@ -2195,6 +2195,14 @@ export interface CallListDetail {
    * The status name. The possible values are __New__ (status_id = 0), __In progress__ (status_id = 1), __Processed__ (status_id = 2), __Error__ (status_id = 3), __Canceled__ (status_id = 4)
    */
   status: string;
+  /**
+   * The call list task ID
+   */
+  taskId: number;
+  /**
+   * The call list task UUID
+   */
+  taskUuid: string;
 }
 export interface SIPRegistration {
   /**
