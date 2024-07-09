@@ -489,7 +489,7 @@ export default class VoximplantApiClient {
     return authHeader;
   }
 
-  private makeRequest<T extends keyof UtilsReturns>(
+  private async makeRequest<T extends keyof UtilsReturns>(
     request: T,
     requestData: any,
     transformer: any[]
@@ -504,26 +504,33 @@ export default class VoximplantApiClient {
         form.append(field, requestData[field]);
       }
     });
+
     const host = this.host || 'api.voximplant.com';
-    return axios
-      .post('https://' + host + '/platform_api', form, {
-        headers: { ...form.getHeaders(), Authorization: this.generateAuthHeader() },
-      })
-      .then((response) => {
-        if (response.data && response.data.errors) {
-          return response.data;
-        }
-        const returnData = {};
-        Object.keys(response.data).forEach((field) => {
-          const cTransformer = transformer[1].find((tt) => tt.rawName === field);
-          if (cTransformer) {
-            returnData[cTransformer.name] = cTransformer.transformer(response.data[field]);
-          } else {
-            returnData[field] = response.data[field];
-          }
-        });
-        return returnData;
-      });
+    const response = await axios.post(
+      "https://" + host + "/platform_api",
+      form,
+      {
+        headers: {
+          ...form.getHeaders(),
+          Authorization: this.generateAuthHeader(),
+        },
+      },
+    );
+    if (response.data && response.data.errors) {
+      throw response.data.errors;
+    }
+
+    const returnData = {};
+    Object.keys(response.data).forEach((field) => {
+      const cTransformer = transformer[1].find((tt) => tt.rawName === field);
+      if (cTransformer) {
+        returnData[cTransformer.name] = cTransformer.transformer(response.data[field]);
+      } else {
+        returnData[field] = response.data[field];
+      }
+    });
+
+    return returnData as UtilsReturns[T];
   }
 
   public Accounts: AccountsInterface = {
