@@ -65,6 +65,7 @@ import {
   KeyValueItems,
   KeyValueKeys,
   AccountInvoice,
+  APIError,
 } from './Structures';
 export interface UtilsReturns {
   GetAccountInfo: GetAccountInfoResponse;
@@ -92,6 +93,7 @@ export interface UtilsReturns {
   CreateCallList: CreateCallListResponse;
   GetCallLists: GetCallListsResponse;
   GetCallListDetails: GetCallListDetailsResponse;
+  EditCallListTask: EditCallListTaskResponse;
   StopCallListProcessing: StopCallListProcessingResponse;
   RecoverCallList: RecoverCallListResponse;
   AddScenario: AddScenarioResponse;
@@ -263,6 +265,7 @@ export interface GetAccountInfoResponse {
    *The preferred address for the Management API requests
    */
   apiAddress: string;
+  error?: APIError;
 }
 export interface SetAccountInfoRequest {
   /**
@@ -357,6 +360,7 @@ export interface SetAccountInfoResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SetChildAccountInfoRequest {
   /**
@@ -430,6 +434,7 @@ export interface SetChildAccountInfoResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface GetCurrencyRateRequest {
   /**
@@ -447,6 +452,7 @@ export interface GetCurrencyRateResponse {
    *The exchange rates
    */
   result: ExchangeRates;
+  error?: APIError;
 }
 export interface GetResourcePriceRequest {
   /**
@@ -472,6 +478,7 @@ export interface GetResourcePriceResponse {
    *The resource prices
    */
   result: ResourcePrice[];
+  error?: APIError;
 }
 export interface GetSubscriptionPriceRequest {
   /**
@@ -501,6 +508,7 @@ export interface GetSubscriptionPriceResponse {
    *The subscription template prices
    */
   result: SubscriptionTemplate[];
+  error?: APIError;
 }
 export interface GetChildrenAccountsRequest {
   /**
@@ -563,6 +571,7 @@ export interface GetChildrenAccountsResponse {
    *The returned user count
    */
   count: number;
+  error?: APIError;
 }
 export interface GetMoneyAmountToChargeRequest {
   /**
@@ -580,6 +589,7 @@ export interface GetMoneyAmountToChargeResponse {
    *Result
    */
   result: GetMoneyAmountToChargeResult;
+  error?: APIError;
 }
 export interface ChargeAccountRequest {
   /**
@@ -601,6 +611,7 @@ export interface ChargeAccountResponse {
    *The current account state
    */
   accountInfo: ShortAccountInfo;
+  error?: APIError;
 }
 export interface ChangeAccountPlanRequest {
   /**
@@ -622,6 +633,7 @@ export interface ChangeAccountPlanResponse {
    *The current account state
    */
   accountInfo: ShortAccountInfo;
+  error?: APIError;
 }
 export interface GetAccountPlansRequest {
   /**
@@ -636,6 +648,7 @@ export interface GetAccountPlansRequest {
 
 export interface GetAccountPlansResponse {
   result: AccountPlan[];
+  error?: APIError;
 }
 export interface GetAvailablePlansRequest {
   /**
@@ -650,6 +663,7 @@ export interface GetAvailablePlansRequest {
 
 export interface GetAvailablePlansResponse {
   result: Plan[];
+  error?: APIError;
 }
 export interface GetAccountDocumentsRequest {
   /**
@@ -687,6 +701,7 @@ export interface GetAccountDocumentsResponse {
    *The account verifications
    */
   result: AccountVerifications[];
+  error?: APIError;
 }
 export interface AccountsInterface {
   getAccountInfo: (request: GetAccountInfoRequest) => Promise<GetAccountInfoResponse>;
@@ -742,6 +757,7 @@ export interface AddApplicationResponse {
    *Whether a secure storage for logs and records is enabled or not
    */
   secureRecordStorage: boolean;
+  error?: APIError;
 }
 export interface DelApplicationRequest {
   /**
@@ -759,6 +775,7 @@ export interface DelApplicationResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SetApplicationInfoRequest {
   /**
@@ -792,6 +809,7 @@ export interface SetApplicationInfoResponse {
    *Whether a secure storage for logs and records is enabled or not
    */
   secureRecordStorage: boolean;
+  error?: APIError;
 }
 export interface GetApplicationsRequest {
   /**
@@ -830,6 +848,7 @@ export interface GetApplicationsResponse {
    *The returned application count
    */
   count: number;
+  error?: APIError;
 }
 export interface ApplicationsInterface {
   addApplication: (request: AddApplicationRequest) => Promise<AddApplicationResponse>;
@@ -883,6 +902,7 @@ export interface AddUserResponse {
    *The new user ID
    */
   userId: number;
+  error?: APIError;
 }
 export interface DelUserRequest {
   /**
@@ -908,6 +928,7 @@ export interface DelUserResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SetUserInfoRequest {
   /**
@@ -958,6 +979,7 @@ export interface SetUserInfoResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface GetUsersRequest {
   /**
@@ -1047,6 +1069,7 @@ export interface GetUsersResponse {
    *The returned user count
    */
   count: number;
+  error?: APIError;
 }
 export interface TransferMoneyToUserRequest {
   /**
@@ -1096,6 +1119,7 @@ export interface TransferMoneyToUserResponse {
    *The new account balance
    */
   balance: number;
+  error?: APIError;
 }
 export interface UsersInterface {
   addUser: (request: AddUserRequest) => Promise<AddUserResponse>;
@@ -1171,6 +1195,7 @@ export interface CreateCallListResponse {
    *The list ID
    */
   listId: number;
+  error?: APIError;
 }
 export interface GetCallListsRequest {
   /**
@@ -1224,6 +1249,7 @@ export interface GetCallListsResponse {
    *The total found call list count
    */
   totalCount: number;
+  error?: APIError;
 }
 export interface GetCallListDetailsRequest {
   /**
@@ -1261,6 +1287,45 @@ export interface GetCallListDetailsResponse {
    *The number of tasks
    */
   count: number;
+  error?: APIError;
+}
+export interface EditCallListTaskRequest {
+  /**
+   *Call list's ID
+   */
+  listId: number;
+  /**
+   *Call list's task ID. Please specify either the task's ID or the task's UUID to edit the task
+   */
+  taskId?: number;
+  /**
+   *Call list's task ID. Please specify either the task's ID or the task's UUID to edit the task
+   */
+  taskUuid?: string;
+  /**
+   *Next calling attempts timestamp in the yyyy-MM-dd HH:mm:ss format
+   */
+  startAt?: Date;
+  /**
+   *Number of remaining calling attempts
+   */
+  attemptsLeft?: number;
+  /**
+   *Custom data string
+   */
+  customData?: string;
+  /**
+   *Start time for the daily calling attempts in the UTC+0 24-h format: HH:mm:ss format
+   */
+  minExecutionTime?: Date;
+}
+
+export interface EditCallListTaskResponse {
+  /**
+   *true
+   */
+  result: boolean;
+  error?: APIError;
 }
 export interface StopCallListProcessingRequest {
   /**
@@ -1278,6 +1343,7 @@ export interface StopCallListProcessingResponse {
    *Result message
    */
   msg: string;
+  error?: APIError;
 }
 export interface RecoverCallListRequest {
   /**
@@ -1295,11 +1361,13 @@ export interface RecoverCallListResponse {
    *Number restored tasks
    */
   countRecovery: number;
+  error?: APIError;
 }
 export interface CallListsInterface {
   createCallList: (request: CreateCallListRequest) => Promise<CreateCallListResponse>;
   getCallLists: (request: GetCallListsRequest) => Promise<GetCallListsResponse>;
   getCallListDetails: (request: GetCallListDetailsRequest) => Promise<GetCallListDetailsResponse>;
+  editCallListTask: (request: EditCallListTaskRequest) => Promise<EditCallListTaskResponse>;
   stopCallListProcessing: (
     request: StopCallListProcessingRequest
   ) => Promise<StopCallListProcessingResponse>;
@@ -1338,6 +1406,7 @@ export interface AddScenarioResponse {
    *The new scenario ID
    */
   scenarioId: number;
+  error?: APIError;
 }
 export interface DelScenarioRequest {
   /**
@@ -1355,6 +1424,7 @@ export interface DelScenarioResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface BindScenarioRequest {
   /**
@@ -1392,6 +1462,7 @@ export interface BindScenarioResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface GetScenariosRequest {
   /**
@@ -1426,6 +1497,7 @@ export interface GetScenariosResponse {
    *The returned scenario count
    */
   count: number;
+  error?: APIError;
 }
 export interface SetScenarioInfoRequest {
   /**
@@ -1451,6 +1523,7 @@ export interface SetScenarioInfoResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface ReorderScenariosRequest {
   /**
@@ -1472,6 +1545,7 @@ export interface ReorderScenariosResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface StartScenariosRequest {
   /**
@@ -1527,6 +1601,7 @@ export interface StartScenariosResponse {
    *The call session history ID. To search a call session result, paste the ID to the <a href='/docs/references/httpapi/history#getcallhistory'>GetCallHistory</a> method's <b>call_session_history_id</b> parameter
    */
   callSessionHistoryId: number;
+  error?: APIError;
 }
 export interface StartConferenceRequest {
   /**
@@ -1584,6 +1659,7 @@ export interface StartConferenceResponse {
    *The call session history ID. To search a call session result, paste the ID to the <a href='/docs/references/httpapi/history#getcallhistory'>GetCallHistory</a> method's <b>call_session_history_id</b> parameter
    */
   callSessionHistoryId: number;
+  error?: APIError;
 }
 export interface ScenariosInterface {
   addScenario: (request: AddScenarioRequest) => Promise<AddScenarioResponse>;
@@ -1644,6 +1720,7 @@ export interface AddRuleResponse {
    *The new rule ID
    */
   ruleId: number;
+  error?: APIError;
 }
 export interface DelRuleRequest {
   /**
@@ -1669,6 +1746,7 @@ export interface DelRuleResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SetRuleInfoRequest {
   /**
@@ -1702,6 +1780,7 @@ export interface SetRuleInfoResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface GetRulesRequest {
   /**
@@ -1756,6 +1835,7 @@ export interface GetRulesResponse {
    *The returned rule count
    */
   count: number;
+  error?: APIError;
 }
 export interface ReorderRulesRequest {
   /**
@@ -1769,6 +1849,7 @@ export interface ReorderRulesResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface RulesInterface {
   addRule: (request: AddRuleRequest) => Promise<AddRuleResponse>;
@@ -1891,6 +1972,7 @@ export interface GetCallHistoryResponse {
    *The history report ID (async mode)
    */
   historyReportId: number;
+  error?: APIError;
 }
 export interface GetBriefCallHistoryRequest {
   /**
@@ -1957,6 +2039,7 @@ export interface GetBriefCallHistoryResponse {
    *The history report ID
    */
   historyReportId: number;
+  error?: APIError;
 }
 export interface GetHistoryReportsRequest {
   /**
@@ -2007,6 +2090,7 @@ export interface GetHistoryReportsResponse {
    *The returned reports count
    */
   count: number;
+  error?: APIError;
 }
 export interface GetTransactionHistoryRequest {
   /**
@@ -2087,6 +2171,7 @@ export interface GetTransactionHistoryResponse {
    *The history report ID (async mode)
    */
   historyReportId: number;
+  error?: APIError;
 }
 export interface DeleteRecordRequest {
   /**
@@ -2101,6 +2186,7 @@ export interface DeleteRecordRequest {
 
 export interface DeleteRecordResponse {
   result: number;
+  error?: APIError;
 }
 export interface GetACDHistoryRequest {
   /**
@@ -2179,6 +2265,7 @@ export interface GetACDHistoryResponse {
    *The returned ACD session count
    */
   count: number;
+  error?: APIError;
 }
 export interface GetAuditLogRequest {
   /**
@@ -2258,6 +2345,7 @@ export interface GetAuditLogResponse {
    *The history report ID (async mode)
    */
   historyReportId: number;
+  error?: APIError;
 }
 export interface HistoryInterface {
   getCallHistory: (request: GetCallHistoryRequest) => Promise<GetCallHistoryResponse>;
@@ -2289,6 +2377,7 @@ export interface AddPstnBlackListItemResponse {
    *The PSTN black list item ID
    */
   pstnBlacklistId: number;
+  error?: APIError;
 }
 export interface SetPstnBlackListItemRequest {
   /**
@@ -2306,6 +2395,7 @@ export interface SetPstnBlackListItemResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface DelPstnBlackListItemRequest {
   /**
@@ -2319,6 +2409,7 @@ export interface DelPstnBlackListItemResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface GetPstnBlackListRequest {
   /**
@@ -2349,6 +2440,7 @@ export interface GetPstnBlackListResponse {
    *The returned phone numbers count
    */
   count: number;
+  error?: APIError;
 }
 export interface PSTNBlacklistInterface {
   addPstnBlackListItem: (
@@ -2383,6 +2475,7 @@ export interface AddSipWhiteListItemResponse {
    *The SIP white list item ID
    */
   sipWhitelistId: number;
+  error?: APIError;
 }
 export interface DelSipWhiteListItemRequest {
   /**
@@ -2396,6 +2489,7 @@ export interface DelSipWhiteListItemResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SetSipWhiteListItemRequest {
   /**
@@ -2417,6 +2511,7 @@ export interface SetSipWhiteListItemResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface GetSipWhiteListRequest {
   /**
@@ -2443,6 +2538,7 @@ export interface GetSipWhiteListResponse {
    *The returned networks count
    */
   count: number;
+  error?: APIError;
 }
 export interface SIPWhiteListInterface {
   addSipWhiteListItem: (
@@ -2521,6 +2617,7 @@ export interface CreateSipRegistrationResponse {
    *The current account state
    */
   accountInfo: ShortAccountInfo;
+  error?: APIError;
 }
 export interface UpdateSipRegistrationRequest {
   /**
@@ -2578,6 +2675,7 @@ export interface UpdateSipRegistrationResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface BindSipRegistrationRequest {
   /**
@@ -2619,6 +2717,7 @@ export interface BindSipRegistrationResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface DeleteSipRegistrationRequest {
   /**
@@ -2632,6 +2731,7 @@ export interface DeleteSipRegistrationResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface GetSipRegistrationsRequest {
   /**
@@ -2713,6 +2813,7 @@ export interface GetSipRegistrationsResponse {
    *Count rows
    */
   count: number;
+  error?: APIError;
 }
 export interface SIPRegistrationInterface {
   createSipRegistration: (
@@ -2773,6 +2874,7 @@ export interface AttachPhoneNumberResponse {
    *The attached phone numbers
    */
   phoneNumbers: NewAttachedPhoneInfo[];
+  error?: APIError;
 }
 export interface BindPhoneNumberToApplicationRequest {
   /**
@@ -2810,6 +2912,7 @@ export interface BindPhoneNumberToApplicationResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface DeactivatePhoneNumberRequest {
   /**
@@ -2827,6 +2930,7 @@ export interface DeactivatePhoneNumberResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SetPhoneNumberInfoRequest {
   /**
@@ -2849,6 +2953,7 @@ export interface SetPhoneNumberInfoResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface GetPhoneNumbersRequest {
   /**
@@ -2987,6 +3092,7 @@ export interface GetPhoneNumbersResponse {
    *The returned phone count
    */
   count: number;
+  error?: APIError;
 }
 export interface GetNewPhoneNumbersRequest {
   /**
@@ -3025,6 +3131,7 @@ export interface GetNewPhoneNumbersResponse {
    *The returned phone count
    */
   count: number;
+  error?: APIError;
 }
 export interface GetPhoneNumberCategoriesRequest {
   /**
@@ -3043,6 +3150,7 @@ export interface GetPhoneNumberCategoriesRequest {
 
 export interface GetPhoneNumberCategoriesResponse {
   result: PhoneNumberCountryInfo[];
+  error?: APIError;
 }
 export interface GetPhoneNumberCountryStatesRequest {
   /**
@@ -3061,6 +3169,7 @@ export interface GetPhoneNumberCountryStatesRequest {
 
 export interface GetPhoneNumberCountryStatesResponse {
   result: PhoneNumberCountryStateInfo[];
+  error?: APIError;
 }
 export interface GetPhoneNumberRegionsRequest {
   /**
@@ -3099,6 +3208,7 @@ export interface GetPhoneNumberRegionsRequest {
 
 export interface GetPhoneNumberRegionsResponse {
   result: PhoneNumberCountryRegionInfo[];
+  error?: APIError;
 }
 export interface GetActualPhoneNumberRegionRequest {
   /**
@@ -3125,6 +3235,7 @@ export interface GetActualPhoneNumberRegionRequest {
 
 export interface GetActualPhoneNumberRegionResponse {
   result: PhoneNumberCountryRegionInfo;
+  error?: APIError;
 }
 export interface GetAccountPhoneNumberCountriesRequest {
   /**
@@ -3138,6 +3249,7 @@ export interface GetAccountPhoneNumberCountriesResponse {
    *Array of country codes
    */
   result: string[];
+  error?: APIError;
 }
 export interface PhoneNumbersInterface {
   attachPhoneNumber: (request: AttachPhoneNumberRequest) => Promise<AttachPhoneNumberResponse>;
@@ -3183,6 +3295,7 @@ export interface AddCallerIDResponse {
    *The id of the callerID object
    */
   calleridId: number;
+  error?: APIError;
 }
 export interface ActivateCallerIDRequest {
   /**
@@ -3204,6 +3317,7 @@ export interface ActivateCallerIDResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface DelCallerIDRequest {
   /**
@@ -3221,6 +3335,7 @@ export interface DelCallerIDResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface GetCallerIDsRequest {
   /**
@@ -3259,6 +3374,7 @@ export interface GetCallerIDsResponse {
    *The returned record count
    */
   count: number;
+  error?: APIError;
 }
 export interface VerifyCallerIDRequest {
   /**
@@ -3276,6 +3392,7 @@ export interface VerifyCallerIDResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface CallerIDsInterface {
   addCallerID: (request: AddCallerIDRequest) => Promise<AddCallerIDResponse>;
@@ -3297,6 +3414,7 @@ export interface AddOutboundTestPhoneNumberResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface VerifyOutboundTestPhoneNumberRequest {}
 
@@ -3305,6 +3423,7 @@ export interface VerifyOutboundTestPhoneNumberResponse {
    *The number of attempts left for the day. The number is reset every day at 00:00 UTC
    */
   dailyAttemptsLeft: number;
+  error?: APIError;
 }
 export interface ActivateOutboundTestPhoneNumberRequest {
   /**
@@ -3318,6 +3437,7 @@ export interface ActivateOutboundTestPhoneNumberResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface DelOutboundTestPhoneNumberRequest {}
 
@@ -3326,11 +3446,13 @@ export interface DelOutboundTestPhoneNumberResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface GetOutboundTestPhoneNumbersRequest {}
 
 export interface GetOutboundTestPhoneNumbersResponse {
   result: OutboundTestPhonenumberInfo[];
+  error?: APIError;
 }
 export interface OutboundTestNumbersInterface {
   addOutboundTestPhoneNumber: (
@@ -3398,6 +3520,7 @@ export interface AddQueueResponse {
    *The ACD queue ID
    */
   acdQueueId: number;
+  error?: APIError;
 }
 export interface BindUserToQueueRequest {
   /**
@@ -3435,6 +3558,7 @@ export interface BindUserToQueueResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface DelQueueRequest {
   /**
@@ -3452,6 +3576,7 @@ export interface DelQueueResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SetQueueInfoRequest {
   /**
@@ -3501,6 +3626,7 @@ export interface SetQueueInfoResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface GetQueuesRequest {
   /**
@@ -3555,6 +3681,7 @@ export interface GetQueuesResponse {
    *The returned queue count
    */
   count: number;
+  error?: APIError;
 }
 export interface GetACDStateRequest {
   /**
@@ -3565,6 +3692,7 @@ export interface GetACDStateRequest {
 
 export interface GetACDStateResponse {
   result: ACDState;
+  error?: APIError;
 }
 export interface GetACDOperatorStatisticsRequest {
   /**
@@ -3606,6 +3734,7 @@ export interface GetACDOperatorStatisticsResponse {
    *List of groups, grouped by user ID or date according to the 'group' method call argument
    */
   result: ACDOperatorAggregationGroup[];
+  error?: APIError;
 }
 export interface GetACDQueueStatisticsRequest {
   /**
@@ -3639,6 +3768,7 @@ export interface GetACDQueueStatisticsResponse {
    *List of records grouped grouped by date according to the 'aggregation' method call argument
    */
   result: ACDQueueStatistics[];
+  error?: APIError;
 }
 export interface GetACDOperatorStatusStatisticsRequest {
   /**
@@ -3672,6 +3802,7 @@ export interface GetACDOperatorStatusStatisticsResponse {
    *List of groups, grouped by user ID or date according to the 'group' method call argument
    */
   result: ACDOperatorStatusAggregationGroup[];
+  error?: APIError;
 }
 export interface QueuesInterface {
   addQueue: (request: AddQueueRequest) => Promise<AddQueueResponse>;
@@ -3752,6 +3883,7 @@ export interface GetSmartQueueRealtimeMetricsResponse {
    *The used timezone, e.g., 'Etc/GMT'
    */
   timezone: string;
+  error?: APIError;
 }
 export interface GetSmartQueueDayHistoryRequest {
   /**
@@ -3814,6 +3946,7 @@ export interface GetSmartQueueDayHistoryResponse {
    *The used timezone, e.g., 'Etc/GMT'
    */
   timezone: string;
+  error?: APIError;
 }
 export interface RequestSmartQueueHistoryRequest {
   /**
@@ -3879,6 +4012,7 @@ export interface RequestSmartQueueHistoryResponse {
    *History report ID
    */
   historyReportId: number;
+  error?: APIError;
 }
 export interface GetSQStateRequest {
   /**
@@ -3905,6 +4039,7 @@ export interface GetSQStateRequest {
 
 export interface GetSQStateResponse {
   result: SmartQueueState[];
+  error?: APIError;
 }
 export interface SQ_SetAgentCustomStatusMappingRequest {
   /**
@@ -3926,6 +4061,7 @@ export interface SQ_SetAgentCustomStatusMappingResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SQ_GetAgentCustomStatusMappingRequest {
   /**
@@ -3943,6 +4079,7 @@ export interface SQ_GetAgentCustomStatusMappingResponse {
    *Custom status name
    */
   customStatusName: string;
+  error?: APIError;
 }
 export interface SQ_DeleteAgentCustomStatusMappingRequest {
   /**
@@ -3960,6 +4097,7 @@ export interface SQ_DeleteAgentCustomStatusMappingResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SQ_AddQueueRequest {
   /**
@@ -4022,6 +4160,7 @@ export interface SQ_AddQueueResponse {
    *ID of the added queue
    */
   sqQueueId: number;
+  error?: APIError;
 }
 export interface SQ_SetQueueInfoRequest {
   /**
@@ -4092,6 +4231,7 @@ export interface SQ_SetQueueInfoResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SQ_DelQueueRequest {
   /**
@@ -4117,6 +4257,7 @@ export interface SQ_DelQueueResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SQ_GetQueuesRequest {
   /**
@@ -4174,6 +4315,7 @@ export interface SQ_GetQueuesResponse {
    *The found queue(s)
    */
   result: GetSQQueuesResult;
+  error?: APIError;
 }
 export interface SQ_AddSkillRequest {
   /**
@@ -4199,6 +4341,7 @@ export interface SQ_AddSkillResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SQ_DelSkillRequest {
   /**
@@ -4224,6 +4367,7 @@ export interface SQ_DelSkillResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SQ_SetSkillInfoRequest {
   /**
@@ -4257,6 +4401,7 @@ export interface SQ_SetSkillInfoResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SQ_BindSkillRequest {
   /**
@@ -4290,6 +4435,7 @@ export interface SQ_BindSkillResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SQ_UnbindSkillRequest {
   /**
@@ -4323,6 +4469,7 @@ export interface SQ_UnbindSkillResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SQ_GetSkillsRequest {
   /**
@@ -4376,6 +4523,7 @@ export interface SQ_GetSkillsResponse {
    *The found skill(s).
    */
   result: GetSQSkillsResult;
+  error?: APIError;
 }
 export interface SQ_BindAgentRequest {
   /**
@@ -4413,6 +4561,7 @@ export interface SQ_BindAgentResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SQ_UnbindAgentRequest {
   /**
@@ -4446,6 +4595,7 @@ export interface SQ_UnbindAgentResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SQ_GetAgentsRequest {
   /**
@@ -4523,6 +4673,7 @@ export interface SQ_GetAgentsResponse {
    *The found agent(s)
    */
   result: GetSQAgentsResult;
+  error?: APIError;
 }
 export interface SQ_SetAgentInfoRequest {
   /**
@@ -4556,6 +4707,7 @@ export interface SQ_SetAgentInfoResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SmartQueueInterface {
   getSmartQueueRealtimeMetrics: (
@@ -4609,6 +4761,7 @@ export interface AddSkillResponse {
    *The skill ID
    */
   skillId: number;
+  error?: APIError;
 }
 export interface DelSkillRequest {
   /**
@@ -4626,6 +4779,7 @@ export interface DelSkillResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SetSkillInfoRequest {
   /**
@@ -4647,6 +4801,7 @@ export interface SetSkillInfoResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface GetSkillsRequest {
   /**
@@ -4677,6 +4832,7 @@ export interface GetSkillsResponse {
    *The returned skill count
    */
   count: number;
+  error?: APIError;
 }
 export interface BindSkillRequest {
   /**
@@ -4722,6 +4878,7 @@ export interface BindSkillResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SkillsInterface {
   addSkill: (request: AddSkillRequest) => Promise<AddSkillResponse>;
@@ -4777,6 +4934,7 @@ export interface AddAdminUserResponse {
    *The admin user API key
    */
   adminUserApiKey: string;
+  error?: APIError;
 }
 export interface DelAdminUserRequest {
   /**
@@ -4794,6 +4952,7 @@ export interface DelAdminUserResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SetAdminUserInfoRequest {
   /**
@@ -4827,6 +4986,7 @@ export interface SetAdminUserInfoResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface GetAdminUsersRequest {
   /**
@@ -4873,6 +5033,7 @@ export interface GetAdminUsersResponse {
    *The returned admin user count
    */
   count: number;
+  error?: APIError;
 }
 export interface AttachAdminRoleRequest {
   /**
@@ -4902,6 +5063,7 @@ export interface AttachAdminRoleResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface AdminUsersInterface {
   addAdminUser: (request: AddAdminUserRequest) => Promise<AddAdminUserResponse>;
@@ -4947,6 +5109,7 @@ export interface AddAdminRoleResponse {
    *The new admin role ID
    */
   adminRoleId: number;
+  error?: APIError;
 }
 export interface DelAdminRoleRequest {
   /**
@@ -4964,6 +5127,7 @@ export interface DelAdminRoleResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface SetAdminRoleInfoRequest {
   /**
@@ -5009,6 +5173,7 @@ export interface SetAdminRoleInfoResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface GetAdminRolesRequest {
   /**
@@ -5072,6 +5237,7 @@ export interface GetAdminRolesResponse {
    *The returned admin role count
    */
   count: number;
+  error?: APIError;
 }
 export interface GetAvailableAdminRoleEntriesRequest {}
 
@@ -5080,6 +5246,7 @@ export interface GetAvailableAdminRoleEntriesResponse {
    *Array of the admin role entries
    */
   result: string[];
+  error?: APIError;
 }
 export interface AdminRolesInterface {
   addAdminRole: (request: AddAdminRoleRequest) => Promise<AddAdminRoleResponse>;
@@ -5111,6 +5278,7 @@ export interface AddAuthorizedAccountIPResponse {
    *1
    */
   result: number;
+  error?: APIError;
 }
 export interface DelAuthorizedAccountIPRequest {
   /**
@@ -5132,6 +5300,7 @@ export interface DelAuthorizedAccountIPResponse {
    *The removed network count
    */
   result: number;
+  error?: APIError;
 }
 export interface GetAuthorizedAccountIPsRequest {
   /**
@@ -5170,6 +5339,7 @@ export interface GetAuthorizedAccountIPsResponse {
    *The returned network count
    */
   count: number;
+  error?: APIError;
 }
 export interface CheckAuthorizedAccountIPRequest {
   /**
@@ -5187,6 +5357,7 @@ export interface CheckAuthorizedAccountIPResponse {
    *The matched authorized IP or network (if found)
    */
   authorizedIp?: string;
+  error?: APIError;
 }
 export interface AuthorizedIPsInterface {
   addAuthorizedAccountIP: (
@@ -5224,6 +5395,7 @@ export interface LinkRegulationAddressRequest {
 
 export interface LinkRegulationAddressResponse {
   result: boolean;
+  error?: APIError;
 }
 export interface GetZIPCodesRequest {
   /**
@@ -5253,6 +5425,7 @@ export interface GetZIPCodesResponse {
    *The returned zip codes count
    */
   count: number;
+  error?: APIError;
 }
 export interface GetRegulationsAddressRequest {
   /**
@@ -5292,6 +5465,7 @@ export interface GetRegulationsAddressResponse {
    *The returned regulation address count
    */
   count: number;
+  error?: APIError;
 }
 export interface GetAvailableRegulationsRequest {
   /**
@@ -5321,6 +5495,7 @@ export interface GetAvailableRegulationsResponse {
    *The count of RegulationAddress in progress status
    */
   countInProgress: number;
+  error?: APIError;
 }
 export interface GetCountriesRequest {
   /**
@@ -5332,6 +5507,7 @@ export interface GetCountriesRequest {
 export interface GetCountriesResponse {
   result: RegulationCountry[];
   count: number;
+  error?: APIError;
 }
 export interface GetRegionsRequest {
   /**
@@ -5359,6 +5535,7 @@ export interface GetRegionsRequest {
 export interface GetRegionsResponse {
   result: RegulationRegionRecord[];
   count: number;
+  error?: APIError;
 }
 export interface RegulationAddressInterface {
   linkRegulationAddress: (
@@ -5441,6 +5618,7 @@ export interface AddPushCredentialRequest {
 export interface AddPushCredentialResponse {
   result: number;
   pushCredentialId: number;
+  error?: APIError;
 }
 export interface SetPushCredentialRequest {
   /**
@@ -5487,6 +5665,7 @@ export interface SetPushCredentialRequest {
 
 export interface SetPushCredentialResponse {
   result: number;
+  error?: APIError;
 }
 export interface DelPushCredentialRequest {
   /**
@@ -5497,6 +5676,7 @@ export interface DelPushCredentialRequest {
 
 export interface DelPushCredentialResponse {
   result: number;
+  error?: APIError;
 }
 export interface GetPushCredentialRequest {
   /**
@@ -5528,6 +5708,7 @@ export interface GetPushCredentialRequest {
 
 export interface GetPushCredentialResponse {
   result: PushCredentialInfo[];
+  error?: APIError;
 }
 export interface BindPushCredentialRequest {
   /**
@@ -5546,6 +5727,7 @@ export interface BindPushCredentialRequest {
 
 export interface BindPushCredentialResponse {
   result: number;
+  error?: APIError;
 }
 export interface PushCredentialsInterface {
   addPushCredential: (request: AddPushCredentialRequest) => Promise<AddPushCredentialResponse>;
@@ -5577,6 +5759,7 @@ export interface AddDialogflowKeyRequest {
 export interface AddDialogflowKeyResponse {
   result: number;
   dialogflowKeyId: number;
+  error?: APIError;
 }
 export interface SetDialogflowKeyRequest {
   /**
@@ -5591,6 +5774,7 @@ export interface SetDialogflowKeyRequest {
 
 export interface SetDialogflowKeyResponse {
   result: number;
+  error?: APIError;
 }
 export interface DelDialogflowKeyRequest {
   /**
@@ -5601,6 +5785,7 @@ export interface DelDialogflowKeyRequest {
 
 export interface DelDialogflowKeyResponse {
   result: number;
+  error?: APIError;
 }
 export interface GetDialogflowKeysRequest {
   /**
@@ -5620,6 +5805,7 @@ export interface GetDialogflowKeysRequest {
 
 export interface GetDialogflowKeysResponse {
   result: DialogflowKeyInfo[];
+  error?: APIError;
 }
 export interface BindDialogflowKeysRequest {
   /**
@@ -5638,6 +5824,7 @@ export interface BindDialogflowKeysRequest {
 
 export interface BindDialogflowKeysResponse {
   result: number;
+  error?: APIError;
 }
 export interface DialogflowCredentialsInterface {
   addDialogflowKey: (request: AddDialogflowKeyRequest) => Promise<AddDialogflowKeyResponse>;
@@ -5676,6 +5863,7 @@ export interface SendSmsMessageResponse {
    *The number of fragments the message is divided into
    */
   fragmentsCount: number;
+  error?: APIError;
 }
 export interface A2PSendSmsRequest {
   /**
@@ -5703,6 +5891,7 @@ export interface A2PSendSmsResponse {
    *The number of fragments the message is divided into
    */
   fragmentsCount: number;
+  error?: APIError;
 }
 export interface ControlSmsRequest {
   /**
@@ -5717,6 +5906,7 @@ export interface ControlSmsRequest {
 
 export interface ControlSmsResponse {
   result: number;
+  error?: APIError;
 }
 export interface GetSmsHistoryRequest {
   /**
@@ -5759,6 +5949,7 @@ export interface GetSmsHistoryResponse {
    *Total number of messages matching the query parameters
    */
   totalCount: number;
+  error?: APIError;
 }
 export interface A2PGetSmsHistoryRequest {
   /**
@@ -5801,6 +5992,7 @@ export interface A2PGetSmsHistoryResponse {
    *Total number of messages matching the query parameters
    */
   totalCount: number;
+  error?: APIError;
 }
 export interface SMSInterface {
   sendSmsMessage: (request: SendSmsMessageRequest) => Promise<SendSmsMessageResponse>;
@@ -5824,6 +6016,7 @@ export interface GetRecordStoragesRequest {
 
 export interface GetRecordStoragesResponse {
   result: RecordStorageInfo;
+  error?: APIError;
 }
 export interface RecordStoragesInterface {
   getRecordStorages: (request: GetRecordStoragesRequest) => Promise<GetRecordStoragesResponse>;
@@ -5852,6 +6045,7 @@ export interface CreateKeyRequest {
 
 export interface CreateKeyResponse {
   result: KeyInfo[];
+  error?: APIError;
 }
 export interface GetKeysRequest {
   /**
@@ -5874,6 +6068,7 @@ export interface GetKeysRequest {
 
 export interface GetKeysResponse {
   result: KeyView[];
+  error?: APIError;
 }
 export interface UpdateKeyRequest {
   /**
@@ -5892,6 +6087,7 @@ export interface UpdateKeyRequest {
 
 export interface UpdateKeyResponse {
   result: number;
+  error?: APIError;
 }
 export interface DeleteKeyRequest {
   /**
@@ -5902,6 +6098,7 @@ export interface DeleteKeyRequest {
 
 export interface DeleteKeyResponse {
   result: number;
+  error?: APIError;
 }
 export interface SetKeyRolesRequest {
   /**
@@ -5920,6 +6117,7 @@ export interface SetKeyRolesRequest {
 
 export interface SetKeyRolesResponse {
   result: number;
+  error?: APIError;
 }
 export interface GetKeyRolesRequest {
   /**
@@ -5934,6 +6132,7 @@ export interface GetKeyRolesRequest {
 
 export interface GetKeyRolesResponse {
   result: RoleView[];
+  error?: APIError;
 }
 export interface RemoveKeyRolesRequest {
   /**
@@ -5952,6 +6151,7 @@ export interface RemoveKeyRolesRequest {
 
 export interface RemoveKeyRolesResponse {
   result: number;
+  error?: APIError;
 }
 export interface AddSubUserRequest {
   /**
@@ -5978,6 +6178,7 @@ export interface AddSubUserRequest {
 
 export interface AddSubUserResponse {
   result: SubUserID;
+  error?: APIError;
 }
 export interface GetSubUsersRequest {
   /**
@@ -6000,6 +6201,7 @@ export interface GetSubUsersRequest {
 
 export interface GetSubUsersResponse {
   result: SubUserView[];
+  error?: APIError;
 }
 export interface SetSubUserInfoRequest {
   /**
@@ -6022,6 +6224,7 @@ export interface SetSubUserInfoRequest {
 
 export interface SetSubUserInfoResponse {
   result: number;
+  error?: APIError;
 }
 export interface DelSubUserRequest {
   /**
@@ -6032,6 +6235,7 @@ export interface DelSubUserRequest {
 
 export interface DelSubUserResponse {
   result: number;
+  error?: APIError;
 }
 export interface SetSubUserRolesRequest {
   /**
@@ -6050,6 +6254,7 @@ export interface SetSubUserRolesRequest {
 
 export interface SetSubUserRolesResponse {
   result: number;
+  error?: APIError;
 }
 export interface GetSubUserRolesRequest {
   /**
@@ -6064,6 +6269,7 @@ export interface GetSubUserRolesRequest {
 
 export interface GetSubUserRolesResponse {
   result: RoleView[];
+  error?: APIError;
 }
 export interface RemoveSubUserRolesRequest {
   /**
@@ -6086,6 +6292,7 @@ export interface RemoveSubUserRolesRequest {
 
 export interface RemoveSubUserRolesResponse {
   result: number;
+  error?: APIError;
 }
 export interface GetRolesRequest {
   /**
@@ -6096,11 +6303,13 @@ export interface GetRolesRequest {
 
 export interface GetRolesResponse {
   result: RoleView[];
+  error?: APIError;
 }
 export interface GetRoleGroupsRequest {}
 
 export interface GetRoleGroupsResponse {
   result: RoleGroupView[];
+  error?: APIError;
 }
 export interface RoleSystemInterface {
   createKey: (request: CreateKeyRequest) => Promise<CreateKeyResponse>;
@@ -6153,6 +6362,7 @@ export interface SetKeyValueItemResponse {
    *The key-value item
    */
   result: KeyValueItems;
+  error?: APIError;
 }
 export interface DelKeyValueItemRequest {
   /**
@@ -6171,6 +6381,7 @@ export interface DelKeyValueItemRequest {
 
 export interface DelKeyValueItemResponse {
   result: number;
+  error?: APIError;
 }
 export interface GetKeyValueItemRequest {
   /**
@@ -6192,6 +6403,7 @@ export interface GetKeyValueItemResponse {
    *The key-value item
    */
   result: KeyValueItems;
+  error?: APIError;
 }
 export interface GetKeyValueItemsRequest {
   /**
@@ -6221,6 +6433,7 @@ export interface GetKeyValueItemsResponse {
    *The key-value pairs
    */
   result: KeyValueItems;
+  error?: APIError;
 }
 export interface GetKeyValueKeysRequest {
   /**
@@ -6250,6 +6463,7 @@ export interface GetKeyValueKeysResponse {
    *The key-value keys
    */
   result: KeyValueKeys;
+  error?: APIError;
 }
 export interface KeyValueStorageInterface {
   setKeyValueItem: (request: SetKeyValueItemRequest) => Promise<SetKeyValueItemResponse>;
@@ -6284,6 +6498,7 @@ export interface GetAccountInvoicesResponse {
    *Number of returned invoices matching the query parameters
    */
   count: number;
+  error?: APIError;
 }
 export interface InvoicesInterface {
   getAccountInvoices: (request: GetAccountInvoicesRequest) => Promise<GetAccountInvoicesResponse>;

@@ -860,13 +860,9 @@ export interface HistoryReport {
    */
   lastDownloaded?: Date;
   /**
-   * Store the report until the UTC time in 24-h format: YYYY-MM-DD HH:mm:ss. The report is completed if the field exists
+   * Store the report until the date in format: YYYY-MM-DD. The report is completed if the field exists
    */
   storeUntil?: Date;
-  /**
-   * The report error
-   */
-  error?: APIError;
   /**
    * The report order filters (the saved [GetCallHistory], [GetTransactionHistory] parameters)
    */
@@ -3646,6 +3642,10 @@ export interface PushCredentialInfo {
    * The push provider name. The possible values are APPLE, APPLE_VOIP, GOOGLE, HUAWEI
    */
   pushProviderName: string;
+  /**
+   * The expiration date of the push certificate
+   */
+  expirationDate: string;
   /**
    * The bundle of Android/iOS application
    */

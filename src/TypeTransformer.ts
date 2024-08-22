@@ -529,8 +529,6 @@ export default class TypeTransformer {
         xData['lastDownloaded'] = TypeTransformer.to('Date')(data['last_downloaded']);
       if (typeof data['store_until'] !== 'undefined')
         xData['storeUntil'] = TypeTransformer.to('Date')(data['store_until']);
-      if (typeof data['error'] !== 'undefined')
-        xData['error'] = TypeTransformer.to('APIError')(data['error']);
       if (typeof data['filters'] !== 'undefined')
         xData['filters'] = TypeTransformer.to('any')(data['filters']);
       if (typeof data['calculated_data'] !== 'undefined')
@@ -2434,6 +2432,8 @@ export default class TypeTransformer {
         xData['pushProviderId'] = TypeTransformer.to('number')(data['push_provider_id']);
       if (typeof data['push_provider_name'] !== 'undefined')
         xData['pushProviderName'] = TypeTransformer.to('string')(data['push_provider_name']);
+      if (typeof data['expiration_date'] !== 'undefined')
+        xData['expirationDate'] = TypeTransformer.to('string')(data['expiration_date']);
       if (typeof data['credential_bundle'] !== 'undefined')
         xData['credentialBundle'] = TypeTransformer.to('string')(data['credential_bundle']);
       if (typeof data['content'] !== 'undefined')
@@ -3499,8 +3499,6 @@ export default class TypeTransformer {
         xData['last_downloaded'] = TypeTransformer.from('Date')(data['lastDownloaded']);
       if (typeof data['storeUntil'] !== 'undefined')
         xData['store_until'] = TypeTransformer.from('Date')(data['storeUntil']);
-      if (typeof data['error'] !== 'undefined')
-        xData['error'] = TypeTransformer.from('APIError')(data['error']);
       if (typeof data['filters'] !== 'undefined')
         xData['filters'] = TypeTransformer.from('any')(data['filters']);
       if (typeof data['calculatedData'] !== 'undefined')
@@ -5434,6 +5432,8 @@ export default class TypeTransformer {
         xData['push_provider_id'] = TypeTransformer.from('number')(data['pushProviderId']);
       if (typeof data['pushProviderName'] !== 'undefined')
         xData['push_provider_name'] = TypeTransformer.from('string')(data['pushProviderName']);
+      if (typeof data['expirationDate'] !== 'undefined')
+        xData['expiration_date'] = TypeTransformer.from('string')(data['expirationDate']);
       if (typeof data['credentialBundle'] !== 'undefined')
         xData['credential_bundle'] = TypeTransformer.from('string')(data['credentialBundle']);
       if (typeof data['content'] !== 'undefined')

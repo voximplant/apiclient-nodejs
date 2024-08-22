@@ -56,6 +56,8 @@ import {
   GetCallListsResponse,
   GetCallListDetailsRequest,
   GetCallListDetailsResponse,
+  EditCallListTaskRequest,
+  EditCallListTaskResponse,
   StopCallListProcessingRequest,
   StopCallListProcessingResponse,
   RecoverCallListRequest,
@@ -1453,7 +1455,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('GetCallLists', request, [reqMapper, respMapper]);
     },
     /**
-     * Get details of the specified call list. Returns a CSV file by default.
+     * Gets details of the specified call list. Returns a CSV file by default.
      */
     getCallListDetails: (
       request: GetCallListDetailsRequest
@@ -1477,7 +1479,33 @@ export default class VoximplantApiClient {
       return this.makeRequest('GetCallListDetails', request, [reqMapper, respMapper]);
     },
     /**
-     * Stop processing the specified call list.
+     * Edits the specified call list's task.
+     */
+    editCallListTask: (request: EditCallListTaskRequest): Promise<EditCallListTaskResponse> => {
+      const reqMapper = [
+        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number') },
+        { rawName: 'task_id', name: 'taskId', transformer: TypeTransformer.to('number') },
+        { rawName: 'task_uuid', name: 'taskUuid', transformer: TypeTransformer.to('string') },
+        { rawName: 'start_at', name: 'startAt', transformer: TypeTransformer.to('timestamp') },
+        {
+          rawName: 'attempts_left',
+          name: 'attemptsLeft',
+          transformer: TypeTransformer.to('number'),
+        },
+        { rawName: 'custom_data', name: 'customData', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'min_execution_time',
+          name: 'minExecutionTime',
+          transformer: TypeTransformer.to('timestamp'),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
+      ];
+      return this.makeRequest('EditCallListTask', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Stops processing the specified call list.
      */
     stopCallListProcessing: (
       request: StopCallListProcessingRequest
