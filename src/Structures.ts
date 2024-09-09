@@ -790,9 +790,17 @@ export interface Record {
 }
 export interface AuditLogInfo {
   /**
-   * The  ID
+   * The audit log ID
    */
   auditLogId: number;
+  /**
+   * The subuser's ID
+   */
+  subuserId?: number;
+  /**
+   * The subuser's name
+   */
+  subuserName?: string;
   /**
    * The account ID
    */

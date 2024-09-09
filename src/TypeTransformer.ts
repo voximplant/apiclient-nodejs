@@ -492,6 +492,10 @@ export default class TypeTransformer {
       const xData = {};
       if (typeof data['audit_log_id'] !== 'undefined')
         xData['auditLogId'] = TypeTransformer.to('number')(data['audit_log_id']);
+      if (typeof data['subuser_id'] !== 'undefined')
+        xData['subuserId'] = TypeTransformer.to('number')(data['subuser_id']);
+      if (typeof data['subuser_name'] !== 'undefined')
+        xData['subuserName'] = TypeTransformer.to('string')(data['subuser_name']);
       if (typeof data['account_id'] !== 'undefined')
         xData['accountId'] = TypeTransformer.to('number')(data['account_id']);
       if (typeof data['requested'] !== 'undefined')
@@ -3461,6 +3465,10 @@ export default class TypeTransformer {
       const xData = {};
       if (typeof data['auditLogId'] !== 'undefined')
         xData['audit_log_id'] = TypeTransformer.from('number')(data['auditLogId']);
+      if (typeof data['subuserId'] !== 'undefined')
+        xData['subuser_id'] = TypeTransformer.from('number')(data['subuserId']);
+      if (typeof data['subuserName'] !== 'undefined')
+        xData['subuser_name'] = TypeTransformer.from('string')(data['subuserName']);
       if (typeof data['accountId'] !== 'undefined')
         xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
       if (typeof data['requested'] !== 'undefined')
