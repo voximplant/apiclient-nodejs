@@ -537,7 +537,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'return_live_balance',
           name: 'returnLiveBalance',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -554,99 +554,103 @@ export default class VoximplantApiClient {
         {
           rawName: 'new_account_email',
           name: 'newAccountEmail',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'new_account_password',
           name: 'newAccountPassword',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'language_code',
           name: 'languageCode',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'location', name: 'location', transformer: TypeTransformer.to('string') },
+        { rawName: 'location', name: 'location', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'account_first_name',
           name: 'accountFirstName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'account_last_name',
           name: 'accountLastName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'min_balance_to_notify',
           name: 'minBalanceToNotify',
-          transformer: TypeTransformer.to('decimal'),
+          transformer: TypeTransformer.to('decimal', true),
         },
         {
           rawName: 'account_notifications',
           name: 'accountNotifications',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'tariff_changing_notifications',
           name: 'tariffChangingNotifications',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'news_notifications',
           name: 'newsNotifications',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'send_js_error',
           name: 'sendJsError',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'billing_address_name',
           name: 'billingAddressName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'billing_address_country_code',
           name: 'billingAddressCountryCode',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'billing_address_address',
           name: 'billingAddressAddress',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'billing_address_zip',
           name: 'billingAddressZip',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'billing_address_phone',
           name: 'billingAddressPhone',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'account_custom_data',
           name: 'accountCustomData',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'callback_url', name: 'callbackUrl', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'callback_url',
+          name: 'callbackUrl',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'callback_salt',
           name: 'callbackSalt',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'store_outbound_sms',
           name: 'storeOutboundSms',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'store_inbound_sms',
           name: 'storeInboundSms',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -664,74 +668,74 @@ export default class VoximplantApiClient {
         {
           rawName: 'child_account_id',
           name: 'childAccountId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'child_account_name',
           name: 'childAccountName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'child_account_email',
           name: 'childAccountEmail',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'new_child_account_email',
           name: 'newChildAccountEmail',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'new_child_account_password',
           name: 'newChildAccountPassword',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'account_notifications',
           name: 'accountNotifications',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'tariff_changing_notifications',
           name: 'tariffChangingNotifications',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'news_notifications',
           name: 'newsNotifications',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'active', name: 'active', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'active', name: 'active', transformer: TypeTransformer.to('boolean', true) },
         {
           rawName: 'language_code',
           name: 'languageCode',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'location', name: 'location', transformer: TypeTransformer.to('string') },
+        { rawName: 'location', name: 'location', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'min_balance_to_notify',
           name: 'minBalanceToNotify',
-          transformer: TypeTransformer.to('decimal'),
+          transformer: TypeTransformer.to('decimal', true),
         },
         {
           rawName: 'support_robokassa',
           name: 'supportRobokassa',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'support_bank_card',
           name: 'supportBankCard',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'support_invoice',
           name: 'supportInvoice',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'can_use_restricted',
           name: 'canUseRestricted',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -744,8 +748,12 @@ export default class VoximplantApiClient {
      */
     getCurrencyRate: (request: GetCurrencyRateRequest): Promise<GetCurrencyRateResponse> => {
       const reqMapper = [
-        { rawName: 'currency', name: 'currency', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'date', name: 'date', transformer: TypeTransformer.to('date') },
+        {
+          rawName: 'currency',
+          name: 'currency',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        { rawName: 'date', name: 'date', transformer: TypeTransformer.to('date', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('ExchangeRates') },
@@ -760,22 +768,22 @@ export default class VoximplantApiClient {
         {
           rawName: 'resource_type',
           name: 'resourceType',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'price_group_id',
           name: 'priceGroupId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'price_group_name',
           name: 'priceGroupName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'resource_param',
           name: 'resourceParam',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -793,20 +801,20 @@ export default class VoximplantApiClient {
         {
           rawName: 'subscription_template_id',
           name: 'subscriptionTemplateId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'subscription_template_type',
           name: 'subscriptionTemplateType',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'subscription_template_name',
           name: 'subscriptionTemplateName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         {
@@ -827,42 +835,42 @@ export default class VoximplantApiClient {
         {
           rawName: 'child_account_id',
           name: 'childAccountId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'child_account_name',
           name: 'childAccountName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'child_account_email',
           name: 'childAccountEmail',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'active', name: 'active', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'frozen', name: 'frozen', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'active', name: 'active', transformer: TypeTransformer.to('boolean', true) },
+        { rawName: 'frozen', name: 'frozen', transformer: TypeTransformer.to('boolean', true) },
         {
           rawName: 'ignore_invalid_accounts',
           name: 'ignoreInvalidAccounts',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'brief_output',
           name: 'briefOutput',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'medium_output',
           name: 'mediumOutput',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
-        { rawName: 'order_by', name: 'orderBy', transformer: TypeTransformer.to('string') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'order_by', name: 'orderBy', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'return_live_balance',
           name: 'returnLiveBalance',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -883,8 +891,12 @@ export default class VoximplantApiClient {
       request: GetMoneyAmountToChargeRequest
     ): Promise<GetMoneyAmountToChargeResponse> => {
       const reqMapper = [
-        { rawName: 'currency', name: 'currency', transformer: TypeTransformer.to('string') },
-        { rawName: 'charge_date', name: 'chargeDate', transformer: TypeTransformer.to('date') },
+        { rawName: 'currency', name: 'currency', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'charge_date',
+          name: 'chargeDate',
+          transformer: TypeTransformer.to('date', true),
+        },
       ];
       const respMapper = [
         {
@@ -900,11 +912,11 @@ export default class VoximplantApiClient {
      */
     chargeAccount: (request: ChargeAccountRequest): Promise<ChargeAccountResponse> => {
       const reqMapper = [
-        { rawName: 'phone_id', name: 'phoneId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'phone_id', name: 'phoneId', transformer: TypeTransformer.to('intlist', true) },
         {
           rawName: 'phone_number',
           name: 'phoneNumber',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -926,11 +938,11 @@ export default class VoximplantApiClient {
      */
     changeAccountPlan: (request: ChangeAccountPlanRequest): Promise<ChangeAccountPlanResponse> => {
       const reqMapper = [
-        { rawName: 'plan_type', name: 'planType', transformer: TypeTransformer.to('string') },
+        { rawName: 'plan_type', name: 'planType', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'plan_subscription_template_id',
           name: 'planSubscriptionTemplateId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -948,11 +960,15 @@ export default class VoximplantApiClient {
      */
     getAccountPlans: (request: GetAccountPlansRequest): Promise<GetAccountPlansResponse> => {
       const reqMapper = [
-        { rawName: 'plan_type', name: 'planType', transformer: TypeTransformer.to('stringlist') },
+        {
+          rawName: 'plan_type',
+          name: 'planType',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
         {
           rawName: 'plan_subscription_template_id',
           name: 'planSubscriptionTemplateId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
       ];
       const respMapper = [
@@ -969,11 +985,15 @@ export default class VoximplantApiClient {
      */
     getAvailablePlans: (request: GetAvailablePlansRequest): Promise<GetAvailablePlansResponse> => {
       const reqMapper = [
-        { rawName: 'plan_type', name: 'planType', transformer: TypeTransformer.to('stringlist') },
+        {
+          rawName: 'plan_type',
+          name: 'planType',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
         {
           rawName: 'plan_subscription_template_id',
           name: 'planSubscriptionTemplateId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
       ];
       const respMapper = [
@@ -991,37 +1011,37 @@ export default class VoximplantApiClient {
         {
           rawName: 'with_details',
           name: 'withDetails',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'verification_name',
           name: 'verificationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'verification_status',
           name: 'verificationStatus',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'from_unverified_hold_until',
           name: 'fromUnverifiedHoldUntil',
-          transformer: TypeTransformer.to('date'),
+          transformer: TypeTransformer.to('date', true),
         },
         {
           rawName: 'to_unverified_hold_until',
           name: 'toUnverifiedHoldUntil',
-          transformer: TypeTransformer.to('date'),
+          transformer: TypeTransformer.to('date', true),
         },
         {
           rawName: 'child_account_id',
           name: 'childAccountId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'children_verifications_only',
           name: 'childrenVerificationsOnly',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -1044,12 +1064,12 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'secure_record_storage',
           name: 'secureRecordStorage',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -1080,12 +1100,12 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -1103,22 +1123,22 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'required_application_name',
           name: 'requiredApplicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'secure_record_storage',
           name: 'secureRecordStorage',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -1144,21 +1164,25 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'with_rules', name: 'withRules', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'with_rules',
+          name: 'withRules',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         {
           rawName: 'with_scenarios',
           name: 'withScenarios',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         {
@@ -1179,37 +1203,41 @@ export default class VoximplantApiClient {
      */
     addUser: (request: AddUserRequest): Promise<AddUserResponse> => {
       const reqMapper = [
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string') },
+        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'user_display_name',
           name: 'userDisplayName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'user_password',
           name: 'userPassword',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'parent_accounting',
           name: 'parentAccounting',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'user_active', name: 'userActive', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'user_active',
+          name: 'userActive',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         {
           rawName: 'user_custom_data',
           name: 'userCustomData',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -1223,17 +1251,21 @@ export default class VoximplantApiClient {
      */
     delUser: (request: DelUserRequest): Promise<DelUserResponse> => {
       const reqMapper = [
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -1246,43 +1278,47 @@ export default class VoximplantApiClient {
      */
     setUserInfo: (request: SetUserInfoRequest): Promise<SetUserInfoResponse> => {
       const reqMapper = [
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'new_user_name',
           name: 'newUserName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'user_display_name',
           name: 'userDisplayName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'user_password',
           name: 'userPassword',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'parent_accounting',
           name: 'parentAccounting',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'user_active', name: 'userActive', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'user_active',
+          name: 'userActive',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         {
           rawName: 'user_custom_data',
           name: 'userCustomData',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -1298,48 +1334,68 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'skill_id', name: 'skillId', transformer: TypeTransformer.to('number') },
+        { rawName: 'skill_id', name: 'skillId', transformer: TypeTransformer.to('number', true) },
         {
           rawName: 'excluded_skill_id',
           name: 'excludedSkillId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'acd_queue_id', name: 'acdQueueId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'acd_queue_id',
+          name: 'acdQueueId',
+          transformer: TypeTransformer.to('number', true),
+        },
         {
           rawName: 'excluded_acd_queue_id',
           name: 'excludedAcdQueueId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string') },
-        { rawName: 'user_active', name: 'userActive', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'user_active',
+          name: 'userActive',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         {
           rawName: 'user_display_name',
           name: 'userDisplayName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'with_skills', name: 'withSkills', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'with_queues', name: 'withQueues', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'acd_status', name: 'acdStatus', transformer: TypeTransformer.to('stringlist') },
+        {
+          rawName: 'with_skills',
+          name: 'withSkills',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'with_queues',
+          name: 'withQueues',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'acd_status',
+          name: 'acdStatus',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
         {
           rawName: 'showing_skill_id',
           name: 'showingSkillId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
-        { rawName: 'order_by', name: 'orderBy', transformer: TypeTransformer.to('string') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'order_by', name: 'orderBy', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'return_live_balance',
           name: 'returnLiveBalance',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -1356,30 +1412,38 @@ export default class VoximplantApiClient {
       request: TransferMoneyToUserRequest
     ): Promise<TransferMoneyToUserResponse> => {
       const reqMapper = [
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'amount', name: 'amount', transformer: TypeTransformer.to('decimal') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        { rawName: 'amount', name: 'amount', transformer: TypeTransformer.to('decimal', true) },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'currency', name: 'currency', transformer: TypeTransformer.to('string') },
-        { rawName: 'strict_mode', name: 'strictMode', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'currency', name: 'currency', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'strict_mode',
+          name: 'strictMode',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         {
           rawName: 'user_transaction_description',
           name: 'userTransactionDescription',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'account_transaction_description',
           name: 'accountTransactionDescription',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -1396,29 +1460,45 @@ export default class VoximplantApiClient {
      */
     createCallList: (request: CreateCallListRequest): Promise<CreateCallListResponse> => {
       const reqMapper = [
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number') },
-        { rawName: 'priority', name: 'priority', transformer: TypeTransformer.to('number') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'priority', name: 'priority', transformer: TypeTransformer.to('number', true) },
         {
           rawName: 'max_simultaneous',
           name: 'maxSimultaneous',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'num_attempts', name: 'numAttempts', transformer: TypeTransformer.to('number') },
-        { rawName: 'name', name: 'name', transformer: TypeTransformer.to('string') },
-        { rawName: 'file_content', name: 'fileContent', transformer: TypeTransformer.to('file') },
+        {
+          rawName: 'num_attempts',
+          name: 'numAttempts',
+          transformer: TypeTransformer.to('number', true),
+        },
+        { rawName: 'name', name: 'name', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'file_content',
+          name: 'fileContent',
+          transformer: TypeTransformer.to('file', true),
+        },
         {
           rawName: 'interval_seconds',
           name: 'intervalSeconds',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'encoding', name: 'encoding', transformer: TypeTransformer.to('string') },
-        { rawName: 'delimiter', name: 'delimiter', transformer: TypeTransformer.to('string') },
-        { rawName: 'escape', name: 'escape', transformer: TypeTransformer.to('string') },
-        { rawName: 'reference_ip', name: 'referenceIp', transformer: TypeTransformer.to('string') },
+        { rawName: 'encoding', name: 'encoding', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'delimiter',
+          name: 'delimiter',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'escape', name: 'escape', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'reference_ip',
+          name: 'referenceIp',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'server_location',
           name: 'serverLocation',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -1433,18 +1513,26 @@ export default class VoximplantApiClient {
      */
     getCallLists: (request: GetCallListsRequest): Promise<GetCallListsResponse> => {
       const reqMapper = [
-        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'name', name: 'name', transformer: TypeTransformer.to('string') },
-        { rawName: 'is_active', name: 'isActive', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'from_date', name: 'fromDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'type_list', name: 'typeList', transformer: TypeTransformer.to('string') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('intlist', true) },
+        { rawName: 'name', name: 'name', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'is_active',
+          name: 'isActive',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
+        { rawName: 'type_list', name: 'typeList', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
       ];
       const respMapper = [
@@ -1461,12 +1549,16 @@ export default class VoximplantApiClient {
       request: GetCallListDetailsRequest
     ): Promise<GetCallListDetailsResponse> => {
       const reqMapper = [
-        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
-        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string') },
-        { rawName: 'encoding', name: 'encoding', transformer: TypeTransformer.to('string') },
-        { rawName: 'delimiter', name: 'delimiter', transformer: TypeTransformer.to('string') },
+        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'encoding', name: 'encoding', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'delimiter',
+          name: 'delimiter',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         {
@@ -1483,20 +1575,28 @@ export default class VoximplantApiClient {
      */
     editCallListTask: (request: EditCallListTaskRequest): Promise<EditCallListTaskResponse> => {
       const reqMapper = [
-        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number') },
-        { rawName: 'task_id', name: 'taskId', transformer: TypeTransformer.to('number') },
-        { rawName: 'task_uuid', name: 'taskUuid', transformer: TypeTransformer.to('string') },
-        { rawName: 'start_at', name: 'startAt', transformer: TypeTransformer.to('timestamp') },
+        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'task_id', name: 'taskId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'task_uuid', name: 'taskUuid', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'start_at',
+          name: 'startAt',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
         {
           rawName: 'attempts_left',
           name: 'attemptsLeft',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'custom_data', name: 'customData', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'custom_data',
+          name: 'customData',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'min_execution_time',
           name: 'minExecutionTime',
-          transformer: TypeTransformer.to('timestamp'),
+          transformer: TypeTransformer.to('timestamp', true),
         },
       ];
       const respMapper = [
@@ -1511,7 +1611,7 @@ export default class VoximplantApiClient {
       request: StopCallListProcessingRequest
     ): Promise<StopCallListProcessingResponse> => {
       const reqMapper = [
-        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number') },
+        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
@@ -1524,7 +1624,7 @@ export default class VoximplantApiClient {
      */
     recoverCallList: (request: RecoverCallListRequest): Promise<RecoverCallListResponse> => {
       const reqMapper = [
-        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number') },
+        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
@@ -1547,16 +1647,16 @@ export default class VoximplantApiClient {
         {
           rawName: 'scenario_name',
           name: 'scenarioName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'scenario_script',
           name: 'scenarioScript',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number') },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string') },
-        { rawName: 'rewrite', name: 'rewrite', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'rewrite', name: 'rewrite', transformer: TypeTransformer.to('boolean', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -1569,11 +1669,15 @@ export default class VoximplantApiClient {
      */
     delScenario: (request: DelScenarioRequest): Promise<DelScenarioResponse> => {
       const reqMapper = [
-        { rawName: 'scenario_id', name: 'scenarioId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'scenario_id',
+          name: 'scenarioId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'scenario_name',
           name: 'scenarioName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -1586,25 +1690,29 @@ export default class VoximplantApiClient {
      */
     bindScenario: (request: BindScenarioRequest): Promise<BindScenarioResponse> => {
       const reqMapper = [
-        { rawName: 'scenario_id', name: 'scenarioId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'scenario_id',
+          name: 'scenarioId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'scenario_name',
           name: 'scenarioName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number') },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -1616,15 +1724,23 @@ export default class VoximplantApiClient {
      */
     getScenarios: (request: GetScenariosRequest): Promise<GetScenariosResponse> => {
       const reqMapper = [
-        { rawName: 'scenario_id', name: 'scenarioId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'scenario_id',
+          name: 'scenarioId',
+          transformer: TypeTransformer.to('number', true),
+        },
         {
           rawName: 'scenario_name',
           name: 'scenarioName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'with_script', name: 'withScript', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'with_script',
+          name: 'withScript',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         {
@@ -1642,21 +1758,25 @@ export default class VoximplantApiClient {
      */
     setScenarioInfo: (request: SetScenarioInfoRequest): Promise<SetScenarioInfoResponse> => {
       const reqMapper = [
-        { rawName: 'scenario_id', name: 'scenarioId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'scenario_id',
+          name: 'scenarioId',
+          transformer: TypeTransformer.to('number', true),
+        },
         {
           rawName: 'required_scenario_name',
           name: 'requiredScenarioName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'scenario_name',
           name: 'scenarioName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'scenario_script',
           name: 'scenarioScript',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -1669,9 +1789,13 @@ export default class VoximplantApiClient {
      */
     reorderScenarios: (request: ReorderScenariosRequest): Promise<ReorderScenariosResponse> => {
       const reqMapper = [
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number') },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string') },
-        { rawName: 'scenario_id', name: 'scenarioId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'scenario_id',
+          name: 'scenarioId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -1683,29 +1807,33 @@ export default class VoximplantApiClient {
      */
     startScenarios: (request: StartScenariosRequest): Promise<StartScenariosResponse> => {
       const reqMapper = [
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number') },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'script_custom_data',
           name: 'scriptCustomData',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'reference_ip', name: 'referenceIp', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'reference_ip',
+          name: 'referenceIp',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'server_location',
           name: 'serverLocation',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -1736,31 +1864,35 @@ export default class VoximplantApiClient {
         {
           rawName: 'conference_name',
           name: 'conferenceName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number') },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'script_custom_data',
           name: 'scriptCustomData',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'reference_ip', name: 'referenceIp', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'reference_ip',
+          name: 'referenceIp',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'server_location',
           name: 'serverLocation',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -1794,32 +1926,44 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string') },
-        { rawName: 'rule_pattern', name: 'rulePattern', transformer: TypeTransformer.to('string') },
-        { rawName: 'scenario_id', name: 'scenarioId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'rule_pattern',
+          name: 'rulePattern',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'scenario_id',
+          name: 'scenarioId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'scenario_name',
           name: 'scenarioName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'rule_pattern_exclude',
           name: 'rulePatternExclude',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'video_conference',
           name: 'videoConference',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'bind_key_id', name: 'bindKeyId', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'bind_key_id',
+          name: 'bindKeyId',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -1832,17 +1976,21 @@ export default class VoximplantApiClient {
      */
     delRule: (request: DelRuleRequest): Promise<DelRuleResponse> => {
       const reqMapper = [
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('stringlist') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'rule_name',
+          name: 'ruleName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -1855,20 +2003,28 @@ export default class VoximplantApiClient {
      */
     setRuleInfo: (request: SetRuleInfoRequest): Promise<SetRuleInfoResponse> => {
       const reqMapper = [
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number') },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string') },
-        { rawName: 'rule_pattern', name: 'rulePattern', transformer: TypeTransformer.to('string') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'rule_pattern',
+          name: 'rulePattern',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'rule_pattern_exclude',
           name: 'rulePatternExclude',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'video_conference',
           name: 'videoConference',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'bind_key_id', name: 'bindKeyId', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'bind_key_id',
+          name: 'bindKeyId',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -1883,33 +2039,33 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number') },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'video_conference',
           name: 'videoConference',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'attached_key_id',
           name: 'attachedKeyId',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'template', name: 'template', transformer: TypeTransformer.to('string') },
+        { rawName: 'template', name: 'template', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'with_scenarios',
           name: 'withScenarios',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('[RuleInfoType]') },
@@ -1923,7 +2079,7 @@ export default class VoximplantApiClient {
      */
     reorderRules: (request: ReorderRulesRequest): Promise<ReorderRulesResponse> => {
       const reqMapper = [
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('intlist', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -1938,72 +2094,88 @@ export default class VoximplantApiClient {
      */
     getCallHistory: (request: GetCallHistoryRequest): Promise<GetCallHistoryResponse> => {
       const reqMapper = [
-        { rawName: 'from_date', name: 'fromDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp') },
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
         {
           rawName: 'call_session_history_id',
           name: 'callSessionHistoryId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'remote_number',
           name: 'remoteNumber',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'local_number',
           name: 'localNumber',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'call_session_history_custom_data',
           name: 'callSessionHistoryCustomData',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'with_calls', name: 'withCalls', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'with_calls',
+          name: 'withCalls',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         {
           rawName: 'with_records',
           name: 'withRecords',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'with_other_resources',
           name: 'withOtherResources',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'child_account_id',
           name: 'childAccountId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'children_calls_only',
           name: 'childrenCallsOnly',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'with_header', name: 'withHeader', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'desc_order', name: 'descOrder', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'with_header',
+          name: 'withHeader',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'desc_order',
+          name: 'descOrder',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         {
           rawName: 'with_total_count',
           name: 'withTotalCount',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
-        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string') },
-        { rawName: 'is_async', name: 'isAsync', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'is_async', name: 'isAsync', transformer: TypeTransformer.to('boolean', true) },
       ];
       const respMapper = [
         {
@@ -2029,43 +2201,55 @@ export default class VoximplantApiClient {
       request: GetBriefCallHistoryRequest
     ): Promise<GetBriefCallHistoryResponse> => {
       const reqMapper = [
-        { rawName: 'from_date', name: 'fromDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string') },
-        { rawName: 'is_async', name: 'isAsync', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
+        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'is_async', name: 'isAsync', transformer: TypeTransformer.to('boolean', true) },
         {
           rawName: 'call_session_history_id',
           name: 'callSessionHistoryId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string') },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'remote_number',
           name: 'remoteNumber',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'local_number',
           name: 'localNumber',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'call_session_history_custom_data',
           name: 'callSessionHistoryCustomData',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'with_header', name: 'withHeader', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'desc_order', name: 'descOrder', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'with_header',
+          name: 'withHeader',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'desc_order',
+          name: 'descOrder',
+          transformer: TypeTransformer.to('boolean', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -2085,31 +2269,39 @@ export default class VoximplantApiClient {
         {
           rawName: 'history_report_id',
           name: 'historyReportId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'history_type',
           name: 'historyType',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'created_from',
           name: 'createdFrom',
-          transformer: TypeTransformer.to('timestamp'),
+          transformer: TypeTransformer.to('timestamp', true),
         },
-        { rawName: 'created_to', name: 'createdTo', transformer: TypeTransformer.to('timestamp') },
+        {
+          rawName: 'created_to',
+          name: 'createdTo',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
         {
           rawName: 'is_completed',
           name: 'isCompleted',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'desc_order', name: 'descOrder', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'desc_order',
+          name: 'descOrder',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
       ];
       const respMapper = [
@@ -2130,43 +2322,51 @@ export default class VoximplantApiClient {
       request: GetTransactionHistoryRequest
     ): Promise<GetTransactionHistoryResponse> => {
       const reqMapper = [
-        { rawName: 'from_date', name: 'fromDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp') },
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
         {
           rawName: 'transaction_id',
           name: 'transactionId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'transaction_type',
           name: 'transactionType',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
         {
           rawName: 'child_account_id',
           name: 'childAccountId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'children_transactions_only',
           name: 'childrenTransactionsOnly',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'users_transactions_only',
           name: 'usersTransactionsOnly',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'desc_order', name: 'descOrder', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
-        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string') },
-        { rawName: 'is_async', name: 'isAsync', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'desc_order',
+          name: 'descOrder',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'is_async', name: 'isAsync', transformer: TypeTransformer.to('boolean', true) },
         {
           rawName: 'is_uncommitted',
           name: 'isUncommitted',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -2191,8 +2391,12 @@ export default class VoximplantApiClient {
      */
     deleteRecord: (request: DeleteRecordRequest): Promise<DeleteRecordResponse> => {
       const reqMapper = [
-        { rawName: 'record_url', name: 'recordUrl', transformer: TypeTransformer.to('string') },
-        { rawName: 'record_id', name: 'recordId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'record_url',
+          name: 'recordUrl',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'record_id', name: 'recordId', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -2204,38 +2408,62 @@ export default class VoximplantApiClient {
      */
     getACDHistory: (request: GetACDHistoryRequest): Promise<GetACDHistoryResponse> => {
       const reqMapper = [
-        { rawName: 'from_date', name: 'fromDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp') },
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
         {
           rawName: 'acd_session_history_id',
           name: 'acdSessionHistoryId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'acd_request_id',
           name: 'acdRequestId',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'acd_queue_id', name: 'acdQueueId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'acd_queue_id',
+          name: 'acdQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
         {
           rawName: 'operator_hangup',
           name: 'operatorHangup',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'unserviced', name: 'unserviced', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'unserviced',
+          name: 'unserviced',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         {
           rawName: 'min_waiting_time',
           name: 'minWaitingTime',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'rejected', name: 'rejected', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'with_events', name: 'withEvents', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'with_header', name: 'withHeader', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'desc_order', name: 'descOrder', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
-        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string') },
+        { rawName: 'rejected', name: 'rejected', transformer: TypeTransformer.to('boolean', true) },
+        {
+          rawName: 'with_events',
+          name: 'withEvents',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'with_header',
+          name: 'withHeader',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'desc_order',
+          name: 'descOrder',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         {
@@ -2253,40 +2481,56 @@ export default class VoximplantApiClient {
      */
     getAuditLog: (request: GetAuditLogRequest): Promise<GetAuditLogResponse> => {
       const reqMapper = [
-        { rawName: 'from_date', name: 'fromDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'audit_log_id', name: 'auditLogId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
+        {
+          rawName: 'audit_log_id',
+          name: 'auditLogId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'filtered_admin_user_id',
           name: 'filteredAdminUserId',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'filtered_ip',
           name: 'filteredIp',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'filtered_cmd',
           name: 'filteredCmd',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'advanced_filters',
           name: 'advancedFilters',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'with_header', name: 'withHeader', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'desc_order', name: 'descOrder', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'with_header',
+          name: 'withHeader',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'desc_order',
+          name: 'descOrder',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         {
           rawName: 'with_total_count',
           name: 'withTotalCount',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
-        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string') },
-        { rawName: 'is_async', name: 'isAsync', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'is_async', name: 'isAsync', transformer: TypeTransformer.to('boolean', true) },
       ];
       const respMapper = [
         {
@@ -2318,7 +2562,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'pstn_blacklist_phone',
           name: 'pstnBlacklistPhone',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -2341,12 +2585,12 @@ export default class VoximplantApiClient {
         {
           rawName: 'pstn_blacklist_id',
           name: 'pstnBlacklistId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'pstn_blacklist_phone',
           name: 'pstnBlacklistPhone',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -2364,7 +2608,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'pstn_blacklist_id',
           name: 'pstnBlacklistId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -2380,15 +2624,15 @@ export default class VoximplantApiClient {
         {
           rawName: 'pstn_blacklist_id',
           name: 'pstnBlacklistId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'pstn_blacklist_phone',
           name: 'pstnBlacklistPhone',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         {
@@ -2414,9 +2658,13 @@ export default class VoximplantApiClient {
         {
           rawName: 'sip_whitelist_network',
           name: 'sipWhitelistNetwork',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -2438,7 +2686,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'sip_whitelist_id',
           name: 'sipWhitelistId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -2456,14 +2704,18 @@ export default class VoximplantApiClient {
         {
           rawName: 'sip_whitelist_id',
           name: 'sipWhitelistId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'sip_whitelist_network',
           name: 'sipWhitelistNetwork',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -2478,10 +2730,10 @@ export default class VoximplantApiClient {
         {
           rawName: 'sip_whitelist_id',
           name: 'sipWhitelistId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         {
@@ -2504,34 +2756,38 @@ export default class VoximplantApiClient {
       request: CreateSipRegistrationRequest
     ): Promise<CreateSipRegistrationResponse> => {
       const reqMapper = [
-        { rawName: 'sip_username', name: 'sipUsername', transformer: TypeTransformer.to('string') },
-        { rawName: 'proxy', name: 'proxy', transformer: TypeTransformer.to('string') },
-        { rawName: 'auth_user', name: 'authUser', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'sip_username',
+          name: 'sipUsername',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'proxy', name: 'proxy', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'auth_user', name: 'authUser', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'outbound_proxy',
           name: 'outboundProxy',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'password', name: 'password', transformer: TypeTransformer.to('string') },
+        { rawName: 'password', name: 'password', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'is_persistent',
           name: 'isPersistent',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number') },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string') },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -2558,31 +2814,35 @@ export default class VoximplantApiClient {
         {
           rawName: 'sip_registration_id',
           name: 'sipRegistrationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'sip_username', name: 'sipUsername', transformer: TypeTransformer.to('string') },
-        { rawName: 'proxy', name: 'proxy', transformer: TypeTransformer.to('string') },
-        { rawName: 'auth_user', name: 'authUser', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'sip_username',
+          name: 'sipUsername',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'proxy', name: 'proxy', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'auth_user', name: 'authUser', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'outbound_proxy',
           name: 'outboundProxy',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'password', name: 'password', transformer: TypeTransformer.to('string') },
+        { rawName: 'password', name: 'password', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number') },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string') },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -2599,23 +2859,23 @@ export default class VoximplantApiClient {
         {
           rawName: 'sip_registration_id',
           name: 'sipRegistrationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number') },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string') },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string') },
-        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -2632,7 +2892,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'sip_registration_id',
           name: 'sipRegistrationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -2647,43 +2907,71 @@ export default class VoximplantApiClient {
       request: GetSipRegistrationsRequest
     ): Promise<GetSipRegistrationsResponse> => {
       const reqMapper = [
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'rule_name',
+          name: 'ruleName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
         {
           rawName: 'sip_registration_id',
           name: 'sipRegistrationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'sip_username', name: 'sipUsername', transformer: TypeTransformer.to('string') },
-        { rawName: 'deactivated', name: 'deactivated', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'successful', name: 'successful', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'sip_username',
+          name: 'sipUsername',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'deactivated',
+          name: 'deactivated',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'successful',
+          name: 'successful',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         {
           rawName: 'is_persistent',
           name: 'isPersistent',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'is_bound_to_application',
           name: 'isBoundToApplication',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'proxy', name: 'proxy', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'in_progress', name: 'inProgress', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'status_code', name: 'statusCode', transformer: TypeTransformer.to('string') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'proxy', name: 'proxy', transformer: TypeTransformer.to('stringlist', true) },
+        {
+          rawName: 'in_progress',
+          name: 'inProgress',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'status_code',
+          name: 'statusCode',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         {
@@ -2703,32 +2991,40 @@ export default class VoximplantApiClient {
      */
     attachPhoneNumber: (request: AttachPhoneNumberRequest): Promise<AttachPhoneNumberResponse> => {
       const reqMapper = [
-        { rawName: 'phone_count', name: 'phoneCount', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'phone_count',
+          name: 'phoneCount',
+          transformer: TypeTransformer.to('number', true),
+        },
         {
           rawName: 'phone_number',
           name: 'phoneNumber',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'country_code', name: 'countryCode', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'country_code',
+          name: 'countryCode',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'phone_category_name',
           name: 'phoneCategoryName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'phone_region_id',
           name: 'phoneRegionId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'country_state',
           name: 'countryState',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'regulation_address_id',
           name: 'regulationAddressId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -2748,25 +3044,25 @@ export default class VoximplantApiClient {
       request: BindPhoneNumberToApplicationRequest
     ): Promise<BindPhoneNumberToApplicationResponse> => {
       const reqMapper = [
-        { rawName: 'phone_id', name: 'phoneId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'phone_id', name: 'phoneId', transformer: TypeTransformer.to('intlist', true) },
         {
           rawName: 'phone_number',
           name: 'phoneNumber',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number') },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string') },
-        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -2780,11 +3076,11 @@ export default class VoximplantApiClient {
       request: DeactivatePhoneNumberRequest
     ): Promise<DeactivatePhoneNumberResponse> => {
       const reqMapper = [
-        { rawName: 'phone_id', name: 'phoneId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'phone_id', name: 'phoneId', transformer: TypeTransformer.to('intlist', true) },
         {
           rawName: 'phone_number',
           name: 'phoneNumber',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -2799,16 +3095,16 @@ export default class VoximplantApiClient {
       request: SetPhoneNumberInfoRequest
     ): Promise<SetPhoneNumberInfoResponse> => {
       const reqMapper = [
-        { rawName: 'phone_id', name: 'phoneId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'phone_id', name: 'phoneId', transformer: TypeTransformer.to('intlist', true) },
         {
           rawName: 'phone_number',
           name: 'phoneNumber',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'incoming_sms_callback_url',
           name: 'incomingSmsCallbackUrl',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -2821,111 +3117,127 @@ export default class VoximplantApiClient {
      */
     getPhoneNumbers: (request: GetPhoneNumbersRequest): Promise<GetPhoneNumbersResponse> => {
       const reqMapper = [
-        { rawName: 'phone_id', name: 'phoneId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'phone_id', name: 'phoneId', transformer: TypeTransformer.to('intlist', true) },
         {
           rawName: 'phone_number',
           name: 'phoneNumber',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'is_bound_to_application',
           name: 'isBoundToApplication',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'phone_template',
           name: 'phoneTemplate',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'country_code',
           name: 'countryCode',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'phone_category_name',
           name: 'phoneCategoryName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'canceled', name: 'canceled', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'deactivated', name: 'deactivated', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'auto_charge', name: 'autoCharge', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'canceled', name: 'canceled', transformer: TypeTransformer.to('boolean', true) },
+        {
+          rawName: 'deactivated',
+          name: 'deactivated',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'auto_charge',
+          name: 'autoCharge',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         {
           rawName: 'from_phone_next_renewal',
           name: 'fromPhoneNextRenewal',
-          transformer: TypeTransformer.to('date'),
+          transformer: TypeTransformer.to('date', true),
         },
         {
           rawName: 'to_phone_next_renewal',
           name: 'toPhoneNextRenewal',
-          transformer: TypeTransformer.to('date'),
+          transformer: TypeTransformer.to('date', true),
         },
         {
           rawName: 'from_phone_purchase_date',
           name: 'fromPhonePurchaseDate',
-          transformer: TypeTransformer.to('timestamp'),
+          transformer: TypeTransformer.to('timestamp', true),
         },
         {
           rawName: 'to_phone_purchase_date',
           name: 'toPhonePurchaseDate',
-          transformer: TypeTransformer.to('timestamp'),
+          transformer: TypeTransformer.to('timestamp', true),
         },
         {
           rawName: 'child_account_id',
           name: 'childAccountId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'children_phones_only',
           name: 'childrenPhonesOnly',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'verification_name',
           name: 'verificationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'verification_status',
           name: 'verificationStatus',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'from_unverified_hold_until',
           name: 'fromUnverifiedHoldUntil',
-          transformer: TypeTransformer.to('date'),
+          transformer: TypeTransformer.to('date', true),
         },
         {
           rawName: 'to_unverified_hold_until',
           name: 'toUnverifiedHoldUntil',
-          transformer: TypeTransformer.to('date'),
+          transformer: TypeTransformer.to('date', true),
         },
-        { rawName: 'can_be_used', name: 'canBeUsed', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'order_by', name: 'orderBy', transformer: TypeTransformer.to('string') },
-        { rawName: 'sandbox', name: 'sandbox', transformer: TypeTransformer.to('string') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'can_be_used',
+          name: 'canBeUsed',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'order_by', name: 'orderBy', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'sandbox', name: 'sandbox', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
         {
           rawName: 'phone_region_name',
           name: 'phoneRegionName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('stringlist') },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'rule_name',
+          name: 'ruleName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
         {
           rawName: 'is_bound_to_rule',
           name: 'isBoundToRule',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -2946,24 +3258,28 @@ export default class VoximplantApiClient {
       request: GetNewPhoneNumbersRequest
     ): Promise<GetNewPhoneNumbersResponse> => {
       const reqMapper = [
-        { rawName: 'country_code', name: 'countryCode', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'country_code',
+          name: 'countryCode',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'phone_category_name',
           name: 'phoneCategoryName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'phone_region_id',
           name: 'phoneRegionId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'country_state',
           name: 'countryState',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         {
@@ -2986,10 +3302,10 @@ export default class VoximplantApiClient {
         {
           rawName: 'country_code',
           name: 'countryCode',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'sandbox', name: 'sandbox', transformer: TypeTransformer.to('string') },
-        { rawName: 'locale', name: 'locale', transformer: TypeTransformer.to('string') },
+        { rawName: 'sandbox', name: 'sandbox', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'locale', name: 'locale', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         {
@@ -3007,16 +3323,20 @@ export default class VoximplantApiClient {
       request: GetPhoneNumberCountryStatesRequest
     ): Promise<GetPhoneNumberCountryStatesResponse> => {
       const reqMapper = [
-        { rawName: 'country_code', name: 'countryCode', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'country_code',
+          name: 'countryCode',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'phone_category_name',
           name: 'phoneCategoryName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'country_state',
           name: 'countryState',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -3035,34 +3355,42 @@ export default class VoximplantApiClient {
       request: GetPhoneNumberRegionsRequest
     ): Promise<GetPhoneNumberRegionsResponse> => {
       const reqMapper = [
-        { rawName: 'country_code', name: 'countryCode', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'country_code',
+          name: 'countryCode',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'phone_category_name',
           name: 'phoneCategoryName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'country_state',
           name: 'countryState',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'omit_empty', name: 'omitEmpty', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'omit_empty',
+          name: 'omitEmpty',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         {
           rawName: 'phone_region_id',
           name: 'phoneRegionId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'phone_region_name',
           name: 'phoneRegionName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'phone_region_code',
           name: 'phoneRegionCode',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'locale', name: 'locale', transformer: TypeTransformer.to('string') },
+        { rawName: 'locale', name: 'locale', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         {
@@ -3080,23 +3408,27 @@ export default class VoximplantApiClient {
       request: GetActualPhoneNumberRegionRequest
     ): Promise<GetActualPhoneNumberRegionResponse> => {
       const reqMapper = [
-        { rawName: 'country_code', name: 'countryCode', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'country_code',
+          name: 'countryCode',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'phone_category_name',
           name: 'phoneCategoryName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'phone_region_id',
           name: 'phoneRegionId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'country_state',
           name: 'countryState',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'locale', name: 'locale', transformer: TypeTransformer.to('string') },
+        { rawName: 'locale', name: 'locale', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         {
@@ -3117,7 +3449,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
       ];
       const respMapper = [
@@ -3136,7 +3468,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'callerid_number',
           name: 'calleridNumber',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -3150,16 +3482,20 @@ export default class VoximplantApiClient {
      */
     activateCallerID: (request: ActivateCallerIDRequest): Promise<ActivateCallerIDResponse> => {
       const reqMapper = [
-        { rawName: 'callerid_id', name: 'calleridId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'callerid_id',
+          name: 'calleridId',
+          transformer: TypeTransformer.to('number', true),
+        },
         {
           rawName: 'callerid_number',
           name: 'calleridNumber',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'verification_code',
           name: 'verificationCode',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -3172,11 +3508,15 @@ export default class VoximplantApiClient {
      */
     delCallerID: (request: DelCallerIDRequest): Promise<DelCallerIDResponse> => {
       const reqMapper = [
-        { rawName: 'callerid_id', name: 'calleridId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'callerid_id',
+          name: 'calleridId',
+          transformer: TypeTransformer.to('number', true),
+        },
         {
           rawName: 'callerid_number',
           name: 'calleridNumber',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -3189,16 +3529,20 @@ export default class VoximplantApiClient {
      */
     getCallerIDs: (request: GetCallerIDsRequest): Promise<GetCallerIDsResponse> => {
       const reqMapper = [
-        { rawName: 'callerid_id', name: 'calleridId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'callerid_id',
+          name: 'calleridId',
+          transformer: TypeTransformer.to('number', true),
+        },
         {
           rawName: 'callerid_number',
           name: 'calleridNumber',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'active', name: 'active', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'order_by', name: 'orderBy', transformer: TypeTransformer.to('string') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'active', name: 'active', transformer: TypeTransformer.to('boolean', true) },
+        { rawName: 'order_by', name: 'orderBy', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         {
@@ -3216,11 +3560,15 @@ export default class VoximplantApiClient {
      */
     verifyCallerID: (request: VerifyCallerIDRequest): Promise<VerifyCallerIDResponse> => {
       const reqMapper = [
-        { rawName: 'callerid_id', name: 'calleridId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'callerid_id',
+          name: 'calleridId',
+          transformer: TypeTransformer.to('number', true),
+        },
         {
           rawName: 'callerid_number',
           name: 'calleridNumber',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -3238,7 +3586,11 @@ export default class VoximplantApiClient {
       request: AddOutboundTestPhoneNumberRequest
     ): Promise<AddOutboundTestPhoneNumberResponse> => {
       const reqMapper = [
-        { rawName: 'phone_number', name: 'phoneNumber', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'phone_number',
+          name: 'phoneNumber',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -3271,7 +3623,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'verification_code',
           name: 'verificationCode',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -3318,47 +3670,47 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'acd_queue_name',
           name: 'acdQueueName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'acd_queue_priority',
           name: 'acdQueuePriority',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'auto_binding',
           name: 'autoBinding',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'service_probability',
           name: 'serviceProbability',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'max_queue_size',
           name: 'maxQueueSize',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'max_waiting_time',
           name: 'maxWaitingTime',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'average_service_time',
           name: 'averageServiceTime',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -3376,24 +3728,32 @@ export default class VoximplantApiClient {
      */
     bindUserToQueue: (request: BindUserToQueueRequest): Promise<BindUserToQueueResponse> => {
       const reqMapper = [
-        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean', true) },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'acd_queue_id', name: 'acdQueueId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'acd_queue_id',
+          name: 'acdQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'acd_queue_name',
           name: 'acdQueueName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -3406,11 +3766,15 @@ export default class VoximplantApiClient {
      */
     delQueue: (request: DelQueueRequest): Promise<DelQueueResponse> => {
       const reqMapper = [
-        { rawName: 'acd_queue_id', name: 'acdQueueId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'acd_queue_id',
+          name: 'acdQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'acd_queue_name',
           name: 'acdQueueName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -3423,51 +3787,55 @@ export default class VoximplantApiClient {
      */
     setQueueInfo: (request: SetQueueInfoRequest): Promise<SetQueueInfoResponse> => {
       const reqMapper = [
-        { rawName: 'acd_queue_id', name: 'acdQueueId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'acd_queue_id',
+          name: 'acdQueueId',
+          transformer: TypeTransformer.to('number', true),
+        },
         {
           rawName: 'acd_queue_name',
           name: 'acdQueueName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'new_acd_queue_name',
           name: 'newAcdQueueName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'acd_queue_priority',
           name: 'acdQueuePriority',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'auto_binding',
           name: 'autoBinding',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'service_probability',
           name: 'serviceProbability',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'max_queue_size',
           name: 'maxQueueSize',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'max_waiting_time',
           name: 'maxWaitingTime',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'average_service_time',
           name: 'averageServiceTime',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -3480,35 +3848,43 @@ export default class VoximplantApiClient {
      */
     getQueues: (request: GetQueuesRequest): Promise<GetQueuesResponse> => {
       const reqMapper = [
-        { rawName: 'acd_queue_id', name: 'acdQueueId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'acd_queue_id',
+          name: 'acdQueueId',
+          transformer: TypeTransformer.to('number', true),
+        },
         {
           rawName: 'acd_queue_name',
           name: 'acdQueueName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'skill_id', name: 'skillId', transformer: TypeTransformer.to('number') },
+        { rawName: 'skill_id', name: 'skillId', transformer: TypeTransformer.to('number', true) },
         {
           rawName: 'excluded_skill_id',
           name: 'excludedSkillId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'with_skills', name: 'withSkills', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'with_skills',
+          name: 'withSkills',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         {
           rawName: 'showing_skill_id',
           name: 'showingSkillId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
         {
           rawName: 'with_operatorcount',
           name: 'withOperatorcount',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -3523,7 +3899,11 @@ export default class VoximplantApiClient {
      */
     getACDState: (request: GetACDStateRequest): Promise<GetACDStateResponse> => {
       const reqMapper = [
-        { rawName: 'acd_queue_id', name: 'acdQueueId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'acd_queue_id',
+          name: 'acdQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('ACDStateType') },
@@ -3537,18 +3917,30 @@ export default class VoximplantApiClient {
       request: GetACDOperatorStatisticsRequest
     ): Promise<GetACDOperatorStatisticsResponse> => {
       const reqMapper = [
-        { rawName: 'from_date', name: 'fromDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'acd_queue_id', name: 'acdQueueId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
+        {
+          rawName: 'acd_queue_id',
+          name: 'acdQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'abbreviation',
           name: 'abbreviation',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'report', name: 'report', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'aggregation', name: 'aggregation', transformer: TypeTransformer.to('string') },
-        { rawName: 'group', name: 'group', transformer: TypeTransformer.to('string') },
+        { rawName: 'report', name: 'report', transformer: TypeTransformer.to('stringlist', true) },
+        {
+          rawName: 'aggregation',
+          name: 'aggregation',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'group', name: 'group', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         {
@@ -3566,16 +3958,28 @@ export default class VoximplantApiClient {
       request: GetACDQueueStatisticsRequest
     ): Promise<GetACDQueueStatisticsResponse> => {
       const reqMapper = [
-        { rawName: 'from_date', name: 'fromDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp') },
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
         {
           rawName: 'abbreviation',
           name: 'abbreviation',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'acd_queue_id', name: 'acdQueueId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'report', name: 'report', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'aggregation', name: 'aggregation', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'acd_queue_id',
+          name: 'acdQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
+        { rawName: 'report', name: 'report', transformer: TypeTransformer.to('stringlist', true) },
+        {
+          rawName: 'aggregation',
+          name: 'aggregation',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         {
@@ -3593,12 +3997,24 @@ export default class VoximplantApiClient {
       request: GetACDOperatorStatusStatisticsRequest
     ): Promise<GetACDOperatorStatusStatisticsResponse> => {
       const reqMapper = [
-        { rawName: 'from_date', name: 'fromDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'acd_status', name: 'acdStatus', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'aggregation', name: 'aggregation', transformer: TypeTransformer.to('string') },
-        { rawName: 'group', name: 'group', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('stringlist', true) },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
+        {
+          rawName: 'acd_status',
+          name: 'acdStatus',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'aggregation',
+          name: 'aggregation',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'group', name: 'group', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         {
@@ -3622,35 +4038,47 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'report_type',
           name: 'reportType',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'sq_queue_id', name: 'sqQueueId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'sq_queue_id',
+          name: 'sqQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'sq_queue_name',
           name: 'sqQueueName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'from_date', name: 'fromDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'timezone', name: 'timezone', transformer: TypeTransformer.to('string') },
-        { rawName: 'interval', name: 'interval', transformer: TypeTransformer.to('string') },
-        { rawName: 'group_by', name: 'groupBy', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
+        { rawName: 'timezone', name: 'timezone', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'interval', name: 'interval', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'group_by', name: 'groupBy', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'max_waiting_sec',
           name: 'maxWaitingSec',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -3673,35 +4101,47 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'sq_queue_id', name: 'sqQueueId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'sq_queue_id',
+          name: 'sqQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'report_type',
           name: 'reportType',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
         {
           rawName: 'sq_queue_name',
           name: 'sqQueueName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'from_date', name: 'fromDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'timezone', name: 'timezone', transformer: TypeTransformer.to('string') },
-        { rawName: 'interval', name: 'interval', transformer: TypeTransformer.to('string') },
-        { rawName: 'group_by', name: 'groupBy', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
+        { rawName: 'timezone', name: 'timezone', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'interval', name: 'interval', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'group_by', name: 'groupBy', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'max_waiting_sec',
           name: 'maxWaitingSec',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -3724,35 +4164,47 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'sq_queue_id', name: 'sqQueueId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'from_date', name: 'fromDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp') },
+        {
+          rawName: 'sq_queue_id',
+          name: 'sqQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
         {
           rawName: 'report_type',
           name: 'reportType',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
         {
           rawName: 'sq_queue_name',
           name: 'sqQueueName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'timezone', name: 'timezone', transformer: TypeTransformer.to('string') },
-        { rawName: 'interval', name: 'interval', transformer: TypeTransformer.to('string') },
-        { rawName: 'group_by', name: 'groupBy', transformer: TypeTransformer.to('string') },
+        { rawName: 'timezone', name: 'timezone', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'interval', name: 'interval', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'group_by', name: 'groupBy', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'max_waiting_sec',
           name: 'maxWaitingSec',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -3773,20 +4225,24 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'sq_queue_id', name: 'sqQueueId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'sq_queue_id',
+          name: 'sqQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'sq_queue_name',
           name: 'sqQueueName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'timezone', name: 'timezone', transformer: TypeTransformer.to('string') },
+        { rawName: 'timezone', name: 'timezone', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         {
@@ -3807,17 +4263,17 @@ export default class VoximplantApiClient {
         {
           rawName: 'sq_status_name',
           name: 'sqStatusName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'custom_status_name',
           name: 'customStatusName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -3835,7 +4291,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -3862,12 +4318,12 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'sq_status_name',
           name: 'sqStatusName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -3886,60 +4342,64 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'sq_queue_name',
           name: 'sqQueueName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'call_agent_selection',
           name: 'callAgentSelection',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'call_task_selection',
           name: 'callTaskSelection',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'im_agent_selection',
           name: 'imAgentSelection',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'im_task_selection',
           name: 'imTaskSelection',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'call_max_waiting_time',
           name: 'callMaxWaitingTime',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'im_max_waiting_time',
           name: 'imMaxWaitingTime',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'call_max_queue_size',
           name: 'callMaxQueueSize',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'im_max_queue_size',
           name: 'imMaxQueueSize',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'priority', name: 'priority', transformer: TypeTransformer.to('number') },
+        { rawName: 'priority', name: 'priority', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         { rawName: 'sq_queue_id', name: 'sqQueueId', transformer: TypeTransformer.from('number') },
@@ -3954,66 +4414,74 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'sq_queue_id', name: 'sqQueueId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'sq_queue_id',
+          name: 'sqQueueId',
+          transformer: TypeTransformer.to('number', true),
+        },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'sq_queue_name',
           name: 'sqQueueName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'new_sq_queue_name',
           name: 'newSqQueueName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'call_agent_selection',
           name: 'callAgentSelection',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'im_agent_selection',
           name: 'imAgentSelection',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'call_task_selection',
           name: 'callTaskSelection',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'im_task_selection',
           name: 'imTaskSelection',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'call_max_waiting_time',
           name: 'callMaxWaitingTime',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'im_max_waiting_time',
           name: 'imMaxWaitingTime',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'call_max_queue_size',
           name: 'callMaxQueueSize',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'im_max_queue_size',
           name: 'imMaxQueueSize',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'priority', name: 'priority', transformer: TypeTransformer.to('number') },
+        { rawName: 'priority', name: 'priority', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -4028,18 +4496,22 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'sq_queue_id', name: 'sqQueueId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'sq_queue_id',
+          name: 'sqQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'sq_queue_name',
           name: 'sqQueueName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -4055,42 +4527,46 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'sq_queue_id', name: 'sqQueueId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'sq_queue_id',
+          name: 'sqQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'sq_queue_name',
           name: 'sqQueueName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'sq_queue_name_template',
           name: 'sqQueueNameTemplate',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'excluded_user_id',
           name: 'excludedUserId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'excluded_user_name',
           name: 'excludedUserName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
         {
           rawName: 'with_agentcount',
           name: 'withAgentcount',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -4110,19 +4586,23 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'sq_skill_name',
           name: 'sqSkillName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -4137,18 +4617,22 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'sq_skill_id', name: 'sqSkillId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'sq_skill_id',
+          name: 'sqSkillId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'sq_skill_name',
           name: 'sqSkillName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -4164,25 +4648,33 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'sq_skill_id', name: 'sqSkillId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'sq_skill_id',
+          name: 'sqSkillId',
+          transformer: TypeTransformer.to('number', true),
+        },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'sq_skill_name',
           name: 'sqSkillName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'new_sq_skill_name',
           name: 'newSqSkillName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -4197,17 +4689,21 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'sq_skills', name: 'sqSkills', transformer: TypeTransformer.to('Object') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        { rawName: 'sq_skills', name: 'sqSkills', transformer: TypeTransformer.to('Object', true) },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'bind_mode', name: 'bindMode', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        { rawName: 'bind_mode', name: 'bindMode', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -4222,20 +4718,28 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'sq_skill_id', name: 'sqSkillId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'sq_skill_id',
+          name: 'sqSkillId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
         {
           rawName: 'sq_skill_name',
           name: 'sqSkillName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -4251,38 +4755,46 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'sq_skill_id', name: 'sqSkillId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'sq_skill_id',
+          name: 'sqSkillId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'sq_skill_name',
           name: 'sqSkillName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'sq_skill_name_template',
           name: 'sqSkillNameTemplate',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'excluded_user_id',
           name: 'excludedUserId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'excluded_user_name',
           name: 'excludedUserName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         {
@@ -4301,22 +4813,30 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'sq_queue_id', name: 'sqQueueId', transformer: TypeTransformer.to('string') },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'sq_queue_id',
+          name: 'sqQueueId',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'sq_queue_name',
           name: 'sqQueueName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'bind_mode', name: 'bindMode', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        { rawName: 'bind_mode', name: 'bindMode', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -4331,21 +4851,29 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'sq_queue_id', name: 'sqQueueId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'sq_queue_id',
+          name: 'sqQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'sq_queue_name',
           name: 'sqQueueName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -4360,60 +4888,72 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'handle_calls',
           name: 'handleCalls',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'sq_queue_id', name: 'sqQueueId', transformer: TypeTransformer.to('intlist') },
+        {
+          rawName: 'sq_queue_id',
+          name: 'sqQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'sq_queue_name',
           name: 'sqQueueName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'excluded_sq_queue_id',
           name: 'excludedSqQueueId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'excluded_sq_queue_name',
           name: 'excludedSqQueueName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'sq_skills', name: 'sqSkills', transformer: TypeTransformer.to('Object') },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
+        { rawName: 'sq_skills', name: 'sqSkills', transformer: TypeTransformer.to('Object', true) },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
         {
           rawName: 'user_name_template',
           name: 'userNameTemplate',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'sq_statuses', name: 'sqStatuses', transformer: TypeTransformer.to('Object') },
+        {
+          rawName: 'sq_statuses',
+          name: 'sqStatuses',
+          transformer: TypeTransformer.to('Object', true),
+        },
         {
           rawName: 'with_sq_skills',
           name: 'withSqSkills',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'with_sq_queues',
           name: 'withSqQueues',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'with_sq_statuses',
           name: 'withSqStatuses',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         {
@@ -4432,24 +4972,28 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
         {
           rawName: 'handle_calls',
           name: 'handleCalls',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
         {
           rawName: 'max_simultaneous_conversations',
           name: 'maxSimultaneousConversations',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -4465,7 +5009,11 @@ export default class VoximplantApiClient {
      */
     addSkill: (request: AddSkillRequest): Promise<AddSkillResponse> => {
       const reqMapper = [
-        { rawName: 'skill_name', name: 'skillName', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'skill_name',
+          name: 'skillName',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -4478,8 +5026,12 @@ export default class VoximplantApiClient {
      */
     delSkill: (request: DelSkillRequest): Promise<DelSkillResponse> => {
       const reqMapper = [
-        { rawName: 'skill_id', name: 'skillId', transformer: TypeTransformer.to('number') },
-        { rawName: 'skill_name', name: 'skillName', transformer: TypeTransformer.to('string') },
+        { rawName: 'skill_id', name: 'skillId', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'skill_name',
+          name: 'skillName',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -4491,12 +5043,16 @@ export default class VoximplantApiClient {
      */
     setSkillInfo: (request: SetSkillInfoRequest): Promise<SetSkillInfoResponse> => {
       const reqMapper = [
-        { rawName: 'skill_id', name: 'skillId', transformer: TypeTransformer.to('number') },
-        { rawName: 'skill_name', name: 'skillName', transformer: TypeTransformer.to('string') },
+        { rawName: 'skill_id', name: 'skillId', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'skill_name',
+          name: 'skillName',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'new_skill_name',
           name: 'newSkillName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -4509,10 +5065,14 @@ export default class VoximplantApiClient {
      */
     getSkills: (request: GetSkillsRequest): Promise<GetSkillsResponse> => {
       const reqMapper = [
-        { rawName: 'skill_id', name: 'skillId', transformer: TypeTransformer.to('number') },
-        { rawName: 'skill_name', name: 'skillName', transformer: TypeTransformer.to('string') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'skill_id', name: 'skillId', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'skill_name',
+          name: 'skillName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('[SkillInfoType]') },
@@ -4526,27 +5086,39 @@ export default class VoximplantApiClient {
      */
     bindSkill: (request: BindSkillRequest): Promise<BindSkillResponse> => {
       const reqMapper = [
-        { rawName: 'skill_id', name: 'skillId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'skill_name', name: 'skillName', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'acd_queue_id', name: 'acdQueueId', transformer: TypeTransformer.to('intlist') },
+        { rawName: 'skill_id', name: 'skillId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'skill_name',
+          name: 'skillName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'acd_queue_id',
+          name: 'acdQueueId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'acd_queue_name',
           name: 'acdQueueName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -4564,32 +5136,32 @@ export default class VoximplantApiClient {
         {
           rawName: 'new_admin_user_name',
           name: 'newAdminUserName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'admin_user_display_name',
           name: 'adminUserDisplayName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'new_admin_user_password',
           name: 'newAdminUserPassword',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'admin_user_active',
           name: 'adminUserActive',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'admin_role_id',
           name: 'adminRoleId',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'admin_role_name',
           name: 'adminRoleName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -4615,12 +5187,12 @@ export default class VoximplantApiClient {
         {
           rawName: 'required_admin_user_id',
           name: 'requiredAdminUserId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'required_admin_user_name',
           name: 'requiredAdminUserName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -4636,32 +5208,32 @@ export default class VoximplantApiClient {
         {
           rawName: 'required_admin_user_id',
           name: 'requiredAdminUserId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'required_admin_user_name',
           name: 'requiredAdminUserName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'new_admin_user_name',
           name: 'newAdminUserName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'admin_user_display_name',
           name: 'adminUserDisplayName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'new_admin_user_password',
           name: 'newAdminUserPassword',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'admin_user_active',
           name: 'adminUserActive',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -4677,31 +5249,35 @@ export default class VoximplantApiClient {
         {
           rawName: 'required_admin_user_id',
           name: 'requiredAdminUserId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'required_admin_user_name',
           name: 'requiredAdminUserName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'admin_user_display_name',
           name: 'adminUserDisplayName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'admin_user_active',
           name: 'adminUserActive',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'with_roles', name: 'withRoles', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'with_roles',
+          name: 'withRoles',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         {
           rawName: 'with_access_entries',
           name: 'withAccessEntries',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('[AdminUserType]') },
@@ -4718,24 +5294,24 @@ export default class VoximplantApiClient {
         {
           rawName: 'required_admin_user_id',
           name: 'requiredAdminUserId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'required_admin_user_name',
           name: 'requiredAdminUserName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'admin_role_id',
           name: 'adminRoleId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'admin_role_name',
           name: 'adminRoleName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'mode', name: 'mode', transformer: TypeTransformer.to('string') },
+        { rawName: 'mode', name: 'mode', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -4753,32 +5329,32 @@ export default class VoximplantApiClient {
         {
           rawName: 'admin_role_name',
           name: 'adminRoleName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'admin_role_active',
           name: 'adminRoleActive',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'like_admin_role_id',
           name: 'likeAdminRoleId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'like_admin_role_name',
           name: 'likeAdminRoleName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'allowed_entries',
           name: 'allowedEntries',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'denied_entries',
           name: 'deniedEntries',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -4799,12 +5375,12 @@ export default class VoximplantApiClient {
         {
           rawName: 'admin_role_id',
           name: 'adminRoleId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'admin_role_name',
           name: 'adminRoleName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -4820,47 +5396,47 @@ export default class VoximplantApiClient {
         {
           rawName: 'admin_role_id',
           name: 'adminRoleId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'admin_role_name',
           name: 'adminRoleName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'new_admin_role_name',
           name: 'newAdminRoleName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'admin_role_active',
           name: 'adminRoleActive',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'entry_modification_mode',
           name: 'entryModificationMode',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'allowed_entries',
           name: 'allowedEntries',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'denied_entries',
           name: 'deniedEntries',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'like_admin_role_id',
           name: 'likeAdminRoleId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'like_admin_role_name',
           name: 'likeAdminRoleName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -4876,55 +5452,55 @@ export default class VoximplantApiClient {
         {
           rawName: 'admin_role_id',
           name: 'adminRoleId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'admin_role_name',
           name: 'adminRoleName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'admin_role_active',
           name: 'adminRoleActive',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'with_entries',
           name: 'withEntries',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'with_account_roles',
           name: 'withAccountRoles',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'with_parent_roles',
           name: 'withParentRoles',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'included_admin_user_id',
           name: 'includedAdminUserId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'excluded_admin_user_id',
           name: 'excludedAdminUserId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'full_admin_users_matching',
           name: 'fullAdminUsersMatching',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'showing_admin_user_id',
           name: 'showingAdminUserId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('[AdminRoleType]') },
@@ -4958,10 +5534,14 @@ export default class VoximplantApiClient {
         {
           rawName: 'authorized_ip',
           name: 'authorizedIp',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'allowed', name: 'allowed', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
+        { rawName: 'allowed', name: 'allowed', transformer: TypeTransformer.to('boolean', true) },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -4978,10 +5558,14 @@ export default class VoximplantApiClient {
         {
           rawName: 'authorized_ip',
           name: 'authorizedIp',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'contains_ip', name: 'containsIp', transformer: TypeTransformer.to('string') },
-        { rawName: 'allowed', name: 'allowed', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'contains_ip',
+          name: 'containsIp',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'allowed', name: 'allowed', transformer: TypeTransformer.to('boolean', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -4998,13 +5582,21 @@ export default class VoximplantApiClient {
         {
           rawName: 'authorized_ip',
           name: 'authorizedIp',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'allowed', name: 'allowed', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'contains_ip', name: 'containsIp', transformer: TypeTransformer.to('string') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
-        { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
+        { rawName: 'allowed', name: 'allowed', transformer: TypeTransformer.to('boolean', true) },
+        {
+          rawName: 'contains_ip',
+          name: 'containsIp',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         {
@@ -5027,7 +5619,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'authorized_ip',
           name: 'authorizedIp',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -5053,10 +5645,14 @@ export default class VoximplantApiClient {
         {
           rawName: 'regulation_address_id',
           name: 'regulationAddressId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'phone_id', name: 'phoneId', transformer: TypeTransformer.to('number') },
-        { rawName: 'phone_number', name: 'phoneNumber', transformer: TypeTransformer.to('string') },
+        { rawName: 'phone_id', name: 'phoneId', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'phone_number',
+          name: 'phoneNumber',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
@@ -5068,14 +5664,18 @@ export default class VoximplantApiClient {
      */
     getZIPCodes: (request: GetZIPCodesRequest): Promise<GetZIPCodesResponse> => {
       const reqMapper = [
-        { rawName: 'country_code', name: 'countryCode', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'country_code',
+          name: 'countryCode',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'phone_region_code',
           name: 'phoneRegionCode',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('[ZipCode]') },
@@ -5090,24 +5690,32 @@ export default class VoximplantApiClient {
       request: GetRegulationsAddressRequest
     ): Promise<GetRegulationsAddressResponse> => {
       const reqMapper = [
-        { rawName: 'country_code', name: 'countryCode', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'country_code',
+          name: 'countryCode',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'phone_category_name',
           name: 'phoneCategoryName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'phone_region_code',
           name: 'phoneRegionCode',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'regulation_address_id',
           name: 'regulationAddressId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'verified', name: 'verified', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'in_progress', name: 'inProgress', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'verified', name: 'verified', transformer: TypeTransformer.to('boolean', true) },
+        {
+          rawName: 'in_progress',
+          name: 'inProgress',
+          transformer: TypeTransformer.to('boolean', true),
+        },
       ];
       const respMapper = [
         {
@@ -5126,16 +5734,20 @@ export default class VoximplantApiClient {
       request: GetAvailableRegulationsRequest
     ): Promise<GetAvailableRegulationsResponse> => {
       const reqMapper = [
-        { rawName: 'country_code', name: 'countryCode', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'country_code',
+          name: 'countryCode',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'phone_category_name',
           name: 'phoneCategoryName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'phone_region_code',
           name: 'phoneRegionCode',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -5158,7 +5770,11 @@ export default class VoximplantApiClient {
      */
     getCountries: (request: GetCountriesRequest): Promise<GetCountriesResponse> => {
       const reqMapper = [
-        { rawName: 'country_code', name: 'countryCode', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'country_code',
+          name: 'countryCode',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         {
@@ -5175,15 +5791,19 @@ export default class VoximplantApiClient {
      */
     getRegions: (request: GetRegionsRequest): Promise<GetRegionsResponse> => {
       const reqMapper = [
-        { rawName: 'country_code', name: 'countryCode', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'country_code',
+          name: 'countryCode',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'phone_category_name',
           name: 'phoneCategoryName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'city_name', name: 'cityName', transformer: TypeTransformer.to('string') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'city_name', name: 'cityName', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         {
@@ -5206,61 +5826,73 @@ export default class VoximplantApiClient {
         {
           rawName: 'push_provider_name',
           name: 'pushProviderName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'push_provider_id',
           name: 'pushProviderId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'cert_content', name: 'certContent', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'cert_content',
+          name: 'certContent',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'cert_password',
           name: 'certPassword',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'is_dev_mode', name: 'isDevMode', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'sender_id', name: 'senderId', transformer: TypeTransformer.to('string') },
-        { rawName: 'server_key', name: 'serverKey', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'is_dev_mode',
+          name: 'isDevMode',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'sender_id', name: 'senderId', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'server_key',
+          name: 'serverKey',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'service_account_file',
           name: 'serviceAccountFile',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'huawei_client_id',
           name: 'huaweiClientId',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'huawei_client_secret',
           name: 'huaweiClientSecret',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'huawei_application_id',
           name: 'huaweiApplicationId',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'credential_bundle',
           name: 'credentialBundle',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'cert_file_name',
           name: 'certFileName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -5281,36 +5913,48 @@ export default class VoximplantApiClient {
         {
           rawName: 'push_credential_id',
           name: 'pushCredentialId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'cert_content', name: 'certContent', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'cert_content',
+          name: 'certContent',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'cert_password',
           name: 'certPassword',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'is_dev_mode', name: 'isDevMode', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'sender_id', name: 'senderId', transformer: TypeTransformer.to('string') },
-        { rawName: 'server_key', name: 'serverKey', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'is_dev_mode',
+          name: 'isDevMode',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'sender_id', name: 'senderId', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'server_key',
+          name: 'serverKey',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'service_account_file',
           name: 'serviceAccountFile',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'huawei_client_id',
           name: 'huaweiClientId',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'huawei_client_secret',
           name: 'huaweiClientSecret',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'huawei_application_id',
           name: 'huaweiApplicationId',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -5326,7 +5970,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'push_credential_id',
           name: 'pushCredentialId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -5342,29 +5986,33 @@ export default class VoximplantApiClient {
         {
           rawName: 'push_credential_id',
           name: 'pushCredentialId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'push_provider_name',
           name: 'pushProviderName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'push_provider_id',
           name: 'pushProviderId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'with_cert', name: 'withCert', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'with_cert',
+          name: 'withCert',
+          transformer: TypeTransformer.to('boolean', true),
+        },
       ];
       const respMapper = [
         {
@@ -5385,14 +6033,14 @@ export default class VoximplantApiClient {
         {
           rawName: 'push_credential_id',
           name: 'pushCredentialId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
-        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5410,19 +6058,23 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'json_credentials',
           name: 'jsonCredentials',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5442,9 +6094,13 @@ export default class VoximplantApiClient {
         {
           rawName: 'dialogflow_key_id',
           name: 'dialogflowKeyId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5459,7 +6115,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'dialogflow_key_id',
           name: 'dialogflowKeyId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -5475,17 +6131,17 @@ export default class VoximplantApiClient {
         {
           rawName: 'dialogflow_key_id',
           name: 'dialogflowKeyId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -5507,14 +6163,14 @@ export default class VoximplantApiClient {
         {
           rawName: 'dialogflow_key_id',
           name: 'dialogflowKeyId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
-        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5529,10 +6185,18 @@ export default class VoximplantApiClient {
      */
     sendSmsMessage: (request: SendSmsMessageRequest): Promise<SendSmsMessageResponse> => {
       const reqMapper = [
-        { rawName: 'source', name: 'source', transformer: TypeTransformer.to('string') },
-        { rawName: 'destination', name: 'destination', transformer: TypeTransformer.to('string') },
-        { rawName: 'sms_body', name: 'smsBody', transformer: TypeTransformer.to('string') },
-        { rawName: 'store_body', name: 'storeBody', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'source', name: 'source', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'destination',
+          name: 'destination',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'sms_body', name: 'smsBody', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'store_body',
+          name: 'storeBody',
+          transformer: TypeTransformer.to('boolean', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5550,14 +6214,22 @@ export default class VoximplantApiClient {
      */
     a2PSendSms: (request: A2PSendSmsRequest): Promise<A2PSendSmsResponse> => {
       const reqMapper = [
-        { rawName: 'src_number', name: 'srcNumber', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'src_number',
+          name: 'srcNumber',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'dst_numbers',
           name: 'dstNumbers',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
-        { rawName: 'text', name: 'text', transformer: TypeTransformer.to('string') },
-        { rawName: 'store_body', name: 'storeBody', transformer: TypeTransformer.to('boolean') },
+        { rawName: 'text', name: 'text', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'store_body',
+          name: 'storeBody',
+          transformer: TypeTransformer.to('boolean', true),
+        },
       ];
       const respMapper = [
         {
@@ -5579,8 +6251,12 @@ export default class VoximplantApiClient {
      */
     controlSms: (request: ControlSmsRequest): Promise<ControlSmsResponse> => {
       const reqMapper = [
-        { rawName: 'phone_number', name: 'phoneNumber', transformer: TypeTransformer.to('string') },
-        { rawName: 'command', name: 'command', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'phone_number',
+          name: 'phoneNumber',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'command', name: 'command', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5595,19 +6271,27 @@ export default class VoximplantApiClient {
         {
           rawName: 'source_number',
           name: 'sourceNumber',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'destination_number',
           name: 'destinationNumber',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'direction', name: 'direction', transformer: TypeTransformer.to('string') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
-        { rawName: 'from_date', name: 'fromDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'direction',
+          name: 'direction',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
+        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         {
@@ -5627,22 +6311,26 @@ export default class VoximplantApiClient {
         {
           rawName: 'source_number',
           name: 'sourceNumber',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'destination_number',
           name: 'destinationNumber',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
-        { rawName: 'from_date', name: 'fromDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp') },
-        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
+        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'delivery_status',
           name: 'deliveryStatus',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
       ];
       const respMapper = [
@@ -5666,12 +6354,12 @@ export default class VoximplantApiClient {
         {
           rawName: 'record_storage_id',
           name: 'recordStorageId',
-          transformer: TypeTransformer.to('intlist'),
+          transformer: TypeTransformer.to('intlist', true),
         },
         {
           rawName: 'record_storage_name',
           name: 'recordStorageName',
-          transformer: TypeTransformer.to('stringlist'),
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -5691,10 +6379,18 @@ export default class VoximplantApiClient {
      */
     createKey: (request: CreateKeyRequest): Promise<CreateKeyResponse> => {
       const reqMapper = [
-        { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
-        { rawName: 'key_name', name: 'keyName', transformer: TypeTransformer.to('string') },
-        { rawName: 'role_id', name: 'roleId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'role_name', name: 'roleName', transformer: TypeTransformer.to('stringlist') },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'key_name', name: 'keyName', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'role_id', name: 'roleId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'role_name',
+          name: 'roleName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('[KeyInfo]') },
@@ -5706,10 +6402,14 @@ export default class VoximplantApiClient {
      */
     getKeys: (request: GetKeysRequest): Promise<GetKeysResponse> => {
       const reqMapper = [
-        { rawName: 'key_id', name: 'keyId', transformer: TypeTransformer.to('string') },
-        { rawName: 'with_roles', name: 'withRoles', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
+        { rawName: 'key_id', name: 'keyId', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'with_roles',
+          name: 'withRoles',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('[KeyView]') },
@@ -5721,9 +6421,13 @@ export default class VoximplantApiClient {
      */
     updateKey: (request: UpdateKeyRequest): Promise<UpdateKeyResponse> => {
       const reqMapper = [
-        { rawName: 'key_id', name: 'keyId', transformer: TypeTransformer.to('string') },
-        { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
-        { rawName: 'key_name', name: 'keyName', transformer: TypeTransformer.to('string') },
+        { rawName: 'key_id', name: 'keyId', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'key_name', name: 'keyName', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5735,7 +6439,7 @@ export default class VoximplantApiClient {
      */
     deleteKey: (request: DeleteKeyRequest): Promise<DeleteKeyResponse> => {
       const reqMapper = [
-        { rawName: 'key_id', name: 'keyId', transformer: TypeTransformer.to('string') },
+        { rawName: 'key_id', name: 'keyId', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5747,9 +6451,13 @@ export default class VoximplantApiClient {
      */
     setKeyRoles: (request: SetKeyRolesRequest): Promise<SetKeyRolesResponse> => {
       const reqMapper = [
-        { rawName: 'key_id', name: 'keyId', transformer: TypeTransformer.to('string') },
-        { rawName: 'role_id', name: 'roleId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'role_name', name: 'roleName', transformer: TypeTransformer.to('stringlist') },
+        { rawName: 'key_id', name: 'keyId', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'role_id', name: 'roleId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'role_name',
+          name: 'roleName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5761,11 +6469,11 @@ export default class VoximplantApiClient {
      */
     getKeyRoles: (request: GetKeyRolesRequest): Promise<GetKeyRolesResponse> => {
       const reqMapper = [
-        { rawName: 'key_id', name: 'keyId', transformer: TypeTransformer.to('string') },
+        { rawName: 'key_id', name: 'keyId', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'with_expanded_roles',
           name: 'withExpandedRoles',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -5778,9 +6486,13 @@ export default class VoximplantApiClient {
      */
     removeKeyRoles: (request: RemoveKeyRolesRequest): Promise<RemoveKeyRolesResponse> => {
       const reqMapper = [
-        { rawName: 'key_id', name: 'keyId', transformer: TypeTransformer.to('string') },
-        { rawName: 'role_id', name: 'roleId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'role_name', name: 'roleName', transformer: TypeTransformer.to('stringlist') },
+        { rawName: 'key_id', name: 'keyId', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'role_id', name: 'roleId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'role_name',
+          name: 'roleName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5795,16 +6507,24 @@ export default class VoximplantApiClient {
         {
           rawName: 'new_subuser_name',
           name: 'newSubuserName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'new_subuser_password',
           name: 'newSubuserPassword',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'role_id', name: 'roleId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'role_name', name: 'roleName', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
+        { rawName: 'role_id', name: 'roleId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'role_name',
+          name: 'roleName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('SubUserID') },
@@ -5816,10 +6536,18 @@ export default class VoximplantApiClient {
      */
     getSubUsers: (request: GetSubUsersRequest): Promise<GetSubUsersResponse> => {
       const reqMapper = [
-        { rawName: 'subuser_id', name: 'subuserId', transformer: TypeTransformer.to('number') },
-        { rawName: 'with_roles', name: 'withRoles', transformer: TypeTransformer.to('boolean') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'subuser_id',
+          name: 'subuserId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'with_roles',
+          name: 'withRoles',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('[SubUserView]') },
@@ -5831,18 +6559,26 @@ export default class VoximplantApiClient {
      */
     setSubUserInfo: (request: SetSubUserInfoRequest): Promise<SetSubUserInfoResponse> => {
       const reqMapper = [
-        { rawName: 'subuser_id', name: 'subuserId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'subuser_id',
+          name: 'subuserId',
+          transformer: TypeTransformer.to('number', true),
+        },
         {
           rawName: 'old_subuser_password',
           name: 'oldSubuserPassword',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'new_subuser_password',
           name: 'newSubuserPassword',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'description', name: 'description', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5854,7 +6590,11 @@ export default class VoximplantApiClient {
      */
     delSubUser: (request: DelSubUserRequest): Promise<DelSubUserResponse> => {
       const reqMapper = [
-        { rawName: 'subuser_id', name: 'subuserId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'subuser_id',
+          name: 'subuserId',
+          transformer: TypeTransformer.to('number', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5866,9 +6606,17 @@ export default class VoximplantApiClient {
      */
     setSubUserRoles: (request: SetSubUserRolesRequest): Promise<SetSubUserRolesResponse> => {
       const reqMapper = [
-        { rawName: 'subuser_id', name: 'subuserId', transformer: TypeTransformer.to('number') },
-        { rawName: 'role_id', name: 'roleId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'role_name', name: 'roleName', transformer: TypeTransformer.to('stringlist') },
+        {
+          rawName: 'subuser_id',
+          name: 'subuserId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        { rawName: 'role_id', name: 'roleId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'role_name',
+          name: 'roleName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5880,11 +6628,15 @@ export default class VoximplantApiClient {
      */
     getSubUserRoles: (request: GetSubUserRolesRequest): Promise<GetSubUserRolesResponse> => {
       const reqMapper = [
-        { rawName: 'subuser_id', name: 'subuserId', transformer: TypeTransformer.to('number') },
+        {
+          rawName: 'subuser_id',
+          name: 'subuserId',
+          transformer: TypeTransformer.to('number', true),
+        },
         {
           rawName: 'with_expanded_roles',
           name: 'withExpandedRoles',
-          transformer: TypeTransformer.to('boolean'),
+          transformer: TypeTransformer.to('boolean', true),
         },
       ];
       const respMapper = [
@@ -5899,10 +6651,18 @@ export default class VoximplantApiClient {
       request: RemoveSubUserRolesRequest
     ): Promise<RemoveSubUserRolesResponse> => {
       const reqMapper = [
-        { rawName: 'subuser_id', name: 'subuserId', transformer: TypeTransformer.to('number') },
-        { rawName: 'role_id', name: 'roleId', transformer: TypeTransformer.to('intlist') },
-        { rawName: 'role_name', name: 'roleName', transformer: TypeTransformer.to('stringlist') },
-        { rawName: 'force', name: 'force', transformer: TypeTransformer.to('boolean') },
+        {
+          rawName: 'subuser_id',
+          name: 'subuserId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        { rawName: 'role_id', name: 'roleId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'role_name',
+          name: 'roleName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        { rawName: 'force', name: 'force', transformer: TypeTransformer.to('boolean', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
@@ -5914,7 +6674,11 @@ export default class VoximplantApiClient {
      */
     getRoles: (request: GetRolesRequest): Promise<GetRolesResponse> => {
       const reqMapper = [
-        { rawName: 'group_name', name: 'groupName', transformer: TypeTransformer.to('string') },
+        {
+          rawName: 'group_name',
+          name: 'groupName',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('[RoleView]') },
@@ -5939,20 +6703,24 @@ export default class VoximplantApiClient {
      */
     setKeyValueItem: (request: SetKeyValueItemRequest): Promise<SetKeyValueItemResponse> => {
       const reqMapper = [
-        { rawName: 'key', name: 'key', transformer: TypeTransformer.to('string') },
-        { rawName: 'value', name: 'value', transformer: TypeTransformer.to('string') },
+        { rawName: 'key', name: 'key', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'value', name: 'value', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'ttl', name: 'ttl', transformer: TypeTransformer.to('number') },
-        { rawName: 'expires_at', name: 'expiresAt', transformer: TypeTransformer.to('number') },
+        { rawName: 'ttl', name: 'ttl', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'expires_at',
+          name: 'expiresAt',
+          transformer: TypeTransformer.to('number', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('KeyValueItems') },
@@ -5964,16 +6732,16 @@ export default class VoximplantApiClient {
      */
     delKeyValueItem: (request: DelKeyValueItemRequest): Promise<DelKeyValueItemResponse> => {
       const reqMapper = [
-        { rawName: 'key', name: 'key', transformer: TypeTransformer.to('string') },
+        { rawName: 'key', name: 'key', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -5986,16 +6754,16 @@ export default class VoximplantApiClient {
      */
     getKeyValueItem: (request: GetKeyValueItemRequest): Promise<GetKeyValueItemResponse> => {
       const reqMapper = [
-        { rawName: 'key', name: 'key', transformer: TypeTransformer.to('string') },
+        { rawName: 'key', name: 'key', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -6008,18 +6776,18 @@ export default class VoximplantApiClient {
      */
     getKeyValueItems: (request: GetKeyValueItemsRequest): Promise<GetKeyValueItemsResponse> => {
       const reqMapper = [
-        { rawName: 'key', name: 'key', transformer: TypeTransformer.to('string') },
+        { rawName: 'key', name: 'key', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -6035,15 +6803,15 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_id',
           name: 'applicationId',
-          transformer: TypeTransformer.to('number'),
+          transformer: TypeTransformer.to('number', true),
         },
-        { rawName: 'key', name: 'key', transformer: TypeTransformer.to('string') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'key', name: 'key', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string'),
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [
@@ -6061,8 +6829,8 @@ export default class VoximplantApiClient {
       request: GetAccountInvoicesRequest
     ): Promise<GetAccountInvoicesResponse> => {
       const reqMapper = [
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number') },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('AccountInvoice') },

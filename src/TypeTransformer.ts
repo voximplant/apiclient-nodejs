@@ -5983,11 +5983,13 @@ export default class TypeTransformer {
     return transformer;
   }
 
-  public static to(type: string): any {
+  public static to(type: string, isRequest?: boolean): any {
     const isArray = TypeTransformer.hasArrayBrackets(type);
     const fType = isArray ? type.replace('[', '').replace(']', '') : type;
     const existTransformer = TypeTransformer.toActors[fType];
-    const transformer = existTransformer ? existTransformer : TypeTransformer.toStatic(fType);
+    const transformer = existTransformer
+      ? existTransformer
+      : TypeTransformer.toStatic(fType, isRequest);
     if (isArray)
       return function (data) {
         return data.map(transformer);
@@ -6011,7 +6013,7 @@ export default class TypeTransformer {
     };
   }
 
-  private static toStatic(type: string): (data: any) => any {
+  private static toStatic(type: string, isRequest?: boolean): (data: any) => any {
     return function (data) {
       if (type === 'date') {
         return data.toISOString().replace(/T/, ' ').replace(/\..+/, '');
@@ -6025,7 +6027,7 @@ export default class TypeTransformer {
       if (type === 'file') {
         return data.toString();
       }
-      if (type === 'boolean') {
+      if (type === 'boolean' && isRequest) {
         return String(data);
       } else {
         return data;
