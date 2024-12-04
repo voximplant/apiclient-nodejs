@@ -2047,7 +2047,7 @@ export interface GetHistoryReportsRequest {
    */
   historyReportId?: number;
   /**
-   * The history report type list separated by semicolons (;). Use the 'all' value to select all history report types. The following values are possible: calls, calls_brief, transactions, audit, call_list
+   * The history report type list separated by semicolons (;). Use the 'all' value to select all history report types. The following values are possible: calls, calls_brief, transactions, audit, call_list, transactions_on_hold
    */
   historyType?: string | string[];
   /**
