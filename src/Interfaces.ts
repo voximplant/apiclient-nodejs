@@ -1395,6 +1395,14 @@ export interface AddScenarioRequest {
    * Whether to rewrite the existing scenario
    */
   rewrite?: boolean;
+  /**
+   * ID of the application to bind the scenario to
+   */
+  applicationId?: number;
+  /**
+   * Name of the application to bind the scenario to
+   */
+  applicationName?: string;
 }
 
 export interface AddScenarioResponse {
@@ -1485,6 +1493,14 @@ export interface GetScenariosRequest {
    * The first <b>N</b> records are skipped in the output
    */
   offset?: number;
+  /**
+   * ID of the scenario's application
+   */
+  applicationId?: number;
+  /**
+   * Name of the scenario's application
+   */
+  applicationName?: string;
 }
 
 export interface GetScenariosResponse {
@@ -1497,6 +1513,14 @@ export interface GetScenariosResponse {
    * The returned scenario count
    */
   count: number;
+  /**
+   * ID of the scenario's application
+   */
+  applicationId: number;
+  /**
+   * Name of the scenario's application
+   */
+  applicationName: string;
   error?: APIError;
 }
 export interface SetScenarioInfoRequest {
@@ -3119,6 +3143,10 @@ export interface GetNewPhoneNumbersRequest {
    * The first <b>N</b> records are skipped in the output
    */
   offset?: number;
+  /**
+   * The phone number searching mask. Asterisk represents zero or more occurrences of any character
+   */
+  phoneNumberMask?: string;
 }
 
 export interface GetNewPhoneNumbersResponse {
@@ -3843,10 +3871,6 @@ export interface GetSmartQueueRealtimeMetricsRequest {
    * The user name list separated by semicolons (;). <b>user_name</b> can be used instead of <b>user_id</b>
    */
   userName?: string | string[];
-  /**
-   * The SmartQueue ID list with a maximum of 5 values separated by semicolons (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
-   */
-  sqQueueId?: 'any' | number | number[];
   /**
    * The SmartQueue name list separated by semicolons (;). Can be used instead of <b>sq_queue_id</b>
    */
