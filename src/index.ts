@@ -1780,6 +1780,11 @@ export default class VoximplantApiClient {
           name: 'applicationName',
           transformer: TypeTransformer.from('string'),
         },
+        {
+          rawName: 'extended_application_name',
+          name: 'extendedApplicationName',
+          transformer: TypeTransformer.from('string'),
+        },
       ];
       return this.makeRequest('GetScenarios', request, [reqMapper, respMapper]);
     },
@@ -5878,12 +5883,6 @@ export default class VoximplantApiClient {
           name: 'isDevMode',
           transformer: TypeTransformer.to('boolean', true),
         },
-        { rawName: 'sender_id', name: 'senderId', transformer: TypeTransformer.to('string', true) },
-        {
-          rawName: 'server_key',
-          name: 'serverKey',
-          transformer: TypeTransformer.to('string', true),
-        },
         {
           rawName: 'service_account_file',
           name: 'serviceAccountFile',
@@ -5959,12 +5958,6 @@ export default class VoximplantApiClient {
           rawName: 'is_dev_mode',
           name: 'isDevMode',
           transformer: TypeTransformer.to('boolean', true),
-        },
-        { rawName: 'sender_id', name: 'senderId', transformer: TypeTransformer.to('string', true) },
-        {
-          rawName: 'server_key',
-          name: 'serverKey',
-          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'service_account_file',

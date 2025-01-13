@@ -1521,6 +1521,10 @@ export interface GetScenariosResponse {
    * Name of the scenario's application
    */
   applicationName: string;
+  /**
+   * Application name including the node name
+   */
+  extendedApplicationName: string;
   error?: APIError;
 }
 export interface SetScenarioInfoRequest {
@@ -5598,14 +5602,6 @@ export interface AddPushCredentialRequest {
    */
   isDevMode: boolean;
   /**
-   * The sender id, provided by Google. Credentials for GOOGLE push
-   */
-  senderId: string;
-  /**
-   * The server key, provided by Google. Credentials for GOOGLE push
-   */
-  serverKey: string;
-  /**
    * The service account key file, provided by Google. Can be used instead of <b>server_key</b>. Credentials for GOOGLE push
    */
   serviceAccountFile: string;
@@ -5661,14 +5657,6 @@ export interface SetPushCredentialRequest {
    * Whether to use this certificate in apple's sandbox environment. Credentials for APPLE push
    */
   isDevMode: boolean;
-  /**
-   * The sender id, provided by Google. Credentials for GOOGLE push
-   */
-  senderId: string;
-  /**
-   * The server key, provided by Google. Credentials for GOOGLE push
-   */
-  serverKey: string;
   /**
    * The service account key file, provided by Google. Can be used instead of <b>server_key</b>. Credentials for GOOGLE push
    */

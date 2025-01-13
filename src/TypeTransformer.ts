@@ -420,6 +420,8 @@ export default class TypeTransformer {
         xData['cost'] = TypeTransformer.to('number')(data['cost']);
       if (typeof data['custom_data'] !== 'undefined')
         xData['customData'] = TypeTransformer.to('string')(data['custom_data']);
+      if (typeof data['end_reason'] !== 'undefined')
+        xData['endReason'] = TypeTransformer.to('any')(data['end_reason']);
       return xData;
     },
     TransactionInfoType: function (data) {
@@ -3393,6 +3395,8 @@ export default class TypeTransformer {
         xData['cost'] = TypeTransformer.from('number')(data['cost']);
       if (typeof data['customData'] !== 'undefined')
         xData['custom_data'] = TypeTransformer.from('string')(data['customData']);
+      if (typeof data['endReason'] !== 'undefined')
+        xData['end_reason'] = TypeTransformer.from('any')(data['endReason']);
       return xData;
     },
     TransactionInfo: function (data) {

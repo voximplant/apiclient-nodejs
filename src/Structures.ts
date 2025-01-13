@@ -677,6 +677,10 @@ export interface CallInfo {
    * The custom data passed to the JS session
    */
   customData?: string;
+  /**
+   * End reason code and description
+   */
+  endReason?: any;
 }
 export interface TransactionInfo {
   /**
