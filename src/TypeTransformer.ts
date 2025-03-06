@@ -1039,9 +1039,7 @@ export default class TypeTransformer {
       if (typeof data['category_name'] !== 'undefined')
         xData['categoryName'] = TypeTransformer.to('string')(data['category_name']);
       if (typeof data['required_verification'] !== 'undefined')
-        xData['requiredVerification'] = TypeTransformer.to('boolean')(
-          data['required_verification']
-        );
+        xData['requiredVerification'] = TypeTransformer.to('string')(data['required_verification']);
       if (typeof data['verification_status'] !== 'undefined')
         xData['verificationStatus'] = TypeTransformer.to('string')(data['verification_status']);
       if (typeof data['unverified_hold_until'] !== 'undefined')
@@ -1083,9 +1081,7 @@ export default class TypeTransformer {
       if (typeof data['phone_number'] !== 'undefined')
         xData['phoneNumber'] = TypeTransformer.to('string')(data['phone_number']);
       if (typeof data['required_verification'] !== 'undefined')
-        xData['requiredVerification'] = TypeTransformer.to('boolean')(
-          data['required_verification']
-        );
+        xData['requiredVerification'] = TypeTransformer.to('string')(data['required_verification']);
       if (typeof data['verification_status'] !== 'undefined')
         xData['verificationStatus'] = TypeTransformer.to('string')(data['verification_status']);
       if (typeof data['unverified_hold_until'] !== 'undefined')
@@ -1096,6 +1092,10 @@ export default class TypeTransformer {
       const xData = {};
       if (typeof data['country_code'] !== 'undefined')
         xData['countryCode'] = TypeTransformer.to('string')(data['country_code']);
+      if (typeof data['localized_country_name'] !== 'undefined')
+        xData['localizedCountryName'] = TypeTransformer.to('string')(
+          data['localized_country_name']
+        );
       if (typeof data['phone_prefix'] !== 'undefined')
         xData['phonePrefix'] = TypeTransformer.to('string')(data['phone_prefix']);
       if (typeof data['can_list_phone_numbers'] !== 'undefined')
@@ -1153,9 +1153,7 @@ export default class TypeTransformer {
       if (typeof data['verification_status'] !== 'undefined')
         xData['verificationStatus'] = TypeTransformer.to('string')(data['verification_status']);
       if (typeof data['required_verification'] !== 'undefined')
-        xData['requiredVerification'] = TypeTransformer.to('boolean')(
-          data['required_verification']
-        );
+        xData['requiredVerification'] = TypeTransformer.to('string')(data['required_verification']);
       if (typeof data['phone_period'] !== 'undefined')
         xData['phonePeriod'] = TypeTransformer.to('string')(data['phone_period']);
       if (typeof data['is_need_regulation_address'] !== 'undefined')
@@ -1665,9 +1663,7 @@ export default class TypeTransformer {
           data['subscription_template_name']
         );
       if (typeof data['required_verification'] !== 'undefined')
-        xData['requiredVerification'] = TypeTransformer.to('boolean')(
-          data['required_verification']
-        );
+        xData['requiredVerification'] = TypeTransformer.to('string')(data['required_verification']);
       if (typeof data['verification_status'] !== 'undefined')
         xData['verificationStatus'] = TypeTransformer.to('string')(data['verification_status']);
       if (typeof data['installation_tax_reserve'] !== 'undefined')
@@ -4030,7 +4026,7 @@ export default class TypeTransformer {
       if (typeof data['categoryName'] !== 'undefined')
         xData['category_name'] = TypeTransformer.from('string')(data['categoryName']);
       if (typeof data['requiredVerification'] !== 'undefined')
-        xData['required_verification'] = TypeTransformer.from('boolean')(
+        xData['required_verification'] = TypeTransformer.from('string')(
           data['requiredVerification']
         );
       if (typeof data['verificationStatus'] !== 'undefined')
@@ -4074,7 +4070,7 @@ export default class TypeTransformer {
       if (typeof data['phoneNumber'] !== 'undefined')
         xData['phone_number'] = TypeTransformer.from('string')(data['phoneNumber']);
       if (typeof data['requiredVerification'] !== 'undefined')
-        xData['required_verification'] = TypeTransformer.from('boolean')(
+        xData['required_verification'] = TypeTransformer.from('string')(
           data['requiredVerification']
         );
       if (typeof data['verificationStatus'] !== 'undefined')
@@ -4087,6 +4083,10 @@ export default class TypeTransformer {
       const xData = {};
       if (typeof data['countryCode'] !== 'undefined')
         xData['country_code'] = TypeTransformer.from('string')(data['countryCode']);
+      if (typeof data['localizedCountryName'] !== 'undefined')
+        xData['localized_country_name'] = TypeTransformer.from('string')(
+          data['localizedCountryName']
+        );
       if (typeof data['phonePrefix'] !== 'undefined')
         xData['phone_prefix'] = TypeTransformer.from('string')(data['phonePrefix']);
       if (typeof data['canListPhoneNumbers'] !== 'undefined')
@@ -4144,7 +4144,7 @@ export default class TypeTransformer {
       if (typeof data['verificationStatus'] !== 'undefined')
         xData['verification_status'] = TypeTransformer.from('string')(data['verificationStatus']);
       if (typeof data['requiredVerification'] !== 'undefined')
-        xData['required_verification'] = TypeTransformer.from('boolean')(
+        xData['required_verification'] = TypeTransformer.from('string')(
           data['requiredVerification']
         );
       if (typeof data['phonePeriod'] !== 'undefined')
@@ -4660,7 +4660,7 @@ export default class TypeTransformer {
           data['subscriptionTemplateName']
         );
       if (typeof data['requiredVerification'] !== 'undefined')
-        xData['required_verification'] = TypeTransformer.from('boolean')(
+        xData['required_verification'] = TypeTransformer.from('string')(
           data['requiredVerification']
         );
       if (typeof data['verificationStatus'] !== 'undefined')

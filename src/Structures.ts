@@ -1676,7 +1676,7 @@ export interface AttachedPhoneInfo {
   /**
    * Whether the verification is required for the account
    */
-  requiredVerification?: boolean;
+  requiredVerification?: string;
   /**
    * The account verification status. The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
    */
@@ -1738,7 +1738,7 @@ export interface NewAttachedPhoneInfo {
   /**
    * Whether verification is required for the account
    */
-  requiredVerification?: boolean;
+  requiredVerification?: string;
   /**
    * The account verification status. The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
    */
@@ -1753,6 +1753,10 @@ export interface PhoneNumberCountryInfo {
    * The country code
    */
   countryCode: string;
+  /**
+   * The localized country name
+   */
+  localizedCountryName: string;
   /**
    * The country phone prefix
    */
@@ -1826,7 +1830,7 @@ export interface PhoneNumberCountryRegionInfo {
   /**
    * Whether verification is required for the account
    */
-  requiredVerification?: boolean;
+  requiredVerification?: string;
   /**
    * The charge period in 24-h format: Y-M-D H:m:s. Example: 0-1-0 0:0:0 is 1 month
    */
@@ -2654,7 +2658,7 @@ export interface SubscriptionTemplate {
   /**
    * Whether verification is required for the account
    */
-  requiredVerification: boolean;
+  requiredVerification: string;
   /**
    * The verification status. Possible values are REQUIRED, IN_PROGRESS, VERIFIED, NOT_REQUIRED
    */
@@ -4297,7 +4301,7 @@ export interface SQAgentBindingModes {
 }
 export interface SmartQueueMetricsResult {
   /**
-   * The report type(s). Possible values are calls_blocked_percentage, count_blocked_calls, average_abandonment_rate, count_abandonment_calls, service_level, occupancy_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_banned_time, min_time_in_queue,max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime, sum_agents_custom_1_time ... sum_agents_custom_10_time
+   * The report type(s). Possible values are calls_blocked_percentage, count_blocked_calls, average_abandonment_rate, count_abandonment_calls, service_level, occupancy_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_banned_time, min_time_in_queue,max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime, sum_agents_custom_1_time ... sum_agents_custom_10_time, call_count_assigned_to_queue, im_count_assigned_to_queue
    */
   reportType: string;
   /**

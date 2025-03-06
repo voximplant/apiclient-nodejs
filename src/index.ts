@@ -47,8 +47,6 @@ import {
   SetUserInfoResponse,
   GetUsersRequest,
   GetUsersResponse,
-  TransferMoneyToUserRequest,
-  TransferMoneyToUserResponse,
   UsersInterface,
   CreateCallListRequest,
   CreateCallListResponse,
@@ -1405,53 +1403,6 @@ export default class VoximplantApiClient {
       ];
       return this.makeRequest('GetUsers', request, [reqMapper, respMapper]);
     },
-    /**
-     * Transfer the account's money to the user or transfer the user's money to the account if the money amount is negative.
-     */
-    transferMoneyToUser: (
-      request: TransferMoneyToUserRequest
-    ): Promise<TransferMoneyToUserResponse> => {
-      const reqMapper = [
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
-        {
-          rawName: 'user_name',
-          name: 'userName',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-        { rawName: 'amount', name: 'amount', transformer: TypeTransformer.to('decimal', true) },
-        {
-          rawName: 'application_id',
-          name: 'applicationId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'application_name',
-          name: 'applicationName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        { rawName: 'currency', name: 'currency', transformer: TypeTransformer.to('string', true) },
-        {
-          rawName: 'strict_mode',
-          name: 'strictMode',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'user_transaction_description',
-          name: 'userTransactionDescription',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'account_transaction_description',
-          name: 'accountTransactionDescription',
-          transformer: TypeTransformer.to('string', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-        { rawName: 'balance', name: 'balance', transformer: TypeTransformer.from('decimal') },
-      ];
-      return this.makeRequest('TransferMoneyToUser', request, [reqMapper, respMapper]);
-    },
   };
 
   public CallLists: CallListsInterface = {
@@ -2156,6 +2107,11 @@ export default class VoximplantApiClient {
           rawName: 'remote_number',
           name: 'remoteNumber',
           transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'remote_number_list',
+          name: 'remoteNumberList',
+          transformer: TypeTransformer.to('object', true),
         },
         {
           rawName: 'local_number',

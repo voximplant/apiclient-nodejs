@@ -1,6 +1,6 @@
 {
   "name": "@voximplant/apiclient-nodejs",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "Voximplant API client library",
   "main": "dist/index.js",
   "files": [
