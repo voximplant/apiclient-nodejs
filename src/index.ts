@@ -50,12 +50,18 @@ import {
   UsersInterface,
   CreateCallListRequest,
   CreateCallListResponse,
+  AppendToCallListRequest,
+  AppendToCallListResponse,
+  DeleteCallListRequest,
+  DeleteCallListResponse,
   GetCallListsRequest,
   GetCallListsResponse,
   GetCallListDetailsRequest,
   GetCallListDetailsResponse,
   EditCallListTaskRequest,
   EditCallListTaskResponse,
+  CancelCallListTaskRequest,
+  CancelCallListTaskResponse,
   StopCallListProcessingRequest,
   StopCallListProcessingResponse,
   RecoverCallListRequest,
@@ -91,18 +97,28 @@ import {
   RulesInterface,
   GetCallHistoryRequest,
   GetCallHistoryResponse,
+  GetCallHistoryAsyncRequest,
+  GetCallHistoryAsyncResponse,
   GetBriefCallHistoryRequest,
   GetBriefCallHistoryResponse,
   GetHistoryReportsRequest,
   GetHistoryReportsResponse,
+  GetPhoneNumberReportsRequest,
+  GetPhoneNumberReportsResponse,
+  DownloadHistoryReportRequest,
+  DownloadHistoryReportResponse,
   GetTransactionHistoryRequest,
   GetTransactionHistoryResponse,
+  GetTransactionHistoryAsyncRequest,
+  GetTransactionHistoryAsyncResponse,
   DeleteRecordRequest,
   DeleteRecordResponse,
   GetACDHistoryRequest,
   GetACDHistoryResponse,
   GetAuditLogRequest,
   GetAuditLogResponse,
+  GetAuditLogAsyncRequest,
+  GetAuditLogAsyncResponse,
   HistoryInterface,
   AddPstnBlackListItemRequest,
   AddPstnBlackListItemResponse,
@@ -143,6 +159,8 @@ import {
   SetPhoneNumberInfoResponse,
   GetPhoneNumbersRequest,
   GetPhoneNumbersResponse,
+  GetPhoneNumbersAsyncRequest,
+  GetPhoneNumbersAsyncResponse,
   GetNewPhoneNumbersRequest,
   GetNewPhoneNumbersResponse,
   GetPhoneNumberCategoriesRequest,
@@ -383,6 +401,8 @@ import {
   KeyValueStorageInterface,
   GetAccountInvoicesRequest,
   GetAccountInvoicesResponse,
+  DownloadInvoiceRequest,
+  DownloadInvoiceResponse,
   InvoicesInterface,
   ChildAccountsInterface,
 } from './Interfaces';
@@ -405,6 +425,7 @@ import {
   RuleInfo,
   CallSessionInfo,
   HistoryReport,
+  CommonReport,
   TransactionInfo,
   ACDSessionInfo,
   AuditLogInfo,
@@ -426,7 +447,9 @@ import {
   ACDOperatorStatusAggregationGroup,
   SmartQueueMetricsResult,
   SmartQueueState,
+  SQAddQueueResult,
   GetSQQueuesResult,
+  SQAddSkillResult,
   GetSQSkillsResult,
   GetSQAgentsResult,
   SkillInfo,
@@ -514,6 +537,16 @@ export default class VoximplantApiClient {
           return response.data;
         }
         const returnData = {};
+        if (response.headers?.['content-type'] === 'application/octet-stream') {
+          const cTransformer = transformer[1].find((tt) => tt.rawName === 'file_content');
+          if (cTransformer) {
+            returnData[cTransformer.name] = cTransformer.transformer(response.data);
+          } else {
+            returnData['file_content'] = response.data;
+          }
+          return returnData;
+        }
+
         Object.keys(response.data).forEach((field) => {
           const cTransformer = transformer[1].find((tt) => tt.rawName === field);
           if (cTransformer) {
@@ -1460,6 +1493,49 @@ export default class VoximplantApiClient {
       return this.makeRequest('CreateCallList', request, [reqMapper, respMapper]);
     },
     /**
+     * Appends a new task to the existing call list.<br>This method accepts CSV files with custom delimiters, such a commas (,), semicolons (;) and other. To specify a delimiter, pass it to the <b>delimiter</b> parameter.
+     */
+    appendToCallList: (request: AppendToCallListRequest): Promise<AppendToCallListResponse> => {
+      const reqMapper = [
+        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'file_content',
+          name: 'fileContent',
+          transformer: TypeTransformer.to('file', true),
+        },
+        { rawName: 'encoding', name: 'encoding', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'escape', name: 'escape', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'delimiter',
+          name: 'delimiter',
+          transformer: TypeTransformer.to('string', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
+        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('AppendToCallList', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Deletes an existing call list by its ID.
+     */
+    deleteCallList: (request: DeleteCallListRequest): Promise<DeleteCallListResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'account_id',
+          name: 'accountId',
+          transformer: TypeTransformer.to('number', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
+        { rawName: 'msg', name: 'msg', transformer: TypeTransformer.from('string') },
+      ];
+      return this.makeRequest('DeleteCallList', request, [reqMapper, respMapper]);
+    },
+    /**
      * Get all call lists for the specified user.
      */
     getCallLists: (request: GetCallListsRequest): Promise<GetCallListsResponse> => {
@@ -1554,6 +1630,34 @@ export default class VoximplantApiClient {
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
       ];
       return this.makeRequest('EditCallListTask', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Cancels the specified tasks in the call list by their IDs or UUIDs.
+     */
+    cancelCallListTask: (
+      request: CancelCallListTaskRequest
+    ): Promise<CancelCallListTaskResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'account_id',
+          name: 'accountId',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'tasks_ids', name: 'tasksIds', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'tasks_uuids',
+          name: 'tasksUuids',
+          transformer: TypeTransformer.to('string', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'task_id', name: 'taskId', transformer: TypeTransformer.from('number') },
+        { rawName: 'task_uuid', name: 'taskUuid', transformer: TypeTransformer.from('string') },
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
+        { rawName: 'error_msg', name: 'errorMsg', transformer: TypeTransformer.from('string') },
+      ];
+      return this.makeRequest('CancelCallListTask', request, [reqMapper, respMapper]);
     },
     /**
      * Stops processing the specified call list.
@@ -2076,7 +2180,7 @@ export default class VoximplantApiClient {
 
   public History: HistoryInterface = {
     /**
-     * Gets the account's call history, including call duration, cost, logs and other call information. You can filter the call history by a certain date
+     * Gets the account's call history (including call duration, cost, logs and other call information). You can filter the call history by a certain date.
      */
     getCallHistory: (request: GetCallHistoryRequest): Promise<GetCallHistoryResponse> => {
       const reqMapper = [
@@ -2149,11 +2253,6 @@ export default class VoximplantApiClient {
           transformer: TypeTransformer.to('boolean', true),
         },
         {
-          rawName: 'with_header',
-          name: 'withHeader',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
           rawName: 'desc_order',
           name: 'descOrder',
           transformer: TypeTransformer.to('boolean', true),
@@ -2165,8 +2264,6 @@ export default class VoximplantApiClient {
         },
         { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
         { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
-        { rawName: 'is_async', name: 'isAsync', transformer: TypeTransformer.to('boolean', true) },
       ];
       const respMapper = [
         {
@@ -2177,16 +2274,103 @@ export default class VoximplantApiClient {
         { rawName: 'total_count', name: 'totalCount', transformer: TypeTransformer.from('number') },
         { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
         { rawName: 'timezone', name: 'timezone', transformer: TypeTransformer.from('string') },
+      ];
+      return this.makeRequest('GetCallHistory', request, [reqMapper, respMapper]);
+    },
+    /**
+     * The [GetCallHistory] asynchronous implementation. Use this function to download a large amounts of data. Take a look at the [GetHistoryReports] and [DownloadHistoryReport] functions for downloading details.
+     */
+    getCallHistoryAsync: (
+      request: GetCallHistoryAsyncRequest
+    ): Promise<GetCallHistoryAsyncResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
+        {
+          rawName: 'call_session_history_id',
+          name: 'callSessionHistoryId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'remote_number',
+          name: 'remoteNumber',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'local_number',
+          name: 'localNumber',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'call_session_history_custom_data',
+          name: 'callSessionHistoryCustomData',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'with_calls',
+          name: 'withCalls',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'with_records',
+          name: 'withRecords',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'with_other_resources',
+          name: 'withOtherResources',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'child_account_id',
+          name: 'childAccountId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
+        {
+          rawName: 'children_calls_only',
+          name: 'childrenCallsOnly',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'desc_order',
+          name: 'descOrder',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'with_header',
+          name: 'withHeader',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
         {
           rawName: 'history_report_id',
           name: 'historyReportId',
           transformer: TypeTransformer.from('number'),
         },
       ];
-      return this.makeRequest('GetCallHistory', request, [reqMapper, respMapper]);
+      return this.makeRequest('GetCallHistoryAsync', request, [reqMapper, respMapper]);
     },
     /**
-     * Gets the account's brief call history. Use the [GetHistoryReports], [DownloadHistoryReport] methods to download the report.
+     * Gets the account's brief call history in the asynchronous mode. Take a look at the [GetHistoryReports] and [DownloadHistoryReport] functions for downloading details.
      */
     getBriefCallHistory: (
       request: GetBriefCallHistoryRequest
@@ -2199,7 +2383,6 @@ export default class VoximplantApiClient {
         },
         { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
         { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
-        { rawName: 'is_async', name: 'isAsync', transformer: TypeTransformer.to('boolean', true) },
         {
           rawName: 'call_session_history_id',
           name: 'callSessionHistoryId',
@@ -2232,13 +2415,13 @@ export default class VoximplantApiClient {
           transformer: TypeTransformer.to('string', true),
         },
         {
-          rawName: 'with_header',
-          name: 'withHeader',
+          rawName: 'desc_order',
+          name: 'descOrder',
           transformer: TypeTransformer.to('boolean', true),
         },
         {
-          rawName: 'desc_order',
-          name: 'descOrder',
+          rawName: 'with_header',
+          name: 'withHeader',
           transformer: TypeTransformer.to('boolean', true),
         },
       ];
@@ -2253,7 +2436,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('GetBriefCallHistory', request, [reqMapper, respMapper]);
     },
     /**
-     * Gets the list of history reports and their statuses. The method returns info about reports made via [GetCallHistory] with the specified __output=csv__ and **is_async=true** parameters. Note that the **file_size** field in response is valid only for video calls.
+     * Gets the list of history reports and their statuses. The method returns info about the reports made via [GetCallHistoryAsync], [GetTransactionHistoryAsync], [GetAuditLogAsync] and [GetBriefCallHistory] asynchronous methods. Note that the **file_size** field in response is valid only for the video calls.
      */
     getHistoryReports: (request: GetHistoryReportsRequest): Promise<GetHistoryReportsResponse> => {
       const reqMapper = [
@@ -2307,6 +2490,71 @@ export default class VoximplantApiClient {
       return this.makeRequest('GetHistoryReports', request, [reqMapper, respMapper]);
     },
     /**
+     * Receives information about the created phone numbers report or list of reports.
+     */
+    getPhoneNumberReports: (
+      request: GetPhoneNumberReportsRequest
+    ): Promise<GetPhoneNumberReportsResponse> => {
+      const reqMapper = [
+        { rawName: 'report_id', name: 'reportId', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'report_type',
+          name: 'reportType',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'created_from',
+          name: 'createdFrom',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        {
+          rawName: 'created_to',
+          name: 'createdTo',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        {
+          rawName: 'is_completed',
+          name: 'isCompleted',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'desc_order',
+          name: 'descOrder',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+      ];
+      const respMapper = [
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('[CommonReportType]'),
+        },
+        { rawName: 'total_count', name: 'totalCount', transformer: TypeTransformer.from('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('GetPhoneNumberReports', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Downloads the required history report.<br><br>Please note, that the history report can return in a compressed state (*.gzip). In order for CURL to process a compressed file correctly, add the **--compressed** key.
+     */
+    downloadHistoryReport: (
+      request: DownloadHistoryReportRequest
+    ): Promise<DownloadHistoryReportResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'history_report_id',
+          name: 'historyReportId',
+          transformer: TypeTransformer.to('number', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'file_content', name: 'fileContent', transformer: TypeTransformer.from('file') },
+      ];
+      return this.makeRequest('DownloadHistoryReport', request, [reqMapper, respMapper]);
+    },
+    /**
      * Gets the transaction history.
      */
     getTransactionHistory: (
@@ -2350,10 +2598,13 @@ export default class VoximplantApiClient {
           name: 'descOrder',
           transformer: TypeTransformer.to('boolean', true),
         },
+        {
+          rawName: 'with_total_count',
+          name: 'withTotalCount',
+          transformer: TypeTransformer.to('boolean', true),
+        },
         { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
         { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
-        { rawName: 'is_async', name: 'isAsync', transformer: TypeTransformer.to('boolean', true) },
         {
           rawName: 'is_uncommitted',
           name: 'isUncommitted',
@@ -2369,13 +2620,74 @@ export default class VoximplantApiClient {
         { rawName: 'total_count', name: 'totalCount', transformer: TypeTransformer.from('number') },
         { rawName: 'timezone', name: 'timezone', transformer: TypeTransformer.from('string') },
         { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('GetTransactionHistory', request, [reqMapper, respMapper]);
+    },
+    /**
+     * The [GetTransactionHistory] asynchronous implementation. Use this function to download a large amounts of data. Take a look at the [GetHistoryReports] and [DownloadHistoryReport] functions for downloading details.
+     */
+    getTransactionHistoryAsync: (
+      request: GetTransactionHistoryAsyncRequest
+    ): Promise<GetTransactionHistoryAsyncResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
+        {
+          rawName: 'transaction_id',
+          name: 'transactionId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
+        {
+          rawName: 'transaction_type',
+          name: 'transactionType',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'child_account_id',
+          name: 'childAccountId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
+        {
+          rawName: 'children_transactions_only',
+          name: 'childrenTransactionsOnly',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'users_transactions_only',
+          name: 'usersTransactionsOnly',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'desc_order',
+          name: 'descOrder',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'is_uncommitted',
+          name: 'isUncommitted',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'with_header',
+          name: 'withHeader',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
         {
           rawName: 'history_report_id',
           name: 'historyReportId',
           transformer: TypeTransformer.from('number'),
         },
       ];
-      return this.makeRequest('GetTransactionHistory', request, [reqMapper, respMapper]);
+      return this.makeRequest('GetTransactionHistoryAsync', request, [reqMapper, respMapper]);
     },
     /**
      * Try to remove a record and transcription files.
@@ -2504,11 +2816,6 @@ export default class VoximplantApiClient {
           transformer: TypeTransformer.to('string', true),
         },
         {
-          rawName: 'with_header',
-          name: 'withHeader',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
           rawName: 'desc_order',
           name: 'descOrder',
           transformer: TypeTransformer.to('boolean', true),
@@ -2520,8 +2827,6 @@ export default class VoximplantApiClient {
         },
         { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
         { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
-        { rawName: 'is_async', name: 'isAsync', transformer: TypeTransformer.to('boolean', true) },
       ];
       const respMapper = [
         {
@@ -2532,13 +2837,66 @@ export default class VoximplantApiClient {
         { rawName: 'total_count', name: 'totalCount', transformer: TypeTransformer.from('number') },
         { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
         { rawName: 'timezone', name: 'timezone', transformer: TypeTransformer.from('string') },
+      ];
+      return this.makeRequest('GetAuditLog', request, [reqMapper, respMapper]);
+    },
+    /**
+     * The [GetAuditLog] asynchronous implementation. Use this function to download a large amounts of data. Take a look at the [GetHistoryReports] and [DownloadHistoryReport] functions for downloading details.
+     */
+    getAuditLogAsync: (request: GetAuditLogAsyncRequest): Promise<GetAuditLogAsyncResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'from_date',
+          name: 'fromDate',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        { rawName: 'to_date', name: 'toDate', transformer: TypeTransformer.to('timestamp', true) },
+        {
+          rawName: 'audit_log_id',
+          name: 'auditLogId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
+        {
+          rawName: 'filtered_admin_user_id',
+          name: 'filteredAdminUserId',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'filtered_ip',
+          name: 'filteredIp',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'filtered_cmd',
+          name: 'filteredCmd',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'advanced_filters',
+          name: 'advancedFilters',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'desc_order',
+          name: 'descOrder',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'with_header',
+          name: 'withHeader',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'output', name: 'output', transformer: TypeTransformer.to('string', true) },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
         {
           rawName: 'history_report_id',
           name: 'historyReportId',
           transformer: TypeTransformer.from('number'),
         },
       ];
-      return this.makeRequest('GetAuditLog', request, [reqMapper, respMapper]);
+      return this.makeRequest('GetAuditLogAsync', request, [reqMapper, respMapper]);
     },
   };
 
@@ -3241,6 +3599,24 @@ export default class VoximplantApiClient {
         { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
       ];
       return this.makeRequest('GetPhoneNumbers', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Gets the asyncronous report regarding purchaced phone numbers.
+     */
+    getPhoneNumbersAsync: (
+      request: GetPhoneNumbersAsyncRequest
+    ): Promise<GetPhoneNumbersAsyncResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'with_header',
+          name: 'withHeader',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('GetPhoneNumbersAsync', request, [reqMapper, respMapper]);
     },
     /**
      * Gets the new phone numbers.
@@ -4393,7 +4769,11 @@ export default class VoximplantApiClient {
         { rawName: 'priority', name: 'priority', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
-        { rawName: 'sq_queue_id', name: 'sqQueueId', transformer: TypeTransformer.from('number') },
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('SQAddQueueResult'),
+        },
       ];
       return this.makeRequest('SQ_AddQueue', request, [reqMapper, respMapper]);
     },
@@ -4596,7 +4976,11 @@ export default class VoximplantApiClient {
         },
       ];
       const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('SQAddSkillResult'),
+        },
       ];
       return this.makeRequest('SQ_AddSkill', request, [reqMapper, respMapper]);
     },
@@ -5825,41 +6209,6 @@ export default class VoximplantApiClient {
           transformer: TypeTransformer.to('number', true),
         },
         {
-          rawName: 'cert_content',
-          name: 'certContent',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'cert_password',
-          name: 'certPassword',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'is_dev_mode',
-          name: 'isDevMode',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'service_account_file',
-          name: 'serviceAccountFile',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'huawei_client_id',
-          name: 'huaweiClientId',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'huawei_client_secret',
-          name: 'huaweiClientSecret',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'huawei_application_id',
-          name: 'huaweiApplicationId',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
           rawName: 'application_id',
           name: 'applicationId',
           transformer: TypeTransformer.to('number', true),
@@ -5875,8 +6224,49 @@ export default class VoximplantApiClient {
           transformer: TypeTransformer.to('string', true),
         },
         {
+          rawName: 'cert_content',
+          name: 'certContent',
+          transformer: TypeTransformer.to('file', true),
+        },
+        {
           rawName: 'cert_file_name',
           name: 'certFileName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'cert_password',
+          name: 'certPassword',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'is_dev_mode',
+          name: 'isDevMode',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'sender_id', name: 'senderId', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'server_key',
+          name: 'serverKey',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'service_account_file',
+          name: 'serviceAccountFile',
+          transformer: TypeTransformer.to('file', true),
+        },
+        {
+          rawName: 'huawei_client_id',
+          name: 'huaweiClientId',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'huawei_client_secret',
+          name: 'huaweiClientSecret',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'huawei_application_id',
+          name: 'huaweiApplicationId',
           transformer: TypeTransformer.to('string', true),
         },
       ];
@@ -5903,7 +6293,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'cert_content',
           name: 'certContent',
-          transformer: TypeTransformer.to('string', true),
+          transformer: TypeTransformer.to('file', true),
         },
         {
           rawName: 'cert_password',
@@ -5915,10 +6305,16 @@ export default class VoximplantApiClient {
           name: 'isDevMode',
           transformer: TypeTransformer.to('boolean', true),
         },
+        { rawName: 'sender_id', name: 'senderId', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'server_key',
+          name: 'serverKey',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'service_account_file',
           name: 'serviceAccountFile',
-          transformer: TypeTransformer.to('string', true),
+          transformer: TypeTransformer.to('file', true),
         },
         {
           rawName: 'huawei_client_id',
@@ -6817,6 +7213,22 @@ export default class VoximplantApiClient {
         { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
       ];
       return this.makeRequest('GetAccountInvoices', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Downloads the specified invoice.
+     */
+    downloadInvoice: (request: DownloadInvoiceRequest): Promise<DownloadInvoiceResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'invoice_id',
+          name: 'invoiceId',
+          transformer: TypeTransformer.to('number', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'file_content', name: 'fileContent', transformer: TypeTransformer.from('file') },
+      ];
+      return this.makeRequest('DownloadInvoice', request, [reqMapper, respMapper]);
     },
   };
 }

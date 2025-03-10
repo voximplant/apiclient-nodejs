@@ -592,7 +592,7 @@ export enum APIErrorCode {
    */
   INVALID_SUBSCRIPTION_TEMPLATE_TYPE = 246,
   /**
-   * The 'prioriity' parameter is invaid
+   * The 'priority' parameter is invalid
    */
   INVALID_PRIORIITY = 247,
   /**

@@ -17,6 +17,7 @@ import {
   RuleInfo,
   CallSessionInfo,
   HistoryReport,
+  CommonReport,
   TransactionInfo,
   ACDSessionInfo,
   AuditLogInfo,
@@ -38,7 +39,9 @@ import {
   ACDOperatorStatusAggregationGroup,
   SmartQueueMetricsResult,
   SmartQueueState,
+  SQAddQueueResult,
   GetSQQueuesResult,
+  SQAddSkillResult,
   GetSQSkillsResult,
   GetSQAgentsResult,
   SkillInfo,
@@ -90,9 +93,12 @@ export interface UtilsReturns {
   SetUserInfo: SetUserInfoResponse;
   GetUsers: GetUsersResponse;
   CreateCallList: CreateCallListResponse;
+  AppendToCallList: AppendToCallListResponse;
+  DeleteCallList: DeleteCallListResponse;
   GetCallLists: GetCallListsResponse;
   GetCallListDetails: GetCallListDetailsResponse;
   EditCallListTask: EditCallListTaskResponse;
+  CancelCallListTask: CancelCallListTaskResponse;
   StopCallListProcessing: StopCallListProcessingResponse;
   RecoverCallList: RecoverCallListResponse;
   AddScenario: AddScenarioResponse;
@@ -109,12 +115,17 @@ export interface UtilsReturns {
   GetRules: GetRulesResponse;
   ReorderRules: ReorderRulesResponse;
   GetCallHistory: GetCallHistoryResponse;
+  GetCallHistoryAsync: GetCallHistoryAsyncResponse;
   GetBriefCallHistory: GetBriefCallHistoryResponse;
   GetHistoryReports: GetHistoryReportsResponse;
+  GetPhoneNumberReports: GetPhoneNumberReportsResponse;
+  DownloadHistoryReport: DownloadHistoryReportResponse;
   GetTransactionHistory: GetTransactionHistoryResponse;
+  GetTransactionHistoryAsync: GetTransactionHistoryAsyncResponse;
   DeleteRecord: DeleteRecordResponse;
   GetACDHistory: GetACDHistoryResponse;
   GetAuditLog: GetAuditLogResponse;
+  GetAuditLogAsync: GetAuditLogAsyncResponse;
   AddPstnBlackListItem: AddPstnBlackListItemResponse;
   SetPstnBlackListItem: SetPstnBlackListItemResponse;
   DelPstnBlackListItem: DelPstnBlackListItemResponse;
@@ -133,6 +144,7 @@ export interface UtilsReturns {
   DeactivatePhoneNumber: DeactivatePhoneNumberResponse;
   SetPhoneNumberInfo: SetPhoneNumberInfoResponse;
   GetPhoneNumbers: GetPhoneNumbersResponse;
+  GetPhoneNumbersAsync: GetPhoneNumbersAsyncResponse;
   GetNewPhoneNumbers: GetNewPhoneNumbersResponse;
   GetPhoneNumberCategories: GetPhoneNumberCategoriesResponse;
   GetPhoneNumberCountryStates: GetPhoneNumberCountryStatesResponse;
@@ -242,6 +254,7 @@ export interface UtilsReturns {
   GetKeyValueItems: GetKeyValueItemsResponse;
   GetKeyValueKeys: GetKeyValueKeysResponse;
   GetAccountInvoices: GetAccountInvoicesResponse;
+  DownloadInvoice: DownloadInvoiceResponse;
 }
 
 export interface NewRegistrationInterface {}
@@ -519,7 +532,7 @@ export interface GetChildrenAccountsRequest {
    */
   childAccountName?: string;
   /**
-   * The child ccount email to filter. You need to specify at least one of the following parameters: `child_account_id`, `child_account_name`, `child_account_email`
+   * The child account email to filter. You need to specify at least one of the following parameters: `child_account_id`, `child_account_name`, `child_account_email`
    */
   childAccountEmail?: string;
   /**
@@ -1143,6 +1156,64 @@ export interface CreateCallListResponse {
   listId: number;
   error?: APIError;
 }
+export interface AppendToCallListRequest {
+  /**
+   * The call list ID
+   */
+  listId: number;
+  listName: string;
+  /**
+   * Send as request body or multiform
+   */
+  fileContent: Buffer;
+  /**
+   * Encoding file. The default is UTF-8
+   */
+  encoding?: string;
+  /**
+   * Escape character for parsing csv
+   */
+  escape?: string;
+  /**
+   * Separator values. The default is ';'
+   */
+  delimiter?: string;
+}
+
+export interface AppendToCallListResponse {
+  /**
+   * true
+   */
+  result: boolean;
+  /**
+   * The number of stored records
+   */
+  count: number;
+  /**
+   * The list ID
+   */
+  listId: number;
+  error?: APIError;
+}
+export interface DeleteCallListRequest {
+  /**
+   * Account's ID
+   */
+  accountId: number;
+  listId: number;
+}
+
+export interface DeleteCallListResponse {
+  /**
+   * Result
+   */
+  result: boolean;
+  /**
+   * Text description
+   */
+  msg: string;
+  error?: APIError;
+}
 export interface GetCallListsRequest {
   /**
    * The list ID to filter. Can be a list separated by semicolons (;). Use the 'all' value to select all lists
@@ -1211,7 +1282,7 @@ export interface GetCallListDetailsRequest {
    */
   offset?: number;
   /**
-   * Output format (CSV/JSON/XLS). Default CSV
+   * The output format. The following values available: **json**, **csv**, **xls**. The default value is **csv**
    */
   output?: string;
   /**
@@ -1273,6 +1344,44 @@ export interface EditCallListTaskResponse {
   result: boolean;
   error?: APIError;
 }
+export interface CancelCallListTaskRequest {
+  /**
+   * Account's ID
+   */
+  accountId: string;
+  /**
+   * Call list's ID
+   */
+  listId: string;
+  /**
+   * Task IDs separated by a semicolon. Specify either `tasks_ids` or `tasks_uuids`. The method returns an error if none of the parameters is specified
+   */
+  tasksIds?: string;
+  /**
+   * Task UUIDs separated by a semicolon. Specify either `tasks_ids` or `tasks_uuids`. The method returns an error if none of the parameters is specified
+   */
+  tasksUuids?: string;
+}
+
+export interface CancelCallListTaskResponse {
+  /**
+   * Task's ID
+   */
+  taskId: number;
+  /**
+   * Task's UUID
+   */
+  taskUuid: string;
+  /**
+   * Result of the operation
+   */
+  result: boolean;
+  /**
+   * Reason for the error
+   */
+  errorMsg: string;
+  error?: APIError;
+}
 export interface StopCallListProcessingRequest {
   /**
    * The list Id
@@ -1311,9 +1420,12 @@ export interface RecoverCallListResponse {
 }
 export interface CallListsInterface {
   createCallList: (request: CreateCallListRequest) => Promise<CreateCallListResponse>;
+  appendToCallList: (request: AppendToCallListRequest) => Promise<AppendToCallListResponse>;
+  deleteCallList: (request: DeleteCallListRequest) => Promise<DeleteCallListResponse>;
   getCallLists: (request: GetCallListsRequest) => Promise<GetCallListsResponse>;
   getCallListDetails: (request: GetCallListDetailsRequest) => Promise<GetCallListDetailsResponse>;
   editCallListTask: (request: EditCallListTaskRequest) => Promise<EditCallListTaskResponse>;
+  cancelCallListTask: (request: CancelCallListTaskRequest) => Promise<CancelCallListTaskResponse>;
   stopCallListProcessing: (
     request: StopCallListProcessingRequest
   ) => Promise<StopCallListProcessingResponse>;
@@ -1900,10 +2012,6 @@ export interface GetCallHistoryRequest {
    */
   childrenCallsOnly?: boolean;
   /**
-   * Whether to get a CSV file with the column names if the output=csv
-   */
-  withHeader?: boolean;
-  /**
    * Whether to get records in the descent order
    */
   descOrder?: boolean;
@@ -1912,42 +2020,117 @@ export interface GetCallHistoryRequest {
    */
   withTotalCount?: boolean;
   /**
-   * The number of returning records. In the synchronous mode, the maximum value is 1000
+   * The number of returning records. The maximum value is 1000
    */
   count?: number;
   /**
-   * The number of records to skip in the output with a maximum value of 10000
+   * The number of records to skip in the output. The maximum value of 10000
    */
   offset?: number;
-  /**
-   * The output format. The following values available: json, csv
-   */
-  output?: string;
-  /**
-   * Whether to get records in the asynchronous mode (for csv output only). <b>Use this mode to download large amounts of data</b>. See the [GetHistoryReports], [DownloadHistoryReport] functions for details
-   */
-  isAsync?: boolean;
 }
 
 export interface GetCallHistoryResponse {
   /**
-   * The CallSessionInfoType records in sync mode or 1 in async mode
+   * The CallSessionInfoType records
    */
   result: CallSessionInfo[];
   /**
-   * The total found call session count (sync mode)
+   * The total found call session count
    */
   totalCount: number;
   /**
-   * The returned call session count (sync mode)
+   * The returned call session count
    */
   count: number;
   /**
    * The used timezone
    */
   timezone: string;
+  error?: APIError;
+}
+export interface GetCallHistoryAsyncRequest {
   /**
-   * The history report ID (async mode)
+   * The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  fromDate: Date;
+  /**
+   * The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  toDate: Date;
+  timezone?: string;
+  /**
+   * To get the call history for the specific sessions, pass the session IDs to this parameter separated by a semicolon (;). You can find the session ID in the <a href='/docs/references/voxengine/appevents#started'>AppEvents.Started</a> event's <b>sessionID</b> property in a scenario, or retrieve it from the <b>call_session_history_id</b> value returned from the <a href='https://voximplant.com/docs/references/httpapi/scenarios#reorderscenarios'>StartScenarios</a> or <a href='https://voximplant.com/docs/references/httpapi/scenarios#startconference'>StartConference</a> methods
+   */
+  callSessionHistoryId?: 'any' | number | number[];
+  /**
+   * To receive the call history for a specific application, pass the application ID to this parameter
+   */
+  applicationId?: number;
+  /**
+   * The application name, can be used instead of <b>application_id</b>
+   */
+  applicationName?: string;
+  /**
+   * To receive the call history for a specific users, pass the user ID list separated by semicolons (;). If it is specified, the output contains the calls from the listed users only
+   */
+  userId?: 'any' | number | number[];
+  /**
+   * To receive the call history for a specific routing rule, pass the rule name to this parameter. Applies only if you set application_id or application_name
+   */
+  ruleName?: string;
+  /**
+   * To receive a call history for a specific remote numbers, pass the number list separated by semicolons (;). A remote number is a number on the client side
+   */
+  remoteNumber?: string | string[];
+  /**
+   * To receive a call history for a specific local numbers, pass the number list separated by semicolons (;). A local number is a number on the platform side
+   */
+  localNumber?: string | string[];
+  /**
+   * To filter the call history by the custom_data passed to the call sessions, pass the custom data to this parameter
+   */
+  callSessionHistoryCustomData?: string;
+  /**
+   * Whether to receive a list of sessions with all calls within the sessions, including phone numbers, call cost and other information
+   */
+  withCalls?: boolean;
+  /**
+   * Whether to get the calls' records
+   */
+  withRecords?: boolean;
+  /**
+   * Whether to get other resources usage (see [ResourceUsageType])
+   */
+  withOtherResources?: boolean;
+  /**
+   * The child account ID list separated by semicolons (;)
+   */
+  childAccountId?: 'any' | number | number[];
+  /**
+   * Whether to get the children account calls only
+   */
+  childrenCallsOnly?: boolean;
+  /**
+   * Whether to get records in the descent order
+   */
+  descOrder?: boolean;
+  /**
+   * Whether to get a CSV file with the column names if the output=csv
+   */
+  withHeader?: boolean;
+  /**
+   * The output format. The following values available: **csv**. The default value is **csv**
+   */
+  output?: string;
+}
+
+export interface GetCallHistoryAsyncResponse {
+  /**
+   * 1
+   */
+  result: number;
+  /**
+   * The history report ID
    */
   historyReportId: number;
   error?: APIError;
@@ -1962,13 +2145,9 @@ export interface GetBriefCallHistoryRequest {
    */
   toDate: Date;
   /**
-   * The output format. The following values available: csv
+   * The output format. The following values available: **csv**.
    */
   output: string;
-  /**
-   * Whether to get records in the asynchronous mode. <b>Use this mode to download large amounts of data</b>. See the [GetHistoryReports], [DownloadHistoryReport] functions for details
-   */
-  isAsync: boolean;
   timezone?: string;
   /**
    * To get the call history for the specific sessions, pass the session IDs to this parameter separated by a semicolon (;). You can find the session ID in the <a href='/docs/references/voxengine/appevents#started'>AppEvents.Started</a> event's <b>sessionID</b> property in a scenario, or retrieve it from the <b>call_session_history_id</b> value returned from the <a href='https://voximplant.com/docs/references/httpapi/scenarios#reorderscenarios'>StartScenarios</a> or <a href='https://voximplant.com/docs/references/httpapi/scenarios#startconference'>StartConference</a> methods
@@ -1999,18 +2178,18 @@ export interface GetBriefCallHistoryRequest {
    */
   callSessionHistoryCustomData?: string;
   /**
-   * Whether to get a CSV file with the column names if the output=csv
-   */
-  withHeader?: boolean;
-  /**
    * Whether to get records in the descent order
    */
   descOrder?: boolean;
+  /**
+   * Whether to get a CSV file with the column names if the output=csv
+   */
+  withHeader?: boolean;
 }
 
 export interface GetBriefCallHistoryResponse {
   /**
-   * In the async mode, the value is always 1
+   * 1
    */
   result: number;
   /**
@@ -2070,6 +2249,67 @@ export interface GetHistoryReportsResponse {
   count: number;
   error?: APIError;
 }
+export interface GetPhoneNumberReportsRequest {
+  /**
+   * The phone number report ID to filter
+   */
+  reportId?: number;
+  /**
+   * The phone number report type list separated by semicolons (;). Use the 'all' value to select all history report types. The following values are possible: calls, calls_brief, transactions, audit, call_list, transactions_on_hold
+   */
+  reportType?: string | string[];
+  /**
+   * The UTC creation from date filter in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  createdFrom?: Date;
+  /**
+   * The UTC creation to date filter in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  createdTo?: Date;
+  /**
+   * Whether the report is completed
+   */
+  isCompleted?: boolean;
+  /**
+   * Whether to get records in the descent order
+   */
+  descOrder?: boolean;
+  /**
+   * The max returning record count
+   */
+  count?: number;
+  /**
+   * The first <b>N</b> records are skipped in the output
+   */
+  offset?: number;
+}
+
+export interface GetPhoneNumberReportsResponse {
+  result: CommonReport[];
+  /**
+   * The total found reports count
+   */
+  totalCount: number;
+  /**
+   * The returned reports count
+   */
+  count: number;
+  error?: APIError;
+}
+export interface DownloadHistoryReportRequest {
+  /**
+   * The history report ID
+   */
+  historyReportId: number;
+}
+
+export interface DownloadHistoryReportResponse {
+  /**
+   * The method returns a raw data, there is no 'file_content' parameter in fact
+   */
+  fileContent: Buffer;
+  error?: APIError;
+}
 export interface GetTransactionHistoryRequest {
   /**
    * The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
@@ -2110,21 +2350,17 @@ export interface GetTransactionHistoryRequest {
    */
   descOrder?: boolean;
   /**
-   * The number of returning records. In the synchronous mode, the maximum value is 1000
+   * Whether to include the 'total_count' and increase performance
+   */
+  withTotalCount?: boolean;
+  /**
+   * The number of returning records. The maximum value is 1000
    */
   count?: number;
   /**
    * The number of records to skip in the output with a maximum value of 10000
    */
   offset?: number;
-  /**
-   * The output format. The following values available: json, csv
-   */
-  output?: string;
-  /**
-   * Whether to get records in the asynchronous mode (for csv output only). <b>Use this mode to download large amounts of data</b>. See the [GetHistoryReports], [DownloadHistoryReport] functions for details
-   */
-  isAsync?: boolean;
   /**
    * Whether to get transactions on hold (transactions for which money is reserved but not yet withdrawn from the account)
    */
@@ -2145,8 +2381,68 @@ export interface GetTransactionHistoryResponse {
    * The returned transaction count
    */
   count: number;
+  error?: APIError;
+}
+export interface GetTransactionHistoryAsyncRequest {
   /**
-   * The history report ID (async mode)
+   * The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  fromDate: Date;
+  /**
+   * The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  toDate: Date;
+  timezone?: string;
+  /**
+   * The transaction ID list separated by semicolons (;)
+   */
+  transactionId?: 'any' | number | number[];
+  paymentReference?: string;
+  /**
+   * The transaction type list separated by semicolons (;). The following values are possible: gift_revoke, resource_charge, money_distribution, subscription_charge, subscription_installation_charge, card_periodic_payment, card_overrun_payment, card_payment, rub_card_periodic_payment, rub_card_overrun_payment, rub_card_payment, robokassa_payment, gift, promo, adjustment, wire_transfer, us_wire_transfer, refund, discount, mgp_charge, mgp_startup, mgp_business, mgp_big_business, mgp_enterprise, mgp_large_enterprise, techsupport_charge, tax_charge, monthly_fee_charge, grace_credit_payment, grace_credit_provision, mau_charge, mau_overrun, im_charge, im_overrun, fmc_charge, sip_registration_charge, development_fee, money_transfer_to_child, money_transfer_to_parent, money_acceptance_from_child, money_acceptance_from_parent, phone_number_installation, phone_number_charge, toll_free_phone_number_installation, toll_free_phone_number_charge, services, user_money_transfer, paypal_payment, paypal_overrun_payment, paypal_periodic_payment
+   */
+  transactionType?: string | string[];
+  /**
+   * The user ID list separated by semicolons (;)
+   */
+  userId?: 'any' | number | number[];
+  /**
+   * The child account ID list separated by semicolons (;). Use the 'all' value to select all child accounts
+   */
+  childAccountId?: 'any' | number | number[];
+  /**
+   * Whether to get the children account transactions only
+   */
+  childrenTransactionsOnly?: boolean;
+  /**
+   * Whether to get the users' transactions only
+   */
+  usersTransactionsOnly?: boolean;
+  /**
+   * Whether to get records in the descent order
+   */
+  descOrder?: boolean;
+  /**
+   * Whether to get transactions on hold (transactions for which money is reserved but not yet withdrawn from the account)
+   */
+  isUncommitted?: boolean;
+  /**
+   * Whether to get a CSV file with the column names if the output=csv
+   */
+  withHeader?: boolean;
+  /**
+   * The output format. The following values available: **csv**. The default value is **csv**
+   */
+  output?: string;
+}
+
+export interface GetTransactionHistoryAsyncResponse {
+  /**
+   * 1
+   */
+  result: number;
+  /**
+   * The history report ID
    */
   historyReportId: number;
   error?: APIError;
@@ -2228,7 +2524,7 @@ export interface GetACDHistoryRequest {
    */
   offset?: number;
   /**
-   * The output format. The following values available: json, csv
+   * The output format. The following values available: **json**, **csv**, **xls**. The default value is **json**
    */
   output?: string;
 }
@@ -2276,10 +2572,6 @@ export interface GetAuditLogRequest {
    */
   advancedFilters?: string;
   /**
-   * Whether to get a CSV file with the column names if the output=csv
-   */
-  withHeader?: boolean;
-  /**
    * Whether to get records in the descent order
    */
   descOrder?: boolean;
@@ -2295,14 +2587,6 @@ export interface GetAuditLogRequest {
    * The first <b>N</b> records are skipped in the output
    */
   offset?: number;
-  /**
-   * The output format. The following values available: json, csv
-   */
-  output?: string;
-  /**
-   * Whether to get records in the asynchronous mode (for csv output only). If it is true, the request is available via [GetHistoryReports] and [DownloadHistoryReport] methods
-   */
-  isAsync?: boolean;
 }
 
 export interface GetAuditLogResponse {
@@ -2319,24 +2603,88 @@ export interface GetAuditLogResponse {
    * The used timezone
    */
   timezone: string;
+  error?: APIError;
+}
+export interface GetAuditLogAsyncRequest {
   /**
-   * The history report ID (async mode)
+   * The UTC 'from' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  fromDate: Date;
+  /**
+   * The UTC 'to' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  toDate: Date;
+  timezone?: string;
+  /**
+   * The audit history ID list separated by semicolons (;)
+   */
+  auditLogId?: 'any' | number | number[];
+  /**
+   * The admin user ID to filter
+   */
+  filteredAdminUserId?: string;
+  /**
+   * The IP list separated by semicolons (;) to filter
+   */
+  filteredIp?: string | string[];
+  /**
+   * The function list separated by semicolons (;) to filter
+   */
+  filteredCmd?: string | string[];
+  /**
+   * A relation ID to filter (for example: a phone_number value, a user_id value, an application_id value)
+   */
+  advancedFilters?: string;
+  /**
+   * Whether to get records in the descent order
+   */
+  descOrder?: boolean;
+  /**
+   * Whether to get a CSV file with the column names if the output=csv
+   */
+  withHeader?: boolean;
+  /**
+   * The output format. The following values available: **csv**. The default value is **csv**
+   */
+  output?: string;
+}
+
+export interface GetAuditLogAsyncResponse {
+  /**
+   * 1
+   */
+  result: number;
+  /**
+   * The history report ID
    */
   historyReportId: number;
   error?: APIError;
 }
 export interface HistoryInterface {
   getCallHistory: (request: GetCallHistoryRequest) => Promise<GetCallHistoryResponse>;
+  getCallHistoryAsync: (
+    request: GetCallHistoryAsyncRequest
+  ) => Promise<GetCallHistoryAsyncResponse>;
   getBriefCallHistory: (
     request: GetBriefCallHistoryRequest
   ) => Promise<GetBriefCallHistoryResponse>;
   getHistoryReports: (request: GetHistoryReportsRequest) => Promise<GetHistoryReportsResponse>;
+  getPhoneNumberReports: (
+    request: GetPhoneNumberReportsRequest
+  ) => Promise<GetPhoneNumberReportsResponse>;
+  downloadHistoryReport: (
+    request: DownloadHistoryReportRequest
+  ) => Promise<DownloadHistoryReportResponse>;
   getTransactionHistory: (
     request: GetTransactionHistoryRequest
   ) => Promise<GetTransactionHistoryResponse>;
+  getTransactionHistoryAsync: (
+    request: GetTransactionHistoryAsyncRequest
+  ) => Promise<GetTransactionHistoryAsyncResponse>;
   deleteRecord: (request: DeleteRecordRequest) => Promise<DeleteRecordResponse>;
   getACDHistory: (request: GetACDHistoryRequest) => Promise<GetACDHistoryResponse>;
   getAuditLog: (request: GetAuditLogRequest) => Promise<GetAuditLogResponse>;
+  getAuditLogAsync: (request: GetAuditLogAsyncRequest) => Promise<GetAuditLogAsyncResponse>;
 }
 
 export interface AddPstnBlackListItemRequest {
@@ -3072,6 +3420,20 @@ export interface GetPhoneNumbersResponse {
   count: number;
   error?: APIError;
 }
+export interface GetPhoneNumbersAsyncRequest {
+  /**
+   * Whether to get a CSV file with the column names
+   */
+  withHeader?: boolean;
+}
+
+export interface GetPhoneNumbersAsyncResponse {
+  /**
+   * The report ID (async mode)
+   */
+  result: number;
+  error?: APIError;
+}
 export interface GetNewPhoneNumbersRequest {
   /**
    * The country code
@@ -3243,6 +3605,9 @@ export interface PhoneNumbersInterface {
   ) => Promise<DeactivatePhoneNumberResponse>;
   setPhoneNumberInfo: (request: SetPhoneNumberInfoRequest) => Promise<SetPhoneNumberInfoResponse>;
   getPhoneNumbers: (request: GetPhoneNumbersRequest) => Promise<GetPhoneNumbersResponse>;
+  getPhoneNumbersAsync: (
+    request: GetPhoneNumbersAsyncRequest
+  ) => Promise<GetPhoneNumbersAsyncResponse>;
   getNewPhoneNumbers: (request: GetNewPhoneNumbersRequest) => Promise<GetNewPhoneNumbersResponse>;
   getPhoneNumberCategories: (
     request: GetPhoneNumberCategoriesRequest
@@ -4135,9 +4500,9 @@ export interface SQ_AddQueueRequest {
 
 export interface SQ_AddQueueResponse {
   /**
-   * ID of the added queue
+   * Result with ID of the added queue
    */
-  sqQueueId: number;
+  result: SQAddQueueResult;
   error?: APIError;
 }
 export interface SQ_SetQueueInfoRequest {
@@ -4316,9 +4681,9 @@ export interface SQ_AddSkillRequest {
 
 export interface SQ_AddSkillResponse {
   /**
-   * 1
+   * Result with ID of the added skill
    */
-  result: number;
+  result: SQAddSkillResult;
   error?: APIError;
 }
 export interface SQ_DelSkillRequest {
@@ -4425,7 +4790,7 @@ export interface SQ_UnbindSkillRequest {
    */
   userId: 'any' | number | number[];
   /**
-   * List of skill IDs separated by semicolons (;). Use 'all' to undbind all the skills
+   * List of skill IDs separated by semicolons (;). Use 'all' to unbind all the skills
    */
   sqSkillId: 'any' | number | number[];
   /**
@@ -4621,7 +4986,7 @@ export interface SQ_GetAgentsRequest {
    */
   userNameTemplate?: string;
   /**
-   * Filter statuses in the json array format. The array should contain objects with the <b>sq_status_type</b> and <b>sq_status_name</b> keys. Possible values for <b>sq_status_type</b> are 'CALL' and'IM'. Possible values for <b>sq_status_name</b> are 'OFFLINE', 'ONLINE', 'READY', 'IN_SERVICE', 'AFTER_SERVICE', 'DND'
+   * Filter statuses in the json array format. The array should contain objects with the <b>sq_status_type</b> and <b>sq_status_name</b> keys. Possible values for <b>sq_status_type</b> are 'CALL' and 'IM'. Possible values for <b>sq_status_name</b> are 'OFFLINE', 'ONLINE', 'READY', 'IN_SERVICE', 'AFTER_SERVICE', 'DND'
    */
   sqStatuses?: any;
   /**
@@ -5264,7 +5629,7 @@ export interface DelAuthorizedAccountIPRequest {
    */
   authorizedIp: string;
   /**
-   * Specify the parameter to remove the networks that contains the particular IP4. Can be used instead of <b>autharized_ip</b>
+   * Specify the parameter to remove the networks that contains the particular IP4. Can be used instead of <b>authorized_ip</b>
    */
   containsIp: string;
   /**
@@ -5540,34 +5905,6 @@ export interface AddPushCredentialRequest {
    */
   pushProviderId: number;
   /**
-   * Public and private keys in PKCS12 format. Credentials for APPLE push
-   */
-  certContent: string;
-  /**
-   * The secret password for private key. Credentials for APPLE push
-   */
-  certPassword: string;
-  /**
-   * Whether to use this certificate in apple's sandbox environment. Credentials for APPLE push
-   */
-  isDevMode: boolean;
-  /**
-   * The service account key file, provided by Google. Can be used instead of <b>server_key</b>. Credentials for GOOGLE push
-   */
-  serviceAccountFile: string;
-  /**
-   * The client id, provided by Huawei. Credentials for HUAWEI push
-   */
-  huaweiClientId: string;
-  /**
-   * The client secret, provided by Huawei. Credentials for HUAWEI push
-   */
-  huaweiClientSecret: string;
-  /**
-   * The application id, provided by Huawei. Credentials for HUAWEI push
-   */
-  huaweiApplicationId: string;
-  /**
    * The application id
    */
   applicationId?: number;
@@ -5580,9 +5917,45 @@ export interface AddPushCredentialRequest {
    */
   credentialBundle?: string;
   /**
+   * Public and private keys in PKCS12 format. Credentials for APPLE push
+   */
+  certContent?: Buffer;
+  /**
    * The parameter is required, when set 'cert_content' as POST body. Credentials for APPLE push
    */
   certFileName?: string;
+  /**
+   * The secret password for private key. Credentials for APPLE push
+   */
+  certPassword?: string;
+  /**
+   * Whether to use this certificate in apple's sandbox environment. Credentials for APPLE push
+   */
+  isDevMode?: boolean;
+  /**
+   * The sender id, provided by Google. Credentials for GOOGLE push
+   */
+  senderId?: string;
+  /**
+   * The server key, provided by Google. Credentials for GOOGLE push
+   */
+  serverKey?: string;
+  /**
+   * The service account key file, provided by Google. Can be used instead of <b>server_key</b>. Credentials for GOOGLE push
+   */
+  serviceAccountFile?: Buffer;
+  /**
+   * The client id, provided by Huawei. Credentials for HUAWEI push
+   */
+  huaweiClientId?: string;
+  /**
+   * The client secret, provided by Huawei. Credentials for HUAWEI push
+   */
+  huaweiClientSecret?: string;
+  /**
+   * The application id, provided by Huawei. Credentials for HUAWEI push
+   */
+  huaweiApplicationId?: string;
 }
 
 export interface AddPushCredentialResponse {
@@ -5598,31 +5971,39 @@ export interface SetPushCredentialRequest {
   /**
    * Public and private keys in PKCS12 format. Credentials for APPLE push
    */
-  certContent: string;
+  certContent?: Buffer;
   /**
    * The secret password for private key. Credentials for APPLE push
    */
-  certPassword: string;
+  certPassword?: string;
   /**
    * Whether to use this certificate in apple's sandbox environment. Credentials for APPLE push
    */
-  isDevMode: boolean;
+  isDevMode?: boolean;
+  /**
+   * The sender id, provided by Google. Credentials for GOOGLE push
+   */
+  senderId?: string;
+  /**
+   * The server key, provided by Google. Credentials for GOOGLE push
+   */
+  serverKey?: string;
   /**
    * The service account key file, provided by Google. Can be used instead of <b>server_key</b>. Credentials for GOOGLE push
    */
-  serviceAccountFile: string;
+  serviceAccountFile?: Buffer;
   /**
    * The client id, provided by Huawei. Credentials for HUAWEI push
    */
-  huaweiClientId: string;
+  huaweiClientId?: string;
   /**
    * The client secret, provided by Huawei. Credentials for HUAWEI push
    */
-  huaweiClientSecret: string;
+  huaweiClientSecret?: string;
   /**
    * The application id, provided by Huawei. Credentials for HUAWEI push
    */
-  huaweiApplicationId: string;
+  huaweiApplicationId?: string;
 }
 
 export interface SetPushCredentialResponse {
@@ -5729,7 +6110,7 @@ export interface SetDialogflowKeyRequest {
    */
   dialogflowKeyId: number;
   /**
-   * The Dialogflow keys's description. To clear previously set description leave the parameter blank or put whitespaces only
+   * The Dialogflow key's description. To clear previously set description leave the parameter blank or put whitespaces only
    */
   description: string;
 }
@@ -5900,7 +6281,7 @@ export interface GetSmsHistoryRequest {
    */
   toDate?: Date;
   /**
-   * The output format. The following values available: json, csv
+   * The output format. The following values available: **json**, **csv**, **xls**. The default value is **json**
    */
   output?: string;
 }
@@ -5939,7 +6320,7 @@ export interface A2PGetSmsHistoryRequest {
    */
   toDate?: Date;
   /**
-   * The output format. The possible values are json, csv
+   * The output format. The following values available: **json**, **csv**, **xls**. The default value is **json**
    */
   output?: string;
   /**
@@ -6117,7 +6498,7 @@ export interface RemoveKeyRolesResponse {
 }
 export interface AddSubUserRequest {
   /**
-   * The new subuser login for managent api authentication, should be unique within the Voximplant account. The login specified is always converted to lowercase
+   * The new subuser login for management api authentication, should be unique within the Voximplant account. The login specified is always converted to lowercase
    */
   newSubuserName: string;
   /**
@@ -6462,8 +6843,23 @@ export interface GetAccountInvoicesResponse {
   count: number;
   error?: APIError;
 }
+export interface DownloadInvoiceRequest {
+  /**
+   * Invoice ID
+   */
+  invoiceId: number;
+}
+
+export interface DownloadInvoiceResponse {
+  /**
+   * The method returns a raw data, there is no 'file_content' parameter in fact
+   */
+  fileContent: Buffer;
+  error?: APIError;
+}
 export interface InvoicesInterface {
   getAccountInvoices: (request: GetAccountInvoicesRequest) => Promise<GetAccountInvoicesResponse>;
+  downloadInvoice: (request: DownloadInvoiceRequest) => Promise<DownloadInvoiceResponse>;
 }
 
 export interface ChildAccountsInterface {}

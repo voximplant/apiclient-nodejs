@@ -86,7 +86,7 @@ export interface AccountInfo {
    */
   billingAddressState?: string;
   /**
-   * Whether the account is ctive
+   * Whether the account is active
    */
   active: boolean;
   /**
@@ -138,7 +138,7 @@ export interface AccountInfo {
    */
   callbackSalt?: string;
   /**
-   * Whether to send an email when a JS error occures
+   * Whether to send an email when a JS error occurs
    */
   sendJsError?: boolean;
   /**
@@ -839,6 +839,60 @@ export interface HistoryReport {
    * The history report type. The following values are possible: calls, transactions, audit, call_list
    */
   historyType: string;
+  /**
+   * The creation time in the UTC timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  created: Date;
+  /**
+   * The report format type. The following values are possible: csv
+   */
+  format?: string;
+  /**
+   * The UTC completion time in 24-h format: YYYY-MM-DD HH:mm:ss. The report is completed if the field exists
+   */
+  completed?: Date;
+  /**
+   * The report file name
+   */
+  fileName?: string;
+  /**
+   * The report file size
+   */
+  fileSize?: number;
+  /**
+   * The gzipped report size to download
+   */
+  downloadSize?: number;
+  /**
+   * The download attempt count
+   */
+  downloadCount?: number;
+  /**
+   * The last download UTC time in 24-h format: YYYY-MM-DD HH:mm:ss. The report is completed if the field exists
+   */
+  lastDownloaded?: Date;
+  /**
+   * Store the report until the date in format: YYYY-MM-DD. The report is completed if the field exists
+   */
+  storeUntil?: Date;
+  /**
+   * The report order filters (the saved [GetCallHistory], [GetTransactionHistory] parameters)
+   */
+  filters?: any;
+  /**
+   * The calculated report data (the specific report data, see [CalculatedCallHistoryDataType], [CalculatedTransactionHistoryDataType])
+   */
+  calculatedData?: any;
+}
+export interface CommonReport {
+  /**
+   * The phone number report ID
+   */
+  reportId: number;
+  /**
+   * The report type. The following values are possible: phone_numbers, none
+   */
+  type: string;
   /**
    * The creation time in the UTC timezone in 24-h format: YYYY-MM-DD HH:mm:ss
    */
@@ -4606,4 +4660,16 @@ export interface InvoiceTaxesDetails {
    * Tax category
    */
   category: string;
+}
+export interface SQAddQueueResult {
+  /**
+   * ID of the added queue
+   */
+  sqQueueId: number;
+}
+export interface SQAddSkillResult {
+  /**
+   * ID of the added skill
+   */
+  sqSkillId: number;
 }
