@@ -159,6 +159,8 @@ import {
   SetPhoneNumberInfoResponse,
   GetPhoneNumbersRequest,
   GetPhoneNumbersResponse,
+  IsAccountPhoneNumberRequest,
+  IsAccountPhoneNumberResponse,
   GetPhoneNumbersAsyncRequest,
   GetPhoneNumbersAsyncResponse,
   GetNewPhoneNumbersRequest,
@@ -3601,6 +3603,24 @@ export default class VoximplantApiClient {
       return this.makeRequest('GetPhoneNumbers', request, [reqMapper, respMapper]);
     },
     /**
+     * Checks if the phone number belongs to the authorized account.
+     */
+    isAccountPhoneNumber: (
+      request: IsAccountPhoneNumberRequest
+    ): Promise<IsAccountPhoneNumberResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'phone_number',
+          name: 'phoneNumber',
+          transformer: TypeTransformer.to('string', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
+      ];
+      return this.makeRequest('IsAccountPhoneNumber', request, [reqMapper, respMapper]);
+    },
+    /**
      * Gets the asyncronous report regarding purchaced phone numbers.
      */
     getPhoneNumbersAsync: (
@@ -4767,6 +4787,16 @@ export default class VoximplantApiClient {
           transformer: TypeTransformer.to('number', true),
         },
         { rawName: 'priority', name: 'priority', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'call_max_waiting_time_in_seconds',
+          name: 'callMaxWaitingTimeInSeconds',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'im_max_waiting_time_in_seconds',
+          name: 'imMaxWaitingTimeInSeconds',
+          transformer: TypeTransformer.to('number', true),
+        },
       ];
       const respMapper = [
         {
@@ -4853,6 +4883,16 @@ export default class VoximplantApiClient {
           transformer: TypeTransformer.to('number', true),
         },
         { rawName: 'priority', name: 'priority', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'call_max_waiting_time_in_seconds',
+          name: 'callMaxWaitingTimeInSeconds',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'im_max_waiting_time_in_seconds',
+          name: 'imMaxWaitingTimeInSeconds',
+          transformer: TypeTransformer.to('number', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },

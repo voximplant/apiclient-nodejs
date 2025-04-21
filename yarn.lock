@@ -20,6 +20,7 @@ __metadata:
     axios: 0.21.4
     form-data: 2.5.1
     jsonwebtoken: 9.0.2
+    prettier: 2.8.8
     rimraf: 2.7.1
     typescript: 3.9.10
   languageName: unknown
@@ -292,6 +293,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier@npm:2.8.8":
+  version: 2.8.8
+  resolution: "prettier@npm:2.8.8"
+  bin:
+    prettier: bin-prettier.js
+  checksum: b49e409431bf129dd89238d64299ba80717b57ff5a6d1c1a8b1a28b590d998a34e083fa13573bc732bb8d2305becb4c9a4407f8486c81fa7d55100eb08263cf8
+  languageName: node
+  linkType: hard
+
 "rimraf@npm:2.7.1":
   version: 2.7.1
   resolution: "rimraf@npm:2.7.1"
@@ -311,11 +321,11 @@ __metadata:
   linkType: hard
 
 "semver@npm:^7.5.4":
-  version: 7.6.3
-  resolution: "semver@npm:7.6.3"
+  version: 7.7.1
+  resolution: "semver@npm:7.7.1"
   bin:
     semver: bin/semver.js
-  checksum: 4110ec5d015c9438f322257b1c51fe30276e5f766a3f64c09edd1d7ea7118ecbc3f379f3b69032bacf13116dc7abc4ad8ce0d7e2bd642e26b0d271b56b61a7d8
+  checksum: 586b825d36874007c9382d9e1ad8f93888d8670040add24a28e06a910aeebd673a2eb9e3bf169c6679d9245e66efb9057e0852e70d9daa6c27372aab1dda7104
   languageName: node
   linkType: hard
 

@@ -4225,13 +4225,21 @@ export interface GetSQQueuesResult {
    */
   modified?: Date;
   /**
-   * Maximum time in minutes that a CALL-type request can remain in the queue without being assigned to an agent
+   * Maximum time in minutes that a CALL-type request can remain in the queue without being assigned to an agent in minutes. If the value has been passed in seconds, this field is also present in the answer, rounded to the bigger number
    */
   callMaxWaitingTime?: number;
   /**
-   * Maximum time in minutes that an IM-type request can remain in the queue without being assigned to an agent
+   * Maximum time in minutes that a CALL-type request can remain in the queue without being assigned to an agent in seconds. If the value has been passed in minutes, this field is also present in the answer
+   */
+  callMaxWaitingTimeInSeconds?: number;
+  /**
+   * Maximum time in minutes that an IM-type request can remain in the queue without being assigned to an agent in minutes. If the value has been passed in seconds, this field is also present in the answer, rounded to the bigger number
    */
   imMaxWaitingTime?: number;
+  /**
+   * Maximum time in minutes that an IM-type request can remain in the queue without being assigned to an agent in seconds. If the value has been passed in minutes, this field is also present in the answer
+   */
+  imMaxWaitingTimeInSeconds?: number;
   /**
    * Maximum size of the queue with CALL-type requests
    */

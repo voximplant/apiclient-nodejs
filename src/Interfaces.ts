@@ -144,6 +144,7 @@ export interface UtilsReturns {
   DeactivatePhoneNumber: DeactivatePhoneNumberResponse;
   SetPhoneNumberInfo: SetPhoneNumberInfoResponse;
   GetPhoneNumbers: GetPhoneNumbersResponse;
+  IsAccountPhoneNumber: IsAccountPhoneNumberResponse;
   GetPhoneNumbersAsync: GetPhoneNumbersAsyncResponse;
   GetNewPhoneNumbers: GetNewPhoneNumbersResponse;
   GetPhoneNumberCategories: GetPhoneNumberCategoriesResponse;
@@ -3420,6 +3421,20 @@ export interface GetPhoneNumbersResponse {
   count: number;
   error?: APIError;
 }
+export interface IsAccountPhoneNumberRequest {
+  /**
+   * Phone number to check in the international format without `+`
+   */
+  phoneNumber: string;
+}
+
+export interface IsAccountPhoneNumberResponse {
+  /**
+   * Whether the number belongs to the account
+   */
+  result: boolean;
+  error?: APIError;
+}
 export interface GetPhoneNumbersAsyncRequest {
   /**
    * Whether to get a CSV file with the column names
@@ -3605,6 +3620,9 @@ export interface PhoneNumbersInterface {
   ) => Promise<DeactivatePhoneNumberResponse>;
   setPhoneNumberInfo: (request: SetPhoneNumberInfoRequest) => Promise<SetPhoneNumberInfoResponse>;
   getPhoneNumbers: (request: GetPhoneNumbersRequest) => Promise<GetPhoneNumbersResponse>;
+  isAccountPhoneNumber: (
+    request: IsAccountPhoneNumberRequest
+  ) => Promise<IsAccountPhoneNumberResponse>;
   getPhoneNumbersAsync: (
     request: GetPhoneNumbersAsyncRequest
   ) => Promise<GetPhoneNumbersAsyncResponse>;
@@ -4477,11 +4495,11 @@ export interface SQ_AddQueueRequest {
    */
   description?: string;
   /**
-   * Maximum time in minutes that a CALL-type request can remain in the queue without being assigned to an agent
+   * Maximum time in minutes that a CALL-type request can remain in the queue without being assigned to an agent. Specify either this parameter or `call_max_waiting_time_in_seconds`. Specifying both parameters simultaniously leads to an error
    */
   callMaxWaitingTime?: number;
   /**
-   * Maximum time in minutes that an IM-type request can remain in the queue without being assigned to an agent
+   * Maximum time in minutes that an IM-type request can remain in the queue without being assigned to an agent. Specify either this parameter or `im_max_waiting_time_in_seconds`. Specifying both parameters simultaniously leads to an error
    */
   imMaxWaitingTime?: number;
   /**
@@ -4496,6 +4514,14 @@ export interface SQ_AddQueueRequest {
    * The queue's priority from 1 to 100
    */
   priority?: number;
+  /**
+   * Maximum call waiting time in seconds. Specify either this parameter or `call_max_waiting_time`. Specifying both parameters simultaniously leads to an error
+   */
+  callMaxWaitingTimeInSeconds?: number;
+  /**
+   * Maximum chat message waiting time in seconds. Specify either this parameter or `im_max_waiting_time`. Specifying both parameters simultaniously leads to an error
+   */
+  imMaxWaitingTimeInSeconds?: number;
 }
 
 export interface SQ_AddQueueResponse {
@@ -4548,11 +4574,11 @@ export interface SQ_SetQueueInfoRequest {
    */
   description?: string;
   /**
-   * Maximum time in minutes that a CALL-type request can remain in the queue without being assigned to an agent
+   * Maximum time in minutes that a CALL-type request can remain in the queue without being assigned to an agent. Specify either this parameter or `call_max_waiting_time_in_seconds`. Specifying both parameters simultaniously leads to an error
    */
   callMaxWaitingTime?: number;
   /**
-   * Maximum time in minutes that an IM-type request can remain in the queue without being assigned to an agent
+   * Maximum time in minutes that an IM-type request can remain in the queue without being assigned to an agent. Specify either this parameter or `im_max_waiting_time_in_seconds`. Specifying both parameters simultaniously leads to an error
    */
   imMaxWaitingTime?: number;
   /**
@@ -4567,6 +4593,14 @@ export interface SQ_SetQueueInfoRequest {
    * The queue's priority from 1 to 100
    */
   priority?: number;
+  /**
+   * Maximum call waiting time in seconds. Specify either this parameter or `call_max_waiting_time`. Specifying both parameters simultaniously leads to an error
+   */
+  callMaxWaitingTimeInSeconds?: number;
+  /**
+   * Maximum chat message waiting time in seconds. Specify either this parameter or `im_max_waiting_time`. Specifying both parameters simultaniously leads to an error
+   */
+  imMaxWaitingTimeInSeconds?: number;
 }
 
 export interface SQ_SetQueueInfoResponse {

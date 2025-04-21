@@ -2705,8 +2705,16 @@ export default class TypeTransformer {
         xData['modified'] = TypeTransformer.to('Date')(data['modified']);
       if (typeof data['call_max_waiting_time'] !== 'undefined')
         xData['callMaxWaitingTime'] = TypeTransformer.to('number')(data['call_max_waiting_time']);
+      if (typeof data['call_max_waiting_time_in_seconds'] !== 'undefined')
+        xData['callMaxWaitingTimeInSeconds'] = TypeTransformer.to('number')(
+          data['call_max_waiting_time_in_seconds']
+        );
       if (typeof data['im_max_waiting_time'] !== 'undefined')
         xData['imMaxWaitingTime'] = TypeTransformer.to('number')(data['im_max_waiting_time']);
+      if (typeof data['im_max_waiting_time_in_seconds'] !== 'undefined')
+        xData['imMaxWaitingTimeInSeconds'] = TypeTransformer.to('number')(
+          data['im_max_waiting_time_in_seconds']
+        );
       if (typeof data['call_max_queue_size'] !== 'undefined')
         xData['callMaxQueueSize'] = TypeTransformer.to('number')(data['call_max_queue_size']);
       if (typeof data['im_max_queue_size'] !== 'undefined')
@@ -5760,8 +5768,16 @@ export default class TypeTransformer {
         xData['modified'] = TypeTransformer.from('Date')(data['modified']);
       if (typeof data['callMaxWaitingTime'] !== 'undefined')
         xData['call_max_waiting_time'] = TypeTransformer.from('number')(data['callMaxWaitingTime']);
+      if (typeof data['callMaxWaitingTimeInSeconds'] !== 'undefined')
+        xData['call_max_waiting_time_in_seconds'] = TypeTransformer.from('number')(
+          data['callMaxWaitingTimeInSeconds']
+        );
       if (typeof data['imMaxWaitingTime'] !== 'undefined')
         xData['im_max_waiting_time'] = TypeTransformer.from('number')(data['imMaxWaitingTime']);
+      if (typeof data['imMaxWaitingTimeInSeconds'] !== 'undefined')
+        xData['im_max_waiting_time_in_seconds'] = TypeTransformer.from('number')(
+          data['imMaxWaitingTimeInSeconds']
+        );
       if (typeof data['callMaxQueueSize'] !== 'undefined')
         xData['call_max_queue_size'] = TypeTransformer.from('number')(data['callMaxQueueSize']);
       if (typeof data['imMaxQueueSize'] !== 'undefined')
