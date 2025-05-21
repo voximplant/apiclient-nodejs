@@ -52,6 +52,8 @@ import {
   CreateCallListResponse,
   AppendToCallListRequest,
   AppendToCallListResponse,
+  EditCallListRequest,
+  EditCallListResponse,
   DeleteCallListRequest,
   DeleteCallListResponse,
   GetCallListsRequest,
@@ -1521,6 +1523,46 @@ export default class VoximplantApiClient {
       return this.makeRequest('AppendToCallList', request, [reqMapper, respMapper]);
     },
     /**
+     * Edits the specified call list by its ID.
+     */
+    editCallList: (request: EditCallListRequest): Promise<EditCallListResponse> => {
+      const reqMapper = [
+        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'interval_seconds',
+          name: 'intervalSeconds',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'num_attempts',
+          name: 'numAttempts',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'max_simultaneous',
+          name: 'maxSimultaneous',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'ip_address',
+          name: 'ipAddress',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'name', name: 'name', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'priority', name: 'priority', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'start_at', name: 'startAt', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'server_location',
+          name: 'serverLocation',
+          transformer: TypeTransformer.to('string', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
+      ];
+      return this.makeRequest('EditCallList', request, [reqMapper, respMapper]);
+    },
+    /**
      * Deletes an existing call list by its ID.
      */
     deleteCallList: (request: DeleteCallListRequest): Promise<DeleteCallListResponse> => {
@@ -1697,7 +1739,7 @@ export default class VoximplantApiClient {
 
   public Scenarios: ScenariosInterface = {
     /**
-     * Adds a new scenario to the <a href="https://voximplant.com/docs/gettingstarted/basicconcepts/scenarios#shared-scenarios">Shared</a> folder, so the scenario is available in all the existing applications. Please use the POST method.
+     * Adds a new scenario to the <a href="https://voximplant.com/docs/gettingstarted/basicconcepts/scenarios#shared-scenarios">Shared</a> folder, so the scenario is available in all the existing applications. Please use the POST method.<br><br>When adding a scenario to the Shared folder, the `application_id` and `application_name` parameters should not be provided.
      */
     addScenario: (request: AddScenarioRequest): Promise<AddScenarioResponse> => {
       const reqMapper = [
@@ -3621,7 +3663,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('IsAccountPhoneNumber', request, [reqMapper, respMapper]);
     },
     /**
-     * Gets the asyncronous report regarding purchaced phone numbers.
+     * Gets the asynchronous report regarding purchased phone numbers.
      */
     getPhoneNumbersAsync: (
       request: GetPhoneNumbersAsyncRequest
@@ -4669,7 +4711,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('SQ_SetAgentCustomStatusMapping', request, [reqMapper, respMapper]);
     },
     /**
-     * Returns the mapping list of SQ statuses and custom statuses. SQ statuses are returned whether or not they have mappings to custom statuses.
+     * Returns the mapping list of SQ statuses and custom statuses. SQ statuses are returned whether they have mappings to custom statuses.
      */
     sQ_GetAgentCustomStatusMapping: (
       request: SQ_GetAgentCustomStatusMappingRequest
@@ -7238,7 +7280,7 @@ export default class VoximplantApiClient {
 
   public Invoices: InvoicesInterface = {
     /**
-     * Gets all invoices of the specified USD or EUR account.
+     * Gets all invoices for the specified USD or EUR account.
      */
     getAccountInvoices: (
       request: GetAccountInvoicesRequest

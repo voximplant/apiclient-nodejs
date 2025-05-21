@@ -94,6 +94,7 @@ export interface UtilsReturns {
   GetUsers: GetUsersResponse;
   CreateCallList: CreateCallListResponse;
   AppendToCallList: AppendToCallListResponse;
+  EditCallList: EditCallListResponse;
   DeleteCallList: DeleteCallListResponse;
   GetCallLists: GetCallListsResponse;
   GetCallListDetails: GetCallListDetailsResponse;
@@ -1117,15 +1118,15 @@ export interface CreateCallListRequest {
    */
   fileContent: Buffer;
   /**
-   * Interval between call attempts in seconds. The default is 0
+   * Interval between call attempts in seconds. The default value is 0
    */
   intervalSeconds?: number;
   /**
-   * Encoding file. The default is UTF-8
+   * Encoding file. The default value is UTF-8
    */
   encoding?: string;
   /**
-   * Separator values. The default is ';'
+   * Separator values. The default value is ';'
    */
   delimiter?: string;
   /**
@@ -1168,7 +1169,7 @@ export interface AppendToCallListRequest {
    */
   fileContent: Buffer;
   /**
-   * Encoding file. The default is UTF-8
+   * Encoding file. The default value is UTF-8
    */
   encoding?: string;
   /**
@@ -1176,7 +1177,7 @@ export interface AppendToCallListRequest {
    */
   escape?: string;
   /**
-   * Separator values. The default is ';'
+   * Separator values. The default value is ';'
    */
   delimiter?: string;
 }
@@ -1194,6 +1195,52 @@ export interface AppendToCallListResponse {
    * The list ID
    */
   listId: number;
+  error?: APIError;
+}
+export interface EditCallListRequest {
+  /**
+   * Call list ID. If the ID is non existing, the 251 error returns
+   */
+  listId: number;
+  /**
+   * Minimum interval between call attempts. Cannot be a negative value
+   */
+  intervalSeconds?: number;
+  /**
+   * Maximum call attempt number. Cannot be less than 1
+   */
+  numAttempts?: number;
+  /**
+   * Maximum simultaneous call attempts for this call list. Cannot be less than 1
+   */
+  maxSimultaneous?: number;
+  /**
+   * IP address in the `Inet4Address` format
+   */
+  ipAddress?: string;
+  /**
+   * Call list name. Cannot be bigger than 255 characters, cannot contain slash symbol
+   */
+  name?: string;
+  /**
+   * Call list's priority among other call list. The lower the value, the higher is the call list's priority
+   */
+  priority?: number;
+  /**
+   * Time when the call list should start in the `yyyy-MM-dd HH:mm:ss` format
+   */
+  startAt?: string;
+  /**
+   * Location of the server processing the call list. If the ID is non existing, the 496 error returns: The 'server_location' parameter is invalid.
+   */
+  serverLocation?: string;
+}
+
+export interface EditCallListResponse {
+  /**
+   * true
+   */
+  result: boolean;
   error?: APIError;
 }
 export interface DeleteCallListRequest {
@@ -1291,7 +1338,7 @@ export interface GetCallListDetailsRequest {
    */
   encoding?: string;
   /**
-   * Separator values. The default is ';'
+   * Separator values. The default value is ';'
    */
   delimiter?: string;
 }
@@ -1422,6 +1469,7 @@ export interface RecoverCallListResponse {
 export interface CallListsInterface {
   createCallList: (request: CreateCallListRequest) => Promise<CreateCallListResponse>;
   appendToCallList: (request: AppendToCallListRequest) => Promise<AppendToCallListResponse>;
+  editCallList: (request: EditCallListRequest) => Promise<EditCallListResponse>;
   deleteCallList: (request: DeleteCallListRequest) => Promise<DeleteCallListResponse>;
   getCallLists: (request: GetCallListsRequest) => Promise<GetCallListsResponse>;
   getCallListDetails: (request: GetCallListDetailsRequest) => Promise<GetCallListDetailsResponse>;
@@ -1588,19 +1636,19 @@ export interface GetScenariosResponse {
 }
 export interface SetScenarioInfoRequest {
   /**
-   * The scenario ID
+   * Scenario ID
    */
   scenarioId: number;
   /**
-   * The name of the scenario to edit, can be used instead of <b>scenario_id</b>
+   * Name of the scenario to edit, can be used instead of <b>scenario_id</b>
    */
   requiredScenarioName: string;
   /**
-   * The new scenario name. The length must be less than 30
+   * New scenario name. The length must be less than 30
    */
   scenarioName?: string;
   /**
-   * The new scenario text. Use the application/x-www-form-urlencoded content type with UTF-8 encoding. The length must be less than 128 KB
+   * New scenario text. Use the application/x-www-form-urlencoded content type with UTF-8 encoding. The length must be less than 128 KB
    */
   scenarioScript?: string;
 }
@@ -3657,14 +3705,14 @@ export interface AddCallerIDResponse {
    */
   result: number;
   /**
-   * The id of the callerID object
+   * ID of the callerID object
    */
   calleridId: number;
   error?: APIError;
 }
 export interface ActivateCallerIDRequest {
   /**
-   * The id of the callerID object
+   * ID of the callerID object
    */
   calleridId: number;
   /**
@@ -3686,7 +3734,7 @@ export interface ActivateCallerIDResponse {
 }
 export interface DelCallerIDRequest {
   /**
-   * The id of the callerID object
+   * ID of the callerID object
    */
   calleridId: number;
   /**
@@ -3704,7 +3752,7 @@ export interface DelCallerIDResponse {
 }
 export interface GetCallerIDsRequest {
   /**
-   * The id of the callerID object to filter
+   * ID of the callerID object to filter
    */
   calleridId?: number;
   /**
@@ -3743,7 +3791,7 @@ export interface GetCallerIDsResponse {
 }
 export interface VerifyCallerIDRequest {
   /**
-   * The id of the callerID object
+   * ID of the callerID object
    */
   calleridId: number;
   /**
@@ -6069,11 +6117,11 @@ export interface GetPushCredentialRequest {
    */
   pushProviderId?: number;
   /**
-   * The name of the bound application
+   * Name of the bound application
    */
   applicationName?: string;
   /**
-   * The id of the bound application
+   * ID of the bound application
    */
   applicationId?: number;
   /**
@@ -6166,15 +6214,15 @@ export interface DelDialogflowKeyResponse {
 }
 export interface GetDialogflowKeysRequest {
   /**
-   * The Dialogflow key's ID
+   * Dialogflow key's ID
    */
   dialogflowKeyId?: number;
   /**
-   * The name of the bound application
+   * Name of the bound application
    */
   applicationName?: string;
   /**
-   * The id of the bound application
+   * ID of the bound application
    */
   applicationId?: number;
   withSecretInfo?: boolean;

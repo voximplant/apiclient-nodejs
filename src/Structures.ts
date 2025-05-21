@@ -414,7 +414,7 @@ export interface UserInfo {
    */
   parentAccounting: boolean;
   /**
-   * The current user's money in the currency specified for the account. The value is the number rounded to 4 decimal places and it changes during the calls, transcribing, purchases etc
+   * The current user's money in the currency specified for the account. The value is the number rounded to 4 decimal places, and it changes during the calls, transcribing, purchases etc
    */
   liveBalance: number;
   /**
@@ -560,47 +560,51 @@ export interface SipWhiteListInfo {
 }
 export interface CallSessionInfo {
   /**
-   * The routing rule name
+   * Call's audio quality. The possible values are: Standard | HD | Ultra HD.
+   */
+  audioQuality: string;
+  /**
+   * Routing rule name
    */
   ruleName: string;
   /**
-   * The application name
+   * Application name
    */
   applicationName: string;
   /**
-   * The unique JS session identifier
+   * Unique JS session identifier
    */
   callSessionHistoryId: number;
   /**
-   * The account ID that initiates the JS session
+   * Account ID that initiates the JS session
    */
   accountId: number;
   /**
-   * The application ID that initiates the JS session
+   * Application ID that initiates the JS session
    */
   applicationId: number;
   /**
-   * The user ID that initiates the JS session
+   * User ID that initiates the JS session
    */
   userId: number;
   /**
-   * The start date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   * Start date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
    */
   startDate: Date;
   /**
-   * The entire JS session duration in seconds. The session can contain multiple calls
+   * Entire JS session duration in seconds. The session can contain multiple calls
    */
   duration?: number;
   /**
-   * The initiator IP address
+   * Initiator's IP address
    */
   initiatorAddress: string;
   /**
-   * The media server IP address
+   * Media server IP address
    */
   mediaServerAddress: string;
   /**
-   * The link to the session log. The log retention policy is 1 month, after that time this field clears. If you have issues accessing the log file, check if the application has "Secure storage of applications and logs" feature enabled. In this case, you need to <a href='/docs/guides/managementapi/secureobjects'>authorize</a>.
+   * Link to the session log. The log retention policy is 1 month, after that time this field clears. If you have issues accessing the log file, check if the application has "Secure storage of applications and logs" feature enabled. In this case, you need to <a href='/docs/guides/managementapi/secureobjects'>authorize</a>.
    */
   logFileUrl: string;
   /**
@@ -1426,7 +1430,7 @@ export interface ACDQueueState {
    */
   readyOperatorsCount: number;
   /**
-   * List of operators with the 'READY' state that cannot accept a call from this queue. Operator cannot accept a call if they are temporarily banned or they are servicing a call right now
+   * List of operators with the 'READY' state that cannot accept a call from this queue. Operator cannot accept a call if they are temporarily banned, or they are servicing a call right now
    */
   lockedOperators: ACDLockedOperatorState[];
   /**
@@ -1708,19 +1712,19 @@ export interface AttachedPhoneInfo {
    */
   autoCharge: boolean;
   /**
-   * The id of the bound application
+   * ID of the bound application
    */
   applicationId?: number;
   /**
-   * The name of the bound application
+   * Name of the bound application
    */
   applicationName?: string;
   /**
-   * The id of the bound rule
+   * ID of the bound rule
    */
   ruleId?: number;
   /**
-   * The name of the bound rule
+   * Name of the bound rule
    */
   ruleName?: string;
   /**
@@ -1790,11 +1794,11 @@ export interface NewAttachedPhoneInfo {
    */
   phoneNumber: string;
   /**
-   * Whether verification is required for the account
+   * Country code, where the verification is required for the account. Currently, the only possible value for this field is `RU` (Russia)
    */
   requiredVerification?: string;
   /**
-   * The account verification status. The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
+   * The account verification status. Available only for RU accounts. The following values are possible: REQUIRED, IN_PROGRESS
    */
   verificationStatus?: string;
   /**
@@ -2328,27 +2332,27 @@ export interface SIPRegistration {
    */
   isPersistent: boolean;
   /**
-   * The id of the bound user
+   * ID of the bound user
    */
   userId?: number;
   /**
-   * The name of the bound user
+   * Name of the bound user
    */
   userName?: string;
   /**
-   * The id of the bound application
+   * ID of the bound application
    */
   applicationId?: number;
   /**
-   * The name of the bound application
+   * Name of the bound application
    */
   applicationName?: string;
   /**
-   * The id of the bound rule
+   * ID of the bound rule
    */
   ruleId?: number;
   /**
-   * The name of the bound rule
+   * Name of the bound rule
    */
   ruleName?: string;
 }

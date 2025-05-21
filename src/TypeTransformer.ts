@@ -354,6 +354,8 @@ export default class TypeTransformer {
     },
     CallSessionInfoType: function (data) {
       const xData = {};
+      if (typeof data['audio_quality'] !== 'undefined')
+        xData['audioQuality'] = TypeTransformer.to('string')(data['audio_quality']);
       if (typeof data['rule_name'] !== 'undefined')
         xData['ruleName'] = TypeTransformer.to('string')(data['rule_name']);
       if (typeof data['application_name'] !== 'undefined')
@@ -3375,6 +3377,8 @@ export default class TypeTransformer {
     },
     CallSessionInfo: function (data) {
       const xData = {};
+      if (typeof data['audioQuality'] !== 'undefined')
+        xData['audio_quality'] = TypeTransformer.from('string')(data['audioQuality']);
       if (typeof data['ruleName'] !== 'undefined')
         xData['rule_name'] = TypeTransformer.from('string')(data['ruleName']);
       if (typeof data['applicationName'] !== 'undefined')
