@@ -1,20 +1,20 @@
 # Voximplant API client library
 
-#### Version 4.2.0
+#### Version 4.3.0
 
 ## Prerequisites
 
 In order to use Voximplant Node.js SDK, you need the following:
 
 1. A developer account. If you don't have one, [sign up here](https://voximplant.com/sign-up/).
-1. A private API key. There are 2 options to obtain it:
+2. A private API key. There are 2 options to obtain it:
     1. Generate it in the [Voximplant Control panel](https://manage.voximplant.com/settings/service_accounts)
-    1. Call the [CreateKey](https://voximplant.com/docs/references/httpapi/managing_role_system#createkey) HTTP API
+    2. Call the [CreateKey](https://voximplant.com/docs/references/httpapi/managing_role_system#createkey) HTTP API
        method with the
        specified [authentication parameters](https://voximplant.com/docs/references/httpapi/auth_parameters). You'll
        receive a response with the **result** field in it. Save the **result** value in a file (since we don't store the
        keys, save it securely on your side).
-1. Node.js >= 11
+3. Node.js >= 11
 
 ## How to use
 
@@ -35,7 +35,10 @@ Next, specify the path to the file with the **result** value either in the const
 **constructor**:
 
 ```js
-const client = new VoximplantApiClient('/path/to/credentials.json');
+const parameters = {
+    pathToCredentials: '/path/to/credentials.json',
+};
+const client = new VoximplantApiClient(parameters);
 ```
 
 **env**:

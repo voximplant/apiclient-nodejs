@@ -1882,11 +1882,11 @@ export interface PhoneNumberCountryRegionInfo {
    */
   phoneCount: number;
   /**
-   * The account verification status. The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
+   * The account verification status. Available only for RU accounts. The following values are possible: REQUIRED, IN_PROGRESS
    */
   verificationStatus?: string;
   /**
-   * Whether verification is required for the account
+   * Country code, where the verification is required for the account. Currently, the only possible value for this field is `RU` (Russia)
    */
   requiredVerification?: string;
   /**
@@ -2666,7 +2666,7 @@ export interface AccountVerification {
    */
   documents?: AccountVerificationDocument[];
 }
-export interface AccountVerifications {
+export interface AccountDocuments {
   /**
    * The account ID
    */
@@ -2675,6 +2675,102 @@ export interface AccountVerifications {
    * The account verifications
    */
   verifications: AccountVerification[];
+}
+export interface AccountVerifications {
+  /**
+   * Verification ID
+   */
+  verificationId: number;
+  /**
+   * Verification status. Possible values are: AWAITING_DOCUMENTS_UPLOADING, AWAITING_AGREEMENT_UPLOADING, AWAITING_VERIFICATION, WAITING_FOR_CONFIRMATION_DOCUMENTS, VERIFIED, REJECTED, WAITING_PERIOD_EXPIRED
+   */
+  status: string;
+  /**
+   * Status scheme name
+   */
+  statusScheme: string;
+  /**
+   * Verification creation type. Possible values are: MANUAL, GOSUSLUGI, TRANSFER_RIGHTS
+   */
+  creationType: string;
+  /**
+   * Date created in the following format: 2022-07-12 07:06:05
+   */
+  created: string;
+  /**
+   * Comments for the customer in case of verification rejection
+   */
+  comments: number;
+  /**
+   * Person or company who takes the verification
+   */
+  credentials: AccountVerificationsCredentials[];
+  /**
+   * Verification's default customer
+   */
+  defaultEndUser: AccountVerificationsDefaultEndUser[];
+  /**
+   * Agreements list
+   */
+  agreements: AccountVerificationsAgreements[];
+}
+export interface AccountVerificationsCredentials {
+  /**
+   * Details of a person who takes the verification
+   */
+  individual?: any;
+  /**
+   * Company details for a legal entity
+   */
+  legalEntity?: any;
+  /**
+   * Company details for a individual entrepreneur
+   */
+  entrepreneur?: any;
+  /**
+   * Subscriber type. Possible values are: INDIVIDUAL, LEGAL_ENTITY, ENTREPRENEUR
+   */
+  legalStatus?: string;
+}
+export interface AccountVerificationsDefaultEndUser {
+  /**
+   * Customer's UUID
+   */
+  endUserUuid: number;
+  /**
+   * Customer's data
+   */
+  credentials: any;
+}
+export interface AccountVerificationsAgreements {
+  /**
+   * Agreement ID
+   */
+  agreementId: number;
+  /**
+   * Agreement type
+   */
+  type: string;
+  /**
+   * Agreement status. Possible values are: NEW, IN_PROCESS, VERIFIED, REJECTED
+   */
+  status: string;
+  /**
+   * Agreement number
+   */
+  agreementNumber: string;
+  /**
+   * Agreement signing date
+   */
+  agreementDate: string;
+  /**
+   * Agreement signing date. Possible values are: MANUAL, ESIGNATURE
+   */
+  signingType: string;
+  /**
+   * Comments for the customer in case of agreement rejection
+   */
+  comments: string;
 }
 export interface SubscriptionTemplate {
   /**
@@ -2886,9 +2982,13 @@ export interface AccountCallback {
    */
   transcriptionComplete?: TranscriptionCompleteCallback;
   /**
-   * Received when an incoming SMS is gotten
+   * Received when an incoming SMS is received
    */
   smsInbound?: InboundSmsCallback;
+  /**
+   * Received when a rented phone number changed its activation status
+   */
+  phoneNumberActivationStatusChanged?: PhoneNumberActivationStatusChangedCallback;
   /**
    * Received for the accounts for which the confirmation documents waiting period expires in 20/15/10/5/1 day(s)
    */
@@ -3765,6 +3865,22 @@ export interface InboundSmsCallback {
    */
   smsInbound: InboundSmsCallbackItem;
 }
+export interface PhoneNumberActivationStatusChangedCallback {
+  /**
+   * Rented phone number verification status
+   */
+  phoneNumberActivationStatusChanged: PhoneNumberActivationStatusChangedCallbackItem;
+}
+export interface PhoneNumberActivationStatusChangedCallbackItem {
+  /**
+   * Phone number that changed the status
+   */
+  phoneNumber: string;
+  /**
+   * New verification status
+   */
+  activationStatus: string;
+}
 export interface InboundSmsCallbackItem {
   /**
    * The source phone number
@@ -4216,6 +4332,10 @@ export interface GetSQQueuesResult {
    * Strategy of prioritizing requests for service
    */
   taskSelection: string;
+  /**
+   * Whether the call task is kept in the queue if all agents are unavailable
+   */
+  holdCallsIfInactiveAgents?: boolean;
   /**
    * Comment
    */

@@ -4,10 +4,10 @@ import {
   ResourcePrice,
   SubscriptionTemplate,
   GetMoneyAmountToChargeResult,
-  ChargeAccountResult,
   ShortAccountInfo,
   AccountPlan,
   Plan,
+  AccountDocuments,
   AccountVerifications,
   ApplicationInfo,
   UserInfo,
@@ -17,19 +17,19 @@ import {
   RuleInfo,
   CallSessionInfo,
   HistoryReport,
-  CommonReport,
   TransactionInfo,
   ACDSessionInfo,
   AuditLogInfo,
-  PstnBlackListInfo,
-  SipWhiteListInfo,
-  SIPRegistration,
+  CommonReport,
   NewAttachedPhoneInfo,
   AttachedPhoneInfo,
   NewPhoneInfo,
   PhoneNumberCountryInfo,
   PhoneNumberCountryStateInfo,
   PhoneNumberCountryRegionInfo,
+  PstnBlackListInfo,
+  SipWhiteListInfo,
+  SIPRegistration,
   CallerIDInfo,
   OutboundTestPhonenumberInfo,
   QueueInfo,
@@ -79,11 +79,11 @@ export interface UtilsReturns {
   GetSubscriptionPrice: GetSubscriptionPriceResponse;
   GetChildrenAccounts: GetChildrenAccountsResponse;
   GetMoneyAmountToCharge: GetMoneyAmountToChargeResponse;
-  ChargeAccount: ChargeAccountResponse;
   ChangeAccountPlan: ChangeAccountPlanResponse;
   GetAccountPlans: GetAccountPlansResponse;
   GetAvailablePlans: GetAvailablePlansResponse;
   GetAccountDocuments: GetAccountDocumentsResponse;
+  GetAccountVerifications: GetAccountVerificationsResponse;
   AddApplication: AddApplicationResponse;
   DelApplication: DelApplicationResponse;
   SetApplicationInfo: SetApplicationInfoResponse;
@@ -119,7 +119,6 @@ export interface UtilsReturns {
   GetCallHistoryAsync: GetCallHistoryAsyncResponse;
   GetBriefCallHistory: GetBriefCallHistoryResponse;
   GetHistoryReports: GetHistoryReportsResponse;
-  GetPhoneNumberReports: GetPhoneNumberReportsResponse;
   DownloadHistoryReport: DownloadHistoryReportResponse;
   GetTransactionHistory: GetTransactionHistoryResponse;
   GetTransactionHistoryAsync: GetTransactionHistoryAsyncResponse;
@@ -127,19 +126,7 @@ export interface UtilsReturns {
   GetACDHistory: GetACDHistoryResponse;
   GetAuditLog: GetAuditLogResponse;
   GetAuditLogAsync: GetAuditLogAsyncResponse;
-  AddPstnBlackListItem: AddPstnBlackListItemResponse;
-  SetPstnBlackListItem: SetPstnBlackListItemResponse;
-  DelPstnBlackListItem: DelPstnBlackListItemResponse;
-  GetPstnBlackList: GetPstnBlackListResponse;
-  AddSipWhiteListItem: AddSipWhiteListItemResponse;
-  DelSipWhiteListItem: DelSipWhiteListItemResponse;
-  SetSipWhiteListItem: SetSipWhiteListItemResponse;
-  GetSipWhiteList: GetSipWhiteListResponse;
-  CreateSipRegistration: CreateSipRegistrationResponse;
-  UpdateSipRegistration: UpdateSipRegistrationResponse;
-  BindSipRegistration: BindSipRegistrationResponse;
-  DeleteSipRegistration: DeleteSipRegistrationResponse;
-  GetSipRegistrations: GetSipRegistrationsResponse;
+  GetPhoneNumberReports: GetPhoneNumberReportsResponse;
   AttachPhoneNumber: AttachPhoneNumberResponse;
   BindPhoneNumberToApplication: BindPhoneNumberToApplicationResponse;
   DeactivatePhoneNumber: DeactivatePhoneNumberResponse;
@@ -153,6 +140,19 @@ export interface UtilsReturns {
   GetPhoneNumberRegions: GetPhoneNumberRegionsResponse;
   GetActualPhoneNumberRegion: GetActualPhoneNumberRegionResponse;
   GetAccountPhoneNumberCountries: GetAccountPhoneNumberCountriesResponse;
+  AddPstnBlackListItem: AddPstnBlackListItemResponse;
+  SetPstnBlackListItem: SetPstnBlackListItemResponse;
+  DelPstnBlackListItem: DelPstnBlackListItemResponse;
+  GetPstnBlackList: GetPstnBlackListResponse;
+  AddSipWhiteListItem: AddSipWhiteListItemResponse;
+  DelSipWhiteListItem: DelSipWhiteListItemResponse;
+  SetSipWhiteListItem: SetSipWhiteListItemResponse;
+  GetSipWhiteList: GetSipWhiteListResponse;
+  CreateSipRegistration: CreateSipRegistrationResponse;
+  UpdateSipRegistration: UpdateSipRegistrationResponse;
+  BindSipRegistration: BindSipRegistrationResponse;
+  DeleteSipRegistration: DeleteSipRegistrationResponse;
+  GetSipRegistrations: GetSipRegistrationsResponse;
   AddCallerID: AddCallerIDResponse;
   ActivateCallerID: ActivateCallerIDResponse;
   DelCallerID: DelCallerIDResponse;
@@ -605,28 +605,6 @@ export interface GetMoneyAmountToChargeResponse {
   result: GetMoneyAmountToChargeResult;
   error?: APIError;
 }
-export interface ChargeAccountRequest {
-  /**
-   * The phone ID list separated by semicolons (;). Use the 'all' value to select all phone ids. You should specify the phones having the auto_charge=false
-   */
-  phoneId: 'any' | number | number[];
-  /**
-   * The phone number list separated by semicolons (;). Use the 'all' value to select all phone numbers. Can be used instead of <b>phone_id</b>. You should specify the phones having the auto_charge=false
-   */
-  phoneNumber: string | string[];
-}
-
-export interface ChargeAccountResponse {
-  /**
-   * Result
-   */
-  result: ChargeAccountResult;
-  /**
-   * The current account state
-   */
-  accountInfo: ShortAccountInfo;
-  error?: APIError;
-}
 export interface ChangeAccountPlanRequest {
   /**
    * The plan type to config. The possible values are IM, MAU
@@ -712,7 +690,21 @@ export interface GetAccountDocumentsRequest {
 
 export interface GetAccountDocumentsResponse {
   /**
-   * The account verifications
+   * The account documents with verification states
+   */
+  result: AccountDocuments[];
+  error?: APIError;
+}
+export interface GetAccountVerificationsRequest {
+  /**
+   * Account ID to check verifications for
+   */
+  accountId: number;
+}
+
+export interface GetAccountVerificationsResponse {
+  /**
+   * Account verifications
    */
   result: AccountVerifications[];
   error?: APIError;
@@ -734,13 +726,15 @@ export interface AccountsInterface {
   getMoneyAmountToCharge: (
     request: GetMoneyAmountToChargeRequest
   ) => Promise<GetMoneyAmountToChargeResponse>;
-  chargeAccount: (request: ChargeAccountRequest) => Promise<ChargeAccountResponse>;
   changeAccountPlan: (request: ChangeAccountPlanRequest) => Promise<ChangeAccountPlanResponse>;
   getAccountPlans: (request: GetAccountPlansRequest) => Promise<GetAccountPlansResponse>;
   getAvailablePlans: (request: GetAvailablePlansRequest) => Promise<GetAvailablePlansResponse>;
   getAccountDocuments: (
     request: GetAccountDocumentsRequest
   ) => Promise<GetAccountDocumentsResponse>;
+  getAccountVerifications: (
+    request: GetAccountVerificationsRequest
+  ) => Promise<GetAccountVerificationsResponse>;
 }
 
 export interface AddApplicationRequest {
@@ -2298,53 +2292,6 @@ export interface GetHistoryReportsResponse {
   count: number;
   error?: APIError;
 }
-export interface GetPhoneNumberReportsRequest {
-  /**
-   * The phone number report ID to filter
-   */
-  reportId?: number;
-  /**
-   * The phone number report type list separated by semicolons (;). Use the 'all' value to select all history report types. The following values are possible: calls, calls_brief, transactions, audit, call_list, transactions_on_hold
-   */
-  reportType?: string | string[];
-  /**
-   * The UTC creation from date filter in 24-h format: YYYY-MM-DD HH:mm:ss
-   */
-  createdFrom?: Date;
-  /**
-   * The UTC creation to date filter in 24-h format: YYYY-MM-DD HH:mm:ss
-   */
-  createdTo?: Date;
-  /**
-   * Whether the report is completed
-   */
-  isCompleted?: boolean;
-  /**
-   * Whether to get records in the descent order
-   */
-  descOrder?: boolean;
-  /**
-   * The max returning record count
-   */
-  count?: number;
-  /**
-   * The first <b>N</b> records are skipped in the output
-   */
-  offset?: number;
-}
-
-export interface GetPhoneNumberReportsResponse {
-  result: CommonReport[];
-  /**
-   * The total found reports count
-   */
-  totalCount: number;
-  /**
-   * The returned reports count
-   */
-  count: number;
-  error?: APIError;
-}
 export interface DownloadHistoryReportRequest {
   /**
    * The history report ID
@@ -2718,9 +2665,6 @@ export interface HistoryInterface {
     request: GetBriefCallHistoryRequest
   ) => Promise<GetBriefCallHistoryResponse>;
   getHistoryReports: (request: GetHistoryReportsRequest) => Promise<GetHistoryReportsResponse>;
-  getPhoneNumberReports: (
-    request: GetPhoneNumberReportsRequest
-  ) => Promise<GetPhoneNumberReportsResponse>;
   downloadHistoryReport: (
     request: DownloadHistoryReportRequest
   ) => Promise<DownloadHistoryReportResponse>;
@@ -2734,6 +2678,540 @@ export interface HistoryInterface {
   getACDHistory: (request: GetACDHistoryRequest) => Promise<GetACDHistoryResponse>;
   getAuditLog: (request: GetAuditLogRequest) => Promise<GetAuditLogResponse>;
   getAuditLogAsync: (request: GetAuditLogAsyncRequest) => Promise<GetAuditLogAsyncResponse>;
+}
+
+export interface GetPhoneNumberReportsRequest {
+  /**
+   * The phone number report ID to filter
+   */
+  reportId?: number;
+  /**
+   * The phone number report type list separated by semicolons (;). Use the 'all' value to select all history report types. The following values are possible: calls, calls_brief, transactions, audit, call_list, transactions_on_hold
+   */
+  reportType?: string | string[];
+  /**
+   * The UTC creation from date filter in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  createdFrom?: Date;
+  /**
+   * The UTC creation to date filter in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  createdTo?: Date;
+  /**
+   * Whether the report is completed
+   */
+  isCompleted?: boolean;
+  /**
+   * Whether to get records in the descent order
+   */
+  descOrder?: boolean;
+  /**
+   * The max returning record count
+   */
+  count?: number;
+  /**
+   * The first <b>N</b> records are skipped in the output
+   */
+  offset?: number;
+}
+
+export interface GetPhoneNumberReportsResponse {
+  result: CommonReport[];
+  /**
+   * The total found reports count
+   */
+  totalCount: number;
+  /**
+   * The returned reports count
+   */
+  count: number;
+  error?: APIError;
+}
+export interface AttachPhoneNumberRequest {
+  /**
+   * The phone count to attach
+   */
+  phoneCount: number;
+  /**
+   * The phone number that can be used instead of <b>phone_count</b>. See the [GetNewPhoneNumbers] method
+   */
+  phoneNumber: string | string[];
+  /**
+   * The country code
+   */
+  countryCode: string;
+  /**
+   * The phone category name. See the [GetPhoneNumberCategories] method
+   */
+  phoneCategoryName: string;
+  /**
+   * The phone region ID. See the [GetPhoneNumberRegions] method
+   */
+  phoneRegionId: number;
+  /**
+   * The country state. See the [GetPhoneNumberCategories] and [GetPhoneNumberCountryStates] methods
+   */
+  countryState?: string;
+  /**
+   * The phone regulation address ID
+   */
+  regulationAddressId?: number;
+  forceVerification?: boolean;
+}
+
+export interface AttachPhoneNumberResponse {
+  /**
+   * 1
+   */
+  result: number;
+  /**
+   * The attached phone numbers
+   */
+  phoneNumbers: NewAttachedPhoneInfo[];
+  error?: APIError;
+}
+export interface BindPhoneNumberToApplicationRequest {
+  /**
+   * The phone ID list separated by semicolons (;). Use the 'all' value to select all phone ids
+   */
+  phoneId: 'any' | number | number[];
+  /**
+   * The phone number list separated by semicolons (;) that can be used instead of <b>phone_id</b>
+   */
+  phoneNumber: string | string[];
+  /**
+   * The application ID
+   */
+  applicationId: number;
+  /**
+   * The application name that can be used instead of <b>application_id</b>
+   */
+  applicationName: string;
+  /**
+   * The rule ID
+   */
+  ruleId?: number;
+  /**
+   * The rule name that can be used instead of <b>rule_id</b>
+   */
+  ruleName?: string;
+  /**
+   * Whether to bind or unbind (set true or false respectively)
+   */
+  bind?: boolean;
+}
+
+export interface BindPhoneNumberToApplicationResponse {
+  /**
+   * 1
+   */
+  result: number;
+  error?: APIError;
+}
+export interface DeactivatePhoneNumberRequest {
+  /**
+   * The phone ID list separated by semicolons (;). Use the 'all' value to select all phone ids
+   */
+  phoneId: 'any' | number | number[];
+  /**
+   * The phone number list separated by semicolons (;) that can be used instead of <b>phone_id</b>
+   */
+  phoneNumber: string | string[];
+}
+
+export interface DeactivatePhoneNumberResponse {
+  /**
+   * 1
+   */
+  result: number;
+  error?: APIError;
+}
+export interface SetPhoneNumberInfoRequest {
+  /**
+   * The phone ID list separated by semicolons (;). Use the 'all' value to select all phone ids
+   */
+  phoneId: 'any' | number | number[];
+  /**
+   * The phone number list separated by semicolons (;) that can be used instead of <b>phone_id</b>
+   */
+  phoneNumber: string | string[];
+  autoCharge: boolean;
+  /**
+   * If set, the callback of an incoming SMS is sent to this url, otherwise, it is sent to the general account URL
+   */
+  incomingSmsCallbackUrl?: string;
+}
+
+export interface SetPhoneNumberInfoResponse {
+  /**
+   * 1
+   */
+  result: number;
+  error?: APIError;
+}
+export interface GetPhoneNumbersRequest {
+  /**
+   * The particular phone ID to filter
+   */
+  phoneId?: 'any' | number | number[];
+  /**
+   * The phone number list separated by semicolons (;) that can be used instead of <b>phone_id</b>
+   */
+  phoneNumber?: string | string[];
+  /**
+   * The application ID
+   */
+  applicationId?: number;
+  /**
+   * The application name that can be used instead of <b>application_id</b>
+   */
+  applicationName?: string;
+  /**
+   * Whether the phone number bound to an application
+   */
+  isBoundToApplication?: boolean;
+  /**
+   * The phone number start to filter
+   */
+  phoneTemplate?: string;
+  /**
+   * The country code list separated by semicolons (;)
+   */
+  countryCode?: string | string[];
+  /**
+   * The phone category name. See the [GetPhoneNumberCategories] method
+   */
+  phoneCategoryName?: string;
+  /**
+   * Whether the subscription is cancelled to filter
+   */
+  canceled?: boolean;
+  /**
+   * Whether the subscription is frozen to filter
+   */
+  deactivated?: boolean;
+  /**
+   * Whether the auto_charge flag is enabled
+   */
+  autoCharge?: boolean;
+  /**
+   * The UTC 'from' date filter in format: YYYY-MM-DD
+   */
+  fromPhoneNextRenewal?: Date;
+  /**
+   * The UTC 'to' date filter in format: YYYY-MM-DD
+   */
+  toPhoneNextRenewal?: Date;
+  /**
+   * The UTC 'from' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  fromPhonePurchaseDate?: Date;
+  /**
+   * The UTC 'to' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  toPhonePurchaseDate?: Date;
+  /**
+   * The child account ID list separated by semicolons (;). Use the 'all' value to select all child accounts
+   */
+  childAccountId?: 'any' | number | number[];
+  /**
+   * Whether to get the children phones only
+   */
+  childrenPhonesOnly?: boolean;
+  /**
+   * The required account verification name to filter
+   */
+  verificationName?: string;
+  /**
+   * The account verification status list separated by semicolons (;). The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
+   */
+  verificationStatus?: string | string[];
+  /**
+   * Unverified phone hold until the date (from ...) in format: YYYY-MM-DD
+   */
+  fromUnverifiedHoldUntil?: Date;
+  /**
+   * Unverified phone hold until the date (... to) in format: YYYY-MM-DD
+   */
+  toUnverifiedHoldUntil?: Date;
+  /**
+   * Whether a not verified account can use the phone
+   */
+  canBeUsed?: boolean;
+  /**
+   * The following values are available: 'phone_number' (ascent order), 'phone_price' (ascent order), 'phone_country_code' (ascent order), 'deactivated' (deactivated first, active last), 'purchase_date' (descent order), 'phone_next_renewal' (ascent order), 'verification_status', 'unverified_hold_until' (ascent order), 'verification_name'
+   */
+  orderBy?: string;
+  /**
+   * Flag allows you to display only the numbers of the sandbox, real numbers, or all numbers. The following values are possible: 'all', 'true', 'false'
+   */
+  sandbox?: string;
+  /**
+   * The max returning record count
+   */
+  count?: number;
+  /**
+   * The first <b>N</b> records are skipped in the output
+   */
+  offset?: number;
+  smsSupported?: boolean;
+  /**
+   * The region names list separated by semicolons (;)
+   */
+  phoneRegionName?: string | string[];
+  /**
+   * The rule ID list separated by semicolons (;)
+   */
+  ruleId?: 'any' | number | number[];
+  /**
+   * The rule names list separated by semicolons (;). Can be used only if __application_id__ or __application_name__ is specified
+   */
+  ruleName?: string | string[];
+  /**
+   * Whether the phone number is bound to some rule
+   */
+  isBoundToRule?: boolean;
+}
+
+export interface GetPhoneNumbersResponse {
+  /**
+   * Phone numbers info
+   */
+  result: AttachedPhoneInfo[];
+  /**
+   * The total found phone count
+   */
+  totalCount: number;
+  /**
+   * The returned phone count
+   */
+  count: number;
+  error?: APIError;
+}
+export interface IsAccountPhoneNumberRequest {
+  /**
+   * Phone number to check in the international format without `+`
+   */
+  phoneNumber: string;
+}
+
+export interface IsAccountPhoneNumberResponse {
+  /**
+   * Whether the number belongs to the account
+   */
+  result: boolean;
+  error?: APIError;
+}
+export interface GetPhoneNumbersAsyncRequest {
+  /**
+   * Whether to get a CSV file with the column names
+   */
+  withHeader?: boolean;
+}
+
+export interface GetPhoneNumbersAsyncResponse {
+  /**
+   * The report ID (async mode)
+   */
+  result: number;
+  error?: APIError;
+}
+export interface GetNewPhoneNumbersRequest {
+  /**
+   * The country code
+   */
+  countryCode: string;
+  /**
+   * The phone category name. See the [GetPhoneNumberCategories] function
+   */
+  phoneCategoryName: string;
+  /**
+   * The phone region ID. See the [GetPhoneNumberRegions] method
+   */
+  phoneRegionId: number;
+  /**
+   * The country state. See the GetPhoneNumberCategories and GetPhoneNumberCountryStates functions
+   */
+  countryState?: string;
+  /**
+   * The max returning record count
+   */
+  count?: number;
+  /**
+   * The first <b>N</b> records are skipped in the output
+   */
+  offset?: number;
+  /**
+   * The phone number searching mask. Asterisk represents zero or more occurrences of any character
+   */
+  phoneNumberMask?: string;
+}
+
+export interface GetNewPhoneNumbersResponse {
+  result: NewPhoneInfo[];
+  /**
+   * The total found phone count
+   */
+  totalCount: number;
+  /**
+   * The returned phone count
+   */
+  count: number;
+  error?: APIError;
+}
+export interface GetPhoneNumberCategoriesRequest {
+  /**
+   * Country code list separated by semicolons (;)
+   */
+  countryCode?: string | string[];
+  /**
+   * Flag allows you to display phone number categories only of the sandbox, real or all .The following values are possible: 'all', 'true', 'false'
+   */
+  sandbox?: string;
+  /**
+   * The 2-letter locale code. Supported values are EN, RU
+   */
+  locale?: string;
+}
+
+export interface GetPhoneNumberCategoriesResponse {
+  result: PhoneNumberCountryInfo[];
+  error?: APIError;
+}
+export interface GetPhoneNumberCountryStatesRequest {
+  /**
+   * The country code
+   */
+  countryCode: string;
+  /**
+   * The phone category name. See the GetPhoneNumberCategories function
+   */
+  phoneCategoryName: string;
+  /**
+   * The country state code (example: AL, CA, ... )
+   */
+  countryState?: string;
+}
+
+export interface GetPhoneNumberCountryStatesResponse {
+  result: PhoneNumberCountryStateInfo[];
+  error?: APIError;
+}
+export interface GetPhoneNumberRegionsRequest {
+  /**
+   * The country code
+   */
+  countryCode: string;
+  /**
+   * The phone category name. See the [GetPhoneNumberCategories] method
+   */
+  phoneCategoryName: string;
+  /**
+   * The country state code (example: AL, CA, ... )
+   */
+  countryState?: string;
+  /**
+   * Whether not to show all the regions (with and without phone numbers in stock)
+   */
+  omitEmpty?: boolean;
+  /**
+   * The phone region ID to filter
+   */
+  phoneRegionId?: number;
+  /**
+   * The phone region name to filter
+   */
+  phoneRegionName?: string;
+  /**
+   * The region phone prefix to filter
+   */
+  phoneRegionCode?: string;
+  /**
+   * The 2-letter locale code. Supported values are EN, RU
+   */
+  locale?: string;
+}
+
+export interface GetPhoneNumberRegionsResponse {
+  result: PhoneNumberCountryRegionInfo[];
+  error?: APIError;
+}
+export interface GetActualPhoneNumberRegionRequest {
+  /**
+   * The country code
+   */
+  countryCode: string;
+  /**
+   * The phone category name. See the [GetPhoneNumberCategories] method
+   */
+  phoneCategoryName: string;
+  /**
+   * The phone region ID to filter
+   */
+  phoneRegionId: number;
+  /**
+   * The country state code (example: AL, CA, ... )
+   */
+  countryState?: string;
+  /**
+   * The 2-letter locale code. Supported values are EN, RU
+   */
+  locale?: string;
+}
+
+export interface GetActualPhoneNumberRegionResponse {
+  result: PhoneNumberCountryRegionInfo;
+  error?: APIError;
+}
+export interface GetAccountPhoneNumberCountriesRequest {
+  /**
+   * The application ID list separated by semicolons (;) to filter
+   */
+  applicationId?: 'any' | number | number[];
+}
+
+export interface GetAccountPhoneNumberCountriesResponse {
+  /**
+   * Array of country codes
+   */
+  result: string[];
+  error?: APIError;
+}
+export interface PhoneNumbersInterface {
+  getPhoneNumberReports: (
+    request: GetPhoneNumberReportsRequest
+  ) => Promise<GetPhoneNumberReportsResponse>;
+  attachPhoneNumber: (request: AttachPhoneNumberRequest) => Promise<AttachPhoneNumberResponse>;
+  bindPhoneNumberToApplication: (
+    request: BindPhoneNumberToApplicationRequest
+  ) => Promise<BindPhoneNumberToApplicationResponse>;
+  deactivatePhoneNumber: (
+    request: DeactivatePhoneNumberRequest
+  ) => Promise<DeactivatePhoneNumberResponse>;
+  setPhoneNumberInfo: (request: SetPhoneNumberInfoRequest) => Promise<SetPhoneNumberInfoResponse>;
+  getPhoneNumbers: (request: GetPhoneNumbersRequest) => Promise<GetPhoneNumbersResponse>;
+  isAccountPhoneNumber: (
+    request: IsAccountPhoneNumberRequest
+  ) => Promise<IsAccountPhoneNumberResponse>;
+  getPhoneNumbersAsync: (
+    request: GetPhoneNumbersAsyncRequest
+  ) => Promise<GetPhoneNumbersAsyncResponse>;
+  getNewPhoneNumbers: (request: GetNewPhoneNumbersRequest) => Promise<GetNewPhoneNumbersResponse>;
+  getPhoneNumberCategories: (
+    request: GetPhoneNumberCategoriesRequest
+  ) => Promise<GetPhoneNumberCategoriesResponse>;
+  getPhoneNumberCountryStates: (
+    request: GetPhoneNumberCountryStatesRequest
+  ) => Promise<GetPhoneNumberCountryStatesResponse>;
+  getPhoneNumberRegions: (
+    request: GetPhoneNumberRegionsRequest
+  ) => Promise<GetPhoneNumberRegionsResponse>;
+  getActualPhoneNumberRegion: (
+    request: GetActualPhoneNumberRegionRequest
+  ) => Promise<GetActualPhoneNumberRegionResponse>;
+  getAccountPhoneNumberCountries: (
+    request: GetAccountPhoneNumberCountriesRequest
+  ) => Promise<GetAccountPhoneNumberCountriesResponse>;
 }
 
 export interface AddPstnBlackListItemRequest {
@@ -3206,490 +3684,6 @@ export interface SIPRegistrationInterface {
   getSipRegistrations: (
     request: GetSipRegistrationsRequest
   ) => Promise<GetSipRegistrationsResponse>;
-}
-
-export interface AttachPhoneNumberRequest {
-  /**
-   * The phone count to attach
-   */
-  phoneCount: number;
-  /**
-   * The phone number that can be used instead of <b>phone_count</b>. See the [GetNewPhoneNumbers] method
-   */
-  phoneNumber: string | string[];
-  /**
-   * The country code
-   */
-  countryCode: string;
-  /**
-   * The phone category name. See the [GetPhoneNumberCategories] method
-   */
-  phoneCategoryName: string;
-  /**
-   * The phone region ID. See the [GetPhoneNumberRegions] method
-   */
-  phoneRegionId: number;
-  /**
-   * The country state. See the [GetPhoneNumberCategories] and [GetPhoneNumberCountryStates] methods
-   */
-  countryState?: string;
-  /**
-   * The phone regulation address ID
-   */
-  regulationAddressId?: number;
-  forceVerification?: boolean;
-}
-
-export interface AttachPhoneNumberResponse {
-  /**
-   * 1
-   */
-  result: number;
-  /**
-   * The attached phone numbers
-   */
-  phoneNumbers: NewAttachedPhoneInfo[];
-  error?: APIError;
-}
-export interface BindPhoneNumberToApplicationRequest {
-  /**
-   * The phone ID list separated by semicolons (;). Use the 'all' value to select all phone ids
-   */
-  phoneId: 'any' | number | number[];
-  /**
-   * The phone number list separated by semicolons (;) that can be used instead of <b>phone_id</b>
-   */
-  phoneNumber: string | string[];
-  /**
-   * The application ID
-   */
-  applicationId: number;
-  /**
-   * The application name that can be used instead of <b>application_id</b>
-   */
-  applicationName: string;
-  /**
-   * The rule ID
-   */
-  ruleId?: number;
-  /**
-   * The rule name that can be used instead of <b>rule_id</b>
-   */
-  ruleName?: string;
-  /**
-   * Whether to bind or unbind (set true or false respectively)
-   */
-  bind?: boolean;
-}
-
-export interface BindPhoneNumberToApplicationResponse {
-  /**
-   * 1
-   */
-  result: number;
-  error?: APIError;
-}
-export interface DeactivatePhoneNumberRequest {
-  /**
-   * The phone ID list separated by semicolons (;). Use the 'all' value to select all phone ids
-   */
-  phoneId: 'any' | number | number[];
-  /**
-   * The phone number list separated by semicolons (;) that can be used instead of <b>phone_id</b>
-   */
-  phoneNumber: string | string[];
-}
-
-export interface DeactivatePhoneNumberResponse {
-  /**
-   * 1
-   */
-  result: number;
-  error?: APIError;
-}
-export interface SetPhoneNumberInfoRequest {
-  /**
-   * The phone ID list separated by semicolons (;). Use the 'all' value to select all phone ids
-   */
-  phoneId: 'any' | number | number[];
-  /**
-   * The phone number list separated by semicolons (;) that can be used instead of <b>phone_id</b>
-   */
-  phoneNumber: string | string[];
-  autoCharge: boolean;
-  /**
-   * If set, the callback of an incoming SMS is sent to this url, otherwise, it is sent to the general account URL
-   */
-  incomingSmsCallbackUrl?: string;
-}
-
-export interface SetPhoneNumberInfoResponse {
-  /**
-   * 1
-   */
-  result: number;
-  error?: APIError;
-}
-export interface GetPhoneNumbersRequest {
-  /**
-   * The particular phone ID to filter
-   */
-  phoneId?: 'any' | number | number[];
-  /**
-   * The phone number list separated by semicolons (;) that can be used instead of <b>phone_id</b>
-   */
-  phoneNumber?: string | string[];
-  /**
-   * The application ID
-   */
-  applicationId?: number;
-  /**
-   * The application name that can be used instead of <b>application_id</b>
-   */
-  applicationName?: string;
-  /**
-   * Whether the phone number bound to an application
-   */
-  isBoundToApplication?: boolean;
-  /**
-   * The phone number start to filter
-   */
-  phoneTemplate?: string;
-  /**
-   * The country code list separated by semicolons (;)
-   */
-  countryCode?: string | string[];
-  /**
-   * The phone category name. See the [GetPhoneNumberCategories] method
-   */
-  phoneCategoryName?: string;
-  /**
-   * Whether the subscription is cancelled to filter
-   */
-  canceled?: boolean;
-  /**
-   * Whether the subscription is frozen to filter
-   */
-  deactivated?: boolean;
-  /**
-   * Whether the auto_charge flag is enabled
-   */
-  autoCharge?: boolean;
-  /**
-   * The UTC 'from' date filter in format: YYYY-MM-DD
-   */
-  fromPhoneNextRenewal?: Date;
-  /**
-   * The UTC 'to' date filter in format: YYYY-MM-DD
-   */
-  toPhoneNextRenewal?: Date;
-  /**
-   * The UTC 'from' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
-   */
-  fromPhonePurchaseDate?: Date;
-  /**
-   * The UTC 'to' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
-   */
-  toPhonePurchaseDate?: Date;
-  /**
-   * The child account ID list separated by semicolons (;). Use the 'all' value to select all child accounts
-   */
-  childAccountId?: 'any' | number | number[];
-  /**
-   * Whether to get the children phones only
-   */
-  childrenPhonesOnly?: boolean;
-  /**
-   * The required account verification name to filter
-   */
-  verificationName?: string;
-  /**
-   * The account verification status list separated by semicolons (;). The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
-   */
-  verificationStatus?: string | string[];
-  /**
-   * Unverified phone hold until the date (from ...) in format: YYYY-MM-DD
-   */
-  fromUnverifiedHoldUntil?: Date;
-  /**
-   * Unverified phone hold until the date (... to) in format: YYYY-MM-DD
-   */
-  toUnverifiedHoldUntil?: Date;
-  /**
-   * Whether a not verified account can use the phone
-   */
-  canBeUsed?: boolean;
-  /**
-   * The following values are available: 'phone_number' (ascent order), 'phone_price' (ascent order), 'phone_country_code' (ascent order), 'deactivated' (deactivated first, active last), 'purchase_date' (descent order), 'phone_next_renewal' (ascent order), 'verification_status', 'unverified_hold_until' (ascent order), 'verification_name'
-   */
-  orderBy?: string;
-  /**
-   * Flag allows you to display only the numbers of the sandbox, real numbers, or all numbers. The following values are possible: 'all', 'true', 'false'
-   */
-  sandbox?: string;
-  /**
-   * The max returning record count
-   */
-  count?: number;
-  /**
-   * The first <b>N</b> records are skipped in the output
-   */
-  offset?: number;
-  smsSupported?: boolean;
-  /**
-   * The region names list separated by semicolons (;)
-   */
-  phoneRegionName?: string | string[];
-  /**
-   * The rule ID list separated by semicolons (;)
-   */
-  ruleId?: 'any' | number | number[];
-  /**
-   * The rule names list separated by semicolons (;). Can be used only if __application_id__ or __application_name__ is specified
-   */
-  ruleName?: string | string[];
-  /**
-   * Whether the phone number is bound to some rule
-   */
-  isBoundToRule?: boolean;
-}
-
-export interface GetPhoneNumbersResponse {
-  /**
-   * Phone numbers info
-   */
-  result: AttachedPhoneInfo[];
-  /**
-   * The total found phone count
-   */
-  totalCount: number;
-  /**
-   * The returned phone count
-   */
-  count: number;
-  error?: APIError;
-}
-export interface IsAccountPhoneNumberRequest {
-  /**
-   * Phone number to check in the international format without `+`
-   */
-  phoneNumber: string;
-}
-
-export interface IsAccountPhoneNumberResponse {
-  /**
-   * Whether the number belongs to the account
-   */
-  result: boolean;
-  error?: APIError;
-}
-export interface GetPhoneNumbersAsyncRequest {
-  /**
-   * Whether to get a CSV file with the column names
-   */
-  withHeader?: boolean;
-}
-
-export interface GetPhoneNumbersAsyncResponse {
-  /**
-   * The report ID (async mode)
-   */
-  result: number;
-  error?: APIError;
-}
-export interface GetNewPhoneNumbersRequest {
-  /**
-   * The country code
-   */
-  countryCode: string;
-  /**
-   * The phone category name. See the [GetPhoneNumberCategories] function
-   */
-  phoneCategoryName: string;
-  /**
-   * The phone region ID. See the [GetPhoneNumberRegions] method
-   */
-  phoneRegionId: number;
-  /**
-   * The country state. See the GetPhoneNumberCategories and GetPhoneNumberCountryStates functions
-   */
-  countryState?: string;
-  /**
-   * The max returning record count
-   */
-  count?: number;
-  /**
-   * The first <b>N</b> records are skipped in the output
-   */
-  offset?: number;
-  /**
-   * The phone number searching mask. Asterisk represents zero or more occurrences of any character
-   */
-  phoneNumberMask?: string;
-}
-
-export interface GetNewPhoneNumbersResponse {
-  result: NewPhoneInfo[];
-  /**
-   * The total found phone count
-   */
-  totalCount: number;
-  /**
-   * The returned phone count
-   */
-  count: number;
-  error?: APIError;
-}
-export interface GetPhoneNumberCategoriesRequest {
-  /**
-   * Country code list separated by semicolons (;)
-   */
-  countryCode?: string | string[];
-  /**
-   * Flag allows you to display phone number categories only of the sandbox, real or all .The following values are possible: 'all', 'true', 'false'
-   */
-  sandbox?: string;
-  /**
-   * The 2-letter locale code. Supported values are EN, RU
-   */
-  locale?: string;
-}
-
-export interface GetPhoneNumberCategoriesResponse {
-  result: PhoneNumberCountryInfo[];
-  error?: APIError;
-}
-export interface GetPhoneNumberCountryStatesRequest {
-  /**
-   * The country code
-   */
-  countryCode: string;
-  /**
-   * The phone category name. See the GetPhoneNumberCategories function
-   */
-  phoneCategoryName: string;
-  /**
-   * The country state code (example: AL, CA, ... )
-   */
-  countryState?: string;
-}
-
-export interface GetPhoneNumberCountryStatesResponse {
-  result: PhoneNumberCountryStateInfo[];
-  error?: APIError;
-}
-export interface GetPhoneNumberRegionsRequest {
-  /**
-   * The country code
-   */
-  countryCode: string;
-  /**
-   * The phone category name. See the [GetPhoneNumberCategories] method
-   */
-  phoneCategoryName: string;
-  /**
-   * The country state code (example: AL, CA, ... )
-   */
-  countryState?: string;
-  /**
-   * Whether not to show all the regions (with and without phone numbers in stock)
-   */
-  omitEmpty?: boolean;
-  /**
-   * The phone region ID to filter
-   */
-  phoneRegionId?: number;
-  /**
-   * The phone region name to filter
-   */
-  phoneRegionName?: string;
-  /**
-   * The region phone prefix to filter
-   */
-  phoneRegionCode?: string;
-  /**
-   * The 2-letter locale code. Supported values are EN, RU
-   */
-  locale?: string;
-}
-
-export interface GetPhoneNumberRegionsResponse {
-  result: PhoneNumberCountryRegionInfo[];
-  error?: APIError;
-}
-export interface GetActualPhoneNumberRegionRequest {
-  /**
-   * The country code
-   */
-  countryCode: string;
-  /**
-   * The phone category name. See the [GetPhoneNumberCategories] method
-   */
-  phoneCategoryName: string;
-  /**
-   * The phone region ID to filter
-   */
-  phoneRegionId: number;
-  /**
-   * The country state code (example: AL, CA, ... )
-   */
-  countryState?: string;
-  /**
-   * The 2-letter locale code. Supported values are EN, RU
-   */
-  locale?: string;
-}
-
-export interface GetActualPhoneNumberRegionResponse {
-  result: PhoneNumberCountryRegionInfo;
-  error?: APIError;
-}
-export interface GetAccountPhoneNumberCountriesRequest {
-  /**
-   * The application ID list separated by semicolons (;) to filter
-   */
-  applicationId?: 'any' | number | number[];
-}
-
-export interface GetAccountPhoneNumberCountriesResponse {
-  /**
-   * Array of country codes
-   */
-  result: string[];
-  error?: APIError;
-}
-export interface PhoneNumbersInterface {
-  attachPhoneNumber: (request: AttachPhoneNumberRequest) => Promise<AttachPhoneNumberResponse>;
-  bindPhoneNumberToApplication: (
-    request: BindPhoneNumberToApplicationRequest
-  ) => Promise<BindPhoneNumberToApplicationResponse>;
-  deactivatePhoneNumber: (
-    request: DeactivatePhoneNumberRequest
-  ) => Promise<DeactivatePhoneNumberResponse>;
-  setPhoneNumberInfo: (request: SetPhoneNumberInfoRequest) => Promise<SetPhoneNumberInfoResponse>;
-  getPhoneNumbers: (request: GetPhoneNumbersRequest) => Promise<GetPhoneNumbersResponse>;
-  isAccountPhoneNumber: (
-    request: IsAccountPhoneNumberRequest
-  ) => Promise<IsAccountPhoneNumberResponse>;
-  getPhoneNumbersAsync: (
-    request: GetPhoneNumbersAsyncRequest
-  ) => Promise<GetPhoneNumbersAsyncResponse>;
-  getNewPhoneNumbers: (request: GetNewPhoneNumbersRequest) => Promise<GetNewPhoneNumbersResponse>;
-  getPhoneNumberCategories: (
-    request: GetPhoneNumberCategoriesRequest
-  ) => Promise<GetPhoneNumberCategoriesResponse>;
-  getPhoneNumberCountryStates: (
-    request: GetPhoneNumberCountryStatesRequest
-  ) => Promise<GetPhoneNumberCountryStatesResponse>;
-  getPhoneNumberRegions: (
-    request: GetPhoneNumberRegionsRequest
-  ) => Promise<GetPhoneNumberRegionsResponse>;
-  getActualPhoneNumberRegion: (
-    request: GetActualPhoneNumberRegionRequest
-  ) => Promise<GetActualPhoneNumberRegionResponse>;
-  getAccountPhoneNumberCountries: (
-    request: GetAccountPhoneNumberCountriesRequest
-  ) => Promise<GetAccountPhoneNumberCountriesResponse>;
 }
 
 export interface AddCallerIDRequest {
@@ -4537,6 +4531,10 @@ export interface SQ_AddQueueRequest {
    * IM type requests prioritizing strategy. Accepts one of the [SQTaskSelectionStrategies] enum values. The default value is **call_task_selection**
    */
   imTaskSelection?: string;
+  /**
+   * Whether to keep the call task in the queue if all agents are in the DND/BANNED/OFFLINE statuses.
+   */
+  holdCallsIfInactiveAgents?: boolean;
   fallbackAgentSelection?: string;
   /**
    * Comment, up to 200 characters
@@ -4596,6 +4594,10 @@ export interface SQ_SetQueueInfoRequest {
    * Name of the SmartQueue to search for. Can be used instead of <b>sq_queue_id</b>
    */
   sqQueueName?: string;
+  /**
+   * Whether to keep the call task in the queue if all agents are in the DND/BANNED/OFFLINE statuses.
+   */
+  holdCallsIfInactiveAgents?: boolean;
   /**
    * New SmartQueue name within the application, up to 100 characters
    */
@@ -6757,7 +6759,7 @@ export interface RoleSystemInterface {
 
 export interface SetKeyValueItemRequest {
   /**
-   * Key, up to 200 characters. A key can contain a namespace that is written before the ':' symbol, for example, test:1234. Thus, namespace 'test' can be used as a pattern in the [GetKeyValueItems](/docs/references/httpapi/keyvaluestorage#getkeyvalueitems) and [GetKeyValueKeys](/docs/references/httpapi/keyvaluestorage#getkeyvaluekeys) methods to find the keys with the same namespace
+   * Key, up to 200 characters. A key can contain a namespace that is written before the ':' symbol, for example, test:1234. Thus, namespace 'test' can be used as a pattern in the [GetKeyValueItems](/docs/references/httpapi/keyvaluestorage#getkeyvalueitems) and [GetKeyValueKeys](/docs/references/httpapi/keyvaluestorage#getkeyvaluekeys) methods to find the keys with the same namespace.<br><br>The key should match the following regular expression: `^[a-zA-Z0-9а-яА-ЯёЁ_\-:;.#+]*$`
    */
   key: string;
   /**
@@ -6765,11 +6767,11 @@ export interface SetKeyValueItemRequest {
    */
   value: string;
   /**
-   * The application ID
+   * Application ID
    */
   applicationId: number;
   /**
-   * The application name
+   * Application name
    */
   applicationName?: string;
   /**

@@ -19,8 +19,6 @@ import {
   GetChildrenAccountsResponse,
   GetMoneyAmountToChargeRequest,
   GetMoneyAmountToChargeResponse,
-  ChargeAccountRequest,
-  ChargeAccountResponse,
   ChangeAccountPlanRequest,
   ChangeAccountPlanResponse,
   GetAccountPlansRequest,
@@ -29,6 +27,8 @@ import {
   GetAvailablePlansResponse,
   GetAccountDocumentsRequest,
   GetAccountDocumentsResponse,
+  GetAccountVerificationsRequest,
+  GetAccountVerificationsResponse,
   AccountsInterface,
   AddApplicationRequest,
   AddApplicationResponse,
@@ -105,8 +105,6 @@ import {
   GetBriefCallHistoryResponse,
   GetHistoryReportsRequest,
   GetHistoryReportsResponse,
-  GetPhoneNumberReportsRequest,
-  GetPhoneNumberReportsResponse,
   DownloadHistoryReportRequest,
   DownloadHistoryReportResponse,
   GetTransactionHistoryRequest,
@@ -122,6 +120,35 @@ import {
   GetAuditLogAsyncRequest,
   GetAuditLogAsyncResponse,
   HistoryInterface,
+  GetPhoneNumberReportsRequest,
+  GetPhoneNumberReportsResponse,
+  AttachPhoneNumberRequest,
+  AttachPhoneNumberResponse,
+  BindPhoneNumberToApplicationRequest,
+  BindPhoneNumberToApplicationResponse,
+  DeactivatePhoneNumberRequest,
+  DeactivatePhoneNumberResponse,
+  SetPhoneNumberInfoRequest,
+  SetPhoneNumberInfoResponse,
+  GetPhoneNumbersRequest,
+  GetPhoneNumbersResponse,
+  IsAccountPhoneNumberRequest,
+  IsAccountPhoneNumberResponse,
+  GetPhoneNumbersAsyncRequest,
+  GetPhoneNumbersAsyncResponse,
+  GetNewPhoneNumbersRequest,
+  GetNewPhoneNumbersResponse,
+  GetPhoneNumberCategoriesRequest,
+  GetPhoneNumberCategoriesResponse,
+  GetPhoneNumberCountryStatesRequest,
+  GetPhoneNumberCountryStatesResponse,
+  GetPhoneNumberRegionsRequest,
+  GetPhoneNumberRegionsResponse,
+  GetActualPhoneNumberRegionRequest,
+  GetActualPhoneNumberRegionResponse,
+  GetAccountPhoneNumberCountriesRequest,
+  GetAccountPhoneNumberCountriesResponse,
+  PhoneNumbersInterface,
   AddPstnBlackListItemRequest,
   AddPstnBlackListItemResponse,
   SetPstnBlackListItemRequest,
@@ -151,33 +178,6 @@ import {
   GetSipRegistrationsRequest,
   GetSipRegistrationsResponse,
   SIPRegistrationInterface,
-  AttachPhoneNumberRequest,
-  AttachPhoneNumberResponse,
-  BindPhoneNumberToApplicationRequest,
-  BindPhoneNumberToApplicationResponse,
-  DeactivatePhoneNumberRequest,
-  DeactivatePhoneNumberResponse,
-  SetPhoneNumberInfoRequest,
-  SetPhoneNumberInfoResponse,
-  GetPhoneNumbersRequest,
-  GetPhoneNumbersResponse,
-  IsAccountPhoneNumberRequest,
-  IsAccountPhoneNumberResponse,
-  GetPhoneNumbersAsyncRequest,
-  GetPhoneNumbersAsyncResponse,
-  GetNewPhoneNumbersRequest,
-  GetNewPhoneNumbersResponse,
-  GetPhoneNumberCategoriesRequest,
-  GetPhoneNumberCategoriesResponse,
-  GetPhoneNumberCountryStatesRequest,
-  GetPhoneNumberCountryStatesResponse,
-  GetPhoneNumberRegionsRequest,
-  GetPhoneNumberRegionsResponse,
-  GetActualPhoneNumberRegionRequest,
-  GetActualPhoneNumberRegionResponse,
-  GetAccountPhoneNumberCountriesRequest,
-  GetAccountPhoneNumberCountriesResponse,
-  PhoneNumbersInterface,
   AddCallerIDRequest,
   AddCallerIDResponse,
   ActivateCallerIDRequest,
@@ -416,10 +416,10 @@ import {
   ResourcePrice,
   SubscriptionTemplate,
   GetMoneyAmountToChargeResult,
-  ChargeAccountResult,
   ShortAccountInfo,
   AccountPlan,
   Plan,
+  AccountDocuments,
   AccountVerifications,
   ApplicationInfo,
   UserInfo,
@@ -429,19 +429,19 @@ import {
   RuleInfo,
   CallSessionInfo,
   HistoryReport,
-  CommonReport,
   TransactionInfo,
   ACDSessionInfo,
   AuditLogInfo,
-  PstnBlackListInfo,
-  SipWhiteListInfo,
-  SIPRegistration,
+  CommonReport,
   NewAttachedPhoneInfo,
   AttachedPhoneInfo,
   NewPhoneInfo,
   PhoneNumberCountryInfo,
   PhoneNumberCountryStateInfo,
   PhoneNumberCountryRegionInfo,
+  PstnBlackListInfo,
+  SipWhiteListInfo,
+  SIPRegistration,
   CallerIDInfo,
   OutboundTestPhonenumberInfo,
   QueueInfo,
@@ -486,34 +486,61 @@ import * as jwt from 'jsonwebtoken';
 import axios from 'axios';
 import * as FormData from 'form-data';
 
+export interface VoximplantApiClientParameters {
+  pathToCredentials?: string;
+  host?: string;
+  accountId?: number;
+}
+
+export interface VoximplantApiClientKey {
+  account_email: string;
+  account_id: number;
+  key_id: string;
+  private_key: string;
+}
+
 export default class VoximplantApiClient {
-  private key!: { account_email: string; account_id: number; key_id: string; private_key: string };
+  private key!: VoximplantApiClientKey;
+
+  private readonly pathToCredentials: string;
+  private readonly accountId?: number;
 
   onReady: (client: VoximplantApiClient) => void;
 
-  constructor(pathToCredentials?: string, private host?: string) {
-    const path = process.env.VOXIMPLANT_CREDENTIALS || pathToCredentials;
+  constructor(
+    private parameters: VoximplantApiClientParameters = {},
+    private host: string = 'api.voximplant.com'
+  ) {
+    if (typeof parameters === 'string') this.pathToCredentials = parameters;
+    if (typeof parameters === 'object') {
+      if (typeof parameters?.pathToCredentials === 'string') {
+        this.pathToCredentials = parameters.pathToCredentials;
+      }
+      if (typeof parameters?.host === 'string') {
+        this.host = parameters.host;
+      }
+      if (typeof parameters.accountId === 'number') {
+        this.accountId = parameters.accountId;
+      }
+    }
+    const path = process.env.VOXIMPLANT_CREDENTIALS || this.pathToCredentials;
     fs.readFile(path, 'utf8', (err, data) => {
-      if (err) {
-        throw err;
-      }
+      if (err) throw err;
       this.key = JSON.parse(data);
-      if (this.onReady) {
-        this.onReady(this);
-      }
+      if (this.onReady) this.onReady(this);
     });
   }
 
   public generateAuthHeader() {
     const date = (+new Date() / 1000) | 0;
-    const tokenData = { iss: this.key.account_id, iat: date, exp: date + 64 };
+    const accountId = this.accountId ?? this.key.account_id;
+    const tokenData = { iss: accountId, iat: date, exp: date + 64 };
 
     const token = jwt.sign(tokenData, this.key.private_key, {
       algorithm: 'RS256',
       header: { kid: this.key.key_id },
     });
-    const authHeader = 'Bearer ' + token;
-    return authHeader;
+    return 'Bearer ' + token;
   }
 
   private makeRequest<T extends keyof UtilsReturns>(
@@ -531,9 +558,8 @@ export default class VoximplantApiClient {
         form.append(field, requestData[field]);
       }
     });
-    const host = this.host || 'api.voximplant.com';
     return axios
-      .post('https://' + host + '/platform_api', form, {
+      .post('https://' + this.host + '/platform_api', form, {
         headers: { ...form.getHeaders(), Authorization: this.generateAuthHeader() },
       })
       .then((response) => {
@@ -791,7 +817,11 @@ export default class VoximplantApiClient {
         { rawName: 'date', name: 'date', transformer: TypeTransformer.to('date', true) },
       ];
       const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('ExchangeRates') },
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('ExchangeRatesType'),
+        },
       ];
       return this.makeRequest('GetCurrencyRate', request, [reqMapper, respMapper]);
     },
@@ -943,32 +973,6 @@ export default class VoximplantApiClient {
       return this.makeRequest('GetMoneyAmountToCharge', request, [reqMapper, respMapper]);
     },
     /**
-     * Charges the account in the manual mode. You should call the ChargeAccount function to charge the subscriptions having the auto_charge=false.
-     */
-    chargeAccount: (request: ChargeAccountRequest): Promise<ChargeAccountResponse> => {
-      const reqMapper = [
-        { rawName: 'phone_id', name: 'phoneId', transformer: TypeTransformer.to('intlist', true) },
-        {
-          rawName: 'phone_number',
-          name: 'phoneNumber',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-      ];
-      const respMapper = [
-        {
-          rawName: 'result',
-          name: 'result',
-          transformer: TypeTransformer.from('ChargeAccountResult'),
-        },
-        {
-          rawName: 'account_info',
-          name: 'accountInfo',
-          transformer: TypeTransformer.from('ShortAccountInfoType'),
-        },
-      ];
-      return this.makeRequest('ChargeAccount', request, [reqMapper, respMapper]);
-    },
-    /**
      * Configures the account's plan.<br><br>Please note that when you change the billing plan, we reserve the subscription fee and taxes for the upcoming month. Read more in the <a href='/docs/gettingstarted/billing'>Billing</a> page.
      */
     changeAccountPlan: (request: ChangeAccountPlanRequest): Promise<ChangeAccountPlanResponse> => {
@@ -1037,7 +1041,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('GetAvailablePlans', request, [reqMapper, respMapper]);
     },
     /**
-     * Gets the account documents and the verification states.
+     * Gets the account documents and the verification states.<br><br>This method will be deprecated in the next versions. We recommend to use the [GetAccountVerifications](/docs/references/httpapi/accounts#getaccountverifications) method to get all the verifications and statuses for the account.
      */
     getAccountDocuments: (
       request: GetAccountDocumentsRequest
@@ -1083,10 +1087,32 @@ export default class VoximplantApiClient {
         {
           rawName: 'result',
           name: 'result',
-          transformer: TypeTransformer.from('[AccountVerifications]'),
+          transformer: TypeTransformer.from('[AccountDocumentsType]'),
         },
       ];
       return this.makeRequest('GetAccountDocuments', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Gets all RU verifications for the specified account.
+     */
+    getAccountVerifications: (
+      request: GetAccountVerificationsRequest
+    ): Promise<GetAccountVerificationsResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'account_id',
+          name: 'accountId',
+          transformer: TypeTransformer.to('number', true),
+        },
+      ];
+      const respMapper = [
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('[AccountVerificationsType]'),
+        },
+      ];
+      return this.makeRequest('GetAccountVerifications', request, [reqMapper, respMapper]);
     },
   };
 
@@ -2534,53 +2560,6 @@ export default class VoximplantApiClient {
       return this.makeRequest('GetHistoryReports', request, [reqMapper, respMapper]);
     },
     /**
-     * Receives information about the created phone numbers report or list of reports.
-     */
-    getPhoneNumberReports: (
-      request: GetPhoneNumberReportsRequest
-    ): Promise<GetPhoneNumberReportsResponse> => {
-      const reqMapper = [
-        { rawName: 'report_id', name: 'reportId', transformer: TypeTransformer.to('number', true) },
-        {
-          rawName: 'report_type',
-          name: 'reportType',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-        {
-          rawName: 'created_from',
-          name: 'createdFrom',
-          transformer: TypeTransformer.to('timestamp', true),
-        },
-        {
-          rawName: 'created_to',
-          name: 'createdTo',
-          transformer: TypeTransformer.to('timestamp', true),
-        },
-        {
-          rawName: 'is_completed',
-          name: 'isCompleted',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'desc_order',
-          name: 'descOrder',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
-      ];
-      const respMapper = [
-        {
-          rawName: 'result',
-          name: 'result',
-          transformer: TypeTransformer.from('[CommonReportType]'),
-        },
-        { rawName: 'total_count', name: 'totalCount', transformer: TypeTransformer.from('number') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('GetPhoneNumberReports', request, [reqMapper, respMapper]);
-    },
-    /**
      * Downloads the required history report.<br><br>Please note, that the history report can return in a compressed state (*.gzip). In order for CURL to process a compressed file correctly, add the **--compressed** key.
      */
     downloadHistoryReport: (
@@ -2944,441 +2923,54 @@ export default class VoximplantApiClient {
     },
   };
 
-  public PSTNBlacklist: PSTNBlacklistInterface = {
-    /**
-     * Add a new phone number to the PSTN blacklist. Use blacklist to block incoming calls from specified phone numbers to numbers purchased from Voximplant. Since we have no control over exact phone number format for calls from SIP integrations, blacklisting such numbers should be done via JavaScript scenarios.
-     */
-    addPstnBlackListItem: (
-      request: AddPstnBlackListItemRequest
-    ): Promise<AddPstnBlackListItemResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'pstn_blacklist_phone',
-          name: 'pstnBlacklistPhone',
-          transformer: TypeTransformer.to('string', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-        {
-          rawName: 'pstn_blacklist_id',
-          name: 'pstnBlacklistId',
-          transformer: TypeTransformer.from('number'),
-        },
-      ];
-      return this.makeRequest('AddPstnBlackListItem', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Update the PSTN blacklist item. BlackList works for numbers that are purchased from Voximplant only. Since we have no control over exact phone number format for calls from SIP integrations, blacklisting such numbers should be done via JavaScript scenarios.
-     */
-    setPstnBlackListItem: (
-      request: SetPstnBlackListItemRequest
-    ): Promise<SetPstnBlackListItemResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'pstn_blacklist_id',
-          name: 'pstnBlacklistId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'pstn_blacklist_phone',
-          name: 'pstnBlacklistPhone',
-          transformer: TypeTransformer.to('string', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('SetPstnBlackListItem', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Remove phone number from the PSTN blacklist.
-     */
-    delPstnBlackListItem: (
-      request: DelPstnBlackListItemRequest
-    ): Promise<DelPstnBlackListItemResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'pstn_blacklist_id',
-          name: 'pstnBlacklistId',
-          transformer: TypeTransformer.to('number', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('DelPstnBlackListItem', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Get the whole PSTN blacklist.
-     */
-    getPstnBlackList: (request: GetPstnBlackListRequest): Promise<GetPstnBlackListResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'pstn_blacklist_id',
-          name: 'pstnBlacklistId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'pstn_blacklist_phone',
-          name: 'pstnBlacklistPhone',
-          transformer: TypeTransformer.to('string', true),
-        },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
-      ];
-      const respMapper = [
-        {
-          rawName: 'result',
-          name: 'result',
-          transformer: TypeTransformer.from('[PstnBlackListInfoType]'),
-        },
-        { rawName: 'total_count', name: 'totalCount', transformer: TypeTransformer.from('number') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('GetPstnBlackList', request, [reqMapper, respMapper]);
-    },
-  };
-
-  public SIPWhiteList: SIPWhiteListInterface = {
-    /**
-     * Adds a new network address to the SIP white list.
-     */
-    addSipWhiteListItem: (
-      request: AddSipWhiteListItemRequest
-    ): Promise<AddSipWhiteListItemResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'sip_whitelist_network',
-          name: 'sipWhitelistNetwork',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'description',
-          name: 'description',
-          transformer: TypeTransformer.to('string', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-        {
-          rawName: 'sip_whitelist_id',
-          name: 'sipWhitelistId',
-          transformer: TypeTransformer.from('number'),
-        },
-      ];
-      return this.makeRequest('AddSipWhiteListItem', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Deletes the network address from the SIP white list.
-     */
-    delSipWhiteListItem: (
-      request: DelSipWhiteListItemRequest
-    ): Promise<DelSipWhiteListItemResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'sip_whitelist_id',
-          name: 'sipWhitelistId',
-          transformer: TypeTransformer.to('number', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('DelSipWhiteListItem', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Edits the SIP white list.
-     */
-    setSipWhiteListItem: (
-      request: SetSipWhiteListItemRequest
-    ): Promise<SetSipWhiteListItemResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'sip_whitelist_id',
-          name: 'sipWhitelistId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'sip_whitelist_network',
-          name: 'sipWhitelistNetwork',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'description',
-          name: 'description',
-          transformer: TypeTransformer.to('string', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('SetSipWhiteListItem', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Gets the SIP white list.
-     */
-    getSipWhiteList: (request: GetSipWhiteListRequest): Promise<GetSipWhiteListResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'sip_whitelist_id',
-          name: 'sipWhitelistId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
-      ];
-      const respMapper = [
-        {
-          rawName: 'result',
-          name: 'result',
-          transformer: TypeTransformer.from('[SipWhiteListInfoType]'),
-        },
-        { rawName: 'total_count', name: 'totalCount', transformer: TypeTransformer.from('number') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('GetSipWhiteList', request, [reqMapper, respMapper]);
-    },
-  };
-
-  public SIPRegistration: SIPRegistrationInterface = {
-    /**
-     * Create a new SIP registration. You should specify the application_id or application_name if you specify the rule_name or user_id, or user_name. You should set is_persistent=true if you specify the user_id or user_name. You can bind only one SIP registration to the user (the previous SIP registration are automatically unbound).<br><br>Please note that when you create a SIP registration, we reserve the subscription fee and taxes for the upcoming month. Read more in the <a href='/docs/gettingstarted/billing'>Billing</a> page.
-     */
-    createSipRegistration: (
-      request: CreateSipRegistrationRequest
-    ): Promise<CreateSipRegistrationResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'sip_username',
-          name: 'sipUsername',
-          transformer: TypeTransformer.to('string', true),
-        },
-        { rawName: 'proxy', name: 'proxy', transformer: TypeTransformer.to('string', true) },
-        { rawName: 'auth_user', name: 'authUser', transformer: TypeTransformer.to('string', true) },
-        {
-          rawName: 'outbound_proxy',
-          name: 'outboundProxy',
-          transformer: TypeTransformer.to('string', true),
-        },
-        { rawName: 'password', name: 'password', transformer: TypeTransformer.to('string', true) },
-        {
-          rawName: 'is_persistent',
-          name: 'isPersistent',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'application_id',
-          name: 'applicationId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'application_name',
-          name: 'applicationName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-        {
-          rawName: 'sip_registration_id',
-          name: 'sipRegistrationId',
-          transformer: TypeTransformer.from('number'),
-        },
-        {
-          rawName: 'account_info',
-          name: 'accountInfo',
-          transformer: TypeTransformer.from('ShortAccountInfoType'),
-        },
-      ];
-      return this.makeRequest('CreateSipRegistration', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Update SIP registration. You should specify the application_id or application_name if you specify the rule_name or user_id, or user_name. You can bind only one SIP registration to the user (the previous SIP registration is automatically unbound).
-     */
-    updateSipRegistration: (
-      request: UpdateSipRegistrationRequest
-    ): Promise<UpdateSipRegistrationResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'sip_registration_id',
-          name: 'sipRegistrationId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'sip_username',
-          name: 'sipUsername',
-          transformer: TypeTransformer.to('string', true),
-        },
-        { rawName: 'proxy', name: 'proxy', transformer: TypeTransformer.to('string', true) },
-        { rawName: 'auth_user', name: 'authUser', transformer: TypeTransformer.to('string', true) },
-        {
-          rawName: 'outbound_proxy',
-          name: 'outboundProxy',
-          transformer: TypeTransformer.to('string', true),
-        },
-        { rawName: 'password', name: 'password', transformer: TypeTransformer.to('string', true) },
-        {
-          rawName: 'application_id',
-          name: 'applicationId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'application_name',
-          name: 'applicationName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('UpdateSipRegistration', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Bind the SIP registration to the application/user or unbind the SIP registration from the application/user. You should specify the application_id or application_name if you specify the rule_name or user_id, or user_name. You should specify the sip_registration_id if you set bind=true. You can bind only one SIP registration to the user (the previous SIP registration is automatically unbound).
-     */
-    bindSipRegistration: (
-      request: BindSipRegistrationRequest
-    ): Promise<BindSipRegistrationResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'sip_registration_id',
-          name: 'sipRegistrationId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'application_id',
-          name: 'applicationId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'application_name',
-          name: 'applicationName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
-        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean', true) },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('BindSipRegistration', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Delete SIP registration.
-     */
-    deleteSipRegistration: (
-      request: DeleteSipRegistrationRequest
-    ): Promise<DeleteSipRegistrationResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'sip_registration_id',
-          name: 'sipRegistrationId',
-          transformer: TypeTransformer.to('number', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('DeleteSipRegistration', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Get active SIP registrations.
-     */
-    getSipRegistrations: (
-      request: GetSipRegistrationsRequest
-    ): Promise<GetSipRegistrationsResponse> => {
-      const reqMapper = [
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('intlist', true) },
-        {
-          rawName: 'rule_name',
-          name: 'ruleName',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
-        {
-          rawName: 'user_name',
-          name: 'userName',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-        {
-          rawName: 'sip_registration_id',
-          name: 'sipRegistrationId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'sip_username',
-          name: 'sipUsername',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'deactivated',
-          name: 'deactivated',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'successful',
-          name: 'successful',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'is_persistent',
-          name: 'isPersistent',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'application_id',
-          name: 'applicationId',
-          transformer: TypeTransformer.to('intlist', true),
-        },
-        {
-          rawName: 'application_name',
-          name: 'applicationName',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-        {
-          rawName: 'is_bound_to_application',
-          name: 'isBoundToApplication',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        { rawName: 'proxy', name: 'proxy', transformer: TypeTransformer.to('stringlist', true) },
-        {
-          rawName: 'in_progress',
-          name: 'inProgress',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'status_code',
-          name: 'statusCode',
-          transformer: TypeTransformer.to('string', true),
-        },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
-      ];
-      const respMapper = [
-        {
-          rawName: 'result',
-          name: 'result',
-          transformer: TypeTransformer.from('[SIPRegistrationType]'),
-        },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('GetSipRegistrations', request, [reqMapper, respMapper]);
-    },
-  };
-
   public PhoneNumbers: PhoneNumbersInterface = {
+    /**
+     * Receives information about the created phone numbers report or list of reports.
+     */
+    getPhoneNumberReports: (
+      request: GetPhoneNumberReportsRequest
+    ): Promise<GetPhoneNumberReportsResponse> => {
+      const reqMapper = [
+        { rawName: 'report_id', name: 'reportId', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'report_type',
+          name: 'reportType',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'created_from',
+          name: 'createdFrom',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        {
+          rawName: 'created_to',
+          name: 'createdTo',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
+        {
+          rawName: 'is_completed',
+          name: 'isCompleted',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'desc_order',
+          name: 'descOrder',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+      ];
+      const respMapper = [
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('[CommonReportType]'),
+        },
+        { rawName: 'total_count', name: 'totalCount', transformer: TypeTransformer.from('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('GetPhoneNumberReports', request, [reqMapper, respMapper]);
+    },
     /**
      * Attach the phone number to the account. Note that phone numbers of some countries may require additional verification steps.<br><br>Please note that when you purchase a phone number, we reserve the subscription fee and taxes for the upcoming month. Read more in the <a href='/docs/gettingstarted/billing'>Billing</a> page.
      */
@@ -3890,6 +3482,440 @@ export default class VoximplantApiClient {
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('[string]') },
       ];
       return this.makeRequest('GetAccountPhoneNumberCountries', request, [reqMapper, respMapper]);
+    },
+  };
+
+  public PSTNBlacklist: PSTNBlacklistInterface = {
+    /**
+     * Add a new phone number to the PSTN blacklist. Use blacklist to block incoming calls from specified phone numbers to numbers purchased from Voximplant. Since we have no control over exact phone number format for calls from SIP integrations, blacklisting such numbers should be done via JavaScript scenarios.
+     */
+    addPstnBlackListItem: (
+      request: AddPstnBlackListItemRequest
+    ): Promise<AddPstnBlackListItemResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'pstn_blacklist_phone',
+          name: 'pstnBlacklistPhone',
+          transformer: TypeTransformer.to('string', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+        {
+          rawName: 'pstn_blacklist_id',
+          name: 'pstnBlacklistId',
+          transformer: TypeTransformer.from('number'),
+        },
+      ];
+      return this.makeRequest('AddPstnBlackListItem', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Update the PSTN blacklist item. BlackList works for numbers that are purchased from Voximplant only. Since we have no control over exact phone number format for calls from SIP integrations, blacklisting such numbers should be done via JavaScript scenarios.
+     */
+    setPstnBlackListItem: (
+      request: SetPstnBlackListItemRequest
+    ): Promise<SetPstnBlackListItemResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'pstn_blacklist_id',
+          name: 'pstnBlacklistId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'pstn_blacklist_phone',
+          name: 'pstnBlacklistPhone',
+          transformer: TypeTransformer.to('string', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('SetPstnBlackListItem', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Remove phone number from the PSTN blacklist.
+     */
+    delPstnBlackListItem: (
+      request: DelPstnBlackListItemRequest
+    ): Promise<DelPstnBlackListItemResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'pstn_blacklist_id',
+          name: 'pstnBlacklistId',
+          transformer: TypeTransformer.to('number', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('DelPstnBlackListItem', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Get the whole PSTN blacklist.
+     */
+    getPstnBlackList: (request: GetPstnBlackListRequest): Promise<GetPstnBlackListResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'pstn_blacklist_id',
+          name: 'pstnBlacklistId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'pstn_blacklist_phone',
+          name: 'pstnBlacklistPhone',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+      ];
+      const respMapper = [
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('[PstnBlackListInfoType]'),
+        },
+        { rawName: 'total_count', name: 'totalCount', transformer: TypeTransformer.from('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('GetPstnBlackList', request, [reqMapper, respMapper]);
+    },
+  };
+
+  public SIPWhiteList: SIPWhiteListInterface = {
+    /**
+     * Adds a new network address to the SIP white list.
+     */
+    addSipWhiteListItem: (
+      request: AddSipWhiteListItemRequest
+    ): Promise<AddSipWhiteListItemResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'sip_whitelist_network',
+          name: 'sipWhitelistNetwork',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+        {
+          rawName: 'sip_whitelist_id',
+          name: 'sipWhitelistId',
+          transformer: TypeTransformer.from('number'),
+        },
+      ];
+      return this.makeRequest('AddSipWhiteListItem', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Deletes the network address from the SIP white list.
+     */
+    delSipWhiteListItem: (
+      request: DelSipWhiteListItemRequest
+    ): Promise<DelSipWhiteListItemResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'sip_whitelist_id',
+          name: 'sipWhitelistId',
+          transformer: TypeTransformer.to('number', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('DelSipWhiteListItem', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Edits the SIP white list.
+     */
+    setSipWhiteListItem: (
+      request: SetSipWhiteListItemRequest
+    ): Promise<SetSipWhiteListItemResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'sip_whitelist_id',
+          name: 'sipWhitelistId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'sip_whitelist_network',
+          name: 'sipWhitelistNetwork',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('SetSipWhiteListItem', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Gets the SIP white list.
+     */
+    getSipWhiteList: (request: GetSipWhiteListRequest): Promise<GetSipWhiteListResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'sip_whitelist_id',
+          name: 'sipWhitelistId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+      ];
+      const respMapper = [
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('[SipWhiteListInfoType]'),
+        },
+        { rawName: 'total_count', name: 'totalCount', transformer: TypeTransformer.from('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('GetSipWhiteList', request, [reqMapper, respMapper]);
+    },
+  };
+
+  public SIPRegistration: SIPRegistrationInterface = {
+    /**
+     * Create a new SIP registration. You should specify the application_id or application_name if you specify the rule_name or user_id, or user_name. You should set is_persistent=true if you specify the user_id or user_name. You can bind only one SIP registration to the user (the previous SIP registration are automatically unbound).<br><br>Please note that when you create a SIP registration, we reserve the subscription fee and taxes for the upcoming month. Read more in the <a href='/docs/gettingstarted/billing'>Billing</a> page.
+     */
+    createSipRegistration: (
+      request: CreateSipRegistrationRequest
+    ): Promise<CreateSipRegistrationResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'sip_username',
+          name: 'sipUsername',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'proxy', name: 'proxy', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'auth_user', name: 'authUser', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'outbound_proxy',
+          name: 'outboundProxy',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'password', name: 'password', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'is_persistent',
+          name: 'isPersistent',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+        {
+          rawName: 'sip_registration_id',
+          name: 'sipRegistrationId',
+          transformer: TypeTransformer.from('number'),
+        },
+        {
+          rawName: 'account_info',
+          name: 'accountInfo',
+          transformer: TypeTransformer.from('ShortAccountInfoType'),
+        },
+      ];
+      return this.makeRequest('CreateSipRegistration', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Update SIP registration. You should specify the application_id or application_name if you specify the rule_name or user_id, or user_name. You can bind only one SIP registration to the user (the previous SIP registration is automatically unbound).
+     */
+    updateSipRegistration: (
+      request: UpdateSipRegistrationRequest
+    ): Promise<UpdateSipRegistrationResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'sip_registration_id',
+          name: 'sipRegistrationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'sip_username',
+          name: 'sipUsername',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'proxy', name: 'proxy', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'auth_user', name: 'authUser', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'outbound_proxy',
+          name: 'outboundProxy',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'password', name: 'password', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('UpdateSipRegistration', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Bind the SIP registration to the application/user or unbind the SIP registration from the application/user. You should specify the application_id or application_name if you specify the rule_name or user_id, or user_name. You should specify the sip_registration_id if you set bind=true. You can bind only one SIP registration to the user (the previous SIP registration is automatically unbound).
+     */
+    bindSipRegistration: (
+      request: BindSipRegistrationRequest
+    ): Promise<BindSipRegistrationResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'sip_registration_id',
+          name: 'sipRegistrationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'user_name', name: 'userName', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'bind', name: 'bind', transformer: TypeTransformer.to('boolean', true) },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('BindSipRegistration', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Delete SIP registration.
+     */
+    deleteSipRegistration: (
+      request: DeleteSipRegistrationRequest
+    ): Promise<DeleteSipRegistrationResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'sip_registration_id',
+          name: 'sipRegistrationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('DeleteSipRegistration', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Get active SIP registrations.
+     */
+    getSipRegistrations: (
+      request: GetSipRegistrationsRequest
+    ): Promise<GetSipRegistrationsResponse> => {
+      const reqMapper = [
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'rule_name',
+          name: 'ruleName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'user_name',
+          name: 'userName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'sip_registration_id',
+          name: 'sipRegistrationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'sip_username',
+          name: 'sipUsername',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'deactivated',
+          name: 'deactivated',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'successful',
+          name: 'successful',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'is_persistent',
+          name: 'isPersistent',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'is_bound_to_application',
+          name: 'isBoundToApplication',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        { rawName: 'proxy', name: 'proxy', transformer: TypeTransformer.to('stringlist', true) },
+        {
+          rawName: 'in_progress',
+          name: 'inProgress',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'status_code',
+          name: 'statusCode',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+      ];
+      const respMapper = [
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('[SIPRegistrationType]'),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('GetSipRegistrations', request, [reqMapper, respMapper]);
     },
   };
 
@@ -4804,6 +4830,11 @@ export default class VoximplantApiClient {
           transformer: TypeTransformer.to('string', true),
         },
         {
+          rawName: 'hold_calls_if_inactive_agents',
+          name: 'holdCallsIfInactiveAgents',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
           rawName: 'description',
           name: 'description',
           transformer: TypeTransformer.to('string', true),
@@ -4873,6 +4904,11 @@ export default class VoximplantApiClient {
           rawName: 'sq_queue_name',
           name: 'sqQueueName',
           transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'hold_calls_if_inactive_agents',
+          name: 'holdCallsIfInactiveAgents',
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'new_sq_queue_name',

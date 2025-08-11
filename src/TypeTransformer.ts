@@ -1356,7 +1356,7 @@ export default class TypeTransformer {
         xData['skillName'] = TypeTransformer.to('string')(data['skill_name']);
       return xData;
     },
-    ExchangeRates: function (data) {
+    ExchangeRatesType: function (data) {
       const xData = {};
       if (typeof data['RUR'] !== 'undefined')
         xData['RUR'] = TypeTransformer.to('number')(data['RUR']);
@@ -1580,14 +1580,6 @@ export default class TypeTransformer {
         );
       return xData;
     },
-    ChargeAccountResult: function (data) {
-      const xData = {};
-      if (typeof data['charged_amount'] !== 'undefined')
-        xData['chargedAmount'] = TypeTransformer.to('number')(data['charged_amount']);
-      if (typeof data['phones'] !== 'undefined')
-        xData['phones'] = TypeTransformer.to('ChargedPhone[]')(data['phones']);
-      return xData;
-    },
     ChargedPhoneType: function (data) {
       const xData = {};
       if (typeof data['phone_id'] !== 'undefined')
@@ -1658,12 +1650,78 @@ export default class TypeTransformer {
         xData['documents'] = TypeTransformer.to('AccountVerificationDocument[]')(data['documents']);
       return xData;
     },
-    AccountVerifications: function (data) {
+    AccountDocumentsType: function (data) {
       const xData = {};
       if (typeof data['account_id'] !== 'undefined')
         xData['accountId'] = TypeTransformer.to('number')(data['account_id']);
       if (typeof data['verifications'] !== 'undefined')
         xData['verifications'] = TypeTransformer.to('AccountVerification[]')(data['verifications']);
+      return xData;
+    },
+    AccountVerificationsType: function (data) {
+      const xData = {};
+      if (typeof data['verification_id'] !== 'undefined')
+        xData['verificationId'] = TypeTransformer.to('number')(data['verification_id']);
+      if (typeof data['status'] !== 'undefined')
+        xData['status'] = TypeTransformer.to('string')(data['status']);
+      if (typeof data['status_scheme'] !== 'undefined')
+        xData['statusScheme'] = TypeTransformer.to('string')(data['status_scheme']);
+      if (typeof data['creation_type'] !== 'undefined')
+        xData['creationType'] = TypeTransformer.to('string')(data['creation_type']);
+      if (typeof data['created'] !== 'undefined')
+        xData['created'] = TypeTransformer.to('string')(data['created']);
+      if (typeof data['comments'] !== 'undefined')
+        xData['comments'] = TypeTransformer.to('number')(data['comments']);
+      if (typeof data['credentials'] !== 'undefined')
+        xData['credentials'] = TypeTransformer.to('AccountVerificationsCredentials[]')(
+          data['credentials']
+        );
+      if (typeof data['default_end_user'] !== 'undefined')
+        xData['defaultEndUser'] = TypeTransformer.to('AccountVerificationsDefaultEndUser[]')(
+          data['default_end_user']
+        );
+      if (typeof data['agreements'] !== 'undefined')
+        xData['agreements'] = TypeTransformer.to('AccountVerificationsAgreements[]')(
+          data['agreements']
+        );
+      return xData;
+    },
+    AccountVerificationsTypeCredentials: function (data) {
+      const xData = {};
+      if (typeof data['individual'] !== 'undefined')
+        xData['individual'] = TypeTransformer.to('any')(data['individual']);
+      if (typeof data['legal_entity'] !== 'undefined')
+        xData['legalEntity'] = TypeTransformer.to('any')(data['legal_entity']);
+      if (typeof data['entrepreneur'] !== 'undefined')
+        xData['entrepreneur'] = TypeTransformer.to('any')(data['entrepreneur']);
+      if (typeof data['legal_status'] !== 'undefined')
+        xData['legalStatus'] = TypeTransformer.to('string')(data['legal_status']);
+      return xData;
+    },
+    AccountVerificationsTypeDefaultEndUser: function (data) {
+      const xData = {};
+      if (typeof data['end_user_uuid'] !== 'undefined')
+        xData['endUserUuid'] = TypeTransformer.to('number')(data['end_user_uuid']);
+      if (typeof data['credentials'] !== 'undefined')
+        xData['credentials'] = TypeTransformer.to('any')(data['credentials']);
+      return xData;
+    },
+    AccountVerificationsTypeAgreements: function (data) {
+      const xData = {};
+      if (typeof data['agreement_id'] !== 'undefined')
+        xData['agreementId'] = TypeTransformer.to('number')(data['agreement_id']);
+      if (typeof data['type'] !== 'undefined')
+        xData['type'] = TypeTransformer.to('string')(data['type']);
+      if (typeof data['status'] !== 'undefined')
+        xData['status'] = TypeTransformer.to('string')(data['status']);
+      if (typeof data['agreement_number'] !== 'undefined')
+        xData['agreementNumber'] = TypeTransformer.to('string')(data['agreement_number']);
+      if (typeof data['agreement_date'] !== 'undefined')
+        xData['agreementDate'] = TypeTransformer.to('string')(data['agreement_date']);
+      if (typeof data['signing_type'] !== 'undefined')
+        xData['signingType'] = TypeTransformer.to('string')(data['signing_type']);
+      if (typeof data['comments'] !== 'undefined')
+        xData['comments'] = TypeTransformer.to('string')(data['comments']);
       return xData;
     },
     SubscriptionTemplateType: function (data) {
@@ -1832,6 +1890,10 @@ export default class TypeTransformer {
         );
       if (typeof data['sms_inbound'] !== 'undefined')
         xData['smsInbound'] = TypeTransformer.to('InboundSmsCallback')(data['sms_inbound']);
+      if (typeof data['phone_number_activation_status_changed'] !== 'undefined')
+        xData['phoneNumberActivationStatusChanged'] = TypeTransformer.to(
+          'PhoneNumberActivationStatusChangedCallback'
+        )(data['phone_number_activation_status_changed']);
       if (typeof data['expiring_agreement'] !== 'undefined')
         xData['expiringAgreement'] = TypeTransformer.to('ExpiringAgreementCallback')(
           data['expiring_agreement']
@@ -2498,6 +2560,22 @@ export default class TypeTransformer {
         xData['smsInbound'] = TypeTransformer.to('InboundSmsCallbackItem')(data['sms_inbound']);
       return xData;
     },
+    PhoneNumberActivationStatusChangedCallback: function (data) {
+      const xData = {};
+      if (typeof data['phone_number_activation_status_changed'] !== 'undefined')
+        xData['phoneNumberActivationStatusChanged'] = TypeTransformer.to(
+          'PhoneNumberActivationStatusChangedCallbackItem'
+        )(data['phone_number_activation_status_changed']);
+      return xData;
+    },
+    PhoneNumberActivationStatusChangedCallbackItem: function (data) {
+      const xData = {};
+      if (typeof data['phone_number'] !== 'undefined')
+        xData['phoneNumber'] = TypeTransformer.to('string')(data['phone_number']);
+      if (typeof data['activation_status'] !== 'undefined')
+        xData['activationStatus'] = TypeTransformer.to('string')(data['activation_status']);
+      return xData;
+    },
     InboundSmsCallbackItem: function (data) {
       const xData = {};
       if (typeof data['source_number'] !== 'undefined')
@@ -2699,6 +2777,10 @@ export default class TypeTransformer {
         xData['agentSelection'] = TypeTransformer.to('string')(data['agent_selection']);
       if (typeof data['task_selection'] !== 'undefined')
         xData['taskSelection'] = TypeTransformer.to('string')(data['task_selection']);
+      if (typeof data['hold_calls_if_inactive_agents'] !== 'undefined')
+        xData['holdCallsIfInactiveAgents'] = TypeTransformer.to('boolean')(
+          data['hold_calls_if_inactive_agents']
+        );
       if (typeof data['description'] !== 'undefined')
         xData['description'] = TypeTransformer.to('string')(data['description']);
       if (typeof data['created'] !== 'undefined')
@@ -4625,14 +4707,6 @@ export default class TypeTransformer {
         );
       return xData;
     },
-    ChargeAccountResult: function (data) {
-      const xData = {};
-      if (typeof data['chargedAmount'] !== 'undefined')
-        xData['charged_amount'] = TypeTransformer.from('number')(data['chargedAmount']);
-      if (typeof data['phones'] !== 'undefined')
-        xData['phones'] = TypeTransformer.from('ChargedPhone[]')(data['phones']);
-      return xData;
-    },
     ChargedPhone: function (data) {
       const xData = {};
       if (typeof data['phoneId'] !== 'undefined')
@@ -4705,7 +4779,7 @@ export default class TypeTransformer {
         );
       return xData;
     },
-    AccountVerifications: function (data) {
+    AccountDocuments: function (data) {
       const xData = {};
       if (typeof data['accountId'] !== 'undefined')
         xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
@@ -4713,6 +4787,72 @@ export default class TypeTransformer {
         xData['verifications'] = TypeTransformer.from('AccountVerification[]')(
           data['verifications']
         );
+      return xData;
+    },
+    AccountVerifications: function (data) {
+      const xData = {};
+      if (typeof data['verificationId'] !== 'undefined')
+        xData['verification_id'] = TypeTransformer.from('number')(data['verificationId']);
+      if (typeof data['status'] !== 'undefined')
+        xData['status'] = TypeTransformer.from('string')(data['status']);
+      if (typeof data['statusScheme'] !== 'undefined')
+        xData['status_scheme'] = TypeTransformer.from('string')(data['statusScheme']);
+      if (typeof data['creationType'] !== 'undefined')
+        xData['creation_type'] = TypeTransformer.from('string')(data['creationType']);
+      if (typeof data['created'] !== 'undefined')
+        xData['created'] = TypeTransformer.from('string')(data['created']);
+      if (typeof data['comments'] !== 'undefined')
+        xData['comments'] = TypeTransformer.from('number')(data['comments']);
+      if (typeof data['credentials'] !== 'undefined')
+        xData['credentials'] = TypeTransformer.from('AccountVerificationsCredentials[]')(
+          data['credentials']
+        );
+      if (typeof data['defaultEndUser'] !== 'undefined')
+        xData['default_end_user'] = TypeTransformer.from('AccountVerificationsDefaultEndUser[]')(
+          data['defaultEndUser']
+        );
+      if (typeof data['agreements'] !== 'undefined')
+        xData['agreements'] = TypeTransformer.from('AccountVerificationsAgreements[]')(
+          data['agreements']
+        );
+      return xData;
+    },
+    AccountVerificationsCredentials: function (data) {
+      const xData = {};
+      if (typeof data['individual'] !== 'undefined')
+        xData['individual'] = TypeTransformer.from('any')(data['individual']);
+      if (typeof data['legalEntity'] !== 'undefined')
+        xData['legal_entity'] = TypeTransformer.from('any')(data['legalEntity']);
+      if (typeof data['entrepreneur'] !== 'undefined')
+        xData['entrepreneur'] = TypeTransformer.from('any')(data['entrepreneur']);
+      if (typeof data['legalStatus'] !== 'undefined')
+        xData['legal_status'] = TypeTransformer.from('string')(data['legalStatus']);
+      return xData;
+    },
+    AccountVerificationsDefaultEndUser: function (data) {
+      const xData = {};
+      if (typeof data['endUserUuid'] !== 'undefined')
+        xData['end_user_uuid'] = TypeTransformer.from('number')(data['endUserUuid']);
+      if (typeof data['credentials'] !== 'undefined')
+        xData['credentials'] = TypeTransformer.from('any')(data['credentials']);
+      return xData;
+    },
+    AccountVerificationsAgreements: function (data) {
+      const xData = {};
+      if (typeof data['agreementId'] !== 'undefined')
+        xData['agreement_id'] = TypeTransformer.from('number')(data['agreementId']);
+      if (typeof data['type'] !== 'undefined')
+        xData['type'] = TypeTransformer.from('string')(data['type']);
+      if (typeof data['status'] !== 'undefined')
+        xData['status'] = TypeTransformer.from('string')(data['status']);
+      if (typeof data['agreementNumber'] !== 'undefined')
+        xData['agreement_number'] = TypeTransformer.from('string')(data['agreementNumber']);
+      if (typeof data['agreementDate'] !== 'undefined')
+        xData['agreement_date'] = TypeTransformer.from('string')(data['agreementDate']);
+      if (typeof data['signingType'] !== 'undefined')
+        xData['signing_type'] = TypeTransformer.from('string')(data['signingType']);
+      if (typeof data['comments'] !== 'undefined')
+        xData['comments'] = TypeTransformer.from('string')(data['comments']);
       return xData;
     },
     SubscriptionTemplate: function (data) {
@@ -4883,6 +5023,10 @@ export default class TypeTransformer {
         );
       if (typeof data['smsInbound'] !== 'undefined')
         xData['sms_inbound'] = TypeTransformer.from('InboundSmsCallback')(data['smsInbound']);
+      if (typeof data['phoneNumberActivationStatusChanged'] !== 'undefined')
+        xData['phone_number_activation_status_changed'] = TypeTransformer.from(
+          'PhoneNumberActivationStatusChangedCallback'
+        )(data['phoneNumberActivationStatusChanged']);
       if (typeof data['expiringAgreement'] !== 'undefined')
         xData['expiring_agreement'] = TypeTransformer.from('ExpiringAgreementCallback')(
           data['expiringAgreement']
@@ -5562,6 +5706,22 @@ export default class TypeTransformer {
         xData['sms_inbound'] = TypeTransformer.from('InboundSmsCallbackItem')(data['smsInbound']);
       return xData;
     },
+    PhoneNumberActivationStatusChangedCallback: function (data) {
+      const xData = {};
+      if (typeof data['phoneNumberActivationStatusChanged'] !== 'undefined')
+        xData['phone_number_activation_status_changed'] = TypeTransformer.from(
+          'PhoneNumberActivationStatusChangedCallbackItem'
+        )(data['phoneNumberActivationStatusChanged']);
+      return xData;
+    },
+    PhoneNumberActivationStatusChangedCallbackItem: function (data) {
+      const xData = {};
+      if (typeof data['phoneNumber'] !== 'undefined')
+        xData['phone_number'] = TypeTransformer.from('string')(data['phoneNumber']);
+      if (typeof data['activationStatus'] !== 'undefined')
+        xData['activation_status'] = TypeTransformer.from('string')(data['activationStatus']);
+      return xData;
+    },
     InboundSmsCallbackItem: function (data) {
       const xData = {};
       if (typeof data['sourceNumber'] !== 'undefined')
@@ -5764,6 +5924,10 @@ export default class TypeTransformer {
         xData['agent_selection'] = TypeTransformer.from('string')(data['agentSelection']);
       if (typeof data['taskSelection'] !== 'undefined')
         xData['task_selection'] = TypeTransformer.from('string')(data['taskSelection']);
+      if (typeof data['holdCallsIfInactiveAgents'] !== 'undefined')
+        xData['hold_calls_if_inactive_agents'] = TypeTransformer.from('boolean')(
+          data['holdCallsIfInactiveAgents']
+        );
       if (typeof data['description'] !== 'undefined')
         xData['description'] = TypeTransformer.from('string')(data['description']);
       if (typeof data['created'] !== 'undefined')
