@@ -30,6 +30,7 @@ import {
   PstnBlackListInfo,
   SipWhiteListInfo,
   SIPRegistration,
+  WABPhoneInfo,
   CallerIDInfo,
   OutboundTestPhonenumberInfo,
   QueueInfo,
@@ -153,6 +154,10 @@ export interface UtilsReturns {
   BindSipRegistration: BindSipRegistrationResponse;
   DeleteSipRegistration: DeleteSipRegistrationResponse;
   GetSipRegistrations: GetSipRegistrationsResponse;
+  AddWABPhoneNumber: AddWABPhoneNumberResponse;
+  DeleteWABPhoneNumber: DeleteWABPhoneNumberResponse;
+  SetWABPhoneNumberInfo: SetWABPhoneNumberInfoResponse;
+  GetWABPhoneNumbers: GetWABPhoneNumbersResponse;
   AddCallerID: AddCallerIDResponse;
   ActivateCallerID: ActivateCallerIDResponse;
   DelCallerID: DelCallerIDResponse;
@@ -3684,6 +3689,149 @@ export interface SIPRegistrationInterface {
   getSipRegistrations: (
     request: GetSipRegistrationsRequest
   ) => Promise<GetSipRegistrationsResponse>;
+}
+
+export interface AddWABPhoneNumberRequest {
+  /**
+   * WhatsApp Business phone number
+   */
+  wabPhoneNumber: string;
+  /**
+   * WhatsApp Business SIP password
+   */
+  voicePassword: string;
+  /**
+   * WhatsApp Business phone number description
+   */
+  description?: string;
+  /**
+   * Bound application ID
+   */
+  applicationId?: number;
+  /**
+   * Bound application name that can be used instead of <b>application_id</b>
+   */
+  applicationName?: string;
+  /**
+   * Bound rule ID
+   */
+  ruleId?: number;
+  /**
+   * Bound rule name that can be used instead of <b>rule_id</b>
+   */
+  ruleName?: string;
+}
+
+export interface AddWABPhoneNumberResponse {
+  /**
+   * 1
+   */
+  result: number;
+  error?: APIError;
+}
+export interface DeleteWABPhoneNumberRequest {
+  /**
+   * WhatsApp Business phone number to delete
+   */
+  wabPhoneNumber: string;
+}
+
+export interface DeleteWABPhoneNumberResponse {
+  /**
+   * 1
+   */
+  result: number;
+  error?: APIError;
+}
+export interface SetWABPhoneNumberInfoRequest {
+  /**
+   * WhatsApp Business phone number to change details for
+   */
+  wabPhoneNumber: string;
+  /**
+   * New WhatsApp Business SIP password
+   */
+  voicePassword?: string;
+  /**
+   * New WhatsApp Business phone number description
+   */
+  description?: string;
+  /**
+   * Bound application ID
+   */
+  applicationId?: number;
+  /**
+   * Bound application name that can be used instead of <b>application_id</b>
+   */
+  applicationName?: string;
+  /**
+   * Bound rule ID
+   */
+  ruleId?: number;
+  /**
+   * Bound rule name that can be used instead of <b>rule_id</b>
+   */
+  ruleName?: string;
+}
+
+export interface SetWABPhoneNumberInfoResponse {
+  /**
+   * 1
+   */
+  result: number;
+  error?: APIError;
+}
+export interface GetWABPhoneNumbersRequest {
+  /**
+   * WhatsApp Business phone number
+   */
+  wabPhoneNumber?: string;
+  /**
+   * Application ID that is bound to the WhatsApp Business phone number
+   */
+  applicationId?: number;
+  /**
+   * Bound application name that can be used instead of <b>application_id</b>
+   */
+  applicationName?: string;
+  /**
+   * Country code filter (2 symbols) for the WhatsApp Business phone number
+   */
+  countryCode?: string;
+  /**
+   * Maximum returning records count
+   */
+  count?: number;
+  /**
+   * Number of records to be skipped in the result
+   */
+  offset?: number;
+}
+
+export interface GetWABPhoneNumbersResponse {
+  /**
+   * WhatsApp Business phone numbers info
+   */
+  result: WABPhoneInfo[];
+  /**
+   * Number of total records found
+   */
+  totalCount: number;
+  /**
+   * Number of returned records
+   */
+  count: number;
+  error?: APIError;
+}
+export interface WABPhoneNumbersInterface {
+  addWABPhoneNumber: (request: AddWABPhoneNumberRequest) => Promise<AddWABPhoneNumberResponse>;
+  deleteWABPhoneNumber: (
+    request: DeleteWABPhoneNumberRequest
+  ) => Promise<DeleteWABPhoneNumberResponse>;
+  setWABPhoneNumberInfo: (
+    request: SetWABPhoneNumberInfoRequest
+  ) => Promise<SetWABPhoneNumberInfoResponse>;
+  getWABPhoneNumbers: (request: GetWABPhoneNumbersRequest) => Promise<GetWABPhoneNumbersResponse>;
 }
 
 export interface AddCallerIDRequest {

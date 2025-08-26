@@ -178,6 +178,15 @@ import {
   GetSipRegistrationsRequest,
   GetSipRegistrationsResponse,
   SIPRegistrationInterface,
+  AddWABPhoneNumberRequest,
+  AddWABPhoneNumberResponse,
+  DeleteWABPhoneNumberRequest,
+  DeleteWABPhoneNumberResponse,
+  SetWABPhoneNumberInfoRequest,
+  SetWABPhoneNumberInfoResponse,
+  GetWABPhoneNumbersRequest,
+  GetWABPhoneNumbersResponse,
+  WABPhoneNumbersInterface,
   AddCallerIDRequest,
   AddCallerIDResponse,
   ActivateCallerIDRequest,
@@ -442,6 +451,7 @@ import {
   PstnBlackListInfo,
   SipWhiteListInfo,
   SIPRegistration,
+  WABPhoneInfo,
   CallerIDInfo,
   OutboundTestPhonenumberInfo,
   QueueInfo,
@@ -3916,6 +3926,146 @@ export default class VoximplantApiClient {
         { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
       ];
       return this.makeRequest('GetSipRegistrations', request, [reqMapper, respMapper]);
+    },
+  };
+
+  public WABPhoneNumbers: WABPhoneNumbersInterface = {
+    /**
+     * Adds a new WhatsApp Business phone number.
+     */
+    addWABPhoneNumber: (request: AddWABPhoneNumberRequest): Promise<AddWABPhoneNumberResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'wab_phone_number',
+          name: 'wabPhoneNumber',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'voice_password',
+          name: 'voicePassword',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('AddWABPhoneNumber', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Deletes a WhatsApp Business phone number.
+     */
+    deleteWABPhoneNumber: (
+      request: DeleteWABPhoneNumberRequest
+    ): Promise<DeleteWABPhoneNumberResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'wab_phone_number',
+          name: 'wabPhoneNumber',
+          transformer: TypeTransformer.to('string', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('DeleteWABPhoneNumber', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Sets details for the specified WhatsApp Business phone number.
+     */
+    setWABPhoneNumberInfo: (
+      request: SetWABPhoneNumberInfoRequest
+    ): Promise<SetWABPhoneNumberInfoResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'wab_phone_number',
+          name: 'wabPhoneNumber',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'voice_password',
+          name: 'voicePassword',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('SetWABPhoneNumberInfo', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Gets the account's WhatsApp Business phone numbers.
+     */
+    getWABPhoneNumbers: (
+      request: GetWABPhoneNumbersRequest
+    ): Promise<GetWABPhoneNumbersResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'wab_phone_number',
+          name: 'wabPhoneNumber',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'country_code',
+          name: 'countryCode',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+      ];
+      const respMapper = [
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('[WABPhoneInfoType]'),
+        },
+        { rawName: 'total_count', name: 'totalCount', transformer: TypeTransformer.from('number') },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('GetWABPhoneNumbers', request, [reqMapper, respMapper]);
     },
   };
 

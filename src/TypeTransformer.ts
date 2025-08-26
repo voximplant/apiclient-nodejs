@@ -1040,6 +1040,32 @@ export default class TypeTransformer {
         xData['phoneTaxReserve'] = TypeTransformer.to('number')(data['phone_tax_reserve']);
       return xData;
     },
+    WABPhoneInfoType: function (data) {
+      const xData = {};
+      if (typeof data['wab_phone_number'] !== 'undefined')
+        xData['wabPhoneNumber'] = TypeTransformer.to('string')(data['wab_phone_number']);
+      if (typeof data['country_code'] !== 'undefined')
+        xData['countryCode'] = TypeTransformer.to('string')(data['country_code']);
+      if (typeof data['application_id'] !== 'undefined')
+        xData['applicationId'] = TypeTransformer.to('number')(data['application_id']);
+      if (typeof data['application_name'] !== 'undefined')
+        xData['applicationName'] = TypeTransformer.to('string')(data['application_name']);
+      if (typeof data['rule_id'] !== 'undefined')
+        xData['ruleId'] = TypeTransformer.to('number')(data['rule_id']);
+      if (typeof data['rule_name'] !== 'undefined')
+        xData['ruleName'] = TypeTransformer.to('string')(data['rule_name']);
+      if (typeof data['extended_application_name'] !== 'undefined')
+        xData['extendedApplicationName'] = TypeTransformer.to('string')(
+          data['extended_application_name']
+        );
+      if (typeof data['description'] !== 'undefined')
+        xData['description'] = TypeTransformer.to('string')(data['description']);
+      if (typeof data['created'] !== 'undefined')
+        xData['created'] = TypeTransformer.to('Date')(data['created']);
+      if (typeof data['modified'] !== 'undefined')
+        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+      return xData;
+    },
     AttachedPhoneInfoType: function (data) {
       const xData = {};
       if (typeof data['phone_id'] !== 'undefined')
@@ -1671,7 +1697,7 @@ export default class TypeTransformer {
       if (typeof data['created'] !== 'undefined')
         xData['created'] = TypeTransformer.to('string')(data['created']);
       if (typeof data['comments'] !== 'undefined')
-        xData['comments'] = TypeTransformer.to('number')(data['comments']);
+        xData['comments'] = TypeTransformer.to('string')(data['comments']);
       if (typeof data['credentials'] !== 'undefined')
         xData['credentials'] = TypeTransformer.to('AccountVerificationsCredentials[]')(
           data['credentials']
@@ -4161,6 +4187,32 @@ export default class TypeTransformer {
         xData['phone_tax_reserve'] = TypeTransformer.from('number')(data['phoneTaxReserve']);
       return xData;
     },
+    WABPhoneInfo: function (data) {
+      const xData = {};
+      if (typeof data['wabPhoneNumber'] !== 'undefined')
+        xData['wab_phone_number'] = TypeTransformer.from('string')(data['wabPhoneNumber']);
+      if (typeof data['countryCode'] !== 'undefined')
+        xData['country_code'] = TypeTransformer.from('string')(data['countryCode']);
+      if (typeof data['applicationId'] !== 'undefined')
+        xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
+      if (typeof data['applicationName'] !== 'undefined')
+        xData['application_name'] = TypeTransformer.from('string')(data['applicationName']);
+      if (typeof data['ruleId'] !== 'undefined')
+        xData['rule_id'] = TypeTransformer.from('number')(data['ruleId']);
+      if (typeof data['ruleName'] !== 'undefined')
+        xData['rule_name'] = TypeTransformer.from('string')(data['ruleName']);
+      if (typeof data['extendedApplicationName'] !== 'undefined')
+        xData['extended_application_name'] = TypeTransformer.from('string')(
+          data['extendedApplicationName']
+        );
+      if (typeof data['description'] !== 'undefined')
+        xData['description'] = TypeTransformer.from('string')(data['description']);
+      if (typeof data['created'] !== 'undefined')
+        xData['created'] = TypeTransformer.from('Date')(data['created']);
+      if (typeof data['modified'] !== 'undefined')
+        xData['modified'] = TypeTransformer.from('Date')(data['modified']);
+      return xData;
+    },
     AttachedPhoneInfo: function (data) {
       const xData = {};
       if (typeof data['phoneId'] !== 'undefined')
@@ -4802,7 +4854,7 @@ export default class TypeTransformer {
       if (typeof data['created'] !== 'undefined')
         xData['created'] = TypeTransformer.from('string')(data['created']);
       if (typeof data['comments'] !== 'undefined')
-        xData['comments'] = TypeTransformer.from('number')(data['comments']);
+        xData['comments'] = TypeTransformer.from('string')(data['comments']);
       if (typeof data['credentials'] !== 'undefined')
         xData['credentials'] = TypeTransformer.from('AccountVerificationsCredentials[]')(
           data['credentials']

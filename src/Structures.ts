@@ -894,7 +894,7 @@ export interface CommonReport {
    */
   reportId: number;
   /**
-   * The report type. The following values are possible: phone_numbers, none
+   * The report type. The following values are possible: phone_numbers, phone_numbers_awaiting_configuration, none
    */
   type: string;
   /**
@@ -1673,6 +1673,48 @@ export interface NewPhoneInfo {
    * The phone number tax reserve
    */
   phoneTaxReserve: number;
+}
+export interface WABPhoneInfo {
+  /**
+   * WhatsApp Business phone number
+   */
+  wabPhoneNumber: string;
+  /**
+   * The WhatsApp Business country code (2 symbols)
+   */
+  countryCode: string;
+  /**
+   * ID of the bound application
+   */
+  applicationId?: number;
+  /**
+   * Name of the bound application
+   */
+  applicationName?: string;
+  /**
+   * ID of the bound rule
+   */
+  ruleId?: number;
+  /**
+   * Name of the bound rule
+   */
+  ruleName?: string;
+  /**
+   * Full application name, e.g. myapp.myaccount.n1.voximplant.com
+   */
+  extendedApplicationName?: string;
+  /**
+   * WhatsApp Business phone number description
+   */
+  description?: string;
+  /**
+   * UTC date in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  created: Date;
+  /**
+   * UTC date of an event associated with the number in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  modified: Date;
 }
 export interface AttachedPhoneInfo {
   /**
@@ -2700,7 +2742,7 @@ export interface AccountVerifications {
   /**
    * Comments for the customer in case of verification rejection
    */
-  comments: number;
+  comments: string;
   /**
    * Person or company who takes the verification
    */
