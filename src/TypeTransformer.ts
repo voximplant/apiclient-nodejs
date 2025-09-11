@@ -400,6 +400,8 @@ export default class TypeTransformer {
         xData['callId'] = TypeTransformer.to('number')(data['call_id']);
       if (typeof data['start_time'] !== 'undefined')
         xData['startTime'] = TypeTransformer.to('Date')(data['start_time']);
+      if (typeof data['diversion_number'] !== 'undefined')
+        xData['diversionNumber'] = TypeTransformer.to('string')(data['diversion_number']);
       if (typeof data['duration'] !== 'undefined')
         xData['duration'] = TypeTransformer.to('number')(data['duration']);
       if (typeof data['local_number'] !== 'undefined')
@@ -1699,7 +1701,7 @@ export default class TypeTransformer {
       if (typeof data['comments'] !== 'undefined')
         xData['comments'] = TypeTransformer.to('string')(data['comments']);
       if (typeof data['credentials'] !== 'undefined')
-        xData['credentials'] = TypeTransformer.to('AccountVerificationsCredentials[]')(
+        xData['credentials'] = TypeTransformer.to('AccountVerificationsCredentials')(
           data['credentials']
         );
       if (typeof data['default_end_user'] !== 'undefined')
@@ -3531,6 +3533,8 @@ export default class TypeTransformer {
         xData['call_id'] = TypeTransformer.from('number')(data['callId']);
       if (typeof data['startTime'] !== 'undefined')
         xData['start_time'] = TypeTransformer.from('Date')(data['startTime']);
+      if (typeof data['diversionNumber'] !== 'undefined')
+        xData['diversion_number'] = TypeTransformer.from('string')(data['diversionNumber']);
       if (typeof data['duration'] !== 'undefined')
         xData['duration'] = TypeTransformer.from('number')(data['duration']);
       if (typeof data['localNumber'] !== 'undefined')
@@ -4856,7 +4860,7 @@ export default class TypeTransformer {
       if (typeof data['comments'] !== 'undefined')
         xData['comments'] = TypeTransformer.from('string')(data['comments']);
       if (typeof data['credentials'] !== 'undefined')
-        xData['credentials'] = TypeTransformer.from('AccountVerificationsCredentials[]')(
+        xData['credentials'] = TypeTransformer.from('AccountVerificationsCredentials')(
           data['credentials']
         );
       if (typeof data['defaultEndUser'] !== 'undefined')

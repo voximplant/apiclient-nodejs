@@ -630,27 +630,31 @@ export interface CallSessionInfo {
 }
 export interface CallInfo {
   /**
-   * The call history ID
+   * Call's history ID
    */
   callId: number;
   /**
-   * The start time in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   * Call start time in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
    */
   startTime: Date;
   /**
-   * The call duration in seconds
+   * Call forwarding number
+   */
+  diversionNumber?: string;
+  /**
+   * Call duration in seconds
    */
   duration?: number;
   /**
-   * The local number on the platform side
+   * Local number on the platform side
    */
   localNumber: string;
   /**
-   * The remote number on the client side
+   * Remote number on the client side
    */
   remoteNumber: string;
   /**
-   * The type of the remote number, such as PSTN, mobile, user or sip address
+   * Type of the remote number, e.g., a PSTN, mobile, user or sip address
    */
   remoteNumberType: string;
   /**
@@ -662,23 +666,23 @@ export interface CallInfo {
    */
   successful: boolean;
   /**
-   * The transaction ID
+   * Transaction ID
    */
   transactionId: number;
   /**
-   * The record URL
+   * Record URL
    */
   recordUrl?: string;
   /**
-   * The media server IP address
+   * Media server's IP address
    */
   mediaServerAddress: string;
   /**
-   * The call cost
+   * Call's cost
    */
   cost?: number;
   /**
-   * The custom data passed to the JS session
+   * Custom data passed to the JS session
    */
   customData?: string;
   /**
@@ -2746,7 +2750,7 @@ export interface AccountVerifications {
   /**
    * Person or company who takes the verification
    */
-  credentials: AccountVerificationsCredentials[];
+  credentials: AccountVerificationsCredentials;
   /**
    * Verification's default customer
    */
@@ -3137,7 +3141,7 @@ export interface AccountDocumentVerifiedCallback {
    */
   accountDocumentId: number;
   /**
-   * The document verification status. The following values are possible: WAITING_CONFIRMATION_DOCS, VERIFIED, REJECTED
+   * The document verification status. The following values are possible: AWAITING_AGREEMENT_UPLOADING, AWAITING_VERIFICATION, WAITING_FOR_CONFIRMATION_DOCUMENTS, VERIFIED, REJECTED, WAITING_PERIOD_EXPIRED, AWAITING_DOCUMENTS_UPLOADING
    */
   accountDocumentStatus: string;
   /**
@@ -3565,7 +3569,7 @@ export interface AccountDocumentStatusUpdatedCallback {
    */
   accountDocumentId: number;
   /**
-   * Previous document verification status. The following values are possible: WAITING_CONFIRMATION_DOCS, VERIFIED, REJECTED
+   * Previous document verification status. The following values are possible: AWAITING_AGREEMENT_UPLOADING, AWAITING_VERIFICATION, WAITING_FOR_CONFIRMATION_DOCUMENTS, VERIFIED, REJECTED, WAITING_PERIOD_EXPIRED, AWAITING_DOCUMENTS_UPLOADING
    */
   previousAccountDocumentStatus: string;
   /**
@@ -3581,7 +3585,7 @@ export interface AccountDocumentStatusUpdatedCallback {
    */
   comment?: string;
   /**
-   * Status of the user in the context of entrepreneurial activity. Possible values are 'individual', 'entrepreneur', 'legal entity'
+   * Status of the user in the context of entrepreneurial activity. Possible values are: 'INDIVIDUAL', 'ENTREPRENEUR', 'LEGAL_ENTITY'
    */
   legalStatus: string;
 }
