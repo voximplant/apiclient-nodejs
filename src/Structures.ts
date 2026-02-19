@@ -880,7 +880,7 @@ export interface HistoryReport {
    */
   lastDownloaded?: Date;
   /**
-   * Store the report until the date in format: YYYY-MM-DD. The report is completed if the field exists
+   * Store the report until the date in the following format: YYYY-MM-DD. The report is completed if the field exists
    */
   storeUntil?: Date;
   /**
@@ -934,7 +934,7 @@ export interface CommonReport {
    */
   lastDownloaded?: Date;
   /**
-   * Store the report until the date in format: YYYY-MM-DD. The report is completed if the field exists
+   * Store the report until the date in the following format: YYYY-MM-DD. The report is completed if the field exists
    */
   storeUntil?: Date;
   /**
@@ -1646,11 +1646,11 @@ export interface NewPhoneInfo {
    */
   phoneNumber: string;
   /**
-   * The phone monthly charge
+   * The phone monthly fee. It consists of `phone_price` and `phone_tax_reserve`
    */
   phonePrice: number;
   /**
-   * The phone installation price (without the first monthly fee)
+   * The phone installation price (without the first monthly fee). It consists of `phone_installation_price` and `phone_installation_tax_reserve`
    */
   phoneInstallationPrice: number;
   /**
@@ -1670,11 +1670,11 @@ export interface NewPhoneInfo {
    */
   phoneRegionName: string;
   /**
-   * The phone number installation tax reserve
+   * The phone number installation tax reserve. The phone installation price consists of `phone_installation_price` and `phone_installation_tax_reserve`
    */
   phoneInstallationTaxReserve: number;
   /**
-   * The phone number tax reserve
+   * The phone number tax reserve. The phone monthly fee consists of `phone_price` and `phone_tax_reserve`
    */
   phoneTaxReserve: number;
 }
@@ -1738,7 +1738,11 @@ export interface AttachedPhoneInfo {
    */
   phoneCountryCode: string;
   /**
-   * The next renewal date in format: YYYY-MM-DD
+   * Phone number activation status
+   */
+  activationStatus?: string | string[];
+  /**
+   * The next renewal date in the following format: YYYY-MM-DD
    */
   phoneNextRenewal: Date;
   /**
@@ -1786,7 +1790,7 @@ export interface AttachedPhoneInfo {
    */
   verificationStatus?: string;
   /**
-   * Unverified phone hold until the date in format: YYYY-MM-DD (if the account verification is required). The number is detached on that day automatically!
+   * Unverified phone hold until the date in the following format: YYYY-MM-DD (if the account verification is required). The number is detached on that day automatically!
    */
   unverifiedHoldUntil?: Date;
   /**
@@ -1848,7 +1852,7 @@ export interface NewAttachedPhoneInfo {
    */
   verificationStatus?: string;
   /**
-   * Unverified phone hold until the date in format: YYYY-MM-DD (if the account verification is required). The number is detached on that day automatically!
+   * Unverified phone hold until the date in the following format: YYYY-MM-DD (if the account verification is required). The number is detached on that day automatically!
    */
   unverifiedHoldUntil?: Date;
 }
@@ -2060,7 +2064,7 @@ export interface CallerIDInfo {
    */
   verificationCallAttemptsLeft?: number;
   /**
-   * The verification ending date in format: YYYY-MM-DD (for the verified callerID)
+   * The verification ending date in the following format: YYYY-MM-DD (for the verified callerID)
    */
   verifiedUntil?: Date;
 }
@@ -2273,6 +2277,10 @@ export interface CallList {
    * The status name. The possible values are __In progress__, __Completed__, __Canceled__
    */
   status: string;
+  /**
+   * Whether the first or repeated calls have priority.
+   */
+  taskPriorityStrategy: string;
 }
 export interface CallListDetail {
   /**
@@ -2362,7 +2370,7 @@ export interface SIPRegistration {
    */
   deactivated: boolean;
   /**
-   * The next subscription renewal date in format: YYYY-MM-DD
+   * The next subscription renewal date in the following format: YYYY-MM-DD
    */
   nextSubscriptionRenewal: Date;
   /**
@@ -2624,7 +2632,7 @@ export interface ContractInfo {
    */
   agreementNumber?: string;
   /**
-   * The agreement date in format: YYYY-MM-DD
+   * The agreement date in the following format: YYYY-MM-DD
    */
   agreementDate?: Date;
 }
@@ -2634,7 +2642,7 @@ export interface ContractorInvoice {
    */
   invoiceNumber: string;
   /**
-   * The invoice date in format: YYYY-MM-DD
+   * The invoice date in the following format: YYYY-MM-DD
    */
   invoiceDate: Date;
   /**
@@ -2642,11 +2650,11 @@ export interface ContractorInvoice {
    */
   isPostPayment: boolean;
   /**
-   * The from date in format: YYYY-MM-DD
+   * The from date in the following format: YYYY-MM-DD
    */
   fromDate?: Date;
   /**
-   * The to date in format: YYYY-MM-DD
+   * The to date in the following format: YYYY-MM-DD
    */
   toDate?: Date;
   /**
@@ -2686,7 +2694,7 @@ export interface AccountVerificationDocument {
    */
   comment?: string;
   /**
-   * The UTC date of the document upload in format: YYYY-MM-DD HH::mm:ss
+   * The UTC date of the document upload in the following format: YYYY-MM-DD HH::mm:ss
    */
   uploaded: Date;
   /**
@@ -2704,7 +2712,7 @@ export interface AccountVerification {
    */
   verificationStatus: string;
   /**
-   * Unverified subscriptions hold until the date in format: YYYY-MM-DD (if the account verification is required). Some subscriptions are detached on that day automatically!
+   * Unverified subscriptions hold until the date in the following format: YYYY-MM-DD (if the account verification is required). Some subscriptions are detached on that day automatically!
    */
   unverifiedHoldUntil?: Date;
   /**
@@ -2826,7 +2834,7 @@ export interface SubscriptionTemplate {
   /**
    * ID of the original currency
    */
-  currencyId: number;
+  currency: number;
   /**
    * The subscription installation price (without the first monthly fee)
    */
@@ -2927,6 +2935,10 @@ export interface AccountCallback {
    * Deprecated. Please use the unified <b>account_document_status_updated</b> callback instead
    */
   accountDocumentUploaded?: AccountDocumentUploadedCallback;
+  /**
+   * Received when batch task cancelling has been completed
+   */
+  batchTaskCancellingCompleted?: BatchTaskCancellingCallback;
   /**
    * Received when proof of address is uploaded
    */
@@ -3104,7 +3116,7 @@ export interface AccountDocumentUploadedCallback {
    */
   accountDocumentId: number;
   /**
-   * The UTC date of the document upload in format: YYYY-MM-DD HH::mm:ss
+   * The UTC date of the document upload in the following format: YYYY-MM-DD HH::mm:ss
    */
   uploaded: Date;
   /**
@@ -3116,6 +3128,16 @@ export interface AccountDocumentUploadedCallback {
    */
   legalStatus: string;
 }
+export interface BatchTaskCancellingCallback {
+  /**
+   * Batch UUID of the cancelled tasks
+   */
+  batchId: number;
+  /**
+   * Number of cancelled tasks
+   */
+  cancelledTasksNumber: number;
+}
 export interface BalanceIsChanged {}
 export interface RegulationAddressUploadedCallback {
   /**
@@ -3123,7 +3145,7 @@ export interface RegulationAddressUploadedCallback {
    */
   regulationAddressId: number;
   /**
-   * The UTC date of the document upload in format: YYYY-MM-DD HH::mm:ss
+   * The UTC date of the document upload in the following format: YYYY-MM-DD HH::mm:ss
    */
   uploaded: Date;
   /**
@@ -3145,7 +3167,7 @@ export interface AccountDocumentVerifiedCallback {
    */
   accountDocumentStatus: string;
   /**
-   * The UTC date of the document upload in format: YYYY-MM-DD HH::mm:ss
+   * The UTC date of the document upload in the following format: YYYY-MM-DD HH::mm:ss
    */
   uploaded: Date;
   /**
@@ -3174,7 +3196,7 @@ export interface CallHistoryReportCallback {
    */
   success: boolean;
   /**
-   * The UTC order date in format: YYYY-MM-DD HH::mm:ss
+   * The UTC order date in the following format: YYYY-MM-DD HH::mm:ss
    */
   orderDate: Date;
 }
@@ -3244,7 +3266,7 @@ export interface RegulationAddressVerifiedCallback {
    */
   regulationAddressStatus: string;
   /**
-   * The UTC date of the document upload in format: YYYY-MM-DD HH::mm:ss
+   * The UTC date of the document upload in the following format: YYYY-MM-DD HH::mm:ss
    */
   uploaded: Date;
   /**
@@ -3376,7 +3398,7 @@ export interface TransactionHistoryReportCallback {
    */
   success: boolean;
   /**
-   * The UTC order date in format: YYYY-MM-DD HH::mm:ss
+   * The UTC order date in the following format: YYYY-MM-DD HH::mm:ss
    */
   orderDate: Date;
 }
@@ -3478,7 +3500,7 @@ export interface TranscriptionCompleteCallbackItem {
 }
 export interface ExpiringAgreementCallback {
   /**
-   * The date of agreement expiration in format: YYYY-MM-DD
+   * The date of agreement expiration in the following format: YYYY-MM-DD
    */
   expirationDate: Date;
   /**
@@ -3573,7 +3595,7 @@ export interface AccountDocumentStatusUpdatedCallback {
    */
   previousAccountDocumentStatus: string;
   /**
-   * Document verification status. The following values are possible: WAITING_CONFIRMATION_DOCS, VERIFIED, REJECTED
+   * Document verification status. The following values are possible: AWAITING_DOCUMENTS_UPLOADING, AWAITING_AGREEMENT_UPLOADING, AWAITING_VERIFICATION, WAITING_FOR_CONFIRMATION_DOCUMENTS, VERIFIED, REJECTED, WAITING_PERIOD_EXPIRED
    */
   accountDocumentStatus: string;
   /**
@@ -4191,7 +4213,7 @@ export interface ChildAccountSubscription {
    */
   autoCharge?: boolean;
   /**
-   * The next charge UTC date in format: YYYY-MM-DD
+   * The next charge UTC date in the following format: YYYY-MM-DD
    */
   nextRenewal?: Date;
   /**
@@ -4247,7 +4269,7 @@ export interface SmsHistory {
    */
   cost: number;
   /**
-   * Status of the message. 1 - Success, 2 - Error
+   * Status of the message. The possible values are: 1 — Success, 2 — Error, 3 — Waiting
    */
   statusId: string;
   /**
@@ -4289,7 +4311,7 @@ export interface A2PSmsHistory {
    */
   cost: number;
   /**
-   * The message status. 1 - Success, 2 - Error
+   * The message status. The possible values are: 1 — Success, 2 — Error, 3 — Waiting
    */
   statusId: string;
   /**
@@ -4325,7 +4347,7 @@ export interface RestoredAgreementStatusCallback {
    */
   documentId: number;
   /**
-   * The new date of agreement expiration in format: YYYY-MM-DD
+   * The new date of agreement expiration in the following format: YYYY-MM-DD
    */
   expirationDate: Date;
 }
@@ -4370,6 +4392,10 @@ export interface GetSQQueuesResult {
    * Name of the SmartQueue
    */
   sqQueueName: string;
+  /**
+   * Whether the tasks are queued when there are no active agents
+   */
+  holdImIfInactiveAgents?: boolean;
   /**
    * Agent selection strategy
    */
@@ -4755,7 +4781,7 @@ export interface AccountInvoice {
    */
   invoiceNumber: string;
   /**
-   * Date when the invoice is created in format: YYYY-MM-DD
+   * Date when the invoice is created in the following format: YYYY-MM-DD
    */
   invoiceDate: Date;
   /**
@@ -4765,11 +4791,11 @@ export interface AccountInvoice {
 }
 export interface InvoicePeriod {
   /**
-   * From date in format: YYYY-MM-DD
+   * From date in the following format: YYYY-MM-DD
    */
   from: Date;
   /**
-   * To date in format: YYYY-MM-DD
+   * To date in the following format: YYYY-MM-DD
    */
   to: Date;
 }

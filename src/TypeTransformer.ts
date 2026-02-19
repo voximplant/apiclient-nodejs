@@ -1078,6 +1078,10 @@ export default class TypeTransformer {
         xData['phonePrice'] = TypeTransformer.to('number')(data['phone_price']);
       if (typeof data['phone_country_code'] !== 'undefined')
         xData['phoneCountryCode'] = TypeTransformer.to('string')(data['phone_country_code']);
+      if (typeof data['activation_status'] !== 'undefined')
+        xData['activationStatus'] = TypeTransformer.to('string|string[]')(
+          data['activation_status']
+        );
       if (typeof data['phone_next_renewal'] !== 'undefined')
         xData['phoneNextRenewal'] = TypeTransformer.to('Date')(data['phone_next_renewal']);
       if (typeof data['phone_purchase_date'] !== 'undefined')
@@ -1454,6 +1458,10 @@ export default class TypeTransformer {
         xData['intervalSeconds'] = TypeTransformer.to('number')(data['interval_seconds']);
       if (typeof data['status'] !== 'undefined')
         xData['status'] = TypeTransformer.to('string')(data['status']);
+      if (typeof data['task_priority_strategy'] !== 'undefined')
+        xData['taskPriorityStrategy'] = TypeTransformer.to('string')(
+          data['task_priority_strategy']
+        );
       return xData;
     },
     CallListDetailType: function (data) {
@@ -1758,8 +1766,8 @@ export default class TypeTransformer {
         xData['subscriptionTemplateId'] = TypeTransformer.to('number')(
           data['subscription_template_id']
         );
-      if (typeof data['currency_id'] !== 'undefined')
-        xData['currencyId'] = TypeTransformer.to('number')(data['currency_id']);
+      if (typeof data['currency'] !== 'undefined')
+        xData['currency'] = TypeTransformer.to('number')(data['currency']);
       if (typeof data['installation_price'] !== 'undefined')
         xData['installationPrice'] = TypeTransformer.to('number')(data['installation_price']);
       if (typeof data['installation_price_in_currency'] !== 'undefined')
@@ -1825,6 +1833,10 @@ export default class TypeTransformer {
       if (typeof data['account_document_uploaded'] !== 'undefined')
         xData['accountDocumentUploaded'] = TypeTransformer.to('AccountDocumentUploadedCallback')(
           data['account_document_uploaded']
+        );
+      if (typeof data['batch_task_cancelling_completed'] !== 'undefined')
+        xData['batchTaskCancellingCompleted'] = TypeTransformer.to('BatchTaskCancellingCallback')(
+          data['batch_task_cancelling_completed']
         );
       if (typeof data['regulation_address_uploaded'] !== 'undefined')
         xData['regulationAddressUploaded'] = TypeTransformer.to(
@@ -1989,6 +2001,16 @@ export default class TypeTransformer {
         xData['verificationName'] = TypeTransformer.to('string')(data['verification_name']);
       if (typeof data['legal_status'] !== 'undefined')
         xData['legalStatus'] = TypeTransformer.to('string')(data['legal_status']);
+      return xData;
+    },
+    BatchTaskCancellingCallback: function (data) {
+      const xData = {};
+      if (typeof data['batch_id'] !== 'undefined')
+        xData['batchId'] = TypeTransformer.to('number')(data['batch_id']);
+      if (typeof data['cancelled_tasks_number'] !== 'undefined')
+        xData['cancelledTasksNumber'] = TypeTransformer.to('number')(
+          data['cancelled_tasks_number']
+        );
       return xData;
     },
     RegulationAddressUploadedCallback: function (data) {
@@ -2801,6 +2823,10 @@ export default class TypeTransformer {
         xData['sqQueueId'] = TypeTransformer.to('number')(data['sq_queue_id']);
       if (typeof data['sq_queue_name'] !== 'undefined')
         xData['sqQueueName'] = TypeTransformer.to('string')(data['sq_queue_name']);
+      if (typeof data['hold_im_if_inactive_agents'] !== 'undefined')
+        xData['holdImIfInactiveAgents'] = TypeTransformer.to('boolean')(
+          data['hold_im_if_inactive_agents']
+        );
       if (typeof data['agent_selection'] !== 'undefined')
         xData['agentSelection'] = TypeTransformer.to('string')(data['agent_selection']);
       if (typeof data['task_selection'] !== 'undefined')
@@ -4227,6 +4253,10 @@ export default class TypeTransformer {
         xData['phone_price'] = TypeTransformer.from('number')(data['phonePrice']);
       if (typeof data['phoneCountryCode'] !== 'undefined')
         xData['phone_country_code'] = TypeTransformer.from('string')(data['phoneCountryCode']);
+      if (typeof data['activationStatus'] !== 'undefined')
+        xData['activation_status'] = TypeTransformer.from('string|string[]')(
+          data['activationStatus']
+        );
       if (typeof data['phoneNextRenewal'] !== 'undefined')
         xData['phone_next_renewal'] = TypeTransformer.from('Date')(data['phoneNextRenewal']);
       if (typeof data['phonePurchaseDate'] !== 'undefined')
@@ -4609,6 +4639,10 @@ export default class TypeTransformer {
         xData['interval_seconds'] = TypeTransformer.from('number')(data['intervalSeconds']);
       if (typeof data['status'] !== 'undefined')
         xData['status'] = TypeTransformer.from('string')(data['status']);
+      if (typeof data['taskPriorityStrategy'] !== 'undefined')
+        xData['task_priority_strategy'] = TypeTransformer.from('string')(
+          data['taskPriorityStrategy']
+        );
       return xData;
     },
     CallListDetail: function (data) {
@@ -4917,8 +4951,8 @@ export default class TypeTransformer {
         xData['subscription_template_id'] = TypeTransformer.from('number')(
           data['subscriptionTemplateId']
         );
-      if (typeof data['currencyId'] !== 'undefined')
-        xData['currency_id'] = TypeTransformer.from('number')(data['currencyId']);
+      if (typeof data['currency'] !== 'undefined')
+        xData['currency'] = TypeTransformer.from('number')(data['currency']);
       if (typeof data['installationPrice'] !== 'undefined')
         xData['installation_price'] = TypeTransformer.from('number')(data['installationPrice']);
       if (typeof data['installationPriceInCurrency'] !== 'undefined')
@@ -4987,6 +5021,10 @@ export default class TypeTransformer {
         xData['account_document_uploaded'] = TypeTransformer.from(
           'AccountDocumentUploadedCallback'
         )(data['accountDocumentUploaded']);
+      if (typeof data['batchTaskCancellingCompleted'] !== 'undefined')
+        xData['batch_task_cancelling_completed'] = TypeTransformer.from(
+          'BatchTaskCancellingCallback'
+        )(data['batchTaskCancellingCompleted']);
       if (typeof data['regulationAddressUploaded'] !== 'undefined')
         xData['regulation_address_uploaded'] = TypeTransformer.from(
           'RegulationAddressUploadedCallback'
@@ -5151,6 +5189,16 @@ export default class TypeTransformer {
         xData['verification_name'] = TypeTransformer.from('string')(data['verificationName']);
       if (typeof data['legalStatus'] !== 'undefined')
         xData['legal_status'] = TypeTransformer.from('string')(data['legalStatus']);
+      return xData;
+    },
+    BatchTaskCancellingCallback: function (data) {
+      const xData = {};
+      if (typeof data['batchId'] !== 'undefined')
+        xData['batch_id'] = TypeTransformer.from('number')(data['batchId']);
+      if (typeof data['cancelledTasksNumber'] !== 'undefined')
+        xData['cancelled_tasks_number'] = TypeTransformer.from('number')(
+          data['cancelledTasksNumber']
+        );
       return xData;
     },
     RegulationAddressUploadedCallback: function (data) {
@@ -5976,6 +6024,10 @@ export default class TypeTransformer {
         xData['sq_queue_id'] = TypeTransformer.from('number')(data['sqQueueId']);
       if (typeof data['sqQueueName'] !== 'undefined')
         xData['sq_queue_name'] = TypeTransformer.from('string')(data['sqQueueName']);
+      if (typeof data['holdImIfInactiveAgents'] !== 'undefined')
+        xData['hold_im_if_inactive_agents'] = TypeTransformer.from('boolean')(
+          data['holdImIfInactiveAgents']
+        );
       if (typeof data['agentSelection'] !== 'undefined')
         xData['agent_selection'] = TypeTransformer.from('string')(data['agentSelection']);
       if (typeof data['taskSelection'] !== 'undefined')

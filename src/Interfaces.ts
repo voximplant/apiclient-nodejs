@@ -95,7 +95,9 @@ export interface UtilsReturns {
   GetUsers: GetUsersResponse;
   CreateCallList: CreateCallListResponse;
   AppendToCallList: AppendToCallListResponse;
+  CancelCallListBatch: CancelCallListBatchResponse;
   EditCallList: EditCallListResponse;
+  EditCallListTasksPriority: EditCallListTasksPriorityResponse;
   DeleteCallList: DeleteCallListResponse;
   GetCallLists: GetCallListsResponse;
   GetCallListDetails: GetCallListDetailsResponse;
@@ -376,7 +378,7 @@ export interface SetAccountInfoRequest {
 
 export interface SetAccountInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -450,7 +452,7 @@ export interface SetChildAccountInfoRequest {
 
 export interface SetChildAccountInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -623,7 +625,7 @@ export interface ChangeAccountPlanRequest {
 
 export interface ChangeAccountPlanResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -676,11 +678,11 @@ export interface GetAccountDocumentsRequest {
    */
   verificationStatus?: string | string[];
   /**
-   * Unverified subscriptions hold until the date (from ...) in format: YYYY-MM-DD
+   * Unverified subscriptions hold until the date (from ...) in the following format: YYYY-MM-DD
    */
   fromUnverifiedHoldUntil?: Date;
   /**
-   * Unverified subscriptions hold until the date (... to) in format: YYYY-MM-DD
+   * Unverified subscriptions hold until the date (... to) in the following format: YYYY-MM-DD
    */
   toUnverifiedHoldUntil?: Date;
   /**
@@ -755,7 +757,7 @@ export interface AddApplicationRequest {
 
 export interface AddApplicationResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -785,7 +787,7 @@ export interface DelApplicationRequest {
 
 export interface DelApplicationResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -811,7 +813,7 @@ export interface SetApplicationInfoRequest {
 
 export interface SetApplicationInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -908,7 +910,7 @@ export interface AddUserRequest {
 
 export interface AddUserResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -938,7 +940,7 @@ export interface DelUserRequest {
 
 export interface DelUserResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -989,7 +991,7 @@ export interface SetUserInfoRequest {
 
 export interface SetUserInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -1093,7 +1095,7 @@ export interface UsersInterface {
 
 export interface CreateCallListRequest {
   /**
-   * The rule ID. It is specified in the <a href='//manage.voximplant.com/applications'>Applications</a> section of the Control Panel
+   * Rule ID. It is specified in the <a href='//manage.voximplant.com/applications'>Applications</a> section of the Control Panel
    */
   ruleId: number;
   /**
@@ -1113,7 +1115,7 @@ export interface CreateCallListRequest {
    */
   name: string;
   /**
-   * Send as "body" part of the HTTP request or as multiform. The sending "file_content" via URL is at its own risk because the network devices tend to drop HTTP requests with large headers
+   * Send as the "body" part of the HTTP request or as multiform. The sending "file_content" via URL is at its own risk because the network devices tend to drop HTTP requests with large headers
    */
   fileContent: Buffer;
   /**
@@ -1133,38 +1135,46 @@ export interface CreateCallListRequest {
    */
   escape?: string;
   /**
-   * Specifies the IP from the geolocation of the call list subscribers. It allows selecting the nearest server for serving subscribers
+   * IP from the geolocation of the call list subscribers. It allows selecting the nearest server for serving subscribers
    */
   referenceIp?: string;
   /**
-   * Specifies the location of the server where the scenario needs to be executed. Has higher priority than `reference_ip`. Request [getServerLocations](https://api.voximplant.com/getServerLocations) for possible values
+   * Location of the server where the scenario needs to be executed. Has higher priority than `reference_ip`. Request [getServerLocations](https://api.voximplant.com/getServerLocations) for possible values
    */
   serverLocation?: string;
+  /**
+   * Optional. Whether to prioritize first calling attempts or repeated ones. The possible values are: first_attempts, repeated_attempts. The default values is first_attempts.
+   */
+  taskPriorityStrategy?: string;
 }
 
 export interface CreateCallListResponse {
   /**
-   * true
+   * Whether the request completed successfully
    */
   result: boolean;
   /**
-   * The number of stored records
+   * Number of stored records
    */
   count: number;
   /**
-   * The list ID
+   * List ID
    */
   listId: number;
+  /**
+   * Batch UUID
+   */
+  batchId: string;
   error?: APIError;
 }
 export interface AppendToCallListRequest {
   /**
-   * The call list ID
+   * Call list ID
    */
   listId: number;
   listName: string;
   /**
-   * Send as request body or multiform
+   * Send as the request body or multiform
    */
   fileContent: Buffer;
   /**
@@ -1183,17 +1193,40 @@ export interface AppendToCallListRequest {
 
 export interface AppendToCallListResponse {
   /**
-   * true
+   * Whether the request completed successfully
    */
   result: boolean;
   /**
-   * The number of stored records
+   * Number of stored records
    */
   count: number;
   /**
-   * The list ID
+   * List ID
    */
   listId: number;
+  /**
+   * Batch UUID
+   */
+  batchId: number;
+  error?: APIError;
+}
+export interface CancelCallListBatchRequest {
+  /**
+   * Call list ID
+   */
+  listId: number;
+  listName: string;
+  /**
+   * Batch UUIDs of the tasks to cancel, separated by semicolon (;)
+   */
+  batchIds: string;
+}
+
+export interface CancelCallListBatchResponse {
+  /**
+   * Whether the request completed successfully
+   */
+  result: boolean;
   error?: APIError;
 }
 export interface EditCallListRequest {
@@ -1230,6 +1263,10 @@ export interface EditCallListRequest {
    */
   startAt?: string;
   /**
+   * Optional. Whether to prioritize first calling attempts or repeated ones. The possible values are: first_attempts, repeated_attempts. The default values is first_attempts
+   */
+  taskPriorityStrategy?: string;
+  /**
    * Location of the server processing the call list. If the ID is non existing, the 496 error returns: The 'server_location' parameter is invalid.
    */
   serverLocation?: string;
@@ -1237,9 +1274,27 @@ export interface EditCallListRequest {
 
 export interface EditCallListResponse {
   /**
-   * true
+   * Whether the request completed successfully
    */
   result: boolean;
+  error?: APIError;
+}
+export interface EditCallListTasksPriorityRequest {
+  /**
+   * Call list ID. If the ID does not exist, the 251 error returns.
+   */
+  listId: number;
+  /**
+   * JSON-encoded array of task objects. Each object should contain either 'task_id' (number) or 'task_uuid' (string), and 'task_priority' (number).
+   */
+  tasks: string;
+}
+
+export interface EditCallListTasksPriorityResponse {
+  /**
+   * JSON-encoded array of each task update.
+   */
+  results: string;
   error?: APIError;
 }
 export interface DeleteCallListRequest {
@@ -1306,11 +1361,11 @@ export interface GetCallListsResponse {
    */
   result: CallList[];
   /**
-   * The returned call list count
+   * Returned call list count
    */
   count: number;
   /**
-   * The total found call list count
+   * Total found call list count
    */
   totalCount: number;
   error?: APIError;
@@ -1340,6 +1395,10 @@ export interface GetCallListDetailsRequest {
    * Separator values. The default value is ';'
    */
   delimiter?: string;
+  /**
+   * Batch UUID to filter the tasks
+   */
+  batchId?: string;
 }
 
 export interface GetCallListDetailsResponse {
@@ -1386,7 +1445,7 @@ export interface EditCallListTaskRequest {
 
 export interface EditCallListTaskResponse {
   /**
-   * true
+   * Whether the request completed successfully
    */
   result: boolean;
   error?: APIError;
@@ -1438,7 +1497,7 @@ export interface StopCallListProcessingRequest {
 
 export interface StopCallListProcessingResponse {
   /**
-   * true
+   * Whether the request completed successfully
    */
   result: boolean;
   /**
@@ -1456,7 +1515,7 @@ export interface RecoverCallListRequest {
 
 export interface RecoverCallListResponse {
   /**
-   * true
+   * Whether the request completed successfully
    */
   result: boolean;
   /**
@@ -1468,7 +1527,13 @@ export interface RecoverCallListResponse {
 export interface CallListsInterface {
   createCallList: (request: CreateCallListRequest) => Promise<CreateCallListResponse>;
   appendToCallList: (request: AppendToCallListRequest) => Promise<AppendToCallListResponse>;
+  cancelCallListBatch: (
+    request: CancelCallListBatchRequest
+  ) => Promise<CancelCallListBatchResponse>;
   editCallList: (request: EditCallListRequest) => Promise<EditCallListResponse>;
+  editCallListTasksPriority: (
+    request: EditCallListTasksPriorityRequest
+  ) => Promise<EditCallListTasksPriorityResponse>;
   deleteCallList: (request: DeleteCallListRequest) => Promise<DeleteCallListResponse>;
   getCallLists: (request: GetCallListsRequest) => Promise<GetCallListsResponse>;
   getCallListDetails: (request: GetCallListDetailsRequest) => Promise<GetCallListDetailsResponse>;
@@ -1513,7 +1578,7 @@ export interface AddScenarioRequest {
 
 export interface AddScenarioResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -1535,7 +1600,7 @@ export interface DelScenarioRequest {
 
 export interface DelScenarioResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -1573,7 +1638,7 @@ export interface BindScenarioRequest {
 
 export interface BindScenarioResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -1654,7 +1719,7 @@ export interface SetScenarioInfoRequest {
 
 export interface SetScenarioInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -1676,7 +1741,7 @@ export interface ReorderScenariosRequest {
 
 export interface ReorderScenariosResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -1719,7 +1784,7 @@ export interface StartScenariosRequest {
 
 export interface StartScenariosResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -1778,7 +1843,7 @@ export interface StartConferenceRequest {
 
 export interface StartConferenceResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -1847,7 +1912,7 @@ export interface AddRuleRequest {
 
 export interface AddRuleResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -1877,7 +1942,7 @@ export interface DelRuleRequest {
 
 export interface DelRuleResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -1911,7 +1976,7 @@ export interface SetRuleInfoRequest {
 
 export interface SetRuleInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -1980,7 +2045,7 @@ export interface ReorderRulesRequest {
 
 export interface ReorderRulesResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -2004,7 +2069,7 @@ export interface GetCallHistoryRequest {
   toDate: Date;
   timezone?: string;
   /**
-   * To get the call history for the specific sessions, pass the session IDs to this parameter separated by a semicolon (;). You can find the session ID in the <a href='/docs/references/voxengine/appevents#started'>AppEvents.Started</a> event's <b>sessionID</b> property in a scenario, or retrieve it from the <b>call_session_history_id</b> value returned from the <a href='https://voximplant.com/docs/references/httpapi/scenarios#reorderscenarios'>StartScenarios</a> or <a href='https://voximplant.com/docs/references/httpapi/scenarios#startconference'>StartConference</a> methods
+   * To get the call history for the specific sessions, pass the session IDs to this parameter separated by a semicolon (;). The maximum number of records is 1000. You can find the session ID in the <a href='/docs/references/voxengine/appevents#started'>AppEvents.Started</a> event's <b>sessionID</b> property in a scenario, or retrieve it from the <b>call_session_history_id</b> value returned from the <a href='https://voximplant.com/docs/references/httpapi/scenarios#reorderscenarios'>StartScenarios</a> or <a href='https://voximplant.com/docs/references/httpapi/scenarios#startconference'>StartConference</a> methods
    */
   callSessionHistoryId?: 'any' | number | number[];
   /**
@@ -2174,7 +2239,7 @@ export interface GetCallHistoryAsyncRequest {
 
 export interface GetCallHistoryAsyncResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -2237,7 +2302,7 @@ export interface GetBriefCallHistoryRequest {
 
 export interface GetBriefCallHistoryResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -2439,7 +2504,7 @@ export interface GetTransactionHistoryAsyncRequest {
 
 export interface GetTransactionHistoryAsyncResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -2652,7 +2717,7 @@ export interface GetAuditLogAsyncRequest {
 
 export interface GetAuditLogAsyncResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -2691,7 +2756,7 @@ export interface GetPhoneNumberReportsRequest {
    */
   reportId?: number;
   /**
-   * The phone number report type list separated by semicolons (;). Use the 'all' value to select all history report types. The following values are possible: calls, calls_brief, transactions, audit, call_list, transactions_on_hold
+   * The phone number report type list separated by semicolons (;). The possible values are: phone_numbers, phone_numbers_awaiting_configuration
    */
   reportType?: string | string[];
   /**
@@ -2734,7 +2799,7 @@ export interface GetPhoneNumberReportsResponse {
 }
 export interface AttachPhoneNumberRequest {
   /**
-   * The phone count to attach
+   * Quantity of phone numbers you want to attach
    */
   phoneCount: number;
   /**
@@ -2766,7 +2831,7 @@ export interface AttachPhoneNumberRequest {
 
 export interface AttachPhoneNumberResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -2808,7 +2873,7 @@ export interface BindPhoneNumberToApplicationRequest {
 
 export interface BindPhoneNumberToApplicationResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -2826,7 +2891,7 @@ export interface DeactivatePhoneNumberRequest {
 
 export interface DeactivatePhoneNumberResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -2849,26 +2914,30 @@ export interface SetPhoneNumberInfoRequest {
 
 export interface SetPhoneNumberInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
 }
 export interface GetPhoneNumbersRequest {
   /**
-   * The particular phone ID to filter
+   * Particular phone ID to filter
    */
   phoneId?: 'any' | number | number[];
   /**
-   * The phone number list separated by semicolons (;) that can be used instead of <b>phone_id</b>
+   * Phone number list separated by semicolons (;) that can be used instead of <b>phone_id</b>
    */
   phoneNumber?: string | string[];
   /**
-   * The application ID
+   * Phone number activation statuses to filter, separated by semicolons (;).<br><br>The possible values are: ACTIVE, ACTIVATING, DEACTIVATED, PROVISIONING, AWAITING_BUSINESS_PHONE_NUMBER_CONFIGURATION, LEGAL_OWNERSHIP_LIMIT_REACHED, GOSUSLUGI_DECLINED, SELF_BAN_ENABLED
+   */
+  activationStatus?: string | string[];
+  /**
+   * Application ID
    */
   applicationId?: number;
   /**
-   * The application name that can be used instead of <b>application_id</b>
+   * Application name that can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -2876,15 +2945,15 @@ export interface GetPhoneNumbersRequest {
    */
   isBoundToApplication?: boolean;
   /**
-   * The phone number start to filter
+   * Phone number start to filter
    */
   phoneTemplate?: string;
   /**
-   * The country code list separated by semicolons (;)
+   * Country code list separated by semicolons (;)
    */
   countryCode?: string | string[];
   /**
-   * The phone category name. See the [GetPhoneNumberCategories] method
+   * Phone category name. See the [GetPhoneNumberCategories] method
    */
   phoneCategoryName?: string;
   /**
@@ -2900,23 +2969,23 @@ export interface GetPhoneNumbersRequest {
    */
   autoCharge?: boolean;
   /**
-   * The UTC 'from' date filter in format: YYYY-MM-DD
+   * UTC 'from' date filter in the following format: YYYY-MM-DD
    */
   fromPhoneNextRenewal?: Date;
   /**
-   * The UTC 'to' date filter in format: YYYY-MM-DD
+   * UTC 'to' date filter in the following format: YYYY-MM-DD
    */
   toPhoneNextRenewal?: Date;
   /**
-   * The UTC 'from' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
+   * UTC 'from' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
    */
   fromPhonePurchaseDate?: Date;
   /**
-   * The UTC 'to' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
+   * UTC 'to' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
    */
   toPhonePurchaseDate?: Date;
   /**
-   * The child account ID list separated by semicolons (;). Use the 'all' value to select all child accounts
+   * Child account ID list separated by semicolons (;). Use the 'all' value to select all child accounts
    */
   childAccountId?: 'any' | number | number[];
   /**
@@ -2924,19 +2993,19 @@ export interface GetPhoneNumbersRequest {
    */
   childrenPhonesOnly?: boolean;
   /**
-   * The required account verification name to filter
+   * Required account verification name to filter
    */
   verificationName?: string;
   /**
-   * The account verification status list separated by semicolons (;). The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
+   * Account verification status list separated by semicolons (;). The following values are possible: REQUIRED, IN_PROGRESS, VERIFIED
    */
   verificationStatus?: string | string[];
   /**
-   * Unverified phone hold until the date (from ...) in format: YYYY-MM-DD
+   * Unverified phone hold until the date (from ...) in the following format: YYYY-MM-DD
    */
   fromUnverifiedHoldUntil?: Date;
   /**
-   * Unverified phone hold until the date (... to) in format: YYYY-MM-DD
+   * Unverified phone hold until the date (... to) in the following format: YYYY-MM-DD
    */
   toUnverifiedHoldUntil?: Date;
   /**
@@ -2944,7 +3013,7 @@ export interface GetPhoneNumbersRequest {
    */
   canBeUsed?: boolean;
   /**
-   * The following values are available: 'phone_number' (ascent order), 'phone_price' (ascent order), 'phone_country_code' (ascent order), 'deactivated' (deactivated first, active last), 'purchase_date' (descent order), 'phone_next_renewal' (ascent order), 'verification_status', 'unverified_hold_until' (ascent order), 'verification_name'
+   * Following values are available: 'phone_number' (ascent order), 'phone_price' (ascent order), 'phone_country_code' (ascent order), 'deactivated' (deactivated first, active last), 'purchase_date' (descent order), 'phone_next_renewal' (ascent order), 'verification_status', 'unverified_hold_until' (ascent order), 'verification_name'
    */
   orderBy?: string;
   /**
@@ -2952,24 +3021,24 @@ export interface GetPhoneNumbersRequest {
    */
   sandbox?: string;
   /**
-   * The max returning record count
+   * Maximum returning record count
    */
   count?: number;
   /**
-   * The first <b>N</b> records are skipped in the output
+   * First <b>N</b> records are skipped in the output
    */
   offset?: number;
   smsSupported?: boolean;
   /**
-   * The region names list separated by semicolons (;)
+   * Region names list separated by semicolons (;)
    */
   phoneRegionName?: string | string[];
   /**
-   * The rule ID list separated by semicolons (;)
+   * Rule ID list separated by semicolons (;)
    */
   ruleId?: 'any' | number | number[];
   /**
-   * The rule names list separated by semicolons (;). Can be used only if __application_id__ or __application_name__ is specified
+   * Rule names list separated by semicolons (;). Can be used only if __application_id__ or __application_name__ is specified
    */
   ruleName?: string | string[];
   /**
@@ -2984,11 +3053,11 @@ export interface GetPhoneNumbersResponse {
    */
   result: AttachedPhoneInfo[];
   /**
-   * The total found phone count
+   * Total found phone count
    */
   totalCount: number;
   /**
-   * The returned phone count
+   * Returned phone count
    */
   count: number;
   error?: APIError;
@@ -3228,7 +3297,7 @@ export interface AddPstnBlackListItemRequest {
 
 export interface AddPstnBlackListItemResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -3250,7 +3319,7 @@ export interface SetPstnBlackListItemRequest {
 
 export interface SetPstnBlackListItemResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3264,7 +3333,7 @@ export interface DelPstnBlackListItemRequest {
 
 export interface DelPstnBlackListItemResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3326,7 +3395,7 @@ export interface AddSipWhiteListItemRequest {
 
 export interface AddSipWhiteListItemResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -3344,7 +3413,7 @@ export interface DelSipWhiteListItemRequest {
 
 export interface DelSipWhiteListItemResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3366,7 +3435,7 @@ export interface SetSipWhiteListItemRequest {
 
 export interface SetSipWhiteListItemResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3464,7 +3533,7 @@ export interface CreateSipRegistrationRequest {
 
 export interface CreateSipRegistrationResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -3530,7 +3599,7 @@ export interface UpdateSipRegistrationRequest {
 
 export interface UpdateSipRegistrationResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3572,7 +3641,7 @@ export interface BindSipRegistrationRequest {
 
 export interface BindSipRegistrationResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3586,7 +3655,7 @@ export interface DeleteSipRegistrationRequest {
 
 export interface DeleteSipRegistrationResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3604,9 +3673,6 @@ export interface GetSipRegistrationsRequest {
    * The user ID list separated by semicolons (;) to filter. Can be used instead of <b>user_name</b>
    */
   userId: 'any' | number | number[];
-  /**
-   * The user name list separated by semicolons (;) to filter. Can be used instead of <b>user_id</b>
-   */
   userName: string | string[];
   /**
    * The SIP registration ID
@@ -3724,7 +3790,7 @@ export interface AddWABPhoneNumberRequest {
 
 export interface AddWABPhoneNumberResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3738,7 +3804,7 @@ export interface DeleteWABPhoneNumberRequest {
 
 export interface DeleteWABPhoneNumberResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3776,7 +3842,7 @@ export interface SetWABPhoneNumberInfoRequest {
 
 export interface SetWABPhoneNumberInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3843,7 +3909,7 @@ export interface AddCallerIDRequest {
 
 export interface AddCallerIDResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -3869,7 +3935,7 @@ export interface ActivateCallerIDRequest {
 
 export interface ActivateCallerIDResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3887,7 +3953,7 @@ export interface DelCallerIDRequest {
 
 export interface DelCallerIDResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3944,7 +4010,7 @@ export interface VerifyCallerIDRequest {
 
 export interface VerifyCallerIDResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3966,7 +4032,7 @@ export interface AddOutboundTestPhoneNumberRequest {
 
 export interface AddOutboundTestPhoneNumberResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3989,7 +4055,7 @@ export interface ActivateOutboundTestPhoneNumberRequest {
 
 export interface ActivateOutboundTestPhoneNumberResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -3998,7 +4064,7 @@ export interface DelOutboundTestPhoneNumberRequest {}
 
 export interface DelOutboundTestPhoneNumberResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -4068,7 +4134,7 @@ export interface AddQueueRequest {
 
 export interface AddQueueResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -4110,7 +4176,7 @@ export interface BindUserToQueueRequest {
 
 export interface BindUserToQueueResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -4128,7 +4194,7 @@ export interface DelQueueRequest {
 
 export interface DelQueueResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -4178,7 +4244,7 @@ export interface SetQueueInfoRequest {
 
 export interface SetQueueInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -4556,7 +4622,7 @@ export interface RequestSmartQueueHistoryRequest {
 
 export interface RequestSmartQueueHistoryResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -4609,7 +4675,7 @@ export interface SQ_SetAgentCustomStatusMappingRequest {
 
 export interface SQ_SetAgentCustomStatusMappingResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -4645,7 +4711,7 @@ export interface SQ_DeleteAgentCustomStatusMappingRequest {
 
 export interface SQ_DeleteAgentCustomStatusMappingResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -4671,6 +4737,10 @@ export interface SQ_AddQueueRequest {
    * Name of the application to bind to. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
+  /**
+   * Whether to add the task to the queue if there are no available agents
+   */
+  holdImIfInactiveAgents?: boolean;
   /**
    * Agent selection strategy for messages. Accepts one of the following values: "MOST_QUALIFIED", "LEAST_QUALIFIED", "MAX_WAITING_TIME". The default value is **call_agent_selection**
    */
@@ -4739,6 +4809,10 @@ export interface SQ_SetQueueInfoRequest {
    */
   applicationName?: string;
   /**
+   * Whether to add the task to the queue if there are no available agents
+   */
+  holdImIfInactiveAgents?: boolean;
+  /**
    * Name of the SmartQueue to search for. Can be used instead of <b>sq_queue_id</b>
    */
   sqQueueName?: string;
@@ -4803,7 +4877,7 @@ export interface SQ_SetQueueInfoRequest {
 
 export interface SQ_SetQueueInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -4829,7 +4903,7 @@ export interface SQ_DelQueueRequest {
 
 export interface SQ_DelQueueResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -4939,7 +5013,7 @@ export interface SQ_DelSkillRequest {
 
 export interface SQ_DelSkillResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -4973,7 +5047,7 @@ export interface SQ_SetSkillInfoRequest {
 
 export interface SQ_SetSkillInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -5007,7 +5081,7 @@ export interface SQ_BindSkillRequest {
 
 export interface SQ_BindSkillResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -5041,7 +5115,7 @@ export interface SQ_UnbindSkillRequest {
 
 export interface SQ_UnbindSkillResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -5133,7 +5207,7 @@ export interface SQ_BindAgentRequest {
 
 export interface SQ_BindAgentResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -5167,7 +5241,7 @@ export interface SQ_UnbindAgentRequest {
 
 export interface SQ_UnbindAgentResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -5279,7 +5353,7 @@ export interface SQ_SetAgentInfoRequest {
 
 export interface SQ_SetAgentInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -5329,7 +5403,7 @@ export interface AddSkillRequest {
 
 export interface AddSkillResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -5351,7 +5425,7 @@ export interface DelSkillRequest {
 
 export interface DelSkillResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -5373,7 +5447,7 @@ export interface SetSkillInfoRequest {
 
 export interface SetSkillInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -5450,7 +5524,7 @@ export interface BindSkillRequest {
 
 export interface BindSkillResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -5498,7 +5572,7 @@ export interface AddAdminUserRequest {
 
 export interface AddAdminUserResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -5524,7 +5598,7 @@ export interface DelAdminUserRequest {
 
 export interface DelAdminUserResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -5558,7 +5632,7 @@ export interface SetAdminUserInfoRequest {
 
 export interface SetAdminUserInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -5635,7 +5709,7 @@ export interface AttachAdminRoleRequest {
 
 export interface AttachAdminRoleResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -5677,7 +5751,7 @@ export interface AddAdminRoleRequest {
 
 export interface AddAdminRoleResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   /**
@@ -5699,7 +5773,7 @@ export interface DelAdminRoleRequest {
 
 export interface DelAdminRoleResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -5745,7 +5819,7 @@ export interface SetAdminRoleInfoRequest {
 
 export interface SetAdminRoleInfoResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -5850,7 +5924,7 @@ export interface AddAuthorizedAccountIPRequest {
 
 export interface AddAuthorizedAccountIPResponse {
   /**
-   * 1
+   * Returns 1 if the request has been completed successfully
    */
   result: number;
   error?: APIError;
@@ -6496,6 +6570,7 @@ export interface GetSmsHistoryRequest {
    * Sent or received SMS. Possible values: 'IN', 'OUT', 'in, 'out'. Leave blank to get both incoming and outgoing messages
    */
   direction?: string;
+  timezone?: string;
   /**
    * Maximum number of resulting rows fetched. Must be not bigger than 1000. If left blank, then the default value of 1000 is used
    */

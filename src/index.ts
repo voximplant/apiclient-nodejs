@@ -52,8 +52,12 @@ import {
   CreateCallListResponse,
   AppendToCallListRequest,
   AppendToCallListResponse,
+  CancelCallListBatchRequest,
+  CancelCallListBatchResponse,
   EditCallListRequest,
   EditCallListResponse,
+  EditCallListTasksPriorityRequest,
+  EditCallListTasksPriorityResponse,
   DeleteCallListRequest,
   DeleteCallListResponse,
   GetCallListsRequest,
@@ -1524,11 +1528,17 @@ export default class VoximplantApiClient {
           name: 'serverLocation',
           transformer: TypeTransformer.to('string', true),
         },
+        {
+          rawName: 'task_priority_strategy',
+          name: 'taskPriorityStrategy',
+          transformer: TypeTransformer.to('string', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
         { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
         { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.from('number') },
+        { rawName: 'batch_id', name: 'batchId', transformer: TypeTransformer.from('string') },
       ];
       return this.makeRequest('CreateCallList', request, [reqMapper, respMapper]);
     },
@@ -1555,8 +1565,24 @@ export default class VoximplantApiClient {
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
         { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
         { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.from('number') },
+        { rawName: 'batch_id', name: 'batchId', transformer: TypeTransformer.from('number') },
       ];
       return this.makeRequest('AppendToCallList', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Cancels all tasks in the call list with the specified batch UUID.
+     */
+    cancelCallListBatch: (
+      request: CancelCallListBatchRequest
+    ): Promise<CancelCallListBatchResponse> => {
+      const reqMapper = [
+        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'batch_ids', name: 'batchIds', transformer: TypeTransformer.to('string', true) },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
+      ];
+      return this.makeRequest('CancelCallListBatch', request, [reqMapper, respMapper]);
     },
     /**
      * Edits the specified call list by its ID.
@@ -1588,6 +1614,11 @@ export default class VoximplantApiClient {
         { rawName: 'priority', name: 'priority', transformer: TypeTransformer.to('number', true) },
         { rawName: 'start_at', name: 'startAt', transformer: TypeTransformer.to('string', true) },
         {
+          rawName: 'task_priority_strategy',
+          name: 'taskPriorityStrategy',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
           rawName: 'server_location',
           name: 'serverLocation',
           transformer: TypeTransformer.to('string', true),
@@ -1597,6 +1628,21 @@ export default class VoximplantApiClient {
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
       ];
       return this.makeRequest('EditCallList', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Edits priorities of existing tasks in the specified call list.
+     */
+    editCallListTasksPriority: (
+      request: EditCallListTasksPriorityRequest
+    ): Promise<EditCallListTasksPriorityResponse> => {
+      const reqMapper = [
+        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'tasks', name: 'tasks', transformer: TypeTransformer.to('string', true) },
+      ];
+      const respMapper = [
+        { rawName: 'results', name: 'results', transformer: TypeTransformer.from('string') },
+      ];
+      return this.makeRequest('EditCallListTasksPriority', request, [reqMapper, respMapper]);
     },
     /**
      * Deletes an existing call list by its ID.
@@ -1666,6 +1712,7 @@ export default class VoximplantApiClient {
           name: 'delimiter',
           transformer: TypeTransformer.to('string', true),
         },
+        { rawName: 'batch_id', name: 'batchId', transformer: TypeTransformer.to('string', true) },
       ];
       const respMapper = [
         {
@@ -1712,7 +1759,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('EditCallListTask', request, [reqMapper, respMapper]);
     },
     /**
-     * Cancels the specified tasks in the call list by their IDs or UUIDs.
+     * Cancels the specified tasks in the call list by their IDs or UUIDs. The maximum number of tasks to cancel is 1000.
      */
     cancelCallListTask: (
       request: CancelCallListTaskRequest
@@ -1973,7 +2020,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('ReorderScenarios', request, [reqMapper, respMapper]);
     },
     /**
-     * Runs JavaScript scenarios on a Voximplant server. The scenarios run in a new media session. To start a scenario, pass the routing rule ID associated with the necessary scenario. You can use both GET and POST requests, but we recommend using the POST mode if you pass some data in the custom_data field. The maximum number of simultaneous requests is 200. If you exceed this number, you get the 429 error code.
+     * Runs JavaScript scenarios on a Voximplant server. The scenarios run in a new media session. To start a scenario, pass the routing rule ID associated with the necessary scenario. You can use both GET and POST requests at your choice. If you need to send custom data, we recommend to use the POST method and to include the data in the `custom_data` field of the request body. The maximum number of concurrent HTTP-requests is limited to 200. If this number is exceeded, this method returns the 429 code error (Too Many Requests) until the number of active requests is reduced. If you exceed this number, you get the 429 error code.
      */
     startScenarios: (request: StartScenariosRequest): Promise<StartScenariosResponse> => {
       const reqMapper = [
@@ -3119,6 +3166,11 @@ export default class VoximplantApiClient {
           transformer: TypeTransformer.to('stringlist', true),
         },
         {
+          rawName: 'activation_status',
+          name: 'activationStatus',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
           rawName: 'application_id',
           name: 'applicationId',
           transformer: TypeTransformer.to('number', true),
@@ -3694,7 +3746,7 @@ export default class VoximplantApiClient {
 
   public SIPRegistration: SIPRegistrationInterface = {
     /**
-     * Create a new SIP registration. You should specify the application_id or application_name if you specify the rule_name or user_id, or user_name. You should set is_persistent=true if you specify the user_id or user_name. You can bind only one SIP registration to the user (the previous SIP registration are automatically unbound).<br><br>Please note that when you create a SIP registration, we reserve the subscription fee and taxes for the upcoming month. Read more in the <a href='/docs/gettingstarted/billing'>Billing</a> page.
+     * Creates a new SIP registration (the platform registers as a user on a 3rd party SIP server).<br><br>There are two modes of SIP registration:<br><ol><li>Persistent registration, when the platform registers on a 3rd party SIP server as a user and the registration lasts until deleted (or there are network/technical issues with it — see the corresponding callback)</li><li>Non-persistent registration (set `is_persistent` to false) which is initiated only when the specificed user (with `user_id` or `user_name`) logs in via one of Voximplant SDKs. As soon the user logs off, the registration goes offline. This mode helps to implement SIP softphone-like apps using Voximplant’s SDKs.</li></ol><br>Please note that when you create a SIP registration, we reserve the subscription fee and taxes for the upcoming month. Read more in the <a href='/docs/gettingstarted/billing'>Billing</a> page.
      */
     createSipRegistration: (
       request: CreateSipRegistrationRequest
@@ -3858,11 +3910,6 @@ export default class VoximplantApiClient {
           transformer: TypeTransformer.to('stringlist', true),
         },
         { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
-        {
-          rawName: 'user_name',
-          name: 'userName',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
         {
           rawName: 'sip_registration_id',
           name: 'sipRegistrationId',
@@ -4970,6 +5017,11 @@ export default class VoximplantApiClient {
           transformer: TypeTransformer.to('string', true),
         },
         {
+          rawName: 'hold_im_if_inactive_agents',
+          name: 'holdImIfInactiveAgents',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
           rawName: 'im_agent_selection',
           name: 'imAgentSelection',
           transformer: TypeTransformer.to('string', true),
@@ -5049,6 +5101,11 @@ export default class VoximplantApiClient {
           rawName: 'application_name',
           name: 'applicationName',
           transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'hold_im_if_inactive_agents',
+          name: 'holdImIfInactiveAgents',
+          transformer: TypeTransformer.to('boolean', true),
         },
         {
           rawName: 'sq_queue_name',
@@ -6853,7 +6910,7 @@ export default class VoximplantApiClient {
       return this.makeRequest('SendSmsMessage', request, [reqMapper, respMapper]);
     },
     /**
-     * Sends an SMS message from the application to customers. The source phone number should be purchased from Voximplant and support SMS (which is indicated by the <b>is_sms_supported</b> property in the objects returned by the <a href='/docs/references/httpapi/managing_phone_numbers#getphonenumbers'>/GetPhoneNumbers</a> Management API) and SMS should be enabled for it via the <a href='/docs/references/httpapi/managing_sms#controlsms'>/ControlSms</a> Management API.
+     * Sends an A2P SMS message from the application to customers. A SenderID is required for A2P messages. Please contact support for installing a SenderID.
      */
     a2PSendSms: (request: A2PSendSmsRequest): Promise<A2PSendSmsResponse> => {
       const reqMapper = [
@@ -7018,7 +7075,7 @@ export default class VoximplantApiClient {
 
   public RoleSystem: RoleSystemInterface = {
     /**
-     * Creates a public/private key pair. You can optionally specify one or more roles for the key.
+     * Creates a public/private key pair. You can optionally specify one or more roles for the key. You can find all available service account roles [here](/docs/getting-started/basic-concepts/management-api#service-account-roles).
      */
     createKey: (request: CreateKeyRequest): Promise<CreateKeyResponse> => {
       const reqMapper = [
