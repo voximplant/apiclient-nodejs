@@ -1752,6 +1752,11 @@ export default class VoximplantApiClient {
           name: 'minExecutionTime',
           transformer: TypeTransformer.to('timestamp', true),
         },
+        {
+          rawName: 'max_execution_time',
+          name: 'maxExecutionTime',
+          transformer: TypeTransformer.to('timestamp', true),
+        },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },

@@ -1730,7 +1730,7 @@ export interface AttachedPhoneInfo {
    */
   phoneNumber: string;
   /**
-   * The phone monthly charge
+   * The phone monthly charge in the account's currency
    */
   phonePrice: number;
   /**
@@ -2828,39 +2828,39 @@ export interface AccountVerificationsAgreements {
 }
 export interface SubscriptionTemplate {
   /**
-   * The subscription template ID
+   * Subscription's template ID
    */
   subscriptionTemplateId: number;
   /**
-   * ID of the original currency
+   * Subscription's currency
    */
-  currency: number;
+  currency: string;
   /**
-   * The subscription installation price (without the first monthly fee)
+   * Subscription's installation price (without the first monthly fee)
    */
   installationPrice: number;
   /**
-   * The subscription installation price in the original currency
+   * Subscription's installation price in the original currency
    */
   installationPriceInCurrency: number;
   /**
-   * The subscription monthly fee, including taxes and discounts
+   * Subscription's monthly fee, including taxes and discounts
    */
   price: number;
   /**
-   * The subscription monthly fee in the original currency
+   * Subscription's monthly fee in the original currency
    */
   priceInCurrency: number;
   /**
-   * The charge period in 24-h format: Y-M-D H:m:s. Example: 0-1-0 0:0:0 is 1 month
+   * Charge period in 24-h format: Y-M-D H:m:s. Example: 0-1-0 0:0:0 is 1 month
    */
   period: string;
   /**
-   * The subscription template type. The following values are possible: PHONE_NUM, SIP_REGISTRATION
+   * Subscription template type. The following values are possible: PHONE_NUM, SIP_REGISTRATION
    */
   subscriptionTemplateType: string;
   /**
-   * The subscription template name (example: SIP registration, Phone GB, Phone RU 495, ...)
+   * Subscription template name (example: SIP registration, Phone GB, Phone RU 495, ...)
    */
   subscriptionTemplateName: string;
   /**
@@ -2868,15 +2868,15 @@ export interface SubscriptionTemplate {
    */
   requiredVerification: string;
   /**
-   * The verification status. Possible values are REQUIRED, IN_PROGRESS, VERIFIED, NOT_REQUIRED
+   * Verification status. Possible values are REQUIRED, IN_PROGRESS, VERIFIED, NOT_REQUIRED
    */
   verificationStatus: string;
   /**
-   * The phone number installation tax reserve
+   * Phone number's installation tax reserve
    */
   installationTaxReserve: number;
   /**
-   * The phone number tax reserve
+   * Phone number's tax reserve
    */
   taxReserve: number;
 }

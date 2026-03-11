@@ -1422,7 +1422,7 @@ export interface EditCallListTaskRequest {
    */
   taskId?: number;
   /**
-   * Call list's task ID. Please specify either the task's ID or the task's UUID to edit the task
+   * Call list's task ID. Please specify either the task's ID or the task's UUID to edit the task. The UUID is unique within the call list
    */
   taskUuid?: string;
   /**
@@ -1438,9 +1438,13 @@ export interface EditCallListTaskRequest {
    */
   customData?: string;
   /**
-   * Start time for the daily calling attempts in the UTC+0 24-h format: HH:mm:ss format
+   * Optional. Start time for the daily calling attempts in the UTC+0 24-h format: HH:mm:ss format. If spefied, please specify `max_execution_time` as well
    */
   minExecutionTime?: Date;
+  /**
+   * Optional. End time for the daily calling attempts in the UTC+0 24-h format: HH:mm:ss format. If spefied, please specify `min_execution_time` as well
+   */
+  maxExecutionTime?: Date;
 }
 
 export interface EditCallListTaskResponse {

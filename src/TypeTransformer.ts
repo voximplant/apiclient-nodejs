@@ -1767,7 +1767,7 @@ export default class TypeTransformer {
           data['subscription_template_id']
         );
       if (typeof data['currency'] !== 'undefined')
-        xData['currency'] = TypeTransformer.to('number')(data['currency']);
+        xData['currency'] = TypeTransformer.to('string')(data['currency']);
       if (typeof data['installation_price'] !== 'undefined')
         xData['installationPrice'] = TypeTransformer.to('number')(data['installation_price']);
       if (typeof data['installation_price_in_currency'] !== 'undefined')
@@ -4952,7 +4952,7 @@ export default class TypeTransformer {
           data['subscriptionTemplateId']
         );
       if (typeof data['currency'] !== 'undefined')
-        xData['currency'] = TypeTransformer.from('number')(data['currency']);
+        xData['currency'] = TypeTransformer.from('string')(data['currency']);
       if (typeof data['installationPrice'] !== 'undefined')
         xData['installation_price'] = TypeTransformer.from('number')(data['installationPrice']);
       if (typeof data['installationPriceInCurrency'] !== 'undefined')
