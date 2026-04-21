@@ -1079,9 +1079,7 @@ export default class TypeTransformer {
       if (typeof data['phone_country_code'] !== 'undefined')
         xData['phoneCountryCode'] = TypeTransformer.to('string')(data['phone_country_code']);
       if (typeof data['activation_status'] !== 'undefined')
-        xData['activationStatus'] = TypeTransformer.to('string|string[]')(
-          data['activation_status']
-        );
+        xData['activationStatus'] = TypeTransformer.to('string')(data['activation_status']);
       if (typeof data['phone_next_renewal'] !== 'undefined')
         xData['phoneNextRenewal'] = TypeTransformer.to('Date')(data['phone_next_renewal']);
       if (typeof data['phone_purchase_date'] !== 'undefined')
@@ -3148,6 +3146,42 @@ export default class TypeTransformer {
         xData['sqSkillId'] = TypeTransformer.to('number')(data['sq_skill_id']);
       return xData;
     },
+    AddSecretResult: function (data) {
+      const xData = {};
+      if (typeof data['secret_id'] !== 'undefined')
+        xData['secretId'] = TypeTransformer.to('number')(data['secret_id']);
+      return xData;
+    },
+    GetSecretValueResult: function (data) {
+      const xData = {};
+      if (typeof data['secret_id'] !== 'undefined')
+        xData['secretId'] = TypeTransformer.to('number')(data['secret_id']);
+      if (typeof data['secret_name'] !== 'undefined')
+        xData['secretName'] = TypeTransformer.to('string')(data['secret_name']);
+      if (typeof data['secret_value'] !== 'undefined')
+        xData['secretValue'] = TypeTransformer.to('string')(data['secret_value']);
+      if (typeof data['description'] !== 'undefined')
+        xData['description'] = TypeTransformer.to('string')(data['description']);
+      if (typeof data['created'] !== 'undefined')
+        xData['created'] = TypeTransformer.to('Date')(data['created']);
+      if (typeof data['modified'] !== 'undefined')
+        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+      return xData;
+    },
+    SecretListItem: function (data) {
+      const xData = {};
+      if (typeof data['secret_id'] !== 'undefined')
+        xData['secretId'] = TypeTransformer.to('number')(data['secret_id']);
+      if (typeof data['secret_name'] !== 'undefined')
+        xData['secretName'] = TypeTransformer.to('string')(data['secret_name']);
+      if (typeof data['description'] !== 'undefined')
+        xData['description'] = TypeTransformer.to('string')(data['description']);
+      if (typeof data['created'] !== 'undefined')
+        xData['created'] = TypeTransformer.to('Date')(data['created']);
+      if (typeof data['modified'] !== 'undefined')
+        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+      return xData;
+    },
   };
 
   private static toActors = {
@@ -4254,9 +4288,7 @@ export default class TypeTransformer {
       if (typeof data['phoneCountryCode'] !== 'undefined')
         xData['phone_country_code'] = TypeTransformer.from('string')(data['phoneCountryCode']);
       if (typeof data['activationStatus'] !== 'undefined')
-        xData['activation_status'] = TypeTransformer.from('string|string[]')(
-          data['activationStatus']
-        );
+        xData['activation_status'] = TypeTransformer.from('string')(data['activationStatus']);
       if (typeof data['phoneNextRenewal'] !== 'undefined')
         xData['phone_next_renewal'] = TypeTransformer.from('Date')(data['phoneNextRenewal']);
       if (typeof data['phonePurchaseDate'] !== 'undefined')
@@ -6347,6 +6379,42 @@ export default class TypeTransformer {
       const xData = {};
       if (typeof data['sqSkillId'] !== 'undefined')
         xData['sq_skill_id'] = TypeTransformer.from('number')(data['sqSkillId']);
+      return xData;
+    },
+    AddSecretResult: function (data) {
+      const xData = {};
+      if (typeof data['secretId'] !== 'undefined')
+        xData['secret_id'] = TypeTransformer.from('number')(data['secretId']);
+      return xData;
+    },
+    GetSecretValueResult: function (data) {
+      const xData = {};
+      if (typeof data['secretId'] !== 'undefined')
+        xData['secret_id'] = TypeTransformer.from('number')(data['secretId']);
+      if (typeof data['secretName'] !== 'undefined')
+        xData['secret_name'] = TypeTransformer.from('string')(data['secretName']);
+      if (typeof data['secretValue'] !== 'undefined')
+        xData['secret_value'] = TypeTransformer.from('string')(data['secretValue']);
+      if (typeof data['description'] !== 'undefined')
+        xData['description'] = TypeTransformer.from('string')(data['description']);
+      if (typeof data['created'] !== 'undefined')
+        xData['created'] = TypeTransformer.from('Date')(data['created']);
+      if (typeof data['modified'] !== 'undefined')
+        xData['modified'] = TypeTransformer.from('Date')(data['modified']);
+      return xData;
+    },
+    SecretListItem: function (data) {
+      const xData = {};
+      if (typeof data['secretId'] !== 'undefined')
+        xData['secret_id'] = TypeTransformer.from('number')(data['secretId']);
+      if (typeof data['secretName'] !== 'undefined')
+        xData['secret_name'] = TypeTransformer.from('string')(data['secretName']);
+      if (typeof data['description'] !== 'undefined')
+        xData['description'] = TypeTransformer.from('string')(data['description']);
+      if (typeof data['created'] !== 'undefined')
+        xData['created'] = TypeTransformer.from('Date')(data['created']);
+      if (typeof data['modified'] !== 'undefined')
+        xData['modified'] = TypeTransformer.from('Date')(data['modified']);
       return xData;
     },
   };

@@ -1,8 +1,8 @@
 const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
 const client = new VoximplantApiClient();
 client.onReady = function () {
-  // undefined
-  client.CallerIDs.addCallerID({ calleridNumber: '74953331122' })
+  // Get the value of secret 10.
+  client.Secrets.getSecretValue({ applicationId: '1', secretId: '10' })
     .then((ev) => console.log(ev))
     .catch((err) => console.error(err));
 };

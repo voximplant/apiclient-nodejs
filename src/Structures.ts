@@ -1740,7 +1740,7 @@ export interface AttachedPhoneInfo {
   /**
    * Phone number activation status
    */
-  activationStatus?: string | string[];
+  activationStatus?: string;
   /**
    * The next renewal date in the following format: YYYY-MM-DD
    */
@@ -4876,4 +4876,58 @@ export interface SQAddSkillResult {
    * ID of the added skill
    */
   sqSkillId: number;
+}
+export interface AddSecretResult {
+  /**
+   * Added secret ID
+   */
+  secretId: number;
+}
+export interface GetSecretValueResult {
+  /**
+   * Secret ID
+   */
+  secretId: number;
+  /**
+   * Secret name
+   */
+  secretName: string;
+  /**
+   * Secret value
+   */
+  secretValue: string;
+  /**
+   * Secret description
+   */
+  description?: string;
+  /**
+   * Secret creation timestamp
+   */
+  created: Date;
+  /**
+   * Secret modification timestamp
+   */
+  modified: Date;
+}
+export interface SecretListItem {
+  /**
+   * Secret ID
+   */
+  secretId: number;
+  /**
+   * Secret name
+   */
+  secretName: string;
+  /**
+   * Secret description
+   */
+  description?: string;
+  /**
+   * Secret creation timestamp
+   */
+  created: Date;
+  /**
+   * Secret modification timestamp
+   */
+  modified: Date;
 }

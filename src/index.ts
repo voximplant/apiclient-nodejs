@@ -191,16 +191,10 @@ import {
   GetWABPhoneNumbersRequest,
   GetWABPhoneNumbersResponse,
   WABPhoneNumbersInterface,
-  AddCallerIDRequest,
-  AddCallerIDResponse,
-  ActivateCallerIDRequest,
-  ActivateCallerIDResponse,
   DelCallerIDRequest,
   DelCallerIDResponse,
   GetCallerIDsRequest,
   GetCallerIDsResponse,
-  VerifyCallerIDRequest,
-  VerifyCallerIDResponse,
   CallerIDsInterface,
   AddOutboundTestPhoneNumberRequest,
   AddOutboundTestPhoneNumberResponse,
@@ -422,6 +416,17 @@ import {
   DownloadInvoiceResponse,
   InvoicesInterface,
   ChildAccountsInterface,
+  AddSecretRequest,
+  AddSecretResponse,
+  DelSecretRequest,
+  DelSecretResponse,
+  GetSecretValueRequest,
+  GetSecretValueResponse,
+  GetSecretsRequest,
+  GetSecretsResponse,
+  SetSecretInfoRequest,
+  SetSecretInfoResponse,
+  SecretsInterface,
 } from './Interfaces';
 import {
   AccountInfo,
@@ -494,6 +499,9 @@ import {
   KeyValueItems,
   KeyValueKeys,
   AccountInvoice,
+  AddSecretResult,
+  GetSecretValueResult,
+  SecretListItem,
 } from './Structures';
 import * as fs from 'fs';
 import * as jwt from 'jsonwebtoken';
@@ -4123,49 +4131,6 @@ export default class VoximplantApiClient {
 
   public CallerIDs: CallerIDsInterface = {
     /**
-     * Adds a new caller ID. Caller ID is the phone that is displayed to the called user. This number can be used for call back.
-     */
-    addCallerID: (request: AddCallerIDRequest): Promise<AddCallerIDResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'callerid_number',
-          name: 'calleridNumber',
-          transformer: TypeTransformer.to('string', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-        { rawName: 'callerid_id', name: 'calleridId', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('AddCallerID', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Activates the CallerID by the verification code.
-     */
-    activateCallerID: (request: ActivateCallerIDRequest): Promise<ActivateCallerIDResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'callerid_id',
-          name: 'calleridId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'callerid_number',
-          name: 'calleridNumber',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'verification_code',
-          name: 'verificationCode',
-          transformer: TypeTransformer.to('string', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('ActivateCallerID', request, [reqMapper, respMapper]);
-    },
-    /**
      * Deletes the CallerID. Note: you cannot delete a CID permanently (the antispam defence).
      */
     delCallerID: (request: DelCallerIDRequest): Promise<DelCallerIDResponse> => {
@@ -4216,27 +4181,6 @@ export default class VoximplantApiClient {
         { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
       ];
       return this.makeRequest('GetCallerIDs', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Gets a verification code via phone call to the **callerid_number**.
-     */
-    verifyCallerID: (request: VerifyCallerIDRequest): Promise<VerifyCallerIDResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'callerid_id',
-          name: 'calleridId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'callerid_number',
-          name: 'calleridNumber',
-          transformer: TypeTransformer.to('string', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('VerifyCallerID', request, [reqMapper, respMapper]);
     },
   };
 
@@ -7559,6 +7503,187 @@ export default class VoximplantApiClient {
         { rawName: 'file_content', name: 'fileContent', transformer: TypeTransformer.from('file') },
       ];
       return this.makeRequest('DownloadInvoice', request, [reqMapper, respMapper]);
+    },
+  };
+
+  public Secrets: SecretsInterface = {
+    /**
+     * Adds a new secret.
+     */
+    addSecret: (request: AddSecretRequest): Promise<AddSecretResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'secret_name',
+          name: 'secretName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'secret_value',
+          name: 'secretValue',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
+      ];
+      const respMapper = [
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('[AddSecretResult]'),
+        },
+      ];
+      return this.makeRequest('AddSecret', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Deletes an existing secret.
+     */
+    delSecret: (request: DelSecretRequest): Promise<DelSecretResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'secret_id',
+          name: 'secretId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
+        {
+          rawName: 'secret_name',
+          name: 'secretName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('DelSecret', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Gets the value of a specific secret.
+     */
+    getSecretValue: (request: GetSecretValueRequest): Promise<GetSecretValueResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'secret_id', name: 'secretId', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'secret_name',
+          name: 'secretName',
+          transformer: TypeTransformer.to('string', true),
+        },
+      ];
+      const respMapper = [
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('[GetSecretValueResult]'),
+        },
+      ];
+      return this.makeRequest('GetSecretValue', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Gets the list of an application's secrets.
+     */
+    getSecrets: (request: GetSecretsRequest): Promise<GetSecretsResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'secret_name_part',
+          name: 'secretNamePart',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
+        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
+      ];
+      const respMapper = [
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('[SecretListItem]'),
+        },
+        { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
+        { rawName: 'total_count', name: 'totalCount', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('GetSecrets', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Edits a secret's parameters.
+     */
+    setSecretInfo: (request: SetSecretInfoRequest): Promise<SetSecretInfoResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'secret_id', name: 'secretId', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'secret_name',
+          name: 'secretName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'new_secret_name',
+          name: 'newSecretName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'secret_value',
+          name: 'secretValue',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'description',
+          name: 'description',
+          transformer: TypeTransformer.to('string', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('SetSecretInfo', request, [reqMapper, respMapper]);
     },
   };
 }

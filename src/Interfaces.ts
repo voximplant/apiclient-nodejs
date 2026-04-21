@@ -69,6 +69,9 @@ import {
   KeyValueItems,
   KeyValueKeys,
   AccountInvoice,
+  AddSecretResult,
+  GetSecretValueResult,
+  SecretListItem,
   APIError,
 } from './Structures';
 export interface UtilsReturns {
@@ -160,11 +163,8 @@ export interface UtilsReturns {
   DeleteWABPhoneNumber: DeleteWABPhoneNumberResponse;
   SetWABPhoneNumberInfo: SetWABPhoneNumberInfoResponse;
   GetWABPhoneNumbers: GetWABPhoneNumbersResponse;
-  AddCallerID: AddCallerIDResponse;
-  ActivateCallerID: ActivateCallerIDResponse;
   DelCallerID: DelCallerIDResponse;
   GetCallerIDs: GetCallerIDsResponse;
-  VerifyCallerID: VerifyCallerIDResponse;
   AddOutboundTestPhoneNumber: AddOutboundTestPhoneNumberResponse;
   VerifyOutboundTestPhoneNumber: VerifyOutboundTestPhoneNumberResponse;
   ActivateOutboundTestPhoneNumber: ActivateOutboundTestPhoneNumberResponse;
@@ -264,6 +264,11 @@ export interface UtilsReturns {
   GetKeyValueKeys: GetKeyValueKeysResponse;
   GetAccountInvoices: GetAccountInvoicesResponse;
   DownloadInvoice: DownloadInvoiceResponse;
+  AddSecret: AddSecretResponse;
+  DelSecret: DelSecretResponse;
+  GetSecretValue: GetSecretValueResponse;
+  GetSecrets: GetSecretsResponse;
+  SetSecretInfo: SetSecretInfoResponse;
 }
 
 export interface NewRegistrationInterface {}
@@ -477,7 +482,7 @@ export interface GetCurrencyRateResponse {
 }
 export interface GetResourcePriceRequest {
   /**
-   * The resource type list separated by semicolons (;). The possible values are AUDIOHDCONFERENCE, AUDIOHDRECORD, AUDIORECORD, CALLLIST, CALLSESSION, DIALOGFLOW, IM, PSTN_IN_ALASKA, PSTN_IN_GB, PSTN_IN_GEOGRAPHIC, PSTN_IN_GEO_PH, PSTN_IN_RU, PSTN_IN_RU_TOLLFREE, PSTN_INTERNATIONAL, PSTNINTEST, PSTN_IN_TF_AR, PSTN_IN_TF_AT, PSTN_IN_TF_AU, PSTN_IN_TF_BE, PSTN_IN_TF_BR, PSTN_IN_TF_CA, PSTN_IN_TF_CO, PSTN_IN_TF_CY, PSTN_IN_TF_DE, PSTN_IN_TF_DK, PSTN_IN_TF_DO, PSTN_IN_TF_FI, PSTN_IN_TF_FR, PSTN_IN_TF_GB, PSTN_IN_TF_HR, PSTN_IN_TF_HU, PSTN_IN_TF_IL, PSTN_IN_TF_LT, PSTN_IN_TF_PE, PSTN_IN_TF_US, PSTN_IN_US, PSTNOUT, PSTNOUT_EEA, PSTNOUTEMERG, PSTNOUT_KZ, PSTNOUT_LOCAL, PSTN_OUT_LOCAL_RU, RELAYED_TRAFFIC, SIPOUT, SIPOUTVIDEO, SMSINPUT, SMSOUT, SMSOUT_INTERNATIONAL, TRANSCRIPTION, TTS_TEXT_GOOGLE, TTS_YANDEX, USER_LOGON, VIDEOCALL, VIDEORECORD, VOICEMAILDETECTION, VOIPIN, VOIPOUT, VOIPOUTVIDEO, YANDEXASR, ASR, ASR_GOOGLE_ENHANCED
+   * The resource type list separated by semicolons (;). The possible values are: <ul><li><strong>A2P_SMS_E212</strong> — Service SMS</li><li><strong>ASR</strong> — Speech recognition</li><li><strong>ASR_AWS</strong> — Speech recognition by Amazon</li><li><strong>ASR_DEEPGRAM</strong> — Speech recognition by Deepgram</li><li><strong>ASR_GOOGLE_ENHANCED</strong> — Speech recognition by Google</li><li><strong>ASR_SMARTSPEECH</strong> — Speech recognition by SmartSpeech</li><li><strong>ASR_YANDEX</strong> — Speech recognition by Yandex</li><li><strong>AUDIOHDCONFERENCE</strong> — HD audio conferencing</li><li><strong>AUDIOHDRECORD</strong> — HD audio call recording</li><li><strong>AUDIORECORD</strong> — Audio call recording</li><li><strong>CALLSESSION</strong> — Simultaneous sessions per account</li><li><strong>DIALOGFLOW</strong> — Dialogflow ES</li><li><strong>DIALOGFLOW_CX</strong> — Dialogflow CX</li><li><strong>IM_OVERRUN</strong> — Exceeding instant messages</li><li><strong>KV_STORAGE</strong> — Key-value storage</li><li><strong>MAU_OVERRUN</strong> — Exceeding monthly active users</li><li><strong>NLU</strong> — Avatar requests</li><li><strong>PSTN_IN_ALASKA</strong> — Incoming phone calls to Alaska phone numbers</li><li><strong>PSTN_IN_GB</strong> — Incoming phone calls to United Kingdom phone numbers</li><li><strong>PSTN_IN_GEO_AE</strong> — Incoming geographical phone calls to UAE phone numbers</li><li><strong>PSTN_IN_GEO_AO</strong> — Incoming geographical phone calls to Angola phone numbers</li><li><strong>PSTN_IN_GEO_BH</strong> — Incoming geographical phone calls to Bahrain phone numbers</li><li><strong>PSTN_IN_GEO_BR</strong> — Incoming geographical phone calls to Brazil phone numbers</li><li><strong>PSTN_IN_GEO_CN</strong> — Incoming geographical phone calls to China phone numbers</li><li><strong>PSTN_IN_GEO_EC</strong> — Incoming geographical phone calls to Ecuador phone numbers</li><li><strong>PSTN_IN_GEO_IN</strong> — Incoming geographical phone calls to India phone numbers</li><li><strong>PSTN_IN_GEO_JO</strong> — Incoming geographical phone calls to Jordan phone numbers</li><li><strong>PSTN_IN_GEO_JP</strong> — Incoming geographical phone calls to Japan phone numbers</li><li><strong>PSTN_IN_GEO_KG</strong> — Incoming geographical phone calls to Kyrgyzstan phone numbers</li><li><strong>PSTN_IN_GEO_KH</strong> — Incoming geographical phone calls to Cambodia phone numbers</li><li><strong>PSTN_IN_GEO_MA</strong> — Incoming geographical phone calls to Morocco phone numbers</li><li><strong>PSTN_IN_GEO_NG</strong> — Incoming geographical phone calls to Nigeria phone numbers</li><li><strong>PSTN_IN_GEO_PE</strong> — Incoming geographical phone calls to Peru phone numbers</li><li><strong>PSTN_IN_GEO_PH</strong> — Incoming geographical phone calls to Philippines phone numbers</li><li><strong>PSTN_IN_GEO_PK</strong> — Incoming geographical phone calls to Pakistan phone numbers</li><li><strong>PSTN_IN_GEO_PY</strong> — Incoming geographical phone calls to Paraguay phone numbers</li><li><strong>PSTN_IN_GEO_RS</strong> — Incoming geographical phone calls to Serbia phone numbers</li><li><strong>PSTN_IN_GEO_SA</strong> — Incoming geographical phone calls to Saudi Arabia phone numbers</li><li><strong>PSTN_IN_GEO_UG</strong> — Incoming geographical phone calls to Uganda phone numbers</li><li><strong>PSTN_IN_GEO_UY</strong> — Incoming geographical phone calls to Uruguay phone numbers</li><li><strong>PSTN_IN_GEO_UZ</strong> — Incoming geographical phone calls to Uzbekistan phone numbers</li><li><strong>PSTN_IN_GEO_VN</strong> — Incoming geographical phone calls to Vietnam phone numbers</li><li><strong>PSTN_IN_GEOGRAPHIC</strong> — Incoming geographical phone calls</li><li><strong>PSTN_IN_MOB_AU</strong> — Incoming mobile phone calls to Australia phone numbers</li><li><strong>PSTN_IN_MOB_BD</strong> — Incoming mobile phone calls to Bangladesh phone numbers</li><li><strong>PSTN_IN_MOB_BE</strong> — Incoming mobile phone calls to Belgium phone numbers</li><li><strong>PSTN_IN_MOB_BR</strong> — Incoming mobile phone calls to Brazil phone numbers</li><li><strong>PSTN_IN_MOB_CA</strong> — Incoming mobile phone calls to Canada phone numbers</li><li><strong>PSTN_IN_MOB_CO</strong> — Incoming mobile phone calls to Colombia phone numbers</li><li><strong>PSTN_IN_MOB_DK</strong> — Incoming mobile phone calls to Denmark phone numbers</li><li><strong>PSTN_IN_MOB_EG</strong> — Incoming mobile phone calls to Egypt phone numbers</li><li><strong>PSTN_IN_MOB_FI</strong> — Incoming mobile phone calls to Finland phone numbers</li><li><strong>PSTN_IN_MOB_GB</strong> — Incoming mobile phone calls to United Kingdom phone numbers</li><li><strong>PSTN_IN_MOB_HK</strong> — Incoming mobile phone calls to Hong Kong phone numbers</li><li><strong>PSTN_IN_MOB_ID</strong> — Incoming mobile phone calls to Indonesia phone numbers</li><li><strong>PSTN_IN_MOB_IL</strong> — Incoming mobile phone calls to Israel phone numbers</li><li><strong>PSTN_IN_MOB_IN</strong> — Incoming mobile phone calls to India phone numbers</li><li><strong>PSTN_IN_MOB_KZ</strong> — Incoming mobile phone calls to Kazakhstan phone numbers</li><li><strong>PSTN_IN_MOB_LA</strong> — Incoming mobile phone calls to Laos phone numbers</li><li><strong>PSTN_IN_MOB_LV</strong> — Incoming mobile phone calls to Latvia phone numbers</li><li><strong>PSTN_IN_MOB_MU</strong> — Incoming mobile phone calls to Mauritius phone numbers</li><li><strong>PSTN_IN_MOB_MX</strong> — Incoming mobile phone calls to Mexico phone numbers</li><li><strong>PSTN_IN_MOB_MY</strong> — Incoming mobile phone calls to Malaysia phone numbers</li><li><strong>PSTN_IN_MOB_NI</strong> — Incoming mobile phone calls to Nicaragua phone numbers</li><li><strong>PSTN_IN_MOB_NL</strong> — Incoming mobile phone calls to the Netherlands phone numbers</li><li><strong>PSTN_IN_MOB_NP</strong> — Incoming mobile phone calls to Nepal phone numbers</li><li><strong>PSTN_IN_MOB_PE</strong> — Incoming mobile phone calls to Peru phone numbers</li><li><strong>PSTN_IN_MOB_PL</strong> — Incoming mobile phone calls to Poland phone numbers</li><li><strong>PSTN_IN_MOB_PR</strong> — Incoming mobile phone calls to Puerto Rico phone numbers</li><li><strong>PSTN_IN_MOB_PT</strong> — Incoming mobile phone calls to Portugal phone numbers</li><li><strong>PSTN_IN_MOB_RU</strong> — Incoming mobile phone calls to Russia phone numbers</li><li><strong>PSTN_IN_MOB_SE</strong> — Incoming mobile phone calls to Sweden phone numbers</li><li><strong>PSTN_IN_MOB_US</strong> — Incoming mobile phone calls to the United States phone numbers</li><li><strong>PSTN_IN_NATIONAL_AM</strong> — Incoming national phone calls to Armenia phone numbers</li><li><strong>PSTN_IN_NATIONAL_BO</strong> — Incoming national phone calls to Bolivia phone numbers</li><li><strong>PSTN_IN_NATIONAL_HN</strong> — Incoming national phone calls to Honduras phone numbers</li><li><strong>PSTN_IN_NATIONAL_JM</strong> — Incoming national phone calls to Jamaica phone numbers</li><li><strong>PSTN_IN_RU</strong> — Incoming phone calls to Russia phone numbers</li><li><strong>PSTN_IN_RU_TOLLFREE</strong> — Incoming toll-free phone calls to Russia phone numbers</li><li><strong>PSTN_IN_SC_AU</strong> — Incoming phone calls to Australia phone numbers</li><li><strong>PSTN_IN_STAR_RU</strong> — Incoming phone calls to Russia phone numbers</li><li><strong>PSTN_IN_TF_AR</strong> — Incoming toll-free phone calls to Argentina phone numbers</li><li><strong>PSTN_IN_TF_AT</strong> — Incoming toll-free phone calls to Austria phone numbers</li><li><strong>PSTN_IN_TF_AU</strong> — Incoming toll-free phone calls to Australia phone numbers</li><li><strong>PSTN_IN_TF_BE</strong> — Incoming toll-free phone calls to Belgium phone numbers</li><li><strong>PSTN_IN_TF_BG</strong> — Incoming toll-free phone calls to Bulgaria phone numbers</li><li><strong>PSTN_IN_TF_BH</strong> — Incoming toll-free phone calls to Bahrain phone numbers</li><li><strong>PSTN_IN_TF_BR</strong> — Incoming toll-free phone calls to Brazil phone numbers</li><li><strong>PSTN_IN_TF_BY</strong> — Incoming toll-free phone calls to Belarus phone numbers</li><li><strong>PSTN_IN_TF_CA</strong> — Incoming toll-free phone calls to Canada phone numbers</li><li><strong>PSTN_IN_TF_CH</strong> — Incoming toll-free phone calls to Switzerland phone numbers</li><li><strong>PSTN_IN_TF_CL</strong> — Incoming toll-free phone calls to Chile phone numbers</li><li><strong>PSTN_IN_TF_CO</strong> — Incoming toll-free phone calls to Colombia phone numbers</li><li><strong>PSTN_IN_TF_CR</strong> — Incoming toll-free phone calls to Costa Rica phone numbers</li><li><strong>PSTN_IN_TF_CY</strong> — Incoming toll-free phone calls to Cyprus phone numbers</li><li><strong>PSTN_IN_TF_CZ</strong> — Incoming toll-free phone calls to Czechia phone numbers</li><li><strong>PSTN_IN_TF_DE</strong> — Incoming toll-free phone calls to Germany phone numbers</li><li><strong>PSTN_IN_TF_DK</strong> — Incoming toll-free phone calls to Denmark phone numbers</li><li><strong>PSTN_IN_TF_DO</strong> — Incoming toll-free phone calls to Dominican Republic phone numbers</li><li><strong>PSTN_IN_TF_EC</strong> — Incoming toll-free phone calls to Ecuador phone numbers</li><li><strong>PSTN_IN_TF_EE</strong> — Incoming toll-free phone calls to Estonia phone numbers</li><li><strong>PSTN_IN_TF_EG</strong> — Incoming toll-free phone calls to Egypt phone numbers</li><li><strong>PSTN_IN_TF_ES</strong> — Incoming toll-free phone calls to Spain phone numbers</li><li><strong>PSTN_IN_TF_FI</strong> — Incoming toll-free phone calls to Finland phone numbers</li><li><strong>PSTN_IN_TF_FR</strong> — Incoming toll-free phone calls to France phone numbers</li><li><strong>PSTN_IN_TF_GB</strong> — Incoming toll-free phone calls to the United Kingdom phone numbers</li><li><strong>PSTN_IN_TF_GF</strong> — Incoming toll-free phone calls to French Guiana phone numbers</li><li><strong>PSTN_IN_TF_GP</strong> — Incoming toll-free phone calls to Guadeloupe phone numbers</li><li><strong>PSTN_IN_TF_HK</strong> — Incoming toll-free phone calls to Hong Kong phone numbers</li><li><strong>PSTN_IN_TF_HR</strong> — Incoming toll-free phone calls to Croatia phone numbers</li><li><strong>PSTN_IN_TF_HU</strong> — Incoming toll-free phone calls to Hungary phone numbers</li><li><strong>PSTN_IN_TF_ID</strong> — Incoming toll-free phone calls to Indonesia phone numbers</li><li><strong>PSTN_IN_TF_IE</strong> — Incoming toll-free phone calls to Ireland phone numbers</li><li><strong>PSTN_IN_TF_IL</strong> — Incoming toll-free phone calls to Israel phone numbers</li><li><strong>PSTN_IN_TF_IN</strong> — Incoming toll-free phone calls to India phone numbers</li><li><strong>PSTN_IN_TF_IS</strong> — Incoming toll-free phone calls to Iceland phone numbers</li><li><strong>PSTN_IN_TF_IT</strong> — Incoming toll-free phone calls to Italy phone numbers</li><li><strong>PSTN_IN_TF_KE</strong> — Incoming toll-free phone calls to Kenya phone numbers</li><li><strong>PSTN_IN_TF_KR</strong> — Incoming toll-free phone calls to South Korea phone numbers</li><li><strong>PSTN_IN_TF_KW</strong> — Incoming toll-free phone calls to Kuwait phone numbers</li><li><strong>PSTN_IN_TF_KZ</strong> — Incoming toll-free phone calls to Kazakhstan phone numbers</li><li><strong>PSTN_IN_TF_LT</strong> — Incoming toll-free phone calls to Lithuania phone numbers</li><li><strong>PSTN_IN_TF_LV</strong> — Incoming toll-free phone calls to Latvia phone numbers</li><li><strong>PSTN_IN_TF_MC</strong> — Incoming toll-free phone calls to Monaco phone numbers</li><li><strong>PSTN_IN_TF_MK</strong> — Incoming toll-free phone calls to North Macedonia phone numbers</li><li><strong>PSTN_IN_TF_MQ</strong> — Incoming toll-free phone calls to Martinique phone numbers</li><li><strong>PSTN_IN_TF_MT</strong> — Incoming toll-free phone calls to Malta phone numbers</li><li><strong>PSTN_IN_TF_MX</strong> — Incoming toll-free phone calls to Mexico phone numbers</li><li><strong>PSTN_IN_TF_NL</strong> — Incoming toll-free phone calls to the Netherlands phone numbers</li><li><strong>PSTN_IN_TF_NZ</strong> — Incoming toll-free phone calls to New Zealand phone numbers</li><li><strong>PSTN_IN_TF_OM</strong> — Incoming toll-free phone calls to Oman phone numbers</li><li><strong>PSTN_IN_TF_PA</strong> — Incoming toll-free phone calls to Panama phone numbers</li><li><strong>PSTN_IN_TF_PE</strong> — Incoming toll-free phone calls to Peru phone numbers</li><li><strong>PSTN_IN_TF_PK</strong> — Incoming toll-free phone calls to Pakistan phone numbers</li><li><strong>PSTN_IN_TF_PR</strong> — Incoming toll-free phone calls to Puerto Rico phone numbers</li><li><strong>PSTN_IN_TF_QA</strong> — Incoming toll-free phone calls to Qatar phone numbers</li><li><strong>PSTN_IN_TF_RE</strong> — Incoming toll-free phone calls to Reunion phone numbers</li><li><strong>PSTN_IN_TF_RO</strong> — Incoming toll-free phone calls to Romania phone numbers</li><li><strong>PSTN_IN_TF_RS</strong> — Incoming toll-free phone calls to Serbia phone numbers</li><li><strong>PSTN_IN_TF_SA</strong> — Incoming toll-free phone calls to Saudi Arabia phone numbers</li><li><strong>PSTN_IN_TF_SE</strong> — Incoming toll-free phone calls to Sweden phone numbers</li><li><strong>PSTN_IN_TF_SI</strong> — Incoming toll-free phone calls to Slovenia phone numbers</li><li><strong>PSTN_IN_TF_SK</strong> — Incoming toll-free phone calls to Slovakia phone numbers</li><li><strong>PSTN_IN_TF_TH</strong> — Incoming toll-free phone calls to Thailand phone numbers</li><li><strong>PSTN_IN_TF_UA</strong> — Incoming toll-free phone calls to Ukraine phone numbers</li><li><strong>PSTN_IN_TF_UG</strong> — Incoming toll-free phone calls to Uganda phone numbers</li><li><strong>PSTN_IN_TF_US</strong> — Incoming toll-free phone calls to the United States phone numbers</li><li><strong>PSTN_IN_TF_VE</strong> — Incoming toll-free phone calls to Venezuela phone numbers</li><li><strong>PSTN_IN_TF_YT</strong> — Incoming toll-free phone calls to Mayotte phone numbers</li><li><strong>PSTN_IN_TF_ZA</strong> — Incoming toll-free phone calls to South Africa phone numbers</li><li><strong>PSTN_IN_US</strong> — Incoming phone calls to the United States phone numbers</li><li><strong>PSTN_INTERNATIONAL</strong> — Outgoing international calls</li><li><strong>PSTN_OUT_INCOUNTRY</strong> — Outgoing domestic phone calls</li><li><strong>PSTN_OUT_LOCAL_RU</strong> — Outgoing domestic phone calls in Russia</li><li><strong>PSTNOUT</strong> — Outgoing phone calls</li><li><strong>PSTNOUT_EEA</strong> — Outgoing phone calls to EEA</li><li><strong>PSTNOUT_LOCAL</strong> — Outgoing local phone calls</li><li><strong>RELAYED_TRAFFIC</strong> — TURN server relayed traffic</li><li><strong>SIPIN</strong> — Incoming SIP calls</li><li><strong>SIPOUT</strong> — Outgoing SIP calls</li><li><strong>SIPREFER</strong> — Call transfer via SIP REFER</li><li><strong>SMS_IN_MOB_AU</strong> — Incoming SMS to Australia phone numbers</li><li><strong>SMS_IN_MOB_BE</strong> — Incoming SMS to Belgium phone numbers</li><li><strong>SMS_IN_MOB_BR</strong> — Incoming SMS to Brazil phone numbers</li><li><strong>SMS_IN_MOB_CA</strong> — Incoming SMS to Canada phone numbers</li><li><strong>SMS_IN_MOB_CL</strong> — Incoming SMS to Chile phone numbers</li><li><strong>SMS_IN_MOB_CO</strong> — Incoming SMS to Colombia phone numbers</li><li><strong>SMS_IN_MOB_DK</strong> — Incoming SMS to Denmark phone numbers</li><li><strong>SMS_IN_MOB_FI</strong> — Incoming SMS to Finland phone numbers</li><li><strong>SMS_IN_MOB_FR</strong> — Incoming SMS to France phone numbers</li><li><strong>SMS_IN_MOB_GB</strong> — Incoming SMS to the United Kingdom phone numbers</li><li><strong>SMS_IN_MOB_HK</strong> — Incoming SMS to Hong Kong phone numbers</li><li><strong>SMS_IN_MOB_IL</strong> — Incoming SMS to Israel phone numbers</li><li><strong>SMS_IN_MOB_LV</strong> — Incoming SMS to Latvia phone numbers</li><li><strong>SMS_IN_MOB_MU</strong> — Incoming SMS to Mauritius phone numbers</li><li><strong>SMS_IN_MOB_MX</strong> — Incoming SMS to Mexico phone numbers</li><li><strong>SMS_IN_MOB_MY</strong> — Incoming SMS to Malaysia phone numbers</li><li><strong>SMS_IN_MOB_NL</strong> — Incoming SMS to the Netherlands phone numbers</li><li><strong>SMS_IN_MOB_PE</strong> — Incoming SMS to Peru phone numbers</li><li><strong>SMS_IN_MOB_PL</strong> — Incoming SMS to Poland phone numbers</li><li><strong>SMS_IN_MOB_PR</strong> — Incoming SMS to Puerto Rico phone numbers</li><li><strong>SMS_IN_MOB_PT</strong> — Incoming SMS to Portugal phone numbers</li><li><strong>SMS_IN_MOB_RU</strong> — Incoming SMS to Russia phone numbers</li><li><strong>SMS_IN_MOB_SE</strong> — Incoming SMS to Sweden phone numbers</li><li><strong>SMS_IN_MOB_TH</strong> — Incoming SMS to Thailand phone numbers</li><li><strong>SMS_IN_MOB_TR</strong> — Incoming SMS to Turkey phone numbers</li><li><strong>SMS_IN_MOB_US</strong> — Incoming SMS to the United States phone numbers</li><li><strong>SMSINPUT</strong> — Incoming SMS</li><li><strong>SMSOUT</strong> — Outgoing SMS</li><li><strong>SMSOUT_INTERNATIONAL</strong> — International outgoing SMS</li><li><strong>SMSOUT_RU_INTERNATIONAL</strong> — International outgoing SMS from Russia</li><li><strong>TRANSCRIPTION</strong> — Speech transcription</li><li><strong>TTS_CARTESIA</strong> — Text-to-speech by Cartesia</li><li><strong>TTS_ELEVENLABS</strong> — Text-to-speech by ElevenLabs</li><li><strong>TTS_GOOGLE_REALTIME</strong> — Realtime text-to-speech by Google</li><li><strong>TTS_INWORLD</strong> — Text-to-speech by Inworld</li><li><strong>TTS_SMARTSPEECH</strong> — Text-to-speech by SmartSpeech</li><li><strong>TTS_TEXT_CUSTOM_CREDENTIALS</strong> — Text-to-speech with custom credentials</li><li><strong>TTS_TEXT_GOOGLE</strong> — Text-to-speech by Google</li><li><strong>TTS_TINKOFF</strong> — Text-to-speech by T-bank</li><li><strong>TTS_YANDEX_NEURAL</strong> — Text-to-speech by Yandex</li><li><strong>VIDEOCALL</strong> — Video calls</li><li><strong>VIDEOCONFCALL_IN</strong> — Incoming video conference</li><li><strong>VIDEOCONFCALL_OUT</strong> — Outgoing video conference</li><li><strong>VIDEOCONFRECORD</strong> — Video conference recording per minute</li><li><strong>VIDEOPARTRECORD</strong> — Video conference member recording per minute</li><li><strong>VIDEORECORD</strong> — Video call recording</li><li><strong>VOICEMAILDETECTION</strong> — Voicemail detection</li><li><strong>VOIPIN</strong> — Incoming VoIP calls</li><li><strong>VOIPOUT</strong> — Outgoing VoIP calls</li><li><strong>WAB_VOICE_IN</strong> — Incoming WhatsApp Business calls</li><li><strong>WAB_VOICE_OUT_CONNECTOR</strong> — Outgoing WhatsApp Business calls</li><li><strong>WEBSOCKET_AUDIO</strong> — Audio via WebSockets</li><li><strong>YANDEXASR</strong> — Speech recognition by Yandex</li></ul>
    */
   resourceType?: string | string[];
   /**
@@ -746,7 +751,7 @@ export interface AccountsInterface {
 
 export interface AddApplicationRequest {
   /**
-   * The short application name in format \[a-z\]\[a-z0-9-\]{1,64}
+   * Short application name in the \[a-z\]\[a-z0-9-\]{1,64} format
    */
   applicationName: string;
   /**
@@ -1571,11 +1576,11 @@ export interface AddScenarioRequest {
    */
   rewrite?: boolean;
   /**
-   * ID of the application to bind the scenario to
+   * Application ID to bind the scenario to
    */
   applicationId?: number;
   /**
-   * Name of the application to bind the scenario to
+   * Application name to bind the scenario to
    */
   applicationName?: string;
 }
@@ -3904,46 +3909,6 @@ export interface WABPhoneNumbersInterface {
   getWABPhoneNumbers: (request: GetWABPhoneNumbersRequest) => Promise<GetWABPhoneNumbersResponse>;
 }
 
-export interface AddCallerIDRequest {
-  /**
-   * The callerID number in E.164 format
-   */
-  calleridNumber: string;
-}
-
-export interface AddCallerIDResponse {
-  /**
-   * Returns 1 if the request has been completed successfully
-   */
-  result: number;
-  /**
-   * ID of the callerID object
-   */
-  calleridId: number;
-  error?: APIError;
-}
-export interface ActivateCallerIDRequest {
-  /**
-   * ID of the callerID object
-   */
-  calleridId: number;
-  /**
-   * The callerID number that can be used instead of <b>callerid_id</b>
-   */
-  calleridNumber: string;
-  /**
-   * The verification code, see the VerifyCallerID function
-   */
-  verificationCode: string;
-}
-
-export interface ActivateCallerIDResponse {
-  /**
-   * Returns 1 if the request has been completed successfully
-   */
-  result: number;
-  error?: APIError;
-}
 export interface DelCallerIDRequest {
   /**
    * ID of the callerID object
@@ -4001,30 +3966,9 @@ export interface GetCallerIDsResponse {
   count: number;
   error?: APIError;
 }
-export interface VerifyCallerIDRequest {
-  /**
-   * ID of the callerID object
-   */
-  calleridId: number;
-  /**
-   * The callerID number that can be used instead of <b>callerid_id</b>
-   */
-  calleridNumber: string;
-}
-
-export interface VerifyCallerIDResponse {
-  /**
-   * Returns 1 if the request has been completed successfully
-   */
-  result: number;
-  error?: APIError;
-}
 export interface CallerIDsInterface {
-  addCallerID: (request: AddCallerIDRequest) => Promise<AddCallerIDResponse>;
-  activateCallerID: (request: ActivateCallerIDRequest) => Promise<ActivateCallerIDResponse>;
   delCallerID: (request: DelCallerIDRequest) => Promise<DelCallerIDResponse>;
   getCallerIDs: (request: GetCallerIDsRequest) => Promise<GetCallerIDsResponse>;
-  verifyCallerID: (request: VerifyCallerIDRequest) => Promise<VerifyCallerIDResponse>;
 }
 
 export interface AddOutboundTestPhoneNumberRequest {
@@ -4722,7 +4666,7 @@ export interface SQ_DeleteAgentCustomStatusMappingResponse {
 }
 export interface SQ_AddQueueRequest {
   /**
-   * ID of the application to bind to
+   * Application ID to bind to
    */
   applicationId: number;
   /**
@@ -4738,7 +4682,7 @@ export interface SQ_AddQueueRequest {
    */
   callTaskSelection: string;
   /**
-   * Name of the application to bind to. Can be used instead of <b>application_id</b>
+   * Application name to bind to. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -4801,7 +4745,7 @@ export interface SQ_AddQueueResponse {
 }
 export interface SQ_SetQueueInfoRequest {
   /**
-   * ID of the application to search by
+   * Application ID to search by
    */
   applicationId: number;
   /**
@@ -4809,7 +4753,7 @@ export interface SQ_SetQueueInfoRequest {
    */
   sqQueueId: number;
   /**
-   * Name of the application to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -4888,7 +4832,7 @@ export interface SQ_SetQueueInfoResponse {
 }
 export interface SQ_DelQueueRequest {
   /**
-   * ID of the application to search by
+   * Application ID to search by
    */
   applicationId: number;
   /**
@@ -4896,7 +4840,7 @@ export interface SQ_DelQueueRequest {
    */
   sqQueueId: 'any' | number | number[];
   /**
-   * Name of the application to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -4914,11 +4858,11 @@ export interface SQ_DelQueueResponse {
 }
 export interface SQ_GetQueuesRequest {
   /**
-   * ID of the application to search by
+   * Application ID to search by
    */
   applicationId: number;
   /**
-   * Name of the application to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -4972,7 +4916,7 @@ export interface SQ_GetQueuesResponse {
 }
 export interface SQ_AddSkillRequest {
   /**
-   * ID of the application to bind to
+   * Application ID to bind to
    */
   applicationId: number;
   /**
@@ -4980,7 +4924,7 @@ export interface SQ_AddSkillRequest {
    */
   sqSkillName: string;
   /**
-   * Name of the application to bind to. Can be used instead of <b>application_id</b>
+   * Application name to bind to. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -4998,7 +4942,7 @@ export interface SQ_AddSkillResponse {
 }
 export interface SQ_DelSkillRequest {
   /**
-   * ID of the application to search by
+   * Application ID to search by
    */
   applicationId: number;
   /**
@@ -5006,7 +4950,7 @@ export interface SQ_DelSkillRequest {
    */
   sqSkillId: 'any' | number | number[];
   /**
-   * Name of the application to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -5024,7 +4968,7 @@ export interface SQ_DelSkillResponse {
 }
 export interface SQ_SetSkillInfoRequest {
   /**
-   * ID of the application to search by
+   * Application ID to search by
    */
   applicationId: number;
   /**
@@ -5032,7 +4976,7 @@ export interface SQ_SetSkillInfoRequest {
    */
   sqSkillId: number;
   /**
-   * Name of the application to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -5058,7 +5002,7 @@ export interface SQ_SetSkillInfoResponse {
 }
 export interface SQ_BindSkillRequest {
   /**
-   * ID of the application to search by
+   * Application ID to search by
    */
   applicationId: number;
   /**
@@ -5070,7 +5014,7 @@ export interface SQ_BindSkillRequest {
    */
   sqSkills: any;
   /**
-   * Name of the application to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -5092,7 +5036,7 @@ export interface SQ_BindSkillResponse {
 }
 export interface SQ_UnbindSkillRequest {
   /**
-   * ID of the application to search by
+   * Application ID to search by
    */
   applicationId: number;
   /**
@@ -5104,7 +5048,7 @@ export interface SQ_UnbindSkillRequest {
    */
   sqSkillId: 'any' | number | number[];
   /**
-   * Name of the application to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -5126,11 +5070,11 @@ export interface SQ_UnbindSkillResponse {
 }
 export interface SQ_GetSkillsRequest {
   /**
-   * ID of the application to search by
+   * Application ID to search by
    */
   applicationId: number;
   /**
-   * Name of the application to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -5180,7 +5124,7 @@ export interface SQ_GetSkillsResponse {
 }
 export interface SQ_BindAgentRequest {
   /**
-   * ID of the application to search by
+   * Application ID to search by
    */
   applicationId: number;
   /**
@@ -5192,7 +5136,7 @@ export interface SQ_BindAgentRequest {
    */
   userId: 'any' | number | number[];
   /**
-   * Name of the application to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -5218,7 +5162,7 @@ export interface SQ_BindAgentResponse {
 }
 export interface SQ_UnbindAgentRequest {
   /**
-   * ID of the application to search by
+   * Application ID to search by
    */
   applicationId: number;
   /**
@@ -5230,7 +5174,7 @@ export interface SQ_UnbindAgentRequest {
    */
   userId: 'any' | number | number[];
   /**
-   * Name of the application to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -5252,7 +5196,7 @@ export interface SQ_UnbindAgentResponse {
 }
 export interface SQ_GetAgentsRequest {
   /**
-   * ID of the application to search by
+   * Application ID to search by
    */
   applicationId: number;
   /**
@@ -5260,7 +5204,7 @@ export interface SQ_GetAgentsRequest {
    */
   handleCalls: boolean;
   /**
-   * Name of the application to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -5330,7 +5274,7 @@ export interface SQ_GetAgentsResponse {
 }
 export interface SQ_SetAgentInfoRequest {
   /**
-   * ID of the application to search by
+   * Application ID to search by
    */
   applicationId: number;
   /**
@@ -5342,7 +5286,7 @@ export interface SQ_SetAgentInfoRequest {
    */
   handleCalls: boolean;
   /**
-   * Name of the application to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. Can be used instead of <b>application_id</b>
    */
   applicationName?: string;
   /**
@@ -7174,3 +7118,169 @@ export interface InvoicesInterface {
 }
 
 export interface ChildAccountsInterface {}
+
+export interface AddSecretRequest {
+  /**
+   * Application ID to add the secret to
+   */
+  applicationId: number;
+  /**
+   * Application name. Can be used instead of <b>application_id</b>
+   */
+  applicationName: string;
+  /**
+   * Secret name. The name must start with a Latin letter and can contain up to 64 characters, including Latin letters, digits and underscores
+   */
+  secretName: string;
+  /**
+   * Secret value. Maximum length is 8192 characters
+   */
+  secretValue: string;
+  /**
+   * Optional. Secret description. When processing, the length is truncated to the first 200 characters
+   */
+  description?: string;
+}
+
+export interface AddSecretResponse {
+  /**
+   * Result with the added secret ID
+   */
+  result: AddSecretResult[];
+  error?: APIError;
+}
+export interface DelSecretRequest {
+  /**
+   * Application ID
+   */
+  applicationId: number;
+  /**
+   * Application name. Can be used instead of <b>application_id</b>
+   */
+  applicationName: string;
+  /**
+   * IDs to delete. A list separated by semicolons (;). Use the 'all' value to delete all secrets
+   */
+  secretId: 'any' | number | number[];
+  /**
+   * Secret names to delete. List separated by semicolons (;)
+   */
+  secretName: string | string[];
+}
+
+export interface DelSecretResponse {
+  /**
+   * Returns 1 if the secret has been deleted successfully
+   */
+  result: number;
+  error?: APIError;
+}
+export interface GetSecretValueRequest {
+  /**
+   * Application ID
+   */
+  applicationId: number;
+  /**
+   * Application name. Can be used instead of <b>application_id</b>
+   */
+  applicationName: string;
+  /**
+   * Secret ID
+   */
+  secretId: number;
+  /**
+   * Secret name. Can be used instead of <b>secret_id</b>
+   */
+  secretName: string;
+}
+
+export interface GetSecretValueResponse {
+  /**
+   * The full secret info (with value)
+   */
+  result: GetSecretValueResult[];
+  error?: APIError;
+}
+export interface GetSecretsRequest {
+  /**
+   * Application ID
+   */
+  applicationId: number;
+  /**
+   * Application name. Can be used instead of <b>application_id</b>
+   */
+  applicationName: string;
+  /**
+   * Filter by the secret name part
+   */
+  secretNamePart?: string;
+  /**
+   * Maximum returning record number
+   */
+  count?: number;
+  /**
+   * First <b>N</b> records to be skipped in the output
+   */
+  offset?: number;
+}
+
+export interface GetSecretsResponse {
+  /**
+   * Secrets list
+   */
+  result: SecretListItem[];
+  /**
+   * Returned secrets number
+   */
+  count: number;
+  /**
+   * Total found secrets number
+   */
+  totalCount: number;
+  error?: APIError;
+}
+export interface SetSecretInfoRequest {
+  /**
+   * Application ID
+   */
+  applicationId: number;
+  /**
+   * Application name. Can be used instead of <b>application_id</b>
+   */
+  applicationName: string;
+  /**
+   * Secret ID to edit
+   */
+  secretId: number;
+  /**
+   * Secret name. Can be used instead of <b>secret_id</b>
+   */
+  secretName: string;
+  /**
+   * New secret name. The name must start with a Latin letter and can contain up to 64 characters, including Latin letters, digits and underscores
+   */
+  newSecretName?: string;
+  /**
+   * Secret value. Maximum length is 8192 characters
+   */
+  secretValue?: string;
+  /**
+   * Secret description. When processing, the length is truncated to the first 200 characters
+   */
+  description?: string;
+}
+
+export interface SetSecretInfoResponse {
+  /**
+   * Returns 1 if the secret has been updated successfully
+   */
+  result: number;
+  error?: APIError;
+}
+export interface SecretsInterface {
+  addSecret: (request: AddSecretRequest) => Promise<AddSecretResponse>;
+  delSecret: (request: DelSecretRequest) => Promise<DelSecretResponse>;
+  getSecretValue: (request: GetSecretValueRequest) => Promise<GetSecretValueResponse>;
+  getSecrets: (request: GetSecretsRequest) => Promise<GetSecretsResponse>;
+  setSecretInfo: (request: SetSecretInfoRequest) => Promise<SetSecretInfoResponse>;
+}
