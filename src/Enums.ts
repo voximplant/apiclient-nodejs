@@ -1452,10 +1452,6 @@ export enum APIErrorCode {
    */
   HTTP_REQUEST_REJECTED = 484,
   /**
-   * Specify the '%s' parameter
-   */
-  PARAMETER_CANT_BE_EMPTY = 485,
-  /**
    * Specify the '%1$s' parameter.
    */
   PARAMETER_CANT_BE_EMPTY_EX = 485,

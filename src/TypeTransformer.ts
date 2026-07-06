@@ -425,7 +425,7 @@ export default class TypeTransformer {
       if (typeof data['custom_data'] !== 'undefined')
         xData['customData'] = TypeTransformer.to('string')(data['custom_data']);
       if (typeof data['end_reason'] !== 'undefined')
-        xData['endReason'] = TypeTransformer.to('any')(data['end_reason']);
+        xData['endReason'] = TypeTransformer.to('string')(data['end_reason']);
       return xData;
     },
     TransactionInfoType: function (data) {
@@ -510,9 +510,9 @@ export default class TypeTransformer {
       if (typeof data['cmd_name'] !== 'undefined')
         xData['cmdName'] = TypeTransformer.to('string')(data['cmd_name']);
       if (typeof data['cmd_args'] !== 'undefined')
-        xData['cmdArgs'] = TypeTransformer.to('any')(data['cmd_args']);
+        xData['cmdArgs'] = TypeTransformer.to('string')(data['cmd_args']);
       if (typeof data['cmd_result'] !== 'undefined')
-        xData['cmdResult'] = TypeTransformer.to('any')(data['cmd_result']);
+        xData['cmdResult'] = TypeTransformer.to('string')(data['cmd_result']);
       return xData;
     },
     HistoryReportType: function (data) {
@@ -540,9 +540,9 @@ export default class TypeTransformer {
       if (typeof data['store_until'] !== 'undefined')
         xData['storeUntil'] = TypeTransformer.to('Date')(data['store_until']);
       if (typeof data['filters'] !== 'undefined')
-        xData['filters'] = TypeTransformer.to('any')(data['filters']);
+        xData['filters'] = TypeTransformer.to('string')(data['filters']);
       if (typeof data['calculated_data'] !== 'undefined')
-        xData['calculatedData'] = TypeTransformer.to('any')(data['calculated_data']);
+        xData['calculatedData'] = TypeTransformer.to('string')(data['calculated_data']);
       return xData;
     },
     CommonReportType: function (data) {
@@ -570,9 +570,9 @@ export default class TypeTransformer {
       if (typeof data['store_until'] !== 'undefined')
         xData['storeUntil'] = TypeTransformer.to('Date')(data['store_until']);
       if (typeof data['filters'] !== 'undefined')
-        xData['filters'] = TypeTransformer.to('any')(data['filters']);
+        xData['filters'] = TypeTransformer.to('string')(data['filters']);
       if (typeof data['calculated_data'] !== 'undefined')
-        xData['calculatedData'] = TypeTransformer.to('any')(data['calculated_data']);
+        xData['calculatedData'] = TypeTransformer.to('string')(data['calculated_data']);
       return xData;
     },
     CalculatedCallHistoryDataType: function (data) {
@@ -1470,6 +1470,8 @@ export default class TypeTransformer {
         xData['customData'] = TypeTransformer.to('string')(data['custom_data']);
       if (typeof data['start_execution_time'] !== 'undefined')
         xData['startExecutionTime'] = TypeTransformer.to('Date')(data['start_execution_time']);
+      if (typeof data['call_schedule'] !== 'undefined')
+        xData['callSchedule'] = TypeTransformer.to('string')(data['call_schedule']);
       if (typeof data['finish_execution_time'] !== 'undefined')
         xData['finishExecutionTime'] = TypeTransformer.to('Date')(data['finish_execution_time']);
       if (typeof data['result_data'] !== 'undefined')
@@ -1534,50 +1536,12 @@ export default class TypeTransformer {
         xData['ruleName'] = TypeTransformer.to('string')(data['rule_name']);
       return xData;
     },
-    AdminRoleType: function (data) {
-      const xData = {};
-      if (typeof data['admin_role_id'] !== 'undefined')
-        xData['adminRoleId'] = TypeTransformer.to('number')(data['admin_role_id']);
-      if (typeof data['admin_role_name'] !== 'undefined')
-        xData['adminRoleName'] = TypeTransformer.to('string')(data['admin_role_name']);
-      if (typeof data['admin_role_active'] !== 'undefined')
-        xData['adminRoleActive'] = TypeTransformer.to('boolean')(data['admin_role_active']);
-      if (typeof data['system_role'] !== 'undefined')
-        xData['systemRole'] = TypeTransformer.to('boolean')(data['system_role']);
-      if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
-      if (typeof data['allowed_entries'] !== 'undefined')
-        xData['allowedEntries'] = TypeTransformer.to('string[]')(data['allowed_entries']);
-      if (typeof data['denied_entries'] !== 'undefined')
-        xData['deniedEntries'] = TypeTransformer.to('string[]')(data['denied_entries']);
-      return xData;
-    },
     ClonedAdminRoleType: function (data) {
       const xData = {};
       if (typeof data['admin_role_id'] !== 'undefined')
         xData['adminRoleId'] = TypeTransformer.to('number')(data['admin_role_id']);
       if (typeof data['admin_role_name'] !== 'undefined')
         xData['adminRoleName'] = TypeTransformer.to('string')(data['admin_role_name']);
-      return xData;
-    },
-    AdminUserType: function (data) {
-      const xData = {};
-      if (typeof data['admin_user_id'] !== 'undefined')
-        xData['adminUserId'] = TypeTransformer.to('number')(data['admin_user_id']);
-      if (typeof data['admin_user_name'] !== 'undefined')
-        xData['adminUserName'] = TypeTransformer.to('string')(data['admin_user_name']);
-      if (typeof data['admin_user_display_name'] !== 'undefined')
-        xData['adminUserDisplayName'] = TypeTransformer.to('string')(
-          data['admin_user_display_name']
-        );
-      if (typeof data['admin_user_active'] !== 'undefined')
-        xData['adminUserActive'] = TypeTransformer.to('boolean')(data['admin_user_active']);
-      if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
-      if (typeof data['access_entries'] !== 'undefined')
-        xData['accessEntries'] = TypeTransformer.to('string[]')(data['access_entries']);
-      if (typeof data['admin_roles'] !== 'undefined')
-        xData['adminRoles'] = TypeTransformer.to('AdminRole[]')(data['admin_roles']);
       return xData;
     },
     ClonedAdminUserType: function (data) {
@@ -1723,11 +1687,11 @@ export default class TypeTransformer {
     AccountVerificationsTypeCredentials: function (data) {
       const xData = {};
       if (typeof data['individual'] !== 'undefined')
-        xData['individual'] = TypeTransformer.to('any')(data['individual']);
+        xData['individual'] = TypeTransformer.to('string')(data['individual']);
       if (typeof data['legal_entity'] !== 'undefined')
-        xData['legalEntity'] = TypeTransformer.to('any')(data['legal_entity']);
+        xData['legalEntity'] = TypeTransformer.to('string')(data['legal_entity']);
       if (typeof data['entrepreneur'] !== 'undefined')
-        xData['entrepreneur'] = TypeTransformer.to('any')(data['entrepreneur']);
+        xData['entrepreneur'] = TypeTransformer.to('string')(data['entrepreneur']);
       if (typeof data['legal_status'] !== 'undefined')
         xData['legalStatus'] = TypeTransformer.to('string')(data['legal_status']);
       return xData;
@@ -1737,7 +1701,7 @@ export default class TypeTransformer {
       if (typeof data['end_user_uuid'] !== 'undefined')
         xData['endUserUuid'] = TypeTransformer.to('number')(data['end_user_uuid']);
       if (typeof data['credentials'] !== 'undefined')
-        xData['credentials'] = TypeTransformer.to('any')(data['credentials']);
+        xData['credentials'] = TypeTransformer.to('string')(data['credentials']);
       return xData;
     },
     AccountVerificationsTypeAgreements: function (data) {
@@ -2890,9 +2854,9 @@ export default class TypeTransformer {
           data['sq_statuses']
         );
       if (typeof data['sq_queues'] !== 'undefined')
-        xData['sqQueues'] = TypeTransformer.to('any')(data['sq_queues']);
+        xData['sqQueues'] = TypeTransformer.to('string')(data['sq_queues']);
       if (typeof data['sq_skills'] !== 'undefined')
-        xData['sqSkills'] = TypeTransformer.to('any')(data['sq_skills']);
+        xData['sqSkills'] = TypeTransformer.to('string')(data['sq_skills']);
       return xData;
     },
     SQTaskSelectionStrategies: function (data) {
@@ -2986,7 +2950,7 @@ export default class TypeTransformer {
       if (typeof data['processing_time'] !== 'undefined')
         xData['processingTime'] = TypeTransformer.to('number')(data['processing_time']);
       if (typeof data['custom_data'] !== 'undefined')
-        xData['customData'] = TypeTransformer.to('any')(data['custom_data']);
+        xData['customData'] = TypeTransformer.to('string')(data['custom_data']);
       return xData;
     },
     SmartQueueState_Agent: function (data) {
@@ -3618,7 +3582,7 @@ export default class TypeTransformer {
       if (typeof data['customData'] !== 'undefined')
         xData['custom_data'] = TypeTransformer.from('string')(data['customData']);
       if (typeof data['endReason'] !== 'undefined')
-        xData['end_reason'] = TypeTransformer.from('any')(data['endReason']);
+        xData['end_reason'] = TypeTransformer.from('string')(data['endReason']);
       return xData;
     },
     TransactionInfo: function (data) {
@@ -3704,9 +3668,9 @@ export default class TypeTransformer {
       if (typeof data['cmdName'] !== 'undefined')
         xData['cmd_name'] = TypeTransformer.from('string')(data['cmdName']);
       if (typeof data['cmdArgs'] !== 'undefined')
-        xData['cmd_args'] = TypeTransformer.from('any')(data['cmdArgs']);
+        xData['cmd_args'] = TypeTransformer.from('string')(data['cmdArgs']);
       if (typeof data['cmdResult'] !== 'undefined')
-        xData['cmd_result'] = TypeTransformer.from('any')(data['cmdResult']);
+        xData['cmd_result'] = TypeTransformer.from('string')(data['cmdResult']);
       return xData;
     },
     HistoryReport: function (data) {
@@ -3734,9 +3698,9 @@ export default class TypeTransformer {
       if (typeof data['storeUntil'] !== 'undefined')
         xData['store_until'] = TypeTransformer.from('Date')(data['storeUntil']);
       if (typeof data['filters'] !== 'undefined')
-        xData['filters'] = TypeTransformer.from('any')(data['filters']);
+        xData['filters'] = TypeTransformer.from('string')(data['filters']);
       if (typeof data['calculatedData'] !== 'undefined')
-        xData['calculated_data'] = TypeTransformer.from('any')(data['calculatedData']);
+        xData['calculated_data'] = TypeTransformer.from('string')(data['calculatedData']);
       return xData;
     },
     CommonReport: function (data) {
@@ -3764,9 +3728,9 @@ export default class TypeTransformer {
       if (typeof data['storeUntil'] !== 'undefined')
         xData['store_until'] = TypeTransformer.from('Date')(data['storeUntil']);
       if (typeof data['filters'] !== 'undefined')
-        xData['filters'] = TypeTransformer.from('any')(data['filters']);
+        xData['filters'] = TypeTransformer.from('string')(data['filters']);
       if (typeof data['calculatedData'] !== 'undefined')
-        xData['calculated_data'] = TypeTransformer.from('any')(data['calculatedData']);
+        xData['calculated_data'] = TypeTransformer.from('string')(data['calculatedData']);
       return xData;
     },
     CalculatedCallHistoryData: function (data) {
@@ -4685,6 +4649,8 @@ export default class TypeTransformer {
         xData['custom_data'] = TypeTransformer.from('string')(data['customData']);
       if (typeof data['startExecutionTime'] !== 'undefined')
         xData['start_execution_time'] = TypeTransformer.from('Date')(data['startExecutionTime']);
+      if (typeof data['callSchedule'] !== 'undefined')
+        xData['call_schedule'] = TypeTransformer.from('string')(data['callSchedule']);
       if (typeof data['finishExecutionTime'] !== 'undefined')
         xData['finish_execution_time'] = TypeTransformer.from('Date')(data['finishExecutionTime']);
       if (typeof data['resultData'] !== 'undefined')
@@ -4749,50 +4715,12 @@ export default class TypeTransformer {
         xData['rule_name'] = TypeTransformer.from('string')(data['ruleName']);
       return xData;
     },
-    AdminRole: function (data) {
-      const xData = {};
-      if (typeof data['adminRoleId'] !== 'undefined')
-        xData['admin_role_id'] = TypeTransformer.from('number')(data['adminRoleId']);
-      if (typeof data['adminRoleName'] !== 'undefined')
-        xData['admin_role_name'] = TypeTransformer.from('string')(data['adminRoleName']);
-      if (typeof data['adminRoleActive'] !== 'undefined')
-        xData['admin_role_active'] = TypeTransformer.from('boolean')(data['adminRoleActive']);
-      if (typeof data['systemRole'] !== 'undefined')
-        xData['system_role'] = TypeTransformer.from('boolean')(data['systemRole']);
-      if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.from('Date')(data['modified']);
-      if (typeof data['allowedEntries'] !== 'undefined')
-        xData['allowed_entries'] = TypeTransformer.from('string[]')(data['allowedEntries']);
-      if (typeof data['deniedEntries'] !== 'undefined')
-        xData['denied_entries'] = TypeTransformer.from('string[]')(data['deniedEntries']);
-      return xData;
-    },
     ClonedAdminRole: function (data) {
       const xData = {};
       if (typeof data['adminRoleId'] !== 'undefined')
         xData['admin_role_id'] = TypeTransformer.from('number')(data['adminRoleId']);
       if (typeof data['adminRoleName'] !== 'undefined')
         xData['admin_role_name'] = TypeTransformer.from('string')(data['adminRoleName']);
-      return xData;
-    },
-    AdminUser: function (data) {
-      const xData = {};
-      if (typeof data['adminUserId'] !== 'undefined')
-        xData['admin_user_id'] = TypeTransformer.from('number')(data['adminUserId']);
-      if (typeof data['adminUserName'] !== 'undefined')
-        xData['admin_user_name'] = TypeTransformer.from('string')(data['adminUserName']);
-      if (typeof data['adminUserDisplayName'] !== 'undefined')
-        xData['admin_user_display_name'] = TypeTransformer.from('string')(
-          data['adminUserDisplayName']
-        );
-      if (typeof data['adminUserActive'] !== 'undefined')
-        xData['admin_user_active'] = TypeTransformer.from('boolean')(data['adminUserActive']);
-      if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.from('Date')(data['modified']);
-      if (typeof data['accessEntries'] !== 'undefined')
-        xData['access_entries'] = TypeTransformer.from('string[]')(data['accessEntries']);
-      if (typeof data['adminRoles'] !== 'undefined')
-        xData['admin_roles'] = TypeTransformer.from('AdminRole[]')(data['adminRoles']);
       return xData;
     },
     ClonedAdminUser: function (data) {
@@ -4942,11 +4870,11 @@ export default class TypeTransformer {
     AccountVerificationsCredentials: function (data) {
       const xData = {};
       if (typeof data['individual'] !== 'undefined')
-        xData['individual'] = TypeTransformer.from('any')(data['individual']);
+        xData['individual'] = TypeTransformer.from('string')(data['individual']);
       if (typeof data['legalEntity'] !== 'undefined')
-        xData['legal_entity'] = TypeTransformer.from('any')(data['legalEntity']);
+        xData['legal_entity'] = TypeTransformer.from('string')(data['legalEntity']);
       if (typeof data['entrepreneur'] !== 'undefined')
-        xData['entrepreneur'] = TypeTransformer.from('any')(data['entrepreneur']);
+        xData['entrepreneur'] = TypeTransformer.from('string')(data['entrepreneur']);
       if (typeof data['legalStatus'] !== 'undefined')
         xData['legal_status'] = TypeTransformer.from('string')(data['legalStatus']);
       return xData;
@@ -4956,7 +4884,7 @@ export default class TypeTransformer {
       if (typeof data['endUserUuid'] !== 'undefined')
         xData['end_user_uuid'] = TypeTransformer.from('number')(data['endUserUuid']);
       if (typeof data['credentials'] !== 'undefined')
-        xData['credentials'] = TypeTransformer.from('any')(data['credentials']);
+        xData['credentials'] = TypeTransformer.from('string')(data['credentials']);
       return xData;
     },
     AccountVerificationsAgreements: function (data) {
@@ -6125,9 +6053,9 @@ export default class TypeTransformer {
           data['sqStatuses']
         );
       if (typeof data['sqQueues'] !== 'undefined')
-        xData['sq_queues'] = TypeTransformer.from('any')(data['sqQueues']);
+        xData['sq_queues'] = TypeTransformer.from('string')(data['sqQueues']);
       if (typeof data['sqSkills'] !== 'undefined')
-        xData['sq_skills'] = TypeTransformer.from('any')(data['sqSkills']);
+        xData['sq_skills'] = TypeTransformer.from('string')(data['sqSkills']);
       return xData;
     },
     SQTaskSelectionStrategies: function (data) {
@@ -6221,7 +6149,7 @@ export default class TypeTransformer {
       if (typeof data['processingTime'] !== 'undefined')
         xData['processing_time'] = TypeTransformer.from('number')(data['processingTime']);
       if (typeof data['customData'] !== 'undefined')
-        xData['custom_data'] = TypeTransformer.from('any')(data['customData']);
+        xData['custom_data'] = TypeTransformer.from('string')(data['customData']);
       return xData;
     },
     SmartQueueStateAgent: function (data) {

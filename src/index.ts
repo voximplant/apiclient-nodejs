@@ -283,27 +283,7 @@ import {
   RobokassaPaymentSystemInterface,
   CreditCardsInterface,
   AgreementsInterface,
-  AddAdminUserRequest,
-  AddAdminUserResponse,
-  DelAdminUserRequest,
-  DelAdminUserResponse,
-  SetAdminUserInfoRequest,
-  SetAdminUserInfoResponse,
-  GetAdminUsersRequest,
-  GetAdminUsersResponse,
-  AttachAdminRoleRequest,
-  AttachAdminRoleResponse,
   AdminUsersInterface,
-  AddAdminRoleRequest,
-  AddAdminRoleResponse,
-  DelAdminRoleRequest,
-  DelAdminRoleResponse,
-  SetAdminRoleInfoRequest,
-  SetAdminRoleInfoResponse,
-  GetAdminRolesRequest,
-  GetAdminRolesResponse,
-  GetAvailableAdminRoleEntriesRequest,
-  GetAvailableAdminRoleEntriesResponse,
   AdminRolesInterface,
   AddAuthorizedAccountIPRequest,
   AddAuthorizedAccountIPResponse,
@@ -476,8 +456,6 @@ import {
   GetSQSkillsResult,
   GetSQAgentsResult,
   SkillInfo,
-  AdminUser,
-  AdminRole,
   AuthorizedAccountIP,
   ZipCode,
   RegulationAddress,
@@ -1492,7 +1470,7 @@ export default class VoximplantApiClient {
 
   public CallLists: CallListsInterface = {
     /**
-     * Adds a new CSV file for call list processing and starts the specified rule immediately. To send a file, use the request body. To set the call time constraints, use the following options in a CSV file: <ul><li>**__start_execution_time** – when the call list processing starts every day, UTC+0 24-h format: HH:mm:ss</li><li>**__end_execution_time** – when the call list processing stops every day,  UTC+0 24-h format: HH:mm:ss</li><li>**__start_at** – when the call list processing starts, UNIX timestamp. If not specified, the processing starts immediately after a method call</li><li>**__task_uuid** – call list UUID. A string up to 40 characters, can contain latin letters, digits, hyphens (-) and colons (:). Unique within the call list</li></ul><br>This method accepts CSV files with custom delimiters, such a commas (,), semicolons (;) and other. To specify a delimiter, pass it to the <b>delimiter</b> parameter.<br/><b>IMPORTANT:</b> the account's balance should be equal or greater than 1 USD. If the balance is lower than 1 USD, the call list processing does not start, or it stops immediately if it is active.
+     * Adds a new CSV file for call list processing and starts the specified rule immediately. To send a file, use the request body. To set the call time constraints, use the following options in a CSV file: <ul><li>**__start_execution_time** – when the call list processing starts every day, UTC+0 24-h format: HH:mm:ss</li><li>**__end_execution_time** – when the call list processing stops every day,  UTC+0 24-h format: HH:mm:ss</li><li>**__start_at** – when the call list processing starts, UNIX timestamp. If not specified, the processing starts immediately after a method call</li><li>**__task_uuid** – call list UUID. A string up to 40 characters, can contain latin letters, digits, hyphens (-) and colons (:). Unique within the call list</li></ul><br>This method accepts CSV files with custom delimiters, such a commas (,), semicolons (;) and other. To specify a delimiter, pass it to the <b>delimiter</b> parameter.<br/><b>IMPORTANT:</b> the account's balance should be equal or greater than 1 USD. If the balance is lower than 1 USD, the call list processing does not start, or it stops immediately if it is active.<br><br>You can specify a custom call schedule for every record. Refer to the <a href="/docs/guides/solutions/call-lists">Call lists guide</a> for more information.
      */
     createCallList: (request: CreateCallListRequest): Promise<CreateCallListResponse> => {
       const reqMapper = [
@@ -1513,6 +1491,11 @@ export default class VoximplantApiClient {
           rawName: 'file_content',
           name: 'fileContent',
           transformer: TypeTransformer.to('file', true),
+        },
+        {
+          rawName: 'list_custom_data',
+          name: 'listCustomData',
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'interval_seconds',
@@ -1551,16 +1534,16 @@ export default class VoximplantApiClient {
       return this.makeRequest('CreateCallList', request, [reqMapper, respMapper]);
     },
     /**
-     * Appends a new task to the existing call list.<br>This method accepts CSV files with custom delimiters, such a commas (,), semicolons (;) and other. To specify a delimiter, pass it to the <b>delimiter</b> parameter.
+     * Appends a new task to the existing call list.<br>This method accepts CSV files with custom delimiters, such a commas (,), semicolons (;) and other. To specify a delimiter, pass it to the <b>delimiter</b> parameter.<br><br>You can specify a custom call schedule for every record. Refer to the <a href="/docs/guides/solutions/call-lists">Call lists guide</a> for more information.
      */
     appendToCallList: (request: AppendToCallListRequest): Promise<AppendToCallListResponse> => {
       const reqMapper = [
-        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number', true) },
         {
           rawName: 'file_content',
           name: 'fileContent',
           transformer: TypeTransformer.to('file', true),
         },
+        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number', true) },
         { rawName: 'encoding', name: 'encoding', transformer: TypeTransformer.to('string', true) },
         { rawName: 'escape', name: 'escape', transformer: TypeTransformer.to('string', true) },
         {
@@ -1584,8 +1567,8 @@ export default class VoximplantApiClient {
       request: CancelCallListBatchRequest
     ): Promise<CancelCallListBatchResponse> => {
       const reqMapper = [
-        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number', true) },
         { rawName: 'batch_ids', name: 'batchIds', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number', true) },
       ];
       const respMapper = [
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('boolean') },
@@ -1598,6 +1581,11 @@ export default class VoximplantApiClient {
     editCallList: (request: EditCallListRequest): Promise<EditCallListResponse> => {
       const reqMapper = [
         { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'list_custom_data',
+          name: 'listCustomData',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'interval_seconds',
           name: 'intervalSeconds',
@@ -1739,6 +1727,11 @@ export default class VoximplantApiClient {
       const reqMapper = [
         { rawName: 'list_id', name: 'listId', transformer: TypeTransformer.to('number', true) },
         { rawName: 'task_id', name: 'taskId', transformer: TypeTransformer.to('number', true) },
+        {
+          rawName: 'call_schedule',
+          name: 'callSchedule',
+          transformer: TypeTransformer.to('string', true),
+        },
         { rawName: 'task_uuid', name: 'taskUuid', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'start_at',
@@ -2153,6 +2146,12 @@ export default class VoximplantApiClient {
      */
     addRule: (request: AddRuleRequest): Promise<AddRuleResponse> => {
       const reqMapper = [
+        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'rule_pattern',
+          name: 'rulePattern',
+          transformer: TypeTransformer.to('string', true),
+        },
         {
           rawName: 'application_id',
           name: 'applicationId',
@@ -2162,22 +2161,6 @@ export default class VoximplantApiClient {
           rawName: 'application_name',
           name: 'applicationName',
           transformer: TypeTransformer.to('string', true),
-        },
-        { rawName: 'rule_name', name: 'ruleName', transformer: TypeTransformer.to('string', true) },
-        {
-          rawName: 'rule_pattern',
-          name: 'rulePattern',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'scenario_id',
-          name: 'scenarioId',
-          transformer: TypeTransformer.to('intlist', true),
-        },
-        {
-          rawName: 'scenario_name',
-          name: 'scenarioName',
-          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'rule_pattern_exclude',
@@ -2193,6 +2176,16 @@ export default class VoximplantApiClient {
           rawName: 'bind_key_id',
           name: 'bindKeyId',
           transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'scenario_id',
+          name: 'scenarioId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
+        {
+          rawName: 'scenario_name',
+          name: 'scenarioName',
+          transformer: TypeTransformer.to('stringlist', true),
         },
       ];
       const respMapper = [
@@ -2355,7 +2348,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'remote_number_list',
           name: 'remoteNumberList',
-          transformer: TypeTransformer.to('object', true),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'local_number',
@@ -3047,16 +3040,6 @@ export default class VoximplantApiClient {
     attachPhoneNumber: (request: AttachPhoneNumberRequest): Promise<AttachPhoneNumberResponse> => {
       const reqMapper = [
         {
-          rawName: 'phone_count',
-          name: 'phoneCount',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'phone_number',
-          name: 'phoneNumber',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-        {
           rawName: 'country_code',
           name: 'countryCode',
           transformer: TypeTransformer.to('string', true),
@@ -3070,6 +3053,16 @@ export default class VoximplantApiClient {
           rawName: 'phone_region_id',
           name: 'phoneRegionId',
           transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'phone_count',
+          name: 'phoneCount',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'phone_number',
+          name: 'phoneNumber',
+          transformer: TypeTransformer.to('stringlist', true),
         },
         {
           rawName: 'country_state',
@@ -3916,13 +3909,6 @@ export default class VoximplantApiClient {
       request: GetSipRegistrationsRequest
     ): Promise<GetSipRegistrationsResponse> => {
       const reqMapper = [
-        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('intlist', true) },
-        {
-          rawName: 'rule_name',
-          name: 'ruleName',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
         {
           rawName: 'sip_registration_id',
           name: 'sipRegistrationId',
@@ -3963,6 +3949,13 @@ export default class VoximplantApiClient {
           name: 'isBoundToApplication',
           transformer: TypeTransformer.to('boolean', true),
         },
+        { rawName: 'rule_id', name: 'ruleId', transformer: TypeTransformer.to('intlist', true) },
+        {
+          rawName: 'rule_name',
+          name: 'ruleName',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
         { rawName: 'proxy', name: 'proxy', transformer: TypeTransformer.to('stringlist', true) },
         {
           rawName: 'in_progress',
@@ -4274,6 +4267,11 @@ export default class VoximplantApiClient {
     addQueue: (request: AddQueueRequest): Promise<AddQueueResponse> => {
       const reqMapper = [
         {
+          rawName: 'acd_queue_name',
+          name: 'acdQueueName',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
           rawName: 'application_id',
           name: 'applicationId',
           transformer: TypeTransformer.to('number', true),
@@ -4281,11 +4279,6 @@ export default class VoximplantApiClient {
         {
           rawName: 'application_name',
           name: 'applicationName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'acd_queue_name',
-          name: 'acdQueueName',
           transformer: TypeTransformer.to('string', true),
         },
         {
@@ -4642,6 +4635,11 @@ export default class VoximplantApiClient {
     ): Promise<GetSmartQueueRealtimeMetricsResponse> => {
       const reqMapper = [
         {
+          rawName: 'report_type',
+          name: 'reportType',
+          transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
           rawName: 'application_id',
           name: 'applicationId',
           transformer: TypeTransformer.to('number', true),
@@ -4650,11 +4648,6 @@ export default class VoximplantApiClient {
           rawName: 'application_name',
           name: 'applicationName',
           transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'report_type',
-          name: 'reportType',
-          transformer: TypeTransformer.to('stringlist', true),
         },
         { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
         {
@@ -4700,16 +4693,6 @@ export default class VoximplantApiClient {
     ): Promise<GetSmartQueueDayHistoryResponse> => {
       const reqMapper = [
         {
-          rawName: 'application_id',
-          name: 'applicationId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'application_name',
-          name: 'applicationName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
           rawName: 'sq_queue_id',
           name: 'sqQueueId',
           transformer: TypeTransformer.to('intlist', true),
@@ -4718,6 +4701,16 @@ export default class VoximplantApiClient {
           rawName: 'report_type',
           name: 'reportType',
           transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
         },
         { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
         {
@@ -4763,16 +4756,6 @@ export default class VoximplantApiClient {
     ): Promise<RequestSmartQueueHistoryResponse> => {
       const reqMapper = [
         {
-          rawName: 'application_id',
-          name: 'applicationId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'application_name',
-          name: 'applicationName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
           rawName: 'sq_queue_id',
           name: 'sqQueueId',
           transformer: TypeTransformer.to('intlist', true),
@@ -4787,6 +4770,16 @@ export default class VoximplantApiClient {
           rawName: 'report_type',
           name: 'reportType',
           transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
         },
         { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
         {
@@ -5341,7 +5334,7 @@ export default class VoximplantApiClient {
           transformer: TypeTransformer.to('number', true),
         },
         { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
-        { rawName: 'sq_skills', name: 'sqSkills', transformer: TypeTransformer.to('Object', true) },
+        { rawName: 'sq_skills', name: 'sqSkills', transformer: TypeTransformer.to('string', true) },
         {
           rawName: 'application_name',
           name: 'applicationName',
@@ -5569,7 +5562,7 @@ export default class VoximplantApiClient {
           name: 'excludedSqQueueName',
           transformer: TypeTransformer.to('string', true),
         },
-        { rawName: 'sq_skills', name: 'sqSkills', transformer: TypeTransformer.to('Object', true) },
+        { rawName: 'sq_skills', name: 'sqSkills', transformer: TypeTransformer.to('string', true) },
         { rawName: 'user_id', name: 'userId', transformer: TypeTransformer.to('intlist', true) },
         {
           rawName: 'user_name',
@@ -5584,7 +5577,7 @@ export default class VoximplantApiClient {
         {
           rawName: 'sq_statuses',
           name: 'sqStatuses',
-          transformer: TypeTransformer.to('Object', true),
+          transformer: TypeTransformer.to('string', true),
         },
         {
           rawName: 'with_sq_skills',
@@ -5692,15 +5685,15 @@ export default class VoximplantApiClient {
      */
     setSkillInfo: (request: SetSkillInfoRequest): Promise<SetSkillInfoResponse> => {
       const reqMapper = [
+        {
+          rawName: 'new_skill_name',
+          name: 'newSkillName',
+          transformer: TypeTransformer.to('string', true),
+        },
         { rawName: 'skill_id', name: 'skillId', transformer: TypeTransformer.to('number', true) },
         {
           rawName: 'skill_name',
           name: 'skillName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'new_skill_name',
-          name: 'newSkillName',
           transformer: TypeTransformer.to('string', true),
         },
       ];
@@ -5773,402 +5766,6 @@ export default class VoximplantApiClient {
         { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
       ];
       return this.makeRequest('BindSkill', request, [reqMapper, respMapper]);
-    },
-  };
-
-  public AdminUsers: AdminUsersInterface = {
-    /**
-     * Adds a new admin user into the specified parent or child account.
-     */
-    addAdminUser: (request: AddAdminUserRequest): Promise<AddAdminUserResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'new_admin_user_name',
-          name: 'newAdminUserName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'admin_user_display_name',
-          name: 'adminUserDisplayName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'new_admin_user_password',
-          name: 'newAdminUserPassword',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'admin_user_active',
-          name: 'adminUserActive',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'admin_role_id',
-          name: 'adminRoleId',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'admin_role_name',
-          name: 'adminRoleName',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-        {
-          rawName: 'admin_user_id',
-          name: 'adminUserId',
-          transformer: TypeTransformer.from('number'),
-        },
-        {
-          rawName: 'admin_user_api_key',
-          name: 'adminUserApiKey',
-          transformer: TypeTransformer.from('string'),
-        },
-      ];
-      return this.makeRequest('AddAdminUser', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Deletes the specified admin user.
-     */
-    delAdminUser: (request: DelAdminUserRequest): Promise<DelAdminUserResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'required_admin_user_id',
-          name: 'requiredAdminUserId',
-          transformer: TypeTransformer.to('intlist', true),
-        },
-        {
-          rawName: 'required_admin_user_name',
-          name: 'requiredAdminUserName',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('DelAdminUser', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Edits the specified admin user.
-     */
-    setAdminUserInfo: (request: SetAdminUserInfoRequest): Promise<SetAdminUserInfoResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'required_admin_user_id',
-          name: 'requiredAdminUserId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'required_admin_user_name',
-          name: 'requiredAdminUserName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'new_admin_user_name',
-          name: 'newAdminUserName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'admin_user_display_name',
-          name: 'adminUserDisplayName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'new_admin_user_password',
-          name: 'newAdminUserPassword',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'admin_user_active',
-          name: 'adminUserActive',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('SetAdminUserInfo', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Gets the admin users of the specified account. Note that both account types - parent and child - can have its own admins.
-     */
-    getAdminUsers: (request: GetAdminUsersRequest): Promise<GetAdminUsersResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'required_admin_user_id',
-          name: 'requiredAdminUserId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'required_admin_user_name',
-          name: 'requiredAdminUserName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'admin_user_display_name',
-          name: 'adminUserDisplayName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'admin_user_active',
-          name: 'adminUserActive',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'with_roles',
-          name: 'withRoles',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'with_access_entries',
-          name: 'withAccessEntries',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('[AdminUserType]') },
-        { rawName: 'total_count', name: 'totalCount', transformer: TypeTransformer.from('number') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('GetAdminUsers', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Attaches the admin role(s) to the already existing admin(s).
-     */
-    attachAdminRole: (request: AttachAdminRoleRequest): Promise<AttachAdminRoleResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'required_admin_user_id',
-          name: 'requiredAdminUserId',
-          transformer: TypeTransformer.to('intlist', true),
-        },
-        {
-          rawName: 'required_admin_user_name',
-          name: 'requiredAdminUserName',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-        {
-          rawName: 'admin_role_id',
-          name: 'adminRoleId',
-          transformer: TypeTransformer.to('intlist', true),
-        },
-        {
-          rawName: 'admin_role_name',
-          name: 'adminRoleName',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-        { rawName: 'mode', name: 'mode', transformer: TypeTransformer.to('string', true) },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('AttachAdminRole', request, [reqMapper, respMapper]);
-    },
-  };
-
-  public AdminRoles: AdminRolesInterface = {
-    /**
-     * Adds a new admin role.
-     */
-    addAdminRole: (request: AddAdminRoleRequest): Promise<AddAdminRoleResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'admin_role_name',
-          name: 'adminRoleName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'admin_role_active',
-          name: 'adminRoleActive',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'like_admin_role_id',
-          name: 'likeAdminRoleId',
-          transformer: TypeTransformer.to('intlist', true),
-        },
-        {
-          rawName: 'like_admin_role_name',
-          name: 'likeAdminRoleName',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-        {
-          rawName: 'allowed_entries',
-          name: 'allowedEntries',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-        {
-          rawName: 'denied_entries',
-          name: 'deniedEntries',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-        {
-          rawName: 'admin_role_id',
-          name: 'adminRoleId',
-          transformer: TypeTransformer.from('number'),
-        },
-      ];
-      return this.makeRequest('AddAdminRole', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Deletes the specified admin role.
-     */
-    delAdminRole: (request: DelAdminRoleRequest): Promise<DelAdminRoleResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'admin_role_id',
-          name: 'adminRoleId',
-          transformer: TypeTransformer.to('intlist', true),
-        },
-        {
-          rawName: 'admin_role_name',
-          name: 'adminRoleName',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('DelAdminRole', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Edits the specified admin role.
-     */
-    setAdminRoleInfo: (request: SetAdminRoleInfoRequest): Promise<SetAdminRoleInfoResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'admin_role_id',
-          name: 'adminRoleId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'admin_role_name',
-          name: 'adminRoleName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'new_admin_role_name',
-          name: 'newAdminRoleName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'admin_role_active',
-          name: 'adminRoleActive',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'entry_modification_mode',
-          name: 'entryModificationMode',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'allowed_entries',
-          name: 'allowedEntries',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-        {
-          rawName: 'denied_entries',
-          name: 'deniedEntries',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-        {
-          rawName: 'like_admin_role_id',
-          name: 'likeAdminRoleId',
-          transformer: TypeTransformer.to('intlist', true),
-        },
-        {
-          rawName: 'like_admin_role_name',
-          name: 'likeAdminRoleName',
-          transformer: TypeTransformer.to('stringlist', true),
-        },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('SetAdminRoleInfo', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Gets the admin roles.
-     */
-    getAdminRoles: (request: GetAdminRolesRequest): Promise<GetAdminRolesResponse> => {
-      const reqMapper = [
-        {
-          rawName: 'admin_role_id',
-          name: 'adminRoleId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'admin_role_name',
-          name: 'adminRoleName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'admin_role_active',
-          name: 'adminRoleActive',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'with_entries',
-          name: 'withEntries',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'with_account_roles',
-          name: 'withAccountRoles',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'with_parent_roles',
-          name: 'withParentRoles',
-          transformer: TypeTransformer.to('boolean', true),
-        },
-        {
-          rawName: 'included_admin_user_id',
-          name: 'includedAdminUserId',
-          transformer: TypeTransformer.to('intlist', true),
-        },
-        {
-          rawName: 'excluded_admin_user_id',
-          name: 'excludedAdminUserId',
-          transformer: TypeTransformer.to('intlist', true),
-        },
-        {
-          rawName: 'full_admin_users_matching',
-          name: 'fullAdminUsersMatching',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
-          rawName: 'showing_admin_user_id',
-          name: 'showingAdminUserId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.to('number', true) },
-        { rawName: 'offset', name: 'offset', transformer: TypeTransformer.to('number', true) },
-      ];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('[AdminRoleType]') },
-        { rawName: 'total_count', name: 'totalCount', transformer: TypeTransformer.from('number') },
-        { rawName: 'count', name: 'count', transformer: TypeTransformer.from('number') },
-      ];
-      return this.makeRequest('GetAdminRoles', request, [reqMapper, respMapper]);
-    },
-    /**
-     * Gets the all available admin role entries.
-     */
-    getAvailableAdminRoleEntries: (
-      request: GetAvailableAdminRoleEntriesRequest
-    ): Promise<GetAvailableAdminRoleEntriesResponse> => {
-      const reqMapper = [];
-      const respMapper = [
-        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('[string]') },
-      ];
-      return this.makeRequest('GetAvailableAdminRoleEntries', request, [reqMapper, respMapper]);
     },
   };
 
@@ -6918,6 +6515,11 @@ export default class VoximplantApiClient {
     getSmsHistory: (request: GetSmsHistoryRequest): Promise<GetSmsHistoryResponse> => {
       const reqMapper = [
         {
+          rawName: 'message_id',
+          name: 'messageId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
+        {
           rawName: 'source_number',
           name: 'sourceNumber',
           transformer: TypeTransformer.to('string', true),
@@ -6957,6 +6559,11 @@ export default class VoximplantApiClient {
      */
     a2PGetSmsHistory: (request: A2PGetSmsHistoryRequest): Promise<A2PGetSmsHistoryResponse> => {
       const reqMapper = [
+        {
+          rawName: 'message_id',
+          name: 'messageId',
+          transformer: TypeTransformer.to('intlist', true),
+        },
         {
           rawName: 'source_number',
           name: 'sourceNumber',
@@ -7513,16 +7120,6 @@ export default class VoximplantApiClient {
     addSecret: (request: AddSecretRequest): Promise<AddSecretResponse> => {
       const reqMapper = [
         {
-          rawName: 'application_id',
-          name: 'applicationId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'application_name',
-          name: 'applicationName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
           rawName: 'secret_name',
           name: 'secretName',
           transformer: TypeTransformer.to('string', true),
@@ -7530,6 +7127,16 @@ export default class VoximplantApiClient {
         {
           rawName: 'secret_value',
           name: 'secretValue',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
           transformer: TypeTransformer.to('string', true),
         },
         {
@@ -7553,16 +7160,6 @@ export default class VoximplantApiClient {
     delSecret: (request: DelSecretRequest): Promise<DelSecretResponse> => {
       const reqMapper = [
         {
-          rawName: 'application_id',
-          name: 'applicationId',
-          transformer: TypeTransformer.to('number', true),
-        },
-        {
-          rawName: 'application_name',
-          name: 'applicationName',
-          transformer: TypeTransformer.to('string', true),
-        },
-        {
           rawName: 'secret_id',
           name: 'secretId',
           transformer: TypeTransformer.to('intlist', true),
@@ -7571,6 +7168,16 @@ export default class VoximplantApiClient {
           rawName: 'secret_name',
           name: 'secretName',
           transformer: TypeTransformer.to('stringlist', true),
+        },
+        {
+          rawName: 'application_id',
+          name: 'applicationId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'application_name',
+          name: 'applicationName',
+          transformer: TypeTransformer.to('string', true),
         },
       ];
       const respMapper = [

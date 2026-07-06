@@ -688,7 +688,7 @@ export interface CallInfo {
   /**
    * End reason code and description
    */
-  endReason?: any;
+  endReason?: string;
 }
 export interface TransactionInfo {
   /**
@@ -832,11 +832,11 @@ export interface AuditLogInfo {
   /**
    * The arguments of the called function (they may be masked or resolved)
    */
-  cmdArgs: any;
+  cmdArgs: string;
   /**
    * The modified values
    */
-  cmdResult?: any;
+  cmdResult?: string;
 }
 export interface HistoryReport {
   /**
@@ -886,11 +886,11 @@ export interface HistoryReport {
   /**
    * The report order filters (the saved [GetCallHistory], [GetTransactionHistory] parameters)
    */
-  filters?: any;
+  filters?: string;
   /**
    * The calculated report data (the specific report data, see [CalculatedCallHistoryDataType], [CalculatedTransactionHistoryDataType])
    */
-  calculatedData?: any;
+  calculatedData?: string;
 }
 export interface CommonReport {
   /**
@@ -940,11 +940,11 @@ export interface CommonReport {
   /**
    * The report order filters (the saved [GetCallHistory], [GetTransactionHistory] parameters)
    */
-  filters?: any;
+  filters?: string;
   /**
    * The calculated report data (the specific report data, see [CalculatedCallHistoryDataType], [CalculatedTransactionHistoryDataType])
    */
-  calculatedData?: any;
+  calculatedData?: string;
 }
 export interface CalculatedCallHistoryData {
   /**
@@ -2296,6 +2296,10 @@ export interface CallListDetail {
    */
   startExecutionTime: Date;
   /**
+   * Call list schedule in the JSON format. Refer to the <a href="/docs/guides/solutions/call-lists">Call lists guide</a> for more information.
+   */
+  callSchedule?: string;
+  /**
    * Time after which the task cannot be performed in 24-h format: HH:mm:ss
    */
   finishExecutionTime: Date;
@@ -2772,15 +2776,15 @@ export interface AccountVerificationsCredentials {
   /**
    * Details of a person who takes the verification
    */
-  individual?: any;
+  individual?: string;
   /**
    * Company details for a legal entity
    */
-  legalEntity?: any;
+  legalEntity?: string;
   /**
    * Company details for a individual entrepreneur
    */
-  entrepreneur?: any;
+  entrepreneur?: string;
   /**
    * Subscriber type. Possible values are: INDIVIDUAL, LEGAL_ENTITY, ENTREPRENEUR
    */
@@ -2794,7 +2798,7 @@ export interface AccountVerificationsDefaultEndUser {
   /**
    * Customer's data
    */
-  credentials: any;
+  credentials: string;
 }
 export interface AccountVerificationsAgreements {
   /**
@@ -4495,11 +4499,11 @@ export interface GetSQAgentsResult {
   /**
    * JSON array of the agent's queues
    */
-  sqQueues?: any;
+  sqQueues?: string;
   /**
    * JSON array of the agent's skills
    */
-  sqSkills?: any;
+  sqSkills?: string;
 }
 export interface SQAgentSelectionStrategies {
   /**
@@ -4653,7 +4657,7 @@ export interface SmartQueueStateTask {
   /**
    * Custom data text string for the current task. You can set the custom data in the [enqueueTask](/docs/references/voxengine/voxengine/enqueuetask#enqueuetask) method
    */
-  customData?: any;
+  customData?: string;
 }
 export interface SmartQueueStateAgent {
   /**

@@ -46,8 +46,6 @@ import {
   GetSQSkillsResult,
   GetSQAgentsResult,
   SkillInfo,
-  AdminUser,
-  AdminRole,
   AuthorizedAccountIP,
   ZipCode,
   RegulationAddress,
@@ -205,16 +203,6 @@ export interface UtilsReturns {
   SetSkillInfo: SetSkillInfoResponse;
   GetSkills: GetSkillsResponse;
   BindSkill: BindSkillResponse;
-  AddAdminUser: AddAdminUserResponse;
-  DelAdminUser: DelAdminUserResponse;
-  SetAdminUserInfo: SetAdminUserInfoResponse;
-  GetAdminUsers: GetAdminUsersResponse;
-  AttachAdminRole: AttachAdminRoleResponse;
-  AddAdminRole: AddAdminRoleResponse;
-  DelAdminRole: DelAdminRoleResponse;
-  SetAdminRoleInfo: SetAdminRoleInfoResponse;
-  GetAdminRoles: GetAdminRolesResponse;
-  GetAvailableAdminRoleEntries: GetAvailableAdminRoleEntriesResponse;
   AddAuthorizedAccountIP: AddAuthorizedAccountIPResponse;
   DelAuthorizedAccountIP: DelAuthorizedAccountIPResponse;
   GetAuthorizedAccountIPs: GetAuthorizedAccountIPsResponse;
@@ -390,17 +378,17 @@ export interface SetAccountInfoResponse {
 }
 export interface SetChildAccountInfoRequest {
   /**
-   * The child account ID list separated by semicolons (;). Use the 'all' value to select all child accounts
+   * The child account ID list separated by semicolons (;). Use the 'all' value to select all child accounts. <b>Required</b> unless <b>child_account_name</b> or <b>child_account_email</b> is provided.
    */
-  childAccountId: 'any' | number | number[];
+  childAccountId?: 'any' | number | number[];
   /**
-   * The child account name list separated by semicolons (;). Can be used instead of <b>child_account_id</b>
+   * The child account name list separated by semicolons (;). <b>Required</b> unless <b>child_account_id</b> or <b>child_account_email</b> is provided.
    */
-  childAccountName: string | string[];
+  childAccountName?: string | string[];
   /**
-   * The child account email list separated by semicolons (;). Can be used instead of <b>child_account_id</b>
+   * The child account email list separated by semicolons (;). <b>Required</b> unless <b>child_account_id</b> or <b>child_account_name</b> is provided.
    */
-  childAccountEmail: string | string[];
+  childAccountEmail?: string | string[];
   /**
    * The new child account email
    */
@@ -781,13 +769,13 @@ export interface AddApplicationResponse {
 }
 export interface DelApplicationRequest {
   /**
-   * The application ID list separated by semicolons (;). Use the 'all' value to select all applications
+   * The application ID list separated by semicolons (;). Use the 'all' value to select all applications. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: 'any' | number | number[];
+  applicationId?: 'any' | number | number[];
   /**
-   * The application name list separated by semicolons (;). Can be used instead of <b>application_id</b>
+   * The application name list separated by semicolons (;). <b>Required</b> unless <b>application_id</b> is provided.
    */
-  applicationName: string | string[];
+  applicationName?: string | string[];
 }
 
 export interface DelApplicationResponse {
@@ -799,13 +787,13 @@ export interface DelApplicationResponse {
 }
 export interface SetApplicationInfoRequest {
   /**
-   * The application ID
+   * The application ID. <b>Required</b> unless <b>required_application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * The application name that can be used instead of <b>application_id</b>
+   * The application name. <b>Required</b> unless <b>application_id</b> is provided.
    */
-  requiredApplicationName: string;
+  requiredApplicationName?: string;
   /**
    * The new short application name in format [a-z][a-z0-9-]{1,79}
    */
@@ -891,13 +879,13 @@ export interface AddUserRequest {
    */
   userPassword: string;
   /**
-   * The application ID which a new user is to be bound to. Can be used instead of the <b>application_name</b> parameter
+   * The application ID which a new user is to be bound to. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * The application name which a new user is to be bound to. Can be used instead of the <b>application_id</b> parameter
+   * The application name which a new user is to be bound to. <b>Required</b> unless <b>application_id</b> is provided.
    */
-  applicationName: string;
+  applicationName?: string;
   /**
    * Whether the user uses the parent account's money, 'false' if the user has a separate balance
    */
@@ -926,13 +914,13 @@ export interface AddUserResponse {
 }
 export interface DelUserRequest {
   /**
-   * The user ID list separated by semicolons (;). Use the 'all' value to select all users
+   * The user ID list separated by semicolons (;). Use the 'all' value to select all users. <b>Required</b> unless <b>user_name</b> is provided.
    */
-  userId: 'any' | number | number[];
+  userId?: 'any' | number | number[];
   /**
-   * The user name list separated by semicolons (;) that can be used instead of <b>user_id</b>
+   * The user name list separated by semicolons (;). <b>Required</b> unless <b>user_id</b> is provided.
    */
-  userName: string | string[];
+  userName?: string | string[];
   /**
    * Delete the specified users bound to the application ID. It is required if the <b>user_name</b> is specified
    */
@@ -952,13 +940,13 @@ export interface DelUserResponse {
 }
 export interface SetUserInfoRequest {
   /**
-   * The user to edit
+   * The user to edit. <b>Required</b> unless <b>user_name</b> is provided.
    */
-  userId: number;
+  userId?: number;
   /**
-   * The user name that can be used instead of <b>user_id</b>
+   * The user name. <b>Required</b> unless <b>user_id</b> is provided.
    */
-  userName: string;
+  userName?: string;
   /**
    * The application ID. It is required if the <b>user_name</b> is specified
    */
@@ -1120,9 +1108,13 @@ export interface CreateCallListRequest {
    */
   name: string;
   /**
-   * Send as the "body" part of the HTTP request or as multiform. The sending "file_content" via URL is at its own risk because the network devices tend to drop HTTP requests with large headers
+   * Send as the "body" part of the HTTP request or as multiform. The sending "file_content" via URL is at its own risk because the network devices tend to drop HTTP requests with large headers. Refer to the <a href="https://voximplant.com/docs/guides/solutions/call-lists#csv-table-setup">Call lists guide</a> to learn about file syntax
    */
   fileContent: Buffer;
+  /**
+   * Custom data string for the call list
+   */
+  listCustomData?: string;
   /**
    * Interval between call attempts in seconds. The default value is 0
    */
@@ -1174,14 +1166,14 @@ export interface CreateCallListResponse {
 }
 export interface AppendToCallListRequest {
   /**
-   * Call list ID
-   */
-  listId: number;
-  listName: string;
-  /**
-   * Send as the request body or multiform
+   * Send as the request body or multiform. Refer to the <a href="https://voximplant.com/docs/guides/solutions/call-lists#csv-table-setup">Call lists guide</a> to learn about file syntax
    */
   fileContent: Buffer;
+  /**
+   * Call list ID. <b>Required</b> unless <b>list_name</b> is provided.
+   */
+  listId?: number;
+  listName?: string;
   /**
    * Encoding file. The default value is UTF-8
    */
@@ -1217,14 +1209,14 @@ export interface AppendToCallListResponse {
 }
 export interface CancelCallListBatchRequest {
   /**
-   * Call list ID
-   */
-  listId: number;
-  listName: string;
-  /**
    * Batch UUIDs of the tasks to cancel, separated by semicolon (;)
    */
   batchIds: string;
+  /**
+   * Call list ID. <b>Required</b> unless <b>list_name</b> is provided.
+   */
+  listId?: number;
+  listName?: string;
 }
 
 export interface CancelCallListBatchResponse {
@@ -1239,6 +1231,10 @@ export interface EditCallListRequest {
    * Call list ID. If the ID is non existing, the 251 error returns
    */
   listId: number;
+  /**
+   * Custom data string for the call list
+   */
+  listCustomData?: string;
   /**
    * Minimum interval between call attempts. Cannot be a negative value
    */
@@ -1427,6 +1423,10 @@ export interface EditCallListTaskRequest {
    */
   taskId?: number;
   /**
+   * Call list schedule in the JSON format. Refer to the <a href="/docs/guides/solutions/call-lists">Call lists guide</a> for more information.
+   */
+  callSchedule?: string;
+  /**
    * Call list's task ID. Please specify either the task's ID or the task's UUID to edit the task. The UUID is unique within the call list
    */
   taskUuid?: string;
@@ -1598,13 +1598,13 @@ export interface AddScenarioResponse {
 }
 export interface DelScenarioRequest {
   /**
-   * The scenario ID list separated by semicolons (;). Use the 'all' value to delete all scenarios in all applications
+   * The scenario ID list separated by semicolons (;). Use the 'all' value to delete all scenarios in all applications. <b>Required</b> unless <b>scenario_name</b> is provided.
    */
-  scenarioId: 'any' | number | number[];
+  scenarioId?: 'any' | number | number[];
   /**
-   * The scenario name list separated by semicolons (;). Can be used instead of <b>scenario_id</b>
+   * The scenario name list separated by semicolons (;). <b>Required</b> unless <b>scenario_id</b> is provided.
    */
-  scenarioName: string | string[];
+  scenarioName?: string | string[];
 }
 
 export interface DelScenarioResponse {
@@ -1616,29 +1616,29 @@ export interface DelScenarioResponse {
 }
 export interface BindScenarioRequest {
   /**
-   * The scenario ID list separated by semicolons (;)
+   * The scenario ID list separated by semicolons (;). <b>Required</b> unless <b>scenario_name</b> is provided.
    */
-  scenarioId: 'any' | number | number[];
+  scenarioId?: 'any' | number | number[];
   /**
-   * The scenario name list separated by semicolons (;). Can be used instead of <b>scenario_id</b>
+   * The scenario name list separated by semicolons (;). <b>Required</b> unless <b>scenario_id</b> is provided.
    */
-  scenarioName: string | string[];
+  scenarioName?: string | string[];
   /**
-   * The rule ID to bind the scenario. The rule and the scenario need to be in the same application
+   * The rule ID to bind the scenario. The rule and the scenario need to be in the same application. <b>Required</b> unless <b>rule_name</b> is provided.
    */
-  ruleId: number;
+  ruleId?: number;
   /**
-   * The rule name that can be used instead of <b>rule_id</b>
+   * The rule name. <b>Required</b> unless <b>rule_id</b> is provided.
    */
-  ruleName: string;
+  ruleName?: string;
   /**
-   * The application ID
+   * The application ID. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * The application name that can be used instead of <b>application_id</b>
+   * The application name. <b>Required</b> unless <b>application_id</b> is provided.
    */
-  applicationName: string;
+  applicationName?: string;
   /**
    * Whether to bind or unbind (set true or false respectively)
    */
@@ -1709,13 +1709,13 @@ export interface GetScenariosResponse {
 }
 export interface SetScenarioInfoRequest {
   /**
-   * Scenario ID
+   * Scenario ID. <b>Required</b> unless <b>required_scenario_name</b> is provided.
    */
-  scenarioId: number;
+  scenarioId?: number;
   /**
-   * Name of the scenario to edit, can be used instead of <b>scenario_id</b>
+   * Name of the scenario to edit. <b>Required</b> unless <b>scenario_id</b> is provided.
    */
-  requiredScenarioName: string;
+  requiredScenarioName?: string;
   /**
    * New scenario name. The length must be less than 30
    */
@@ -1735,13 +1735,13 @@ export interface SetScenarioInfoResponse {
 }
 export interface ReorderScenariosRequest {
   /**
-   * The rule ID
+   * The rule ID. <b>Required</b> unless <b>rule_name</b> is provided.
    */
-  ruleId: number;
+  ruleId?: number;
   /**
-   * The rule name that can be used instead of <b>rule_id</b>
+   * The rule name. <b>Required</b> unless <b>rule_id</b> is provided.
    */
-  ruleName: string;
+  ruleName?: string;
   /**
    * The scenario ID list separated by semicolons (;)
    */
@@ -1882,14 +1882,6 @@ export interface ScenariosInterface {
 
 export interface AddRuleRequest {
   /**
-   * The application ID
-   */
-  applicationId: number;
-  /**
-   * The application name, can be used instead of <b>application_id</b>
-   */
-  applicationName: string;
-  /**
    * The rule name. The length must be less than 100
    */
   ruleName: string;
@@ -1898,13 +1890,13 @@ export interface AddRuleRequest {
    */
   rulePattern: string;
   /**
-   * The scenario ID list separated by semicolons (;)
+   * The application ID. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  scenarioId: 'any' | number | number[];
+  applicationId?: number;
   /**
-   * The scenario name list separated by semicolons (;). Can be used instead of <b>scenario_id</b>
+   * The application name. <b>Required</b> unless <b>application_id</b> is provided.
    */
-  scenarioName: string | string[];
+  applicationName?: string;
   /**
    * The exclude pattern regex. The length must be less than 64 KB
    */
@@ -1917,6 +1909,14 @@ export interface AddRuleRequest {
    * The service account ID to bind to the rule. Read more in the [guide](/docs/guides/voxengine/management-api)
    */
   bindKeyId?: string;
+  /**
+   * The scenario ID list separated by semicolons (;). <b>Required</b> unless <b>scenario_name</b> is provided.
+   */
+  scenarioId?: 'any' | number | number[];
+  /**
+   * The scenario name list separated by semicolons (;). <b>Required</b> unless <b>scenario_id</b> is provided.
+   */
+  scenarioName?: string | string[];
 }
 
 export interface AddRuleResponse {
@@ -1932,21 +1932,21 @@ export interface AddRuleResponse {
 }
 export interface DelRuleRequest {
   /**
-   * The rule ID list separated by semicolons (;). Use the 'all' value to select all rules
+   * The rule ID list separated by semicolons (;). Use the 'all' value to select all rules. <b>Required</b> unless <b>rule_name</b> is provided.
    */
-  ruleId: 'any' | number | number[];
+  ruleId?: 'any' | number | number[];
   /**
-   * The rule name list separated by semicolons (;). Can be used instead of <b>rule_id</b>
+   * The rule name list separated by semicolons (;). <b>Required</b> unless <b>rule_id</b> is provided.
    */
-  ruleName: string | string[];
+  ruleName?: string | string[];
   /**
-   * The application ID list separated by semicolons (;). Use the 'all' value to select all applications
+   * The application ID list separated by semicolons (;). Use the 'all' value to select all applications. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: 'any' | number | number[];
+  applicationId?: 'any' | number | number[];
   /**
-   * The application name list separated by semicolons (;). Can be used instead of <b>application_id</b>
+   * The application name list separated by semicolons (;). <b>Required</b> unless <b>application_id</b> is provided.
    */
-  applicationName: string | string[];
+  applicationName?: string | string[];
 }
 
 export interface DelRuleResponse {
@@ -1992,13 +1992,13 @@ export interface SetRuleInfoResponse {
 }
 export interface GetRulesRequest {
   /**
-   * The application ID
+   * The application ID. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * The application name that can be used instead of <b>application_id</b>
+   * The application name. <b>Required</b> unless <b>application_id</b> is provided.
    */
-  applicationName: string;
+  applicationName?: string;
   /**
    * The rule ID to filter
    */
@@ -2102,9 +2102,9 @@ export interface GetCallHistoryRequest {
    */
   remoteNumber?: string | string[];
   /**
-   * A JS array of strings of specific remote phone numbers to sort the call history. Has higher priority than the `remote_number` parameter. If the array is empty, the `remote_number` parameter is used instead
+   * A JSON array of strings of specific remote phone numbers to sort the call history. Has higher priority than the `remote_number` parameter. If the array is empty, the `remote_number` parameter is used instead
    */
-  remoteNumberList?: any;
+  remoteNumberList?: string;
   /**
    * To receive a call history for a specific local numbers, pass the number list separated by semicolons (;). A local number is a number on the platform side
    */
@@ -2808,14 +2808,6 @@ export interface GetPhoneNumberReportsResponse {
 }
 export interface AttachPhoneNumberRequest {
   /**
-   * Quantity of phone numbers you want to attach
-   */
-  phoneCount: number;
-  /**
-   * The phone number that can be used instead of <b>phone_count</b>. See the [GetNewPhoneNumbers] method
-   */
-  phoneNumber: string | string[];
-  /**
    * The country code
    */
   countryCode: string;
@@ -2827,6 +2819,14 @@ export interface AttachPhoneNumberRequest {
    * The phone region ID. See the [GetPhoneNumberRegions] method
    */
   phoneRegionId: number;
+  /**
+   * Quantity of phone numbers you want to attach. <b>Required</b> unless <b>phone_number</b> is provided.
+   */
+  phoneCount?: number;
+  /**
+   * The phone number. See the [GetNewPhoneNumbers] method. <b>Required</b> unless <b>phone_count</b> is provided.
+   */
+  phoneNumber?: string | string[];
   /**
    * The country state. See the [GetPhoneNumberCategories] and [GetPhoneNumberCountryStates] methods
    */
@@ -2851,21 +2851,21 @@ export interface AttachPhoneNumberResponse {
 }
 export interface BindPhoneNumberToApplicationRequest {
   /**
-   * The phone ID list separated by semicolons (;). Use the 'all' value to select all phone ids
+   * The phone ID list separated by semicolons (;). Use the 'all' value to select all phone ids. <b>Required</b> unless <b>phone_number</b> is provided.
    */
-  phoneId: 'any' | number | number[];
+  phoneId?: 'any' | number | number[];
   /**
-   * The phone number list separated by semicolons (;) that can be used instead of <b>phone_id</b>
+   * The phone number list separated by semicolons (;). <b>Required</b> unless <b>phone_id</b> is provided.
    */
-  phoneNumber: string | string[];
+  phoneNumber?: string | string[];
   /**
-   * The application ID
+   * The application ID. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * The application name that can be used instead of <b>application_id</b>
+   * The application name. <b>Required</b> unless <b>application_id</b> is provided.
    */
-  applicationName: string;
+  applicationName?: string;
   /**
    * The rule ID
    */
@@ -2889,13 +2889,13 @@ export interface BindPhoneNumberToApplicationResponse {
 }
 export interface DeactivatePhoneNumberRequest {
   /**
-   * The phone ID list separated by semicolons (;). Use the 'all' value to select all phone ids
+   * The phone ID list separated by semicolons (;). Use the 'all' value to select all phone ids. <b>Required</b> unless <b>phone_number</b> is provided.
    */
-  phoneId: 'any' | number | number[];
+  phoneId?: 'any' | number | number[];
   /**
-   * The phone number list separated by semicolons (;) that can be used instead of <b>phone_id</b>
+   * The phone number list separated by semicolons (;). <b>Required</b> unless <b>phone_id</b> is provided.
    */
-  phoneNumber: string | string[];
+  phoneNumber?: string | string[];
 }
 
 export interface DeactivatePhoneNumberResponse {
@@ -2906,15 +2906,15 @@ export interface DeactivatePhoneNumberResponse {
   error?: APIError;
 }
 export interface SetPhoneNumberInfoRequest {
-  /**
-   * The phone ID list separated by semicolons (;). Use the 'all' value to select all phone ids
-   */
-  phoneId: 'any' | number | number[];
-  /**
-   * The phone number list separated by semicolons (;) that can be used instead of <b>phone_id</b>
-   */
-  phoneNumber: string | string[];
   autoCharge: boolean;
+  /**
+   * The phone ID list separated by semicolons (;). Use the 'all' value to select all phone ids. <b>Required</b> unless <b>phone_number</b> is provided.
+   */
+  phoneId?: 'any' | number | number[];
+  /**
+   * The phone number list separated by semicolons (;). <b>Required</b> unless <b>phone_id</b> is provided.
+   */
+  phoneNumber?: string | string[];
   /**
    * If set, the callback of an incoming SMS is sent to this url, otherwise, it is sent to the general account URL
    */
@@ -3671,19 +3671,6 @@ export interface DeleteSipRegistrationResponse {
 }
 export interface GetSipRegistrationsRequest {
   /**
-   * The rule ID list separated by semicolons (;) to filter. Can be used instead of <b>rule_name</b>
-   */
-  ruleId: 'any' | number | number[];
-  /**
-   * The rule name list separated by semicolons (;) to filter. Can be used instead of <b>rule_id</b>
-   */
-  ruleName: string | string[];
-  /**
-   * The user ID list separated by semicolons (;) to filter. Can be used instead of <b>user_name</b>
-   */
-  userId: 'any' | number | number[];
-  userName: string | string[];
-  /**
    * The SIP registration ID
    */
   sipRegistrationId?: number;
@@ -3715,6 +3702,19 @@ export interface GetSipRegistrationsRequest {
    * Whether SIP registration bound to an application
    */
   isBoundToApplication?: boolean;
+  /**
+   * The rule ID list separated by semicolons (;) to filter. <b>Required</b> unless <b>rule_name</b> is provided.
+   */
+  ruleId?: 'any' | number | number[];
+  /**
+   * The rule name list separated by semicolons (;) to filter. <b>Required</b> unless <b>rule_id</b> is provided.
+   */
+  ruleName?: string | string[];
+  /**
+   * The user ID list separated by semicolons (;) to filter. <b>Required</b> unless <b>user_name</b> is provided.
+   */
+  userId?: 'any' | number | number[];
+  userName?: string | string[];
   /**
    * The list of proxy servers to use, divided by semicolon (;)
    */
@@ -3911,13 +3911,13 @@ export interface WABPhoneNumbersInterface {
 
 export interface DelCallerIDRequest {
   /**
-   * ID of the callerID object
+   * ID of the callerID object. <b>Required</b> unless <b>callerid_number</b> is provided.
    */
-  calleridId: number;
+  calleridId?: number;
   /**
-   * The callerID number that can be used instead of <b>callerid_id</b>
+   * The callerID number. <b>Required</b> unless <b>callerid_id</b> is provided.
    */
-  calleridNumber: string;
+  calleridNumber?: string;
 }
 
 export interface DelCallerIDResponse {
@@ -4043,17 +4043,17 @@ export interface OutboundTestNumbersInterface {
 
 export interface AddQueueRequest {
   /**
-   * The application ID
-   */
-  applicationId: number;
-  /**
-   * The application name that can be used instead of <b>application_id</b>
-   */
-  applicationName: string;
-  /**
    * The queue name. The length must be less than 100
    */
   acdQueueName: string;
+  /**
+   * The application ID. <b>Required</b> unless <b>application_name</b> is provided.
+   */
+  applicationId?: number;
+  /**
+   * The application name. <b>Required</b> unless <b>application_id</b> is provided.
+   */
+  applicationName?: string;
   /**
    * The integer queue priority. The highest priority is 0
    */
@@ -4097,29 +4097,29 @@ export interface BindUserToQueueRequest {
    */
   bind: boolean;
   /**
-   * The application ID
+   * The application ID. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * The application name that can be used instead of <b>application_id</b>
+   * The application name. <b>Required</b> unless <b>application_id</b> is provided.
    */
-  applicationName: string;
+  applicationName?: string;
   /**
-   * The user ID list separated by semicolons (;). Use the 'all' value to specify all users bound to the application
+   * The user ID list separated by semicolons (;). Use the 'all' value to specify all users bound to the application. <b>Required</b> unless <b>user_name</b> is provided.
    */
-  userId: 'any' | number | number[];
+  userId?: 'any' | number | number[];
   /**
-   * The user name list separated by semicolons (;). <b>user_name</b> can be used instead of <b>user_id</b>
+   * The user name list separated by semicolons (;). <b>Required</b> unless <b>user_id</b> is provided.
    */
-  userName: string | string[];
+  userName?: string | string[];
   /**
-   * The ACD queue ID list separated by semicolons (;). Use the 'all' value to specify all queues bound to the application
+   * The ACD queue ID list separated by semicolons (;). Use the 'all' value to specify all queues bound to the application. <b>Required</b> unless <b>acd_queue_name</b> is provided.
    */
-  acdQueueId: 'any' | number | number[];
+  acdQueueId?: 'any' | number | number[];
   /**
-   * The queue name that can be used instead of <b>acd_queue_id</b>. The queue name list separated by semicolons (;)
+   * The queue name. The queue name list separated by semicolons (;). <b>Required</b> unless <b>acd_queue_id</b> is provided.
    */
-  acdQueueName: string | string[];
+  acdQueueName?: string | string[];
 }
 
 export interface BindUserToQueueResponse {
@@ -4131,13 +4131,13 @@ export interface BindUserToQueueResponse {
 }
 export interface DelQueueRequest {
   /**
-   * The ACD queue ID list separated by semicolons (;)
+   * The ACD queue ID list separated by semicolons (;). <b>Required</b> unless <b>acd_queue_name</b> is provided.
    */
-  acdQueueId: 'any' | number | number[];
+  acdQueueId?: 'any' | number | number[];
   /**
-   * The ACD queue name that can be used instead of <b>acd_queue_id</b>. The ACD queue name list separated by semicolons (;)
+   * The ACD queue name. The ACD queue name list separated by semicolons (;). <b>Required</b> unless <b>acd_queue_id</b> is provided.
    */
-  acdQueueName: string | string[];
+  acdQueueName?: string | string[];
 }
 
 export interface DelQueueResponse {
@@ -4149,13 +4149,13 @@ export interface DelQueueResponse {
 }
 export interface SetQueueInfoRequest {
   /**
-   * The ACD queue ID
+   * The ACD queue ID. <b>Required</b> unless <b>acd_queue_name</b> is provided.
    */
-  acdQueueId: number;
+  acdQueueId?: number;
   /**
-   * The ACD queue name that can be used instead of <b>acd_queue_id</b>
+   * The ACD queue name. <b>Required</b> unless <b>acd_queue_id</b> is provided.
    */
-  acdQueueName: string;
+  acdQueueName?: string;
   /**
    * The new queue name. The length must be less than 100
    */
@@ -4393,17 +4393,17 @@ export interface QueuesInterface {
 
 export interface GetSmartQueueRealtimeMetricsRequest {
   /**
-   * The application ID to search by
-   */
-  applicationId: number;
-  /**
-   * The application name to search by. Can be used instead of the <b>application_id</b> parameter
-   */
-  applicationName: string;
-  /**
    * The report type. Possible values are: calls_blocked_percentage, count_blocked_calls, im_blocked_chats_percentage, im_count_blocked_chats, im_answered_chats_rate, average_abandonment_rate, count_abandonment_calls, service_level, im_service_level, occupancy_rate, im_agent_occupancy_rate, agent_utilization_rate, im_agent_utilization_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_in_service_incoming_time, sum_agents_in_service_outcoming_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_custom_1_time, sum_agents_custom_2_time, sum_agents_custom_3_time, sum_agents_custom_4_time, sum_agents_custom_5_time, sum_agents_custom_6_time, sum_agents_custom_7_time, sum_agents_custom_8_time, sum_agents_custom_9_time, sum_agents_custom_10_time, sum_agents_banned_time, im_sum_agents_online_time, im_sum_agents_ready_time, im_sum_agents_in_service_time, im_sum_agents_dnd_time, im_sum_agents_custom_1_time, im_sum_agents_custom_2_time, im_sum_agents_custom_3_time, im_sum_agents_custom_4_time, im_sum_agents_custom_5_time, im_sum_agents_custom_6_time, im_sum_agents_custom_7_time, im_sum_agents_custom_8_time, im_sum_agents_custom_9_time, im_sum_agents_custom_10_time, im_sum_agents_banned_time, average_agents_idle_time, max_agents_idle_time, min_agents_idle_time, percentile_0_25_agents_idle_time, percentile_0_50_agents_idle_time, percentile_0_75_agents_idle_time, min_time_in_queue, max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, im_min_answer_speed, im_max_answer_speed, im_average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime, count_agent_unanswered_calls, im_count_agent_unanswered_chats, min_reaction_time, max_reaction_time, average_reaction_time, im_min_reaction_time, im_max_reaction_time, im_average_reaction_time, im_count_abandonment_chats, im_count_lost_chats, im_lost_chats_rate, call_count_assigned_to_queue, im_count_assigned_to_queue
    */
   reportType: string | string[];
+  /**
+   * The application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
+   */
+  applicationId?: number;
+  /**
+   * The application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
+   */
+  applicationName?: string;
   /**
    * The user ID list with a maximum of 5 values separated by semicolons (;). Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
    */
@@ -4452,14 +4452,6 @@ export interface GetSmartQueueRealtimeMetricsResponse {
 }
 export interface GetSmartQueueDayHistoryRequest {
   /**
-   * The application ID to search by
-   */
-  applicationId: number;
-  /**
-   * The application name to search by. Can be used instead of the <b>application_id</b> parameter
-   */
-  applicationName: string;
-  /**
    * The SmartQueue ID list with a maximum of 5 values separated by semicolons (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
    */
   sqQueueId: 'any' | number | number[];
@@ -4467,6 +4459,14 @@ export interface GetSmartQueueDayHistoryRequest {
    * The report type. Possible values are: calls_blocked_percentage, count_blocked_calls, im_blocked_chats_percentage, im_count_blocked_chats, im_answered_chats_rate, average_abandonment_rate, count_abandonment_calls, service_level, im_service_level, occupancy_rate, im_agent_occupancy_rate, agent_utilization_rate, im_agent_utilization_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_in_service_incoming_time, sum_agents_in_service_outcoming_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_custom_1_time, sum_agents_custom_2_time, sum_agents_custom_3_time, sum_agents_custom_4_time, sum_agents_custom_5_time, sum_agents_custom_6_time, sum_agents_custom_7_time, sum_agents_custom_8_time, sum_agents_custom_9_time, sum_agents_custom_10_time, sum_agents_banned_time, im_sum_agents_online_time, im_sum_agents_ready_time, im_sum_agents_in_service_time, im_sum_agents_dnd_time, im_sum_agents_custom_1_time, im_sum_agents_custom_2_time, im_sum_agents_custom_3_time, im_sum_agents_custom_4_time, im_sum_agents_custom_5_time, im_sum_agents_custom_6_time, im_sum_agents_custom_7_time, im_sum_agents_custom_8_time, im_sum_agents_custom_9_time, im_sum_agents_custom_10_time, im_sum_agents_banned_time, average_agents_idle_time, max_agents_idle_time, min_agents_idle_time, percentile_0_25_agents_idle_time, percentile_0_50_agents_idle_time, percentile_0_75_agents_idle_time, min_time_in_queue, max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, im_min_answer_speed, im_max_answer_speed, im_average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime, count_agent_unanswered_calls, im_count_agent_unanswered_chats, min_reaction_time, max_reaction_time, average_reaction_time, im_min_reaction_time, im_max_reaction_time, im_average_reaction_time, im_count_abandonment_chats, im_count_lost_chats, im_lost_chats_rate, call_count_assigned_to_queue, im_count_assigned_to_queue
    */
   reportType: string | string[];
+  /**
+   * The application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
+   */
+  applicationId?: number;
+  /**
+   * The application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
+   */
+  applicationName?: string;
   /**
    * The user ID list with a maximum of 5 values separated by semicolons (;). Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
    */
@@ -4515,14 +4515,6 @@ export interface GetSmartQueueDayHistoryResponse {
 }
 export interface RequestSmartQueueHistoryRequest {
   /**
-   * The application ID to search by
-   */
-  applicationId: number;
-  /**
-   * The application name to search by. Can be used instead of the <b>application_id</b> parameter
-   */
-  applicationName: string;
-  /**
    * The SmartQueue ID list with a maximum of 5 values separated by semicolons (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
    */
   sqQueueId: 'any' | number | number[];
@@ -4538,6 +4530,14 @@ export interface RequestSmartQueueHistoryRequest {
    * The report type. Possible values are: calls_blocked_percentage, count_blocked_calls, im_blocked_chats_percentage, im_count_blocked_chats, im_answered_chats_rate, average_abandonment_rate, count_abandonment_calls, service_level, im_service_level, occupancy_rate, im_agent_occupancy_rate, agent_utilization_rate, im_agent_utilization_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_in_service_incoming_time, sum_agents_in_service_outcoming_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_custom_1_time, sum_agents_custom_2_time, sum_agents_custom_3_time, sum_agents_custom_4_time, sum_agents_custom_5_time, sum_agents_custom_6_time, sum_agents_custom_7_time, sum_agents_custom_8_time, sum_agents_custom_9_time, sum_agents_custom_10_time, sum_agents_banned_time, im_sum_agents_online_time, im_sum_agents_ready_time, im_sum_agents_in_service_time, im_sum_agents_dnd_time, im_sum_agents_custom_1_time, im_sum_agents_custom_2_time, im_sum_agents_custom_3_time, im_sum_agents_custom_4_time, im_sum_agents_custom_5_time, im_sum_agents_custom_6_time, im_sum_agents_custom_7_time, im_sum_agents_custom_8_time, im_sum_agents_custom_9_time, im_sum_agents_custom_10_time, im_sum_agents_banned_time, average_agents_idle_time, max_agents_idle_time, min_agents_idle_time, percentile_0_25_agents_idle_time, percentile_0_50_agents_idle_time, percentile_0_75_agents_idle_time, min_time_in_queue, max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, im_min_answer_speed, im_max_answer_speed, im_average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime, count_agent_unanswered_calls, im_count_agent_unanswered_chats, min_reaction_time, max_reaction_time, average_reaction_time, im_min_reaction_time, im_max_reaction_time, im_average_reaction_time, im_count_abandonment_chats, im_count_lost_chats, im_lost_chats_rate, call_count_assigned_to_queue, im_count_assigned_to_queue
    */
   reportType: string | string[];
+  /**
+   * The application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
+   */
+  applicationId?: number;
+  /**
+   * The application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
+   */
+  applicationName?: string;
   /**
    * The user ID list with a maximum of 5 values separated by semicolons (;). Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
    */
@@ -4765,7 +4765,7 @@ export interface SQ_SetQueueInfoRequest {
    */
   sqQueueName?: string;
   /**
-   * Whether to keep the call task in the queue if all agents are in the DND/BANNED/OFFLINE statuses.
+   * Whether to keep the call task in the queue if all agents are in the DND/BANNED statuses.
    */
   holdCallsIfInactiveAgents?: boolean;
   /**
@@ -5010,9 +5010,9 @@ export interface SQ_BindSkillRequest {
    */
   userId: 'any' | number | number[];
   /**
-   * Skills to be bound to agents in the json array format. The array should contain objects with the <b>sq_skill_id</b>/<b>sq_skill_name</b> and <b>sq_skill_level</b> keys where skill levels range from 1 to 5
+   * Skills to be bound to agents in the JSON array format. The array should contain objects with the <b>sq_skill_id</b>/<b>sq_skill_name</b> and <b>sq_skill_level</b> keys where skill levels range from 1 to 5
    */
-  sqSkills: any;
+  sqSkills: string;
   /**
    * Application name to search by. Can be used instead of <b>application_id</b>
    */
@@ -5224,9 +5224,9 @@ export interface SQ_GetAgentsRequest {
    */
   excludedSqQueueName?: string;
   /**
-   * Skills to filter in the json array format. The array should contain objects with the <b>sq_skill_id</b>/<b>sq_skill_name</b>, <b>min_sq_skill_level</b>, and <b>max_sq_skill_level</b> keys where skill levels range from 1 to 5
+   * Skills to filter in the JSON array format. The array should contain objects with the <b>sq_skill_id</b>/<b>sq_skill_name</b>, <b>min_sq_skill_level</b>, and <b>max_sq_skill_level</b> keys where skill levels range from 1 to 5
    */
-  sqSkills?: any;
+  sqSkills?: string;
   /**
    * List of user IDs separated by semicolons (;)
    */
@@ -5240,9 +5240,9 @@ export interface SQ_GetAgentsRequest {
    */
   userNameTemplate?: string;
   /**
-   * Filter statuses in the json array format. The array should contain objects with the <b>sq_status_type</b> and <b>sq_status_name</b> keys. Possible values for <b>sq_status_type</b> are 'CALL' and 'IM'. Possible values for <b>sq_status_name</b> are 'OFFLINE', 'ONLINE', 'READY', 'IN_SERVICE', 'AFTER_SERVICE', 'DND'
+   * Filter statuses in the JSON array format. The array should contain objects with the <b>sq_status_type</b> and <b>sq_status_name</b> keys. Possible values for <b>sq_status_type</b> are 'CALL' and 'IM'. Possible values for <b>sq_status_name</b> are 'OFFLINE', 'ONLINE', 'READY', 'IN_SERVICE', 'AFTER_SERVICE', 'DND'
    */
-  sqStatuses?: any;
+  sqStatuses?: string;
   /**
    * Whether to display agent skills
    */
@@ -5362,13 +5362,13 @@ export interface AddSkillResponse {
 }
 export interface DelSkillRequest {
   /**
-   * The skill ID
+   * The skill ID. <b>Required</b> unless <b>skill_name</b> is provided.
    */
-  skillId: number;
+  skillId?: number;
   /**
-   * The skill name that can be used instead of <b>skill_id</b>
+   * The skill name. <b>Required</b> unless <b>skill_id</b> is provided.
    */
-  skillName: string;
+  skillName?: string;
 }
 
 export interface DelSkillResponse {
@@ -5380,17 +5380,17 @@ export interface DelSkillResponse {
 }
 export interface SetSkillInfoRequest {
   /**
-   * The skill ID
-   */
-  skillId: number;
-  /**
-   * The skill name that can be used instead of <b>skill_id</b>
-   */
-  skillName: string;
-  /**
    * The new skill name. The length must be less than 512
    */
   newSkillName: string;
+  /**
+   * The skill ID. <b>Required</b> unless <b>skill_name</b> is provided.
+   */
+  skillId?: number;
+  /**
+   * The skill name. <b>Required</b> unless <b>skill_id</b> is provided.
+   */
+  skillName?: string;
 }
 
 export interface SetSkillInfoResponse {
@@ -5433,29 +5433,29 @@ export interface GetSkillsResponse {
 }
 export interface BindSkillRequest {
   /**
-   * The skill ID list separated by semicolons (;). Use the 'all' value to select all skills
+   * The skill ID list separated by semicolons (;). Use the 'all' value to select all skills. <b>Required</b> unless <b>skill_name</b> is provided.
    */
-  skillId: 'any' | number | number[];
+  skillId?: 'any' | number | number[];
   /**
-   * The skill name list separated by semicolons (;). Can be used instead of <b>skill_id</b>
+   * The skill name list separated by semicolons (;). <b>Required</b> unless <b>skill_id</b> is provided.
    */
-  skillName: string | string[];
+  skillName?: string | string[];
   /**
-   * The user ID list separated by semicolons (;). Use the 'all' value to select all users
+   * The user ID list separated by semicolons (;). Use the 'all' value to select all users. <b>Required</b> unless <b>user_name</b> is provided.
    */
-  userId: 'any' | number | number[];
+  userId?: 'any' | number | number[];
   /**
-   * The user name list separated by semicolons (;). <b>user_name</b> can be used instead of <b>user_id</b>
+   * The user name list separated by semicolons (;). <b>Required</b> unless <b>user_id</b> is provided.
    */
-  userName: string | string[];
+  userName?: string | string[];
   /**
-   * The ACD queue ID list separated by semicolons (;). Use the 'all' value to select all ACD queues
+   * The ACD queue ID list separated by semicolons (;). Use the 'all' value to select all ACD queues. <b>Required</b> unless <b>acd_queue_name</b> is provided.
    */
-  acdQueueId: 'any' | number | number[];
+  acdQueueId?: 'any' | number | number[];
   /**
-   * The ACD queue name that can be used instead of <b>acd_queue_id</b>. The ACD queue name list separated by semicolons (;)
+   * The ACD queue name. The ACD queue name list separated by semicolons (;). <b>Required</b> unless <b>acd_queue_id</b> is provided.
    */
-  acdQueueName: string | string[];
+  acdQueueName?: string | string[];
   /**
    * The application ID. It is required if the <b>user_name</b> is specified
    */
@@ -5491,369 +5491,9 @@ export interface CreditCardsInterface {}
 
 export interface AgreementsInterface {}
 
-export interface AddAdminUserRequest {
-  /**
-   * The admin user name. The length must be less than 50
-   */
-  newAdminUserName: string;
-  /**
-   * The admin user display name. The length must be less than 256
-   */
-  adminUserDisplayName: string;
-  /**
-   * The admin user password. The length must be at least 6 symbols
-   */
-  newAdminUserPassword: string;
-  /**
-   * Whether the admin user is active
-   */
-  adminUserActive?: boolean;
-  /**
-   * The role(s) ID created via <a href='/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role ID list separated by semicolons (;). Use the 'all' value to select all admin roles
-   */
-  adminRoleId?: string;
-  /**
-   * The role(s) name(s) created via <a href='/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attaching admin role name that can be used instead of <b>admin_role_id</b>
-   */
-  adminRoleName?: string | string[];
-}
+export interface AdminUsersInterface {}
 
-export interface AddAdminUserResponse {
-  /**
-   * Returns 1 if the request has been completed successfully
-   */
-  result: number;
-  /**
-   * The new admin user ID
-   */
-  adminUserId: number;
-  /**
-   * The admin user API key
-   */
-  adminUserApiKey: string;
-  error?: APIError;
-}
-export interface DelAdminUserRequest {
-  /**
-   * The admin user ID list separated by semicolons (;). Use the 'all' value to select all admin users
-   */
-  requiredAdminUserId: 'any' | number | number[];
-  /**
-   * The admin user name to delete, can be used instead of <b>required_admin_user_id</b>
-   */
-  requiredAdminUserName: string | string[];
-}
-
-export interface DelAdminUserResponse {
-  /**
-   * Returns 1 if the request has been completed successfully
-   */
-  result: number;
-  error?: APIError;
-}
-export interface SetAdminUserInfoRequest {
-  /**
-   * The admin user to edit
-   */
-  requiredAdminUserId: number;
-  /**
-   * The admin user to edit, can be used instead of <b>required_admin_user_id</b>
-   */
-  requiredAdminUserName: string;
-  /**
-   * The new admin user name. The length must be less than 50
-   */
-  newAdminUserName?: string;
-  /**
-   * The new admin user display name. The length must be less than 256
-   */
-  adminUserDisplayName?: string;
-  /**
-   * The new admin user password. The length must be at least 6 symbols
-   */
-  newAdminUserPassword?: string;
-  /**
-   * Whether the admin user is active
-   */
-  adminUserActive?: boolean;
-}
-
-export interface SetAdminUserInfoResponse {
-  /**
-   * Returns 1 if the request has been completed successfully
-   */
-  result: number;
-  error?: APIError;
-}
-export interface GetAdminUsersRequest {
-  /**
-   * The admin user ID to filter
-   */
-  requiredAdminUserId?: number;
-  /**
-   * The admin user name part to filter
-   */
-  requiredAdminUserName?: string;
-  /**
-   * The admin user display name part to filter
-   */
-  adminUserDisplayName?: string;
-  /**
-   * Whether the admin user is active to filter
-   */
-  adminUserActive?: boolean;
-  /**
-   * Whether to get the attached admin roles
-   */
-  withRoles?: boolean;
-  /**
-   * Whether to get the admin user permissions
-   */
-  withAccessEntries?: boolean;
-  /**
-   * The max returning record count
-   */
-  count?: number;
-  /**
-   * The first <b>N</b> records are skipped in the output
-   */
-  offset?: number;
-}
-
-export interface GetAdminUsersResponse {
-  result: AdminUser[];
-  /**
-   * The total found admin user count
-   */
-  totalCount: number;
-  /**
-   * The returned admin user count
-   */
-  count: number;
-  error?: APIError;
-}
-export interface AttachAdminRoleRequest {
-  /**
-   * The admin user ID list separated by semicolons (;). Use the 'all' value to select all admin users
-   */
-  requiredAdminUserId: 'any' | number | number[];
-  /**
-   * The admin user name to bind, can be used instead of <b>required_admin_user_id</b>
-   */
-  requiredAdminUserName: string | string[];
-  /**
-   * The role(s) ID created via <a href='/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The attached admin role ID list separated by semicolons (;). Use the 'all' value to select alladmin roles
-   */
-  adminRoleId: 'any' | number | number[];
-  /**
-   * The role(s) name(s) created via <a href='/docs/references/httpapi/adminroles'>Managing Admin Roles</a> methods. The admin role name to attach, can be used instead of <b>admin_role_id</b>
-   */
-  adminRoleName: string | string[];
-  /**
-   * The merge mode. The following values are possible: add, del, set
-   */
-  mode?: string;
-}
-
-export interface AttachAdminRoleResponse {
-  /**
-   * Returns 1 if the request has been completed successfully
-   */
-  result: number;
-  error?: APIError;
-}
-export interface AdminUsersInterface {
-  addAdminUser: (request: AddAdminUserRequest) => Promise<AddAdminUserResponse>;
-  delAdminUser: (request: DelAdminUserRequest) => Promise<DelAdminUserResponse>;
-  setAdminUserInfo: (request: SetAdminUserInfoRequest) => Promise<SetAdminUserInfoResponse>;
-  getAdminUsers: (request: GetAdminUsersRequest) => Promise<GetAdminUsersResponse>;
-  attachAdminRole: (request: AttachAdminRoleRequest) => Promise<AttachAdminRoleResponse>;
-}
-
-export interface AddAdminRoleRequest {
-  /**
-   * The admin role name. The length must be less than 50
-   */
-  adminRoleName: string;
-  /**
-   * Whether the admin role is enabled. If false the allowed and denied entries have no affect
-   */
-  adminRoleActive?: boolean;
-  /**
-   * The admin role ID list separated by semicolons (;). Use the 'all' value to select all admin roles. The list specifies the roles from which the new role automatically copies all permissions (allowed_entries and denied_entries)
-   */
-  likeAdminRoleId?: 'any' | number | number[];
-  /**
-   * The admin role name that can be used instead of <b>like_admin_role_id</b>. The name specifies a role from which the new role automatically copies all permissions (allowed_entries and denied_entries)
-   */
-  likeAdminRoleName?: string | string[];
-  /**
-   * The list of allowed access entries separated by semicolons (;) (the API function names)
-   */
-  allowedEntries?: string | string[];
-  /**
-   * The list of denied access entries separated by semicolons (;) (the API function names)
-   */
-  deniedEntries?: string | string[];
-}
-
-export interface AddAdminRoleResponse {
-  /**
-   * Returns 1 if the request has been completed successfully
-   */
-  result: number;
-  /**
-   * The new admin role ID
-   */
-  adminRoleId: number;
-  error?: APIError;
-}
-export interface DelAdminRoleRequest {
-  /**
-   * The admin role ID list separated by semicolons (;). Use the 'all' value to select all admin roles
-   */
-  adminRoleId: 'any' | number | number[];
-  /**
-   * The admin role name to delete, can be used instead of <b>admin_role_id</b>
-   */
-  adminRoleName: string | string[];
-}
-
-export interface DelAdminRoleResponse {
-  /**
-   * Returns 1 if the request has been completed successfully
-   */
-  result: number;
-  error?: APIError;
-}
-export interface SetAdminRoleInfoRequest {
-  /**
-   * The admin role to edit
-   */
-  adminRoleId: number;
-  /**
-   * The admin role to edit, can be used instead of <b>admin_role_id</b>
-   */
-  adminRoleName: string;
-  /**
-   * The new admin role name. The length must be less than 50
-   */
-  newAdminRoleName?: string;
-  /**
-   * Whether the admin role is enabled. If false the allowed and denied entries have no affect
-   */
-  adminRoleActive?: boolean;
-  /**
-   * The modification mode of the permission lists (allowed_entries and denied_entries). The following values are possible: add, del, set
-   */
-  entryModificationMode?: string;
-  /**
-   * The list of allowed access entry changes separated by semicolons (;) (the API function names)
-   */
-  allowedEntries?: string | string[];
-  /**
-   * The list of denied access entry changes separated by semicolons (;) (the API function names)
-   */
-  deniedEntries?: string | string[];
-  /**
-   * The admin role ID list separated by semicolons (;). Use the 'all' value to select all admin roles. The list specifies the roles from which the allowed_entries and denied_entries are merged
-   */
-  likeAdminRoleId?: 'any' | number | number[];
-  /**
-   * The admin role name, can be used instead of <b>like_admin_role_id</b>. The name specifies a role from which the allowed_entries and denied_entries are merged
-   */
-  likeAdminRoleName?: string | string[];
-}
-
-export interface SetAdminRoleInfoResponse {
-  /**
-   * Returns 1 if the request has been completed successfully
-   */
-  result: number;
-  error?: APIError;
-}
-export interface GetAdminRolesRequest {
-  /**
-   * The admin role ID to filter
-   */
-  adminRoleId?: number;
-  /**
-   * The admin role name part to filter
-   */
-  adminRoleName?: string;
-  /**
-   * Whether the admin role is enabled to filter
-   */
-  adminRoleActive?: boolean;
-  /**
-   * Whether to get the permissions
-   */
-  withEntries?: boolean;
-  /**
-   * Whether to include the account roles
-   */
-  withAccountRoles?: boolean;
-  /**
-   * Whether to include the parent roles
-   */
-  withParentRoles?: boolean;
-  withSystemRoles?: boolean;
-  /**
-   * The attached admin user ID list separated by semicolons (;). Use the 'all' value to select all admin users
-   */
-  includedAdminUserId?: 'any' | number | number[];
-  /**
-   * Not attached admin user ID list separated by semicolons (;). Use the 'all' value to select all admin users
-   */
-  excludedAdminUserId?: 'any' | number | number[];
-  /**
-   * Set false to get roles with partial admin user list matching
-   */
-  fullAdminUsersMatching?: string;
-  /**
-   * The admin user to show in the 'admin_users' field output
-   */
-  showingAdminUserId?: number;
-  /**
-   * The max returning record count
-   */
-  count?: number;
-  /**
-   * The first <b>N</b> records are skipped in the output
-   */
-  offset?: number;
-}
-
-export interface GetAdminRolesResponse {
-  result: AdminRole[];
-  /**
-   * The total found admin role count
-   */
-  totalCount: number;
-  /**
-   * The returned admin role count
-   */
-  count: number;
-  error?: APIError;
-}
-export interface GetAvailableAdminRoleEntriesRequest {}
-
-export interface GetAvailableAdminRoleEntriesResponse {
-  /**
-   * Array of the admin role entries
-   */
-  result: string[];
-  error?: APIError;
-}
-export interface AdminRolesInterface {
-  addAdminRole: (request: AddAdminRoleRequest) => Promise<AddAdminRoleResponse>;
-  delAdminRole: (request: DelAdminRoleRequest) => Promise<DelAdminRoleResponse>;
-  setAdminRoleInfo: (request: SetAdminRoleInfoRequest) => Promise<SetAdminRoleInfoResponse>;
-  getAdminRoles: (request: GetAdminRolesRequest) => Promise<GetAdminRolesResponse>;
-  getAvailableAdminRoleEntries: (
-    request: GetAvailableAdminRoleEntriesRequest
-  ) => Promise<GetAvailableAdminRoleEntriesResponse>;
-}
+export interface AdminRolesInterface {}
 
 export interface AddAuthorizedAccountIPRequest {
   /**
@@ -5879,13 +5519,13 @@ export interface AddAuthorizedAccountIPResponse {
 }
 export interface DelAuthorizedAccountIPRequest {
   /**
-   * The authorized IP4 or network to remove. Set to 'all' to remove all items
+   * The authorized IP4 or network to remove. Set to 'all' to remove all items. <b>Required</b> unless <b>contains_ip</b> is provided.
    */
-  authorizedIp: string;
+  authorizedIp?: string;
   /**
-   * Specify the parameter to remove the networks that contains the particular IP4. Can be used instead of <b>authorized_ip</b>
+   * Specify the parameter to remove the networks that contains the particular IP4. <b>Required</b> unless <b>authorized_ip</b> is provided.
    */
-  containsIp: string;
+  containsIp?: string;
   /**
    * Whether to remove the network from the white list. Set false to remove the network from the black list. Omit the parameter to remove the network from all lists
    */
@@ -6151,13 +5791,13 @@ export interface RegulationAddressInterface {
 
 export interface AddPushCredentialRequest {
   /**
-   * The push provider name. The possible values are APPLE, APPLE_VOIP, GOOGLE, HUAWEI
+   * The push provider name. The possible values are APPLE, APPLE_VOIP, GOOGLE, HUAWEI. <b>Required</b> unless <b>push_provider_id</b> is provided.
    */
-  pushProviderName: string;
+  pushProviderName?: string;
   /**
-   * The push provider id. Can be used instead of <b>push_provider_name</b>. The possible values are: 1 — APPLE, 2 — GOOGLE, 3 — APPLE_VOIP, 5 — HUAWEI.
+   * The push provider id. The possible values are: 1 — APPLE, 2 — GOOGLE, 3 — APPLE_VOIP, 5 — HUAWEI. <b>Required</b> unless <b>push_provider_name</b> is provided.
    */
-  pushProviderId: number;
+  pushProviderId?: number;
   /**
    * The application id
    */
@@ -6507,6 +6147,10 @@ export interface ControlSmsResponse {
 }
 export interface GetSmsHistoryRequest {
   /**
+   * Message id list separated by semicolons (;)
+   */
+  messageId?: 'any' | number | number[];
+  /**
    * The source phone number
    */
   sourceNumber?: string;
@@ -6550,6 +6194,10 @@ export interface GetSmsHistoryResponse {
   error?: APIError;
 }
 export interface A2PGetSmsHistoryRequest {
+  /**
+   * Message id list separated by semicolons (;)
+   */
+  messageId?: 'any' | number | number[];
   /**
    * The source phone number
    */
@@ -7121,14 +6769,6 @@ export interface ChildAccountsInterface {}
 
 export interface AddSecretRequest {
   /**
-   * Application ID to add the secret to
-   */
-  applicationId: number;
-  /**
-   * Application name. Can be used instead of <b>application_id</b>
-   */
-  applicationName: string;
-  /**
    * Secret name. The name must start with a Latin letter and can contain up to 64 characters, including Latin letters, digits and underscores
    */
   secretName: string;
@@ -7136,6 +6776,14 @@ export interface AddSecretRequest {
    * Secret value. Maximum length is 8192 characters
    */
   secretValue: string;
+  /**
+   * Application ID to add the secret to. <b>Required</b> unless <b>application_name</b> is provided.
+   */
+  applicationId?: number;
+  /**
+   * Application name. <b>Required</b> unless <b>application_id</b> is provided.
+   */
+  applicationName?: string;
   /**
    * Optional. Secret description. When processing, the length is truncated to the first 200 characters
    */
@@ -7151,14 +6799,6 @@ export interface AddSecretResponse {
 }
 export interface DelSecretRequest {
   /**
-   * Application ID
-   */
-  applicationId: number;
-  /**
-   * Application name. Can be used instead of <b>application_id</b>
-   */
-  applicationName: string;
-  /**
    * IDs to delete. A list separated by semicolons (;). Use the 'all' value to delete all secrets
    */
   secretId: 'any' | number | number[];
@@ -7166,6 +6806,14 @@ export interface DelSecretRequest {
    * Secret names to delete. List separated by semicolons (;)
    */
   secretName: string | string[];
+  /**
+   * Application ID. <b>Required</b> unless <b>application_name</b> is provided.
+   */
+  applicationId?: number;
+  /**
+   * Application name. <b>Required</b> unless <b>application_id</b> is provided.
+   */
+  applicationName?: string;
 }
 
 export interface DelSecretResponse {
@@ -7177,21 +6825,21 @@ export interface DelSecretResponse {
 }
 export interface GetSecretValueRequest {
   /**
-   * Application ID
+   * Application ID. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * Application name. Can be used instead of <b>application_id</b>
+   * Application name. <b>Required</b> unless <b>application_id</b> is provided.
    */
-  applicationName: string;
+  applicationName?: string;
   /**
-   * Secret ID
+   * Secret ID. <b>Required</b> unless <b>secret_name</b> is provided.
    */
-  secretId: number;
+  secretId?: number;
   /**
-   * Secret name. Can be used instead of <b>secret_id</b>
+   * Secret name. <b>Required</b> unless <b>secret_id</b> is provided.
    */
-  secretName: string;
+  secretName?: string;
 }
 
 export interface GetSecretValueResponse {
@@ -7203,13 +6851,13 @@ export interface GetSecretValueResponse {
 }
 export interface GetSecretsRequest {
   /**
-   * Application ID
+   * Application ID. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * Application name. Can be used instead of <b>application_id</b>
+   * Application name. <b>Required</b> unless <b>application_id</b> is provided.
    */
-  applicationName: string;
+  applicationName?: string;
   /**
    * Filter by the secret name part
    */
@@ -7241,21 +6889,21 @@ export interface GetSecretsResponse {
 }
 export interface SetSecretInfoRequest {
   /**
-   * Application ID
+   * Application ID. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * Application name. Can be used instead of <b>application_id</b>
+   * Application name. <b>Required</b> unless <b>application_id</b> is provided.
    */
-  applicationName: string;
+  applicationName?: string;
   /**
-   * Secret ID to edit
+   * Secret ID to edit. <b>Required</b> unless <b>secret_name</b> is provided.
    */
-  secretId: number;
+  secretId?: number;
   /**
-   * Secret name. Can be used instead of <b>secret_id</b>
+   * Secret name. <b>Required</b> unless <b>secret_id</b> is provided.
    */
-  secretName: string;
+  secretName?: string;
   /**
    * New secret name. The name must start with a Latin letter and can contain up to 64 characters, including Latin letters, digits and underscores
    */
