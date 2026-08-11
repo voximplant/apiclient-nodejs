@@ -1,6 +1,6 @@
 # Voximplant API client library
 
-#### Version 4.9.0
+#### Version 4.10.0
 
 ## Prerequisites
 
@@ -37,6 +37,8 @@ Next, specify the path to the file with the **result** value either in the const
 ```js
 const parameters = {
     pathToCredentials: '/path/to/credentials.json',
+    // Optional: log raw request/response payloads via console.log
+    externalLogging: true,
 };
 const client = new VoximplantApiClient(parameters);
 ```
@@ -46,6 +48,9 @@ const client = new VoximplantApiClient(parameters);
 ```bash
 export VOXIMPLANT_CREDENTIALS=/path/to/credentials.json
 ```
+
+`externalLogging` is off by default. When enabled, the client logs request payloads and HTTP
+responses (including rejected axios errors) with `console.log`.
 
 ## Examples
 

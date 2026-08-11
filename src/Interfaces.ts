@@ -207,7 +207,7 @@ export interface UtilsReturns {
   DelAuthorizedAccountIP: DelAuthorizedAccountIPResponse;
   GetAuthorizedAccountIPs: GetAuthorizedAccountIPsResponse;
   CheckAuthorizedAccountIP: CheckAuthorizedAccountIPResponse;
-  LinkRegulationAddress: LinkRegulationAddressResponse;
+  LinkregulationAddress: LinkregulationAddressResponse;
   GetZIPCodes: GetZIPCodesResponse;
   GetRegulationsAddress: GetRegulationsAddressResponse;
   GetAvailableRegulations: GetAvailableRegulationsResponse;
@@ -287,7 +287,7 @@ export interface SetAccountInfoRequest {
    */
   newAccountEmail?: string;
   /**
-   * The new account password. Must be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
+   * The new account password. Should be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
    */
   newAccountPassword?: string;
   /**
@@ -308,7 +308,7 @@ export interface SetAccountInfoRequest {
   accountLastName?: string;
   mobilePhone?: string;
   /**
-   * The min balance value to notify by email or SMS
+   * The minimum balance value to notify by email or SMS
    */
   minBalanceToNotify?: number;
   /**
@@ -394,7 +394,7 @@ export interface SetChildAccountInfoRequest {
    */
   newChildAccountEmail?: string;
   /**
-   * The new child account password. Must be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
+   * The new child account password. Should be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
    */
   newChildAccountPassword?: string;
   /**
@@ -422,7 +422,7 @@ export interface SetChildAccountInfoRequest {
    */
   location?: string;
   /**
-   * The min balance value to notify by email or SMS
+   * The minimum balance value to notify by email or SMS
    */
   minBalanceToNotify?: number;
   /**
@@ -508,7 +508,7 @@ export interface GetSubscriptionPriceRequest {
    */
   subscriptionTemplateName?: string;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -558,7 +558,7 @@ export interface GetChildrenAccountsRequest {
    */
   mediumOutput?: boolean;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -837,7 +837,7 @@ export interface GetApplicationsRequest {
    */
   withScenarios?: boolean;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -871,11 +871,11 @@ export interface AddUserRequest {
    */
   userName: string;
   /**
-   * The user display name. The length must be less than 256
+   * The user display name. The length should be less than 256
    */
   userDisplayName: string;
   /**
-   * The user password. Must be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
+   * The user password. Should be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
    */
   userPassword: string;
   /**
@@ -960,11 +960,11 @@ export interface SetUserInfoRequest {
    */
   newUserName?: string;
   /**
-   * The new user display name. The length must be less than 256
+   * The new user display name. The length should be less than 256
    */
   userDisplayName?: string;
   /**
-   * The new user password. Must be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
+   * The new user password. Should be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
    */
   userPassword?: string;
   /**
@@ -1047,7 +1047,7 @@ export interface GetUsersRequest {
    */
   showingSkillId?: number;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -1132,17 +1132,93 @@ export interface CreateCallListRequest {
    */
   escape?: string;
   /**
-   * IP from the geolocation of the call list subscribers. It allows selecting the nearest server for serving subscribers
-   */
-  referenceIp?: string;
-  /**
-   * Location of the server where the scenario needs to be executed. Has higher priority than `reference_ip`. Request [getServerLocations](https://api.voximplant.com/getServerLocations) for possible values
+   * Location of the server where the scenario needs to be executed. Has higher priority than `ip_address`. Request [getServerLocations](https://api.voximplant.com/getServerLocations) for possible values
    */
   serverLocation?: string;
   /**
    * Optional. Whether to prioritize first calling attempts or repeated ones. The possible values are: first_attempts, repeated_attempts. The default values is first_attempts.
    */
   taskPriorityStrategy?: string;
+  /**
+   * IP from the geolocation of the call list subscribers. It allows selecting the nearest server for serving subscribers. If not specified, the client IP of the request is used
+   */
+  ipAddress?: string;
+  /**
+   * Call list type. The possible values are: automatic, predictive, progressive. The value is case-insensitive
+   */
+  callListType?: string;
+  /**
+   * The ACD queue ID. <b>Required</b> if <b>call_list_type</b> is predictive or progressive, and should be omitted otherwise
+   */
+  queueId?: number;
+  /**
+   * Time when the call list should start, as a Unix timestamp in seconds (UTC). The default value is the current time. The value cannot be in the past
+   */
+  startAt?: number;
+  /**
+   * Whether to create the call list in the cancelled state
+   */
+  isCancelled?: boolean;
+  /**
+   * Quote character for parsing csv
+   */
+  quote?: string;
+  /**
+   * The ACD version. The possible values are: V1, V2. Applies only if <b>call_list_type</b> is predictive or progressive
+   */
+  acdVersion?: string;
+  /**
+   * The predictive dialing algorithm. The possible values are: DEFAULT_PREDICTIVE_TYPE, AR_OPTIMIZED, BF_OPTIMIZED, AR_SMALL_GROUP, AR_AUTO_BALANCED. Applies only if <b>call_list_type</b> is predictive
+   */
+  predictiveType?: string;
+  /**
+   * The maximum abandoned call rate for predictive dialing, from 0 to 1. Applies only if <b>call_list_type</b> is predictive or progressive
+   */
+  maximumErrorRate?: number;
+  /**
+   * The minimum agent busy factor for predictive dialing, from 0 to 1. Applies only if <b>call_list_type</b> is predictive or progressive
+   */
+  minimumBusyFactor?: number;
+  /**
+   * The task multiplier for progressive dialing. The minimum value is 1. Applies only if <b>call_list_type</b> is progressive
+   */
+  taskMultiplier?: number;
+  /**
+   * Whether the call list is a personal campaign. Applies only if <b>call_list_type</b> is progressive
+   */
+  isPersonalCampaign?: boolean;
+  /**
+   * The personal campaign mode. The possible values are: smart, strict. Allowed only if <b>is_personal_campaign</b> is true; the default value in that case is smart
+   */
+  personalCampaignType?: string;
+  /**
+   * The PDS buffer size target. The possible values are: VALUE, OPERATOR, AGENT. Applies only if <b>call_list_type</b> is predictive or progressive
+   */
+  bufferSizeTarget?: string;
+  /**
+   * The PDS buffer size, from 20 to 500. Applies only if <b>buffer_size_target</b> is VALUE
+   */
+  bufferSizeValue?: number;
+  /**
+   * The PDS buffer threshold factor. Cannot be negative. Applies only if <b>buffer_size_target</b> is specified
+   */
+  bufferThresholdFactor?: number;
+  /**
+   * The initial average dial time in seconds for the dialing statistics. Applies only if <b>call_list_type</b> is predictive or progressive
+   */
+  avgDialTimeSec?: number;
+  /**
+   * The initial average talk time in seconds for the dialing statistics. Applies only if <b>call_list_type</b> is predictive or progressive
+   */
+  avgTimeTalkSec?: number;
+  /**
+   * The initial average total call time in seconds for the dialing statistics. Applies only if <b>call_list_type</b> is predictive or progressive
+   */
+  avgTotalTimeSec?: number;
+  /**
+   * The initial successful call ratio for the dialing statistics. Applies only if <b>call_list_type</b> is predictive or progressive
+   */
+  percentSuccessful?: number;
 }
 
 export interface CreateCallListResponse {
@@ -1186,6 +1262,10 @@ export interface AppendToCallListRequest {
    * Separator values. The default value is ';'
    */
   delimiter?: string;
+  /**
+   * Quote character for parsing csv
+   */
+  quote?: string;
 }
 
 export interface AppendToCallListResponse {
@@ -1209,14 +1289,13 @@ export interface AppendToCallListResponse {
 }
 export interface CancelCallListBatchRequest {
   /**
+   * Call list ID
+   */
+  listId: number;
+  /**
    * Batch UUIDs of the tasks to cancel, separated by semicolon (;)
    */
   batchIds: string;
-  /**
-   * Call list ID. <b>Required</b> unless <b>list_name</b> is provided.
-   */
-  listId?: number;
-  listName?: string;
 }
 
 export interface CancelCallListBatchResponse {
@@ -1260,9 +1339,9 @@ export interface EditCallListRequest {
    */
   priority?: number;
   /**
-   * Time when the call list should start in the `yyyy-MM-dd HH:mm:ss` format
+   * Time when the call list should start, as a Unix timestamp in seconds (UTC)
    */
-  startAt?: string;
+  startAt?: number;
   /**
    * Optional. Whether to prioritize first calling attempts or repeated ones. The possible values are: first_attempts, repeated_attempts. The default values is first_attempts
    */
@@ -1271,6 +1350,54 @@ export interface EditCallListRequest {
    * Location of the server processing the call list. If the ID is non existing, the 496 error returns: The 'server_location' parameter is invalid.
    */
   serverLocation?: string;
+  /**
+   * Call list type. The possible values are: automatic, manual, predictive, progressive. The value is case-insensitive
+   */
+  callListType?: string;
+  /**
+   * Alias for <b>call_list_type</b>. Applies only if <b>call_list_type</b> is not specified
+   */
+  callType?: string;
+  /**
+   * The predictive dialing algorithm. The possible values are: AR_OPTIMIZED, BF_OPTIMIZED, AR_SMALL_GROUP, AR_AUTO_BALANCED. If omitted while <b>call_list_type</b> is set to predictive, the value becomes AR_OPTIMIZED; for progressive the value is reset
+   */
+  predictiveType?: string;
+  /**
+   * The maximum abandoned call rate for predictive dialing, from 0 to 1. If omitted while <b>call_list_type</b> is set to predictive, the value becomes 0.02
+   */
+  maximumErrorRate?: number;
+  /**
+   * The minimum agent busy factor for predictive dialing. Cannot be negative. If omitted while <b>call_list_type</b> is set to predictive, the value becomes 0.8
+   */
+  minimumBusyFactor?: number;
+  /**
+   * The task multiplier for progressive dialing. Cannot be negative. If omitted while <b>call_list_type</b> is set to progressive, the value becomes 1
+   */
+  taskMultiplier?: number;
+  /**
+   * Whether the call list is a personal campaign. <b>Required</b> if <b>personal_campaign_type</b> is specified
+   */
+  isPersonalCampaign?: boolean;
+  /**
+   * The personal campaign mode. The possible values are: smart, strict. Allowed only if <b>is_personal_campaign</b> is true; the default value in that case is smart
+   */
+  personalCampaignType?: string;
+  /**
+   * The average dial time in seconds for the dialing statistics. Cannot be negative
+   */
+  avgDialTimeSec?: number;
+  /**
+   * The average talk time in seconds for the dialing statistics. Cannot be negative
+   */
+  avgTimeTalkSec?: number;
+  /**
+   * The average total call time in seconds for the dialing statistics. Cannot be negative
+   */
+  avgTotalTimeSec?: number;
+  /**
+   * The successful call ratio for the dialing statistics. Cannot be negative
+   */
+  percentSuccessful?: number;
 }
 
 export interface EditCallListResponse {
@@ -1303,6 +1430,9 @@ export interface DeleteCallListRequest {
    * Account's ID
    */
   accountId: number;
+  /**
+   * Call list's ID to delete
+   */
   listId: number;
 }
 
@@ -1343,7 +1473,7 @@ export interface GetCallListsRequest {
    */
   typeList?: string;
   /**
-   * The max returning record count
+   * The maximum returning record count. The maximum value is 1000
    */
   count?: number;
   /**
@@ -1354,6 +1484,22 @@ export interface GetCallListsRequest {
    * The application ID to filter. Can be a list separated by semicolons (;). Use the 'all' value to select all applications
    */
   applicationId?: 'any' | number | number[];
+  /**
+   * The application name list separated by semicolons (;). Can be used instead of <b>application_id</b>
+   */
+  applicationName?: string | string[];
+  /**
+   * The rule ID to filter. Can be a list separated by semicolons (;). Use the 'all' value to select all rules
+   */
+  ruleId?: 'any' | number | number[];
+  /**
+   * The rule name list separated by semicolons (;). Can be used instead of <b>rule_id</b>
+   */
+  ruleName?: string | string[];
+  /**
+   * The call list status to filter. The possible values are: In progress, Canceled, Completed, Suspended
+   */
+  status?: string;
 }
 
 export interface GetCallListsResponse {
@@ -1377,7 +1523,7 @@ export interface GetCallListDetailsRequest {
    */
   listId: number;
   /**
-   * Maximum number of entries in the result
+   * Maximum number of entries in the result. If <b>output</b> is json, the default and maximum value is 1000; for csv and xls no limit is applied unless the parameter is specified
    */
   count?: number;
   /**
@@ -1400,6 +1546,14 @@ export interface GetCallListDetailsRequest {
    * Batch UUID to filter the tasks
    */
   batchId?: string;
+  /**
+   * Whether to create an asynchronous report instead of returning the data immediately. Requires <b>output</b> to be csv or xls
+   */
+  isAsync?: boolean;
+  /**
+   * Whether to use the new csv layout. Applies to asynchronous reports; for xls the value is always true
+   */
+  newCsvStyle?: boolean;
 }
 
 export interface GetCallListDetailsResponse {
@@ -1450,6 +1604,18 @@ export interface EditCallListTaskRequest {
    * Optional. End time for the daily calling attempts in the UTC+0 24-h format: HH:mm:ss format. If spefied, please specify `min_execution_time` as well
    */
   maxExecutionTime?: Date;
+  /**
+   * Time of the next calling attempt. One of the editable fields: at least one of them should be specified
+   */
+  nextAttemptTime?: string;
+  /**
+   * The user ID to bind to the task. One of the editable fields: at least one of them should be specified
+   */
+  userId?: number;
+  /**
+   * The skill ID list separated by semicolons (;). Up to 5 IDs. One of the editable fields: at least one of them should be specified
+   */
+  skillId?: 'any' | number | number[];
 }
 
 export interface EditCallListTaskResponse {
@@ -1467,15 +1633,15 @@ export interface CancelCallListTaskRequest {
   /**
    * Call list's ID
    */
-  listId: string;
+  listId: number;
   /**
    * Task IDs separated by a semicolon. Specify either `tasks_ids` or `tasks_uuids`. The method returns an error if none of the parameters is specified
    */
-  tasksIds?: string;
+  tasksIds?: 'any' | number | number[];
   /**
    * Task UUIDs separated by a semicolon. Specify either `tasks_ids` or `tasks_uuids`. The method returns an error if none of the parameters is specified
    */
-  tasksUuids?: string;
+  tasksUuids?: string | string[];
 }
 
 export interface CancelCallListTaskResponse {
@@ -1556,11 +1722,11 @@ export interface CallListsInterface {
 
 export interface AddScenarioRequest {
   /**
-   * The scenario name. The length must be less than 30
+   * The scenario name. The length should be less than 30
    */
   scenarioName: string;
   /**
-   * The scenario text. Use the application/x-www-form-urlencoded content type with UTF-8 encoding. The length must be less than 128 KB
+   * The scenario text. Use the application/x-www-form-urlencoded content type with UTF-8 encoding. The length should be less than 128 KB
    */
   scenarioScript?: string;
   /**
@@ -1662,11 +1828,11 @@ export interface GetScenariosRequest {
    */
   scenarioName?: string;
   /**
-   * Whether to get the scenario text. You must specify the 'scenario_id' too!
+   * Whether to get the scenario text. You should specify the 'scenario_id' too!
    */
   withScript?: boolean;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -1717,11 +1883,11 @@ export interface SetScenarioInfoRequest {
    */
   requiredScenarioName?: string;
   /**
-   * New scenario name. The length must be less than 30
+   * New scenario name. The length should be less than 30
    */
   scenarioName?: string;
   /**
-   * New scenario text. Use the application/x-www-form-urlencoded content type with UTF-8 encoding. The length must be less than 128 KB
+   * New scenario text. Use the application/x-www-form-urlencoded content type with UTF-8 encoding. The length should be less than 128 KB
    */
   scenarioScript?: string;
 }
@@ -1813,7 +1979,7 @@ export interface StartScenariosResponse {
 }
 export interface StartConferenceRequest {
   /**
-   * The conference name. The name length must be less than 50 symbols
+   * The conference name. The name length should be less than 50 symbols
    */
   conferenceName: string;
   /**
@@ -1882,11 +2048,11 @@ export interface ScenariosInterface {
 
 export interface AddRuleRequest {
   /**
-   * The rule name. The length must be less than 100
+   * The rule name. The length should be less than 100
    */
   ruleName: string;
   /**
-   * The rule pattern regex. The length must be less than 64 KB
+   * The rule pattern regex. The length should be less than 64 KB
    */
   rulePattern: string;
   /**
@@ -1898,7 +2064,7 @@ export interface AddRuleRequest {
    */
   applicationName?: string;
   /**
-   * The exclude pattern regex. The length must be less than 64 KB
+   * The exclude pattern regex. The length should be less than 64 KB
    */
   rulePatternExclude?: string;
   /**
@@ -1962,15 +2128,15 @@ export interface SetRuleInfoRequest {
    */
   ruleId: number;
   /**
-   * The new rule name. The length must be less than 100
+   * The new rule name. The length should be less than 100
    */
   ruleName?: string;
   /**
-   * The new rule pattern regex. The length must be less than 64 KB
+   * The new rule pattern regex. The length should be less than 64 KB
    */
   rulePattern?: string;
   /**
-   * The new exclude pattern regex. The length must be less than 64 KB
+   * The new exclude pattern regex. The length should be less than 64 KB
    */
   rulePatternExclude?: string;
   /**
@@ -2024,7 +2190,7 @@ export interface GetRulesRequest {
    */
   withScenarios?: boolean;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -2069,13 +2235,29 @@ export interface RulesInterface {
 
 export interface GetCallHistoryRequest {
   /**
-   * The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   * The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. If both dates are omitted, a server-configured default interval is used (default is one month)
    */
-  fromDate: Date;
+  fromDate?: Date;
   /**
-   * The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   * The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. If both dates are omitted, a server-configured default interval is used (default is one month)
    */
-  toDate: Date;
+  toDate?: Date;
+  /**
+   * The minimum call duration in seconds to filter. You can restrict the allowed date range via duration filters
+   */
+  minDuration?: number;
+  /**
+   * The maximum call duration in seconds to filter. You can restrict the allowed date range via duration filters
+   */
+  maxDuration?: number;
+  /**
+   * Whether to create an asynchronous history report instead of returning the data immediately. Has the same effect as calling GetCallHistoryAsync and requires the output=csv
+   */
+  isAsync?: boolean;
+  /**
+   * Whether to get a CSV file with the column names if the output=csv
+   */
+  withHeader?: boolean;
   timezone?: string;
   /**
    * To get the call history for the specific sessions, pass the session IDs to this parameter separated by a semicolon (;). The maximum number of records is 1000. You can find the session ID in the <a href='/docs/references/voxengine/appevents#started'>AppEvents.Started</a> event's <b>sessionID</b> property in a scenario, or retrieve it from the <b>call_session_history_id</b> value returned from the <a href='https://voximplant.com/docs/references/httpapi/scenarios#reorderscenarios'>StartScenarios</a> or <a href='https://voximplant.com/docs/references/httpapi/scenarios#startconference'>StartConference</a> methods
@@ -2172,13 +2354,33 @@ export interface GetCallHistoryResponse {
 }
 export interface GetCallHistoryAsyncRequest {
   /**
-   * The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   * The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. If both dates are omitted, a server-configured default interval is used (default is one month)
    */
-  fromDate: Date;
+  fromDate?: Date;
   /**
-   * The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   * The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. If both dates are omitted, a server-configured default interval is used (default is one month)
    */
-  toDate: Date;
+  toDate?: Date;
+  /**
+   * The minimum call duration in seconds to filter. You can restrict the allowed date range via duration filters
+   */
+  minDuration?: number;
+  /**
+   * The maximum call duration in seconds to filter. You can restrict the allowed date range via duration filters
+   */
+  maxDuration?: number;
+  /**
+   * A JSON-formatted list of strings containing phone numbers for history filtering. Has a higher priority than the <b>remote_number</b> parameter. If the array is empty, the <b>remote_number</b> parameter is used instead
+   */
+  remoteNumberList?: string;
+  /**
+   * The maximum record number to include in the report. If omitted, the report service applies its own limit. Unlike GetCallHistory, there is no default of 20 and no cap of 1000 on the Management API side
+   */
+  count?: number;
+  /**
+   * The number of records to skip in the output
+   */
+  offset?: number;
   timezone?: string;
   /**
    * To get the call history for the specific sessions, pass the session IDs to this parameter separated by a semicolon (;). You can find the session ID in the <a href='/docs/references/voxengine/appevents#started'>AppEvents.Started</a> event's <b>sessionID</b> property in a scenario, or retrieve it from the <b>call_session_history_id</b> value returned from the <a href='https://voximplant.com/docs/references/httpapi/scenarios#reorderscenarios'>StartScenarios</a> or <a href='https://voximplant.com/docs/references/httpapi/scenarios#startconference'>StartConference</a> methods
@@ -2259,17 +2461,17 @@ export interface GetCallHistoryAsyncResponse {
 }
 export interface GetBriefCallHistoryRequest {
   /**
-   * The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
-   */
-  fromDate: Date;
-  /**
-   * The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
-   */
-  toDate: Date;
-  /**
    * The output format. The following values available: **csv**.
    */
   output: string;
+  /**
+   * The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  fromDate?: Date;
+  /**
+   * The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   */
+  toDate?: Date;
   timezone?: string;
   /**
    * To get the call history for the specific sessions, pass the session IDs to this parameter separated by a semicolon (;). You can find the session ID in the <a href='/docs/references/voxengine/appevents#started'>AppEvents.Started</a> event's <b>sessionID</b> property in a scenario, or retrieve it from the <b>call_session_history_id</b> value returned from the <a href='https://voximplant.com/docs/references/httpapi/scenarios#reorderscenarios'>StartScenarios</a> or <a href='https://voximplant.com/docs/references/httpapi/scenarios#startconference'>StartConference</a> methods
@@ -2346,7 +2548,7 @@ export interface GetHistoryReportsRequest {
    */
   descOrder?: boolean;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -2357,6 +2559,10 @@ export interface GetHistoryReportsRequest {
    * The application ID to filter. Can be a list separated by semicolons (;). Use the 'all' value to select all applications
    */
   applicationId?: 'any' | number | number[];
+  /**
+   * The application name list separated by semicolons (;). Can be used instead of the <b>application_id</b> parameter
+   */
+  applicationName?: string | string[];
 }
 
 export interface GetHistoryReportsResponse {
@@ -2387,13 +2593,57 @@ export interface DownloadHistoryReportResponse {
 }
 export interface GetTransactionHistoryRequest {
   /**
-   * The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   * The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. If both dates are omitted and is_uncommitted is false, a server-configured default interval is used (default is one month)
    */
-  fromDate: Date;
+  fromDate?: Date;
   /**
-   * The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   * The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. If both dates are omitted and is_uncommitted is false, a server-configured default interval is used (default is one month)
    */
-  toDate: Date;
+  toDate?: Date;
+  /**
+   * The application ID to filter. Can be used together with or instead of the <b>application_name</b> parameter
+   */
+  applicationId?: number;
+  /**
+   * The application name to filter. Can be used instead of the <b>application_id</b> parameter
+   */
+  applicationName?: string;
+  /**
+   * The subscription ID list separated by semicolons (;) to filter
+   */
+  subscriptionId?: 'any' | number | number[];
+  /**
+   * The subscription name list separated by semicolons (;) to filter
+   */
+  subscriptionName?: string | string[];
+  /**
+   * The resource type list separated by semicolons (;) to filter
+   */
+  resourceType?: string | string[];
+  /**
+   * The price group name list separated by semicolons (;) to filter
+   */
+  priceGroupName?: string | string[];
+  /**
+   * Whether to filter by the accounting dates instead of the transaction's `performed_at` timestamps
+   */
+  useAccountingDates?: boolean;
+  /**
+   * Whether to include the extended transaction fields, such as the application, subscription, resource type and price group, in the response
+   */
+  withExtendedInfo?: boolean;
+  /**
+   * Whether to create an asynchronous history report instead of returning the data immediately. Has the same effect as calling `GetTransactionHistoryAsync` and requires the output=csv
+   */
+  isAsync?: boolean;
+  /**
+   * Whether to get a CSV file with the column names if the output=csv
+   */
+  withHeader?: boolean;
+  /**
+   * The decimal mark for the CSV numbers if the output=csv. If omitted, the account locale setting is used
+   */
+  decimalSeparator?: string;
   timezone?: string;
   /**
    * The transaction ID list separated by semicolons (;)
@@ -2460,13 +2710,49 @@ export interface GetTransactionHistoryResponse {
 }
 export interface GetTransactionHistoryAsyncRequest {
   /**
-   * The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   * The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. If both dates are omitted and is_uncommitted is false, a server-configured default interval is used (default is one month)
    */
-  fromDate: Date;
+  fromDate?: Date;
   /**
-   * The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss
+   * The to date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. If both dates are omitted and is_uncommitted is false, a server-configured default interval is used (default is one month)
    */
-  toDate: Date;
+  toDate?: Date;
+  /**
+   * The application ID to filter. Can be used together with or instead of the <b>application_name</b> parameter
+   */
+  applicationId?: number;
+  /**
+   * The application name to filter. Can be used instead of the <b>application_id</b> parameter
+   */
+  applicationName?: string;
+  /**
+   * The subscription ID list separated by semicolons (;) to filter
+   */
+  subscriptionId?: 'any' | number | number[];
+  /**
+   * The subscription name list separated by semicolons (;) to filter
+   */
+  subscriptionName?: string | string[];
+  /**
+   * The resource type list separated by semicolons (;) to filter
+   */
+  resourceType?: string | string[];
+  /**
+   * The price group name list separated by semicolons (;) to filter
+   */
+  priceGroupName?: string | string[];
+  /**
+   * Whether to filter by the accounting dates instead of the transaction's `performed_at` timestamps
+   */
+  useAccountingDates?: boolean;
+  /**
+   * The maximum record number to include in the report. If omitted, the report service applies its own limit. Unlike GetTransactionHistory, there is no default of 20 and no cap of 1000 on the Management API side
+   */
+  count?: number;
+  /**
+   * The number of records to skip in the output
+   */
+  offset?: number;
   timezone?: string;
   /**
    * The transaction ID list separated by semicolons (;)
@@ -2541,11 +2827,23 @@ export interface GetACDHistoryRequest {
   /**
    * The UTC 'from' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  fromDate: Date;
+  fromDate?: Date;
   /**
    * The UTC 'to' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  toDate: Date;
+  toDate?: Date;
+  /**
+   * The caller phone number to filter
+   */
+  callerid?: string;
+  /**
+   * The ACD session custom data to filter. The match is exact
+   */
+  customData?: string;
+  /**
+   * The decimal mark for the CSV numbers if the output=csv. If omitted, the account locale setting is used
+   */
+  decimalSeparator?: string;
   /**
    * The ACD session history ID list separated by semicolons (;)
    */
@@ -2571,7 +2869,7 @@ export interface GetACDHistoryRequest {
    */
   unserviced?: boolean;
   /**
-   * The min waiting time filter
+   * The minimum waiting time filter
    */
   minWaitingTime?: number;
   /**
@@ -2591,7 +2889,7 @@ export interface GetACDHistoryRequest {
    */
   descOrder?: boolean;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -2620,20 +2918,32 @@ export interface GetAuditLogRequest {
   /**
    * The UTC 'from' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  fromDate: Date;
+  fromDate?: Date;
   /**
    * The UTC 'to' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  toDate: Date;
+  toDate?: Date;
   timezone?: string;
   /**
    * The audit history ID list separated by semicolons (;)
    */
   auditLogId?: 'any' | number | number[];
   /**
-   * The admin user ID to filter
+   * The admin user ID list separated by semicolons (;) to filter
    */
-  filteredAdminUserId?: string;
+  filteredAdminUserId?: 'any' | number | number[];
+  /**
+   * Whether to create an asynchronous history report instead of returning the data immediately. Has the same effect as calling GetAuditLogAsync and requires the output=csv
+   */
+  isAsync?: boolean;
+  /**
+   * Whether to get a CSV file with the column names if the output=csv
+   */
+  withHeader?: boolean;
+  /**
+   * The decimal mark for the CSV numbers if the output=csv. If omitted, the account locale setting is used
+   */
+  decimalSeparator?: string;
   /**
    * The IP list separated by semicolons (;) to filter
    */
@@ -2655,7 +2965,7 @@ export interface GetAuditLogRequest {
    */
   withTotalCount?: boolean;
   /**
-   * The max returning record count
+   * The maximum returning record number. If omitted, the report service applies its own limit
    */
   count?: number;
   /**
@@ -2684,20 +2994,28 @@ export interface GetAuditLogAsyncRequest {
   /**
    * The UTC 'from' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  fromDate: Date;
+  fromDate?: Date;
   /**
    * The UTC 'to' date filter in 24-h format: YYYY-MM-DD HH:mm:ss
    */
-  toDate: Date;
+  toDate?: Date;
   timezone?: string;
   /**
    * The audit history ID list separated by semicolons (;)
    */
   auditLogId?: 'any' | number | number[];
   /**
-   * The admin user ID to filter
+   * The admin user ID list separated by semicolons (;) to filter
    */
-  filteredAdminUserId?: string;
+  filteredAdminUserId?: 'any' | number | number[];
+  /**
+   * The maximum record number to include in the report. If omitted, the report service applies its own limit
+   */
+  count?: number;
+  /**
+   * The first <b>N</b> records are skipped in the output
+   */
+  offset?: number;
   /**
    * The IP list separated by semicolons (;) to filter
    */
@@ -2785,7 +3103,7 @@ export interface GetPhoneNumberReportsRequest {
    */
   descOrder?: boolean;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -3117,7 +3435,7 @@ export interface GetNewPhoneNumbersRequest {
    */
   countryState?: string;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -3357,7 +3675,7 @@ export interface GetPstnBlackListRequest {
    */
   pstnBlacklistPhone?: string;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -3455,7 +3773,7 @@ export interface GetSipWhiteListRequest {
    */
   sipWhitelistId?: number;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -3728,7 +4046,7 @@ export interface GetSipRegistrationsRequest {
    */
   statusCode?: string;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -3945,7 +4263,7 @@ export interface GetCallerIDsRequest {
    */
   orderBy?: string;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -4043,7 +4361,7 @@ export interface OutboundTestNumbersInterface {
 
 export interface AddQueueRequest {
   /**
-   * The queue name. The length must be less than 100
+   * The queue name. The length should be less than 100
    */
   acdQueueName: string;
   /**
@@ -4067,11 +4385,11 @@ export interface AddQueueRequest {
    */
   serviceProbability?: number;
   /**
-   * The max queue size
+   * The maximum queue size
    */
   maxQueueSize?: number;
   /**
-   * The max predicted waiting time in minutes. The client is rejected if the predicted waiting time is greater than the max predicted waiting time
+   * The maximum predicted waiting time in minutes. The client is rejected if the predicted waiting time is greater than the maximum predicted waiting time
    */
   maxWaitingTime?: number;
   /**
@@ -4157,7 +4475,7 @@ export interface SetQueueInfoRequest {
    */
   acdQueueName?: string;
   /**
-   * The new queue name. The length must be less than 100
+   * The new queue name. The length should be less than 100
    */
   newAcdQueueName?: string;
   /**
@@ -4173,11 +4491,11 @@ export interface SetQueueInfoRequest {
    */
   serviceProbability?: number;
   /**
-   * The max queue size
+   * The maximum queue size
    */
   maxQueueSize?: number;
   /**
-   * The max predicted waiting time in minutes. The client is rejected if the predicted waiting time is greater than the max predicted waiting time
+   * The maximum predicted waiting time in minutes. The client is rejected if the predicted waiting time is greater than the maximum predicted waiting time
    */
   maxWaitingTime?: number;
   /**
@@ -4227,7 +4545,7 @@ export interface GetQueuesRequest {
    */
   showingSkillId?: number;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -5344,7 +5662,7 @@ export interface SmartQueueInterface {
 
 export interface AddSkillRequest {
   /**
-   * The ACD operator skill name. The length must be less than 512
+   * The ACD operator skill name. The length should be less than 512
    */
   skillName: string;
 }
@@ -5380,7 +5698,7 @@ export interface DelSkillResponse {
 }
 export interface SetSkillInfoRequest {
   /**
-   * The new skill name. The length must be less than 512
+   * The new skill name. The length should be less than 512
    */
   newSkillName: string;
   /**
@@ -5410,7 +5728,7 @@ export interface GetSkillsRequest {
    */
   skillName?: string;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -5553,7 +5871,7 @@ export interface GetAuthorizedAccountIPsRequest {
    */
   containsIp?: string;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -5615,7 +5933,7 @@ export interface ContractorsInterface {}
 
 export interface ContactsInterface {}
 
-export interface LinkRegulationAddressRequest {
+export interface LinkregulationAddressRequest {
   /**
    * The regulation address ID
    */
@@ -5630,7 +5948,7 @@ export interface LinkRegulationAddressRequest {
   phoneNumber: string;
 }
 
-export interface LinkRegulationAddressResponse {
+export interface LinkregulationAddressResponse {
   result: boolean;
   error?: APIError;
 }
@@ -5644,7 +5962,7 @@ export interface GetZIPCodesRequest {
    */
   phoneRegionCode?: string;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
   /**
@@ -5729,7 +6047,7 @@ export interface GetAvailableRegulationsResponse {
    */
   availableAddress: RegulationAddress[];
   /**
-   * The count of RegulationAddress in progress status
+   * The number of RegulationAddress in progress status
    */
   countInProgress: number;
   error?: APIError;
@@ -5775,9 +6093,9 @@ export interface GetRegionsResponse {
   error?: APIError;
 }
 export interface RegulationAddressInterface {
-  linkRegulationAddress: (
-    request: LinkRegulationAddressRequest
-  ) => Promise<LinkRegulationAddressResponse>;
+  linkregulationAddress: (
+    request: LinkregulationAddressRequest
+  ) => Promise<LinkregulationAddressResponse>;
   getZIPCodes: (request: GetZIPCodesRequest) => Promise<GetZIPCodesResponse>;
   getRegulationsAddress: (
     request: GetRegulationsAddressRequest
@@ -6164,7 +6482,7 @@ export interface GetSmsHistoryRequest {
   direction?: string;
   timezone?: string;
   /**
-   * Maximum number of resulting rows fetched. Must be not bigger than 1000. If left blank, then the default value of 1000 is used
+   * Maximum number of resulting rows fetched. Should be not bigger than 1000. If left blank, then the default value of 1000 is used
    */
   count?: number;
   /**
@@ -6207,7 +6525,7 @@ export interface A2PGetSmsHistoryRequest {
    */
   destinationNumber?: string;
   /**
-   * Maximum number of resulting rows fetched. Must be not bigger than 1000. If left blank, then the default value of 1000 is used
+   * Maximum number of resulting rows fetched. Should be not bigger than 1000. If left blank, then the default value of 1000 is used
    */
   count?: number;
   /**
@@ -6307,7 +6625,7 @@ export interface GetKeysRequest {
    */
   offset?: number;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
 }
@@ -6405,7 +6723,7 @@ export interface AddSubUserRequest {
    */
   newSubuserName: string;
   /**
-   * The new subuser password. Must be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
+   * The new subuser password. Should be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
    */
   newSubuserPassword: string;
   /**
@@ -6440,7 +6758,7 @@ export interface GetSubUsersRequest {
    */
   offset?: number;
   /**
-   * The max returning record count
+   * The maximum returning record count
    */
   count?: number;
 }
@@ -6459,7 +6777,7 @@ export interface SetSubUserInfoRequest {
    */
   oldSubuserPassword?: string;
   /**
-   * The new user password. Must be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
+   * The new user password. Should be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
    */
   newSubuserPassword?: string;
   /**
@@ -6594,11 +6912,11 @@ export interface SetKeyValueItemRequest {
    */
   applicationName?: string;
   /**
-   * Key expiry time in seconds. The value is in range of 0..7,776,000 (90 days), the default value is 30 days (2,592,000 seconds). The TTL is converted to an **expires_at** Unix timestamp field as part of the storage object. Note that one of the two parameters (ttl or expires_at) must be set
+   * Key expiry time in seconds. The value is in range of 0..7,776,000 (90 days), the default value is 30 days (2,592,000 seconds). The TTL is converted to an **expires_at** Unix timestamp field as part of the storage object. Note that one of the two parameters (ttl or expires_at) should be set
    */
   ttl?: number;
   /**
-   * Expiration date based on **ttl** (timestamp without milliseconds). Note that one of the two parameters (ttl or expires_at) must be set
+   * Expiration date based on **ttl** (timestamp without milliseconds). Note that one of the two parameters (ttl or expires_at) should be set
    */
   expiresAt?: number;
 }
@@ -6769,7 +7087,7 @@ export interface ChildAccountsInterface {}
 
 export interface AddSecretRequest {
   /**
-   * Secret name. The name must start with a Latin letter and can contain up to 64 characters, including Latin letters, digits and underscores
+   * Secret name. The name should start with a Latin letter and can contain up to 64 characters, including Latin letters, digits and underscores
    */
   secretName: string;
   /**
@@ -6905,7 +7223,7 @@ export interface SetSecretInfoRequest {
    */
   secretName?: string;
   /**
-   * New secret name. The name must start with a Latin letter and can contain up to 64 characters, including Latin letters, digits and underscores
+   * New secret name. The name should start with a Latin letter and can contain up to 64 characters, including Latin letters, digits and underscores
    */
   newSecretName?: string;
   /**

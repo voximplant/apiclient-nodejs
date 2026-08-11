@@ -46,7 +46,7 @@ export interface AccountInfo {
    */
   location?: string;
   /**
-   * The min balance value to notify by email or SMS
+   * The minimum balance value to notify by email or SMS
    */
   minBalanceToNotify?: number;
   /**
@@ -948,7 +948,7 @@ export interface CommonReport {
 }
 export interface CalculatedCallHistoryData {
   /**
-   * The session count in the report
+   * The session number in the report
    */
   sessionCount: number;
   /**
@@ -962,7 +962,7 @@ export interface CalculatedCallHistoryData {
 }
 export interface CalculatedTransactionHistoryData {
   /**
-   * The transaction count in the report
+   * The transaction number in the report
    */
   transactionCount: number;
   /**
@@ -1402,7 +1402,7 @@ export interface ACDStatisticsItem {
    */
   max: number;
   /**
-   * Samples count over the aggregated interval
+   * Samples number over the aggregated interval
    */
   count: number;
   /**
@@ -1928,7 +1928,7 @@ export interface PhoneNumberCountryRegionInfo {
    */
   phoneRegionCode: string;
   /**
-   * The phone number count in stock for the region
+   * The phone number number in stock for the region
    */
   phoneCount: number;
   /**
@@ -2006,7 +2006,7 @@ export interface PhoneNumberCountryRegionInfo {
 }
 export interface MultipleNumbersPrice {
   /**
-   * The number of subscriptions which must be purchased simultaneously to enable a multiple numbers subscription
+   * The number of subscriptions which should be purchased simultaneously to enable a multiple numbers subscription
    */
   count: number;
   /**
@@ -2210,7 +2210,7 @@ export interface PriceGroup {
    */
   price: number;
   /**
-   * The resource count per price
+   * The resource number per price
    */
   numResourcesPerPrice: number;
   /**
@@ -3785,7 +3785,7 @@ export interface BankCard {
    */
   autoCharge: boolean;
   /**
-   * The min account balance to trigger the auto charging
+   * The minimum account balance to trigger the auto charging
    */
   minBalance: number;
   /**

@@ -108,11 +108,11 @@ export enum APIErrorCode {
    */
   INVALID_APPLICATION_NAME = 107,
   /**
-   * Exceeded the application count limit per account
+   * Exceeded the application number limit per account
    */
   APPLICATION_COUNT_EXCEEDED = 108,
   /**
-   * Exceeded the user count limit per account
+   * Exceeded the user number limit per account
    */
   USER_COUNT_EXCEEDED = 109,
   /**
@@ -124,11 +124,11 @@ export enum APIErrorCode {
    */
   INVALID_DATE_FORMAT = 111,
   /**
-   * The password must be at least 6 characters long
+   * The password should be at least 6 characters long
    */
   PASSWORD_LENGTH = 112,
   /**
-   * Account's name must be at least 5 and up to 20 characters long
+   * Account's name should be at least 5 and up to 20 characters long
    */
   ACCOUNT_NAME_LENGTH = 113,
   /**
@@ -156,7 +156,7 @@ export enum APIErrorCode {
    */
   INVALID_PHONE_NUMBER = 121,
   /**
-   * The user name should start with a letter or digit and can contain latin characters, digits, hyphen and must be at least 5 characters long
+   * The user name should start with a letter or digit and can contain latin characters, digits, hyphen and should be at least 5 characters long
    */
   USER_NAME_RESTRICTIONS = 122,
   /**
@@ -216,7 +216,7 @@ export enum APIErrorCode {
    */
   ACTIVATION_IS_OVER_FOR_THE_PHONE_NUMBER = 139,
   /**
-   * Exceeded the max SMS code entering attempts
+   * Exceeded the maximum SMS code entering attempts
    */
   EXCEEDED_THE_MAX_SMS_CODE_ENTERING_ATTEMPTS = 140,
   /**
@@ -252,15 +252,15 @@ export enum APIErrorCode {
    */
   NO_BANK_CARD = 152,
   /**
-   * The card payment amount must be greater than 10$
+   * The card payment amount should be greater than 10$
    */
   CARD_PAYMENT_AMOUNT_MUST_BE_GREATER_THAN_10 = 153,
   /**
-   * The 'min_balance' must be greater than 1 $
+   * The 'min_balance' should be greater than 1 $
    */
   MIN_BALANCE_MUST_BE_GREATER_THAN_1 = 154,
   /**
-   * The 'card_overrun_value' must be greater than 10$
+   * The 'card_overrun_value' should be greater than 10$
    */
   CARD_OVERRUN_VALUE_MUST_BE_GREATER_THAN_10 = 155,
   /**
@@ -292,15 +292,15 @@ export enum APIErrorCode {
    */
   TRY_LATER = 162,
   /**
-   * The 'account_first_name' parameter length must be less than 50
+   * The 'account_first_name' parameter length should be less than 50
    */
   ACCOUNT_FIRST_NAME_TOO_LONG = 163,
   /**
-   * The 'account_last_name' parameter length must be less than 50
+   * The 'account_last_name' parameter length should be less than 50
    */
   ACCOUNT_LAST_NAME_TOO_LONG = 164,
   /**
-   * Exceeded the max SMS sending attempts
+   * Exceeded the maximum SMS sending attempts
    */
   EXCEEDED_THE_MAX_SMS_SENDING_ATTEMPTS = 165,
   /**
@@ -324,11 +324,11 @@ export enum APIErrorCode {
    */
   INVALID_SIP_WHITELIST_NETWORK = 170,
   /**
-   * The 'min_balance' must be less than 50 $
+   * The 'min_balance' should be less than 50 $
    */
   MIN_BALANCE_MUST_BE_LESS_THAN_50 = 171,
   /**
-   * Exceeded the SIP white list network count limit per account
+   * Exceeded the SIP white list network number limit per account
    */
   SIP_WHITE_LIST_NETWORK_COUNT_EXCEEDED = 172,
   /**
@@ -400,7 +400,7 @@ export enum APIErrorCode {
    */
   UNSUPPORTED_BATCH_COMMAND = 195,
   /**
-   * Too many batch commands. The max command count is 50 per batch
+   * Too many batch commands. The maximum command number is 50 per batch
    */
   TOO_MANY_BATCH_COMMANDS = 196,
   /**
@@ -428,19 +428,19 @@ export enum APIErrorCode {
    */
   INVALID_BILLING_ADDRESS_COUNTRY_CODE = 204,
   /**
-   * The 'billing_address_name' parameter length must be less than 200
+   * The 'billing_address_name' parameter length should be less than 200
    */
   BILLING_ADDRESS_NAME_TOO_LONG = 205,
   /**
-   * The 'billing_address_address' parameter length must be less than 512
+   * The 'billing_address_address' parameter length should be less than 512
    */
   BILLING_ADDRESS_ADDRESS_TOO_LONG = 206,
   /**
-   * The 'billing_address_zip' parameter length must be less than 30
+   * The 'billing_address_zip' parameter length should be less than 30
    */
   BILLING_ADDRESS_ZIP_TOO_LONG = 207,
   /**
-   * The 'billing_address_phone' parameter length must be less than 30
+   * The 'billing_address_phone' parameter length should be less than 30
    */
   BILLING_ADDRESS_PHONE_TOO_LONG = 208,
   /**
@@ -452,19 +452,19 @@ export enum APIErrorCode {
    */
   INVALID_CURRENCY = 210,
   /**
-   * The 'account_custom_data' parameter length must be less than 8192
+   * The 'account_custom_data' parameter length should be less than 8192
    */
   ACCOUNT_CUSTOM_DATA_TOO_LONG = 211,
   /**
-   * The 'user_custom_data' parameter length must be less than 8192
+   * The 'user_custom_data' parameter length should be less than 8192
    */
   USER_CUSTOM_DATA_TOO_LONG = 212,
   /**
-   * The 'acd_queue_name' parameter length must be less than 100
+   * The 'acd_queue_name' parameter length should be less than 100
    */
   ACD_QUEUE_NAME_TOO_LONG = 213,
   /**
-   * The 'service_probability' parameter value must be in range [0.5 ... 1]
+   * The 'service_probability' parameter value should be in range [0.5 ... 1]
    */
   INVALID_SERVICE_PROBABILITY = 214,
   /**
@@ -488,7 +488,7 @@ export enum APIErrorCode {
    */
   DUPLICATE_QUEUES_NAME = 219,
   /**
-   * The 'skill_name' parameter length must be less than 512
+   * The 'skill_name' parameter length should be less than 512
    */
   SKILL_NAME_TOO_LONG = 220,
   /**
@@ -512,7 +512,7 @@ export enum APIErrorCode {
    */
   INVALID_AMOUNT = 225,
   /**
-   * The payment amount is very low. The amount must be greater than N
+   * The payment amount is very low. The amount should be greater than N
    */
   PAYMENT_AMOUNT_TOO_LOW = 226,
   /**
@@ -544,19 +544,19 @@ export enum APIErrorCode {
    */
   INVALID_DATE = 233,
   /**
-   * The 'account_transaction_description' parameter length must be less than 120
+   * The 'account_transaction_description' parameter length should be less than 120
    */
   ACCOUNT_TRANSACTION_DESCRIPTION_TOO_LONG = 234,
   /**
-   * The 'user_transaction_description' parameter length must be less than 120
+   * The 'user_transaction_description' parameter length should be less than 120
    */
   USER_TRANSACTION_DESCRIPTION_TOO_LONG = 235,
   /**
-   * The 'parent_transaction_description' parameter length must be less than 120
+   * The 'parent_transaction_description' parameter length should be less than 120
    */
   PARENT_TRANSACTION_DESCRIPTION_TOO_LONG = 236,
   /**
-   * The 'child_transaction_description' parameter length must be less than 120
+   * The 'child_transaction_description' parameter length should be less than 120
    */
   CHILD_TRANSACTION_DESCRIPTION_TOO_LONG = 237,
   /**
@@ -680,11 +680,11 @@ export enum APIErrorCode {
    */
   INVALID_CONFERENCE_NAME = 269,
   /**
-   * The 'conference_name' parameter length must be less than 50
+   * The 'conference_name' parameter length should be less than 50
    */
   CONFERENCE_NAME_TOO_LONG = 270,
   /**
-   * The service level threshold count must be less than 5
+   * The service level threshold number should be less than 5
    */
   SERVICE_LEVEL_THRESHOLD_COUNT_TOO_BIG = 271,
   /**
@@ -736,15 +736,15 @@ export enum APIErrorCode {
    */
   INVALID_REQUIRED_ADMIN_USER_NAME = 286,
   /**
-   * The admin user name length must be less than 50
+   * The admin user name length should be less than 50
    */
   ADMIN_USER_NAME_TOO_LONG = 287,
   /**
-   * The 'admin_user_display_name' parameter length must be less than 255
+   * The 'admin_user_display_name' parameter length should be less than 255
    */
   ADMIN_USER_DISPLAY_NAME_TOO_LONG = 288,
   /**
-   * Exceeded the admin user count limit per account
+   * Exceeded the admin user number limit per account
    */
   ADMIN_USER_COUNT_LIMIT_EXCEEDED = 289,
   /**
@@ -760,7 +760,7 @@ export enum APIErrorCode {
    */
   INVALID_ADMIN_ROLE_NAME = 292,
   /**
-   * The admin role name length must be less than 160
+   * The admin role name length should be less than 160
    */
   ADMIN_ROLE_NAME_TOO_LONG = 293,
   /**
@@ -768,7 +768,7 @@ export enum APIErrorCode {
    */
   DUPLICATE_ADMIN_ROLE_NAME = 294,
   /**
-   * Exceeded the admin role count limit per account
+   * Exceeded the admin role number limit per account
    */
   ADMIN_ROLE_COUNT_LIMIT_IS_EXCEEDED = 295,
   /**
@@ -796,7 +796,7 @@ export enum APIErrorCode {
    */
   PAYMENT_REFERENCE_IS_AMBIGUOUS = 303,
   /**
-   * The 'payment_reference' parameter length must be less than 127
+   * The 'payment_reference' parameter length should be less than 127
    */
   PAYMENT_REFERENCE_TOO_LONG = 304,
   /**
@@ -808,15 +808,15 @@ export enum APIErrorCode {
    */
   INVALID_KPP = 306,
   /**
-   * The 'company_name' parameter length must be less than 512
+   * The 'company_name' parameter length should be less than 512
    */
   COMPANY_NAME_TOO_LONG = 307,
   /**
-   * The 'company_address' parameter length must be less than 512
+   * The 'company_address' parameter length should be less than 512
    */
   COMPANY_ADDRESS_TOO_LONG = 308,
   /**
-   * The 'company_phone' parameter length must be less than 20
+   * The 'company_phone' parameter length should be less than 20
    */
   COMPANY_PHONE_TOO_LONG = 309,
   /**
@@ -848,7 +848,7 @@ export enum APIErrorCode {
    */
   ACCOUNT_UPGRADE_REQUIRED = 317,
   /**
-   * The money amount must be greater than N RUR
+   * The money amount should be greater than N RUR
    */
   MONEY_AMOUNT_TOO_LOW = 318,
   /**
@@ -864,7 +864,7 @@ export enum APIErrorCode {
    */
   INVALID_CONTAINS_IP = 322,
   /**
-   * Exceeded the authorized IP count limit per account
+   * Exceeded the authorized IP number limit per account
    */
   IP_WHITELIST_EXCEEDED = 323,
   /**
@@ -1040,11 +1040,11 @@ export enum APIErrorCode {
    */
   INVALID_HISTORY_TYPE = 371,
   /**
-   * The 'pstn_blacklist_phone' parameter length must be less than 100
+   * The 'pstn_blacklist_phone' parameter length should be less than 100
    */
   INVALID_PSTN_BLACKLIST_PHONE = 425,
   /**
-   * Exceeded the PSTN blacklist phones count limit per account
+   * Exceeded the PSTN blacklist phones number limit per account
    */
   PSTN_BLACKLIST_SIZE_IS_EXCEEDED = 373,
   /**
@@ -1104,7 +1104,7 @@ export enum APIErrorCode {
    */
   NO_BANK_CARD_ORDER = 389,
   /**
-   * The card payment amount must be less than N
+   * The card payment amount should be less than N
    */
   CARD_PAYMENT_AMOUNT_TOO_LARGE = 390,
   /**
@@ -1132,7 +1132,7 @@ export enum APIErrorCode {
    */
   INVALID_RECORD_STORAGE_ID = 396,
   /**
-   * Exceeded the children account count limit per day
+   * Exceeded the children account number limit per day
    */
   CHILDREN_ACCOUNT_COUNT_LIMIT_PER_DAY_IS_EXCEEDED = 397,
   /**
@@ -1140,7 +1140,7 @@ export enum APIErrorCode {
    */
   INVALID_CALLBACK_URL = 398,
   /**
-   * The 'callback_salt' parameter length must be less than 40
+   * The 'callback_salt' parameter length should be less than 40
    */
   CALLBACK_SALT_INVALID = 399,
   /**
@@ -1164,7 +1164,7 @@ export enum APIErrorCode {
    */
   DUPLICATE_CONTACT = 407,
   /**
-   * The contact data must be at least 1 and up to 1024 characters long
+   * The contact data should be at least 1 and up to 1024 characters long
    */
   CONTACT_DATA_INVALID = 408,
   /**
@@ -1176,7 +1176,7 @@ export enum APIErrorCode {
    */
   INVALID_NOTIFICATION_GROUP = 410,
   /**
-   * Exceeded the contact count limit per account
+   * Exceeded the contact number limit per account
    */
   CONTACT_COUNT_LIMIT_PER_ACCOUNT_IS_EXCEEDED = 411,
   /**
@@ -1196,15 +1196,15 @@ export enum APIErrorCode {
    */
   RETRY_LATER = 416,
   /**
-   * The contact description must be at least 1 and up to 1024 characters long
+   * The contact description should be at least 1 and up to 1024 characters long
    */
   INVALID_CONTACT_DESCRIPTION_LENGTH = 417,
   /**
-   * The scenario count limit is exceeded
+   * The scenario number limit is exceeded
    */
   SCENARIO_COUNT_LIMIT_IS_EXCEEDED = 418,
   /**
-   * The scenario count limit per rule is exceeded
+   * The scenario number limit per rule is exceeded
    */
   SCENARIO_COUNT_LIMIT_PER_RULE_IS_EXCEEDED = 419,
   /**
@@ -1264,11 +1264,11 @@ export enum APIErrorCode {
    */
   SUB_USER_LOGIN_NOT_UNIQUE = 436,
   /**
-   * Max number of keys exceeded.
+   * maximum number of keys exceeded.
    */
   MAX_NUMBER_OF_KEYS_EXCEEDED = 437,
   /**
-   * Max number of subusers exceeded.
+   * maximum number of subusers exceeded.
    */
   MAX_NUMBER_OF_SUB_USERS_EXCEEDED = 438,
   /**
@@ -1296,11 +1296,11 @@ export enum APIErrorCode {
    */
   INVALID_TARGET_PRICE_CALCULATION_ACCOUNT_ID = 444,
   /**
-   * The 'subscription_periodic_fixed' must be greater than the base price.
+   * The 'subscription_periodic_fixed' should be greater than the base price.
    */
   INVALID_SUBSCRIPTION_PERIODIC_FIXED = 445,
   /**
-   * The 'subscription_installation_fixed' must be greater than the base price.
+   * The 'subscription_installation_fixed' should be greater than the base price.
    */
   INVALID_SUBSCRIPTION_INSTALLATION_FIXED = 446,
   /**
@@ -1320,11 +1320,11 @@ export enum APIErrorCode {
    */
   INVALID_MGP_TEMPLATE_ID = 450,
   /**
-   * The account's tax rate ID must be the same as the MGP tax rate ID.
+   * The account's tax rate ID should be the same as the MGP tax rate ID.
    */
   INVALID_ACCOUNT_TAX_RATE_ID = 451,
   /**
-   * Subuser name must be at least 5 and up to 20 characters long.
+   * Subuser name should be at least 5 and up to 20 characters long.
    */
   INVALID_SUB_USER_NAME_LEN = 452,
   /**
@@ -1380,7 +1380,7 @@ export enum APIErrorCode {
    */
   INVALID_DIALOGFLOW_KEY_ID = 465,
   /**
-   * The 'billing_address_state' parameter length must be less than
+   * The 'billing_address_state' parameter length should be less than
    */
   INVALID_BILLING_ADDRESS_STATE_LEN = 466,
   /**
@@ -1420,7 +1420,7 @@ export enum APIErrorCode {
    */
   INVALID_LEGAL_STATUS = 476,
   /**
-   * The \'%s\' parameter length must not exceed %d symbols.
+   * The \'%s\' parameter length should not exceed %d symbols.
    */
   LENGTH_EXCEEDED = 477,
   /**
@@ -1476,7 +1476,7 @@ export enum APIErrorCode {
    */
   INVALID_CONTRATOR = 490,
   /**
-   * The '%1$s' must be greater than %3$s%4$s.
+   * The '%1$s' should be greater than %3$s%4$s.
    */
   LOW_AMOUNT = 491,
   /**
@@ -1492,7 +1492,7 @@ export enum APIErrorCode {
    */
   SC_QUEUE_COUNT_LIMIT = 494,
   /**
-   * The skill count limit per application is exceeded.";
+   * The skill number limit per application is exceeded.";
    */
   SC_SKILL_COUNT_LIMIT = 495,
   /**
@@ -1508,11 +1508,11 @@ export enum APIErrorCode {
    */
   MAX_AGENT_SKILLS_EXCEEDED = 498,
   /**
-   * The '%1$s' parameter length must be less than %3$s.
+   * The '%1$s' parameter length should be less than %3$s.
    */
   TOO_LONG = 499,
   /**
-   * The 'partner_code' parameter length must be less than
+   * The 'partner_code' parameter length should be less than
    */
   INVALID_PARTNER_CODE_LENGTH = 500,
   /**
@@ -1656,7 +1656,7 @@ export enum APIErrorCode {
    */
   COUNTABLE_SUBSCRIPTION_WAS_ALREADY_USED = 540,
   /**
-   * Countable subscription must be in active status
+   * Countable subscription should be in active status
    */
   COUNTABLE_SUBSCRIPTION_MUST_BE_IN_ACTIVE_STATUS = 541,
   /**
@@ -1768,7 +1768,7 @@ export enum APIErrorCode {
    */
   ACCOUNT_MGP_DOES_NOT_EXISTS = 568,
   /**
-   * Date range must be within %1$d days.
+   * Date range should be within %1$d days.
    */
   DATE_RANGE_LIMIT = 569,
   /**
