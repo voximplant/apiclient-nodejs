@@ -2374,7 +2374,7 @@ export interface GetCallHistoryAsyncRequest {
    */
   remoteNumberList?: string;
   /**
-   * The maximum record number to include in the report. If omitted, the report service applies its own limit. Unlike GetCallHistory, there is no default of 20 and no cap of 1000 on the Management API side
+   * The maximum number of records to include in the report. If omitted, the report service applies its own limit. Unlike GetCallHistory, there is no default of 20 and no cap of 1000 on the Management API side
    */
   count?: number;
   /**
@@ -2746,7 +2746,7 @@ export interface GetTransactionHistoryAsyncRequest {
    */
   useAccountingDates?: boolean;
   /**
-   * The maximum record number to include in the report. If omitted, the report service applies its own limit. Unlike GetTransactionHistory, there is no default of 20 and no cap of 1000 on the Management API side
+   * The maximum number of records to include in the report. If omitted, the report service applies its own limit. Unlike GetTransactionHistory, there is no default of 20 and no cap of 1000 on the Management API side
    */
   count?: number;
   /**
@@ -2965,7 +2965,7 @@ export interface GetAuditLogRequest {
    */
   withTotalCount?: boolean;
   /**
-   * The maximum returning record number. If omitted, the report service applies its own limit
+   * The maximum returning number of records. If omitted, the report service applies its own limit
    */
   count?: number;
   /**
@@ -3009,7 +3009,7 @@ export interface GetAuditLogAsyncRequest {
    */
   filteredAdminUserId?: 'any' | number | number[];
   /**
-   * The maximum record number to include in the report. If omitted, the report service applies its own limit
+   * The maximum number of records to include in the report. If omitted, the report service applies its own limit
    */
   count?: number;
   /**
@@ -7181,7 +7181,7 @@ export interface GetSecretsRequest {
    */
   secretNamePart?: string;
   /**
-   * Maximum returning record number
+   * Maximum returning number of records
    */
   count?: number;
   /**

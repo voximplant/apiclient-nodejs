@@ -948,7 +948,7 @@ export interface CommonReport {
 }
 export interface CalculatedCallHistoryData {
   /**
-   * The session number in the report
+   * The number of sessions in the report
    */
   sessionCount: number;
   /**
@@ -962,7 +962,7 @@ export interface CalculatedCallHistoryData {
 }
 export interface CalculatedTransactionHistoryData {
   /**
-   * The transaction number in the report
+   * The number of transactions in the report
    */
   transactionCount: number;
   /**
@@ -1402,7 +1402,7 @@ export interface ACDStatisticsItem {
    */
   max: number;
   /**
-   * Samples number over the aggregated interval
+   * Number of samples over the aggregated interval
    */
   count: number;
   /**
@@ -1928,7 +1928,7 @@ export interface PhoneNumberCountryRegionInfo {
    */
   phoneRegionCode: string;
   /**
-   * The phone number number in stock for the region
+   * The phone number quantity in stock for the region
    */
   phoneCount: number;
   /**
@@ -2642,7 +2642,7 @@ export interface ContractInfo {
 }
 export interface ContractorInvoice {
   /**
-   * The invoice number
+   * The number of invoices
    */
   invoiceNumber: string;
   /**
