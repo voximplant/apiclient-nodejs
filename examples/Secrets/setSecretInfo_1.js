@@ -1,8 +1,12 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Update the value for secret 10.
-  client.Secrets.setSecretInfo({ applicationId: '1', secretId: '10', secretValue: 'newsecret456' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.Secrets.setSecretInfo({
+    applicationId: '1',
+    secretId: '10',
+    secretValue: 'newsecret456',
+  });
+  console.log(ev);
+})().catch(console.error);

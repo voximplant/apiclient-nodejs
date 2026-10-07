@@ -1,13 +1,13 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Add a new user.
-  client.Users.addUser({
+  const ev = await client.Users.addUser({
     userName: 'GordonFreeman',
     userDisplayName: 'GordonFreeman',
     userPassword: '1234567',
     applicationId: '1',
-  })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  });
+  console.log(ev);
+})().catch(console.error);

@@ -1,8 +1,8 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Get two attached phone numbers.
-  client.PhoneNumbers.getPhoneNumbersAsync({})
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.PhoneNumbers.getPhoneNumbersAsync({});
+  console.log(ev);
+})().catch(console.error);

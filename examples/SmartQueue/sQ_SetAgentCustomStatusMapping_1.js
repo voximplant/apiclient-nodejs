@@ -1,12 +1,12 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Add/rename a status depending on the presence of an internal status in agent_status_mapping.
-  client.SmartQueue.sQ_SetAgentCustomStatusMapping({
+  const ev = await client.SmartQueue.sQ_SetAgentCustomStatusMapping({
     sqStatusName: 'READY',
     customStatusName: 'ReadyForCall',
     applicationId: '1',
-  })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  });
+  console.log(ev);
+})().catch(console.error);

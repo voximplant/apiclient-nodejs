@@ -1,8 +1,8 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Edit the user password.
-  client.Users.setUserInfo({ userId: '1', userPassword: '7654321' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.Users.setUserInfo({ userId: '1', userPassword: '7654321' });
+  console.log(ev);
+})().catch(console.error);

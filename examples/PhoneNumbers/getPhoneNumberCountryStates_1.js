@@ -1,11 +1,11 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Get the USA states.
-  client.PhoneNumbers.getPhoneNumberCountryStates({
+  const ev = await client.PhoneNumbers.getPhoneNumberCountryStates({
     countryCode: 'US',
     phoneCategoryName: 'GEOGRAPHIC',
-  })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  });
+  console.log(ev);
+})().catch(console.error);

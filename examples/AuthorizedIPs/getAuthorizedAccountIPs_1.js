@@ -1,8 +1,8 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Show the all items.
-  client.AuthorizedIPs.getAuthorizedAccountIPs({})
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.AuthorizedIPs.getAuthorizedAccountIPs({});
+  console.log(ev);
+})().catch(console.error);

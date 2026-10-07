@@ -1,11 +1,11 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   //
-  client.WABPhoneNumbers.setWABPhoneNumberInfo({
+  const ev = await client.WABPhoneNumbers.setWABPhoneNumberInfo({
     wabPhoneNumber: '12126367890',
     description: 'my number',
-  })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  });
+  console.log(ev);
+})().catch(console.error);

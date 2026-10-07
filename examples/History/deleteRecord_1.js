@@ -1,8 +1,8 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Try remove link with record_id is 1.
-  client.History.deleteRecord({ recordId: '1' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.History.deleteRecord({ recordId: '1' });
+  console.log(ev);
+})().catch(console.error);

@@ -1,14 +1,14 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Set the billing address.
-  client.Accounts.setAccountInfo({
+  const ev = await client.Accounts.setAccountInfo({
     billingAddressName: 'Acme_Corp',
     billingAddressCountryCode: 'US',
     billingAddressZip: '94086',
     billingAddressAddress: '900, Kifer Road, Sunnyvale, CA',
     billingAddressPhone: '14445557777',
-  })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  });
+  console.log(ev);
+})().catch(console.error);

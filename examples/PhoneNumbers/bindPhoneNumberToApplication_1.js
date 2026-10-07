@@ -1,8 +1,11 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Bind the phone 1 to the application 1.
-  client.PhoneNumbers.bindPhoneNumberToApplication({ phoneId: '1', applicationId: '1' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.PhoneNumbers.bindPhoneNumberToApplication({
+    phoneId: '1',
+    applicationId: '1',
+  });
+  console.log(ev);
+})().catch(console.error);

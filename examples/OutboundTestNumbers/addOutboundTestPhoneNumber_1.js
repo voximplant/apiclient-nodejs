@@ -1,8 +1,10 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Add a personal phone number.
-  client.OutboundTestNumbers.addOutboundTestPhoneNumber({ phoneNumber: '12223334444' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.OutboundTestNumbers.addOutboundTestPhoneNumber({
+    phoneNumber: '12223334444',
+  });
+  console.log(ev);
+})().catch(console.error);

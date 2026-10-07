@@ -1,8 +1,8 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Get the all subscription template prices.
-  client.Accounts.getSubscriptionPrice({})
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.Accounts.getSubscriptionPrice({});
+  console.log(ev);
+})().catch(console.error);

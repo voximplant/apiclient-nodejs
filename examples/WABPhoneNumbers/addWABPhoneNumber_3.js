@@ -1,13 +1,13 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Adds a new WhatsApp Business phone number.
-  client.WABPhoneNumbers.addWABPhoneNumber({
+  const ev = await client.WABPhoneNumbers.addWABPhoneNumber({
     wabPhoneNumber: '12126367890',
     voicePassword: 'abc',
     applicationId: '1234',
     ruleId: '5678',
-  })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  });
+  console.log(ev);
+})().catch(console.error);

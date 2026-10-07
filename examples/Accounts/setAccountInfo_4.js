@@ -1,14 +1,14 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Set the notification settings.
-  client.Accounts.setAccountInfo({
+  const ev = await client.Accounts.setAccountInfo({
     languageCode: 'en',
     location: 'GMT-8',
     minBalanceToNotify: '1.50',
     tariffChangingNotifications: 'true',
     newsNotifications: 'true',
-  })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  });
+  console.log(ev);
+})().catch(console.error);

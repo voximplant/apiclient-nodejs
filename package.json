@@ -1,16 +1,26 @@
 {
   "name": "@voximplant/apiclient-nodejs",
-  "version": "4.11.0",
+  "version": "5.0.0",
   "description": "Voximplant API client library",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
   "files": [
     "dist",
     "src",
     "examples",
-    "NOTICE"
+    "NOTICE",
+    "MIGRATION.md"
   ],
   "scripts": {
-    "prebuild": "rimraf dist ",
+    "prebuild": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "build": "tsc",
     "format": "prettier --write './dist/*.{js,ts}' './src/**/*.{js,ts}' './examples/**/*.{js,ts}'"
   },
@@ -29,15 +39,15 @@
     "url": "https://voximplant.com"
   },
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22"
+  },
   "devDependencies": {
-    "@types/node": "11.11.5",
+    "@types/node": "22.10.0",
     "prettier": "2.8.8",
-    "rimraf": "2.7.1",
-    "typescript": "3.9.10"
+    "typescript": "5.7.2"
   },
   "dependencies": {
-    "axios": "0.21.4",
-    "form-data": "2.5.1",
     "jsonwebtoken": "9.0.3"
   }
 }

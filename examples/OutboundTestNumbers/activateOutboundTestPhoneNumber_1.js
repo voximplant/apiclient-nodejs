@@ -1,8 +1,10 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Activate the personal phone number by the verification code.
-  client.OutboundTestNumbers.activateOutboundTestPhoneNumber({ verificationCode: '12345' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.OutboundTestNumbers.activateOutboundTestPhoneNumber({
+    verificationCode: '12345',
+  });
+  console.log(ev);
+})().catch(console.error);

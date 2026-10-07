@@ -1,8 +1,8 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Change the queue name.
-  client.Queues.setQueueInfo({ acdQueueId: '1', newAcdQueueName: 'support' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.Queues.setQueueInfo({ acdQueueId: '1', newAcdQueueName: 'support' });
+  console.log(ev);
+})().catch(console.error);

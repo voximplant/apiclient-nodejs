@@ -1,8 +1,11 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Create a new subuser for account_id = 1.
-  client.RoleSystem.addSubUser({ newSubuserName: 'John_McClane', newSubuserPassword: 'pssw0rd' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.RoleSystem.addSubUser({
+    newSubuserName: 'John_McClane',
+    newSubuserPassword: 'pssw0rd',
+  });
+  console.log(ev);
+})().catch(console.error);

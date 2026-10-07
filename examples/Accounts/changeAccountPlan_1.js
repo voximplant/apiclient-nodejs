@@ -1,8 +1,11 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Change the IM plan.
-  client.Accounts.changeAccountPlan({ planType: 'IM', planSubscriptionTemplateId: '3' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.Accounts.changeAccountPlan({
+    planType: 'IM',
+    planSubscriptionTemplateId: '3',
+  });
+  console.log(ev);
+})().catch(console.error);

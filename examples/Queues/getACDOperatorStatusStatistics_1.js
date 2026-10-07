@@ -1,15 +1,15 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Get statistics for the 'READY' and 'ONLINE' statuses of all operators; grouped by operators.
-  client.Queues.getACDOperatorStatusStatistics({
+  const ev = await client.Queues.getACDOperatorStatusStatistics({
     fromDate: new Date('2019-05-20 11:00:00 GMT'),
     toDate: new Date('2019-05-20 13:00:00 GMT'),
     acdStatus: 'READY;ONLINE',
     userId: 'all',
     aggregation: 'hour',
     group: 'user',
-  })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  });
+  console.log(ev);
+})().catch(console.error);

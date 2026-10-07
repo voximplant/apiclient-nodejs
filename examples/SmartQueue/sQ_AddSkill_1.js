@@ -1,8 +1,8 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Add a new skill.
-  client.SmartQueue.sQ_AddSkill({ applicationId: '1', sqSkillName: 'mySkill' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.SmartQueue.sQ_AddSkill({ applicationId: '1', sqSkillName: 'mySkill' });
+  console.log(ev);
+})().catch(console.error);

@@ -1,6 +1,7 @@
 export default class TypeTransformer {
   private static fromActors = {
     API_Error: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['code'] !== 'undefined')
         xData['code'] = TypeTransformer.to('number')(data['code']);
@@ -9,6 +10,7 @@ export default class TypeTransformer {
       return xData;
     },
     AccountInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['account_id'] !== 'undefined')
         xData['accountId'] = TypeTransformer.to('number')(data['account_id']);
@@ -23,7 +25,7 @@ export default class TypeTransformer {
       if (typeof data['account_last_name'] !== 'undefined')
         xData['accountLastName'] = TypeTransformer.to('string')(data['account_last_name']);
       if (typeof data['created'] !== 'undefined')
-        xData['created'] = TypeTransformer.to('Date')(data['created']);
+        xData['created'] = TypeTransformer.from('timestamp')(data['created']);
       if (typeof data['language_code'] !== 'undefined')
         xData['languageCode'] = TypeTransformer.to('string')(data['language_code']);
       if (typeof data['location'] !== 'undefined')
@@ -85,22 +87,24 @@ export default class TypeTransformer {
       if (typeof data['send_js_error'] !== 'undefined')
         xData['sendJsError'] = TypeTransformer.to('boolean')(data['send_js_error']);
       if (typeof data['billing_limits'] !== 'undefined')
-        xData['billingLimits'] = TypeTransformer.to('BillingLimits')(data['billing_limits']);
+        xData['billingLimits'] = TypeTransformer.from('BillingLimitsType')(data['billing_limits']);
       if (typeof data['a2p_sms_enabled'] !== 'undefined')
         xData['a2pSmsEnabled'] = TypeTransformer.to('boolean')(data['a2p_sms_enabled']);
       return xData;
     },
     BillingLimitsType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['robokassa'] !== 'undefined')
-        xData['robokassa'] = TypeTransformer.to('BillingLimitInfo')(data['robokassa']);
+        xData['robokassa'] = TypeTransformer.from('BillingLimitInfoType')(data['robokassa']);
       if (typeof data['bank_card'] !== 'undefined')
-        xData['bankCard'] = TypeTransformer.to('BankCardBillingLimitInfo')(data['bank_card']);
+        xData['bankCard'] = TypeTransformer.from('BankCardBillingLimitInfoType')(data['bank_card']);
       if (typeof data['invoice'] !== 'undefined')
-        xData['invoice'] = TypeTransformer.to('BillingLimitInfo')(data['invoice']);
+        xData['invoice'] = TypeTransformer.from('BillingLimitInfoType')(data['invoice']);
       return xData;
     },
     BillingLimitInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['min_amount'] !== 'undefined')
         xData['minAmount'] = TypeTransformer.to('number')(data['min_amount']);
@@ -109,6 +113,7 @@ export default class TypeTransformer {
       return xData;
     },
     BankCardBillingLimitInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['min_amount'] !== 'undefined')
         xData['minAmount'] = TypeTransformer.to('number')(data['min_amount']);
@@ -117,6 +122,7 @@ export default class TypeTransformer {
       return xData;
     },
     ShortAccountInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['account_id'] !== 'undefined')
         xData['accountId'] = TypeTransformer.to('number')(data['account_id']);
@@ -129,6 +135,7 @@ export default class TypeTransformer {
       return xData;
     },
     ClonedAccountType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['account_id'] !== 'undefined')
         xData['accountId'] = TypeTransformer.to('number')(data['account_id']);
@@ -141,29 +148,32 @@ export default class TypeTransformer {
       if (typeof data['api_key'] !== 'undefined')
         xData['apiKey'] = TypeTransformer.to('string')(data['api_key']);
       if (typeof data['users'] !== 'undefined')
-        xData['users'] = TypeTransformer.to('ClonedUser[]')(data['users']);
+        xData['users'] = TypeTransformer.from('[ClonedUserType]')(data['users']);
       if (typeof data['scenarios'] !== 'undefined')
-        xData['scenarios'] = TypeTransformer.to('ClonedScenario[]')(data['scenarios']);
+        xData['scenarios'] = TypeTransformer.from('[ClonedScenarioType]')(data['scenarios']);
       if (typeof data['applications'] !== 'undefined')
-        xData['applications'] = TypeTransformer.to('ClonedApplication[]')(data['applications']);
+        xData['applications'] = TypeTransformer.from('[ClonedApplicationType]')(
+          data['applications']
+        );
       if (typeof data['acd_queues'] !== 'undefined')
-        xData['acdQueues'] = TypeTransformer.to('ClonedACDQueue[]')(data['acd_queues']);
+        xData['acdQueues'] = TypeTransformer.from('[ClonedACDQueueType]')(data['acd_queues']);
       if (typeof data['acd_skills'] !== 'undefined')
-        xData['acdSkills'] = TypeTransformer.to('ClonedACDSkill[]')(data['acd_skills']);
+        xData['acdSkills'] = TypeTransformer.from('[ClonedACDSkillType]')(data['acd_skills']);
       if (typeof data['admin_roles'] !== 'undefined')
-        xData['adminRoles'] = TypeTransformer.to('ClonedAdminRole[]')(data['admin_roles']);
+        xData['adminRoles'] = TypeTransformer.from('[ClonedAdminRoleType]')(data['admin_roles']);
       if (typeof data['admin_users'] !== 'undefined')
-        xData['adminUsers'] = TypeTransformer.to('ClonedAdminUser[]')(data['admin_users']);
+        xData['adminUsers'] = TypeTransformer.from('[ClonedAdminUserType]')(data['admin_users']);
       return xData;
     },
     AccountPlanType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['plan_subscription_template_id'] !== 'undefined')
         xData['planSubscriptionTemplateId'] = TypeTransformer.to('number')(
           data['plan_subscription_template_id']
         );
       if (typeof data['next_charge'] !== 'undefined')
-        xData['nextCharge'] = TypeTransformer.to('Date')(data['next_charge']);
+        xData['nextCharge'] = TypeTransformer.from('date')(data['next_charge']);
       if (typeof data['plan_type'] !== 'undefined')
         xData['planType'] = TypeTransformer.to('string')(data['plan_type']);
       if (typeof data['plan_name'] !== 'undefined')
@@ -171,10 +181,11 @@ export default class TypeTransformer {
       if (typeof data['periodic_charge'] !== 'undefined')
         xData['periodicCharge'] = TypeTransformer.to('number')(data['periodic_charge']);
       if (typeof data['packages'] !== 'undefined')
-        xData['packages'] = TypeTransformer.to('AccountPlanPackage[]')(data['packages']);
+        xData['packages'] = TypeTransformer.from('[AccountPlanPackageType]')(data['packages']);
       return xData;
     },
     AccountPlanPackageType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['price_group_id'] !== 'undefined')
         xData['priceGroupId'] = TypeTransformer.to('number[]')(data['price_group_id']);
@@ -195,6 +206,7 @@ export default class TypeTransformer {
       return xData;
     },
     PlanType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['plan_subscription_template_id'] !== 'undefined')
         xData['planSubscriptionTemplateId'] = TypeTransformer.to('number')(
@@ -207,10 +219,11 @@ export default class TypeTransformer {
       if (typeof data['periodic_charge'] !== 'undefined')
         xData['periodicCharge'] = TypeTransformer.to('number')(data['periodic_charge']);
       if (typeof data['packages'] !== 'undefined')
-        xData['packages'] = TypeTransformer.to('PlanPackage[]')(data['packages']);
+        xData['packages'] = TypeTransformer.from('[PlanPackageType]')(data['packages']);
       return xData;
     },
     PlanPackageType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['price_group_id'] !== 'undefined')
         xData['priceGroupId'] = TypeTransformer.to('number[]')(data['price_group_id']);
@@ -227,28 +240,31 @@ export default class TypeTransformer {
       return xData;
     },
     ApplicationInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['application_id'] !== 'undefined')
         xData['applicationId'] = TypeTransformer.to('number')(data['application_id']);
       if (typeof data['application_name'] !== 'undefined')
         xData['applicationName'] = TypeTransformer.to('string')(data['application_name']);
       if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+        xData['modified'] = TypeTransformer.from('timestamp')(data['modified']);
       if (typeof data['secure_record_storage'] !== 'undefined')
         xData['secureRecordStorage'] = TypeTransformer.to('boolean')(data['secure_record_storage']);
       return xData;
     },
     ClonedApplicationType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['application_id'] !== 'undefined')
         xData['applicationId'] = TypeTransformer.to('number')(data['application_id']);
       if (typeof data['application_name'] !== 'undefined')
         xData['applicationName'] = TypeTransformer.to('string')(data['application_name']);
       if (typeof data['users'] !== 'undefined')
-        xData['users'] = TypeTransformer.to('ClonedRule[]')(data['users']);
+        xData['users'] = TypeTransformer.from('[ClonedRuleType]')(data['users']);
       return xData;
     },
     UserInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('number')(data['user_id']);
@@ -269,22 +285,25 @@ export default class TypeTransformer {
       if (typeof data['user_custom_data'] !== 'undefined')
         xData['userCustomData'] = TypeTransformer.to('string')(data['user_custom_data']);
       if (typeof data['applications'] !== 'undefined')
-        xData['applications'] = TypeTransformer.to('ApplicationInfo[]')(data['applications']);
+        xData['applications'] = TypeTransformer.from('[ApplicationInfoType]')(data['applications']);
       if (typeof data['skills'] !== 'undefined')
-        xData['skills'] = TypeTransformer.to('SkillInfo[]')(data['skills']);
+        xData['skills'] = TypeTransformer.from('[SkillInfoType]')(data['skills']);
       if (typeof data['acd_queues'] !== 'undefined')
-        xData['acdQueues'] = TypeTransformer.to('ACDQueueOperatorInfo[]')(data['acd_queues']);
+        xData['acdQueues'] = TypeTransformer.from('[ACDQueueOperatorInfoType]')(data['acd_queues']);
       if (typeof data['acd_status'] !== 'undefined')
         xData['acdStatus'] = TypeTransformer.to('string')(data['acd_status']);
       if (typeof data['acd_status_change_time'] !== 'undefined')
-        xData['acdStatusChangeTime'] = TypeTransformer.to('Date')(data['acd_status_change_time']);
+        xData['acdStatusChangeTime'] = TypeTransformer.from('timestamp')(
+          data['acd_status_change_time']
+        );
       if (typeof data['created'] !== 'undefined')
-        xData['created'] = TypeTransformer.to('Date')(data['created']);
+        xData['created'] = TypeTransformer.from('timestamp')(data['created']);
       if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+        xData['modified'] = TypeTransformer.from('timestamp')(data['modified']);
       return xData;
     },
     ClonedUserType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('number')(data['user_id']);
@@ -293,6 +312,7 @@ export default class TypeTransformer {
       return xData;
     },
     ScenarioInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['scenario_id'] !== 'undefined')
         xData['scenarioId'] = TypeTransformer.to('number')(data['scenario_id']);
@@ -301,12 +321,13 @@ export default class TypeTransformer {
       if (typeof data['scenario_script'] !== 'undefined')
         xData['scenarioScript'] = TypeTransformer.to('string')(data['scenario_script']);
       if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+        xData['modified'] = TypeTransformer.from('timestamp')(data['modified']);
       if (typeof data['parent'] !== 'undefined')
         xData['parent'] = TypeTransformer.to('boolean')(data['parent']);
       return xData;
     },
     ClonedScenarioType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['scenario_id'] !== 'undefined')
         xData['scenarioId'] = TypeTransformer.to('number')(data['scenario_id']);
@@ -315,6 +336,7 @@ export default class TypeTransformer {
       return xData;
     },
     RuleInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['rule_id'] !== 'undefined')
         xData['ruleId'] = TypeTransformer.to('number')(data['rule_id']);
@@ -329,12 +351,13 @@ export default class TypeTransformer {
       if (typeof data['video_conference'] !== 'undefined')
         xData['videoConference'] = TypeTransformer.to('boolean')(data['video_conference']);
       if (typeof data['scenarios'] !== 'undefined')
-        xData['scenarios'] = TypeTransformer.to('ScenarioInfo[]')(data['scenarios']);
+        xData['scenarios'] = TypeTransformer.from('[ScenarioInfoType]')(data['scenarios']);
       if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+        xData['modified'] = TypeTransformer.from('timestamp')(data['modified']);
       return xData;
     },
     ClonedRuleType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['rule_id'] !== 'undefined')
         xData['ruleId'] = TypeTransformer.to('number')(data['rule_id']);
@@ -343,6 +366,7 @@ export default class TypeTransformer {
       return xData;
     },
     SipWhiteListInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sip_whitelist_id'] !== 'undefined')
         xData['sipWhitelistId'] = TypeTransformer.to('number')(data['sip_whitelist_id']);
@@ -353,6 +377,7 @@ export default class TypeTransformer {
       return xData;
     },
     CallSessionInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['audio_quality'] !== 'undefined')
         xData['audioQuality'] = TypeTransformer.to('string')(data['audio_quality']);
@@ -371,7 +396,7 @@ export default class TypeTransformer {
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('number')(data['user_id']);
       if (typeof data['start_date'] !== 'undefined')
-        xData['startDate'] = TypeTransformer.to('Date')(data['start_date']);
+        xData['startDate'] = TypeTransformer.from('timestamp')(data['start_date']);
       if (typeof data['duration'] !== 'undefined')
         xData['duration'] = TypeTransformer.to('number')(data['duration']);
       if (typeof data['initiator_address'] !== 'undefined')
@@ -383,23 +408,24 @@ export default class TypeTransformer {
       if (typeof data['finish_reason'] !== 'undefined')
         xData['finishReason'] = TypeTransformer.to('string')(data['finish_reason']);
       if (typeof data['calls'] !== 'undefined')
-        xData['calls'] = TypeTransformer.to('CallInfo[]')(data['calls']);
+        xData['calls'] = TypeTransformer.from('[CallInfoType]')(data['calls']);
       if (typeof data['other_resource_usage'] !== 'undefined')
-        xData['otherResourceUsage'] = TypeTransformer.to('ResourceUsage[]')(
+        xData['otherResourceUsage'] = TypeTransformer.from('[ResourceUsageType]')(
           data['other_resource_usage']
         );
       if (typeof data['records'] !== 'undefined')
-        xData['records'] = TypeTransformer.to('Record[]')(data['records']);
+        xData['records'] = TypeTransformer.from('[RecordType]')(data['records']);
       if (typeof data['custom_data'] !== 'undefined')
         xData['customData'] = TypeTransformer.to('string')(data['custom_data']);
       return xData;
     },
     CallInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['call_id'] !== 'undefined')
         xData['callId'] = TypeTransformer.to('number')(data['call_id']);
       if (typeof data['start_time'] !== 'undefined')
-        xData['startTime'] = TypeTransformer.to('Date')(data['start_time']);
+        xData['startTime'] = TypeTransformer.from('timestamp')(data['start_time']);
       if (typeof data['diversion_number'] !== 'undefined')
         xData['diversionNumber'] = TypeTransformer.to('string')(data['diversion_number']);
       if (typeof data['duration'] !== 'undefined')
@@ -429,13 +455,14 @@ export default class TypeTransformer {
       return xData;
     },
     TransactionInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['transaction_id'] !== 'undefined')
         xData['transactionId'] = TypeTransformer.to('number')(data['transaction_id']);
       if (typeof data['account_id'] !== 'undefined')
         xData['accountId'] = TypeTransformer.to('string')(data['account_id']);
       if (typeof data['performed_at'] !== 'undefined')
-        xData['performedAt'] = TypeTransformer.to('Date')(data['performed_at']);
+        xData['performedAt'] = TypeTransformer.from('timestamp')(data['performed_at']);
       if (typeof data['amount'] !== 'undefined')
         xData['amount'] = TypeTransformer.to('number')(data['amount']);
       if (typeof data['currency'] !== 'undefined')
@@ -449,6 +476,7 @@ export default class TypeTransformer {
       return xData;
     },
     ResourceUsageType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['resource_usage_id'] !== 'undefined')
         xData['resourceUsageId'] = TypeTransformer.to('number')(data['resource_usage_id']);
@@ -459,7 +487,7 @@ export default class TypeTransformer {
       if (typeof data['description'] !== 'undefined')
         xData['description'] = TypeTransformer.to('string')(data['description']);
       if (typeof data['used_at'] !== 'undefined')
-        xData['usedAt'] = TypeTransformer.to('Date')(data['used_at']);
+        xData['usedAt'] = TypeTransformer.from('timestamp')(data['used_at']);
       if (typeof data['transaction_id'] !== 'undefined')
         xData['transactionId'] = TypeTransformer.to('number')(data['transaction_id']);
       if (typeof data['resource_quantity'] !== 'undefined')
@@ -471,6 +499,7 @@ export default class TypeTransformer {
       return xData;
     },
     RecordType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['record_id'] !== 'undefined')
         xData['recordId'] = TypeTransformer.to('number')(data['record_id']);
@@ -479,7 +508,7 @@ export default class TypeTransformer {
       if (typeof data['cost'] !== 'undefined')
         xData['cost'] = TypeTransformer.to('number')(data['cost']);
       if (typeof data['start_time'] !== 'undefined')
-        xData['startTime'] = TypeTransformer.to('Date')(data['start_time']);
+        xData['startTime'] = TypeTransformer.from('timestamp')(data['start_time']);
       if (typeof data['duration'] !== 'undefined')
         xData['duration'] = TypeTransformer.to('number')(data['duration']);
       if (typeof data['record_url'] !== 'undefined')
@@ -495,6 +524,7 @@ export default class TypeTransformer {
       return xData;
     },
     AuditLogInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['audit_log_id'] !== 'undefined')
         xData['auditLogId'] = TypeTransformer.to('number')(data['audit_log_id']);
@@ -505,7 +535,7 @@ export default class TypeTransformer {
       if (typeof data['account_id'] !== 'undefined')
         xData['accountId'] = TypeTransformer.to('number')(data['account_id']);
       if (typeof data['requested'] !== 'undefined')
-        xData['requested'] = TypeTransformer.to('Date')(data['requested']);
+        xData['requested'] = TypeTransformer.from('timestamp')(data['requested']);
       if (typeof data['ip'] !== 'undefined') xData['ip'] = TypeTransformer.to('string')(data['ip']);
       if (typeof data['cmd_name'] !== 'undefined')
         xData['cmdName'] = TypeTransformer.to('string')(data['cmd_name']);
@@ -516,17 +546,18 @@ export default class TypeTransformer {
       return xData;
     },
     HistoryReportType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['history_report_id'] !== 'undefined')
         xData['historyReportId'] = TypeTransformer.to('number')(data['history_report_id']);
       if (typeof data['history_type'] !== 'undefined')
         xData['historyType'] = TypeTransformer.to('string')(data['history_type']);
       if (typeof data['created'] !== 'undefined')
-        xData['created'] = TypeTransformer.to('Date')(data['created']);
+        xData['created'] = TypeTransformer.from('timestamp')(data['created']);
       if (typeof data['format'] !== 'undefined')
         xData['format'] = TypeTransformer.to('string')(data['format']);
       if (typeof data['completed'] !== 'undefined')
-        xData['completed'] = TypeTransformer.to('Date')(data['completed']);
+        xData['completed'] = TypeTransformer.from('timestamp')(data['completed']);
       if (typeof data['file_name'] !== 'undefined')
         xData['fileName'] = TypeTransformer.to('string')(data['file_name']);
       if (typeof data['file_size'] !== 'undefined')
@@ -536,9 +567,9 @@ export default class TypeTransformer {
       if (typeof data['download_count'] !== 'undefined')
         xData['downloadCount'] = TypeTransformer.to('number')(data['download_count']);
       if (typeof data['last_downloaded'] !== 'undefined')
-        xData['lastDownloaded'] = TypeTransformer.to('Date')(data['last_downloaded']);
+        xData['lastDownloaded'] = TypeTransformer.from('timestamp')(data['last_downloaded']);
       if (typeof data['store_until'] !== 'undefined')
-        xData['storeUntil'] = TypeTransformer.to('Date')(data['store_until']);
+        xData['storeUntil'] = TypeTransformer.from('date')(data['store_until']);
       if (typeof data['filters'] !== 'undefined')
         xData['filters'] = TypeTransformer.to('string')(data['filters']);
       if (typeof data['calculated_data'] !== 'undefined')
@@ -546,17 +577,18 @@ export default class TypeTransformer {
       return xData;
     },
     CommonReportType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['report_id'] !== 'undefined')
         xData['reportId'] = TypeTransformer.to('number')(data['report_id']);
       if (typeof data['type'] !== 'undefined')
         xData['type'] = TypeTransformer.to('string')(data['type']);
       if (typeof data['created'] !== 'undefined')
-        xData['created'] = TypeTransformer.to('Date')(data['created']);
+        xData['created'] = TypeTransformer.from('timestamp')(data['created']);
       if (typeof data['format'] !== 'undefined')
         xData['format'] = TypeTransformer.to('string')(data['format']);
       if (typeof data['completed'] !== 'undefined')
-        xData['completed'] = TypeTransformer.to('Date')(data['completed']);
+        xData['completed'] = TypeTransformer.from('timestamp')(data['completed']);
       if (typeof data['file_name'] !== 'undefined')
         xData['fileName'] = TypeTransformer.to('string')(data['file_name']);
       if (typeof data['file_size'] !== 'undefined')
@@ -566,9 +598,9 @@ export default class TypeTransformer {
       if (typeof data['download_count'] !== 'undefined')
         xData['downloadCount'] = TypeTransformer.to('number')(data['download_count']);
       if (typeof data['last_downloaded'] !== 'undefined')
-        xData['lastDownloaded'] = TypeTransformer.to('Date')(data['last_downloaded']);
+        xData['lastDownloaded'] = TypeTransformer.from('timestamp')(data['last_downloaded']);
       if (typeof data['store_until'] !== 'undefined')
-        xData['storeUntil'] = TypeTransformer.to('Date')(data['store_until']);
+        xData['storeUntil'] = TypeTransformer.from('date')(data['store_until']);
       if (typeof data['filters'] !== 'undefined')
         xData['filters'] = TypeTransformer.to('string')(data['filters']);
       if (typeof data['calculated_data'] !== 'undefined')
@@ -576,6 +608,7 @@ export default class TypeTransformer {
       return xData;
     },
     CalculatedCallHistoryDataType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['session_count'] !== 'undefined')
         xData['sessionCount'] = TypeTransformer.to('number')(data['session_count']);
@@ -586,6 +619,7 @@ export default class TypeTransformer {
       return xData;
     },
     CalculatedTransactionHistoryDataType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['transaction_count'] !== 'undefined')
         xData['transactionCount'] = TypeTransformer.to('number')(data['transaction_count']);
@@ -608,6 +642,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDSessionInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acd_session_history_id'] !== 'undefined')
         xData['acdSessionHistoryId'] = TypeTransformer.to('number')(data['acd_session_history_id']);
@@ -616,7 +651,7 @@ export default class TypeTransformer {
       if (typeof data['account_id'] !== 'undefined')
         xData['accountId'] = TypeTransformer.to('number')(data['account_id']);
       if (typeof data['begin_time'] !== 'undefined')
-        xData['beginTime'] = TypeTransformer.to('Date')(data['begin_time']);
+        xData['beginTime'] = TypeTransformer.from('timestamp')(data['begin_time']);
       if (typeof data['priority'] !== 'undefined')
         xData['priority'] = TypeTransformer.to('number')(data['priority']);
       if (typeof data['acd_queue_id'] !== 'undefined')
@@ -632,15 +667,16 @@ export default class TypeTransformer {
           data['after_service_duration']
         );
       if (typeof data['events'] !== 'undefined')
-        xData['events'] = TypeTransformer.to('ACDSessionEventInfo[]')(data['events']);
+        xData['events'] = TypeTransformer.from('[ACDSessionEventInfoType]')(data['events']);
       return xData;
     },
     ACDSessionEventInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acd_session_event_id'] !== 'undefined')
         xData['acdSessionEventId'] = TypeTransformer.to('number')(data['acd_session_event_id']);
       if (typeof data['time'] !== 'undefined')
-        xData['time'] = TypeTransformer.to('Date')(data['time']);
+        xData['time'] = TypeTransformer.from('timestamp')(data['time']);
       if (typeof data['type'] !== 'undefined')
         xData['type'] = TypeTransformer.to('string')(data['type']);
       if (typeof data['user_id'] !== 'undefined')
@@ -650,6 +686,7 @@ export default class TypeTransformer {
       return xData;
     },
     QueueInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acd_queue_id'] !== 'undefined')
         xData['acdQueueId'] = TypeTransformer.to('number')(data['acd_queue_id']);
@@ -670,15 +707,15 @@ export default class TypeTransformer {
       if (typeof data['average_service_time'] !== 'undefined')
         xData['averageServiceTime'] = TypeTransformer.to('number')(data['average_service_time']);
       if (typeof data['created'] !== 'undefined')
-        xData['created'] = TypeTransformer.to('Date')(data['created']);
+        xData['created'] = TypeTransformer.from('timestamp')(data['created']);
       if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+        xData['modified'] = TypeTransformer.from('timestamp')(data['modified']);
       if (typeof data['deleted'] !== 'undefined')
-        xData['deleted'] = TypeTransformer.to('Date')(data['deleted']);
+        xData['deleted'] = TypeTransformer.from('timestamp')(data['deleted']);
       if (typeof data['users'] !== 'undefined')
-        xData['users'] = TypeTransformer.to('QueueUsers[]')(data['users']);
+        xData['users'] = TypeTransformer.from('[QueueUsers]')(data['users']);
       if (typeof data['skills'] !== 'undefined')
-        xData['skills'] = TypeTransformer.to('QueueSkills[]')(data['skills']);
+        xData['skills'] = TypeTransformer.from('[QueueSkills]')(data['skills']);
       if (typeof data['sl_thresholds'] !== 'undefined')
         xData['slThresholds'] = TypeTransformer.to('number[]')(data['sl_thresholds']);
       if (typeof data['operatorcount'] !== 'undefined')
@@ -686,6 +723,7 @@ export default class TypeTransformer {
       return xData;
     },
     QueueSkills: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['skill_id'] !== 'undefined')
         xData['skillId'] = TypeTransformer.to('number')(data['skill_id']);
@@ -694,59 +732,66 @@ export default class TypeTransformer {
       return xData;
     },
     QueueUsers: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('number')(data['user_id']);
       return xData;
     },
     ACDStateType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acd_queues'] !== 'undefined')
-        xData['acdQueues'] = TypeTransformer.to('ACDQueueState[]')(data['acd_queues']);
+        xData['acdQueues'] = TypeTransformer.from('[ACDQueueStateType]')(data['acd_queues']);
       return xData;
     },
     ACDOperatorAggregationGroupType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('string')(data['user_id']);
       if (typeof data['date'] !== 'undefined')
-        xData['date'] = TypeTransformer.to('Date')(data['date']);
+        xData['date'] = TypeTransformer.from('date')(data['date']);
       if (typeof data['hour'] !== 'undefined')
         xData['hour'] = TypeTransformer.to('number')(data['hour']);
       if (typeof data['statistics'] !== 'undefined')
-        xData['statistics'] = TypeTransformer.to('ACDOperatorStatistics[]')(data['statistics']);
+        xData['statistics'] = TypeTransformer.from('[ACDOperatorStatisticsType]')(
+          data['statistics']
+        );
       return xData;
     },
     ACDOperatorStatusAggregationGroupType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('string')(data['user_id']);
       if (typeof data['date'] !== 'undefined')
-        xData['date'] = TypeTransformer.to('Date')(data['date']);
+        xData['date'] = TypeTransformer.from('date')(data['date']);
       if (typeof data['hour'] !== 'undefined')
         xData['hour'] = TypeTransformer.to('number')(data['hour']);
       if (typeof data['statistics'] !== 'undefined')
-        xData['statistics'] = TypeTransformer.to('ACDOperatorStatusStatistics[]')(
+        xData['statistics'] = TypeTransformer.from('[ACDOperatorStatusStatisticsType]')(
           data['statistics']
         );
       return xData;
     },
     ACDOperatorStatisticsType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('string')(data['user_id']);
       if (typeof data['date'] !== 'undefined')
-        xData['date'] = TypeTransformer.to('Date')(data['date']);
+        xData['date'] = TypeTransformer.from('date')(data['date']);
       if (typeof data['hour'] !== 'undefined')
         xData['hour'] = TypeTransformer.to('number')(data['hour']);
       if (typeof data['SA'] !== 'undefined')
-        xData['SA'] = TypeTransformer.to('ACDStatisticsItem')(data['SA']);
+        xData['SA'] = TypeTransformer.from('ACDStatisticsItemType')(data['SA']);
       if (typeof data['TT'] !== 'undefined')
-        xData['TT'] = TypeTransformer.to('ACDStatisticsItem')(data['TT']);
+        xData['TT'] = TypeTransformer.from('ACDStatisticsItemType')(data['TT']);
       if (typeof data['ACW'] !== 'undefined')
-        xData['ACW'] = TypeTransformer.to('ACDStatisticsItem')(data['ACW']);
+        xData['ACW'] = TypeTransformer.from('ACDStatisticsItemType')(data['ACW']);
       if (typeof data['HT'] !== 'undefined')
-        xData['HT'] = TypeTransformer.to('ACDStatisticsItem')(data['HT']);
+        xData['HT'] = TypeTransformer.from('ACDStatisticsItemType')(data['HT']);
       if (typeof data['AC'] !== 'undefined') xData['AC'] = TypeTransformer.to('number')(data['AC']);
       if (typeof data['UAC'] !== 'undefined')
         xData['UAC'] = TypeTransformer.to('number')(data['UAC']);
@@ -761,68 +806,73 @@ export default class TypeTransformer {
       return xData;
     },
     ACDOperatorStatusStatisticsType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('string')(data['user_id']);
       if (typeof data['date'] !== 'undefined')
-        xData['date'] = TypeTransformer.to('Date')(data['date']);
+        xData['date'] = TypeTransformer.from('date')(data['date']);
       if (typeof data['hour'] !== 'undefined')
         xData['hour'] = TypeTransformer.to('number')(data['hour']);
       if (typeof data['acd_status'] !== 'undefined')
-        xData['acdStatus'] = TypeTransformer.to('ACDOperatorStatusStatisticsDetail[]')(
+        xData['acdStatus'] = TypeTransformer.from('[ACDOperatorStatusStatisticsDetail]')(
           data['acd_status']
         );
       return xData;
     },
     ACDOperatorStatusStatisticsDetail: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['OFFLINE'] !== 'undefined')
-        xData['OFFLINE'] = TypeTransformer.to('ACDStatisticsItem')(data['OFFLINE']);
+        xData['OFFLINE'] = TypeTransformer.from('ACDStatisticsItemType')(data['OFFLINE']);
       if (typeof data['ONLINE'] !== 'undefined')
-        xData['ONLINE'] = TypeTransformer.to('ACDStatisticsItem')(data['ONLINE']);
+        xData['ONLINE'] = TypeTransformer.from('ACDStatisticsItemType')(data['ONLINE']);
       if (typeof data['READY'] !== 'undefined')
-        xData['READY'] = TypeTransformer.to('ACDStatisticsItem')(data['READY']);
+        xData['READY'] = TypeTransformer.from('ACDStatisticsItemType')(data['READY']);
       if (typeof data['BANNED'] !== 'undefined')
-        xData['BANNED'] = TypeTransformer.to('ACDStatisticsItem')(data['BANNED']);
+        xData['BANNED'] = TypeTransformer.from('ACDStatisticsItemType')(data['BANNED']);
       if (typeof data['IN_SERVICE'] !== 'undefined')
-        xData['INSERVICE'] = TypeTransformer.to('ACDStatisticsItem')(data['IN_SERVICE']);
+        xData['INSERVICE'] = TypeTransformer.from('ACDStatisticsItemType')(data['IN_SERVICE']);
       if (typeof data['AFTER_SERVICE'] !== 'undefined')
-        xData['AFTERSERVICE'] = TypeTransformer.to('ACDStatisticsItem')(data['AFTER_SERVICE']);
+        xData['AFTERSERVICE'] = TypeTransformer.from('ACDStatisticsItemType')(
+          data['AFTER_SERVICE']
+        );
       if (typeof data['TIMEOUT'] !== 'undefined')
-        xData['TIMEOUT'] = TypeTransformer.to('ACDStatisticsItem')(data['TIMEOUT']);
+        xData['TIMEOUT'] = TypeTransformer.from('ACDStatisticsItemType')(data['TIMEOUT']);
       if (typeof data['DND'] !== 'undefined')
-        xData['DND'] = TypeTransformer.to('ACDStatisticsItem')(data['DND']);
+        xData['DND'] = TypeTransformer.from('ACDStatisticsItemType')(data['DND']);
       return xData;
     },
     ACDQueueStatisticsType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['date'] !== 'undefined')
-        xData['date'] = TypeTransformer.to('Date')(data['date']);
+        xData['date'] = TypeTransformer.from('date')(data['date']);
       if (typeof data['hour'] !== 'undefined')
         xData['hour'] = TypeTransformer.to('number')(data['hour']);
       if (typeof data['WT'] !== 'undefined')
-        xData['WT'] = TypeTransformer.to('ACDStatisticsItem')(data['WT']);
+        xData['WT'] = TypeTransformer.from('ACDStatisticsItemType')(data['WT']);
       if (typeof data['SA'] !== 'undefined')
-        xData['SA'] = TypeTransformer.to('ACDStatisticsItem')(data['SA']);
+        xData['SA'] = TypeTransformer.from('ACDStatisticsItemType')(data['SA']);
       if (typeof data['AT'] !== 'undefined')
-        xData['AT'] = TypeTransformer.to('ACDStatisticsItem')(data['AT']);
+        xData['AT'] = TypeTransformer.from('ACDStatisticsItemType')(data['AT']);
       if (typeof data['HT'] !== 'undefined')
-        xData['HT'] = TypeTransformer.to('ACDStatisticsItem')(data['HT']);
+        xData['HT'] = TypeTransformer.from('ACDStatisticsItemType')(data['HT']);
       if (typeof data['TT'] !== 'undefined')
-        xData['TT'] = TypeTransformer.to('ACDStatisticsItem')(data['TT']);
+        xData['TT'] = TypeTransformer.from('ACDStatisticsItemType')(data['TT']);
       if (typeof data['ACW'] !== 'undefined')
-        xData['ACW'] = TypeTransformer.to('ACDStatisticsItem')(data['ACW']);
+        xData['ACW'] = TypeTransformer.from('ACDStatisticsItemType')(data['ACW']);
       if (typeof data['QL'] !== 'undefined')
-        xData['QL'] = TypeTransformer.to('ACDStatisticsItem')(data['QL']);
+        xData['QL'] = TypeTransformer.from('ACDStatisticsItemType')(data['QL']);
       if (typeof data['TC'] !== 'undefined') xData['TC'] = TypeTransformer.to('number')(data['TC']);
       if (typeof data['AC'] !== 'undefined')
-        xData['AC'] = TypeTransformer.to('ACDStatisticsCalls[]')(data['AC']);
+        xData['AC'] = TypeTransformer.from('[ACDStatisticsCalls]')(data['AC']);
       if (typeof data['UAC'] !== 'undefined')
-        xData['UAC'] = TypeTransformer.to('ACDStatisticsCalls[]')(data['UAC']);
+        xData['UAC'] = TypeTransformer.from('[ACDStatisticsCalls]')(data['UAC']);
       if (typeof data['RC'] !== 'undefined')
-        xData['RC'] = TypeTransformer.to('ACDStatisticsCalls[]')(data['RC']);
+        xData['RC'] = TypeTransformer.from('[ACDStatisticsCalls]')(data['RC']);
       if (typeof data['SL'] !== 'undefined')
-        xData['SL'] = TypeTransformer.to('ACDQueueStatisticsServiceLevel[]')(data['SL']);
+        xData['SL'] = TypeTransformer.from('[ACDQueueStatisticsServiceLevelType]')(data['SL']);
       if (typeof data['TWT'] !== 'undefined')
         xData['TWT'] = TypeTransformer.to('number')(data['TWT']);
       if (typeof data['TST'] !== 'undefined')
@@ -838,6 +888,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDQueueStatisticsServiceLevelType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acceptable_waiting_time'] !== 'undefined')
         xData['acceptableWaitingTime'] = TypeTransformer.to('number')(
@@ -850,6 +901,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDStatisticsItemType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['min'] !== 'undefined')
         xData['min'] = TypeTransformer.to('number')(data['min']);
@@ -864,6 +916,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDStatisticsCalls: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['count'] !== 'undefined')
         xData['count'] = TypeTransformer.to('number')(data['count']);
@@ -872,17 +925,18 @@ export default class TypeTransformer {
       return xData;
     },
     ACDQueueStateType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acd_queue_id'] !== 'undefined')
         xData['acdQueueId'] = TypeTransformer.to('number')(data['acd_queue_id']);
       if (typeof data['ready_operators'] !== 'undefined')
-        xData['readyOperators'] = TypeTransformer.to('ACDReadyOperatorState[]')(
+        xData['readyOperators'] = TypeTransformer.from('[ACDReadyOperatorStateType]')(
           data['ready_operators']
         );
       if (typeof data['ready_operators_count'] !== 'undefined')
         xData['readyOperatorsCount'] = TypeTransformer.to('number')(data['ready_operators_count']);
       if (typeof data['locked_operators'] !== 'undefined')
-        xData['lockedOperators'] = TypeTransformer.to('ACDLockedOperatorState[]')(
+        xData['lockedOperators'] = TypeTransformer.from('[ACDLockedOperatorStateType]')(
           data['locked_operators']
         );
       if (typeof data['locked_operators_count'] !== 'undefined')
@@ -890,7 +944,7 @@ export default class TypeTransformer {
           data['locked_operators_count']
         );
       if (typeof data['after_service_operators'] !== 'undefined')
-        xData['afterServiceOperators'] = TypeTransformer.to('ACDAfterServiceOperatorState[]')(
+        xData['afterServiceOperators'] = TypeTransformer.from('[ACDAfterServiceOperatorStateType]')(
           data['after_service_operators']
         );
       if (typeof data['after_service_operator_count'] !== 'undefined')
@@ -898,14 +952,17 @@ export default class TypeTransformer {
           data['after_service_operator_count']
         );
       if (typeof data['servicing_calls'] !== 'undefined')
-        xData['servicingCalls'] = TypeTransformer.to('ACDServicingCallState[]')(
+        xData['servicingCalls'] = TypeTransformer.from('[ACDServicingCallStateType]')(
           data['servicing_calls']
         );
       if (typeof data['waiting_calls'] !== 'undefined')
-        xData['waitingCalls'] = TypeTransformer.to('ACDWaitingCallState[]')(data['waiting_calls']);
+        xData['waitingCalls'] = TypeTransformer.from('[ACDWaitingCallStateType]')(
+          data['waiting_calls']
+        );
       return xData;
     },
     ACDReadyOperatorStateType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('number')(data['user_id']);
@@ -918,6 +975,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDLockedOperatorStateType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('number')(data['user_id']);
@@ -926,16 +984,17 @@ export default class TypeTransformer {
       if (typeof data['user_display_name'] !== 'undefined')
         xData['userDisplayName'] = TypeTransformer.to('string')(data['user_display_name']);
       if (typeof data['unreached'] !== 'undefined')
-        xData['unreached'] = TypeTransformer.to('Date')(data['unreached']);
+        xData['unreached'] = TypeTransformer.from('timestamp')(data['unreached']);
       if (typeof data['locks'] !== 'undefined')
-        xData['locks'] = TypeTransformer.to('ACDLock[]')(data['locks']);
+        xData['locks'] = TypeTransformer.from('[ACDLock]')(data['locks']);
       if (typeof data['acd_calls'] !== 'undefined')
-        xData['acdCalls'] = TypeTransformer.to('ACDOperatorCall[]')(data['acd_calls']);
+        xData['acdCalls'] = TypeTransformer.from('[ACDOperatorCall]')(data['acd_calls']);
       if (typeof data['status'] !== 'undefined')
         xData['status'] = TypeTransformer.to('string')(data['status']);
       return xData;
     },
     ACDAfterServiceOperatorStateType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('number')(data['user_id']);
@@ -948,13 +1007,15 @@ export default class TypeTransformer {
       return xData;
     },
     ACDLock: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['id'] !== 'undefined') xData['id'] = TypeTransformer.to('string')(data['id']);
       if (typeof data['created'] !== 'undefined')
-        xData['created'] = TypeTransformer.to('Date')(data['created']);
+        xData['created'] = TypeTransformer.from('timestamp')(data['created']);
       return xData;
     },
     ACDOperatorCall: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acd_session_history_id'] !== 'undefined')
         xData['acdSessionHistoryId'] = TypeTransformer.to('number')(data['acd_session_history_id']);
@@ -967,12 +1028,13 @@ export default class TypeTransformer {
       if (typeof data['callerid'] !== 'undefined')
         xData['callerid'] = TypeTransformer.to('string')(data['callerid']);
       if (typeof data['begin_time'] !== 'undefined')
-        xData['beginTime'] = TypeTransformer.to('Date')(data['begin_time']);
+        xData['beginTime'] = TypeTransformer.from('timestamp')(data['begin_time']);
       if (typeof data['submitted'] !== 'undefined')
-        xData['submitted'] = TypeTransformer.to('Date')(data['submitted']);
+        xData['submitted'] = TypeTransformer.from('timestamp')(data['submitted']);
       return xData;
     },
     ACDServicingCallStateType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('number')(data['user_id']);
@@ -985,7 +1047,7 @@ export default class TypeTransformer {
       if (typeof data['callerid'] !== 'undefined')
         xData['callerid'] = TypeTransformer.to('string')(data['callerid']);
       if (typeof data['begin_time'] !== 'undefined')
-        xData['beginTime'] = TypeTransformer.to('Date')(data['begin_time']);
+        xData['beginTime'] = TypeTransformer.from('timestamp')(data['begin_time']);
       if (typeof data['waiting_time'] !== 'undefined')
         xData['waitingTime'] = TypeTransformer.to('number')(data['waiting_time']);
       if (typeof data['acd_session_history_id'] !== 'undefined')
@@ -993,6 +1055,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDWaitingCallStateType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('number')(data['user_id']);
@@ -1005,7 +1068,7 @@ export default class TypeTransformer {
       if (typeof data['callerid'] !== 'undefined')
         xData['callerid'] = TypeTransformer.to('string')(data['callerid']);
       if (typeof data['begin_time'] !== 'undefined')
-        xData['beginTime'] = TypeTransformer.to('Date')(data['begin_time']);
+        xData['beginTime'] = TypeTransformer.from('timestamp')(data['begin_time']);
       if (typeof data['waiting_time'] !== 'undefined')
         xData['waitingTime'] = TypeTransformer.to('number')(data['waiting_time']);
       if (typeof data['minutes_to_submit'] !== 'undefined')
@@ -1015,6 +1078,7 @@ export default class TypeTransformer {
       return xData;
     },
     NewPhoneInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phone_id'] !== 'undefined')
         xData['phoneId'] = TypeTransformer.to('number')(data['phone_id']);
@@ -1043,6 +1107,7 @@ export default class TypeTransformer {
       return xData;
     },
     WABPhoneInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['wab_phone_number'] !== 'undefined')
         xData['wabPhoneNumber'] = TypeTransformer.to('string')(data['wab_phone_number']);
@@ -1063,12 +1128,13 @@ export default class TypeTransformer {
       if (typeof data['description'] !== 'undefined')
         xData['description'] = TypeTransformer.to('string')(data['description']);
       if (typeof data['created'] !== 'undefined')
-        xData['created'] = TypeTransformer.to('Date')(data['created']);
+        xData['created'] = TypeTransformer.from('timestamp')(data['created']);
       if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+        xData['modified'] = TypeTransformer.from('timestamp')(data['modified']);
       return xData;
     },
     AttachedPhoneInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phone_id'] !== 'undefined')
         xData['phoneId'] = TypeTransformer.to('number')(data['phone_id']);
@@ -1081,9 +1147,9 @@ export default class TypeTransformer {
       if (typeof data['activation_status'] !== 'undefined')
         xData['activationStatus'] = TypeTransformer.to('string')(data['activation_status']);
       if (typeof data['phone_next_renewal'] !== 'undefined')
-        xData['phoneNextRenewal'] = TypeTransformer.to('Date')(data['phone_next_renewal']);
+        xData['phoneNextRenewal'] = TypeTransformer.from('date')(data['phone_next_renewal']);
       if (typeof data['phone_purchase_date'] !== 'undefined')
-        xData['phonePurchaseDate'] = TypeTransformer.to('Date')(data['phone_purchase_date']);
+        xData['phonePurchaseDate'] = TypeTransformer.from('timestamp')(data['phone_purchase_date']);
       if (typeof data['deactivated'] !== 'undefined')
         xData['deactivated'] = TypeTransformer.to('boolean')(data['deactivated']);
       if (typeof data['canceled'] !== 'undefined')
@@ -1105,7 +1171,7 @@ export default class TypeTransformer {
       if (typeof data['verification_status'] !== 'undefined')
         xData['verificationStatus'] = TypeTransformer.to('string')(data['verification_status']);
       if (typeof data['unverified_hold_until'] !== 'undefined')
-        xData['unverifiedHoldUntil'] = TypeTransformer.to('Date')(data['unverified_hold_until']);
+        xData['unverifiedHoldUntil'] = TypeTransformer.from('date')(data['unverified_hold_until']);
       if (typeof data['can_be_used'] !== 'undefined')
         xData['canBeUsed'] = TypeTransformer.to('boolean')(data['can_be_used']);
       if (typeof data['is_sms_supported'] !== 'undefined')
@@ -1133,10 +1199,11 @@ export default class TypeTransformer {
       if (typeof data['phone_region_name'] !== 'undefined')
         xData['phoneRegionName'] = TypeTransformer.to('string')(data['phone_region_name']);
       if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+        xData['modified'] = TypeTransformer.from('timestamp')(data['modified']);
       return xData;
     },
     NewAttachedPhoneInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phone_id'] !== 'undefined')
         xData['phoneId'] = TypeTransformer.to('number')(data['phone_id']);
@@ -1147,10 +1214,11 @@ export default class TypeTransformer {
       if (typeof data['verification_status'] !== 'undefined')
         xData['verificationStatus'] = TypeTransformer.to('string')(data['verification_status']);
       if (typeof data['unverified_hold_until'] !== 'undefined')
-        xData['unverifiedHoldUntil'] = TypeTransformer.to('Date')(data['unverified_hold_until']);
+        xData['unverifiedHoldUntil'] = TypeTransformer.from('date')(data['unverified_hold_until']);
       return xData;
     },
     PhoneNumberCountryInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['country_code'] !== 'undefined')
         xData['countryCode'] = TypeTransformer.to('string')(data['country_code']);
@@ -1165,7 +1233,7 @@ export default class TypeTransformer {
           data['can_list_phone_numbers']
         );
       if (typeof data['phone_categories'] !== 'undefined')
-        xData['phoneCategories'] = TypeTransformer.to('PhoneNumberCountryCategoryInfo[]')(
+        xData['phoneCategories'] = TypeTransformer.from('[PhoneNumberCountryCategoryInfoType]')(
           data['phone_categories']
         );
       if (typeof data['emergency_calls_to_be_enabled'] !== 'undefined')
@@ -1175,6 +1243,7 @@ export default class TypeTransformer {
       return xData;
     },
     PhoneNumberCountryCategoryInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phone_category_name'] !== 'undefined')
         xData['phoneCategoryName'] = TypeTransformer.to('string')(data['phone_category_name']);
@@ -1195,6 +1264,7 @@ export default class TypeTransformer {
       return xData;
     },
     PhoneNumberCountryStateInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['country_state'] !== 'undefined')
         xData['countryState'] = TypeTransformer.to('string')(data['country_state']);
@@ -1203,6 +1273,7 @@ export default class TypeTransformer {
       return xData;
     },
     PhoneNumberCountryRegionInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phone_region_id'] !== 'undefined')
         xData['phoneRegionId'] = TypeTransformer.to('number')(data['phone_region_id']);
@@ -1229,7 +1300,7 @@ export default class TypeTransformer {
       if (typeof data['is_sms_supported'] !== 'undefined')
         xData['isSmsSupported'] = TypeTransformer.to('boolean')(data['is_sms_supported']);
       if (typeof data['multiple_numbers_price'] !== 'undefined')
-        xData['multipleNumbersPrice'] = TypeTransformer.to('MultipleNumbersPrice[]')(
+        xData['multipleNumbersPrice'] = TypeTransformer.from('[MultipleNumbersPrice]')(
           data['multiple_numbers_price']
         );
       if (typeof data['localized_country_name'] !== 'undefined')
@@ -1269,6 +1340,7 @@ export default class TypeTransformer {
       return xData;
     },
     MultipleNumbersPrice: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['count'] !== 'undefined')
         xData['count'] = TypeTransformer.to('number')(data['count']);
@@ -1297,6 +1369,7 @@ export default class TypeTransformer {
       return xData;
     },
     CallerIDInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['callerid_id'] !== 'undefined')
         xData['calleridId'] = TypeTransformer.to('number')(data['callerid_id']);
@@ -1313,10 +1386,11 @@ export default class TypeTransformer {
           data['verification_call_attempts_left']
         );
       if (typeof data['verified_until'] !== 'undefined')
-        xData['verifiedUntil'] = TypeTransformer.to('Date')(data['verified_until']);
+        xData['verifiedUntil'] = TypeTransformer.from('date')(data['verified_until']);
       return xData;
     },
     OutboundTestPhonenumberInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phone_number'] !== 'undefined')
         xData['phoneNumber'] = TypeTransformer.to('string')(data['phone_number']);
@@ -1327,6 +1401,7 @@ export default class TypeTransformer {
       return xData;
     },
     ContactInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['contact_id'] !== 'undefined')
         xData['contactId'] = TypeTransformer.to('number')(data['contact_id']);
@@ -1343,16 +1418,17 @@ export default class TypeTransformer {
           data['next_verification_after_sec']
         );
       if (typeof data['verified'] !== 'undefined')
-        xData['verified'] = TypeTransformer.to('Date')(data['verified']);
+        xData['verified'] = TypeTransformer.from('timestamp')(data['verified']);
       if (typeof data['notification_group'] !== 'undefined')
         xData['notificationGroup'] = TypeTransformer.to('string[]')(data['notification_group']);
       if (typeof data['created'] !== 'undefined')
-        xData['created'] = TypeTransformer.to('Date')(data['created']);
+        xData['created'] = TypeTransformer.from('timestamp')(data['created']);
       if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+        xData['modified'] = TypeTransformer.from('timestamp')(data['modified']);
       return xData;
     },
     ACDQueueOperatorInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acd_queue_id'] !== 'undefined')
         xData['acdQueueId'] = TypeTransformer.to('number')(data['acd_queue_id']);
@@ -1363,6 +1439,7 @@ export default class TypeTransformer {
       return xData;
     },
     ClonedACDQueueType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acd_queue_id'] !== 'undefined')
         xData['acdQueueId'] = TypeTransformer.to('number')(data['acd_queue_id']);
@@ -1371,6 +1448,7 @@ export default class TypeTransformer {
       return xData;
     },
     SkillInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['skill_id'] !== 'undefined')
         xData['skillId'] = TypeTransformer.to('number')(data['skill_id']);
@@ -1379,6 +1457,7 @@ export default class TypeTransformer {
       return xData;
     },
     ClonedACDSkillType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['skill_id'] !== 'undefined')
         xData['skillId'] = TypeTransformer.to('number')(data['skill_id']);
@@ -1387,6 +1466,7 @@ export default class TypeTransformer {
       return xData;
     },
     ExchangeRatesType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['RUR'] !== 'undefined')
         xData['RUR'] = TypeTransformer.to('number')(data['RUR']);
@@ -1399,14 +1479,16 @@ export default class TypeTransformer {
       return xData;
     },
     ResourcePrice: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['resource_type'] !== 'undefined')
         xData['resourceType'] = TypeTransformer.to('string')(data['resource_type']);
       if (typeof data['price_groups'] !== 'undefined')
-        xData['priceGroups'] = TypeTransformer.to('PriceGroup[]')(data['price_groups']);
+        xData['priceGroups'] = TypeTransformer.from('[PriceGroup]')(data['price_groups']);
       return xData;
     },
     PriceGroup: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['price_group_name'] !== 'undefined')
         xData['priceGroupName'] = TypeTransformer.to('string')(data['price_group_name']);
@@ -1421,10 +1503,11 @@ export default class TypeTransformer {
       if (typeof data['quantum'] !== 'undefined')
         xData['quantum'] = TypeTransformer.to('number')(data['quantum']);
       if (typeof data['params'] !== 'undefined')
-        xData['params'] = TypeTransformer.to('ResourceParams')(data['params']);
+        xData['params'] = TypeTransformer.from('ResourceParams')(data['params']);
       return xData;
     },
     ResourceParams: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['allowed'] !== 'undefined')
         xData['allowed'] = TypeTransformer.to('string[]')(data['allowed']);
@@ -1435,6 +1518,7 @@ export default class TypeTransformer {
       return xData;
     },
     CallListType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['list_id'] !== 'undefined')
         xData['listId'] = TypeTransformer.to('number')(data['list_id']);
@@ -1449,9 +1533,9 @@ export default class TypeTransformer {
       if (typeof data['num_attempts'] !== 'undefined')
         xData['numAttempts'] = TypeTransformer.to('number')(data['num_attempts']);
       if (typeof data['dt_submit'] !== 'undefined')
-        xData['dtSubmit'] = TypeTransformer.to('Date')(data['dt_submit']);
+        xData['dtSubmit'] = TypeTransformer.from('timestamp')(data['dt_submit']);
       if (typeof data['dt_complete'] !== 'undefined')
-        xData['dtComplete'] = TypeTransformer.to('Date')(data['dt_complete']);
+        xData['dtComplete'] = TypeTransformer.from('timestamp')(data['dt_complete']);
       if (typeof data['interval_seconds'] !== 'undefined')
         xData['intervalSeconds'] = TypeTransformer.to('number')(data['interval_seconds']);
       if (typeof data['status'] !== 'undefined')
@@ -1463,17 +1547,22 @@ export default class TypeTransformer {
       return xData;
     },
     CallListDetailType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['list_id'] !== 'undefined')
         xData['listId'] = TypeTransformer.to('number')(data['list_id']);
       if (typeof data['custom_data'] !== 'undefined')
         xData['customData'] = TypeTransformer.to('string')(data['custom_data']);
       if (typeof data['start_execution_time'] !== 'undefined')
-        xData['startExecutionTime'] = TypeTransformer.to('Date')(data['start_execution_time']);
+        xData['startExecutionTime'] = TypeTransformer.from('timestamp')(
+          data['start_execution_time']
+        );
       if (typeof data['call_schedule'] !== 'undefined')
         xData['callSchedule'] = TypeTransformer.to('string')(data['call_schedule']);
       if (typeof data['finish_execution_time'] !== 'undefined')
-        xData['finishExecutionTime'] = TypeTransformer.to('Date')(data['finish_execution_time']);
+        xData['finishExecutionTime'] = TypeTransformer.from('timestamp')(
+          data['finish_execution_time']
+        );
       if (typeof data['result_data'] !== 'undefined')
         xData['resultData'] = TypeTransformer.to('string')(data['result_data']);
       if (typeof data['last_attempt'] !== 'undefined')
@@ -1491,6 +1580,7 @@ export default class TypeTransformer {
       return xData;
     },
     SIPRegistrationType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sip_registration_id'] !== 'undefined')
         xData['sipRegistrationId'] = TypeTransformer.to('number')(data['sip_registration_id']);
@@ -1513,11 +1603,11 @@ export default class TypeTransformer {
       if (typeof data['deactivated'] !== 'undefined')
         xData['deactivated'] = TypeTransformer.to('boolean')(data['deactivated']);
       if (typeof data['next_subscription_renewal'] !== 'undefined')
-        xData['nextSubscriptionRenewal'] = TypeTransformer.to('Date')(
+        xData['nextSubscriptionRenewal'] = TypeTransformer.from('date')(
           data['next_subscription_renewal']
         );
       if (typeof data['purchase_date'] !== 'undefined')
-        xData['purchaseDate'] = TypeTransformer.to('Date')(data['purchase_date']);
+        xData['purchaseDate'] = TypeTransformer.from('timestamp')(data['purchase_date']);
       if (typeof data['subscription_price'] !== 'undefined')
         xData['subscriptionPrice'] = TypeTransformer.to('string')(data['subscription_price']);
       if (typeof data['is_persistent'] !== 'undefined')
@@ -1537,6 +1627,7 @@ export default class TypeTransformer {
       return xData;
     },
     ClonedAdminRoleType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['admin_role_id'] !== 'undefined')
         xData['adminRoleId'] = TypeTransformer.to('number')(data['admin_role_id']);
@@ -1545,6 +1636,7 @@ export default class TypeTransformer {
       return xData;
     },
     ClonedAdminUserType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['admin_user_id'] !== 'undefined')
         xData['adminUserId'] = TypeTransformer.to('number')(data['admin_user_id']);
@@ -1555,6 +1647,7 @@ export default class TypeTransformer {
       return xData;
     },
     GetMoneyAmountToChargeResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['amount'] !== 'undefined')
         xData['amount'] = TypeTransformer.to('number')(data['amount']);
@@ -1573,12 +1666,13 @@ export default class TypeTransformer {
           data['min_robokassa_amount_rub']
         );
       if (typeof data['subscriptions'] !== 'undefined')
-        xData['subscriptions'] = TypeTransformer.to('SubscriptionsToCharge[]')(
+        xData['subscriptions'] = TypeTransformer.from('[SubscriptionsToChargeType]')(
           data['subscriptions']
         );
       return xData;
     },
     ChargedPhoneType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phone_id'] !== 'undefined')
         xData['phoneId'] = TypeTransformer.to('number')(data['phone_id']);
@@ -1591,6 +1685,7 @@ export default class TypeTransformer {
       return xData;
     },
     SubscriptionsToChargeType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subscription_amount'] !== 'undefined')
         xData['subscriptionAmount'] = TypeTransformer.to('number')(data['subscription_amount']);
@@ -1605,22 +1700,24 @@ export default class TypeTransformer {
           data['subscription_auto_charge']
         );
       if (typeof data['subscription_next_renewal'] !== 'undefined')
-        xData['subscriptionNextRenewal'] = TypeTransformer.to('Date')(
+        xData['subscriptionNextRenewal'] = TypeTransformer.from('date')(
           data['subscription_next_renewal']
         );
       return xData;
     },
     AuthorizedAccountIPType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['authorized_ip'] !== 'undefined')
         xData['authorizedIp'] = TypeTransformer.to('string')(data['authorized_ip']);
       if (typeof data['allowed'] !== 'undefined')
         xData['allowed'] = TypeTransformer.to('boolean')(data['allowed']);
       if (typeof data['created'] !== 'undefined')
-        xData['created'] = TypeTransformer.to('Date')(data['created']);
+        xData['created'] = TypeTransformer.from('timestamp')(data['created']);
       return xData;
     },
     AccountVerificationDocument: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['account_document_id'] !== 'undefined')
         xData['accountDocumentId'] = TypeTransformer.to('number')(data['account_document_id']);
@@ -1629,7 +1726,7 @@ export default class TypeTransformer {
       if (typeof data['comment'] !== 'undefined')
         xData['comment'] = TypeTransformer.to('string')(data['comment']);
       if (typeof data['uploaded'] !== 'undefined')
-        xData['uploaded'] = TypeTransformer.to('Date')(data['uploaded']);
+        xData['uploaded'] = TypeTransformer.from('timestamp')(data['uploaded']);
       if (typeof data['account_document_status'] !== 'undefined')
         xData['accountDocumentStatus'] = TypeTransformer.to('string')(
           data['account_document_status']
@@ -1637,26 +1734,33 @@ export default class TypeTransformer {
       return xData;
     },
     AccountVerificationType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['verification_name'] !== 'undefined')
         xData['verificationName'] = TypeTransformer.to('string')(data['verification_name']);
       if (typeof data['verification_status'] !== 'undefined')
         xData['verificationStatus'] = TypeTransformer.to('string')(data['verification_status']);
       if (typeof data['unverified_hold_until'] !== 'undefined')
-        xData['unverifiedHoldUntil'] = TypeTransformer.to('Date')(data['unverified_hold_until']);
+        xData['unverifiedHoldUntil'] = TypeTransformer.from('date')(data['unverified_hold_until']);
       if (typeof data['documents'] !== 'undefined')
-        xData['documents'] = TypeTransformer.to('AccountVerificationDocument[]')(data['documents']);
+        xData['documents'] = TypeTransformer.from('[AccountVerificationDocument]')(
+          data['documents']
+        );
       return xData;
     },
     AccountDocumentsType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['account_id'] !== 'undefined')
         xData['accountId'] = TypeTransformer.to('number')(data['account_id']);
       if (typeof data['verifications'] !== 'undefined')
-        xData['verifications'] = TypeTransformer.to('AccountVerification[]')(data['verifications']);
+        xData['verifications'] = TypeTransformer.from('[AccountVerificationType]')(
+          data['verifications']
+        );
       return xData;
     },
     AccountVerificationsType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['verification_id'] !== 'undefined')
         xData['verificationId'] = TypeTransformer.to('number')(data['verification_id']);
@@ -1671,20 +1775,21 @@ export default class TypeTransformer {
       if (typeof data['comments'] !== 'undefined')
         xData['comments'] = TypeTransformer.to('string')(data['comments']);
       if (typeof data['credentials'] !== 'undefined')
-        xData['credentials'] = TypeTransformer.to('AccountVerificationsCredentials')(
+        xData['credentials'] = TypeTransformer.from('AccountVerificationsTypeCredentials')(
           data['credentials']
         );
       if (typeof data['default_end_user'] !== 'undefined')
-        xData['defaultEndUser'] = TypeTransformer.to('AccountVerificationsDefaultEndUser[]')(
+        xData['defaultEndUser'] = TypeTransformer.from('[AccountVerificationsTypeDefaultEndUser]')(
           data['default_end_user']
         );
       if (typeof data['agreements'] !== 'undefined')
-        xData['agreements'] = TypeTransformer.to('AccountVerificationsAgreements[]')(
+        xData['agreements'] = TypeTransformer.from('[AccountVerificationsTypeAgreements]')(
           data['agreements']
         );
       return xData;
     },
     AccountVerificationsTypeCredentials: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['individual'] !== 'undefined')
         xData['individual'] = TypeTransformer.to('string')(data['individual']);
@@ -1697,6 +1802,7 @@ export default class TypeTransformer {
       return xData;
     },
     AccountVerificationsTypeDefaultEndUser: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['end_user_uuid'] !== 'undefined')
         xData['endUserUuid'] = TypeTransformer.to('number')(data['end_user_uuid']);
@@ -1705,6 +1811,7 @@ export default class TypeTransformer {
       return xData;
     },
     AccountVerificationsTypeAgreements: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['agreement_id'] !== 'undefined')
         xData['agreementId'] = TypeTransformer.to('number')(data['agreement_id']);
@@ -1723,6 +1830,7 @@ export default class TypeTransformer {
       return xData;
     },
     SubscriptionTemplateType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subscription_template_id'] !== 'undefined')
         xData['subscriptionTemplateId'] = TypeTransformer.to('number')(
@@ -1763,12 +1871,14 @@ export default class TypeTransformer {
       return xData;
     },
     AccountCallbacks: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['callbacks'] !== 'undefined')
-        xData['callbacks'] = TypeTransformer.to('AccountCallback[]')(data['callbacks']);
+        xData['callbacks'] = TypeTransformer.from('[AccountCallback]')(data['callbacks']);
       return xData;
     },
     AccountCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['callback_id'] !== 'undefined')
         xData['callbackId'] = TypeTransformer.to('number')(data['callback_id']);
@@ -1793,156 +1903,157 @@ export default class TypeTransformer {
       if (typeof data['currency'] !== 'undefined')
         xData['currency'] = TypeTransformer.to('string')(data['currency']);
       if (typeof data['account_document_uploaded'] !== 'undefined')
-        xData['accountDocumentUploaded'] = TypeTransformer.to('AccountDocumentUploadedCallback')(
+        xData['accountDocumentUploaded'] = TypeTransformer.from('AccountDocumentUploadedCallback')(
           data['account_document_uploaded']
         );
       if (typeof data['batch_task_cancelling_completed'] !== 'undefined')
-        xData['batchTaskCancellingCompleted'] = TypeTransformer.to('BatchTaskCancellingCallback')(
+        xData['batchTaskCancellingCompleted'] = TypeTransformer.from('BatchTaskCancellingCallback')(
           data['batch_task_cancelling_completed']
         );
       if (typeof data['regulation_address_uploaded'] !== 'undefined')
-        xData['regulationAddressUploaded'] = TypeTransformer.to(
+        xData['regulationAddressUploaded'] = TypeTransformer.from(
           'RegulationAddressUploadedCallback'
         )(data['regulation_address_uploaded']);
       if (typeof data['account_document_verified'] !== 'undefined')
-        xData['accountDocumentVerified'] = TypeTransformer.to('AccountDocumentVerifiedCallback')(
+        xData['accountDocumentVerified'] = TypeTransformer.from('AccountDocumentVerifiedCallback')(
           data['account_document_verified']
         );
       if (typeof data['account_is_frozen'] !== 'undefined')
-        xData['accountIsFrozen'] = TypeTransformer.to('AccountIsFrozenCallback')(
+        xData['accountIsFrozen'] = TypeTransformer.from('AccountIsFrozenCallback')(
           data['account_is_frozen']
         );
       if (typeof data['account_is_unfrozen'] !== 'undefined')
-        xData['accountIsUnfrozen'] = TypeTransformer.to('AccountIsUnfrozenCallback')(
+        xData['accountIsUnfrozen'] = TypeTransformer.from('AccountIsUnfrozenCallback')(
           data['account_is_unfrozen']
         );
       if (typeof data['activate_successful'] !== 'undefined')
-        xData['activateSuccessful'] = TypeTransformer.to('ActivateSuccessfulCallback')(
+        xData['activateSuccessful'] = TypeTransformer.from('ActivateSuccessfulCallback')(
           data['activate_successful']
         );
       if (typeof data['call_history_report'] !== 'undefined')
-        xData['callHistoryReport'] = TypeTransformer.to('CallHistoryReportCallback')(
+        xData['callHistoryReport'] = TypeTransformer.from('CallHistoryReportCallback')(
           data['call_history_report']
         );
       if (typeof data['card_expired'] !== 'undefined')
-        xData['cardExpired'] = TypeTransformer.to('CardExpiredCallback')(data['card_expired']);
+        xData['cardExpired'] = TypeTransformer.from('CardExpiredCallback')(data['card_expired']);
       if (typeof data['card_expires_in_month'] !== 'undefined')
-        xData['cardExpiresInMonth'] = TypeTransformer.to('CardExpiresInMonthCallback')(
+        xData['cardExpiresInMonth'] = TypeTransformer.from('CardExpiresInMonthCallback')(
           data['card_expires_in_month']
         );
       if (typeof data['card_payment'] !== 'undefined')
-        xData['cardPayment'] = TypeTransformer.to('CardPaymentCallback')(data['card_payment']);
+        xData['cardPayment'] = TypeTransformer.from('CardPaymentCallback')(data['card_payment']);
       if (typeof data['card_payment_failed'] !== 'undefined')
-        xData['cardPaymentFailed'] = TypeTransformer.to('CardPaymentFailedCallback')(
+        xData['cardPaymentFailed'] = TypeTransformer.from('CardPaymentFailedCallback')(
           data['card_payment_failed']
         );
       if (typeof data['robokassa_payment'] !== 'undefined')
-        xData['robokassaPayment'] = TypeTransformer.to('RobokassaPaymentCallback')(
+        xData['robokassaPayment'] = TypeTransformer.from('RobokassaPaymentCallback')(
           data['robokassa_payment']
         );
       if (typeof data['wire_transfer'] !== 'undefined')
-        xData['wireTransfer'] = TypeTransformer.to('WireTransferCallback')(data['wire_transfer']);
+        xData['wireTransfer'] = TypeTransformer.from('WireTransferCallback')(data['wire_transfer']);
       if (typeof data['js_fail'] !== 'undefined')
-        xData['jsFail'] = TypeTransformer.to('JSFailCallback')(data['js_fail']);
+        xData['jsFail'] = TypeTransformer.from('JSFailCallback')(data['js_fail']);
       if (typeof data['min_balance'] !== 'undefined')
-        xData['minBalance'] = TypeTransformer.to('MinBalanceCallback')(data['min_balance']);
+        xData['minBalance'] = TypeTransformer.from('MinBalanceCallback')(data['min_balance']);
       if (typeof data['regulation_address_verified'] !== 'undefined')
-        xData['regulationAddressVerified'] = TypeTransformer.to(
+        xData['regulationAddressVerified'] = TypeTransformer.from(
           'RegulationAddressVerifiedCallback'
         )(data['regulation_address_verified']);
       if (typeof data['renewed_subscriptions'] !== 'undefined')
-        xData['renewedSubscriptions'] = TypeTransformer.to('RenewedSubscriptionsCallback')(
+        xData['renewedSubscriptions'] = TypeTransformer.from('RenewedSubscriptionsCallback')(
           data['renewed_subscriptions']
         );
       if (typeof data['reset_account_password_request'] !== 'undefined')
-        xData['resetAccountPasswordRequest'] = TypeTransformer.to(
+        xData['resetAccountPasswordRequest'] = TypeTransformer.from(
           'ResetAccountPasswordRequestCallback'
         )(data['reset_account_password_request']);
       if (typeof data['sip_registration_fail'] !== 'undefined')
-        xData['sipRegistrationFail'] = TypeTransformer.to('SIPRegistrationFailCallback')(
+        xData['sipRegistrationFail'] = TypeTransformer.from('SIPRegistrationFailCallback')(
           data['sip_registration_fail']
         );
       if (typeof data['sip_registration_recovered'] !== 'undefined')
-        xData['sipRegistrationRecovered'] = TypeTransformer.to('SIPRegistrationRecoveredCallback')(
-          data['sip_registration_recovered']
-        );
+        xData['sipRegistrationRecovered'] = TypeTransformer.from(
+          'SIPRegistrationRecoveredCallback'
+        )(data['sip_registration_recovered']);
       if (typeof data['subscription_is_frozen'] !== 'undefined')
-        xData['subscriptionIsFrozen'] = TypeTransformer.to('SubscriptionIsFrozenCallback')(
+        xData['subscriptionIsFrozen'] = TypeTransformer.from('SubscriptionIsFrozenCallback')(
           data['subscription_is_frozen']
         );
       if (typeof data['subscription_is_detached'] !== 'undefined')
-        xData['subscriptionIsDetached'] = TypeTransformer.to('SubscriptionIsDetachedCallback')(
+        xData['subscriptionIsDetached'] = TypeTransformer.from('SubscriptionIsDetachedCallback')(
           data['subscription_is_detached']
         );
       if (typeof data['transaction_history_report'] !== 'undefined')
-        xData['transactionHistoryReport'] = TypeTransformer.to('TransactionHistoryReportCallback')(
-          data['transaction_history_report']
-        );
+        xData['transactionHistoryReport'] = TypeTransformer.from(
+          'TransactionHistoryReportCallback'
+        )(data['transaction_history_report']);
       if (typeof data['unverified_subscription_detached'] !== 'undefined')
-        xData['unverifiedSubscriptionDetached'] = TypeTransformer.to(
+        xData['unverifiedSubscriptionDetached'] = TypeTransformer.from(
           'UnverifiedSubscriptionDetachedCallback'
         )(data['unverified_subscription_detached']);
       if (typeof data['expiring_callerid'] !== 'undefined')
-        xData['expiringCallerid'] = TypeTransformer.to('ExpiringCallerIDCallback')(
+        xData['expiringCallerid'] = TypeTransformer.from('ExpiringCallerIDCallback')(
           data['expiring_callerid']
         );
       if (typeof data['transcription_complete'] !== 'undefined')
-        xData['transcriptionComplete'] = TypeTransformer.to('TranscriptionCompleteCallback')(
+        xData['transcriptionComplete'] = TypeTransformer.from('TranscriptionCompleteCallback')(
           data['transcription_complete']
         );
       if (typeof data['sms_inbound'] !== 'undefined')
-        xData['smsInbound'] = TypeTransformer.to('InboundSmsCallback')(data['sms_inbound']);
+        xData['smsInbound'] = TypeTransformer.from('InboundSmsCallback')(data['sms_inbound']);
       if (typeof data['phone_number_activation_status_changed'] !== 'undefined')
-        xData['phoneNumberActivationStatusChanged'] = TypeTransformer.to(
+        xData['phoneNumberActivationStatusChanged'] = TypeTransformer.from(
           'PhoneNumberActivationStatusChangedCallback'
         )(data['phone_number_activation_status_changed']);
       if (typeof data['expiring_agreement'] !== 'undefined')
-        xData['expiringAgreement'] = TypeTransformer.to('ExpiringAgreementCallback')(
+        xData['expiringAgreement'] = TypeTransformer.from('ExpiringAgreementCallback')(
           data['expiring_agreement']
         );
       if (typeof data['expired_agreement'] !== 'undefined')
-        xData['expiredAgreement'] = TypeTransformer.to('ExpiredAgreementCallback')(
+        xData['expiredAgreement'] = TypeTransformer.from('ExpiredAgreementCallback')(
           data['expired_agreement']
         );
       if (typeof data['restored_agreement_status'] !== 'undefined')
-        xData['restoredAgreementStatus'] = TypeTransformer.to('RestoredAgreementStatusCallback')(
+        xData['restoredAgreementStatus'] = TypeTransformer.from('RestoredAgreementStatusCallback')(
           data['restored_agreement_status']
         );
       if (typeof data['next_charge_alert'] !== 'undefined')
-        xData['nextChargeAlert'] = TypeTransformer.to('NextChargeAlertCallback')(
+        xData['nextChargeAlert'] = TypeTransformer.from('NextChargeAlertCallback')(
           data['next_charge_alert']
         );
       if (typeof data['certificate_expired'] !== 'undefined')
-        xData['certificateExpired'] = TypeTransformer.to('CertificateExpiredCallback')(
+        xData['certificateExpired'] = TypeTransformer.from('CertificateExpiredCallback')(
           data['certificate_expired']
         );
       if (typeof data['expired_certificates'] !== 'undefined')
-        xData['expiredCertificates'] = TypeTransformer.to('ExpiredCertificateCallback')(
+        xData['expiredCertificates'] = TypeTransformer.from('ExpiredCertificateCallback')(
           data['expired_certificates']
         );
       if (typeof data['expiring_certificates'] !== 'undefined')
-        xData['expiringCertificates'] = TypeTransformer.to('ExpiringCertificateCallback')(
+        xData['expiringCertificates'] = TypeTransformer.from('ExpiringCertificateCallback')(
           data['expiring_certificates']
         );
       if (typeof data['account_document_status_updated'] !== 'undefined')
-        xData['accountDocumentStatusUpdated'] = TypeTransformer.to(
+        xData['accountDocumentStatusUpdated'] = TypeTransformer.from(
           'AccountDocumentStatusUpdatedCallback'
         )(data['account_document_status_updated']);
       if (typeof data['a2p_sms_activated'] !== 'undefined')
-        xData['a2pSmsActivated'] = TypeTransformer.to('A2PActivatedCallback')(
+        xData['a2pSmsActivated'] = TypeTransformer.from('A2PActivatedCallback')(
           data['a2p_sms_activated']
         );
       if (typeof data['regulation_address_documents_requested'] !== 'undefined')
-        xData['regulationAddressDocumentsRequested'] = TypeTransformer.to(
+        xData['regulationAddressDocumentsRequested'] = TypeTransformer.from(
           'RegulationAddressDocumentsRequestedCallback'
         )(data['regulation_address_documents_requested']);
       if (typeof data['invoice_received'] !== 'undefined')
-        xData['invoiceReceived'] = TypeTransformer.to('InvoiceReceivedCallback')(
+        xData['invoiceReceived'] = TypeTransformer.from('InvoiceReceivedCallback')(
           data['invoice_received']
         );
       return xData;
     },
     A2PSmsDeliveryCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['id'] !== 'undefined') xData['id'] = TypeTransformer.to('number')(data['id']);
       if (typeof data['source_number'] !== 'undefined')
@@ -1954,11 +2065,12 @@ export default class TypeTransformer {
       return xData;
     },
     AccountDocumentUploadedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['account_document_id'] !== 'undefined')
         xData['accountDocumentId'] = TypeTransformer.to('number')(data['account_document_id']);
       if (typeof data['uploaded'] !== 'undefined')
-        xData['uploaded'] = TypeTransformer.to('Date')(data['uploaded']);
+        xData['uploaded'] = TypeTransformer.from('timestamp')(data['uploaded']);
       if (typeof data['verification_name'] !== 'undefined')
         xData['verificationName'] = TypeTransformer.to('string')(data['verification_name']);
       if (typeof data['legal_status'] !== 'undefined')
@@ -1966,6 +2078,7 @@ export default class TypeTransformer {
       return xData;
     },
     BatchTaskCancellingCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['batch_id'] !== 'undefined')
         xData['batchId'] = TypeTransformer.to('number')(data['batch_id']);
@@ -1976,11 +2089,12 @@ export default class TypeTransformer {
       return xData;
     },
     RegulationAddressUploadedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['regulation_address_id'] !== 'undefined')
         xData['regulationAddressId'] = TypeTransformer.to('number')(data['regulation_address_id']);
       if (typeof data['uploaded'] !== 'undefined')
-        xData['uploaded'] = TypeTransformer.to('Date')(data['uploaded']);
+        xData['uploaded'] = TypeTransformer.from('timestamp')(data['uploaded']);
       if (typeof data['is_individual'] !== 'undefined')
         xData['isIndividual'] = TypeTransformer.to('boolean')(data['is_individual']);
       if (typeof data['regulation_address_name'] !== 'undefined')
@@ -1990,6 +2104,7 @@ export default class TypeTransformer {
       return xData;
     },
     AccountDocumentVerifiedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['account_document_id'] !== 'undefined')
         xData['accountDocumentId'] = TypeTransformer.to('number')(data['account_document_id']);
@@ -1998,7 +2113,7 @@ export default class TypeTransformer {
           data['account_document_status']
         );
       if (typeof data['uploaded'] !== 'undefined')
-        xData['uploaded'] = TypeTransformer.to('Date')(data['uploaded']);
+        xData['uploaded'] = TypeTransformer.from('timestamp')(data['uploaded']);
       if (typeof data['comment'] !== 'undefined')
         xData['comment'] = TypeTransformer.to('string')(data['comment']);
       if (typeof data['verification_name'] !== 'undefined')
@@ -2008,41 +2123,48 @@ export default class TypeTransformer {
       return xData;
     },
     AccountIsFrozenCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     AccountIsUnfrozenCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     ActivateSuccessfulCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     CallHistoryReportCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['history_report_id'] !== 'undefined')
         xData['historyReportId'] = TypeTransformer.to('number')(data['history_report_id']);
       if (typeof data['success'] !== 'undefined')
         xData['success'] = TypeTransformer.to('boolean')(data['success']);
       if (typeof data['order_date'] !== 'undefined')
-        xData['orderDate'] = TypeTransformer.to('Date')(data['order_date']);
+        xData['orderDate'] = TypeTransformer.from('timestamp')(data['order_date']);
       return xData;
     },
     CardExpiredCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     CardExpiresInMonthCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     CardPaymentCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['transaction_id'] !== 'undefined')
         xData['transactionId'] = TypeTransformer.to('number')(data['transaction_id']);
@@ -2053,11 +2175,13 @@ export default class TypeTransformer {
       return xData;
     },
     CardPaymentFailedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     RobokassaPaymentCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['transaction_id'] !== 'undefined')
         xData['transactionId'] = TypeTransformer.to('number')(data['transaction_id']);
@@ -2068,6 +2192,7 @@ export default class TypeTransformer {
       return xData;
     },
     WireTransferCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['transaction_id'] !== 'undefined')
         xData['transactionId'] = TypeTransformer.to('number')(data['transaction_id']);
@@ -2078,11 +2203,13 @@ export default class TypeTransformer {
       return xData;
     },
     JSFailCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     MinBalanceCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['is_min_credit'] !== 'undefined')
         xData['isMinCredit'] = TypeTransformer.to('boolean')(data['is_min_credit']);
@@ -2091,6 +2218,7 @@ export default class TypeTransformer {
       return xData;
     },
     RegulationAddressVerifiedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['regulation_address_id'] !== 'undefined')
         xData['regulationAddressId'] = TypeTransformer.to('number')(data['regulation_address_id']);
@@ -2099,7 +2227,7 @@ export default class TypeTransformer {
           data['regulation_address_status']
         );
       if (typeof data['uploaded'] !== 'undefined')
-        xData['uploaded'] = TypeTransformer.to('Date')(data['uploaded']);
+        xData['uploaded'] = TypeTransformer.from('timestamp')(data['uploaded']);
       if (typeof data['is_individual'] !== 'undefined')
         xData['isIndividual'] = TypeTransformer.to('boolean')(data['is_individual']);
       if (typeof data['comment'] !== 'undefined')
@@ -2111,14 +2239,16 @@ export default class TypeTransformer {
       return xData;
     },
     RenewedSubscriptionsCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subscriptions'] !== 'undefined')
-        xData['subscriptions'] = TypeTransformer.to('RenewedSubscriptionsCallbackItem[]')(
+        xData['subscriptions'] = TypeTransformer.from('[RenewedSubscriptionsCallbackItem]')(
           data['subscriptions']
         );
       return xData;
     },
     RenewedSubscriptionsCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['type'] !== 'undefined')
         xData['type'] = TypeTransformer.to('string')(data['type']);
@@ -2127,25 +2257,28 @@ export default class TypeTransformer {
       if (typeof data['cost'] !== 'undefined')
         xData['cost'] = TypeTransformer.to('number')(data['cost']);
       if (typeof data['next_renewal'] !== 'undefined')
-        xData['nextRenewal'] = TypeTransformer.to('Date')(data['next_renewal']);
+        xData['nextRenewal'] = TypeTransformer.from('date')(data['next_renewal']);
       if (typeof data['details'] !== 'undefined')
-        xData['details'] = TypeTransformer.to('SubscriptionCallbackDetails[]')(data['details']);
+        xData['details'] = TypeTransformer.from('[SubscriptionCallbackDetails]')(data['details']);
       return xData;
     },
     ResetAccountPasswordRequestCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     SIPRegistrationFailCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sip_registrations'] !== 'undefined')
-        xData['sipRegistrations'] = TypeTransformer.to('SIPRegistrationIsFailedCallbackItem[]')(
+        xData['sipRegistrations'] = TypeTransformer.from('[SIPRegistrationIsFailedCallbackItem]')(
           data['sip_registrations']
         );
       return xData;
     },
     SIPRegistrationIsFailedCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sip_registration_id'] !== 'undefined')
         xData['sipRegistrationId'] = TypeTransformer.to('number')(data['sip_registration_id']);
@@ -2156,46 +2289,52 @@ export default class TypeTransformer {
       return xData;
     },
     SIPRegistrationRecoveredCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sip_registrations'] !== 'undefined')
-        xData['sipRegistrations'] = TypeTransformer.to('SIPRegistrationIsRecoveredCallbackItem[]')(
-          data['sip_registrations']
-        );
+        xData['sipRegistrations'] = TypeTransformer.from(
+          '[SIPRegistrationIsRecoveredCallbackItem]'
+        )(data['sip_registrations']);
       return xData;
     },
     SIPRegistrationIsRecoveredCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sip_registration_id'] !== 'undefined')
         xData['sipRegistrationId'] = TypeTransformer.to('number')(data['sip_registration_id']);
       return xData;
     },
     SubscriptionIsDetachedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subscriptions'] !== 'undefined')
-        xData['subscriptions'] = TypeTransformer.to('SubscriptionIsDetachedCallbackItem[]')(
+        xData['subscriptions'] = TypeTransformer.from('[SubscriptionIsDetachedCallbackItem]')(
           data['subscriptions']
         );
       return xData;
     },
     SubscriptionIsDetachedCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['type'] !== 'undefined')
         xData['type'] = TypeTransformer.to('string')(data['type']);
       if (typeof data['name'] !== 'undefined')
         xData['name'] = TypeTransformer.to('string')(data['name']);
       if (typeof data['details'] !== 'undefined')
-        xData['details'] = TypeTransformer.to('SubscriptionCallbackDetails[]')(data['details']);
+        xData['details'] = TypeTransformer.from('[SubscriptionCallbackDetails]')(data['details']);
       return xData;
     },
     SubscriptionIsFrozenCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subscriptions'] !== 'undefined')
-        xData['subscriptions'] = TypeTransformer.to('SubscriptionIsFrozenCallbackItem[]')(
+        xData['subscriptions'] = TypeTransformer.from('[SubscriptionIsFrozenCallbackItem]')(
           data['subscriptions']
         );
       return xData;
     },
     SubscriptionIsFrozenCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['type'] !== 'undefined')
         xData['type'] = TypeTransformer.to('string')(data['type']);
@@ -2204,54 +2343,60 @@ export default class TypeTransformer {
       if (typeof data['cost'] !== 'undefined')
         xData['cost'] = TypeTransformer.to('number')(data['cost']);
       if (typeof data['details'] !== 'undefined')
-        xData['details'] = TypeTransformer.to('SubscriptionCallbackDetails[]')(data['details']);
+        xData['details'] = TypeTransformer.from('[SubscriptionCallbackDetails]')(data['details']);
       return xData;
     },
     TransactionHistoryReportCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['history_report_id'] !== 'undefined')
         xData['historyReportId'] = TypeTransformer.to('number')(data['history_report_id']);
       if (typeof data['success'] !== 'undefined')
         xData['success'] = TypeTransformer.to('boolean')(data['success']);
       if (typeof data['order_date'] !== 'undefined')
-        xData['orderDate'] = TypeTransformer.to('Date')(data['order_date']);
+        xData['orderDate'] = TypeTransformer.from('timestamp')(data['order_date']);
       return xData;
     },
     UnverifiedSubscriptionDetachedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subscriptions'] !== 'undefined')
-        xData['subscriptions'] = TypeTransformer.to('UnverifiedSubscriptionDetachedCallbackItem[]')(
-          data['subscriptions']
-        );
+        xData['subscriptions'] = TypeTransformer.from(
+          '[UnverifiedSubscriptionDetachedCallbackItem]'
+        )(data['subscriptions']);
       return xData;
     },
     UnverifiedSubscriptionDetachedCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['type'] !== 'undefined')
         xData['type'] = TypeTransformer.to('string')(data['type']);
       if (typeof data['name'] !== 'undefined')
         xData['name'] = TypeTransformer.to('string')(data['name']);
       if (typeof data['details'] !== 'undefined')
-        xData['details'] = TypeTransformer.to('SubscriptionCallbackDetails[]')(data['details']);
+        xData['details'] = TypeTransformer.from('[SubscriptionCallbackDetails]')(data['details']);
       return xData;
     },
     ExpiringCallerIDCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['callerids'] !== 'undefined')
         xData['callerids'] = TypeTransformer.to('string[]')(data['callerids']);
       if (typeof data['expiration_date'] !== 'undefined')
-        xData['expirationDate'] = TypeTransformer.to('Date')(data['expiration_date']);
+        xData['expirationDate'] = TypeTransformer.from('date')(data['expiration_date']);
       return xData;
     },
     TranscriptionCompleteCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['transcription_complete'] !== 'undefined')
-        xData['transcriptionComplete'] = TypeTransformer.to('TranscriptionCompleteCallbackItem')(
+        xData['transcriptionComplete'] = TypeTransformer.from('TranscriptionCompleteCallbackItem')(
           data['transcription_complete']
         );
       return xData;
     },
     TranscriptionCompleteCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['record_url'] !== 'undefined')
         xData['recordUrl'] = TypeTransformer.to('string')(data['record_url']);
@@ -2266,14 +2411,16 @@ export default class TypeTransformer {
       return xData;
     },
     ExpiringAgreementCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['expiration_date'] !== 'undefined')
-        xData['expirationDate'] = TypeTransformer.to('Date')(data['expiration_date']);
+        xData['expirationDate'] = TypeTransformer.from('date')(data['expiration_date']);
       if (typeof data['until_expiration'] !== 'undefined')
         xData['untilExpiration'] = TypeTransformer.to('number')(data['until_expiration']);
       return xData;
     },
     NextChargeAlertCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['required_money'] !== 'undefined')
         xData['requiredMoney'] = TypeTransformer.to('number')(data['required_money']);
@@ -2284,49 +2431,55 @@ export default class TypeTransformer {
       return xData;
     },
     CertificateExpiredCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     ExpiredCertificateCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['certificates'] !== 'undefined')
-        xData['certificates'] = TypeTransformer.to('CertificateInfo[]')(data['certificates']);
+        xData['certificates'] = TypeTransformer.from('[CertificateInfoType]')(data['certificates']);
       return xData;
     },
     ExpiringCertificateCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['certificates'] !== 'undefined')
-        xData['certificates'] = TypeTransformer.to('CertificateInfo[]')(data['certificates']);
+        xData['certificates'] = TypeTransformer.from('[CertificateInfoType]')(data['certificates']);
       return xData;
     },
     CertificateInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['push_credential_id'] !== 'undefined')
         xData['pushCredentialId'] = TypeTransformer.to('number')(data['push_credential_id']);
       if (typeof data['cert_file_name'] !== 'undefined')
         xData['certFileName'] = TypeTransformer.to('string')(data['cert_file_name']);
       if (typeof data['expiration_date'] !== 'undefined')
-        xData['expirationDate'] = TypeTransformer.to('Date')(data['expiration_date']);
+        xData['expirationDate'] = TypeTransformer.from('date')(data['expiration_date']);
       if (typeof data['applications'] !== 'undefined')
         xData['applications'] = TypeTransformer.to('string[]')(data['applications']);
       return xData;
     },
     SubscriptionCallbackDetails: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['type'] !== 'undefined')
         xData['type'] = TypeTransformer.to('string')(data['type']);
       if (typeof data['phone_numbers'] !== 'undefined')
-        xData['phoneNumbers'] = TypeTransformer.to('SubscriptionCallbackDetailsPhoneNumbers[]')(
+        xData['phoneNumbers'] = TypeTransformer.from('[SubscriptionCallbackDetailsPhoneNumbers]')(
           data['phone_numbers']
         );
       if (typeof data['sip_registrations'] !== 'undefined')
-        xData['sipRegistrations'] = TypeTransformer.to(
-          'SubscriptionCallbackDetailsSipRegistrations[]'
+        xData['sipRegistrations'] = TypeTransformer.from(
+          '[SubscriptionCallbackDetailsSipRegistrations]'
         )(data['sip_registrations']);
       return xData;
     },
     SubscriptionCallbackDetailsPhoneNumbers: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phone_id'] !== 'undefined')
         xData['phoneId'] = TypeTransformer.to('number')(data['phone_id']);
@@ -2335,18 +2488,21 @@ export default class TypeTransformer {
       return xData;
     },
     SubscriptionCallbackDetailsSipRegistrations: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sip_registration_id'] !== 'undefined')
         xData['sipRegistrationId'] = TypeTransformer.to('number')(data['sip_registration_id']);
       return xData;
     },
     A2PActivatedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['a2p_enabled'] !== 'undefined')
         xData['a2pEnabled'] = TypeTransformer.to('boolean')(data['a2p_enabled']);
       return xData;
     },
     AccountDocumentStatusUpdatedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['account_document_id'] !== 'undefined')
         xData['accountDocumentId'] = TypeTransformer.to('number')(data['account_document_id']);
@@ -2359,7 +2515,7 @@ export default class TypeTransformer {
           data['account_document_status']
         );
       if (typeof data['update_time'] !== 'undefined')
-        xData['updateTime'] = TypeTransformer.to('Date')(data['update_time']);
+        xData['updateTime'] = TypeTransformer.from('timestamp')(data['update_time']);
       if (typeof data['comment'] !== 'undefined')
         xData['comment'] = TypeTransformer.to('string')(data['comment']);
       if (typeof data['legal_status'] !== 'undefined')
@@ -2367,6 +2523,7 @@ export default class TypeTransformer {
       return xData;
     },
     RegulationAddressDocumentsRequestedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['regulation_address_id'] !== 'undefined')
         xData['regulationAddressId'] = TypeTransformer.to('number')(data['regulation_address_id']);
@@ -2379,7 +2536,7 @@ export default class TypeTransformer {
           data['regulation_address_status']
         );
       if (typeof data['update_time'] !== 'undefined')
-        xData['updateTime'] = TypeTransformer.to('Date')(data['update_time']);
+        xData['updateTime'] = TypeTransformer.from('timestamp')(data['update_time']);
       if (typeof data['is_individual'] !== 'undefined')
         xData['isIndividual'] = TypeTransformer.to('boolean')(data['is_individual']);
       if (typeof data['comment'] !== 'undefined')
@@ -2387,13 +2544,14 @@ export default class TypeTransformer {
       return xData;
     },
     InvoiceReceivedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['invoice_id'] !== 'undefined')
         xData['invoiceId'] = TypeTransformer.to('number')(data['invoice_id']);
       if (typeof data['invoice_date'] !== 'undefined')
-        xData['invoiceDate'] = TypeTransformer.to('Date')(data['invoice_date']);
+        xData['invoiceDate'] = TypeTransformer.from('timestamp')(data['invoice_date']);
       if (typeof data['receival_date'] !== 'undefined')
-        xData['receivalDate'] = TypeTransformer.to('Date')(data['receival_date']);
+        xData['receivalDate'] = TypeTransformer.from('timestamp')(data['receival_date']);
       if (typeof data['amount'] !== 'undefined')
         xData['amount'] = TypeTransformer.to('string')(data['amount']);
       if (typeof data['tax_amount'] !== 'undefined')
@@ -2403,6 +2561,7 @@ export default class TypeTransformer {
       return xData;
     },
     ZipCode: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['city'] !== 'undefined')
         xData['city'] = TypeTransformer.to('string')(data['city']);
@@ -2411,6 +2570,7 @@ export default class TypeTransformer {
       return xData;
     },
     RegulationCountry: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['country_code'] !== 'undefined')
         xData['countryCode'] = TypeTransformer.to('string')(data['country_code']);
@@ -2419,6 +2579,7 @@ export default class TypeTransformer {
       return xData;
     },
     RegulationAddress: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['regulation_address_id'] !== 'undefined')
         xData['regulationAddressId'] = TypeTransformer.to('number')(data['regulation_address_id']);
@@ -2455,6 +2616,7 @@ export default class TypeTransformer {
       return xData;
     },
     RegulationRegionRecord: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phone_region_id'] !== 'undefined')
         xData['phoneRegionId'] = TypeTransformer.to('number')(data['phone_region_id']);
@@ -2473,6 +2635,7 @@ export default class TypeTransformer {
       return xData;
     },
     BankCardType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['bank_card_provider'] !== 'undefined')
         xData['bankCardProvider'] = TypeTransformer.to('string')(data['bank_card_provider']);
@@ -2489,7 +2652,7 @@ export default class TypeTransformer {
       if (typeof data['acct'] !== 'undefined')
         xData['acct'] = TypeTransformer.to('number')(data['acct']);
       if (typeof data['last_error'] !== 'undefined')
-        xData['lastError'] = TypeTransformer.to('BankCardError')(data['last_error']);
+        xData['lastError'] = TypeTransformer.from('BankCardErrorType')(data['last_error']);
       if (typeof data['card_holder'] !== 'undefined')
         xData['cardHolder'] = TypeTransformer.to('string')(data['card_holder']);
       if (typeof data['card_type'] !== 'undefined')
@@ -2497,9 +2660,10 @@ export default class TypeTransformer {
       return xData;
     },
     BankCardErrorType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['date'] !== 'undefined')
-        xData['date'] = TypeTransformer.to('Date')(data['date']);
+        xData['date'] = TypeTransformer.from('timestamp')(data['date']);
       if (typeof data['msg'] !== 'undefined')
         xData['msg'] = TypeTransformer.to('string')(data['msg']);
       if (typeof data['amount'] !== 'undefined')
@@ -2509,6 +2673,7 @@ export default class TypeTransformer {
       return xData;
     },
     PstnBlackListInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['pstn_blacklist_id'] !== 'undefined')
         xData['pstnBlacklistId'] = TypeTransformer.to('number')(data['pstn_blacklist_id']);
@@ -2517,22 +2682,25 @@ export default class TypeTransformer {
       return xData;
     },
     DialogflowKeyInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['dialogflow_key_id'] !== 'undefined')
         xData['dialogflowKeyId'] = TypeTransformer.to('number')(data['dialogflow_key_id']);
       if (typeof data['content'] !== 'undefined')
-        xData['content'] = TypeTransformer.to('DialogflowKey')(data['content']);
+        xData['content'] = TypeTransformer.from('DialogflowKey')(data['content']);
       if (typeof data['applications'] !== 'undefined')
-        xData['applications'] = TypeTransformer.to('ApplicationInfo[]')(data['applications']);
+        xData['applications'] = TypeTransformer.from('[ApplicationInfoType]')(data['applications']);
       return xData;
     },
     DialogflowKey: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['project_id'] !== 'undefined')
         xData['projectId'] = TypeTransformer.to('string')(data['project_id']);
       return xData;
     },
     PushCredentialInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['push_credential_id'] !== 'undefined')
         xData['pushCredentialId'] = TypeTransformer.to('number')(data['push_credential_id']);
@@ -2545,12 +2713,13 @@ export default class TypeTransformer {
       if (typeof data['credential_bundle'] !== 'undefined')
         xData['credentialBundle'] = TypeTransformer.to('string')(data['credential_bundle']);
       if (typeof data['content'] !== 'undefined')
-        xData['content'] = TypeTransformer.to('PushCredentialContent[]')(data['content']);
+        xData['content'] = TypeTransformer.from('[PushCredentialContent]')(data['content']);
       if (typeof data['applications'] !== 'undefined')
-        xData['applications'] = TypeTransformer.to('ApplicationInfo[]')(data['applications']);
+        xData['applications'] = TypeTransformer.from('[ApplicationInfoType]')(data['applications']);
       return xData;
     },
     PushCredentialContent: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['cert_file_name'] !== 'undefined')
         xData['certFileName'] = TypeTransformer.to('string')(data['cert_file_name']);
@@ -2567,20 +2736,23 @@ export default class TypeTransformer {
       return xData;
     },
     InboundSmsCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sms_inbound'] !== 'undefined')
-        xData['smsInbound'] = TypeTransformer.to('InboundSmsCallbackItem')(data['sms_inbound']);
+        xData['smsInbound'] = TypeTransformer.from('InboundSmsCallbackItem')(data['sms_inbound']);
       return xData;
     },
     PhoneNumberActivationStatusChangedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phone_number_activation_status_changed'] !== 'undefined')
-        xData['phoneNumberActivationStatusChanged'] = TypeTransformer.to(
+        xData['phoneNumberActivationStatusChanged'] = TypeTransformer.from(
           'PhoneNumberActivationStatusChangedCallbackItem'
         )(data['phone_number_activation_status_changed']);
       return xData;
     },
     PhoneNumberActivationStatusChangedCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phone_number'] !== 'undefined')
         xData['phoneNumber'] = TypeTransformer.to('string')(data['phone_number']);
@@ -2589,6 +2761,7 @@ export default class TypeTransformer {
       return xData;
     },
     InboundSmsCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['source_number'] !== 'undefined')
         xData['sourceNumber'] = TypeTransformer.to('string')(data['source_number']);
@@ -2599,6 +2772,7 @@ export default class TypeTransformer {
       return xData;
     },
     RecordStorageInfoType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['record_storage_id'] !== 'undefined')
         xData['recordStorageId'] = TypeTransformer.to('number')(data['record_storage_id']);
@@ -2607,6 +2781,7 @@ export default class TypeTransformer {
       return xData;
     },
     SmsTransaction: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['message_id'] !== 'undefined')
         xData['messageId'] = TypeTransformer.to('number')(data['message_id']);
@@ -2615,6 +2790,7 @@ export default class TypeTransformer {
       return xData;
     },
     FailedSms: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['destination_number'] !== 'undefined')
         xData['destinationNumber'] = TypeTransformer.to('string')(data['destination_number']);
@@ -2625,6 +2801,7 @@ export default class TypeTransformer {
       return xData;
     },
     KeyInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['account_email'] !== 'undefined')
         xData['accountEmail'] = TypeTransformer.to('string')(data['account_email']);
@@ -2637,20 +2814,22 @@ export default class TypeTransformer {
       return xData;
     },
     KeyView: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['key_id'] !== 'undefined')
         xData['keyId'] = TypeTransformer.to('string')(data['key_id']);
       if (typeof data['roles'] !== 'undefined')
-        xData['roles'] = TypeTransformer.to('RoleView[]')(data['roles']);
+        xData['roles'] = TypeTransformer.from('[RoleView]')(data['roles']);
       if (typeof data['description'] !== 'undefined')
         xData['description'] = TypeTransformer.to('string')(data['description']);
       if (typeof data['subuser'] !== 'undefined')
-        xData['subuser'] = TypeTransformer.to('SubUserView[]')(data['subuser']);
+        xData['subuser'] = TypeTransformer.from('[SubUserView]')(data['subuser']);
       if (typeof data['key_name'] !== 'undefined')
         xData['keyName'] = TypeTransformer.to('string')(data['key_name']);
       return xData;
     },
     SubUserView: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subuser_id'] !== 'undefined')
         xData['subuserId'] = TypeTransformer.to('number')(data['subuser_id']);
@@ -2659,16 +2838,18 @@ export default class TypeTransformer {
       if (typeof data['description'] !== 'undefined')
         xData['description'] = TypeTransformer.to('string')(data['description']);
       if (typeof data['roles'] !== 'undefined')
-        xData['roles'] = TypeTransformer.to('RoleView[]')(data['roles']);
+        xData['roles'] = TypeTransformer.from('[RoleView]')(data['roles']);
       return xData;
     },
     SubUserID: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subuser_id'] !== 'undefined')
         xData['subuserId'] = TypeTransformer.to('number')(data['subuser_id']);
       return xData;
     },
     RoleView: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['role_name'] !== 'undefined')
         xData['roleName'] = TypeTransformer.to('string')(data['role_name']);
@@ -2685,6 +2866,7 @@ export default class TypeTransformer {
       return xData;
     },
     RoleGroupView: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['id'] !== 'undefined') xData['id'] = TypeTransformer.to('number')(data['id']);
       if (typeof data['name'] !== 'undefined')
@@ -2692,6 +2874,7 @@ export default class TypeTransformer {
       return xData;
     },
     SmsHistoryType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['message_id'] !== 'undefined')
         xData['messageId'] = TypeTransformer.to('number')(data['message_id']);
@@ -2710,7 +2893,7 @@ export default class TypeTransformer {
       if (typeof data['error_message'] !== 'undefined')
         xData['errorMessage'] = TypeTransformer.to('string')(data['error_message']);
       if (typeof data['processed_date'] !== 'undefined')
-        xData['processedDate'] = TypeTransformer.to('Date')(data['processed_date']);
+        xData['processedDate'] = TypeTransformer.from('date')(data['processed_date']);
       if (typeof data['transaction_id'] !== 'undefined')
         xData['transactionId'] = TypeTransformer.to('number')(data['transaction_id']);
       if (typeof data['text'] !== 'undefined')
@@ -2718,6 +2901,7 @@ export default class TypeTransformer {
       return xData;
     },
     A2PSmsHistoryType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['message_id'] !== 'undefined')
         xData['messageId'] = TypeTransformer.to('number')(data['message_id']);
@@ -2734,7 +2918,7 @@ export default class TypeTransformer {
       if (typeof data['error_message'] !== 'undefined')
         xData['errorMessage'] = TypeTransformer.to('string')(data['error_message']);
       if (typeof data['processing_date'] !== 'undefined')
-        xData['processingDate'] = TypeTransformer.to('Date')(data['processing_date']);
+        xData['processingDate'] = TypeTransformer.from('date')(data['processing_date']);
       if (typeof data['transaction_id'] !== 'undefined')
         xData['transactionId'] = TypeTransformer.to('number')(data['transaction_id']);
       if (typeof data['delivery_status'] !== 'undefined')
@@ -2744,20 +2928,23 @@ export default class TypeTransformer {
       return xData;
     },
     ExpiredAgreementCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['document_ids'] !== 'undefined')
         xData['documentIds'] = TypeTransformer.to('number[]')(data['document_ids']);
       return xData;
     },
     RestoredAgreementStatusCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['document_id'] !== 'undefined')
         xData['documentId'] = TypeTransformer.to('number')(data['document_id']);
       if (typeof data['expiration_date'] !== 'undefined')
-        xData['expirationDate'] = TypeTransformer.to('Date')(data['expiration_date']);
+        xData['expirationDate'] = TypeTransformer.from('date')(data['expiration_date']);
       return xData;
     },
     GetMaxBankCardPaymentResultType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['max_payment'] !== 'undefined')
         xData['maxPayment'] = TypeTransformer.to('number')(data['max_payment']);
@@ -2768,6 +2955,7 @@ export default class TypeTransformer {
       return xData;
     },
     GetAutochargeConfigResultType: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['auto_charge'] !== 'undefined')
         xData['autoCharge'] = TypeTransformer.to('boolean')(data['auto_charge']);
@@ -2780,6 +2968,7 @@ export default class TypeTransformer {
       return xData;
     },
     GetSQQueuesResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sq_queue_id'] !== 'undefined')
         xData['sqQueueId'] = TypeTransformer.to('number')(data['sq_queue_id']);
@@ -2800,9 +2989,9 @@ export default class TypeTransformer {
       if (typeof data['description'] !== 'undefined')
         xData['description'] = TypeTransformer.to('string')(data['description']);
       if (typeof data['created'] !== 'undefined')
-        xData['created'] = TypeTransformer.to('Date')(data['created']);
+        xData['created'] = TypeTransformer.from('timestamp')(data['created']);
       if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+        xData['modified'] = TypeTransformer.from('timestamp')(data['modified']);
       if (typeof data['call_max_waiting_time'] !== 'undefined')
         xData['callMaxWaitingTime'] = TypeTransformer.to('number')(data['call_max_waiting_time']);
       if (typeof data['call_max_waiting_time_in_seconds'] !== 'undefined')
@@ -2824,6 +3013,7 @@ export default class TypeTransformer {
       return xData;
     },
     GetSQSkillsResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sq_skill_id'] !== 'undefined')
         xData['sqSkillId'] = TypeTransformer.to('number')(data['sq_skill_id']);
@@ -2832,12 +3022,13 @@ export default class TypeTransformer {
       if (typeof data['description'] !== 'undefined')
         xData['description'] = TypeTransformer.to('string')(data['description']);
       if (typeof data['created'] !== 'undefined')
-        xData['created'] = TypeTransformer.to('Date')(data['created']);
+        xData['created'] = TypeTransformer.from('timestamp')(data['created']);
       if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+        xData['modified'] = TypeTransformer.from('timestamp')(data['modified']);
       return xData;
     },
     GetSQAgentsResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('number')(data['user_id']);
@@ -2850,7 +3041,7 @@ export default class TypeTransformer {
           data['max_simultaneous_conversations']
         );
       if (typeof data['sq_statuses'] !== 'undefined')
-        xData['sqStatuses'] = TypeTransformer.to('SmartQueueStateAgentStatus[]')(
+        xData['sqStatuses'] = TypeTransformer.from('[SmartQueueState_Agent_Status]')(
           data['sq_statuses']
         );
       if (typeof data['sq_queues'] !== 'undefined')
@@ -2860,6 +3051,7 @@ export default class TypeTransformer {
       return xData;
     },
     SQTaskSelectionStrategies: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['MAX_PRIORITY'] !== 'undefined')
         xData['MAXPRIORITY'] = TypeTransformer.to('string')(data['MAX_PRIORITY']);
@@ -2868,6 +3060,7 @@ export default class TypeTransformer {
       return xData;
     },
     SQSkillBindingModes: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['add'] !== 'undefined')
         xData['add'] = TypeTransformer.to('string')(data['add']);
@@ -2878,6 +3071,7 @@ export default class TypeTransformer {
       return xData;
     },
     SQAgentBindingModes: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['add_queues'] !== 'undefined')
         xData['addQueues'] = TypeTransformer.to('string')(data['add_queues']);
@@ -2890,14 +3084,16 @@ export default class TypeTransformer {
       return xData;
     },
     SmartQueueMetricsResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['report_type'] !== 'undefined')
         xData['reportType'] = TypeTransformer.to('string')(data['report_type']);
       if (typeof data['groups'] !== 'undefined')
-        xData['groups'] = TypeTransformer.to('SmartQueueMetricsGroups[]')(data['groups']);
+        xData['groups'] = TypeTransformer.from('[SmartQueueMetricsGroups]')(data['groups']);
       return xData;
     },
     SmartQueueMetricsGroups: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sq_queue_id'] !== 'undefined')
         xData['sqQueueId'] = TypeTransformer.to('number')(data['sq_queue_id']);
@@ -2910,32 +3106,35 @@ export default class TypeTransformer {
       if (typeof data['user_display_name'] !== 'undefined')
         xData['userDisplayName'] = TypeTransformer.to('string')(data['user_display_name']);
       if (typeof data['values'] !== 'undefined')
-        xData['values'] = TypeTransformer.to('SmartQueueMetricsGroupsValues[]')(data['values']);
+        xData['values'] = TypeTransformer.from('[SmartQueueMetricsGroupsValues]')(data['values']);
       return xData;
     },
     SmartQueueMetricsGroupsValues: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['from_date'] !== 'undefined')
-        xData['fromDate'] = TypeTransformer.to('Date')(data['from_date']);
+        xData['fromDate'] = TypeTransformer.from('timestamp')(data['from_date']);
       if (typeof data['to_date'] !== 'undefined')
-        xData['toDate'] = TypeTransformer.to('Date')(data['to_date']);
+        xData['toDate'] = TypeTransformer.from('timestamp')(data['to_date']);
       if (typeof data['value'] !== 'undefined')
         xData['value'] = TypeTransformer.to('number')(data['value']);
       return xData;
     },
     SmartQueueState: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sq_queue_id'] !== 'undefined')
         xData['sqQueueId'] = TypeTransformer.to('number')(data['sq_queue_id']);
       if (typeof data['sq_queue_name'] !== 'undefined')
         xData['sqQueueName'] = TypeTransformer.to('string')(data['sq_queue_name']);
       if (typeof data['sq_agents'] !== 'undefined')
-        xData['sqAgents'] = TypeTransformer.to('SmartQueueStateAgent[]')(data['sq_agents']);
+        xData['sqAgents'] = TypeTransformer.from('[SmartQueueState_Agent]')(data['sq_agents']);
       if (typeof data['tasks'] !== 'undefined')
-        xData['tasks'] = TypeTransformer.to('SmartQueueStateTask[]')(data['tasks']);
+        xData['tasks'] = TypeTransformer.from('[SmartQueueState_Task]')(data['tasks']);
       return xData;
     },
     SmartQueueState_Task: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['task_type'] !== 'undefined')
         xData['taskType'] = TypeTransformer.to('string')(data['task_type']);
@@ -2944,7 +3143,7 @@ export default class TypeTransformer {
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('number')(data['user_id']);
       if (typeof data['sq_skills'] !== 'undefined')
-        xData['sqSkills'] = TypeTransformer.to('SmartQueueTaskSkill[]')(data['sq_skills']);
+        xData['sqSkills'] = TypeTransformer.from('[SmartQueueTask_Skill]')(data['sq_skills']);
       if (typeof data['waiting_time'] !== 'undefined')
         xData['waitingTime'] = TypeTransformer.to('number')(data['waiting_time']);
       if (typeof data['processing_time'] !== 'undefined')
@@ -2954,6 +3153,7 @@ export default class TypeTransformer {
       return xData;
     },
     SmartQueueState_Agent: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['user_id'] !== 'undefined')
         xData['userId'] = TypeTransformer.to('number')(data['user_id']);
@@ -2962,14 +3162,15 @@ export default class TypeTransformer {
       if (typeof data['user_display_name'] !== 'undefined')
         xData['userDisplayName'] = TypeTransformer.to('string')(data['user_display_name']);
       if (typeof data['sq_skills'] !== 'undefined')
-        xData['sqSkills'] = TypeTransformer.to('SmartQueueAgentSkill[]')(data['sq_skills']);
+        xData['sqSkills'] = TypeTransformer.from('[SmartQueueAgent_Skill]')(data['sq_skills']);
       if (typeof data['sq_statuses'] !== 'undefined')
-        xData['sqStatuses'] = TypeTransformer.to('SmartQueueStateAgentStatus[]')(
+        xData['sqStatuses'] = TypeTransformer.from('[SmartQueueState_Agent_Status]')(
           data['sq_statuses']
         );
       return xData;
     },
     SmartQueueAgent_Skill: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sq_skill_id'] !== 'undefined')
         xData['sqSkillId'] = TypeTransformer.to('number')(data['sq_skill_id']);
@@ -2980,6 +3181,7 @@ export default class TypeTransformer {
       return xData;
     },
     SmartQueueTask_Skill: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sq_skill_name'] !== 'undefined')
         xData['sqSkillName'] = TypeTransformer.to('string')(data['sq_skill_name']);
@@ -2988,22 +3190,25 @@ export default class TypeTransformer {
       return xData;
     },
     SmartQueueState_Agent_Status: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['IM'] !== 'undefined')
-        xData['IM'] = TypeTransformer.to('SmartQueueStateAgentStatus_')(data['IM']);
+        xData['IM'] = TypeTransformer.from('SmartQueueState_Agent_Status_Type')(data['IM']);
       if (typeof data['CALL'] !== 'undefined')
-        xData['CALL'] = TypeTransformer.to('SmartQueueStateAgentStatus_')(data['CALL']);
+        xData['CALL'] = TypeTransformer.from('SmartQueueState_Agent_Status_Type')(data['CALL']);
       return xData;
     },
     SmartQueueState_Agent_Status_Type: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sq_status_name'] !== 'undefined')
         xData['sqStatusName'] = TypeTransformer.to('string')(data['sq_status_name']);
       if (typeof data['from_date'] !== 'undefined')
-        xData['fromDate'] = TypeTransformer.to('Date')(data['from_date']);
+        xData['fromDate'] = TypeTransformer.from('timestamp')(data['from_date']);
       return xData;
     },
     KeyValueItems: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['key'] !== 'undefined')
         xData['key'] = TypeTransformer.to('string')(data['key']);
@@ -3014,6 +3219,7 @@ export default class TypeTransformer {
       return xData;
     },
     KeyValuePairs: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['key'] !== 'undefined')
         xData['key'] = TypeTransformer.to('string')(data['key']);
@@ -3024,6 +3230,7 @@ export default class TypeTransformer {
       return xData;
     },
     KeyValueKeys: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['key'] !== 'undefined')
         xData['key'] = TypeTransformer.to('string')(data['key']);
@@ -3032,31 +3239,34 @@ export default class TypeTransformer {
       return xData;
     },
     AccountInvoice: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['period'] !== 'undefined')
-        xData['period'] = TypeTransformer.to('InvoicePeriod')(data['period']);
+        xData['period'] = TypeTransformer.from('InvoicePeriod')(data['period']);
       if (typeof data['amount'] !== 'undefined')
-        xData['amount'] = TypeTransformer.to('InvoiceTotalDetails')(data['amount']);
+        xData['amount'] = TypeTransformer.from('InvoiceTotalDetails')(data['amount']);
       if (typeof data['invoice_id'] !== 'undefined')
         xData['invoiceId'] = TypeTransformer.to('number')(data['invoice_id']);
       if (typeof data['rows'] !== 'undefined')
-        xData['rows'] = TypeTransformer.to('InvoiceSpendingDetails')(data['rows']);
+        xData['rows'] = TypeTransformer.from('InvoiceSpendingDetails')(data['rows']);
       if (typeof data['invoice_number'] !== 'undefined')
         xData['invoiceNumber'] = TypeTransformer.to('string')(data['invoice_number']);
       if (typeof data['invoice_date'] !== 'undefined')
-        xData['invoiceDate'] = TypeTransformer.to('Date')(data['invoice_date']);
+        xData['invoiceDate'] = TypeTransformer.from('date')(data['invoice_date']);
       if (typeof data['status'] !== 'undefined')
         xData['status'] = TypeTransformer.to('string')(data['status']);
       return xData;
     },
     InvoicePeriod: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['from'] !== 'undefined')
-        xData['from'] = TypeTransformer.to('Date')(data['from']);
-      if (typeof data['to'] !== 'undefined') xData['to'] = TypeTransformer.to('Date')(data['to']);
+        xData['from'] = TypeTransformer.from('date')(data['from']);
+      if (typeof data['to'] !== 'undefined') xData['to'] = TypeTransformer.from('date')(data['to']);
       return xData;
     },
     InvoiceTotalDetails: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['tax_amount'] !== 'undefined')
         xData['taxAmount'] = TypeTransformer.to('number')(data['tax_amount']);
@@ -3071,16 +3281,18 @@ export default class TypeTransformer {
       return xData;
     },
     InvoiceSpendingDetails: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['amount'] !== 'undefined')
-        xData['amount'] = TypeTransformer.to('InvoiceTotalDetails')(data['amount']);
+        xData['amount'] = TypeTransformer.from('InvoiceTotalDetails')(data['amount']);
       if (typeof data['service_name'] !== 'undefined')
         xData['serviceName'] = TypeTransformer.to('string')(data['service_name']);
       if (typeof data['taxes'] !== 'undefined')
-        xData['taxes'] = TypeTransformer.to('InvoiceTaxesDetails')(data['taxes']);
+        xData['taxes'] = TypeTransformer.from('InvoiceTaxesDetails')(data['taxes']);
       return xData;
     },
     InvoiceTaxesDetails: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['taxable_measure'] !== 'undefined')
         xData['taxableMeasure'] = TypeTransformer.to('number')(data['taxable_measure']);
@@ -3099,24 +3311,28 @@ export default class TypeTransformer {
       return xData;
     },
     SQAddQueueResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sq_queue_id'] !== 'undefined')
         xData['sqQueueId'] = TypeTransformer.to('number')(data['sq_queue_id']);
       return xData;
     },
     SQAddSkillResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sq_skill_id'] !== 'undefined')
         xData['sqSkillId'] = TypeTransformer.to('number')(data['sq_skill_id']);
       return xData;
     },
     AddSecretResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['secret_id'] !== 'undefined')
         xData['secretId'] = TypeTransformer.to('number')(data['secret_id']);
       return xData;
     },
     GetSecretValueResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['secret_id'] !== 'undefined')
         xData['secretId'] = TypeTransformer.to('number')(data['secret_id']);
@@ -3127,12 +3343,13 @@ export default class TypeTransformer {
       if (typeof data['description'] !== 'undefined')
         xData['description'] = TypeTransformer.to('string')(data['description']);
       if (typeof data['created'] !== 'undefined')
-        xData['created'] = TypeTransformer.to('Date')(data['created']);
+        xData['created'] = TypeTransformer.from('timestamp')(data['created']);
       if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+        xData['modified'] = TypeTransformer.from('timestamp')(data['modified']);
       return xData;
     },
     SecretListItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['secret_id'] !== 'undefined')
         xData['secretId'] = TypeTransformer.to('number')(data['secret_id']);
@@ -3141,15 +3358,16 @@ export default class TypeTransformer {
       if (typeof data['description'] !== 'undefined')
         xData['description'] = TypeTransformer.to('string')(data['description']);
       if (typeof data['created'] !== 'undefined')
-        xData['created'] = TypeTransformer.to('Date')(data['created']);
+        xData['created'] = TypeTransformer.from('timestamp')(data['created']);
       if (typeof data['modified'] !== 'undefined')
-        xData['modified'] = TypeTransformer.to('Date')(data['modified']);
+        xData['modified'] = TypeTransformer.from('timestamp')(data['modified']);
       return xData;
     },
   };
 
   private static toActors = {
     APIError: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['code'] !== 'undefined')
         xData['code'] = TypeTransformer.from('number')(data['code']);
@@ -3158,6 +3376,7 @@ export default class TypeTransformer {
       return xData;
     },
     AccountInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['accountId'] !== 'undefined')
         xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
@@ -3238,22 +3457,24 @@ export default class TypeTransformer {
       if (typeof data['sendJsError'] !== 'undefined')
         xData['send_js_error'] = TypeTransformer.from('boolean')(data['sendJsError']);
       if (typeof data['billingLimits'] !== 'undefined')
-        xData['billing_limits'] = TypeTransformer.from('BillingLimits')(data['billingLimits']);
+        xData['billing_limits'] = TypeTransformer.to('BillingLimitsType')(data['billingLimits']);
       if (typeof data['a2pSmsEnabled'] !== 'undefined')
         xData['a2p_sms_enabled'] = TypeTransformer.from('boolean')(data['a2pSmsEnabled']);
       return xData;
     },
     BillingLimits: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['robokassa'] !== 'undefined')
-        xData['robokassa'] = TypeTransformer.from('BillingLimitInfo')(data['robokassa']);
+        xData['robokassa'] = TypeTransformer.to('BillingLimitInfoType')(data['robokassa']);
       if (typeof data['bankCard'] !== 'undefined')
-        xData['bank_card'] = TypeTransformer.from('BankCardBillingLimitInfo')(data['bankCard']);
+        xData['bank_card'] = TypeTransformer.to('BankCardBillingLimitInfoType')(data['bankCard']);
       if (typeof data['invoice'] !== 'undefined')
-        xData['invoice'] = TypeTransformer.from('BillingLimitInfo')(data['invoice']);
+        xData['invoice'] = TypeTransformer.to('BillingLimitInfoType')(data['invoice']);
       return xData;
     },
     BillingLimitInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['minAmount'] !== 'undefined')
         xData['min_amount'] = TypeTransformer.from('number')(data['minAmount']);
@@ -3262,6 +3483,7 @@ export default class TypeTransformer {
       return xData;
     },
     BankCardBillingLimitInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['minAmount'] !== 'undefined')
         xData['min_amount'] = TypeTransformer.from('number')(data['minAmount']);
@@ -3270,6 +3492,7 @@ export default class TypeTransformer {
       return xData;
     },
     ShortAccountInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['accountId'] !== 'undefined')
         xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
@@ -3282,6 +3505,7 @@ export default class TypeTransformer {
       return xData;
     },
     ClonedAccount: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['accountId'] !== 'undefined')
         xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
@@ -3294,22 +3518,23 @@ export default class TypeTransformer {
       if (typeof data['apiKey'] !== 'undefined')
         xData['api_key'] = TypeTransformer.from('string')(data['apiKey']);
       if (typeof data['users'] !== 'undefined')
-        xData['users'] = TypeTransformer.from('ClonedUser[]')(data['users']);
+        xData['users'] = TypeTransformer.to('[ClonedUserType]')(data['users']);
       if (typeof data['scenarios'] !== 'undefined')
-        xData['scenarios'] = TypeTransformer.from('ClonedScenario[]')(data['scenarios']);
+        xData['scenarios'] = TypeTransformer.to('[ClonedScenarioType]')(data['scenarios']);
       if (typeof data['applications'] !== 'undefined')
-        xData['applications'] = TypeTransformer.from('ClonedApplication[]')(data['applications']);
+        xData['applications'] = TypeTransformer.to('[ClonedApplicationType]')(data['applications']);
       if (typeof data['acdQueues'] !== 'undefined')
-        xData['acd_queues'] = TypeTransformer.from('ClonedACDQueue[]')(data['acdQueues']);
+        xData['acd_queues'] = TypeTransformer.to('[ClonedACDQueueType]')(data['acdQueues']);
       if (typeof data['acdSkills'] !== 'undefined')
-        xData['acd_skills'] = TypeTransformer.from('ClonedACDSkill[]')(data['acdSkills']);
+        xData['acd_skills'] = TypeTransformer.to('[ClonedACDSkillType]')(data['acdSkills']);
       if (typeof data['adminRoles'] !== 'undefined')
-        xData['admin_roles'] = TypeTransformer.from('ClonedAdminRole[]')(data['adminRoles']);
+        xData['admin_roles'] = TypeTransformer.to('[ClonedAdminRoleType]')(data['adminRoles']);
       if (typeof data['adminUsers'] !== 'undefined')
-        xData['admin_users'] = TypeTransformer.from('ClonedAdminUser[]')(data['adminUsers']);
+        xData['admin_users'] = TypeTransformer.to('[ClonedAdminUserType]')(data['adminUsers']);
       return xData;
     },
     AccountPlan: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['planSubscriptionTemplateId'] !== 'undefined')
         xData['plan_subscription_template_id'] = TypeTransformer.from('number')(
@@ -3324,10 +3549,11 @@ export default class TypeTransformer {
       if (typeof data['periodicCharge'] !== 'undefined')
         xData['periodic_charge'] = TypeTransformer.from('number')(data['periodicCharge']);
       if (typeof data['packages'] !== 'undefined')
-        xData['packages'] = TypeTransformer.from('AccountPlanPackage[]')(data['packages']);
+        xData['packages'] = TypeTransformer.to('[AccountPlanPackageType]')(data['packages']);
       return xData;
     },
     AccountPlanPackage: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['priceGroupId'] !== 'undefined')
         xData['price_group_id'] = TypeTransformer.from('number[]')(data['priceGroupId']);
@@ -3348,6 +3574,7 @@ export default class TypeTransformer {
       return xData;
     },
     Plan: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['planSubscriptionTemplateId'] !== 'undefined')
         xData['plan_subscription_template_id'] = TypeTransformer.from('number')(
@@ -3360,10 +3587,11 @@ export default class TypeTransformer {
       if (typeof data['periodicCharge'] !== 'undefined')
         xData['periodic_charge'] = TypeTransformer.from('number')(data['periodicCharge']);
       if (typeof data['packages'] !== 'undefined')
-        xData['packages'] = TypeTransformer.from('PlanPackage[]')(data['packages']);
+        xData['packages'] = TypeTransformer.to('[PlanPackageType]')(data['packages']);
       return xData;
     },
     PlanPackage: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['priceGroupId'] !== 'undefined')
         xData['price_group_id'] = TypeTransformer.from('number[]')(data['priceGroupId']);
@@ -3380,6 +3608,7 @@ export default class TypeTransformer {
       return xData;
     },
     ApplicationInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['applicationId'] !== 'undefined')
         xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
@@ -3394,16 +3623,18 @@ export default class TypeTransformer {
       return xData;
     },
     ClonedApplication: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['applicationId'] !== 'undefined')
         xData['application_id'] = TypeTransformer.from('number')(data['applicationId']);
       if (typeof data['applicationName'] !== 'undefined')
         xData['application_name'] = TypeTransformer.from('string')(data['applicationName']);
       if (typeof data['users'] !== 'undefined')
-        xData['users'] = TypeTransformer.from('ClonedRule[]')(data['users']);
+        xData['users'] = TypeTransformer.to('[ClonedRuleType]')(data['users']);
       return xData;
     },
     UserInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('number')(data['userId']);
@@ -3424,11 +3655,11 @@ export default class TypeTransformer {
       if (typeof data['userCustomData'] !== 'undefined')
         xData['user_custom_data'] = TypeTransformer.from('string')(data['userCustomData']);
       if (typeof data['applications'] !== 'undefined')
-        xData['applications'] = TypeTransformer.from('ApplicationInfo[]')(data['applications']);
+        xData['applications'] = TypeTransformer.to('[ApplicationInfoType]')(data['applications']);
       if (typeof data['skills'] !== 'undefined')
-        xData['skills'] = TypeTransformer.from('SkillInfo[]')(data['skills']);
+        xData['skills'] = TypeTransformer.to('[SkillInfoType]')(data['skills']);
       if (typeof data['acdQueues'] !== 'undefined')
-        xData['acd_queues'] = TypeTransformer.from('ACDQueueOperatorInfo[]')(data['acdQueues']);
+        xData['acd_queues'] = TypeTransformer.to('[ACDQueueOperatorInfoType]')(data['acdQueues']);
       if (typeof data['acdStatus'] !== 'undefined')
         xData['acd_status'] = TypeTransformer.from('string')(data['acdStatus']);
       if (typeof data['acdStatusChangeTime'] !== 'undefined')
@@ -3440,6 +3671,7 @@ export default class TypeTransformer {
       return xData;
     },
     ClonedUser: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('number')(data['userId']);
@@ -3448,6 +3680,7 @@ export default class TypeTransformer {
       return xData;
     },
     ScenarioInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['scenarioId'] !== 'undefined')
         xData['scenario_id'] = TypeTransformer.from('number')(data['scenarioId']);
@@ -3462,6 +3695,7 @@ export default class TypeTransformer {
       return xData;
     },
     ClonedScenario: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['scenarioId'] !== 'undefined')
         xData['scenario_id'] = TypeTransformer.from('number')(data['scenarioId']);
@@ -3470,6 +3704,7 @@ export default class TypeTransformer {
       return xData;
     },
     RuleInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['ruleId'] !== 'undefined')
         xData['rule_id'] = TypeTransformer.from('number')(data['ruleId']);
@@ -3484,12 +3719,13 @@ export default class TypeTransformer {
       if (typeof data['videoConference'] !== 'undefined')
         xData['video_conference'] = TypeTransformer.from('boolean')(data['videoConference']);
       if (typeof data['scenarios'] !== 'undefined')
-        xData['scenarios'] = TypeTransformer.from('ScenarioInfo[]')(data['scenarios']);
+        xData['scenarios'] = TypeTransformer.to('[ScenarioInfoType]')(data['scenarios']);
       if (typeof data['modified'] !== 'undefined')
         xData['modified'] = TypeTransformer.from('Date')(data['modified']);
       return xData;
     },
     ClonedRule: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['ruleId'] !== 'undefined')
         xData['rule_id'] = TypeTransformer.from('number')(data['ruleId']);
@@ -3498,6 +3734,7 @@ export default class TypeTransformer {
       return xData;
     },
     SipWhiteListInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sipWhitelistId'] !== 'undefined')
         xData['sip_whitelist_id'] = TypeTransformer.from('number')(data['sipWhitelistId']);
@@ -3510,6 +3747,7 @@ export default class TypeTransformer {
       return xData;
     },
     CallSessionInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['audioQuality'] !== 'undefined')
         xData['audio_quality'] = TypeTransformer.from('string')(data['audioQuality']);
@@ -3540,18 +3778,19 @@ export default class TypeTransformer {
       if (typeof data['finishReason'] !== 'undefined')
         xData['finish_reason'] = TypeTransformer.from('string')(data['finishReason']);
       if (typeof data['calls'] !== 'undefined')
-        xData['calls'] = TypeTransformer.from('CallInfo[]')(data['calls']);
+        xData['calls'] = TypeTransformer.to('[CallInfoType]')(data['calls']);
       if (typeof data['otherResourceUsage'] !== 'undefined')
-        xData['other_resource_usage'] = TypeTransformer.from('ResourceUsage[]')(
+        xData['other_resource_usage'] = TypeTransformer.to('[ResourceUsageType]')(
           data['otherResourceUsage']
         );
       if (typeof data['records'] !== 'undefined')
-        xData['records'] = TypeTransformer.from('Record[]')(data['records']);
+        xData['records'] = TypeTransformer.to('[RecordType]')(data['records']);
       if (typeof data['customData'] !== 'undefined')
         xData['custom_data'] = TypeTransformer.from('string')(data['customData']);
       return xData;
     },
     CallInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['callId'] !== 'undefined')
         xData['call_id'] = TypeTransformer.from('number')(data['callId']);
@@ -3586,6 +3825,7 @@ export default class TypeTransformer {
       return xData;
     },
     TransactionInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['transactionId'] !== 'undefined')
         xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
@@ -3606,6 +3846,7 @@ export default class TypeTransformer {
       return xData;
     },
     ResourceUsage: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['resourceUsageId'] !== 'undefined')
         xData['resource_usage_id'] = TypeTransformer.from('number')(data['resourceUsageId']);
@@ -3628,6 +3869,7 @@ export default class TypeTransformer {
       return xData;
     },
     Record: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['recordId'] !== 'undefined')
         xData['record_id'] = TypeTransformer.from('number')(data['recordId']);
@@ -3652,6 +3894,7 @@ export default class TypeTransformer {
       return xData;
     },
     AuditLogInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['auditLogId'] !== 'undefined')
         xData['audit_log_id'] = TypeTransformer.from('number')(data['auditLogId']);
@@ -3674,6 +3917,7 @@ export default class TypeTransformer {
       return xData;
     },
     HistoryReport: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['historyReportId'] !== 'undefined')
         xData['history_report_id'] = TypeTransformer.from('number')(data['historyReportId']);
@@ -3704,6 +3948,7 @@ export default class TypeTransformer {
       return xData;
     },
     CommonReport: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['reportId'] !== 'undefined')
         xData['report_id'] = TypeTransformer.from('number')(data['reportId']);
@@ -3734,6 +3979,7 @@ export default class TypeTransformer {
       return xData;
     },
     CalculatedCallHistoryData: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sessionCount'] !== 'undefined')
         xData['session_count'] = TypeTransformer.from('number')(data['sessionCount']);
@@ -3744,6 +3990,7 @@ export default class TypeTransformer {
       return xData;
     },
     CalculatedTransactionHistoryData: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['transactionCount'] !== 'undefined')
         xData['transaction_count'] = TypeTransformer.from('number')(data['transactionCount']);
@@ -3766,6 +4013,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDSessionInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acdSessionHistoryId'] !== 'undefined')
         xData['acd_session_history_id'] = TypeTransformer.from('number')(
@@ -3792,10 +4040,11 @@ export default class TypeTransformer {
           data['afterServiceDuration']
         );
       if (typeof data['events'] !== 'undefined')
-        xData['events'] = TypeTransformer.from('ACDSessionEventInfo[]')(data['events']);
+        xData['events'] = TypeTransformer.to('[ACDSessionEventInfoType]')(data['events']);
       return xData;
     },
     ACDSessionEventInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acdSessionEventId'] !== 'undefined')
         xData['acd_session_event_id'] = TypeTransformer.from('number')(data['acdSessionEventId']);
@@ -3810,6 +4059,7 @@ export default class TypeTransformer {
       return xData;
     },
     QueueInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acdQueueId'] !== 'undefined')
         xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
@@ -3836,9 +4086,9 @@ export default class TypeTransformer {
       if (typeof data['deleted'] !== 'undefined')
         xData['deleted'] = TypeTransformer.from('Date')(data['deleted']);
       if (typeof data['users'] !== 'undefined')
-        xData['users'] = TypeTransformer.from('QueueUsers[]')(data['users']);
+        xData['users'] = TypeTransformer.to('[QueueUsers]')(data['users']);
       if (typeof data['skills'] !== 'undefined')
-        xData['skills'] = TypeTransformer.from('QueueSkills[]')(data['skills']);
+        xData['skills'] = TypeTransformer.to('[QueueSkills]')(data['skills']);
       if (typeof data['slThresholds'] !== 'undefined')
         xData['sl_thresholds'] = TypeTransformer.from('number[]')(data['slThresholds']);
       if (typeof data['operatorcount'] !== 'undefined')
@@ -3846,6 +4096,7 @@ export default class TypeTransformer {
       return xData;
     },
     QueueSkills: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['skillId'] !== 'undefined')
         xData['skill_id'] = TypeTransformer.from('number')(data['skillId']);
@@ -3854,18 +4105,21 @@ export default class TypeTransformer {
       return xData;
     },
     QueueUsers: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('number')(data['userId']);
       return xData;
     },
     ACDState: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acdQueues'] !== 'undefined')
-        xData['acd_queues'] = TypeTransformer.from('ACDQueueState[]')(data['acdQueues']);
+        xData['acd_queues'] = TypeTransformer.to('[ACDQueueStateType]')(data['acdQueues']);
       return xData;
     },
     ACDOperatorAggregationGroup: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('string')(data['userId']);
@@ -3874,10 +4128,11 @@ export default class TypeTransformer {
       if (typeof data['hour'] !== 'undefined')
         xData['hour'] = TypeTransformer.from('number')(data['hour']);
       if (typeof data['statistics'] !== 'undefined')
-        xData['statistics'] = TypeTransformer.from('ACDOperatorStatistics[]')(data['statistics']);
+        xData['statistics'] = TypeTransformer.to('[ACDOperatorStatisticsType]')(data['statistics']);
       return xData;
     },
     ACDOperatorStatusAggregationGroup: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('string')(data['userId']);
@@ -3886,12 +4141,13 @@ export default class TypeTransformer {
       if (typeof data['hour'] !== 'undefined')
         xData['hour'] = TypeTransformer.from('number')(data['hour']);
       if (typeof data['statistics'] !== 'undefined')
-        xData['statistics'] = TypeTransformer.from('ACDOperatorStatusStatistics[]')(
+        xData['statistics'] = TypeTransformer.to('[ACDOperatorStatusStatisticsType]')(
           data['statistics']
         );
       return xData;
     },
     ACDOperatorStatistics: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('string')(data['userId']);
@@ -3900,13 +4156,13 @@ export default class TypeTransformer {
       if (typeof data['hour'] !== 'undefined')
         xData['hour'] = TypeTransformer.from('number')(data['hour']);
       if (typeof data['SA'] !== 'undefined')
-        xData['SA'] = TypeTransformer.from('ACDStatisticsItem')(data['SA']);
+        xData['SA'] = TypeTransformer.to('ACDStatisticsItemType')(data['SA']);
       if (typeof data['TT'] !== 'undefined')
-        xData['TT'] = TypeTransformer.from('ACDStatisticsItem')(data['TT']);
+        xData['TT'] = TypeTransformer.to('ACDStatisticsItemType')(data['TT']);
       if (typeof data['ACW'] !== 'undefined')
-        xData['ACW'] = TypeTransformer.from('ACDStatisticsItem')(data['ACW']);
+        xData['ACW'] = TypeTransformer.to('ACDStatisticsItemType')(data['ACW']);
       if (typeof data['HT'] !== 'undefined')
-        xData['HT'] = TypeTransformer.from('ACDStatisticsItem')(data['HT']);
+        xData['HT'] = TypeTransformer.to('ACDStatisticsItemType')(data['HT']);
       if (typeof data['AC'] !== 'undefined')
         xData['AC'] = TypeTransformer.from('number')(data['AC']);
       if (typeof data['UAC'] !== 'undefined')
@@ -3922,6 +4178,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDOperatorStatusStatistics: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('string')(data['userId']);
@@ -3930,61 +4187,63 @@ export default class TypeTransformer {
       if (typeof data['hour'] !== 'undefined')
         xData['hour'] = TypeTransformer.from('number')(data['hour']);
       if (typeof data['acdStatus'] !== 'undefined')
-        xData['acd_status'] = TypeTransformer.from('ACDOperatorStatusStatisticsDetail[]')(
+        xData['acd_status'] = TypeTransformer.to('[ACDOperatorStatusStatisticsDetail]')(
           data['acdStatus']
         );
       return xData;
     },
     ACDOperatorStatusStatisticsDetail: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['OFFLINE'] !== 'undefined')
-        xData['OFFLINE'] = TypeTransformer.from('ACDStatisticsItem')(data['OFFLINE']);
+        xData['OFFLINE'] = TypeTransformer.to('ACDStatisticsItemType')(data['OFFLINE']);
       if (typeof data['ONLINE'] !== 'undefined')
-        xData['ONLINE'] = TypeTransformer.from('ACDStatisticsItem')(data['ONLINE']);
+        xData['ONLINE'] = TypeTransformer.to('ACDStatisticsItemType')(data['ONLINE']);
       if (typeof data['READY'] !== 'undefined')
-        xData['READY'] = TypeTransformer.from('ACDStatisticsItem')(data['READY']);
+        xData['READY'] = TypeTransformer.to('ACDStatisticsItemType')(data['READY']);
       if (typeof data['BANNED'] !== 'undefined')
-        xData['BANNED'] = TypeTransformer.from('ACDStatisticsItem')(data['BANNED']);
+        xData['BANNED'] = TypeTransformer.to('ACDStatisticsItemType')(data['BANNED']);
       if (typeof data['INSERVICE'] !== 'undefined')
-        xData['IN_SERVICE'] = TypeTransformer.from('ACDStatisticsItem')(data['INSERVICE']);
+        xData['IN_SERVICE'] = TypeTransformer.to('ACDStatisticsItemType')(data['INSERVICE']);
       if (typeof data['AFTERSERVICE'] !== 'undefined')
-        xData['AFTER_SERVICE'] = TypeTransformer.from('ACDStatisticsItem')(data['AFTERSERVICE']);
+        xData['AFTER_SERVICE'] = TypeTransformer.to('ACDStatisticsItemType')(data['AFTERSERVICE']);
       if (typeof data['TIMEOUT'] !== 'undefined')
-        xData['TIMEOUT'] = TypeTransformer.from('ACDStatisticsItem')(data['TIMEOUT']);
+        xData['TIMEOUT'] = TypeTransformer.to('ACDStatisticsItemType')(data['TIMEOUT']);
       if (typeof data['DND'] !== 'undefined')
-        xData['DND'] = TypeTransformer.from('ACDStatisticsItem')(data['DND']);
+        xData['DND'] = TypeTransformer.to('ACDStatisticsItemType')(data['DND']);
       return xData;
     },
     ACDQueueStatistics: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['date'] !== 'undefined')
         xData['date'] = TypeTransformer.from('Date')(data['date']);
       if (typeof data['hour'] !== 'undefined')
         xData['hour'] = TypeTransformer.from('number')(data['hour']);
       if (typeof data['WT'] !== 'undefined')
-        xData['WT'] = TypeTransformer.from('ACDStatisticsItem')(data['WT']);
+        xData['WT'] = TypeTransformer.to('ACDStatisticsItemType')(data['WT']);
       if (typeof data['SA'] !== 'undefined')
-        xData['SA'] = TypeTransformer.from('ACDStatisticsItem')(data['SA']);
+        xData['SA'] = TypeTransformer.to('ACDStatisticsItemType')(data['SA']);
       if (typeof data['AT'] !== 'undefined')
-        xData['AT'] = TypeTransformer.from('ACDStatisticsItem')(data['AT']);
+        xData['AT'] = TypeTransformer.to('ACDStatisticsItemType')(data['AT']);
       if (typeof data['HT'] !== 'undefined')
-        xData['HT'] = TypeTransformer.from('ACDStatisticsItem')(data['HT']);
+        xData['HT'] = TypeTransformer.to('ACDStatisticsItemType')(data['HT']);
       if (typeof data['TT'] !== 'undefined')
-        xData['TT'] = TypeTransformer.from('ACDStatisticsItem')(data['TT']);
+        xData['TT'] = TypeTransformer.to('ACDStatisticsItemType')(data['TT']);
       if (typeof data['ACW'] !== 'undefined')
-        xData['ACW'] = TypeTransformer.from('ACDStatisticsItem')(data['ACW']);
+        xData['ACW'] = TypeTransformer.to('ACDStatisticsItemType')(data['ACW']);
       if (typeof data['QL'] !== 'undefined')
-        xData['QL'] = TypeTransformer.from('ACDStatisticsItem')(data['QL']);
+        xData['QL'] = TypeTransformer.to('ACDStatisticsItemType')(data['QL']);
       if (typeof data['TC'] !== 'undefined')
         xData['TC'] = TypeTransformer.from('number')(data['TC']);
       if (typeof data['AC'] !== 'undefined')
-        xData['AC'] = TypeTransformer.from('ACDStatisticsCalls[]')(data['AC']);
+        xData['AC'] = TypeTransformer.to('[ACDStatisticsCalls]')(data['AC']);
       if (typeof data['UAC'] !== 'undefined')
-        xData['UAC'] = TypeTransformer.from('ACDStatisticsCalls[]')(data['UAC']);
+        xData['UAC'] = TypeTransformer.to('[ACDStatisticsCalls]')(data['UAC']);
       if (typeof data['RC'] !== 'undefined')
-        xData['RC'] = TypeTransformer.from('ACDStatisticsCalls[]')(data['RC']);
+        xData['RC'] = TypeTransformer.to('[ACDStatisticsCalls]')(data['RC']);
       if (typeof data['SL'] !== 'undefined')
-        xData['SL'] = TypeTransformer.from('ACDQueueStatisticsServiceLevel[]')(data['SL']);
+        xData['SL'] = TypeTransformer.to('[ACDQueueStatisticsServiceLevelType]')(data['SL']);
       if (typeof data['TWT'] !== 'undefined')
         xData['TWT'] = TypeTransformer.from('number')(data['TWT']);
       if (typeof data['TST'] !== 'undefined')
@@ -4000,6 +4259,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDQueueStatisticsServiceLevel: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acceptableWaitingTime'] !== 'undefined')
         xData['acceptable_waiting_time'] = TypeTransformer.from('number')(
@@ -4012,6 +4272,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDStatisticsItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['min'] !== 'undefined')
         xData['min'] = TypeTransformer.from('number')(data['min']);
@@ -4026,6 +4287,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDStatisticsCalls: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['count'] !== 'undefined')
         xData['count'] = TypeTransformer.from('number')(data['count']);
@@ -4034,11 +4296,12 @@ export default class TypeTransformer {
       return xData;
     },
     ACDQueueState: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acdQueueId'] !== 'undefined')
         xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
       if (typeof data['readyOperators'] !== 'undefined')
-        xData['ready_operators'] = TypeTransformer.from('ACDReadyOperatorState[]')(
+        xData['ready_operators'] = TypeTransformer.to('[ACDReadyOperatorStateType]')(
           data['readyOperators']
         );
       if (typeof data['readyOperatorsCount'] !== 'undefined')
@@ -4046,7 +4309,7 @@ export default class TypeTransformer {
           data['readyOperatorsCount']
         );
       if (typeof data['lockedOperators'] !== 'undefined')
-        xData['locked_operators'] = TypeTransformer.from('ACDLockedOperatorState[]')(
+        xData['locked_operators'] = TypeTransformer.to('[ACDLockedOperatorStateType]')(
           data['lockedOperators']
         );
       if (typeof data['lockedOperatorsCount'] !== 'undefined')
@@ -4054,7 +4317,7 @@ export default class TypeTransformer {
           data['lockedOperatorsCount']
         );
       if (typeof data['afterServiceOperators'] !== 'undefined')
-        xData['after_service_operators'] = TypeTransformer.from('ACDAfterServiceOperatorState[]')(
+        xData['after_service_operators'] = TypeTransformer.to('[ACDAfterServiceOperatorStateType]')(
           data['afterServiceOperators']
         );
       if (typeof data['afterServiceOperatorCount'] !== 'undefined')
@@ -4062,16 +4325,17 @@ export default class TypeTransformer {
           data['afterServiceOperatorCount']
         );
       if (typeof data['servicingCalls'] !== 'undefined')
-        xData['servicing_calls'] = TypeTransformer.from('ACDServicingCallState[]')(
+        xData['servicing_calls'] = TypeTransformer.to('[ACDServicingCallStateType]')(
           data['servicingCalls']
         );
       if (typeof data['waitingCalls'] !== 'undefined')
-        xData['waiting_calls'] = TypeTransformer.from('ACDWaitingCallState[]')(
+        xData['waiting_calls'] = TypeTransformer.to('[ACDWaitingCallStateType]')(
           data['waitingCalls']
         );
       return xData;
     },
     ACDReadyOperatorState: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('number')(data['userId']);
@@ -4084,6 +4348,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDLockedOperatorState: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('number')(data['userId']);
@@ -4094,14 +4359,15 @@ export default class TypeTransformer {
       if (typeof data['unreached'] !== 'undefined')
         xData['unreached'] = TypeTransformer.from('Date')(data['unreached']);
       if (typeof data['locks'] !== 'undefined')
-        xData['locks'] = TypeTransformer.from('ACDLock[]')(data['locks']);
+        xData['locks'] = TypeTransformer.to('[ACDLock]')(data['locks']);
       if (typeof data['acdCalls'] !== 'undefined')
-        xData['acd_calls'] = TypeTransformer.from('ACDOperatorCall[]')(data['acdCalls']);
+        xData['acd_calls'] = TypeTransformer.to('[ACDOperatorCall]')(data['acdCalls']);
       if (typeof data['status'] !== 'undefined')
         xData['status'] = TypeTransformer.from('string')(data['status']);
       return xData;
     },
     ACDAfterServiceOperatorState: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('number')(data['userId']);
@@ -4114,6 +4380,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDLock: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['id'] !== 'undefined')
         xData['id'] = TypeTransformer.from('string')(data['id']);
@@ -4122,6 +4389,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDOperatorCall: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acdSessionHistoryId'] !== 'undefined')
         xData['acd_session_history_id'] = TypeTransformer.from('number')(
@@ -4142,6 +4410,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDServicingCallState: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('number')(data['userId']);
@@ -4164,6 +4433,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDWaitingCallState: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('number')(data['userId']);
@@ -4188,6 +4458,7 @@ export default class TypeTransformer {
       return xData;
     },
     NewPhoneInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phoneId'] !== 'undefined')
         xData['phone_id'] = TypeTransformer.from('number')(data['phoneId']);
@@ -4216,6 +4487,7 @@ export default class TypeTransformer {
       return xData;
     },
     WABPhoneInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['wabPhoneNumber'] !== 'undefined')
         xData['wab_phone_number'] = TypeTransformer.from('string')(data['wabPhoneNumber']);
@@ -4242,6 +4514,7 @@ export default class TypeTransformer {
       return xData;
     },
     AttachedPhoneInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phoneId'] !== 'undefined')
         xData['phone_id'] = TypeTransformer.from('number')(data['phoneId']);
@@ -4312,6 +4585,7 @@ export default class TypeTransformer {
       return xData;
     },
     NewAttachedPhoneInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phoneId'] !== 'undefined')
         xData['phone_id'] = TypeTransformer.from('number')(data['phoneId']);
@@ -4328,6 +4602,7 @@ export default class TypeTransformer {
       return xData;
     },
     PhoneNumberCountryInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['countryCode'] !== 'undefined')
         xData['country_code'] = TypeTransformer.from('string')(data['countryCode']);
@@ -4342,7 +4617,7 @@ export default class TypeTransformer {
           data['canListPhoneNumbers']
         );
       if (typeof data['phoneCategories'] !== 'undefined')
-        xData['phone_categories'] = TypeTransformer.from('PhoneNumberCountryCategoryInfo[]')(
+        xData['phone_categories'] = TypeTransformer.to('[PhoneNumberCountryCategoryInfoType]')(
           data['phoneCategories']
         );
       if (typeof data['emergencyCallsToBeEnabled'] !== 'undefined')
@@ -4352,6 +4627,7 @@ export default class TypeTransformer {
       return xData;
     },
     PhoneNumberCountryCategoryInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phoneCategoryName'] !== 'undefined')
         xData['phone_category_name'] = TypeTransformer.from('string')(data['phoneCategoryName']);
@@ -4372,6 +4648,7 @@ export default class TypeTransformer {
       return xData;
     },
     PhoneNumberCountryStateInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['countryState'] !== 'undefined')
         xData['country_state'] = TypeTransformer.from('string')(data['countryState']);
@@ -4380,6 +4657,7 @@ export default class TypeTransformer {
       return xData;
     },
     PhoneNumberCountryRegionInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phoneRegionId'] !== 'undefined')
         xData['phone_region_id'] = TypeTransformer.from('number')(data['phoneRegionId']);
@@ -4408,7 +4686,7 @@ export default class TypeTransformer {
       if (typeof data['isSmsSupported'] !== 'undefined')
         xData['is_sms_supported'] = TypeTransformer.from('boolean')(data['isSmsSupported']);
       if (typeof data['multipleNumbersPrice'] !== 'undefined')
-        xData['multiple_numbers_price'] = TypeTransformer.from('MultipleNumbersPrice[]')(
+        xData['multiple_numbers_price'] = TypeTransformer.to('[MultipleNumbersPrice]')(
           data['multipleNumbersPrice']
         );
       if (typeof data['localizedCountryName'] !== 'undefined')
@@ -4448,6 +4726,7 @@ export default class TypeTransformer {
       return xData;
     },
     MultipleNumbersPrice: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['count'] !== 'undefined')
         xData['count'] = TypeTransformer.from('number')(data['count']);
@@ -4476,6 +4755,7 @@ export default class TypeTransformer {
       return xData;
     },
     CallerIDInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['calleridId'] !== 'undefined')
         xData['callerid_id'] = TypeTransformer.from('number')(data['calleridId']);
@@ -4496,6 +4776,7 @@ export default class TypeTransformer {
       return xData;
     },
     OutboundTestPhonenumberInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phoneNumber'] !== 'undefined')
         xData['phone_number'] = TypeTransformer.from('string')(data['phoneNumber']);
@@ -4506,6 +4787,7 @@ export default class TypeTransformer {
       return xData;
     },
     ContactInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['contactId'] !== 'undefined')
         xData['contact_id'] = TypeTransformer.from('number')(data['contactId']);
@@ -4532,6 +4814,7 @@ export default class TypeTransformer {
       return xData;
     },
     ACDQueueOperatorInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acdQueueId'] !== 'undefined')
         xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
@@ -4542,6 +4825,7 @@ export default class TypeTransformer {
       return xData;
     },
     ClonedACDQueue: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['acdQueueId'] !== 'undefined')
         xData['acd_queue_id'] = TypeTransformer.from('number')(data['acdQueueId']);
@@ -4550,6 +4834,7 @@ export default class TypeTransformer {
       return xData;
     },
     SkillInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['skillId'] !== 'undefined')
         xData['skill_id'] = TypeTransformer.from('number')(data['skillId']);
@@ -4558,6 +4843,7 @@ export default class TypeTransformer {
       return xData;
     },
     ClonedACDSkill: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['skillId'] !== 'undefined')
         xData['skill_id'] = TypeTransformer.from('number')(data['skillId']);
@@ -4566,6 +4852,7 @@ export default class TypeTransformer {
       return xData;
     },
     ExchangeRates: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['RUR'] !== 'undefined')
         xData['RUR'] = TypeTransformer.from('number')(data['RUR']);
@@ -4578,14 +4865,16 @@ export default class TypeTransformer {
       return xData;
     },
     ResourcePrice: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['resourceType'] !== 'undefined')
         xData['resource_type'] = TypeTransformer.from('string')(data['resourceType']);
       if (typeof data['priceGroups'] !== 'undefined')
-        xData['price_groups'] = TypeTransformer.from('PriceGroup[]')(data['priceGroups']);
+        xData['price_groups'] = TypeTransformer.to('[PriceGroup]')(data['priceGroups']);
       return xData;
     },
     PriceGroup: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['priceGroupName'] !== 'undefined')
         xData['price_group_name'] = TypeTransformer.from('string')(data['priceGroupName']);
@@ -4600,10 +4889,11 @@ export default class TypeTransformer {
       if (typeof data['quantum'] !== 'undefined')
         xData['quantum'] = TypeTransformer.from('number')(data['quantum']);
       if (typeof data['params'] !== 'undefined')
-        xData['params'] = TypeTransformer.from('ResourceParams')(data['params']);
+        xData['params'] = TypeTransformer.to('ResourceParams')(data['params']);
       return xData;
     },
     ResourceParams: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['allowed'] !== 'undefined')
         xData['allowed'] = TypeTransformer.from('string[]')(data['allowed']);
@@ -4614,6 +4904,7 @@ export default class TypeTransformer {
       return xData;
     },
     CallList: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['listId'] !== 'undefined')
         xData['list_id'] = TypeTransformer.from('number')(data['listId']);
@@ -4642,6 +4933,7 @@ export default class TypeTransformer {
       return xData;
     },
     CallListDetail: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['listId'] !== 'undefined')
         xData['list_id'] = TypeTransformer.from('number')(data['listId']);
@@ -4670,6 +4962,7 @@ export default class TypeTransformer {
       return xData;
     },
     SIPRegistration: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sipRegistrationId'] !== 'undefined')
         xData['sip_registration_id'] = TypeTransformer.from('number')(data['sipRegistrationId']);
@@ -4716,6 +5009,7 @@ export default class TypeTransformer {
       return xData;
     },
     ClonedAdminRole: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['adminRoleId'] !== 'undefined')
         xData['admin_role_id'] = TypeTransformer.from('number')(data['adminRoleId']);
@@ -4724,6 +5018,7 @@ export default class TypeTransformer {
       return xData;
     },
     ClonedAdminUser: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['adminUserId'] !== 'undefined')
         xData['admin_user_id'] = TypeTransformer.from('number')(data['adminUserId']);
@@ -4734,6 +5029,7 @@ export default class TypeTransformer {
       return xData;
     },
     GetMoneyAmountToChargeResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['amount'] !== 'undefined')
         xData['amount'] = TypeTransformer.from('number')(data['amount']);
@@ -4752,12 +5048,13 @@ export default class TypeTransformer {
           data['minRobokassaAmountRub']
         );
       if (typeof data['subscriptions'] !== 'undefined')
-        xData['subscriptions'] = TypeTransformer.from('SubscriptionsToCharge[]')(
+        xData['subscriptions'] = TypeTransformer.to('[SubscriptionsToChargeType]')(
           data['subscriptions']
         );
       return xData;
     },
     ChargedPhone: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phoneId'] !== 'undefined')
         xData['phone_id'] = TypeTransformer.from('number')(data['phoneId']);
@@ -4770,6 +5067,7 @@ export default class TypeTransformer {
       return xData;
     },
     SubscriptionsToCharge: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subscriptionAmount'] !== 'undefined')
         xData['subscription_amount'] = TypeTransformer.from('number')(data['subscriptionAmount']);
@@ -4790,6 +5088,7 @@ export default class TypeTransformer {
       return xData;
     },
     AuthorizedAccountIP: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['authorizedIp'] !== 'undefined')
         xData['authorized_ip'] = TypeTransformer.from('string')(data['authorizedIp']);
@@ -4800,6 +5099,7 @@ export default class TypeTransformer {
       return xData;
     },
     AccountVerificationDocument: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['accountDocumentId'] !== 'undefined')
         xData['account_document_id'] = TypeTransformer.from('number')(data['accountDocumentId']);
@@ -4816,6 +5116,7 @@ export default class TypeTransformer {
       return xData;
     },
     AccountVerification: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['verificationName'] !== 'undefined')
         xData['verification_name'] = TypeTransformer.from('string')(data['verificationName']);
@@ -4824,22 +5125,22 @@ export default class TypeTransformer {
       if (typeof data['unverifiedHoldUntil'] !== 'undefined')
         xData['unverified_hold_until'] = TypeTransformer.from('Date')(data['unverifiedHoldUntil']);
       if (typeof data['documents'] !== 'undefined')
-        xData['documents'] = TypeTransformer.from('AccountVerificationDocument[]')(
-          data['documents']
-        );
+        xData['documents'] = TypeTransformer.to('[AccountVerificationDocument]')(data['documents']);
       return xData;
     },
     AccountDocuments: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['accountId'] !== 'undefined')
         xData['account_id'] = TypeTransformer.from('number')(data['accountId']);
       if (typeof data['verifications'] !== 'undefined')
-        xData['verifications'] = TypeTransformer.from('AccountVerification[]')(
+        xData['verifications'] = TypeTransformer.to('[AccountVerificationType]')(
           data['verifications']
         );
       return xData;
     },
     AccountVerifications: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['verificationId'] !== 'undefined')
         xData['verification_id'] = TypeTransformer.from('number')(data['verificationId']);
@@ -4854,20 +5155,21 @@ export default class TypeTransformer {
       if (typeof data['comments'] !== 'undefined')
         xData['comments'] = TypeTransformer.from('string')(data['comments']);
       if (typeof data['credentials'] !== 'undefined')
-        xData['credentials'] = TypeTransformer.from('AccountVerificationsCredentials')(
+        xData['credentials'] = TypeTransformer.to('AccountVerificationsTypeCredentials')(
           data['credentials']
         );
       if (typeof data['defaultEndUser'] !== 'undefined')
-        xData['default_end_user'] = TypeTransformer.from('AccountVerificationsDefaultEndUser[]')(
+        xData['default_end_user'] = TypeTransformer.to('[AccountVerificationsTypeDefaultEndUser]')(
           data['defaultEndUser']
         );
       if (typeof data['agreements'] !== 'undefined')
-        xData['agreements'] = TypeTransformer.from('AccountVerificationsAgreements[]')(
+        xData['agreements'] = TypeTransformer.to('[AccountVerificationsTypeAgreements]')(
           data['agreements']
         );
       return xData;
     },
     AccountVerificationsCredentials: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['individual'] !== 'undefined')
         xData['individual'] = TypeTransformer.from('string')(data['individual']);
@@ -4880,6 +5182,7 @@ export default class TypeTransformer {
       return xData;
     },
     AccountVerificationsDefaultEndUser: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['endUserUuid'] !== 'undefined')
         xData['end_user_uuid'] = TypeTransformer.from('number')(data['endUserUuid']);
@@ -4888,6 +5191,7 @@ export default class TypeTransformer {
       return xData;
     },
     AccountVerificationsAgreements: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['agreementId'] !== 'undefined')
         xData['agreement_id'] = TypeTransformer.from('number')(data['agreementId']);
@@ -4906,6 +5210,7 @@ export default class TypeTransformer {
       return xData;
     },
     SubscriptionTemplate: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subscriptionTemplateId'] !== 'undefined')
         xData['subscription_template_id'] = TypeTransformer.from('number')(
@@ -4948,12 +5253,14 @@ export default class TypeTransformer {
       return xData;
     },
     AccountCallbacks: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['callbacks'] !== 'undefined')
-        xData['callbacks'] = TypeTransformer.from('AccountCallback[]')(data['callbacks']);
+        xData['callbacks'] = TypeTransformer.to('[AccountCallback]')(data['callbacks']);
       return xData;
     },
     AccountCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['callbackId'] !== 'undefined')
         xData['callback_id'] = TypeTransformer.from('number')(data['callbackId']);
@@ -4978,156 +5285,157 @@ export default class TypeTransformer {
       if (typeof data['currency'] !== 'undefined')
         xData['currency'] = TypeTransformer.from('string')(data['currency']);
       if (typeof data['accountDocumentUploaded'] !== 'undefined')
-        xData['account_document_uploaded'] = TypeTransformer.from(
-          'AccountDocumentUploadedCallback'
-        )(data['accountDocumentUploaded']);
+        xData['account_document_uploaded'] = TypeTransformer.to('AccountDocumentUploadedCallback')(
+          data['accountDocumentUploaded']
+        );
       if (typeof data['batchTaskCancellingCompleted'] !== 'undefined')
-        xData['batch_task_cancelling_completed'] = TypeTransformer.from(
+        xData['batch_task_cancelling_completed'] = TypeTransformer.to(
           'BatchTaskCancellingCallback'
         )(data['batchTaskCancellingCompleted']);
       if (typeof data['regulationAddressUploaded'] !== 'undefined')
-        xData['regulation_address_uploaded'] = TypeTransformer.from(
+        xData['regulation_address_uploaded'] = TypeTransformer.to(
           'RegulationAddressUploadedCallback'
         )(data['regulationAddressUploaded']);
       if (typeof data['accountDocumentVerified'] !== 'undefined')
-        xData['account_document_verified'] = TypeTransformer.from(
-          'AccountDocumentVerifiedCallback'
-        )(data['accountDocumentVerified']);
+        xData['account_document_verified'] = TypeTransformer.to('AccountDocumentVerifiedCallback')(
+          data['accountDocumentVerified']
+        );
       if (typeof data['accountIsFrozen'] !== 'undefined')
-        xData['account_is_frozen'] = TypeTransformer.from('AccountIsFrozenCallback')(
+        xData['account_is_frozen'] = TypeTransformer.to('AccountIsFrozenCallback')(
           data['accountIsFrozen']
         );
       if (typeof data['accountIsUnfrozen'] !== 'undefined')
-        xData['account_is_unfrozen'] = TypeTransformer.from('AccountIsUnfrozenCallback')(
+        xData['account_is_unfrozen'] = TypeTransformer.to('AccountIsUnfrozenCallback')(
           data['accountIsUnfrozen']
         );
       if (typeof data['activateSuccessful'] !== 'undefined')
-        xData['activate_successful'] = TypeTransformer.from('ActivateSuccessfulCallback')(
+        xData['activate_successful'] = TypeTransformer.to('ActivateSuccessfulCallback')(
           data['activateSuccessful']
         );
       if (typeof data['callHistoryReport'] !== 'undefined')
-        xData['call_history_report'] = TypeTransformer.from('CallHistoryReportCallback')(
+        xData['call_history_report'] = TypeTransformer.to('CallHistoryReportCallback')(
           data['callHistoryReport']
         );
       if (typeof data['cardExpired'] !== 'undefined')
-        xData['card_expired'] = TypeTransformer.from('CardExpiredCallback')(data['cardExpired']);
+        xData['card_expired'] = TypeTransformer.to('CardExpiredCallback')(data['cardExpired']);
       if (typeof data['cardExpiresInMonth'] !== 'undefined')
-        xData['card_expires_in_month'] = TypeTransformer.from('CardExpiresInMonthCallback')(
+        xData['card_expires_in_month'] = TypeTransformer.to('CardExpiresInMonthCallback')(
           data['cardExpiresInMonth']
         );
       if (typeof data['cardPayment'] !== 'undefined')
-        xData['card_payment'] = TypeTransformer.from('CardPaymentCallback')(data['cardPayment']);
+        xData['card_payment'] = TypeTransformer.to('CardPaymentCallback')(data['cardPayment']);
       if (typeof data['cardPaymentFailed'] !== 'undefined')
-        xData['card_payment_failed'] = TypeTransformer.from('CardPaymentFailedCallback')(
+        xData['card_payment_failed'] = TypeTransformer.to('CardPaymentFailedCallback')(
           data['cardPaymentFailed']
         );
       if (typeof data['robokassaPayment'] !== 'undefined')
-        xData['robokassa_payment'] = TypeTransformer.from('RobokassaPaymentCallback')(
+        xData['robokassa_payment'] = TypeTransformer.to('RobokassaPaymentCallback')(
           data['robokassaPayment']
         );
       if (typeof data['wireTransfer'] !== 'undefined')
-        xData['wire_transfer'] = TypeTransformer.from('WireTransferCallback')(data['wireTransfer']);
+        xData['wire_transfer'] = TypeTransformer.to('WireTransferCallback')(data['wireTransfer']);
       if (typeof data['jsFail'] !== 'undefined')
-        xData['js_fail'] = TypeTransformer.from('JSFailCallback')(data['jsFail']);
+        xData['js_fail'] = TypeTransformer.to('JSFailCallback')(data['jsFail']);
       if (typeof data['minBalance'] !== 'undefined')
-        xData['min_balance'] = TypeTransformer.from('MinBalanceCallback')(data['minBalance']);
+        xData['min_balance'] = TypeTransformer.to('MinBalanceCallback')(data['minBalance']);
       if (typeof data['regulationAddressVerified'] !== 'undefined')
-        xData['regulation_address_verified'] = TypeTransformer.from(
+        xData['regulation_address_verified'] = TypeTransformer.to(
           'RegulationAddressVerifiedCallback'
         )(data['regulationAddressVerified']);
       if (typeof data['renewedSubscriptions'] !== 'undefined')
-        xData['renewed_subscriptions'] = TypeTransformer.from('RenewedSubscriptionsCallback')(
+        xData['renewed_subscriptions'] = TypeTransformer.to('RenewedSubscriptionsCallback')(
           data['renewedSubscriptions']
         );
       if (typeof data['resetAccountPasswordRequest'] !== 'undefined')
-        xData['reset_account_password_request'] = TypeTransformer.from(
+        xData['reset_account_password_request'] = TypeTransformer.to(
           'ResetAccountPasswordRequestCallback'
         )(data['resetAccountPasswordRequest']);
       if (typeof data['sipRegistrationFail'] !== 'undefined')
-        xData['sip_registration_fail'] = TypeTransformer.from('SIPRegistrationFailCallback')(
+        xData['sip_registration_fail'] = TypeTransformer.to('SIPRegistrationFailCallback')(
           data['sipRegistrationFail']
         );
       if (typeof data['sipRegistrationRecovered'] !== 'undefined')
-        xData['sip_registration_recovered'] = TypeTransformer.from(
+        xData['sip_registration_recovered'] = TypeTransformer.to(
           'SIPRegistrationRecoveredCallback'
         )(data['sipRegistrationRecovered']);
       if (typeof data['subscriptionIsFrozen'] !== 'undefined')
-        xData['subscription_is_frozen'] = TypeTransformer.from('SubscriptionIsFrozenCallback')(
+        xData['subscription_is_frozen'] = TypeTransformer.to('SubscriptionIsFrozenCallback')(
           data['subscriptionIsFrozen']
         );
       if (typeof data['subscriptionIsDetached'] !== 'undefined')
-        xData['subscription_is_detached'] = TypeTransformer.from('SubscriptionIsDetachedCallback')(
+        xData['subscription_is_detached'] = TypeTransformer.to('SubscriptionIsDetachedCallback')(
           data['subscriptionIsDetached']
         );
       if (typeof data['transactionHistoryReport'] !== 'undefined')
-        xData['transaction_history_report'] = TypeTransformer.from(
+        xData['transaction_history_report'] = TypeTransformer.to(
           'TransactionHistoryReportCallback'
         )(data['transactionHistoryReport']);
       if (typeof data['unverifiedSubscriptionDetached'] !== 'undefined')
-        xData['unverified_subscription_detached'] = TypeTransformer.from(
+        xData['unverified_subscription_detached'] = TypeTransformer.to(
           'UnverifiedSubscriptionDetachedCallback'
         )(data['unverifiedSubscriptionDetached']);
       if (typeof data['expiringCallerid'] !== 'undefined')
-        xData['expiring_callerid'] = TypeTransformer.from('ExpiringCallerIDCallback')(
+        xData['expiring_callerid'] = TypeTransformer.to('ExpiringCallerIDCallback')(
           data['expiringCallerid']
         );
       if (typeof data['transcriptionComplete'] !== 'undefined')
-        xData['transcription_complete'] = TypeTransformer.from('TranscriptionCompleteCallback')(
+        xData['transcription_complete'] = TypeTransformer.to('TranscriptionCompleteCallback')(
           data['transcriptionComplete']
         );
       if (typeof data['smsInbound'] !== 'undefined')
-        xData['sms_inbound'] = TypeTransformer.from('InboundSmsCallback')(data['smsInbound']);
+        xData['sms_inbound'] = TypeTransformer.to('InboundSmsCallback')(data['smsInbound']);
       if (typeof data['phoneNumberActivationStatusChanged'] !== 'undefined')
-        xData['phone_number_activation_status_changed'] = TypeTransformer.from(
+        xData['phone_number_activation_status_changed'] = TypeTransformer.to(
           'PhoneNumberActivationStatusChangedCallback'
         )(data['phoneNumberActivationStatusChanged']);
       if (typeof data['expiringAgreement'] !== 'undefined')
-        xData['expiring_agreement'] = TypeTransformer.from('ExpiringAgreementCallback')(
+        xData['expiring_agreement'] = TypeTransformer.to('ExpiringAgreementCallback')(
           data['expiringAgreement']
         );
       if (typeof data['expiredAgreement'] !== 'undefined')
-        xData['expired_agreement'] = TypeTransformer.from('ExpiredAgreementCallback')(
+        xData['expired_agreement'] = TypeTransformer.to('ExpiredAgreementCallback')(
           data['expiredAgreement']
         );
       if (typeof data['restoredAgreementStatus'] !== 'undefined')
-        xData['restored_agreement_status'] = TypeTransformer.from(
-          'RestoredAgreementStatusCallback'
-        )(data['restoredAgreementStatus']);
+        xData['restored_agreement_status'] = TypeTransformer.to('RestoredAgreementStatusCallback')(
+          data['restoredAgreementStatus']
+        );
       if (typeof data['nextChargeAlert'] !== 'undefined')
-        xData['next_charge_alert'] = TypeTransformer.from('NextChargeAlertCallback')(
+        xData['next_charge_alert'] = TypeTransformer.to('NextChargeAlertCallback')(
           data['nextChargeAlert']
         );
       if (typeof data['certificateExpired'] !== 'undefined')
-        xData['certificate_expired'] = TypeTransformer.from('CertificateExpiredCallback')(
+        xData['certificate_expired'] = TypeTransformer.to('CertificateExpiredCallback')(
           data['certificateExpired']
         );
       if (typeof data['expiredCertificates'] !== 'undefined')
-        xData['expired_certificates'] = TypeTransformer.from('ExpiredCertificateCallback')(
+        xData['expired_certificates'] = TypeTransformer.to('ExpiredCertificateCallback')(
           data['expiredCertificates']
         );
       if (typeof data['expiringCertificates'] !== 'undefined')
-        xData['expiring_certificates'] = TypeTransformer.from('ExpiringCertificateCallback')(
+        xData['expiring_certificates'] = TypeTransformer.to('ExpiringCertificateCallback')(
           data['expiringCertificates']
         );
       if (typeof data['accountDocumentStatusUpdated'] !== 'undefined')
-        xData['account_document_status_updated'] = TypeTransformer.from(
+        xData['account_document_status_updated'] = TypeTransformer.to(
           'AccountDocumentStatusUpdatedCallback'
         )(data['accountDocumentStatusUpdated']);
       if (typeof data['a2pSmsActivated'] !== 'undefined')
-        xData['a2p_sms_activated'] = TypeTransformer.from('A2PActivatedCallback')(
+        xData['a2p_sms_activated'] = TypeTransformer.to('A2PActivatedCallback')(
           data['a2pSmsActivated']
         );
       if (typeof data['regulationAddressDocumentsRequested'] !== 'undefined')
-        xData['regulation_address_documents_requested'] = TypeTransformer.from(
+        xData['regulation_address_documents_requested'] = TypeTransformer.to(
           'RegulationAddressDocumentsRequestedCallback'
         )(data['regulationAddressDocumentsRequested']);
       if (typeof data['invoiceReceived'] !== 'undefined')
-        xData['invoice_received'] = TypeTransformer.from('InvoiceReceivedCallback')(
+        xData['invoice_received'] = TypeTransformer.to('InvoiceReceivedCallback')(
           data['invoiceReceived']
         );
       return xData;
     },
     A2PSmsDeliveryCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['id'] !== 'undefined')
         xData['id'] = TypeTransformer.from('number')(data['id']);
@@ -5140,6 +5448,7 @@ export default class TypeTransformer {
       return xData;
     },
     AccountDocumentUploadedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['accountDocumentId'] !== 'undefined')
         xData['account_document_id'] = TypeTransformer.from('number')(data['accountDocumentId']);
@@ -5152,6 +5461,7 @@ export default class TypeTransformer {
       return xData;
     },
     BatchTaskCancellingCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['batchId'] !== 'undefined')
         xData['batch_id'] = TypeTransformer.from('number')(data['batchId']);
@@ -5162,6 +5472,7 @@ export default class TypeTransformer {
       return xData;
     },
     RegulationAddressUploadedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['regulationAddressId'] !== 'undefined')
         xData['regulation_address_id'] = TypeTransformer.from('number')(
@@ -5178,6 +5489,7 @@ export default class TypeTransformer {
       return xData;
     },
     AccountDocumentVerifiedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['accountDocumentId'] !== 'undefined')
         xData['account_document_id'] = TypeTransformer.from('number')(data['accountDocumentId']);
@@ -5196,21 +5508,25 @@ export default class TypeTransformer {
       return xData;
     },
     AccountIsFrozenCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     AccountIsUnfrozenCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     ActivateSuccessfulCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     CallHistoryReportCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['historyReportId'] !== 'undefined')
         xData['history_report_id'] = TypeTransformer.from('number')(data['historyReportId']);
@@ -5221,16 +5537,19 @@ export default class TypeTransformer {
       return xData;
     },
     CardExpiredCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     CardExpiresInMonthCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     CardPaymentCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['transactionId'] !== 'undefined')
         xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
@@ -5241,11 +5560,13 @@ export default class TypeTransformer {
       return xData;
     },
     CardPaymentFailedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     RobokassaPaymentCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['transactionId'] !== 'undefined')
         xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
@@ -5256,6 +5577,7 @@ export default class TypeTransformer {
       return xData;
     },
     WireTransferCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['transactionId'] !== 'undefined')
         xData['transaction_id'] = TypeTransformer.from('number')(data['transactionId']);
@@ -5266,11 +5588,13 @@ export default class TypeTransformer {
       return xData;
     },
     JSFailCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     MinBalanceCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['isMinCredit'] !== 'undefined')
         xData['is_min_credit'] = TypeTransformer.from('boolean')(data['isMinCredit']);
@@ -5279,6 +5603,7 @@ export default class TypeTransformer {
       return xData;
     },
     RegulationAddressVerifiedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['regulationAddressId'] !== 'undefined')
         xData['regulation_address_id'] = TypeTransformer.from('number')(
@@ -5301,14 +5626,16 @@ export default class TypeTransformer {
       return xData;
     },
     RenewedSubscriptionsCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subscriptions'] !== 'undefined')
-        xData['subscriptions'] = TypeTransformer.from('RenewedSubscriptionsCallbackItem[]')(
+        xData['subscriptions'] = TypeTransformer.to('[RenewedSubscriptionsCallbackItem]')(
           data['subscriptions']
         );
       return xData;
     },
     RenewedSubscriptionsCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['type'] !== 'undefined')
         xData['type'] = TypeTransformer.from('string')(data['type']);
@@ -5319,23 +5646,26 @@ export default class TypeTransformer {
       if (typeof data['nextRenewal'] !== 'undefined')
         xData['next_renewal'] = TypeTransformer.from('Date')(data['nextRenewal']);
       if (typeof data['details'] !== 'undefined')
-        xData['details'] = TypeTransformer.from('SubscriptionCallbackDetails[]')(data['details']);
+        xData['details'] = TypeTransformer.to('[SubscriptionCallbackDetails]')(data['details']);
       return xData;
     },
     ResetAccountPasswordRequestCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     SIPRegistrationFailCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sipRegistrations'] !== 'undefined')
-        xData['sip_registrations'] = TypeTransformer.from('SIPRegistrationIsFailedCallbackItem[]')(
+        xData['sip_registrations'] = TypeTransformer.to('[SIPRegistrationIsFailedCallbackItem]')(
           data['sipRegistrations']
         );
       return xData;
     },
     SIPRegistrationIsFailedCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sipRegistrationId'] !== 'undefined')
         xData['sip_registration_id'] = TypeTransformer.from('number')(data['sipRegistrationId']);
@@ -5346,46 +5676,52 @@ export default class TypeTransformer {
       return xData;
     },
     SIPRegistrationRecoveredCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sipRegistrations'] !== 'undefined')
-        xData['sip_registrations'] = TypeTransformer.from(
-          'SIPRegistrationIsRecoveredCallbackItem[]'
-        )(data['sipRegistrations']);
+        xData['sip_registrations'] = TypeTransformer.to('[SIPRegistrationIsRecoveredCallbackItem]')(
+          data['sipRegistrations']
+        );
       return xData;
     },
     SIPRegistrationIsRecoveredCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sipRegistrationId'] !== 'undefined')
         xData['sip_registration_id'] = TypeTransformer.from('number')(data['sipRegistrationId']);
       return xData;
     },
     SubscriptionIsDetachedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subscriptions'] !== 'undefined')
-        xData['subscriptions'] = TypeTransformer.from('SubscriptionIsDetachedCallbackItem[]')(
+        xData['subscriptions'] = TypeTransformer.to('[SubscriptionIsDetachedCallbackItem]')(
           data['subscriptions']
         );
       return xData;
     },
     SubscriptionIsDetachedCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['type'] !== 'undefined')
         xData['type'] = TypeTransformer.from('string')(data['type']);
       if (typeof data['name'] !== 'undefined')
         xData['name'] = TypeTransformer.from('string')(data['name']);
       if (typeof data['details'] !== 'undefined')
-        xData['details'] = TypeTransformer.from('SubscriptionCallbackDetails[]')(data['details']);
+        xData['details'] = TypeTransformer.to('[SubscriptionCallbackDetails]')(data['details']);
       return xData;
     },
     SubscriptionIsFrozenCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subscriptions'] !== 'undefined')
-        xData['subscriptions'] = TypeTransformer.from('SubscriptionIsFrozenCallbackItem[]')(
+        xData['subscriptions'] = TypeTransformer.to('[SubscriptionIsFrozenCallbackItem]')(
           data['subscriptions']
         );
       return xData;
     },
     SubscriptionIsFrozenCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['type'] !== 'undefined')
         xData['type'] = TypeTransformer.from('string')(data['type']);
@@ -5394,10 +5730,11 @@ export default class TypeTransformer {
       if (typeof data['cost'] !== 'undefined')
         xData['cost'] = TypeTransformer.from('number')(data['cost']);
       if (typeof data['details'] !== 'undefined')
-        xData['details'] = TypeTransformer.from('SubscriptionCallbackDetails[]')(data['details']);
+        xData['details'] = TypeTransformer.to('[SubscriptionCallbackDetails]')(data['details']);
       return xData;
     },
     TransactionHistoryReportCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['historyReportId'] !== 'undefined')
         xData['history_report_id'] = TypeTransformer.from('number')(data['historyReportId']);
@@ -5408,24 +5745,27 @@ export default class TypeTransformer {
       return xData;
     },
     UnverifiedSubscriptionDetachedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subscriptions'] !== 'undefined')
-        xData['subscriptions'] = TypeTransformer.from(
-          'UnverifiedSubscriptionDetachedCallbackItem[]'
-        )(data['subscriptions']);
+        xData['subscriptions'] = TypeTransformer.to('[UnverifiedSubscriptionDetachedCallbackItem]')(
+          data['subscriptions']
+        );
       return xData;
     },
     UnverifiedSubscriptionDetachedCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['type'] !== 'undefined')
         xData['type'] = TypeTransformer.from('string')(data['type']);
       if (typeof data['name'] !== 'undefined')
         xData['name'] = TypeTransformer.from('string')(data['name']);
       if (typeof data['details'] !== 'undefined')
-        xData['details'] = TypeTransformer.from('SubscriptionCallbackDetails[]')(data['details']);
+        xData['details'] = TypeTransformer.to('[SubscriptionCallbackDetails]')(data['details']);
       return xData;
     },
     ExpiringCallerIDCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['callerids'] !== 'undefined')
         xData['callerids'] = TypeTransformer.from('string[]')(data['callerids']);
@@ -5434,14 +5774,16 @@ export default class TypeTransformer {
       return xData;
     },
     TranscriptionCompleteCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['transcriptionComplete'] !== 'undefined')
-        xData['transcription_complete'] = TypeTransformer.from('TranscriptionCompleteCallbackItem')(
+        xData['transcription_complete'] = TypeTransformer.to('TranscriptionCompleteCallbackItem')(
           data['transcriptionComplete']
         );
       return xData;
     },
     TranscriptionCompleteCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['recordUrl'] !== 'undefined')
         xData['record_url'] = TypeTransformer.from('string')(data['recordUrl']);
@@ -5456,6 +5798,7 @@ export default class TypeTransformer {
       return xData;
     },
     ExpiringAgreementCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['expirationDate'] !== 'undefined')
         xData['expiration_date'] = TypeTransformer.from('Date')(data['expirationDate']);
@@ -5464,6 +5807,7 @@ export default class TypeTransformer {
       return xData;
     },
     NextChargeAlertCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['requiredMoney'] !== 'undefined')
         xData['required_money'] = TypeTransformer.from('number')(data['requiredMoney']);
@@ -5474,23 +5818,27 @@ export default class TypeTransformer {
       return xData;
     },
     CertificateExpiredCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
 
       return xData;
     },
     ExpiredCertificateCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['certificates'] !== 'undefined')
-        xData['certificates'] = TypeTransformer.from('CertificateInfo[]')(data['certificates']);
+        xData['certificates'] = TypeTransformer.to('[CertificateInfoType]')(data['certificates']);
       return xData;
     },
     ExpiringCertificateCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['certificates'] !== 'undefined')
-        xData['certificates'] = TypeTransformer.from('CertificateInfo[]')(data['certificates']);
+        xData['certificates'] = TypeTransformer.to('[CertificateInfoType]')(data['certificates']);
       return xData;
     },
     CertificateInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['pushCredentialId'] !== 'undefined')
         xData['push_credential_id'] = TypeTransformer.from('number')(data['pushCredentialId']);
@@ -5503,20 +5851,22 @@ export default class TypeTransformer {
       return xData;
     },
     SubscriptionCallbackDetails: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['type'] !== 'undefined')
         xData['type'] = TypeTransformer.from('string')(data['type']);
       if (typeof data['phoneNumbers'] !== 'undefined')
-        xData['phone_numbers'] = TypeTransformer.from('SubscriptionCallbackDetailsPhoneNumbers[]')(
+        xData['phone_numbers'] = TypeTransformer.to('[SubscriptionCallbackDetailsPhoneNumbers]')(
           data['phoneNumbers']
         );
       if (typeof data['sipRegistrations'] !== 'undefined')
-        xData['sip_registrations'] = TypeTransformer.from(
-          'SubscriptionCallbackDetailsSipRegistrations[]'
+        xData['sip_registrations'] = TypeTransformer.to(
+          '[SubscriptionCallbackDetailsSipRegistrations]'
         )(data['sipRegistrations']);
       return xData;
     },
     SubscriptionCallbackDetailsPhoneNumbers: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phoneId'] !== 'undefined')
         xData['phone_id'] = TypeTransformer.from('number')(data['phoneId']);
@@ -5525,18 +5875,21 @@ export default class TypeTransformer {
       return xData;
     },
     SubscriptionCallbackDetailsSipRegistrations: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sipRegistrationId'] !== 'undefined')
         xData['sip_registration_id'] = TypeTransformer.from('number')(data['sipRegistrationId']);
       return xData;
     },
     A2PActivatedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['a2pEnabled'] !== 'undefined')
         xData['a2p_enabled'] = TypeTransformer.from('boolean')(data['a2pEnabled']);
       return xData;
     },
     AccountDocumentStatusUpdatedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['accountDocumentId'] !== 'undefined')
         xData['account_document_id'] = TypeTransformer.from('number')(data['accountDocumentId']);
@@ -5557,6 +5910,7 @@ export default class TypeTransformer {
       return xData;
     },
     RegulationAddressDocumentsRequestedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['regulationAddressId'] !== 'undefined')
         xData['regulation_address_id'] = TypeTransformer.from('number')(
@@ -5579,6 +5933,7 @@ export default class TypeTransformer {
       return xData;
     },
     InvoiceReceivedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['invoiceId'] !== 'undefined')
         xData['invoice_id'] = TypeTransformer.from('number')(data['invoiceId']);
@@ -5595,6 +5950,7 @@ export default class TypeTransformer {
       return xData;
     },
     ZipCode: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['city'] !== 'undefined')
         xData['city'] = TypeTransformer.from('string')(data['city']);
@@ -5603,6 +5959,7 @@ export default class TypeTransformer {
       return xData;
     },
     RegulationCountry: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['countryCode'] !== 'undefined')
         xData['country_code'] = TypeTransformer.from('string')(data['countryCode']);
@@ -5611,6 +5968,7 @@ export default class TypeTransformer {
       return xData;
     },
     RegulationAddress: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['regulationAddressId'] !== 'undefined')
         xData['regulation_address_id'] = TypeTransformer.from('number')(
@@ -5649,6 +6007,7 @@ export default class TypeTransformer {
       return xData;
     },
     RegulationRegionRecord: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phoneRegionId'] !== 'undefined')
         xData['phone_region_id'] = TypeTransformer.from('number')(data['phoneRegionId']);
@@ -5667,6 +6026,7 @@ export default class TypeTransformer {
       return xData;
     },
     BankCard: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['bankCardProvider'] !== 'undefined')
         xData['bank_card_provider'] = TypeTransformer.from('string')(data['bankCardProvider']);
@@ -5683,7 +6043,7 @@ export default class TypeTransformer {
       if (typeof data['acct'] !== 'undefined')
         xData['acct'] = TypeTransformer.from('number')(data['acct']);
       if (typeof data['lastError'] !== 'undefined')
-        xData['last_error'] = TypeTransformer.from('BankCardError')(data['lastError']);
+        xData['last_error'] = TypeTransformer.to('BankCardErrorType')(data['lastError']);
       if (typeof data['cardHolder'] !== 'undefined')
         xData['card_holder'] = TypeTransformer.from('string')(data['cardHolder']);
       if (typeof data['cardType'] !== 'undefined')
@@ -5691,6 +6051,7 @@ export default class TypeTransformer {
       return xData;
     },
     BankCardError: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['date'] !== 'undefined')
         xData['date'] = TypeTransformer.from('Date')(data['date']);
@@ -5703,6 +6064,7 @@ export default class TypeTransformer {
       return xData;
     },
     PstnBlackListInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['pstnBlacklistId'] !== 'undefined')
         xData['pstn_blacklist_id'] = TypeTransformer.from('number')(data['pstnBlacklistId']);
@@ -5713,22 +6075,25 @@ export default class TypeTransformer {
       return xData;
     },
     DialogflowKeyInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['dialogflowKeyId'] !== 'undefined')
         xData['dialogflow_key_id'] = TypeTransformer.from('number')(data['dialogflowKeyId']);
       if (typeof data['content'] !== 'undefined')
-        xData['content'] = TypeTransformer.from('DialogflowKey')(data['content']);
+        xData['content'] = TypeTransformer.to('DialogflowKey')(data['content']);
       if (typeof data['applications'] !== 'undefined')
-        xData['applications'] = TypeTransformer.from('ApplicationInfo[]')(data['applications']);
+        xData['applications'] = TypeTransformer.to('[ApplicationInfoType]')(data['applications']);
       return xData;
     },
     DialogflowKey: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['projectId'] !== 'undefined')
         xData['project_id'] = TypeTransformer.from('string')(data['projectId']);
       return xData;
     },
     PushCredentialInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['pushCredentialId'] !== 'undefined')
         xData['push_credential_id'] = TypeTransformer.from('number')(data['pushCredentialId']);
@@ -5741,12 +6106,13 @@ export default class TypeTransformer {
       if (typeof data['credentialBundle'] !== 'undefined')
         xData['credential_bundle'] = TypeTransformer.from('string')(data['credentialBundle']);
       if (typeof data['content'] !== 'undefined')
-        xData['content'] = TypeTransformer.from('PushCredentialContent[]')(data['content']);
+        xData['content'] = TypeTransformer.to('[PushCredentialContent]')(data['content']);
       if (typeof data['applications'] !== 'undefined')
-        xData['applications'] = TypeTransformer.from('ApplicationInfo[]')(data['applications']);
+        xData['applications'] = TypeTransformer.to('[ApplicationInfoType]')(data['applications']);
       return xData;
     },
     PushCredentialContent: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['certFileName'] !== 'undefined')
         xData['cert_file_name'] = TypeTransformer.from('string')(data['certFileName']);
@@ -5765,20 +6131,23 @@ export default class TypeTransformer {
       return xData;
     },
     InboundSmsCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['smsInbound'] !== 'undefined')
-        xData['sms_inbound'] = TypeTransformer.from('InboundSmsCallbackItem')(data['smsInbound']);
+        xData['sms_inbound'] = TypeTransformer.to('InboundSmsCallbackItem')(data['smsInbound']);
       return xData;
     },
     PhoneNumberActivationStatusChangedCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phoneNumberActivationStatusChanged'] !== 'undefined')
-        xData['phone_number_activation_status_changed'] = TypeTransformer.from(
+        xData['phone_number_activation_status_changed'] = TypeTransformer.to(
           'PhoneNumberActivationStatusChangedCallbackItem'
         )(data['phoneNumberActivationStatusChanged']);
       return xData;
     },
     PhoneNumberActivationStatusChangedCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['phoneNumber'] !== 'undefined')
         xData['phone_number'] = TypeTransformer.from('string')(data['phoneNumber']);
@@ -5787,6 +6156,7 @@ export default class TypeTransformer {
       return xData;
     },
     InboundSmsCallbackItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sourceNumber'] !== 'undefined')
         xData['source_number'] = TypeTransformer.from('string')(data['sourceNumber']);
@@ -5797,6 +6167,7 @@ export default class TypeTransformer {
       return xData;
     },
     RecordStorageInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['recordStorageId'] !== 'undefined')
         xData['record_storage_id'] = TypeTransformer.from('number')(data['recordStorageId']);
@@ -5805,6 +6176,7 @@ export default class TypeTransformer {
       return xData;
     },
     SmsTransaction: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['messageId'] !== 'undefined')
         xData['message_id'] = TypeTransformer.from('number')(data['messageId']);
@@ -5813,6 +6185,7 @@ export default class TypeTransformer {
       return xData;
     },
     FailedSms: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['destinationNumber'] !== 'undefined')
         xData['destination_number'] = TypeTransformer.from('string')(data['destinationNumber']);
@@ -5823,6 +6196,7 @@ export default class TypeTransformer {
       return xData;
     },
     KeyInfo: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['accountEmail'] !== 'undefined')
         xData['account_email'] = TypeTransformer.from('string')(data['accountEmail']);
@@ -5835,20 +6209,22 @@ export default class TypeTransformer {
       return xData;
     },
     KeyView: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['keyId'] !== 'undefined')
         xData['key_id'] = TypeTransformer.from('string')(data['keyId']);
       if (typeof data['roles'] !== 'undefined')
-        xData['roles'] = TypeTransformer.from('RoleView[]')(data['roles']);
+        xData['roles'] = TypeTransformer.to('[RoleView]')(data['roles']);
       if (typeof data['description'] !== 'undefined')
         xData['description'] = TypeTransformer.from('string')(data['description']);
       if (typeof data['subuser'] !== 'undefined')
-        xData['subuser'] = TypeTransformer.from('SubUserView[]')(data['subuser']);
+        xData['subuser'] = TypeTransformer.to('[SubUserView]')(data['subuser']);
       if (typeof data['keyName'] !== 'undefined')
         xData['key_name'] = TypeTransformer.from('string')(data['keyName']);
       return xData;
     },
     SubUserView: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subuserId'] !== 'undefined')
         xData['subuser_id'] = TypeTransformer.from('number')(data['subuserId']);
@@ -5857,16 +6233,18 @@ export default class TypeTransformer {
       if (typeof data['description'] !== 'undefined')
         xData['description'] = TypeTransformer.from('string')(data['description']);
       if (typeof data['roles'] !== 'undefined')
-        xData['roles'] = TypeTransformer.from('RoleView[]')(data['roles']);
+        xData['roles'] = TypeTransformer.to('[RoleView]')(data['roles']);
       return xData;
     },
     SubUserID: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['subuserId'] !== 'undefined')
         xData['subuser_id'] = TypeTransformer.from('number')(data['subuserId']);
       return xData;
     },
     RoleView: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['roleName'] !== 'undefined')
         xData['role_name'] = TypeTransformer.from('string')(data['roleName']);
@@ -5883,6 +6261,7 @@ export default class TypeTransformer {
       return xData;
     },
     RoleGroupView: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['id'] !== 'undefined')
         xData['id'] = TypeTransformer.from('number')(data['id']);
@@ -5891,6 +6270,7 @@ export default class TypeTransformer {
       return xData;
     },
     SmsHistory: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['messageId'] !== 'undefined')
         xData['message_id'] = TypeTransformer.from('number')(data['messageId']);
@@ -5917,6 +6297,7 @@ export default class TypeTransformer {
       return xData;
     },
     A2PSmsHistory: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['messageId'] !== 'undefined')
         xData['message_id'] = TypeTransformer.from('number')(data['messageId']);
@@ -5943,12 +6324,14 @@ export default class TypeTransformer {
       return xData;
     },
     ExpiredAgreementCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['documentIds'] !== 'undefined')
         xData['document_ids'] = TypeTransformer.from('number[]')(data['documentIds']);
       return xData;
     },
     RestoredAgreementStatusCallback: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['documentId'] !== 'undefined')
         xData['document_id'] = TypeTransformer.from('number')(data['documentId']);
@@ -5957,6 +6340,7 @@ export default class TypeTransformer {
       return xData;
     },
     GetMaxBankCardPaymentResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['maxPayment'] !== 'undefined')
         xData['max_payment'] = TypeTransformer.from('number')(data['maxPayment']);
@@ -5967,6 +6351,7 @@ export default class TypeTransformer {
       return xData;
     },
     GetAutochargeConfigResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['autoCharge'] !== 'undefined')
         xData['auto_charge'] = TypeTransformer.from('boolean')(data['autoCharge']);
@@ -5979,6 +6364,7 @@ export default class TypeTransformer {
       return xData;
     },
     GetSQQueuesResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sqQueueId'] !== 'undefined')
         xData['sq_queue_id'] = TypeTransformer.from('number')(data['sqQueueId']);
@@ -6023,6 +6409,7 @@ export default class TypeTransformer {
       return xData;
     },
     GetSQSkillsResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sqSkillId'] !== 'undefined')
         xData['sq_skill_id'] = TypeTransformer.from('number')(data['sqSkillId']);
@@ -6037,6 +6424,7 @@ export default class TypeTransformer {
       return xData;
     },
     GetSQAgentsResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('number')(data['userId']);
@@ -6049,7 +6437,7 @@ export default class TypeTransformer {
           data['maxSimultaneousConversations']
         );
       if (typeof data['sqStatuses'] !== 'undefined')
-        xData['sq_statuses'] = TypeTransformer.from('SmartQueueStateAgentStatus[]')(
+        xData['sq_statuses'] = TypeTransformer.to('[SmartQueueState_Agent_Status]')(
           data['sqStatuses']
         );
       if (typeof data['sqQueues'] !== 'undefined')
@@ -6059,6 +6447,7 @@ export default class TypeTransformer {
       return xData;
     },
     SQTaskSelectionStrategies: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['MAXPRIORITY'] !== 'undefined')
         xData['MAX_PRIORITY'] = TypeTransformer.from('string')(data['MAXPRIORITY']);
@@ -6067,6 +6456,7 @@ export default class TypeTransformer {
       return xData;
     },
     SQSkillBindingModes: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['add'] !== 'undefined')
         xData['add'] = TypeTransformer.from('string')(data['add']);
@@ -6077,6 +6467,7 @@ export default class TypeTransformer {
       return xData;
     },
     SQAgentBindingModes: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['addQueues'] !== 'undefined')
         xData['add_queues'] = TypeTransformer.from('string')(data['addQueues']);
@@ -6089,14 +6480,16 @@ export default class TypeTransformer {
       return xData;
     },
     SmartQueueMetricsResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['reportType'] !== 'undefined')
         xData['report_type'] = TypeTransformer.from('string')(data['reportType']);
       if (typeof data['groups'] !== 'undefined')
-        xData['groups'] = TypeTransformer.from('SmartQueueMetricsGroups[]')(data['groups']);
+        xData['groups'] = TypeTransformer.to('[SmartQueueMetricsGroups]')(data['groups']);
       return xData;
     },
     SmartQueueMetricsGroups: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sqQueueId'] !== 'undefined')
         xData['sq_queue_id'] = TypeTransformer.from('number')(data['sqQueueId']);
@@ -6109,10 +6502,11 @@ export default class TypeTransformer {
       if (typeof data['userDisplayName'] !== 'undefined')
         xData['user_display_name'] = TypeTransformer.from('string')(data['userDisplayName']);
       if (typeof data['values'] !== 'undefined')
-        xData['values'] = TypeTransformer.from('SmartQueueMetricsGroupsValues[]')(data['values']);
+        xData['values'] = TypeTransformer.to('[SmartQueueMetricsGroupsValues]')(data['values']);
       return xData;
     },
     SmartQueueMetricsGroupsValues: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['fromDate'] !== 'undefined')
         xData['from_date'] = TypeTransformer.from('Date')(data['fromDate']);
@@ -6123,18 +6517,20 @@ export default class TypeTransformer {
       return xData;
     },
     SmartQueueState: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sqQueueId'] !== 'undefined')
         xData['sq_queue_id'] = TypeTransformer.from('number')(data['sqQueueId']);
       if (typeof data['sqQueueName'] !== 'undefined')
         xData['sq_queue_name'] = TypeTransformer.from('string')(data['sqQueueName']);
       if (typeof data['sqAgents'] !== 'undefined')
-        xData['sq_agents'] = TypeTransformer.from('SmartQueueStateAgent[]')(data['sqAgents']);
+        xData['sq_agents'] = TypeTransformer.to('[SmartQueueState_Agent]')(data['sqAgents']);
       if (typeof data['tasks'] !== 'undefined')
-        xData['tasks'] = TypeTransformer.from('SmartQueueStateTask[]')(data['tasks']);
+        xData['tasks'] = TypeTransformer.to('[SmartQueueState_Task]')(data['tasks']);
       return xData;
     },
     SmartQueueStateTask: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['taskType'] !== 'undefined')
         xData['task_type'] = TypeTransformer.from('string')(data['taskType']);
@@ -6143,7 +6539,7 @@ export default class TypeTransformer {
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('number')(data['userId']);
       if (typeof data['sqSkills'] !== 'undefined')
-        xData['sq_skills'] = TypeTransformer.from('SmartQueueTaskSkill[]')(data['sqSkills']);
+        xData['sq_skills'] = TypeTransformer.to('[SmartQueueTask_Skill]')(data['sqSkills']);
       if (typeof data['waitingTime'] !== 'undefined')
         xData['waiting_time'] = TypeTransformer.from('number')(data['waitingTime']);
       if (typeof data['processingTime'] !== 'undefined')
@@ -6153,6 +6549,7 @@ export default class TypeTransformer {
       return xData;
     },
     SmartQueueStateAgent: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['userId'] !== 'undefined')
         xData['user_id'] = TypeTransformer.from('number')(data['userId']);
@@ -6161,14 +6558,15 @@ export default class TypeTransformer {
       if (typeof data['userDisplayName'] !== 'undefined')
         xData['user_display_name'] = TypeTransformer.from('string')(data['userDisplayName']);
       if (typeof data['sqSkills'] !== 'undefined')
-        xData['sq_skills'] = TypeTransformer.from('SmartQueueAgentSkill[]')(data['sqSkills']);
+        xData['sq_skills'] = TypeTransformer.to('[SmartQueueAgent_Skill]')(data['sqSkills']);
       if (typeof data['sqStatuses'] !== 'undefined')
-        xData['sq_statuses'] = TypeTransformer.from('SmartQueueStateAgentStatus[]')(
+        xData['sq_statuses'] = TypeTransformer.to('[SmartQueueState_Agent_Status]')(
           data['sqStatuses']
         );
       return xData;
     },
     SmartQueueAgentSkill: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sqSkillId'] !== 'undefined')
         xData['sq_skill_id'] = TypeTransformer.from('number')(data['sqSkillId']);
@@ -6179,6 +6577,7 @@ export default class TypeTransformer {
       return xData;
     },
     SmartQueueTaskSkill: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sqSkillName'] !== 'undefined')
         xData['sq_skill_name'] = TypeTransformer.from('string')(data['sqSkillName']);
@@ -6187,14 +6586,16 @@ export default class TypeTransformer {
       return xData;
     },
     SmartQueueStateAgentStatus: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['IM'] !== 'undefined')
-        xData['IM'] = TypeTransformer.from('SmartQueueStateAgentStatus_')(data['IM']);
+        xData['IM'] = TypeTransformer.to('SmartQueueState_Agent_Status_Type')(data['IM']);
       if (typeof data['CALL'] !== 'undefined')
-        xData['CALL'] = TypeTransformer.from('SmartQueueStateAgentStatus_')(data['CALL']);
+        xData['CALL'] = TypeTransformer.to('SmartQueueState_Agent_Status_Type')(data['CALL']);
       return xData;
     },
     SmartQueueStateAgentStatus_: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sqStatusName'] !== 'undefined')
         xData['sq_status_name'] = TypeTransformer.from('string')(data['sqStatusName']);
@@ -6203,6 +6604,7 @@ export default class TypeTransformer {
       return xData;
     },
     KeyValueItems: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['key'] !== 'undefined')
         xData['key'] = TypeTransformer.from('string')(data['key']);
@@ -6213,6 +6615,7 @@ export default class TypeTransformer {
       return xData;
     },
     KeyValuePairs: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['key'] !== 'undefined')
         xData['key'] = TypeTransformer.from('string')(data['key']);
@@ -6223,6 +6626,7 @@ export default class TypeTransformer {
       return xData;
     },
     KeyValueKeys: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['key'] !== 'undefined')
         xData['key'] = TypeTransformer.from('string')(data['key']);
@@ -6231,15 +6635,16 @@ export default class TypeTransformer {
       return xData;
     },
     AccountInvoice: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['period'] !== 'undefined')
-        xData['period'] = TypeTransformer.from('InvoicePeriod')(data['period']);
+        xData['period'] = TypeTransformer.to('InvoicePeriod')(data['period']);
       if (typeof data['amount'] !== 'undefined')
-        xData['amount'] = TypeTransformer.from('InvoiceTotalDetails')(data['amount']);
+        xData['amount'] = TypeTransformer.to('InvoiceTotalDetails')(data['amount']);
       if (typeof data['invoiceId'] !== 'undefined')
         xData['invoice_id'] = TypeTransformer.from('number')(data['invoiceId']);
       if (typeof data['rows'] !== 'undefined')
-        xData['rows'] = TypeTransformer.from('InvoiceSpendingDetails')(data['rows']);
+        xData['rows'] = TypeTransformer.to('InvoiceSpendingDetails')(data['rows']);
       if (typeof data['invoiceNumber'] !== 'undefined')
         xData['invoice_number'] = TypeTransformer.from('string')(data['invoiceNumber']);
       if (typeof data['invoiceDate'] !== 'undefined')
@@ -6249,6 +6654,7 @@ export default class TypeTransformer {
       return xData;
     },
     InvoicePeriod: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['from'] !== 'undefined')
         xData['from'] = TypeTransformer.from('Date')(data['from']);
@@ -6256,6 +6662,7 @@ export default class TypeTransformer {
       return xData;
     },
     InvoiceTotalDetails: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['taxAmount'] !== 'undefined')
         xData['tax_amount'] = TypeTransformer.from('number')(data['taxAmount']);
@@ -6270,16 +6677,18 @@ export default class TypeTransformer {
       return xData;
     },
     InvoiceSpendingDetails: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['amount'] !== 'undefined')
-        xData['amount'] = TypeTransformer.from('InvoiceTotalDetails')(data['amount']);
+        xData['amount'] = TypeTransformer.to('InvoiceTotalDetails')(data['amount']);
       if (typeof data['serviceName'] !== 'undefined')
         xData['service_name'] = TypeTransformer.from('string')(data['serviceName']);
       if (typeof data['taxes'] !== 'undefined')
-        xData['taxes'] = TypeTransformer.from('InvoiceTaxesDetails')(data['taxes']);
+        xData['taxes'] = TypeTransformer.to('InvoiceTaxesDetails')(data['taxes']);
       return xData;
     },
     InvoiceTaxesDetails: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['taxableMeasure'] !== 'undefined')
         xData['taxable_measure'] = TypeTransformer.from('number')(data['taxableMeasure']);
@@ -6298,24 +6707,28 @@ export default class TypeTransformer {
       return xData;
     },
     SQAddQueueResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sqQueueId'] !== 'undefined')
         xData['sq_queue_id'] = TypeTransformer.from('number')(data['sqQueueId']);
       return xData;
     },
     SQAddSkillResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['sqSkillId'] !== 'undefined')
         xData['sq_skill_id'] = TypeTransformer.from('number')(data['sqSkillId']);
       return xData;
     },
     AddSecretResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['secretId'] !== 'undefined')
         xData['secret_id'] = TypeTransformer.from('number')(data['secretId']);
       return xData;
     },
     GetSecretValueResult: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['secretId'] !== 'undefined')
         xData['secret_id'] = TypeTransformer.from('number')(data['secretId']);
@@ -6332,6 +6745,7 @@ export default class TypeTransformer {
       return xData;
     },
     SecretListItem: function (data) {
+      if (data == null) return data;
       const xData = {};
       if (typeof data['secretId'] !== 'undefined')
         xData['secret_id'] = TypeTransformer.from('number')(data['secretId']);
@@ -6349,32 +6763,54 @@ export default class TypeTransformer {
 
   public static from(type: string): any {
     const isArray = TypeTransformer.hasArrayBrackets(type);
-    const fType = isArray ? type.replace('[', '').replace(']', '') : type;
-    const existTransformer = TypeTransformer.fromActors[fType];
+    const fType = isArray ? TypeTransformer.unwrapArrayType(type) : type;
+    const existTransformer =
+      TypeTransformer.fromActors[fType] || TypeTransformer.fromActors[fType + 'Type'];
     const transformer = existTransformer ? existTransformer : TypeTransformer.fromStatic(fType);
     if (isArray)
       return function (data) {
-        return data.map(transformer);
+        if (data == null) return data;
+        return data.map(function (item) {
+          if (item == null) return item;
+          return transformer(item);
+        });
       };
     return transformer;
   }
 
   public static to(type: string, isRequest?: boolean): any {
     const isArray = TypeTransformer.hasArrayBrackets(type);
-    const fType = isArray ? type.replace('[', '').replace(']', '') : type;
-    const existTransformer = TypeTransformer.toActors[fType];
+    const fType = isArray ? TypeTransformer.unwrapArrayType(type) : type;
+    const existTransformer =
+      TypeTransformer.toActors[fType] || TypeTransformer.toActors[fType.replace('Type', '')];
     const transformer = existTransformer
       ? existTransformer
       : TypeTransformer.toStatic(fType, isRequest);
     if (isArray)
       return function (data) {
-        return data.map(transformer);
+        if (data == null) return data;
+        return data.map(function (item) {
+          if (item == null) return item;
+          return transformer(item);
+        });
       };
     return transformer;
   }
 
   private static hasArrayBrackets(type: string): boolean {
-    return type.indexOf('[') === 0 && type.indexOf(']') === type.length - 1;
+    if (!type) return false;
+    if (type.indexOf('[') === 0 && type.indexOf(']') === type.length - 1) return true;
+    return type.length > 2 && type.substring(type.length - 2) === '[]';
+  }
+
+  private static unwrapArrayType(type: string): string {
+    if (type.indexOf('[') === 0 && type.indexOf(']') === type.length - 1) {
+      return type.substring(1, type.length - 1);
+    }
+    if (type.length > 2 && type.substring(type.length - 2) === '[]') {
+      return type.substring(0, type.length - 2);
+    }
+    return type;
   }
 
   private static fromStatic(type: string): (data: any) => any {

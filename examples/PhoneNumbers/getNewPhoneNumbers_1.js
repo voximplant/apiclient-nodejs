@@ -1,13 +1,13 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Get the two new fixed Russian phone numbers at max.
-  client.PhoneNumbers.getNewPhoneNumbers({
+  const ev = await client.PhoneNumbers.getNewPhoneNumbers({
     countryCode: 'RU',
     phoneCategoryName: 'GEOGRAPHIC',
     phoneRegionId: '1',
     count: '2',
-  })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  });
+  console.log(ev);
+})().catch(console.error);

@@ -1,8 +1,8 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Set the rule selection order: 1, 7, 3.
-  client.Rules.reorderRules({ ruleId: '1;7;3' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.Rules.reorderRules({ ruleId: '1;7;3' });
+  console.log(ev);
+})().catch(console.error);

@@ -394,6 +394,14 @@ export interface SetChildAccountInfoRequest {
    */
   newChildAccountEmail?: string;
   /**
+   * Custom URL to send callbacks from this child account
+   */
+  callbackUrl?: string;
+  /**
+   * If salt string is specified, each HTTP request made by the Voximplant cloud toward the <b>callback_url</b> has a <b>salt</b> field set to MD5 hash of account information and salt. That hash can be used be a developer to ensure that HTTP request is made by the Voximplant cloud
+   */
+  callbackSalt?: string;
+  /**
    * The new child account password. Should be at least 8 characters long and contain at least one uppercase and lowercase letter, one number, and one special character
    */
   newChildAccountPassword?: string;
@@ -558,7 +566,7 @@ export interface GetChildrenAccountsRequest {
    */
   mediumOutput?: boolean;
   /**
-   * The maximum returning record count
+   * The maximum returning record count. The default value applies to the full output only and is capped at 1000; with <b>brief_output</b> or <b>medium_output</b> all the records are returned unless this parameter is set
    */
   count?: number;
   /**
@@ -607,13 +615,13 @@ export interface GetMoneyAmountToChargeResponse {
 }
 export interface ChangeAccountPlanRequest {
   /**
-   * The plan type to config. The possible values are IM, MAU
-   */
-  planType: string;
-  /**
    * The new plan ID with a price larger than the current plan's (see [GetAvailablePlans])
    */
-  planSubscriptionTemplateId?: number;
+  planSubscriptionTemplateId: number;
+  /**
+   * The plan type to config. The possible values are IM, MAU
+   */
+  planType?: string;
 }
 
 export interface ChangeAccountPlanResponse {
@@ -700,6 +708,10 @@ export interface GetAccountVerificationsRequest {
    * Account ID to check verifications for
    */
   accountId: number;
+  /**
+   * Whether to return the active verification only
+   */
+  activeVerificationOnly?: boolean;
 }
 
 export interface GetAccountVerificationsResponse {
@@ -1481,19 +1493,19 @@ export interface GetCallListsRequest {
    */
   offset?: number;
   /**
-   * The application ID to filter. Can be a list separated by semicolons (;). Use the 'all' value to select all applications
+   * The application ID to filter. Can be a list separated by semicolons (;). Use the 'all' value to select all applications. Can be used instead of the <b>application_name</b> parameter
    */
   applicationId?: 'any' | number | number[];
   /**
-   * The application name list separated by semicolons (;). Can be used instead of <b>application_id</b>
+   * The application name list separated by semicolons (;). Can be used instead of the <b>application_id</b> parameter
    */
   applicationName?: string | string[];
   /**
-   * The rule ID to filter. Can be a list separated by semicolons (;). Use the 'all' value to select all rules
+   * The rule ID to filter. Can be a list separated by semicolons (;). Use the 'all' value to select all rules. Can be used instead of the <b>rule_name</b> parameter
    */
   ruleId?: 'any' | number | number[];
   /**
-   * The rule name list separated by semicolons (;). Can be used instead of <b>rule_id</b>
+   * The rule name list separated by semicolons (;). Can be used instead of the <b>rule_id</b> parameter
    */
   ruleName?: string | string[];
   /**
@@ -1730,11 +1742,11 @@ export interface AddScenarioRequest {
    */
   scenarioScript?: string;
   /**
-   * The rule ID. The new scenario binds to the specified rule. Please note, if you do not bind the scenario to any rule, you cannot execute the scenario
+   * The rule ID. The new scenario binds to the specified rule. Please note, if you do not bind the scenario to any rule, you cannot execute the scenario. Can be used instead of the <b>rule_name</b> parameter
    */
   ruleId?: number;
   /**
-   * The rule name that can be used instead of <b>rule_id</b>
+   * The rule name. Can be used instead of the <b>rule_id</b> parameter
    */
   ruleName?: string;
   /**
@@ -1798,11 +1810,11 @@ export interface BindScenarioRequest {
    */
   ruleName?: string;
   /**
-   * The application ID. <b>Required</b> unless <b>application_name</b> is provided.
+   * The application ID. Can be used instead of the <b>application_name</b> parameter
    */
   applicationId?: number;
   /**
-   * The application name. <b>Required</b> unless <b>application_id</b> is provided.
+   * The application name. Can be used instead of the <b>application_id</b> parameter
    */
   applicationName?: string;
   /**
@@ -1824,7 +1836,7 @@ export interface GetScenariosRequest {
    */
   scenarioId?: number;
   /**
-   * The scenario name to filter. Can be used instead of <b>scenario_id</b>. All scenarios containing this param in their names are returned. The parameter is case insensitive
+   * The scenario name to filter. Exact match. Combines with <b>scenario_id</b> when both are passed. Use with <b>application_id</b> or <b>application_name</b> to limit the result to one application
    */
   scenarioName?: string;
   /**
@@ -1901,6 +1913,10 @@ export interface SetScenarioInfoResponse {
 }
 export interface ReorderScenariosRequest {
   /**
+   * The scenario ID list separated by semicolons (;)
+   */
+  scenarioId: 'any' | number | number[];
+  /**
    * The rule ID. <b>Required</b> unless <b>rule_name</b> is provided.
    */
   ruleId?: number;
@@ -1908,10 +1924,6 @@ export interface ReorderScenariosRequest {
    * The rule name. <b>Required</b> unless <b>rule_id</b> is provided.
    */
   ruleName?: string;
-  /**
-   * The scenario ID list separated by semicolons (;)
-   */
-  scenarioId?: 'any' | number | number[];
 }
 
 export interface ReorderScenariosResponse {
@@ -1923,31 +1935,35 @@ export interface ReorderScenariosResponse {
 }
 export interface StartScenariosRequest {
   /**
-   * The rule ID that needs to be launched. Please note, the necessary scenario needs to be attached to the rule
-   */
-  ruleId: number;
-  /**
-   * The user ID. Run the scripts from the user if set
+   * The user ID. Run the scripts from the user if set. Can be used instead of the <b>user_name</b> parameter
    */
   userId?: number;
   /**
-   * The user name that can be used instead of <b>user_id</b>. Run the scripts from the user if set
+   * The user name. Run the scripts from the user if set. Can be used instead of the <b>user_id</b> parameter
    */
   userName?: string;
   /**
-   * The application ID
+   * The application ID. Can be used instead of the <b>application_name</b> parameter
    */
   applicationId?: number;
   /**
-   * The application name that can be used instead of <b>application_id</b>
+   * The application name. Can be used instead of the <b>application_id</b> parameter
    */
   applicationName?: string;
+  /**
+   * The rule ID that needs to be launched. Please note, the necessary scenario needs to be attached to the rule. <b>Required</b> unless <b>rule_name</b> is provided.
+   */
+  ruleId?: number;
+  /**
+   * The rule name. <b>Required</b> unless <b>rule_id</b> is provided.
+   */
+  ruleName?: string;
   /**
    * The script custom data, that can be accessed in the scenario via the <a href='/docs/references/voxengine/voxengine/customdata'>VoxEngine.customData()</a> method. Use the application/x-www-form-urlencoded content type with UTF-8 encoding
    */
   scriptCustomData?: string;
   /**
-   * Specifies the IP from the geolocation of predicted subscribers. It allows selecting the nearest server for serving subscribers
+   * Specifies the IP from the geolocation of predicted subscribers. It allows selecting the nearest server for serving subscribers. If not specified, the IP address of the HTTP request is used
    */
   referenceIp?: string;
   /**
@@ -1983,23 +1999,27 @@ export interface StartConferenceRequest {
    */
   conferenceName: string;
   /**
-   * The rule ID that needs to be launched. Please note, the necessary scenario needs to be attached to the rule
+   * The rule ID that needs to be launched. Please note, the necessary scenario needs to be attached to the rule. <b>Required</b> unless <b>rule_name</b> is provided.
    */
-  ruleId: number;
+  ruleId?: number;
   /**
-   * The user ID. Run the scripts from the user if set
+   * The rule name. <b>Required</b> unless <b>rule_id</b> is provided.
+   */
+  ruleName?: string;
+  /**
+   * The user ID. Run the scripts from the user if set. Can be used instead of the <b>user_name</b> parameter
    */
   userId?: number;
   /**
-   * The user name that can be used instead of <b>user_id</b>. Run the scripts from the user if set
+   * The user name. Run the scripts from the user if set. Can be used instead of the <b>user_id</b> parameter
    */
   userName?: string;
   /**
-   * The application ID
+   * The application ID. Can be used instead of the <b>application_name</b> parameter
    */
   applicationId?: number;
   /**
-   * The application name that can be used instead of <b>application_id</b>
+   * The application name. Can be used instead of the <b>application_id</b> parameter
    */
   applicationName?: string;
   /**
@@ -2007,7 +2027,7 @@ export interface StartConferenceRequest {
    */
   scriptCustomData?: string;
   /**
-   * Specifies the IP from the geolocation of predicted subscribers. It allows selecting the nearest server for serving subscribers
+   * Specifies the IP from the geolocation of predicted subscribers. It allows selecting the nearest server for serving subscribers. If not specified, the IP address of the HTTP request is used
    */
   referenceIp?: string;
   /**
@@ -2264,11 +2284,11 @@ export interface GetCallHistoryRequest {
    */
   callSessionHistoryId?: 'any' | number | number[];
   /**
-   * To receive the call history for a specific application, pass the application ID to this parameter
+   * To receive the call history for a specific application, pass the application ID to this parameter. Can be used instead of the <b>application_name</b> parameter
    */
   applicationId?: number;
   /**
-   * The application name, can be used instead of <b>application_id</b>
+   * The application name. Can be used instead of the <b>application_id</b> parameter
    */
   applicationName?: string;
   /**
@@ -2387,11 +2407,11 @@ export interface GetCallHistoryAsyncRequest {
    */
   callSessionHistoryId?: 'any' | number | number[];
   /**
-   * To receive the call history for a specific application, pass the application ID to this parameter
+   * To receive the call history for a specific application, pass the application ID to this parameter. Can be used instead of the <b>application_name</b> parameter
    */
   applicationId?: number;
   /**
-   * The application name, can be used instead of <b>application_id</b>
+   * The application name. Can be used instead of the <b>application_id</b> parameter
    */
   applicationName?: string;
   /**
@@ -2478,11 +2498,11 @@ export interface GetBriefCallHistoryRequest {
    */
   callSessionHistoryId?: 'any' | number | number[];
   /**
-   * To receive the call history for a specific application, pass the application ID to this parameter
+   * To receive the call history for a specific application, pass the application ID to this parameter. Can be used instead of the <b>application_name</b> parameter
    */
   applicationId?: number;
   /**
-   * The application name, can be used instead of <b>application_id</b>
+   * The application name. Can be used instead of the <b>application_id</b> parameter
    */
   applicationName?: string;
   /**
@@ -2556,7 +2576,7 @@ export interface GetHistoryReportsRequest {
    */
   offset?: number;
   /**
-   * The application ID to filter. Can be a list separated by semicolons (;). Use the 'all' value to select all applications
+   * The application ID to filter. Can be a list separated by semicolons (;). Use the 'all' value to select all applications. Can be used instead of the <b>application_name</b> parameter
    */
   applicationId?: 'any' | number | number[];
   /**
@@ -2605,7 +2625,7 @@ export interface GetTransactionHistoryRequest {
    */
   applicationId?: number;
   /**
-   * The application name to filter. Can be used instead of the <b>application_id</b> parameter
+   * The application name to filter. Can be used together with or instead of the <b>application_id</b> parameter
    */
   applicationName?: string;
   /**
@@ -2722,7 +2742,7 @@ export interface GetTransactionHistoryAsyncRequest {
    */
   applicationId?: number;
   /**
-   * The application name to filter. Can be used instead of the <b>application_id</b> parameter
+   * The application name to filter. Can be used together with or instead of the <b>application_id</b> parameter
    */
   applicationName?: string;
   /**
@@ -3126,34 +3146,33 @@ export interface GetPhoneNumberReportsResponse {
 }
 export interface AttachPhoneNumberRequest {
   /**
-   * The country code
-   */
-  countryCode: string;
-  /**
-   * The phone category name. See the [GetPhoneNumberCategories] method
-   */
-  phoneCategoryName: string;
-  /**
-   * The phone region ID. See the [GetPhoneNumberRegions] method
-   */
-  phoneRegionId: number;
-  /**
-   * Quantity of phone numbers you want to attach. <b>Required</b> unless <b>phone_number</b> is provided.
+   * Quantity of phone numbers you want to attach. If neither this parameter nor <b>phone_number</b> is specified, one phone number is attached from the catalog
    */
   phoneCount?: number;
   /**
-   * The phone number. See the [GetNewPhoneNumbers] method. <b>Required</b> unless <b>phone_count</b> is provided.
+   * The phone numbers to attach, separated by semicolons (;). See the [GetNewPhoneNumbers] method. If neither this parameter nor <b>phone_count</b> is specified, one phone number is attached from the catalog
    */
   phoneNumber?: string | string[];
+  /**
+   * The country code. <b>Required</b> together with <b>phone_category_name</b> and <b>phone_region_id</b> to purchase from the catalog; not needed when attaching a specific phone number via <b>phone_number</b>
+   */
+  countryCode?: string;
+  /**
+   * The phone category name. See the [GetPhoneNumberCategories] method. <b>Required</b> together with <b>country_code</b> and <b>phone_region_id</b> to purchase from the catalog; not needed when attaching a specific phone number via <b>phone_number</b>
+   */
+  phoneCategoryName?: string;
   /**
    * The country state. See the [GetPhoneNumberCategories] and [GetPhoneNumberCountryStates] methods
    */
   countryState?: string;
   /**
+   * The phone region ID. See the [GetPhoneNumberRegions] method. <b>Required</b> together with <b>country_code</b> and <b>phone_category_name</b> to purchase from the catalog; not needed when attaching a specific phone number via <b>phone_number</b>
+   */
+  phoneRegionId?: number;
+  /**
    * The phone regulation address ID
    */
   regulationAddressId?: number;
-  forceVerification?: boolean;
 }
 
 export interface AttachPhoneNumberResponse {
@@ -3185,11 +3204,11 @@ export interface BindPhoneNumberToApplicationRequest {
    */
   applicationName?: string;
   /**
-   * The rule ID
+   * The rule ID. Can be used instead of the <b>rule_name</b> parameter
    */
   ruleId?: number;
   /**
-   * The rule name that can be used instead of <b>rule_id</b>
+   * The rule name. Can be used instead of the <b>rule_id</b> parameter
    */
   ruleName?: string;
   /**
@@ -3224,7 +3243,6 @@ export interface DeactivatePhoneNumberResponse {
   error?: APIError;
 }
 export interface SetPhoneNumberInfoRequest {
-  autoCharge: boolean;
   /**
    * The phone ID list separated by semicolons (;). Use the 'all' value to select all phone ids. <b>Required</b> unless <b>phone_number</b> is provided.
    */
@@ -3237,6 +3255,7 @@ export interface SetPhoneNumberInfoRequest {
    * If set, the callback of an incoming SMS is sent to this url, otherwise, it is sent to the general account URL
    */
   incomingSmsCallbackUrl?: string;
+  autoCharge?: boolean;
 }
 
 export interface SetPhoneNumberInfoResponse {
@@ -3260,13 +3279,13 @@ export interface GetPhoneNumbersRequest {
    */
   activationStatus?: string | string[];
   /**
-   * Application ID
+   * Application ID. Can be used instead of the <b>application_name</b> parameter
    */
-  applicationId?: number;
+  applicationId?: 'any' | number | number[];
   /**
-   * Application name that can be used instead of <b>application_id</b>
+   * Application name. Can be used instead of the <b>application_id</b> parameter
    */
-  applicationName?: string;
+  applicationName?: string | string[];
   /**
    * Whether the phone number bound to an application
    */
@@ -3282,7 +3301,7 @@ export interface GetPhoneNumbersRequest {
   /**
    * Phone category name. See the [GetPhoneNumberCategories] method
    */
-  phoneCategoryName?: string;
+  phoneCategoryName?: string | string[];
   /**
    * Whether the subscription is cancelled to filter
    */
@@ -3355,7 +3374,7 @@ export interface GetPhoneNumbersRequest {
    * First <b>N</b> records are skipped in the output
    */
   offset?: number;
-  smsSupported?: boolean;
+  isSmsSupported?: boolean;
   /**
    * Region names list separated by semicolons (;)
    */
@@ -3419,21 +3438,21 @@ export interface GetPhoneNumbersAsyncResponse {
 }
 export interface GetNewPhoneNumbersRequest {
   /**
-   * The country code
+   * The country code. <b>Required</b> together with <b>phone_category_name</b> and <b>phone_region_id</b> to search the catalog; omit all three to get the phone numbers available locally
    */
-  countryCode: string;
+  countryCode?: string;
   /**
-   * The phone category name. See the [GetPhoneNumberCategories] function
+   * The phone category name. See the [GetPhoneNumberCategories] function. <b>Required</b> together with <b>country_code</b> and <b>phone_region_id</b> to search the catalog; omit all three to get the phone numbers available locally
    */
-  phoneCategoryName: string;
-  /**
-   * The phone region ID. See the [GetPhoneNumberRegions] method
-   */
-  phoneRegionId: number;
+  phoneCategoryName?: string;
   /**
    * The country state. See the GetPhoneNumberCategories and GetPhoneNumberCountryStates functions
    */
   countryState?: string;
+  /**
+   * The phone region ID. See the [GetPhoneNumberRegions] method. <b>Required</b> together with <b>country_code</b> and <b>phone_category_name</b> to search the catalog; omit all three to get the phone numbers available locally
+   */
+  phoneRegionId?: number;
   /**
    * The maximum returning record count
    */
@@ -3487,7 +3506,7 @@ export interface GetPhoneNumberCountryStatesRequest {
   /**
    * The phone category name. See the GetPhoneNumberCategories function
    */
-  phoneCategoryName: string;
+  phoneCategoryName?: string;
   /**
    * The country state code (example: AL, CA, ... )
    */
@@ -4413,7 +4432,7 @@ export interface BindUserToQueueRequest {
   /**
    * Whether to bind or unbind users
    */
-  bind: boolean;
+  bind?: boolean;
   /**
    * The application ID. <b>Required</b> unless <b>application_name</b> is provided.
    */
@@ -4503,9 +4522,13 @@ export interface SetQueueInfoRequest {
    */
   averageServiceTime?: number;
   /**
-   * The new application ID
+   * The new application ID. Can be used instead of the <b>application_name</b> parameter
    */
   applicationId?: number;
+  /**
+   * The new application name. Can be used instead of the <b>application_id</b> parameter
+   */
+  applicationName?: string;
 }
 
 export interface SetQueueInfoResponse {
@@ -4525,17 +4548,29 @@ export interface GetQueuesRequest {
    */
   acdQueueName?: string;
   /**
-   * The application ID to filter
+   * The application ID to filter. Can be used instead of the <b>application_name</b> parameter
    */
   applicationId?: number;
   /**
-   * The skill ID to filter
+   * The application name. Can be used instead of the <b>application_id</b> parameter
+   */
+  applicationName?: string;
+  /**
+   * The skill ID to filter. Can be used instead of the <b>skill_name</b> parameter
    */
   skillId?: number;
   /**
-   * The excluded skill ID to filter
+   * The skill name. Can be used instead of the <b>skill_id</b> parameter
+   */
+  skillName?: string;
+  /**
+   * The excluded skill ID to filter. Can be used instead of the <b>excluded_skill_name</b> parameter
    */
   excludedSkillId?: number;
+  /**
+   * The excluded skill name. Can be used instead of the <b>excluded_skill_id</b> parameter
+   */
+  excludedSkillName?: string;
   /**
    * Whether to get the bound skills
    */
@@ -4556,6 +4591,10 @@ export interface GetQueuesRequest {
    * Whether to include the number of agents bound to the queue
    */
   withOperatorcount?: boolean;
+  /**
+   * Whether to include the deleted queues
+   */
+  showDeleted?: boolean;
 }
 
 export interface GetQueuesResponse {
@@ -4629,6 +4668,10 @@ export interface GetACDQueueStatisticsRequest {
    */
   fromDate: Date;
   /**
+   * The ACD queue ID list separated by semicolons (;). Use the 'all' value to select all ACD queues
+   */
+  acdQueueId: 'any' | number | number[];
+  /**
    * Date and time of statistics interval begin. Time zone is UTC, format is 24-h 'YYYY-MM-DD HH:mm:ss'
    */
   toDate?: Date;
@@ -4636,10 +4679,6 @@ export interface GetACDQueueStatisticsRequest {
    * Whether key names in returned JSON are abbreviated to reduce response byte size. The abbreviations are: 'WT' for 'WaitingTime', 'SA' for 'SpeedOfAnswer', 'AT' is for 'AbandonmentTime', 'HT' is for 'HandlingTime', 'TT' is for 'TalkTime', 'ACW' is for 'AfterCallWork', 'QL' is for 'QueueLength', 'TC' is for 'TotalCalls', 'AC' is for 'AnsweredCalls', 'UAC' is for 'UnansweredCalls', 'RC' is for 'RejectedCalls', 'SL' is for 'ServiceLevel', 'TWT' is for 'TotalWaitingTime', 'TST' is for 'TotalSubmissionTime', 'TAT' is for 'TotalAbandonmentTime', 'THT' is for 'TotalHandlingTime', 'TTT' is for 'TotalTalkTime', 'TACW' is for 'TotalAfterCallWork'
    */
   abbreviation?: boolean;
-  /**
-   * The ACD queue ID list separated by semicolons (;). Use the 'all' value to select all ACD queues
-   */
-  acdQueueId?: 'any' | number | number[];
   /**
    * List of item names abbreviations separated by semicolons (;). Returned JSON includes keys only for the selected items. Special 'all' value defines all possible items, see [ACDQueueStatisticsType] for a complete list. See 'abbreviation' description for complete abbreviation list
    */
@@ -4671,7 +4710,7 @@ export interface GetACDOperatorStatusStatisticsRequest {
    */
   toDate?: Date;
   /**
-   * The ACD status list separated by semicolons (;). The following values are possible: OFFLINE, ONLINE, READY, BANNED, IN_SERVICE, AFTER_SERVICE, TIMEOUT, DND
+   * The ACD status list separated by semicolons (;). The following values are possible: OFFLINE, ONLINE, READY, BANNED, IN_SERVICE, AFTER_SERVICE, TIMEOUT, DND. If omitted, the statistics include all the statuses
    */
   acdStatus?: string | string[];
   /**
@@ -4723,15 +4762,19 @@ export interface GetSmartQueueRealtimeMetricsRequest {
    */
   applicationName?: string;
   /**
-   * The user ID list with a maximum of 5 values separated by semicolons (;). Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+   * The user ID list with a maximum of 5 values separated by semicolons (;). Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types. Can be used instead of the <b>user_name</b> parameter
    */
   userId?: 'any' | number | number[];
   /**
-   * The user name list separated by semicolons (;). <b>user_name</b> can be used instead of <b>user_id</b>
+   * The user name list separated by semicolons (;). Can be used instead of the <b>user_id</b> parameter
    */
   userName?: string | string[];
   /**
-   * The SmartQueue name list separated by semicolons (;). Can be used instead of <b>sq_queue_id</b>
+   * The SmartQueue ID list with a maximum of 5 values separated by semicolons (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types. <b>Required</b> unless <b>sq_queue_name</b> is provided or all the requested report types are agent reports.
+   */
+  sqQueueId?: 'any' | number | number[];
+  /**
+   * The SmartQueue name list separated by semicolons (;). <b>Required</b> unless <b>sq_queue_id</b> is provided or all the requested report types are agent reports.
    */
   sqQueueName?: string | string[];
   /**
@@ -4758,6 +4801,22 @@ export interface GetSmartQueueRealtimeMetricsRequest {
    * Maximum waiting time. Required for the **service_level** report type
    */
   maxWaitingSec?: number;
+  /**
+   * Whether to get records in the descent order
+   */
+  descOrder?: boolean;
+  /**
+   * Whether to get a CSV file with the column names if the output=csv
+   */
+  withHeader?: boolean;
+  /**
+   * The decimal mark for CSV numbers: a dot or a comma. If omitted, the account setting is used
+   */
+  decimalSeparator?: string;
+  /**
+   * Whether to omit the empty metric values from the result
+   */
+  omitEmpty?: boolean;
 }
 
 export interface GetSmartQueueRealtimeMetricsResponse {
@@ -4769,10 +4828,6 @@ export interface GetSmartQueueRealtimeMetricsResponse {
   error?: APIError;
 }
 export interface GetSmartQueueDayHistoryRequest {
-  /**
-   * The SmartQueue ID list with a maximum of 5 values separated by semicolons (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
-   */
-  sqQueueId: 'any' | number | number[];
   /**
    * The report type. Possible values are: calls_blocked_percentage, count_blocked_calls, im_blocked_chats_percentage, im_count_blocked_chats, im_answered_chats_rate, average_abandonment_rate, count_abandonment_calls, service_level, im_service_level, occupancy_rate, im_agent_occupancy_rate, agent_utilization_rate, im_agent_utilization_rate, sum_agents_online_time, sum_agents_ready_time, sum_agents_dialing_time, sum_agents_in_service_time, sum_agents_in_service_incoming_time, sum_agents_in_service_outcoming_time, sum_agents_afterservice_time, sum_agents_dnd_time, sum_agents_custom_1_time, sum_agents_custom_2_time, sum_agents_custom_3_time, sum_agents_custom_4_time, sum_agents_custom_5_time, sum_agents_custom_6_time, sum_agents_custom_7_time, sum_agents_custom_8_time, sum_agents_custom_9_time, sum_agents_custom_10_time, sum_agents_banned_time, im_sum_agents_online_time, im_sum_agents_ready_time, im_sum_agents_in_service_time, im_sum_agents_dnd_time, im_sum_agents_custom_1_time, im_sum_agents_custom_2_time, im_sum_agents_custom_3_time, im_sum_agents_custom_4_time, im_sum_agents_custom_5_time, im_sum_agents_custom_6_time, im_sum_agents_custom_7_time, im_sum_agents_custom_8_time, im_sum_agents_custom_9_time, im_sum_agents_custom_10_time, im_sum_agents_banned_time, average_agents_idle_time, max_agents_idle_time, min_agents_idle_time, percentile_0_25_agents_idle_time, percentile_0_50_agents_idle_time, percentile_0_75_agents_idle_time, min_time_in_queue, max_time_in_queue, average_time_in_queue, min_answer_speed, max_answer_speed, average_answer_speed, im_min_answer_speed, im_max_answer_speed, im_average_answer_speed, min_handle_time, max_handle_time, average_handle_time, count_handled_calls, min_after_call_worktime, max_after_call_worktime, average_after_call_worktime, count_agent_unanswered_calls, im_count_agent_unanswered_chats, min_reaction_time, max_reaction_time, average_reaction_time, im_min_reaction_time, im_max_reaction_time, im_average_reaction_time, im_count_abandonment_chats, im_count_lost_chats, im_lost_chats_rate, call_count_assigned_to_queue, im_count_assigned_to_queue
    */
@@ -4786,15 +4841,19 @@ export interface GetSmartQueueDayHistoryRequest {
    */
   applicationName?: string;
   /**
-   * The user ID list with a maximum of 5 values separated by semicolons (;). Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+   * The user ID list with a maximum of 5 values separated by semicolons (;). Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types. Can be used instead of the <b>user_name</b> parameter
    */
   userId?: 'any' | number | number[];
   /**
-   * The user name list separated by semicolons (;). <b>user_name</b> can be used instead of <b>user_id</b>
+   * The user name list separated by semicolons (;). Can be used instead of the <b>user_id</b> parameter
    */
   userName?: string | string[];
   /**
-   * The SmartQueue name list separated by semicolons (;). Can be used instead of <b>sq_queue_id</b>
+   * The SmartQueue ID list with a maximum of 5 values separated by semicolons (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types. <b>Required</b> unless <b>sq_queue_name</b> is provided or all the requested report types are agent reports.
+   */
+  sqQueueId?: 'any' | number | number[];
+  /**
+   * The SmartQueue name list separated by semicolons (;). <b>Required</b> unless <b>sq_queue_id</b> is provided or all the requested report types are agent reports.
    */
   sqQueueName?: string | string[];
   /**
@@ -4821,6 +4880,22 @@ export interface GetSmartQueueDayHistoryRequest {
    * Maximum waiting time. Required for the **service_level** report type
    */
   maxWaitingSec?: number;
+  /**
+   * Whether to get records in the descent order
+   */
+  descOrder?: boolean;
+  /**
+   * Whether to get a CSV file with the column names if the output=csv
+   */
+  withHeader?: boolean;
+  /**
+   * The decimal mark for CSV numbers: a dot or a comma. If omitted, the account setting is used
+   */
+  decimalSeparator?: string;
+  /**
+   * Whether to omit the empty metric values from the result
+   */
+  omitEmpty?: boolean;
 }
 
 export interface GetSmartQueueDayHistoryResponse {
@@ -4832,10 +4907,6 @@ export interface GetSmartQueueDayHistoryResponse {
   error?: APIError;
 }
 export interface RequestSmartQueueHistoryRequest {
-  /**
-   * The SmartQueue ID list with a maximum of 5 values separated by semicolons (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
-   */
-  sqQueueId: 'any' | number | number[];
   /**
    * The from date in the selected timezone in 24-h format: YYYY-MM-DD HH:mm:ss. Default is the current time minus 1 day
    */
@@ -4857,15 +4928,19 @@ export interface RequestSmartQueueHistoryRequest {
    */
   applicationName?: string;
   /**
-   * The user ID list with a maximum of 5 values separated by semicolons (;). Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types
+   * The user ID list with a maximum of 5 values separated by semicolons (;). Use the 'all' value to select all users. Can operate as a filter for the **occupancy_rate**, **sum_agents_online_time**, **sum_agents_ready_time**, **sum_agents_dialing_time**, **sum_agents_in_service_time**, **sum_agents_afterservice_time**, **sum_agents_dnd_time**, **sum_agents_banned_time**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types. Can be used instead of the <b>user_name</b> parameter
    */
   userId?: 'any' | number | number[];
   /**
-   * The user name list separated by semicolons (;). Can be used instead of <b>user_id</b>
+   * The user name list separated by semicolons (;). Can be used instead of the <b>user_id</b> parameter
    */
   userName?: string | string[];
   /**
-   * The SmartQueue name list separated by semicolons (;). Can be used instead of <b>sq_queue_id</b>
+   * The SmartQueue ID list with a maximum of 5 values separated by semicolons (;). Can operate as filter for the **calls_blocked_percentage**, **count_blocked_calls**, **average_abandonment_rate**, **count_abandonment_calls**, **service_level**, **occupancy_rate**, **min_time_in_queue**, **max_time_in_queue**, **average_time_in_queue**, **min_answer_speed**, **max_answer_speed**, **average_answer_speed**, **min_handle_time**, **max_handle_time**, **average_handle_time**, **count_handled_calls**, **min_after_call_worktime**, **max_after_call_worktime**, **average_after_call_worktime** report types. <b>Required</b> unless <b>sq_queue_name</b> is provided or all the requested report types are agent reports.
+   */
+  sqQueueId?: 'any' | number | number[];
+  /**
+   * The SmartQueue name list separated by semicolons (;). <b>Required</b> unless <b>sq_queue_id</b> is provided or all the requested report types are agent reports.
    */
   sqQueueName?: string | string[];
   /**
@@ -4884,6 +4959,22 @@ export interface RequestSmartQueueHistoryRequest {
    * Maximum waiting time. Required for the **service_level** report type
    */
   maxWaitingSec?: number;
+  /**
+   * Whether to get records in the descent order
+   */
+  descOrder?: boolean;
+  /**
+   * Whether to get a CSV file with the column names if the output=csv
+   */
+  withHeader?: boolean;
+  /**
+   * The decimal mark for CSV numbers: a dot or a comma. If omitted, the account setting is used
+   */
+  decimalSeparator?: string;
+  /**
+   * Whether to omit the empty metric values from the result
+   */
+  omitEmpty?: boolean;
 }
 
 export interface RequestSmartQueueHistoryResponse {
@@ -4899,19 +4990,19 @@ export interface RequestSmartQueueHistoryResponse {
 }
 export interface GetSQStateRequest {
   /**
-   * The application ID to search by
+   * The application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * The SmartQueue ID list separated by semicolons (;). Use the 'all' value to select all SmartQueues
-   */
-  sqQueueId: 'any' | number | number[];
-  /**
-   * The application name to search by. Can be used instead of the <b>application_id</b> parameter
+   * The application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
-   * The SmartQueue name list separated by semicolons (;). Can be used instead of <b>sq_queue_id</b>
+   * The SmartQueue ID list separated by semicolons (;). Use the 'all' value to select all SmartQueues. <b>Required</b> unless <b>sq_queue_name</b> is provided.
+   */
+  sqQueueId?: 'any' | number | number[];
+  /**
+   * The SmartQueue name list separated by semicolons (;). <b>Required</b> unless <b>sq_queue_id</b> is provided.
    */
   sqQueueName?: string | string[];
   /**
@@ -4934,9 +5025,13 @@ export interface SQ_SetAgentCustomStatusMappingRequest {
    */
   customStatusName: string;
   /**
-   * Application ID
+   * Application ID. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
+  /**
+   * Application name. <b>Required</b> unless <b>application_id</b> is provided.
+   */
+  applicationName?: string;
 }
 
 export interface SQ_SetAgentCustomStatusMappingResponse {
@@ -4948,9 +5043,13 @@ export interface SQ_SetAgentCustomStatusMappingResponse {
 }
 export interface SQ_GetAgentCustomStatusMappingRequest {
   /**
-   * Application ID
+   * Application ID. Can be used instead of the <b>application_name</b> parameter
    */
   applicationId?: number;
+  /**
+   * Application name. Can be used instead of the <b>application_id</b> parameter
+   */
+  applicationName?: string;
 }
 
 export interface SQ_GetAgentCustomStatusMappingResponse {
@@ -4966,13 +5065,17 @@ export interface SQ_GetAgentCustomStatusMappingResponse {
 }
 export interface SQ_DeleteAgentCustomStatusMappingRequest {
   /**
-   * Application ID
-   */
-  applicationId: number;
-  /**
    * Status name
    */
-  sqStatusName?: string;
+  sqStatusName: string;
+  /**
+   * Application ID. <b>Required</b> unless <b>application_name</b> is provided.
+   */
+  applicationId?: number;
+  /**
+   * Application name. <b>Required</b> unless <b>application_id</b> is provided.
+   */
+  applicationName?: string;
 }
 
 export interface SQ_DeleteAgentCustomStatusMappingResponse {
@@ -4983,10 +5086,6 @@ export interface SQ_DeleteAgentCustomStatusMappingResponse {
   error?: APIError;
 }
 export interface SQ_AddQueueRequest {
-  /**
-   * Application ID to bind to
-   */
-  applicationId: number;
   /**
    * Unique SmartQueue name within the application, up to 100 characters
    */
@@ -5000,7 +5099,11 @@ export interface SQ_AddQueueRequest {
    */
   callTaskSelection: string;
   /**
-   * Application name to bind to. Can be used instead of <b>application_id</b>
+   * Application ID to bind to. <b>Required</b> unless <b>application_name</b> is provided.
+   */
+  applicationId?: number;
+  /**
+   * Application name to bind to. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
@@ -5019,7 +5122,6 @@ export interface SQ_AddQueueRequest {
    * Whether to keep the call task in the queue if all agents are in the DND/BANNED/OFFLINE statuses.
    */
   holdCallsIfInactiveAgents?: boolean;
-  fallbackAgentSelection?: string;
   /**
    * Comment, up to 200 characters
    */
@@ -5063,15 +5165,11 @@ export interface SQ_AddQueueResponse {
 }
 export interface SQ_SetQueueInfoRequest {
   /**
-   * Application ID to search by
+   * Application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * ID of the SmartQueue to search for
-   */
-  sqQueueId: number;
-  /**
-   * Application name to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
@@ -5079,7 +5177,11 @@ export interface SQ_SetQueueInfoRequest {
    */
   holdImIfInactiveAgents?: boolean;
   /**
-   * Name of the SmartQueue to search for. Can be used instead of <b>sq_queue_id</b>
+   * ID of the SmartQueue to search for. <b>Required</b> unless <b>sq_queue_name</b> is provided.
+   */
+  sqQueueId?: number;
+  /**
+   * Name of the SmartQueue to search for. <b>Required</b> unless <b>sq_queue_id</b> is provided.
    */
   sqQueueName?: string;
   /**
@@ -5106,7 +5208,6 @@ export interface SQ_SetQueueInfoRequest {
    * Strategy of prioritizing IM-type requests for service. Accepts one of the following values: "MAX_PRIORITY", "MAX_WAITING_TIME". The default value is **call_task_selection**
    */
   imTaskSelection?: string;
-  fallbackAgentSelection?: string;
   /**
    * Comment, up to 200 characters
    */
@@ -5150,19 +5251,19 @@ export interface SQ_SetQueueInfoResponse {
 }
 export interface SQ_DelQueueRequest {
   /**
-   * Application ID to search by
+   * Application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * List of SmartQueue IDs separated by semicolons (;). Use 'all' to delete all the queues
-   */
-  sqQueueId: 'any' | number | number[];
-  /**
-   * Application name to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
-   * List of SmartQueue names separated by semicolons (;). Can be used instead of <b>sq_queue_id</b>
+   * List of SmartQueue IDs separated by semicolons (;). Use 'all' to delete all the queues. <b>Required</b> unless <b>sq_queue_name</b> is provided.
+   */
+  sqQueueId?: 'any' | number | number[];
+  /**
+   * List of SmartQueue names separated by semicolons (;). <b>Required</b> unless <b>sq_queue_id</b> is provided.
    */
   sqQueueName?: string | string[];
 }
@@ -5176,19 +5277,19 @@ export interface SQ_DelQueueResponse {
 }
 export interface SQ_GetQueuesRequest {
   /**
-   * Application ID to search by
+   * Application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * Application name to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
-   * List of SmartQueue IDs separated by semicolons (;)
+   * List of SmartQueue IDs separated by semicolons (;). Can be used instead of the <b>sq_queue_name</b> parameter
    */
   sqQueueId?: 'any' | number | number[];
   /**
-   * List of SmartQueue names separated by semicolons (;). Can be used instead of <b>sq_queue_id</b>
+   * List of SmartQueue names separated by semicolons (;). Can be used instead of the <b>sq_queue_id</b> parameter
    */
   sqQueueName?: string | string[];
   /**
@@ -5196,21 +5297,21 @@ export interface SQ_GetQueuesRequest {
    */
   sqQueueNameTemplate?: string;
   /**
-   * ID of the user that is bound to the queue
+   * List of user IDs separated by semicolons (;). Queues bound to these users are returned. Can be used instead of the <b>user_name</b> parameter
    */
-  userId?: number;
+  userId?: 'any' | number | number[];
   /**
-   * Name of the user that is bound to the queue. Can be used instead of <b>user_id</b>
+   * List of user names separated by semicolons (;). Can be used instead of the <b>user_id</b> parameter
    */
-  userName?: string;
+  userName?: string | string[];
   /**
-   * ID of the user that is not bound to the queue
+   * List of user IDs separated by semicolons (;). Queues bound to these users are excluded. Can be used instead of the <b>excluded_user_name</b> parameter
    */
-  excludedUserId?: number;
+  excludedUserId?: 'any' | number | number[];
   /**
-   * Name of the user that is not bound to the queue. Can be used instead of <b>excluded_user_id</b>
+   * List of user names separated by semicolons (;). Can be used instead of the <b>excluded_user_id</b> parameter
    */
-  excludedUserName?: string;
+  excludedUserName?: string | string[];
   /**
    * Number of items to show in the output
    */
@@ -5234,15 +5335,15 @@ export interface SQ_GetQueuesResponse {
 }
 export interface SQ_AddSkillRequest {
   /**
-   * Application ID to bind to
-   */
-  applicationId: number;
-  /**
    * Unique skill name within the application
    */
   sqSkillName: string;
   /**
-   * Application name to bind to. Can be used instead of <b>application_id</b>
+   * Application ID to bind to. <b>Required</b> unless <b>application_name</b> is provided.
+   */
+  applicationId?: number;
+  /**
+   * Application name to bind to. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
@@ -5260,19 +5361,19 @@ export interface SQ_AddSkillResponse {
 }
 export interface SQ_DelSkillRequest {
   /**
-   * Application ID to search by
+   * Application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * List of skill IDs separated by semicolons (;). Use 'all' to delete all the skills
-   */
-  sqSkillId: 'any' | number | number[];
-  /**
-   * Application name to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
-   * List of skill names separated by semicolons (;). Can be used instead of <b>sq_skill_id</b>
+   * List of skill IDs separated by semicolons (;). Use 'all' to delete all the skills. <b>Required</b> unless <b>sq_skill_name</b> is provided.
+   */
+  sqSkillId?: 'any' | number | number[];
+  /**
+   * List of skill names separated by semicolons (;). <b>Required</b> unless <b>sq_skill_id</b> is provided.
    */
   sqSkillName?: string | string[];
 }
@@ -5286,19 +5387,19 @@ export interface SQ_DelSkillResponse {
 }
 export interface SQ_SetSkillInfoRequest {
   /**
-   * Application ID to search by
+   * Application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * ID of the skill
-   */
-  sqSkillId: number;
-  /**
-   * Application name to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
-   * Name of the skill. Can be used instead of <b>sq_skill_id</b>
+   * ID of the skill. <b>Required</b> unless <b>sq_skill_name</b> is provided.
+   */
+  sqSkillId?: number;
+  /**
+   * Name of the skill. <b>Required</b> unless <b>sq_skill_id</b> is provided.
    */
   sqSkillName?: string;
   /**
@@ -5320,23 +5421,23 @@ export interface SQ_SetSkillInfoResponse {
 }
 export interface SQ_BindSkillRequest {
   /**
-   * Application ID to search by
-   */
-  applicationId: number;
-  /**
-   * List of user IDs separated by semicolons (;). Use 'all' to select all the users
-   */
-  userId: 'any' | number | number[];
-  /**
    * Skills to be bound to agents in the JSON array format. The array should contain objects with the <b>sq_skill_id</b>/<b>sq_skill_name</b> and <b>sq_skill_level</b> keys where skill levels range from 1 to 5
    */
   sqSkills: string;
   /**
-   * Application name to search by. Can be used instead of <b>application_id</b>
+   * Application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
+   */
+  applicationId?: number;
+  /**
+   * Application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
-   * List of user names separated by semicolons (;). Can be used instead of <b>user_id</b>
+   * List of user IDs separated by semicolons (;). Use 'all' to select all the users. <b>Required</b> unless <b>user_name</b> is provided.
+   */
+  userId?: 'any' | number | number[];
+  /**
+   * List of user names separated by semicolons (;). <b>Required</b> unless <b>user_id</b> is provided.
    */
   userName?: string | string[];
   /**
@@ -5354,27 +5455,27 @@ export interface SQ_BindSkillResponse {
 }
 export interface SQ_UnbindSkillRequest {
   /**
-   * Application ID to search by
+   * Application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * List of user IDs separated by semicolons (;). Use 'all' to select all the users
-   */
-  userId: 'any' | number | number[];
-  /**
-   * List of skill IDs separated by semicolons (;). Use 'all' to unbind all the skills
-   */
-  sqSkillId: 'any' | number | number[];
-  /**
-   * Application name to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
-   * List of user names separated by semicolons (;). Can be used instead of <b>user_id</b>
+   * List of user IDs separated by semicolons (;). Use 'all' to select all the users. <b>Required</b> unless <b>user_name</b> is provided.
+   */
+  userId?: 'any' | number | number[];
+  /**
+   * List of user names separated by semicolons (;). <b>Required</b> unless <b>user_id</b> is provided.
    */
   userName?: string | string[];
   /**
-   * List of skill names separated by semicolons (;). Can be used instead of <b>sq_skill_id</b>
+   * List of skill IDs separated by semicolons (;). Use 'all' to unbind all the skills. <b>Required</b> unless <b>sq_skill_name</b> is provided.
+   */
+  sqSkillId?: 'any' | number | number[];
+  /**
+   * List of skill names separated by semicolons (;). <b>Required</b> unless <b>sq_skill_id</b> is provided.
    */
   sqSkillName?: string | string[];
 }
@@ -5388,27 +5489,27 @@ export interface SQ_UnbindSkillResponse {
 }
 export interface SQ_GetSkillsRequest {
   /**
-   * Application ID to search by
+   * Application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * Application name to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
-   * List of user IDs separated by semicolons (;)
+   * List of user IDs separated by semicolons (;). Can be used instead of the <b>user_name</b> parameter
    */
   userId?: 'any' | number | number[];
   /**
-   * List of user names separated by semicolons (;). Can be used instead of <b>user_id</b>
+   * List of user names separated by semicolons (;). Can be used instead of the <b>user_id</b> parameter
    */
   userName?: string | string[];
   /**
-   * List of skill IDs separated by semicolons (;)
+   * List of skill IDs separated by semicolons (;). Can be used instead of the <b>sq_skill_name</b> parameter
    */
   sqSkillId?: 'any' | number | number[];
   /**
-   * List of skill names separated by semicolons (;). Can be used instead of <b>sq_skill_id</b>
+   * List of skill names separated by semicolons (;). Can be used instead of the <b>sq_skill_id</b> parameter
    */
   sqSkillName?: string | string[];
   /**
@@ -5416,13 +5517,13 @@ export interface SQ_GetSkillsRequest {
    */
   sqSkillNameTemplate?: string;
   /**
-   * ID of the user that is not bound to the skill
+   * List of user IDs separated by semicolons (;). Skills bound to these users are excluded. Can be used instead of the <b>excluded_user_name</b> parameter
    */
-  excludedUserId?: number;
+  excludedUserId?: 'any' | number | number[];
   /**
-   * Name of the user that is not bound to the skill. Can be used instead of <b>excluded_user_id</b>
+   * List of user names separated by semicolons (;). Can be used instead of the <b>excluded_user_id</b> parameter
    */
-  excludedUserName?: string;
+  excludedUserName?: string | string[];
   /**
    * Number of items to show in the output
    */
@@ -5442,27 +5543,27 @@ export interface SQ_GetSkillsResponse {
 }
 export interface SQ_BindAgentRequest {
   /**
-   * Application ID to search by
+   * Application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * ID of the SmartQueue. Pass a list of values divided by ; or the "all" keyword
-   */
-  sqQueueId: string;
-  /**
-   * List of user IDs separated by semicolons (;). Use 'all' to select all the users
-   */
-  userId: 'any' | number | number[];
-  /**
-   * Application name to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
-   * Name of the SmartQueue. Pass a list of names divided by ; or the "all" keyword
+   * List of SmartQueue IDs separated by semicolons (;). Use 'all' to select all the queues. <b>Required</b> unless <b>sq_queue_name</b> is provided.
    */
-  sqQueueName?: string;
+  sqQueueId?: 'any' | number | number[];
   /**
-   * List of user names separated by semicolons (;). Can be used instead of <b>user_id</b>
+   * List of SmartQueue names separated by semicolons (;). <b>Required</b> unless <b>sq_queue_id</b> is provided.
+   */
+  sqQueueName?: string | string[];
+  /**
+   * List of user IDs separated by semicolons (;). Use 'all' to select all the users. <b>Required</b> unless <b>user_name</b> is provided.
+   */
+  userId?: 'any' | number | number[];
+  /**
+   * List of user names separated by semicolons (;). <b>Required</b> unless <b>user_id</b> is provided.
    */
   userName?: string | string[];
   /**
@@ -5480,27 +5581,27 @@ export interface SQ_BindAgentResponse {
 }
 export interface SQ_UnbindAgentRequest {
   /**
-   * Application ID to search by
+   * Application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * List of SmartQueue IDs separated by semicolons (;). Use 'all' to select all the queues
-   */
-  sqQueueId: 'any' | number | number[];
-  /**
-   * List of user IDs separated by semicolons (;). Use 'all' to select all the users
-   */
-  userId: 'any' | number | number[];
-  /**
-   * Application name to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
-   * List of SmartQueue names separated by semicolons (;). Can be used instead of <b>sq_queue_id</b>
+   * List of SmartQueue IDs separated by semicolons (;). Use 'all' to select all the queues. <b>Required</b> unless <b>sq_queue_name</b> is provided.
+   */
+  sqQueueId?: 'any' | number | number[];
+  /**
+   * List of SmartQueue names separated by semicolons (;). <b>Required</b> unless <b>sq_queue_id</b> is provided.
    */
   sqQueueName?: string | string[];
   /**
-   * List of user names separated by semicolons (;). Can be used instead of <b>user_id</b>
+   * List of user IDs separated by semicolons (;). Use 'all' to select all the users. <b>Required</b> unless <b>user_name</b> is provided.
+   */
+  userId?: 'any' | number | number[];
+  /**
+   * List of user names separated by semicolons (;). <b>Required</b> unless <b>user_id</b> is provided.
    */
   userName?: string | string[];
 }
@@ -5514,43 +5615,39 @@ export interface SQ_UnbindAgentResponse {
 }
 export interface SQ_GetAgentsRequest {
   /**
-   * Application ID to search by
+   * Application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * Whether the agent can handle calls. When set to false, the agent is excluded from the CALL-request distribution
-   */
-  handleCalls: boolean;
-  /**
-   * Application name to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
-   * List of SmartQueue IDs separated by semicolons (;). Use 'all' to select all the queues
+   * List of SmartQueue IDs separated by semicolons (;). Use 'all' to select all the queues. Can be used instead of the <b>sq_queue_name</b> parameter
    */
   sqQueueId?: 'any' | number | number[];
   /**
-   * List of SmartQueue names separated by semicolons (;). Can be used instead of <b>sq_queue_id</b>
+   * List of SmartQueue names separated by semicolons (;). Can be used instead of the <b>sq_queue_id</b> parameter
    */
   sqQueueName?: string | string[];
   /**
-   * ID of the SmartQueue to exclude
+   * List of SmartQueue IDs separated by semicolons (;). Agents bound to these queues are excluded. Use 'all' to select all the queues. Can be used instead of the <b>excluded_sq_queue_name</b> parameter
    */
-  excludedSqQueueId?: number;
+  excludedSqQueueId?: 'any' | number | number[];
   /**
-   * Name of the SmartQueue to exclude. Can be used instead of <b>excluded_sq_queue_id</b>
+   * List of SmartQueue names separated by semicolons (;). Can be used instead of the <b>excluded_sq_queue_id</b> parameter
    */
-  excludedSqQueueName?: string;
+  excludedSqQueueName?: string | string[];
   /**
    * Skills to filter in the JSON array format. The array should contain objects with the <b>sq_skill_id</b>/<b>sq_skill_name</b>, <b>min_sq_skill_level</b>, and <b>max_sq_skill_level</b> keys where skill levels range from 1 to 5
    */
   sqSkills?: string;
   /**
-   * List of user IDs separated by semicolons (;)
+   * List of user IDs separated by semicolons (;). Can be used instead of the <b>user_name</b> parameter
    */
   userId?: 'any' | number | number[];
   /**
-   * List of user names separated by semicolons (;). Can be used instead of <b>user_id</b>
+   * List of user names separated by semicolons (;). Can be used instead of the <b>user_id</b> parameter
    */
   userName?: string | string[];
   /**
@@ -5592,29 +5689,29 @@ export interface SQ_GetAgentsResponse {
 }
 export interface SQ_SetAgentInfoRequest {
   /**
-   * Application ID to search by
+   * Application ID to search by. <b>Required</b> unless <b>application_name</b> is provided.
    */
-  applicationId: number;
+  applicationId?: number;
   /**
-   * List of user IDs separated by semicolons (;). Use 'all' to select all the users
-   */
-  userId: 'any' | number | number[];
-  /**
-   * Whether the agent can handle calls. When set to false, the agent is excluded from the CALL-request distribution
-   */
-  handleCalls: boolean;
-  /**
-   * Application name to search by. Can be used instead of <b>application_id</b>
+   * Application name to search by. <b>Required</b> unless <b>application_id</b> is provided.
    */
   applicationName?: string;
   /**
-   * List of user names separated by semicolons (;). Can be used instead of <b>user_id</b>
+   * List of user IDs separated by semicolons (;). Use 'all' to select all the users. <b>Required</b> unless <b>user_name</b> is provided.
+   */
+  userId?: 'any' | number | number[];
+  /**
+   * List of user names separated by semicolons (;). <b>Required</b> unless <b>user_id</b> is provided.
    */
   userName?: string | string[];
   /**
-   * Maximum number of chats that the user processes simultaneously
+   * Maximum number of chats that the user processes simultaneously. <b>Required</b> unless <b>handle_calls</b> is provided.
    */
   maxSimultaneousConversations?: number;
+  /**
+   * Whether the agent can handle calls. When set to false, the agent is excluded from the CALL-request distribution. <b>Required</b> unless <b>max_simultaneous_conversations</b> is provided.
+   */
+  handleCalls?: boolean;
 }
 
 export interface SQ_SetAgentInfoResponse {

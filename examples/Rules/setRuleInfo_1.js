@@ -1,8 +1,12 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Deny all.
-  client.Rules.setRuleInfo({ ruleId: '1', ruleName: 'denyall', rulePatternExclude: '.*' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.Rules.setRuleInfo({
+    ruleId: '1',
+    ruleName: 'denyall',
+    rulePatternExclude: '.*',
+  });
+  console.log(ev);
+})().catch(console.error);

@@ -1,8 +1,11 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Modify credentials.
-  client.PushCredentials.setPushCredential({ pushCredentialId: '1', certPassword: '1234567' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.PushCredentials.setPushCredential({
+    pushCredentialId: '1',
+    certPassword: '1234567',
+  });
+  console.log(ev);
+})().catch(console.error);

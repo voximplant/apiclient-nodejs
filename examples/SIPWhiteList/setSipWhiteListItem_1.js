@@ -1,11 +1,11 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // undefined
-  client.SIPWhiteList.setSipWhiteListItem({
+  const ev = await client.SIPWhiteList.setSipWhiteListItem({
     sipWhitelistId: '1',
     sipWhitelistNetwork: '192.168.1.5/16',
-  })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  });
+  console.log(ev);
+})().catch(console.error);

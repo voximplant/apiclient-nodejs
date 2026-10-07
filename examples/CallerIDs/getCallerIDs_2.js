@@ -1,8 +1,8 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Try to find the 79997770044 CID.
-  client.CallerIDs.getCallerIDs({ calleridNumber: '79997770044' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.CallerIDs.getCallerIDs({ calleridNumber: '79997770044' });
+  console.log(ev);
+})().catch(console.error);

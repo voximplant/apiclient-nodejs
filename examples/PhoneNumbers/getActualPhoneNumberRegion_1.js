@@ -1,12 +1,12 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Get the Germany region of the phone numbers.
-  client.PhoneNumbers.getActualPhoneNumberRegion({
+  const ev = await client.PhoneNumbers.getActualPhoneNumberRegion({
     countryCode: 'DE',
     phoneCategoryName: 'GEOGRAPHIC',
     phoneRegionId: '1',
-  })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  });
+  console.log(ev);
+})().catch(console.error);

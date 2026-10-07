@@ -1,8 +1,10 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Get the SIP registration subscription template.
-  client.Accounts.getSubscriptionPrice({ subscriptionTemplateType: 'SIP_REGISTRATION' })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  const ev = await client.Accounts.getSubscriptionPrice({
+    subscriptionTemplateType: 'SIP_REGISTRATION',
+  });
+  console.log(ev);
+})().catch(console.error);

@@ -1,12 +1,12 @@
-const VoximplantApiClient = require('@voximplant/apiclient-nodejs').default;
-const client = new VoximplantApiClient();
-client.onReady = function () {
+const { VoximplantApiClient } = require('@voximplant/apiclient-nodejs');
+(async () => {
+  const client = new VoximplantApiClient();
+  await client.ready();
   // Add a new scenario: var s='hello';
-  client.Scenarios.setScenarioInfo({
+  const ev = await client.Scenarios.setScenarioInfo({
     scenarioId: '1',
     scenarioName: 'call_scenario',
     scenarioScript: 'var s="hello world";',
-  })
-    .then((ev) => console.log(ev))
-    .catch((err) => console.error(err));
-};
+  });
+  console.log(ev);
+})().catch(console.error);
