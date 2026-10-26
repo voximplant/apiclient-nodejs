@@ -688,7 +688,7 @@ export interface CallInfo {
   /**
    * End reason code and description
    */
-  endReason?: string;
+  endReason?: any;
 }
 export interface TransactionInfo {
   /**
@@ -832,11 +832,11 @@ export interface AuditLogInfo {
   /**
    * The arguments of the called function (they may be masked or resolved)
    */
-  cmdArgs: string;
+  cmdArgs: any;
   /**
    * The modified values
    */
-  cmdResult?: string;
+  cmdResult?: any;
 }
 export interface HistoryReport {
   /**
@@ -886,11 +886,11 @@ export interface HistoryReport {
   /**
    * The report order filters (the saved [GetCallHistory], [GetTransactionHistory] parameters)
    */
-  filters?: string;
+  filters?: any;
   /**
    * The calculated report data (the specific report data, see [CalculatedCallHistoryDataType], [CalculatedTransactionHistoryDataType])
    */
-  calculatedData?: string;
+  calculatedData?: any;
 }
 export interface CommonReport {
   /**
@@ -940,11 +940,11 @@ export interface CommonReport {
   /**
    * The report order filters (the saved [GetCallHistory], [GetTransactionHistory] parameters)
    */
-  filters?: string;
+  filters?: any;
   /**
    * The calculated report data (the specific report data, see [CalculatedCallHistoryDataType], [CalculatedTransactionHistoryDataType])
    */
-  calculatedData?: string;
+  calculatedData?: any;
 }
 export interface CalculatedCallHistoryData {
   /**

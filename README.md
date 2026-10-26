@@ -1,6 +1,6 @@
 # Voximplant API client library
 
-#### Version 5.0.0
+#### Version 5.1.0
 
 > **WARNING: Breaking change in 5.0.0 — you should migrate**
 >

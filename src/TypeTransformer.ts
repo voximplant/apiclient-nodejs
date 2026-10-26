@@ -451,7 +451,7 @@ export default class TypeTransformer {
       if (typeof data['custom_data'] !== 'undefined')
         xData['customData'] = TypeTransformer.to('string')(data['custom_data']);
       if (typeof data['end_reason'] !== 'undefined')
-        xData['endReason'] = TypeTransformer.to('string')(data['end_reason']);
+        xData['endReason'] = TypeTransformer.to('any')(data['end_reason']);
       return xData;
     },
     TransactionInfoType: function (data) {
@@ -540,9 +540,9 @@ export default class TypeTransformer {
       if (typeof data['cmd_name'] !== 'undefined')
         xData['cmdName'] = TypeTransformer.to('string')(data['cmd_name']);
       if (typeof data['cmd_args'] !== 'undefined')
-        xData['cmdArgs'] = TypeTransformer.to('string')(data['cmd_args']);
+        xData['cmdArgs'] = TypeTransformer.to('any')(data['cmd_args']);
       if (typeof data['cmd_result'] !== 'undefined')
-        xData['cmdResult'] = TypeTransformer.to('string')(data['cmd_result']);
+        xData['cmdResult'] = TypeTransformer.to('any')(data['cmd_result']);
       return xData;
     },
     HistoryReportType: function (data) {
@@ -571,9 +571,9 @@ export default class TypeTransformer {
       if (typeof data['store_until'] !== 'undefined')
         xData['storeUntil'] = TypeTransformer.from('date')(data['store_until']);
       if (typeof data['filters'] !== 'undefined')
-        xData['filters'] = TypeTransformer.to('string')(data['filters']);
+        xData['filters'] = TypeTransformer.to('any')(data['filters']);
       if (typeof data['calculated_data'] !== 'undefined')
-        xData['calculatedData'] = TypeTransformer.to('string')(data['calculated_data']);
+        xData['calculatedData'] = TypeTransformer.to('any')(data['calculated_data']);
       return xData;
     },
     CommonReportType: function (data) {
@@ -602,9 +602,9 @@ export default class TypeTransformer {
       if (typeof data['store_until'] !== 'undefined')
         xData['storeUntil'] = TypeTransformer.from('date')(data['store_until']);
       if (typeof data['filters'] !== 'undefined')
-        xData['filters'] = TypeTransformer.to('string')(data['filters']);
+        xData['filters'] = TypeTransformer.to('any')(data['filters']);
       if (typeof data['calculated_data'] !== 'undefined')
-        xData['calculatedData'] = TypeTransformer.to('string')(data['calculated_data']);
+        xData['calculatedData'] = TypeTransformer.to('any')(data['calculated_data']);
       return xData;
     },
     CalculatedCallHistoryDataType: function (data) {
@@ -3821,7 +3821,7 @@ export default class TypeTransformer {
       if (typeof data['customData'] !== 'undefined')
         xData['custom_data'] = TypeTransformer.from('string')(data['customData']);
       if (typeof data['endReason'] !== 'undefined')
-        xData['end_reason'] = TypeTransformer.from('string')(data['endReason']);
+        xData['end_reason'] = TypeTransformer.from('any')(data['endReason']);
       return xData;
     },
     TransactionInfo: function (data) {
@@ -3911,9 +3911,9 @@ export default class TypeTransformer {
       if (typeof data['cmdName'] !== 'undefined')
         xData['cmd_name'] = TypeTransformer.from('string')(data['cmdName']);
       if (typeof data['cmdArgs'] !== 'undefined')
-        xData['cmd_args'] = TypeTransformer.from('string')(data['cmdArgs']);
+        xData['cmd_args'] = TypeTransformer.from('any')(data['cmdArgs']);
       if (typeof data['cmdResult'] !== 'undefined')
-        xData['cmd_result'] = TypeTransformer.from('string')(data['cmdResult']);
+        xData['cmd_result'] = TypeTransformer.from('any')(data['cmdResult']);
       return xData;
     },
     HistoryReport: function (data) {
@@ -3942,9 +3942,9 @@ export default class TypeTransformer {
       if (typeof data['storeUntil'] !== 'undefined')
         xData['store_until'] = TypeTransformer.from('Date')(data['storeUntil']);
       if (typeof data['filters'] !== 'undefined')
-        xData['filters'] = TypeTransformer.from('string')(data['filters']);
+        xData['filters'] = TypeTransformer.from('any')(data['filters']);
       if (typeof data['calculatedData'] !== 'undefined')
-        xData['calculated_data'] = TypeTransformer.from('string')(data['calculatedData']);
+        xData['calculated_data'] = TypeTransformer.from('any')(data['calculatedData']);
       return xData;
     },
     CommonReport: function (data) {
@@ -3973,9 +3973,9 @@ export default class TypeTransformer {
       if (typeof data['storeUntil'] !== 'undefined')
         xData['store_until'] = TypeTransformer.from('Date')(data['storeUntil']);
       if (typeof data['filters'] !== 'undefined')
-        xData['filters'] = TypeTransformer.from('string')(data['filters']);
+        xData['filters'] = TypeTransformer.from('any')(data['filters']);
       if (typeof data['calculatedData'] !== 'undefined')
-        xData['calculated_data'] = TypeTransformer.from('string')(data['calculatedData']);
+        xData['calculated_data'] = TypeTransformer.from('any')(data['calculatedData']);
       return xData;
     },
     CalculatedCallHistoryData: function (data) {
