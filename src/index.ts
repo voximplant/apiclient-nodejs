@@ -344,6 +344,12 @@ import {
   SMSInterface,
   GetRecordStoragesRequest,
   GetRecordStoragesResponse,
+  GetCustomRecordStoragesRequest,
+  GetCustomRecordStoragesResponse,
+  AddCustomRecordStorageRequest,
+  AddCustomRecordStorageResponse,
+  SetCustomRecordStorageInfoRequest,
+  SetCustomRecordStorageInfoResponse,
   RecordStoragesInterface,
   MGPInterface,
   CreateKeyRequest,
@@ -468,6 +474,8 @@ import {
   SmsHistory,
   A2PSmsHistory,
   RecordStorageInfo,
+  CustomRecordStorageInfo,
+  AddCustomRecordStorageInfo,
   KeyInfo,
   KeyView,
   RoleView,
@@ -7145,6 +7153,148 @@ class VoximplantApiClient {
         },
       ];
       return this.makeRequest('GetRecordStorages', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Gets the custom record storages.
+     */
+    getCustomRecordStorages: (
+      request: GetCustomRecordStoragesRequest
+    ): Promise<GetCustomRecordStoragesResponse> => {
+      const reqMapper = [
+        {
+          rawName: 'custom_record_storage_id',
+          name: 'customRecordStorageId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        {
+          rawName: 'with_applications_attached',
+          name: 'withApplicationsAttached',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+      ];
+      const respMapper = [
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('CustomRecordStorageInfoType'),
+        },
+      ];
+      return this.makeRequest('GetCustomRecordStorages', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Adds a custom record storage.
+     */
+    addCustomRecordStorage: (
+      request: AddCustomRecordStorageRequest
+    ): Promise<AddCustomRecordStorageResponse> => {
+      const reqMapper = [
+        { rawName: 'host', name: 'host', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'access_key_id',
+          name: 'accessKeyId',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'secret_access_key',
+          name: 'secretAccessKey',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'bucket', name: 'bucket', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'region', name: 'region', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'signature_version',
+          name: 'signatureVersion',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'bucket_is_domain',
+          name: 'bucketIsDomain',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'storage_class',
+          name: 'storageClass',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'acl', name: 'acl', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'cors', name: 'cors', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'multipart_upload',
+          name: 'multipartUpload',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'attached_application_id',
+          name: 'attachedApplicationId',
+          transformer: TypeTransformer.to('string', true),
+        },
+      ];
+      const respMapper = [
+        {
+          rawName: 'result',
+          name: 'result',
+          transformer: TypeTransformer.from('AddCustomRecordStorageInfoType'),
+        },
+      ];
+      return this.makeRequest('AddCustomRecordStorage', request, [reqMapper, respMapper]);
+    },
+    /**
+     * Modifies the custom record storage.
+     */
+    setCustomRecordStorageInfo: (
+      request: SetCustomRecordStorageInfoRequest
+    ): Promise<SetCustomRecordStorageInfoResponse> => {
+      const reqMapper = [
+        { rawName: 'host', name: 'host', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'access_key_id',
+          name: 'accessKeyId',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'secret_access_key',
+          name: 'secretAccessKey',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'bucket', name: 'bucket', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'custom_record_storage_id',
+          name: 'customRecordStorageId',
+          transformer: TypeTransformer.to('number', true),
+        },
+        { rawName: 'region', name: 'region', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'signature_version',
+          name: 'signatureVersion',
+          transformer: TypeTransformer.to('string', true),
+        },
+        {
+          rawName: 'bucket_is_domain',
+          name: 'bucketIsDomain',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'storage_class',
+          name: 'storageClass',
+          transformer: TypeTransformer.to('string', true),
+        },
+        { rawName: 'acl', name: 'acl', transformer: TypeTransformer.to('string', true) },
+        { rawName: 'cors', name: 'cors', transformer: TypeTransformer.to('string', true) },
+        {
+          rawName: 'multipart_upload',
+          name: 'multipartUpload',
+          transformer: TypeTransformer.to('boolean', true),
+        },
+        {
+          rawName: 'attached_application_id',
+          name: 'attachedApplicationId',
+          transformer: TypeTransformer.to('string', true),
+        },
+      ];
+      const respMapper = [
+        { rawName: 'result', name: 'result', transformer: TypeTransformer.from('number') },
+      ];
+      return this.makeRequest('SetCustomRecordStorageInfo', request, [reqMapper, respMapper]);
     },
   };
 

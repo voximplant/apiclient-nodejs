@@ -2780,6 +2780,50 @@ export default class TypeTransformer {
         xData['recordStorageName'] = TypeTransformer.to('string')(data['record_storage_name']);
       return xData;
     },
+    CustomRecordStorageInfoType: function (data) {
+      if (data == null) return data;
+      const xData = {};
+      if (typeof data['custom_record_storage_id'] !== 'undefined')
+        xData['customRecordStorageId'] = TypeTransformer.to('number')(
+          data['custom_record_storage_id']
+        );
+      if (typeof data['host'] !== 'undefined')
+        xData['host'] = TypeTransformer.to('string')(data['host']);
+      if (typeof data['access_key_id'] !== 'undefined')
+        xData['accessKeyId'] = TypeTransformer.to('string')(data['access_key_id']);
+      if (typeof data['bucket'] !== 'undefined')
+        xData['bucket'] = TypeTransformer.to('string')(data['bucket']);
+      if (typeof data['region'] !== 'undefined')
+        xData['region'] = TypeTransformer.to('string')(data['region']);
+      if (typeof data['signature_version'] !== 'undefined')
+        xData['signatureVersion'] = TypeTransformer.to('string')(data['signature_version']);
+      if (typeof data['bucket_is_domain'] !== 'undefined')
+        xData['bucketIsDomain'] = TypeTransformer.to('boolean')(data['bucket_is_domain']);
+      if (typeof data['storage_class'] !== 'undefined')
+        xData['storageClass'] = TypeTransformer.to('string')(data['storage_class']);
+      if (typeof data['acl'] !== 'undefined')
+        xData['acl'] = TypeTransformer.to('string')(data['acl']);
+      if (typeof data['cors'] !== 'undefined')
+        xData['cors'] = TypeTransformer.to('string')(data['cors']);
+      if (typeof data['multipart_upload'] !== 'undefined')
+        xData['multipartUpload'] = TypeTransformer.to('boolean')(data['multipart_upload']);
+      if (typeof data['last_test_status'] !== 'undefined')
+        xData['lastTestStatus'] = TypeTransformer.to('string')(data['last_test_status']);
+      if (typeof data['last_operation_short_info'] !== 'undefined')
+        xData['lastOperationShortInfo'] = TypeTransformer.to('any')(
+          data['last_operation_short_info']
+        );
+      return xData;
+    },
+    AddCustomRecordStorageInfoType: function (data) {
+      if (data == null) return data;
+      const xData = {};
+      if (typeof data['custom_record_storage_id'] !== 'undefined')
+        xData['customRecordStorageId'] = TypeTransformer.to('number')(
+          data['custom_record_storage_id']
+        );
+      return xData;
+    },
     SmsTransaction: function (data) {
       if (data == null) return data;
       const xData = {};
@@ -6173,6 +6217,50 @@ export default class TypeTransformer {
         xData['record_storage_id'] = TypeTransformer.from('number')(data['recordStorageId']);
       if (typeof data['recordStorageName'] !== 'undefined')
         xData['record_storage_name'] = TypeTransformer.from('string')(data['recordStorageName']);
+      return xData;
+    },
+    CustomRecordStorageInfo: function (data) {
+      if (data == null) return data;
+      const xData = {};
+      if (typeof data['customRecordStorageId'] !== 'undefined')
+        xData['custom_record_storage_id'] = TypeTransformer.from('number')(
+          data['customRecordStorageId']
+        );
+      if (typeof data['host'] !== 'undefined')
+        xData['host'] = TypeTransformer.from('string')(data['host']);
+      if (typeof data['accessKeyId'] !== 'undefined')
+        xData['access_key_id'] = TypeTransformer.from('string')(data['accessKeyId']);
+      if (typeof data['bucket'] !== 'undefined')
+        xData['bucket'] = TypeTransformer.from('string')(data['bucket']);
+      if (typeof data['region'] !== 'undefined')
+        xData['region'] = TypeTransformer.from('string')(data['region']);
+      if (typeof data['signatureVersion'] !== 'undefined')
+        xData['signature_version'] = TypeTransformer.from('string')(data['signatureVersion']);
+      if (typeof data['bucketIsDomain'] !== 'undefined')
+        xData['bucket_is_domain'] = TypeTransformer.from('boolean')(data['bucketIsDomain']);
+      if (typeof data['storageClass'] !== 'undefined')
+        xData['storage_class'] = TypeTransformer.from('string')(data['storageClass']);
+      if (typeof data['acl'] !== 'undefined')
+        xData['acl'] = TypeTransformer.from('string')(data['acl']);
+      if (typeof data['cors'] !== 'undefined')
+        xData['cors'] = TypeTransformer.from('string')(data['cors']);
+      if (typeof data['multipartUpload'] !== 'undefined')
+        xData['multipart_upload'] = TypeTransformer.from('boolean')(data['multipartUpload']);
+      if (typeof data['lastTestStatus'] !== 'undefined')
+        xData['last_test_status'] = TypeTransformer.from('string')(data['lastTestStatus']);
+      if (typeof data['lastOperationShortInfo'] !== 'undefined')
+        xData['last_operation_short_info'] = TypeTransformer.from('any')(
+          data['lastOperationShortInfo']
+        );
+      return xData;
+    },
+    AddCustomRecordStorageInfo: function (data) {
+      if (data == null) return data;
+      const xData = {};
+      if (typeof data['customRecordStorageId'] !== 'undefined')
+        xData['custom_record_storage_id'] = TypeTransformer.from('number')(
+          data['customRecordStorageId']
+        );
       return xData;
     },
     SmsTransaction: function (data) {

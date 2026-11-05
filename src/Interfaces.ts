@@ -58,6 +58,8 @@ import {
   SmsHistory,
   A2PSmsHistory,
   RecordStorageInfo,
+  CustomRecordStorageInfo,
+  AddCustomRecordStorageInfo,
   KeyInfo,
   KeyView,
   RoleView,
@@ -229,6 +231,9 @@ export interface UtilsReturns {
   GetSmsHistory: GetSmsHistoryResponse;
   A2PGetSmsHistory: A2PGetSmsHistoryResponse;
   GetRecordStorages: GetRecordStoragesResponse;
+  GetCustomRecordStorages: GetCustomRecordStoragesResponse;
+  AddCustomRecordStorage: AddCustomRecordStorageResponse;
+  SetCustomRecordStorageInfo: SetCustomRecordStorageInfoResponse;
   CreateKey: CreateKeyResponse;
   GetKeys: GetKeysResponse;
   UpdateKey: UpdateKeyResponse;
@@ -6679,8 +6684,146 @@ export interface GetRecordStoragesResponse {
   result: RecordStorageInfo;
   error?: APIError;
 }
+export interface GetCustomRecordStoragesRequest {
+  /**
+   * Unique identifier of the custom record storage configuration.
+   */
+  customRecordStorageId?: number;
+  /**
+   * Whether to include attached applications in the response or execution.
+   */
+  withApplicationsAttached?: boolean;
+}
+
+export interface GetCustomRecordStoragesResponse {
+  result: CustomRecordStorageInfo;
+  error?: APIError;
+}
+export interface AddCustomRecordStorageRequest {
+  /**
+   * Host endpoint for the custom storage.
+   */
+  host: string;
+  /**
+   * Access key ID used to authenticate requests.
+   */
+  accessKeyId: string;
+  /**
+   * Secret access key used to authenticate requests.
+   */
+  secretAccessKey: string;
+  /**
+   * Name of the storage bucket.
+   */
+  bucket: string;
+  /**
+   * Geographic region where the bucket is located.
+   */
+  region?: string;
+  /**
+   * Signature version to use for signing requests.
+   */
+  signatureVersion?: string;
+  /**
+   * Whether the bucket name should be treated as a domain.
+   */
+  bucketIsDomain?: boolean;
+  /**
+   * Storage class to assign to newly uploaded objects.
+   */
+  storageClass?: string;
+  /**
+   * Access Control List rule applied to objects.
+   */
+  acl?: string;
+  /**
+   * Cross-Origin Resource Sharing configuration.
+   */
+  cors?: string;
+  /**
+   * Whether to enable large file multipart uploading.
+   */
+  multipartUpload?: boolean;
+  /**
+   * Set of application IDs attached to this storage configuration.
+   */
+  attachedApplicationId?: string;
+}
+
+export interface AddCustomRecordStorageResponse {
+  result: AddCustomRecordStorageInfo;
+  error?: APIError;
+}
+export interface SetCustomRecordStorageInfoRequest {
+  /**
+   * Host endpoint for the custom storage.
+   */
+  host: string;
+  /**
+   * Access key ID used to authenticate requests.
+   */
+  accessKeyId: string;
+  /**
+   * Secret access key used to authenticate requests.
+   */
+  secretAccessKey: string;
+  /**
+   * Name of the storage bucket.
+   */
+  bucket: string;
+  /**
+   * The unique identifier of the custom record storage configuration.
+   */
+  customRecordStorageId: number;
+  /**
+   * Geographic region where the bucket is located.
+   */
+  region?: string;
+  /**
+   * Signature version to use for signing requests.
+   */
+  signatureVersion?: string;
+  /**
+   * Whether the bucket name should be treated as a domain.
+   */
+  bucketIsDomain?: boolean;
+  /**
+   * Storage class to assign to newly uploaded objects.
+   */
+  storageClass?: string;
+  /**
+   * Access Control List rule applied to objects.
+   */
+  acl?: string;
+  /**
+   * Cross-Origin Resource Sharing configuration.
+   */
+  cors?: string;
+  /**
+   * Whether to enable large file multipart uploading.
+   */
+  multipartUpload?: boolean;
+  /**
+   * Set of application IDs attached to this storage configuration.
+   */
+  attachedApplicationId?: string;
+}
+
+export interface SetCustomRecordStorageInfoResponse {
+  result: number;
+  error?: APIError;
+}
 export interface RecordStoragesInterface {
   getRecordStorages: (request: GetRecordStoragesRequest) => Promise<GetRecordStoragesResponse>;
+  getCustomRecordStorages: (
+    request: GetCustomRecordStoragesRequest
+  ) => Promise<GetCustomRecordStoragesResponse>;
+  addCustomRecordStorage: (
+    request: AddCustomRecordStorageRequest
+  ) => Promise<AddCustomRecordStorageResponse>;
+  setCustomRecordStorageInfo: (
+    request: SetCustomRecordStorageInfoRequest
+  ) => Promise<SetCustomRecordStorageInfoResponse>;
 }
 
 export interface MGPInterface {}

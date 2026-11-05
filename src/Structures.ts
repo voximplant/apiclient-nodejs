@@ -4031,6 +4031,66 @@ export interface RecordStorageInfo {
    */
   recordStorageName?: string;
 }
+export interface CustomRecordStorageInfo {
+  /**
+   * Unique identifier of the custom record storage configuration.
+   */
+  customRecordStorageId?: number;
+  /**
+   * Host endpoint for the custom storage service.
+   */
+  host?: string;
+  /**
+   * Access key ID used to authenticate requests.
+   */
+  accessKeyId?: string;
+  /**
+   * Name of the storage bucket.
+   */
+  bucket?: string;
+  /**
+   * Geographic region where the bucket is located.
+   */
+  region?: string;
+  /**
+   * Signature version used for signing requests.
+   */
+  signatureVersion?: string;
+  /**
+   * Whether the bucket name is treated as a domain.
+   */
+  bucketIsDomain?: boolean;
+  /**
+   * Storage class assigned to uploaded objects.
+   */
+  storageClass?: string;
+  /**
+   * Access Control List rule applied to objects.
+   */
+  acl?: string;
+  /**
+   * Cross-Origin Resource Sharing configuration.
+   */
+  cors?: string;
+  /**
+   * Whether large file multipart uploading is enabled.
+   */
+  multipartUpload?: boolean;
+  /**
+   * Status result of the most recent connection or storage test.
+   */
+  lastTestStatus?: string;
+  /**
+   * Summary details of the last executed operation on this storage.
+   */
+  lastOperationShortInfo?: any;
+}
+export interface AddCustomRecordStorageInfo {
+  /**
+   * Unique identifier of the custom record storage configuration.
+   */
+  customRecordStorageId?: number;
+}
 export interface MGPInfo {
   /**
    * The MGP ID
